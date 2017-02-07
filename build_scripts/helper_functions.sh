@@ -26,6 +26,18 @@ MPCRUN_CONFIGURATION=""
 EXPECTED_EXIT_CODE=0
 COMMAND_OPTIONS=""
 
+####################### SET IF VALID #####################
+# this function will set the var named as $1 with $2 only if $1 is not empty
+# $1 : env var name
+# $2 : value
+helper_set_if_valid()
+{
+	content=`eval $1`
+	if test -n $content; then
+		eval="$1=\"$content$2\""
+	fi
+}
+
 ###################### PREFIX FILES #######################
 # Add a MPC_TEST_CURRENT_SOURCE_DIR as prefix for all files given in parameter and print
 # Params:
