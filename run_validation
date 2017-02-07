@@ -280,6 +280,11 @@ gen_and_load_config_file() {
 		exit 1
 	fi
     export TEST_SUITE_COMPILER
+
+    	if [ ! -f ${MPC_TEST_SOURCE_DIR}/build_scripts/configuration/runtime/${MPI_RUNTIME}.conf ]; then
+		common_print_error "Unkown MPI target: \"${MPI_RUNTIME}\""
+	fi
+	. ${MPC_TEST_SOURCE_DIR}/build_scripts/configuration/runtime/${MPI_RUNTIME}.conf
 	#check if compiler loading effectively set the main used ones
 	#if test -z "${CC}" -o -z "${CXX}" -o -z "${F77}";
 	#then
@@ -344,7 +349,7 @@ setup_clean_subdir() {
 	clean_files "${1}"
 
 	#check if valid directory
-	if [ ! -f ./mpc_validation ]; then
+	if [ ! -f ./run_validation ]; then
 		common_print_error "Bad directory MPC_TEST_SOURCE_DIR=${MPC_TEST_SOURCE_DIR}, must be in MPC_Test_Suite."
 		exit 1
 	fi
@@ -657,7 +662,7 @@ run_gen_last_results()
 	echo "${WARNING_COLOR}>>> RESULTS TARBALL GENERATION <<<${DEFAULT_COLOR}"
 	cd ${MPC_TEST_SOURCE_DIR}
 
-	DEFAULT_COLOR="" INFORMATION_COLOR="" display_informations "#" >> $MPC_TEST_WORK_DIR/config.cfg
+	#DEFAULT_COLOR="" INFORMATION_COLOR="" display_informations "#" >> $MPC_TEST_WORK_DIR/config.cfg
 
 	rm -rf ${MPC_TEST_WORK_DIR}/last_results.tar.gz
 	setup_clean_subdir last_results
@@ -796,7 +801,7 @@ display_informations()
 #################### SOME PRE ACTIONS #########################
 pre_actions(){
 	define_color
-	display_informations
+	#display_informations
 	mkdir -p $MPC_TEST_WORK_DIR/tmp && cd $MPC_TEST_WORK_DIR/tmp
 	echo " * JChronoss compiling (-j${MAKE_J})" 
 	common_safe_exec "" cmake $MPC_TEST_SOURCE_DIR/build_scripts/generation/jchronoss/ -DENABLE_TRACE=yes ${SCHEDULER_CFLAGS} > /dev/null && make --quiet -j${MAKE_J} > /dev/null || exit 1
@@ -939,7 +944,7 @@ mpc_testSuite_main(){
 cat $MPC_TEST_SOURCE_DIR/build_scripts/ressources/banners/test_suite_banner
 
 ################# CHECK EXECUTION FROM GOOD PLACE #############
-if [ ! -f "${PWD}/mpc_validation" ]; then
+if [ ! -f "${PWD}/run_validation" ]; then
 	echo "######################################### ERROR #########################################"
 	echo "# You must execute this script from MPC_Test_Suite directory by using ./mpc_validation. #"
 	echo "#########################################################################################"
@@ -990,6 +995,9 @@ do
 		--select=*)
 			MPC_TEST_LIST="$(common_read_param_value $arg --select | sed -e 's/,/ /g')"
 			config_override 'MPC_TEST_LIST' "$MPC_TEST_LIST" '--select'
+			;;
+		--with-mpi=*)
+			MPI_RUNTIME="$(common_read_param_value "$arg" "--with-mpi")"
 			;;
 		#--filter=*)
 		#	TESTS_NAME_SPECIFIED="$(common_read_param_value $arg --filter | sed -e 's/,/ /g')"
