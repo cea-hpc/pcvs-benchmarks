@@ -1,0 +1,31 @@
+#!/bin/sh
+
+gen_makefile()
+{
+echo "
+
+TARGETS= priv_canon priv_canon_opt
+
+all : \$(TARGETS)
+
+CC=\${TS_CC}
+
+priv_canon : ${MPC_TEST_CURRENT_SOURCE_DIR}/a.c ${MPC_TEST_CURRENT_SOURCE_DIR}/b.c
+	\$(CC) -g -O0 $^ -fdump-tree-gimple -o ./executables/\$@
+
+priv_canon_opt :  ${MPC_TEST_CURRENT_SOURCE_DIR}/a.c ${MPC_TEST_CURRENT_SOURCE_DIR}/b.c
+	\$(CC) -g -O3 $^ -fdump-tree-gimple -o ./executables/\$@
+"
+}
+
+MPC_AUTO_KILL_TIMEOUT=5
+
+gen_makefile > ${MPC_TEST_CURRENT_WORK_DIR}/Makefile
+makefile_configuration "compile_GCC_priv_canon" "-C ${MPC_TEST_CURRENT_WORK_DIR}/"
+
+LIST_TESTS_NAME="priv_canon priv_canon_opt"
+
+for exe in ${LIST_TESTS_NAME}
+do
+	helper_configuration_loop "test_${exe}" "${MPC_TEST_CURRENT_WORK_DIR}/executables/${exe}" "compile_GCC_priv_canon"
+done

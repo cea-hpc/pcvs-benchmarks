@@ -1,0 +1,37 @@
+#BHEADER***********************************************************************
+# (c) 2000   The Regents of the University of California
+#
+# See the file COPYRIGHT_and_DISCLAIMER for a complete copyright
+# notice, contact person, and disclaimer.
+#
+#EHEADER***********************************************************************
+
+# set the compiler here
+#ctv CC = mpicc
+#CC = mpiicc
+CC = mpc_cc -D__need_clockid_t
+
+
+# set compile flags here
+# MPI only:
+#   add '-DTIMER_USE_MPI'  to 'INCLUDE_CFLAGS'
+# MPI with OpenMP:
+#   add '-DHYPRE_USING_OPENMP -DTIMER_USE_MPI'  to 'INCLUDE_CFLAGS'
+# Use assumed partition (for thousands of processors):
+#   add '-DHYPRE_NO_GLOBAL_PARTITION'  to 'INCLUDE_CFLAGS'
+# Use 64-bit integers for global variables (needed for large problems
+#	with more than 2 billion variables)
+#   add '-DHYPRE_LONG_LONG'  to 'INCLUDE_CFLAGS'
+#INCLUDE_CFLAGS = -g -DTIMER_USE_MPI -DHYPRE_USING_OPENMP -Wall -DHYPRE_LONG_LONG -DHYPRE_NO_GLOBAL_PARTITION -fopenmp
+#ctv INCLUDE_CFLAGS = -g -DTIMER_USE_MPI -DHYPRE_USING_OPENMP -fopenmp
+#ctv INCLUDE_CFLAGS = -g -DTIMER_USE_MPI -DHYPRE_USING_OPENMP -mp
+#INCLUDE_CFLAGS = -fastsse -DTIMER_USE_MPI -DHYPRE_USING_OPENMP -mp -DHYPRE_LONG_LONG
+INCLUDE_CFLAGS = -O3 -DTIMER_USE_MPI -DHYPRE_USING_OPENMP -DHYPRE_LONG_LONG
+
+
+# set link flags here
+#INCLUDE_LFLAGS = -lm -openmp -qsmp
+#ctv INCLUDE_LFLAGS = -lm  -fopenmp
+#INCLUDE_LFLAGS = -lm  -mp
+INCLUDE_LFLAGS = -lm  
+

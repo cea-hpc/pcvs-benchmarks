@@ -1,0 +1,43 @@
+#!/bin/sh
+
+REQUIRE_OPENMP=true
+OMP_THREAD_LIST="2 4 8"
+MPI_THREAD_LIST="1 8"
+MPI_NODE_NB="2 4"
+
+cp -r ${MPC_TEST_CURRENT_SOURCE_DIR}/* ${MPC_TEST_CURRENT_WORK_DIR}
+common_insert_test "compile_lulesh" "0" "make -C ${MPC_TEST_CURRENT_WORK_DIR}"
+
+for net in ${MPC_NET_LIST}
+do
+	for thread in ${MPC_THREAD_LIST}
+	do
+		for omp_thread in ${OMP_THREAD_LIST}
+		do
+			opts="--profiling=xml,stdout --clean --autokill=${autokill_timeout} -N=1 -p=1 -n=1 --share-node -net=${net} -m=${thread} -c=${CLUSTER_MAX_CORES_PER_NODE}"
+			command="OMP_NUM_THREADS=${omp_thread} ${MPCRUN} ${opts} ${MPCRUN_ARGS} ${MPC_TEST_CURRENT_WORK_DIR}/lulesh2.0 ${COMMAND_OPTIONS}"
+			common_insert_test "test_lulesh_${net}_${thread}_omp_thread_${omp_thread}" "${EXPECTED_EXIT_CODE}" "$command" "compile_lulesh"
+		done
+		for mpi_thread in ${MPI_THREAD_LIST}
+		do
+		    for mpi_node in ${MPI_NODE_NB}
+		    do
+            nb_core="${CLUSTER_MAX_CORES_PER_NODE}"
+			if test ${mpi_thread} -eq 1;
+			then 
+				proc="-p=1"
+				node="-N=1"
+			else
+				proc="-p=4"
+				node="-N=${mpi_node}"
+                if test "${mpi_node}" = "2" ; then 
+                    nb_core="`echo ${CLUSTER_MAX_CORES_PER_NODE} / 2 | bc `"
+                fi
+			fi
+			opts="--profiling=xml,stdout --clean --autokill=${autokill_timeout} ${node} ${proc} -n=${mpi_thread} --share-node -net=${net} -m=${thread} -c=${nb_core}"
+			command="OMP_NUM_THREADS=0 ${MPCRUN} ${opts} ${MPCRUN_ARGS} ${MPC_TEST_CURRENT_WORK_DIR}/lulesh2.0 ${COMMAND_OPTIONS}"
+			common_insert_test "test_lulesh_${net}_${thread}_mpi_task_${mpi_thread}" "${EXPECTED_EXIT_CODE}" "$command" "compile_lulesh"
+		    done
+		done
+	done
+done

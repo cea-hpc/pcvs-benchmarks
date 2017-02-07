@@ -1,0 +1,354 @@
+/*-----------------------------------------------------------------------------
+MESSAGE PASSING INTERFACE TEST CASE SUITE
+
+Copyright - 1996 Intel Corporation
+
+Intel Corporation hereby grants a non-exclusive license under Intel's
+copyright to copy, modify and distribute this software for any purpose
+and without fee, provided that the above copyright notice and the following
+paragraphs appear on all copies.
+
+Intel Corporation makes no representation that the test cases comprising
+this suite are correct or are an accurate representation of any standard.
+
+IN NO EVENT SHALL INTEL HAVE ANY LIABILITY FOR ANY DIRECT, INDIRECT OR
+SPECULATIVE DAMAGES, (INCLUDING WITHOUT LIMITING THE FOREGOING, CONSEQUENTIAL,
+INCIDENTAL AND SPECIAL DAMAGES) INCLUDING, BUT NOT LIMITED TO INFRINGEMENT,
+LOSS OF USE, BUSINESS INTERRUPTIONS, AND LOSS OF PROFITS, IRRESPECTIVE OF
+WHETHER INTEL HAS ADVANCE NOTICE OF THE POSSIBILITY OF ANY SUCH DAMAGES.
+
+INTEL CORPORATION SPECIFICALLY DISCLAIMS ANY WARRANTIES INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+PARTICULAR PURPOSE AND NON-INFRINGEMENT.  THE SOFTWARE PROVIDED HEREUNDER
+IS ON AN "AS IS" BASIS AND INTEL CORPORATION HAS NO OBLIGATION TO PROVIDE
+MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS OR MODIFICATIONS.
+-----------------------------------------------------------------------------*/
+/******************************************************************************
+
+               MPI_Sendrecv funtional Ring test
+
+
+Reference:  MPI Standard, Section 3.10
+
+In this test each node sends to its next higher numbered logical neighbor,
+and receives from its  lower logical neighbor; within each 
+communicator/subcommunicator  for Intra-communicators.  Thus, logical 
+node k sends to node k+1, and receives from logical node k-1.  The nodes
+numbers wrap around, so for n nodes, numbered 0 - n-1, node n-1 sends to
+node 0, and node 0 receives from node n-1.
+
+A communicator cannot at the same time be an Intra-communicator, and an
+Inter-communicator.  Inter-communicator node references, automatically
+refer to nodes in the opposite subcommunicator.  For Inter-communicators
+logical node k sends and receives from logical node k in the opposite
+subcommunicator.  Thus, the logical nodes in each subcommunicator trade
+messages. The test traces messages in an Inter-communicator for the number
+of nodes in the smaller subcommunicator. 
+
+This test runs in any communicator/subcommunicator of two or more nodes, 
+with any data type, and with any non-negative message length.
+
+The MPITEST environment provides looping over communicator size and
+type, message length, and data type.  The properties of the loops are
+encoded in configuration arrays in the file mpitest_cfg.h .  See the
+MPITEST README for further details.
+
+****************************************************************************/
+#include "mpitest_cfg.h"
+#include "mpitest.h"
+
+
+int main(int argc, char *argv[])
+{
+    int
+        byte_length,	/* The length of the current buffer in bytes         */
+        send_cnt_len,	/* received length returned by MPI_Get_Count         */
+        recv_cnt_len,
+        comm_count,	/* loop counter for communicator loop                */
+        comm_index,	/* the array index of the current comm               */
+        comm_type,	/* the index of the current communicator type        */
+        my_comm_size,   /* number of nodes in subcommunicator                */
+        remote_size,    /* number of nodes in remote subcommunicator         */
+        isok,
+        error,	        /* errors from one MPI call                          */
+        fail,   	/* counts total number of failures                   */
+        loop_fail,	/* counts number of failures in loop                 */
+        ierr,   	/* return value from MPI calls                       */
+        inter_comm,	/* Intercommunicator flag, true if intercommunicator */
+        send_length,	/* The length of the current buffer                  */
+        recv_length,	/* The length of the current buffer                  */
+        length_count,   /* index for message length loop                     */
+        loop_cnt,	/* counts total number of loops through test         */
+        max_byte_length,/* maximum buffer length in bytes                    */
+        max_length,	/* maximum buffer length specified in config. file   */
+        ntimes,  	/* # of communicator groups INTRA=1, INTER=2         */
+        print_flag,     /* node 0 of INTRA, or node 0 of left group of INTER */
+        recv_from,      /* subcommunicator node to receive from              */
+        send_to,	/* subcommunicator node to send to                   */
+        size,   	/* return size from MPI_Error_string                 */
+        test_nump,	/* The number of processors in current communicator  */
+        test_type,	/* the index of the current buffer type              */
+        type_count,	/* loop counter for data type loop                   */
+       *ub,     	/* Pointer to value of maximum tag                   */
+        found;  	/* boolean for MPI_Get_attr()			     */
+
+    struct dataTemplate
+        value;  	/* dataTemplate for initializing buffers             */
+
+    void *recv_buffer;
+    void *send_buffer;	/* message buffer                                    */
+
+
+    char
+        info_buf[256],	/* buffer for passing mesages to MPITEST             */
+        testname[64];	/* the name of this test                             */
+    char error_string[MPI_MAX_ERROR_STRING];
+
+    MPI_Comm
+	comm,   	/* MPI communicator                                  */
+	barrier_comm;	/* If intercommunicator, merged comm for Barrier     */
+
+    MPI_Status
+	stat;
+
+
+    /*------------------------------  MPI_Init  -----------------------------*/
+    ierr = MPI_Init(&argc, &argv);
+    if (ierr != MPI_SUCCESS)
+    {
+	sprintf(info_buf, "Non-zero return code (%d) from MPI_Init()", ierr);
+	MPITEST_message(MPITEST_FATAL, info_buf);
+    }
+
+    sprintf(testname, "MPI_Sendrecv:  Ring Test");
+
+    /*-----------------------------  MPITEST_init  --------------------------*/
+
+    MPITEST_init(argc, argv);
+    if (MPITEST_me == 0)
+    {
+	sprintf(info_buf, "Starting %s test", testname);
+	MPITEST_message(MPITEST_INFO0, info_buf);
+    }
+
+    /* set the global error counter */
+    fail = 0;
+    loop_cnt = 0;
+
+    max_byte_length = MPITEST_get_max_message_length();
+
+    /*----------------------  Loop over Communicators  ----------------------*/
+
+    for (comm_count = 0; comm_count < MPITEST_num_comm_sizes(); comm_count++)
+    {
+	comm_index = MPITEST_get_comm_index(comm_count);
+	comm_type  = MPITEST_get_comm_type(comm_count);
+	test_nump  = MPITEST_get_communicator(comm_type, comm_index, &comm);
+
+    /*** Test if INTER-communicator:  inter_comm is true if this is an
+	 inter-communicator                                               ***/
+
+	MPI_Comm_test_inter(comm, &inter_comm);
+
+	/* Skip everything if not a member of this communicator OR
+	   there are < 2 nodes in this node's communicator/subcommunicator */
+	isok = TRUE;
+        my_comm_size = test_nump;
+        if(inter_comm)
+	  {
+          /* for intercommunicator choose size of smallest subcommunicator */
+	    MPI_Comm_size(comm,&my_comm_size);
+            MPI_Comm_remote_size(comm, &remote_size);
+            if ( remote_size < my_comm_size)
+	      my_comm_size = remote_size;
+
+	    if(MPITEST_current_rank >= my_comm_size)
+	      isok = FALSE;
+	  }
+ 	if (MPITEST_current_rank != MPI_UNDEFINED  && my_comm_size > 1 && isok)
+	{
+
+		    sprintf(info_buf, " Node:  %d  %6d  %6d %6d %6d %6d %6d %6d  %6d ", MPITEST_current_rank, MPITEST_me, test_nump, my_comm_size, inter_comm, comm_count, comm_index, comm_type, MPITEST_inter  );
+			MPITEST_message(MPITEST_INFO1, info_buf);
+	  if(MPITEST_current_rank == 0)
+	         print_flag = 1;
+
+
+	    /*----------------  Loop over Data Types  ----------------------*/
+
+	    for (type_count = 0; type_count < MPITEST_num_datatypes(); type_count++)
+	    {
+		test_type = MPITEST_get_datatype(type_count);
+
+		/* convert the number of bytes in the maximum length message */
+		/* into the number of elements of the current type */
+
+		max_length = MPITEST_byte_to_element(test_type, max_byte_length);
+
+		/* Allocate send and receive Buffers */
+
+		MPITEST_get_buffer(test_type, max_length, &recv_buffer);
+		MPITEST_get_buffer(test_type, max_length, &send_buffer);
+
+		/*-------------  Loop over Message Lengths  -----------------*/
+
+		for (length_count = 0; length_count < MPITEST_num_message_lengths(); length_count++)
+		{
+		    byte_length = MPITEST_get_message_length(length_count);
+
+		    send_length = MPITEST_byte_to_element(test_type, byte_length);
+		    recv_length = send_length;
+
+		    if ( print_flag)
+		    {
+			sprintf(info_buf, "(%d,%d,%d) recv_length %d commsize %d commtype %d data_type %d", length_count, comm_count, type_count, send_length, test_nump, comm_type, test_type);
+			MPITEST_message(MPITEST_INFO1, info_buf);
+
+		    }
+
+		    MPITEST_dataTemplate_init(&value, MPITEST_current_rank);
+		    MPITEST_init_buffer(test_type, send_length, value, send_buffer);
+		    /* Initialize the receive buffer to -1 */
+		    MPITEST_dataTemplate_init(&value, -1);
+		    MPITEST_init_buffer(test_type, recv_length + 1, value, recv_buffer);
+
+		    loop_cnt++;
+		    loop_fail = 0;
+
+		    if(inter_comm)
+		    {
+		      send_to   = MPITEST_current_rank;
+		      recv_from = MPITEST_current_rank;
+		    }
+		    else
+		    {
+		    recv_from = (my_comm_size + MPITEST_current_rank - 1) % my_comm_size;
+                    send_to   = (            MPITEST_current_rank + 1) % my_comm_size;
+		    }
+		    sprintf(info_buf, " Me:  %d   loop_cnt:  %d   recv_from = %d   send_to = %d    send/recv length = %d/%d", MPITEST_current_rank, loop_cnt, recv_from, send_to, send_length, recv_length  );
+			MPITEST_message(MPITEST_INFO1, info_buf);
+
+
+
+		    ierr = MPI_Sendrecv(
+					send_buffer,
+					send_length,
+					MPITEST_mpi_datatypes[test_type],
+					send_to,
+					MPITEST_current_rank,
+					recv_buffer,
+					recv_length,
+					MPITEST_mpi_datatypes[test_type],
+					recv_from,
+					recv_from,
+					comm,
+					&stat);
+
+
+		    if (ierr != MPI_SUCCESS)
+		    {
+			sprintf(info_buf, "Non-zero return code (%d) from node %d  MPI_Sendrecv", ierr, MPITEST_current_rank);
+			MPITEST_message(MPITEST_NONFATAL, info_buf);
+			MPI_Error_string(ierr, error_string, &size);
+			MPITEST_message(MPITEST_NONFATAL, error_string);
+		    sprintf(info_buf, " NErr:  %d  %6d  %6d %6d %6d %6d %6d %6d %6d ", MPITEST_current_rank, MPITEST_me, test_nump, my_comm_size, inter_comm, comm_count, comm_index, comm_type, MPITEST_inter  );
+			MPITEST_message(MPITEST_NONFATAL, info_buf);			loop_fail++;
+		    sprintf(info_buf, " MeErr:  %d   loop_cnt:  %d   recv_from = %d   send_to = %d    send/recv length = %d/%d", MPITEST_current_rank, loop_cnt, recv_from, send_to, send_length, recv_length  );
+			MPITEST_message(MPITEST_NONFATAL, info_buf);
+		    }	/* End of node Sendrecv Error Test  */
+		    /*
+		     * Set up the dataTemplate for checking the nodes recv'd
+		     * buffer.
+		     */
+
+		    MPITEST_dataTemplate_init(&value, recv_from);
+		    error = MPITEST_buffer_errors(test_type, recv_length, value, recv_buffer);
+
+		    /* check for receive buffer overflow */
+		    MPITEST_dataTemplate_init(&value, -1);
+		    error += MPITEST_buffer_errors_ov(test_type, recv_length, value, recv_buffer);
+
+		    if (error)
+		    {
+			sprintf(info_buf, "%d errors in buffer (%d,%d,%d) len %d commsize %d commtype %d data_type %d sender %d", error, length_count, comm_count, type_count, recv_length, my_comm_size, comm_type, test_type, recv_from);
+			MPITEST_message(MPITEST_NONFATAL, info_buf);
+			loop_fail++;
+		    }
+		    else
+		    {
+			sprintf(info_buf, "%d errors found in buffer", error);
+			MPITEST_message(MPITEST_INFO2, info_buf);
+		    }
+		    /*
+		     * Call the MPI_Get_Count function, and compare value
+		     * with length
+		     */
+		    recv_cnt_len = -1;
+
+		    ierr = MPI_Get_count(&stat,
+			   MPITEST_mpi_datatypes[test_type], &recv_cnt_len);
+		    if (ierr != MPI_SUCCESS)
+		    {
+			sprintf(info_buf, "Non-zero return code (%d) from MPI_Get_count", ierr);
+			MPITEST_message(MPITEST_NONFATAL, info_buf);
+			MPI_Error_string(ierr, error_string, &size);
+			MPITEST_message(MPITEST_NONFATAL, error_string);
+			loop_fail++;
+		    }
+		    /*
+		     * Print non-fatal error if Received length not equal to
+		     * send length
+		     */
+		    error = recv_length - recv_cnt_len;
+
+		    if (error)
+		    {
+			sprintf(info_buf, "Send/Receive lengths differ - Sender(node/length)=%d/%d,  Receiver(node/length)=%d/%d", stat.MPI_SOURCE, recv_length, MPITEST_current_rank, recv_cnt_len);
+			MPITEST_message(MPITEST_NONFATAL, info_buf);
+			loop_fail++;
+		    }
+		    /*
+		     * Print non-fatal error if tag is not correct.
+		     */
+		    if (stat.MPI_TAG != recv_from)
+		    {
+			sprintf(info_buf, "Unexpected tag value=%d, expected=%d",stat.MPI_TAG, recv_from);
+			MPITEST_message(MPITEST_NONFATAL, info_buf);
+			loop_fail++;
+		    }
+		    /*
+		     * Print non-fatal error if source is not correct.
+		     */
+		    if (stat.MPI_SOURCE != recv_from)
+		    {
+			sprintf(info_buf, "Unexpected source value=%d, expected=%d", stat.MPI_SOURCE, recv_from);
+			MPITEST_message(MPITEST_NONFATAL, info_buf);
+			loop_fail++;
+		    }
+
+		    if (loop_fail != 0)
+			fail++;
+
+}/* Loop over Message Lengths  */
+
+free(send_buffer);
+free(recv_buffer);
+
+}/* Loop over Data Types  */
+
+}/* node rank not defined for this communicator */
+
+
+MPITEST_free_communicator(comm_type, &comm);
+
+}/* Loop over Communicators  */
+  MPI_Barrier(MPI_COMM_WORLD);
+/* report overall results  */
+
+MPITEST_report(loop_cnt - fail, fail, 0, testname);
+
+MPI_Finalize();
+
+return fail;
+
+}/* main() */

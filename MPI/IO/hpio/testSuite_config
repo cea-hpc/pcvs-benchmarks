@@ -1,0 +1,26 @@
+#!/bin/sh
+
+MPC_AUTO_KILL_TIMEOUT=1200
+
+#Make sure we run in a temporary directory for parallel tests
+MPCRUN_ARGS+=" --tempdir"
+
+MPC_PROC_NB_LIST="1"
+MPC_TASK_NB_LIST="4"
+
+#generate compile command. for standard build
+common_insert_test "compile_hpio_test" "0" "cp -r ${MPC_TEST_CURRENT_SOURCE_DIR}/* ${MPC_TEST_CURRENT_WORK_DIR} && cd ${MPC_TEST_CURRENT_WORK_DIR}; make"
+
+TEST_ARGS="-n 1000 -m 11 -b 111 -s 111 -v 2"
+helper_configuration_loop "test_hpio_cont_cont_test" "${MPC_TEST_CURRENT_WORK_DIR}/hpio ${TEST_ARGS}" "compile_hpio_test"
+
+TEST_ARGS="-n 0100 -m 11 -b 111 -s 111 -v 2"
+helper_configuration_loop "test_hpio_noncont_cont_test" "${MPC_TEST_CURRENT_WORK_DIR}/hpio ${TEST_ARGS}" "compile_hpio_test"
+
+#Note that as next tests are very slow we only run them in "count mode"
+
+TEST_ARGS="-n 0010 -m 11 -b 100 -s 111 -v 2"
+helper_configuration_loop "test_hpio_cont_noncont_test" "${MPC_TEST_CURRENT_WORK_DIR}/hpio ${TEST_ARGS}" "compile_hpio_test"
+
+TEST_ARGS="-n 0001 -m 11 -b 100 -s 111 -v 2"
+helper_configuration_loop "test_hpio_noncont_noncont_test" "${MPC_TEST_CURRENT_WORK_DIR}/hpio ${TEST_ARGS}" "compile_hpio_test"

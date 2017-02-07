@@ -1,0 +1,53 @@
+#!/bin/sh
+
+gen_makefile()
+{
+echo "
+
+NULL_STRING :=
+
+LIB_PATH    =
+LIBS        =
+CC          = ${TS_CC}
+OPTFLAGS    = -O3 $1
+CLINKER     = ${TS_CC}
+LDFLAGS     =
+CPPFLAGS    =
+SRCDIR      = ${MPC_TEST_CURRENT_SOURCE_DIR}/src
+
+export MPI_INCLUDE CC LIB_PATH LIBS OPTFLAGS CLINKER LDFLAGS CPPFLAGS
+$(cat ${MPC_TEST_CURRENT_SOURCE_DIR}/src/Makefile.base)
+"
+}
+
+gen_imb_command()
+{
+	for exe in ${LIST_TESTS_NAME}
+	do
+		#helper_configuration_loop "test_${exe}" "gdb --command /ccc/scratch/cont001/ocre/capraa/validation_mpc_shm/mpc2/MPC_Test_Suite/gdb_command_line.sh --args ${MPC_TEST_CURRENT_WORK_DIR}/executables/standard/IMB-MPI1 ${exe} -off_cache 2" "compile_IMB-MPI1"
+		helper_configuration_loop "test_${exe}" "${MPC_TEST_CURRENT_WORK_DIR}/executables/standard/IMB-MPI1 ${exe} -off_cache 2" "compile_IMB-MPI1"
+		#helper_configuration_loop "test_${exe}_check" "./executables/check/IMB-MPI1 ${exe}" "compile_IMB-MPI1_CHECK"
+	done
+}
+
+MPC_TEST_CURRENT_SOURCE_DIR="${MPC_TEST_CURRENT_SOURCE_DIR}/../"
+MPC_AUTO_KILL_TIMEOUT=900
+
+#generate compile command. for standard build
+mkdir executables/standard/ || exit 1
+gen_makefile > executables/standard/Makefile
+common_insert_test "compile_IMB-MPI1" "0" "make -C ${MPC_TEST_CURRENT_WORK_DIR}/executables/standard/ IMB-MPI1"
+
+#generate compile command. for -DCHECK build
+#mkdir executables/check/ || exit 1
+#gen_makefile '-DCHECK'> executables/check/Makefile
+#common_insert_test "compile_IMB-MPI1_CHECK" "0" "make -C executables/check/ IMB-MPI1"
+
+#generate test commands
+LIST_TESTS_NAME="Sendrecv Exchange Allreduce Reduce Reduce_scatter Allgather Allgatherv Gather Gatherv Scatter Scatterv Alltoall Alltoallv Bcast Barrier"
+gen_imb_command
+
+#limite to 2 MPI tasks for some tests
+MPC_TASK_NB_LIST="2"
+LIST_TESTS_NAME="PingPong PingPing"
+gen_imb_command

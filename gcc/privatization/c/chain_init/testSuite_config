@@ -1,0 +1,31 @@
+#!/bin/sh
+
+gen_makefile()
+{
+echo "
+
+TARGETS= priv_chain priv_chain_opt
+
+all : \$(TARGETS)
+
+CC=\${TS_CC}
+
+priv_chain : ${MPC_TEST_CURRENT_SOURCE_DIR}/a.c ${MPC_TEST_CURRENT_SOURCE_DIR}/b.c ${MPC_TEST_CURRENT_SOURCE_DIR}/c.c
+	\$(CC) -g -O0 $^ -fdump-tree-gimple -o ./executables/\$@
+
+priv_chain_opt :  ${MPC_TEST_CURRENT_SOURCE_DIR}/a.c ${MPC_TEST_CURRENT_SOURCE_DIR}/b.c ${MPC_TEST_CURRENT_SOURCE_DIR}/c.c
+	\$(CC) -g -O3 $^ -fdump-tree-gimple -o ./executables/\$@
+"
+}
+
+MPC_AUTO_KILL_TIMEOUT=5
+
+gen_makefile > ${MPC_TEST_CURRENT_WORK_DIR}/Makefile
+makefile_configuration "compile_GCC_Priv_chain" "-C ${MPC_TEST_CURRENT_WORK_DIR}/"
+
+LIST_TESTS_NAME="priv_chain priv_chain_opt"
+
+for exe in ${LIST_TESTS_NAME}
+do
+	helper_configuration_loop "test_${exe}" "${MPC_TEST_CURRENT_WORK_DIR}/executables/${exe}" "compile_GCC_Priv_chain"
+done

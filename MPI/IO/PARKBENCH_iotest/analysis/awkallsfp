@@ -1,0 +1,61 @@
+#!/bin/nawk -f
+#
+#  For sharedfp
+#
+#  Usage: awkallsfp k24347.out
+#
+#  No need for testname or keyword!
+#
+#  Reformats the output of the sharedfp test to put 
+#   b and w measurements as separate columns. 
+#  Output in sharedfp.tmp1 -- no graphs.
+
+BEGIN {
+	gotdate = 0;
+	graph = 0;
+}
+
+  (($1 == "timestamp")&&(gotdate == 0)){
+  date = $2;
+  gotdate = 1;
+}
+ 
+  (($1 == "##")&&($2 == "Test")&&($3 == "input")&&($4 == "arguments")){
+  testOn = 0;
+  fsizeOn = 0;
+}
+
+  (($1 == "##")&&($2 == "Test")&&($3 == "output")&&($4 == "information")&&(testOn == 1)){
+  fsizeOn = 1;
+  graph ++;
+        tmpfile = "sharedfp.tmp" graph;
+  print "#testname sharedfp" > tmpfile;
+  print "#" >> tmpfile;
+  print "#",graph >> tmpfile;
+}
+
+  ("nprocs" == $1){
+  nprocs = $2;
+}
+
+  (("testname" == $1)&&("sharedfp" == $2)){
+  testOn = 1;
+}
+
+  ((testOn == 1)&&(fsizeOn == 1)&&($1 == "b")){
+  if (nprocs == 1) bsize = $2;
+  if (nprocs == 2)  bsize1 = $2; bsize2 = $3;
+}
+
+  ((testOn == 1)&&(fsizeOn == 1)&&($1 == "w")){
+  if (nprocs == 1)  print bsize, $2 >> tmpfile;
+  if (nprocs == 2)  print bsize1,$2,bsize2,$3 >> tmpfile;
+}	
+
+
+
+
+
+
+
+

@@ -1,0 +1,14 @@
+#!/bin/sh
+
+MPC_AUTO_KILL_TIMEOUT=500
+
+#Make sure we run in a temporary directory for parallel tests
+MPCRUN_ARGS+=" --tempdir"
+
+MPC_PROC_NB_LIST="1 2"
+MPC_TASK_NB_LIST="4"
+
+#generate compile command. for standard build
+common_insert_test "compile_PARKBENCH_fortran_test" "0" "cp -r ${MPC_TEST_CURRENT_SOURCE_DIR}/* ${MPC_TEST_CURRENT_WORK_DIR} && cp ${MPC_TEST_CURRENT_WORK_DIR}/data/* . && cd ${MPC_TEST_CURRENT_WORK_DIR}; make"
+
+helper_configuration_loop "test_PARKBENCH_fortran_test" "${MPC_TEST_CURRENT_WORK_DIR}/src/iot_all" "compile_PARKBENCH_fortran_test"

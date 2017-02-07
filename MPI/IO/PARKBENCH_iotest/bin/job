@@ -1,0 +1,14 @@
+#!/usr/bin/sh
+## @$-q normal # default queue
+# @$-q bench # bench queue
+## @$-mb -me   # send mail at start and end
+# @$-lM 150MB  # memory for NQS job
+## @$-P mpiio # MPI-IO charging project
+# @$-lT 50 # maximum time per process
+# @$
+VPP_MBX_SIZE=8192000; export VPP_MBX_SIZE
+cd $IOT_HOME/data
+/home/oliver/pallas.new/lib/uxpv/mplib2/mpiexec -n 2 -version $IOT_HOME/bin/iot_lowlevel
+
+
+

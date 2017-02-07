@@ -1,0 +1,70 @@
+Installing and testing IOT: MPI IO test suite
+---------------------------------------------
+
+1. unpack the archive into a directory of your choice <iotest>
+
+2. set the environment variable IOT_HOME to the full path to <iotest>
+   eg. set it in .cshrc:
+     setenv IOT_HOME $HOME/iotest
+
+3. edit <iotest>/Makevars file:
+     MPIR_HOME: path to root directory of MPI installation
+     MPILIB_DIRS: path to MPI library directory
+     MPIINCLUDE_DIRS: path to MPI include directory
+     FC: name of Fortran90 compiler
+
+4. compile test programs
+   type:
+     cd <iotest>
+     make
+   (see Note A)
+
+5. install executables
+   type:
+     make install
+
+6. edit NQS job script
+   template in bin/job
+   specify location of executable program and mpirun
+   change cd command to cd to data directory if necessary
+
+7. edit user test parameter file
+   parameter filename fixed in Fortran source program wrapper eg iot_all.f
+   Default is data/iotparams.in, example is provided.
+
+8. run test program
+   eg. to run iot_all
+     cd data
+     qsub -lP <procs> job
+     where <procs> is number of processors required
+
+9. check output
+   standard output and error will go to files in data directory
+   test statistics output file is named in user test parameter file
+   and usually goes to the timings directory.
+   Example output for data/iotparams.in is provided in timings/lowlevel.out.
+
+
+NOTE:
+
+A. Makefile Targets
+-------------------
+
+In general: make, make clean, make veryclean - work on the current and
+all subdirectories recursively.
+
+Targets:
+
+in <iotest>/src:
+  all: make all executable test programs (default)
+  iot_all: make executable for all test programs
+  iot_lowlevel: make executable for low-level test programs
+  iot_kernel: make executable for kernel test programs
+  clean: remove all object files and other intermediate files
+  veryclean: perform clean and remove executables from src
+  
+in <iotest>:
+  install: copy executables to bin directory
+  clean: remove all object files and other intermediate files
+  veryclean: perform clean and remove executables from src and bin
+  PLUS all targets for <iotest>/src

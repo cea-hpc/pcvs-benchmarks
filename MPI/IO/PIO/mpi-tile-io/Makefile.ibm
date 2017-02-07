@@ -1,0 +1,10 @@
+CC=mpcc_r
+CFLAGS=-g -bmaxdata:0x80000000 -g -DHAVE_STAT -D_LARGE_FILES -lm
+
+all: mpi-tile-io
+
+mpi-tile-io: mpi-tile-io.c
+	$(CC) $(CFLAGS) mpi-tile-io.c -o $@
+
+clean::
+	rm -f mpi-tile-io *.o *~

@@ -1,0 +1,74 @@
+#
+# Rob Ross, 10/05/2001
+#
+# mpi-tile-io.c - a tile reading MPI-IO application
+
+The purpose of this application is to test the performance of an
+underlying MPI-IO and file system implementation under a noncontiguous
+access workload.
+
+The application logically divides a data file into a dense two dimensional
+set of tiles, as shown below:
+
+   ---------------------------------------------
+   |          |          |          |          |
+   |          |          |          |          |
+   |          |          |          |          |
+   ---------------------------------------------
+   |          |          |          |          |
+   |          |          |          |          |
+   |          |          |          |          |
+   ---------------------------------------------
+   |          |          |          |          |
+   |          |          |          |          |
+   |          |          |          |          |
+   ---------------------------------------------
+
+The parameters controlling the interpretation of the file are as
+follows:
+nr_tiles_x - number of tiles in the X dimension (rows)
+nr_tiles_y - number of tiles in the Y dimension (columns)
+sz_tile_x  - number of elements in the X dimension of a tile
+sz_tile_y  - number of elements in the Y dimension of a tile
+sz_element - size of an element in bytes
+overlap_x  - number of elements shared between adjacent tiles in the X
+             dimension
+overlap_y  - number of elements shared between adjacent tiles in the Y
+             dimension
+header_bytes - number of bytes at beginning of file to consider as
+               header data (skipped over)
+filename - name of file to operate on
+
+Additionally the following parameters control the behavior of the
+application:
+collective - perform I/O collectively
+cb_config_list - control aggregation
+
+All of these parameters may be passed using the double-dash "--"
+notation; for example:
+
+mpirun -np 100 mpi-tile-io --nr_tiles_x 25 --nr_tiles_y 4 --sz_tile_x \
+   100 --sz_tile_y 100 --sz_element 32 --filename /pvfs/foo
+
+Alternatively all caps versions of these same parameter names may be
+used as environment variables for passing in parameters.  Command line
+parameters take precedence over environment variables.
+
+The application will report the min, mean, max, and variance for open,
+close, and read times.
+
+Finally, the parameter "write_file" should be used to create a datafile for
+subsequent use in testing.  This mode will report statistics as well,
+but note that the application overwrites the overlap regions and
+generally doesn't try to do the smart thing in this case; it is just
+trying to get a datafile created for later use.
+
+The application does some checking on the number of processes available
+and the number of tiles to write.  It will throw out extra processes,
+removing them from collective operations.  It will return an error if
+fewer processes are available than tiles requested.
+
+mpi-tile-io does not assume that all processes are passed command line
+arguments (because MPI does not guarantee this); instead the command
+line is parsed on process 0, and all pertinent parameters are broadcast
+from there.  Likewise environment variables are parsed in the same way.

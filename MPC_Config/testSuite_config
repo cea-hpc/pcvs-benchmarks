@@ -1,0 +1,55 @@
+#!/bin/sh
+CFLAGS=
+NET="-net=tcp"
+EXEC_NAME="testconfig"
+
+launching_test(){
+	helper_gen_exec_command "$MPC_TEST_EXE_PATH/$EXEC_NAME"
+	common_insert_test "$1" "$2" "$5 $command" "$4"
+}
+
+	helper_gen_compile_command "$MPC_TEST_EXE_PATH/$EXEC_NAME" "$MPC_TEST_CURRENT_SOURCE_DIR/src/testconfig.c"
+	common_insert_test "compile_$EXEC_NAME" "0" "$command"
+
+	MPCRUN_ARGS=""
+	COMMAND_OPTIONS="--nb-tasks=1"
+	launching_test "test_without_config" "0" "$MPCRUN_ARGS" "compile_$EXEC_NAME"
+	
+	MPCRUN_ARGS="$NET --config=${MPC_TEST_SOURCE_DIR}/MPC_Config/config/config-valid.xml"
+	COMMAND_OPTIONS="--nb-tasks=2"
+	launching_test "test_user_config" "0" "$MPCRUN_ARGS" "compile_$EXEC_NAME"
+	
+	MPCRUN_ARGS="$NET --config=${MPC_TEST_SOURCE_DIR}/MPC_Config/config/config-valid.xml --profiles=debug"
+	COMMAND_OPTIONS="--nb-tasks=4"
+	launching_test "test_usr_config_overloaded_debug" "0" "$MPCRUN_ARGS" "compile_$EXEC_NAME"
+	
+	MPCRUN_ARGS="$NET --config=${MPC_TEST_SOURCE_DIR}/MPC_Config/config/config-valid.xml --profiles=debug,test"
+	COMMAND_OPTIONS="--nb-tasks=8"
+	launching_test "test_usr_config_overloaded_debug_profile" "0" "$MPCRUN_ARGS" "compile_$EXEC_NAME"
+	
+	MPCRUN_ARGS="$NET --config=${MPC_TEST_SOURCE_DIR}/MPC_Config/config/config-valid.xml"
+	COMMAND_OPTIONS="--nb-tasks=8"
+	launching_test "test_verified_mapping_activating" "0" "$MPCRUN_ARGS" "compile_$EXEC_NAME" "MPC_TEST=true"
+
+	MPCRUN_ARGS="$NET --config=${MPC_TEST_SOURCE_DIR}/MPC_Config/config/config-valid.xml"
+	COMMAND_OPTIONS="--autokill=3"
+	launching_test "test_overload_variables" "0" "$MPCRUN_ARGS" "compile_$EXEC_NAME" "MPC_AUTO_KILL_TIMEOUT=3"
+	
+	EXPECTED_EXIT_CODE=1
+	
+	MPCRUN_ARGS="$NET --autokill=3 --config=${MPC_TEST_SOURCE_DIR}/MPC_Config/config/config-valid.xml"
+	COMMAND_OPTIONS="--autokill=3"
+	launching_test "test_arguments_overload" "$EXPECTED_EXIT_CODE" "$MPCRUN_ARGS" "compile_$EXEC_NAME"
+	
+	MPCRUN_ARGS="$NET --autokill=3 --config=${MPC_TEST_SOURCE_DIR}/MPC_Config/config/config-valid.xml"
+	COMMAND_OPTIONS="--autokill=3"
+	launching_test "test_full_overload" "$EXPECTED_EXIT_CODE" "$MPCRUN_ARGS" "compile_$EXEC_NAME" "MPC_AUTO_KILL_TIMEOUT=4"
+	
+	MPCRUN_ARGS="$NET --config=${MPC_TEST_SOURCE_DIR}/MPC_Config/config/config-badvalues.xml"
+	launching_test "test_config_badvalues" "$EXPECTED_EXIT_CODE" "$MPCRUN_ARGS" "compile_$EXEC_NAME"
+	
+	MPCRUN_ARGS="$NET --config=${MPC_TEST_SOURCE_DIR}/MPC_Config/config/config-malformed.xml"
+	launching_test "test_config_malformed" "$EXPECTED_EXIT_CODE" "$MPCRUN_ARGS" "compile_$EXEC_NAME"
+	
+	MPCRUN_ARGS="$NET --config=${MPC_TEST_SOURCE_DIR}/MPC_Config/config/config-nonvalid.xml"
+	launching_test "test_config_nonvalid" "$EXPECTED_EXIT_CODE" "$MPCRUN_ARGS" "compile_$EXEC_NAME"

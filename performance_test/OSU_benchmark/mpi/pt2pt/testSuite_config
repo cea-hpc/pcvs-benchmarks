@@ -1,0 +1,20 @@
+#!/bin/sh
+#MPC_PROC_NB_LIST=1
+#MPC_THREAD_LIST=pthread
+MPC_TASK_NB_LIST="2"
+MPC_PROC_NB_LIST="2"
+
+COMMON_FILES="${MPC_TEST_CURRENT_SOURCE_DIR}/osu_pt2pt.c"
+CFLAGS="${CFLAGS} -I${MPC_TEST_CURRENT_SOURCE_DIR}/"
+
+OSU_COLLECTIVE_LIST=""
+for i in ${MPC_TEST_CURRENT_SOURCE_DIR}/*.c; do
+if test "$i" != "${MPC_TEST_CURRENT_SOURCE_DIR}/osu_pt2pt.c"; then
+    OSU_COLLECTIVE_LIST="$OSU_COLLECTIVE_LIST `basename $i`"
+fi
+done
+
+
+
+multiple_configuration "$OSU_COLLECTIVE_LIST" 
+

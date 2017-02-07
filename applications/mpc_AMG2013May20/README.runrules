@@ -1,0 +1,54 @@
+Description:
+AMG is a parallel algebraic multigrid solver for linear systems arising 
+from problems on unstructured grids. 
+
+Compiling:
+$ tar xf amg2013.tar
+$ cd AMG2013/src
+Edit Makefile for your environment
+$ make
+The executable can be found in the directory test.
+
+You can also 'make clean' or 'make veryclean' from the src directory.
+
+Running:
+AMG requires specifying both the dimensionality of the problem and the 
+scale, in MPI ranks. There are three scripts corresponding to the small,
+large and extra large problems as defined for the Trinity/NERSC-8 run
+rules, run-<problem size>.sh. The small problem is sized to use ~100 GB 
+of aggregate memory. The large problem is scaled to use 512 times more 
+memory, and the extra large problem is scaled up by 10,000. The scripts are 
+set up to use the Cray runtime, as such mppwidth specifies the number of
+MPI ranks for the baseline runs. In order to change the number of MPI ranks
+for a given problem size, it is also necessary to change the dimensionality
+of the problem. AMG uses the -P switch to set MPI parallelism, and the -n
+switch for changing dimensionality for each MPI rank.
+
+For example, the small problem used for the Hopper baseline runs used
+4x4x6=96 MPI ranks, with each rank solving a 150x150x150 problem. The total 
+problem size is 96x150x150x150=324,000,000. To redefine the problem to
+use 8 MPI ranks, the total problem size needs to be adjusted to the cube
+root of (324,000,000/8), which equals 343. In this case, the run script
+would be changed to "-P 2 2 2" and "-n 343 343 343". It is reasonable
+to use a non-cubic solution to reach the same problem size, but it is 
+desirable to keep it as cubic as possible.
+
+In accordance with the run rules, the 'Base Case' runs must use the number of MPI
+ranks specified in each run script, i.e.
+
+              MPI ranks
+small         96
+large         49152
+extra large   determined by vendor
+
+For the extra large problem, the total  number of MPI ranks
+can be modified to suit the size of the  Offeror's target architecture.
+
+
+Reporting:
+Results are written to stdout. Report "GMRES Solve  wall clock time"
+Also report "Iterations"
+
+Verification
+
+The value of "Final Relative Residual Norm" must be less than 1.e-06.

@@ -1,0 +1,34 @@
+#!/bin/sh
+
+gen_makefile()
+{
+echo "
+
+TARGETS= priv_chain_lib priv_chain_lib_opt
+
+all : \$(TARGETS)
+
+CC=\${TS_CC}
+
+libp.so : ${MPC_TEST_CURRENT_SOURCE_DIR}/b.c ${MPC_TEST_CURRENT_SOURCE_DIR}/c.c
+	\$(CC) -g  $^ -fpic -shared -o ./executables/\$@
+
+priv_chain_lib : ${MPC_TEST_CURRENT_SOURCE_DIR}/a.c libp.so 
+	\$(CC) -g -O0 ${MPC_TEST_CURRENT_SOURCE_DIR}/a.c -fdump-tree-gimple -o ./executables/\$@ -L$PWD/executables/ -lp  -Wl,-rpath=$PWD/executables/
+
+priv_chain_lib_opt :  ${MPC_TEST_CURRENT_SOURCE_DIR}/a.c libp.so 
+	\$(CC) -g -O3 ${MPC_TEST_CURRENT_SOURCE_DIR}/a.c -fdump-tree-gimple -o ./executables/\$@ -L$PWD/executables/ -lp  -Wl,-rpath=$PWD/executables/
+"
+}
+
+MPC_AUTO_KILL_TIMEOUT=5
+
+gen_makefile > ${MPC_TEST_CURRENT_WORK_DIR}/Makefile
+makefile_configuration "compile_GCC_priv_chain_lib" "-C ${MPC_TEST_CURRENT_WORK_DIR}/"
+
+LIST_TESTS_NAME="priv_chain_lib priv_chain_lib_opt"
+
+for exe in ${LIST_TESTS_NAME}
+do
+	helper_configuration_loop "test_${exe}" "${MPC_TEST_CURRENT_WORK_DIR}/executables/${exe}" "compile_GCC_priv_chain_lib"
+done

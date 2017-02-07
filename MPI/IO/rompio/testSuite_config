@@ -1,0 +1,16 @@
+#!/bin/sh
+
+MPC_AUTO_KILL_TIMEOUT=1000
+
+#Make sure we run in a temporary directory for parallel tests
+MPCRUN_ARGS+=" --tempdir"
+
+MPC_PROC_NB_LIST="1 2"
+MPC_TASK_NB_LIST="4"
+
+#generate compile command. for standard build
+common_insert_test "compile_rompio_test" "0" "cp -r ${MPC_TEST_CURRENT_SOURCE_DIR}/* ${MPC_TEST_CURRENT_WORK_DIR} && cd ${MPC_TEST_CURRENT_WORK_DIR}/src; make"
+
+TEST_ARGS="-fname ./out.dat  -size 1024 8192 65536 -cwrite -cread  -nw 50 -strided"
+
+helper_configuration_loop "test_rompio_test" "${MPC_TEST_CURRENT_WORK_DIR}/src/rompio.x86_64.x ${TEST_ARGS}" "compile_rompio_test"

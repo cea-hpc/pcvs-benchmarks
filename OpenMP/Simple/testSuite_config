@@ -1,0 +1,14 @@
+#!/bin/sh
+REQUIRE_OPENMP="true"
+#add openmp cflags
+CFLAGS="${CFLAGS} -fopenmp ${PRIVATIZATION}"
+
+
+set_openmp_threads_list
+
+MPC_PROC_NB_LIST=1
+MPC_TASK_NB_LIST=1
+MPC_THREAD_NB_LIST=1
+
+openmp_configuration
+

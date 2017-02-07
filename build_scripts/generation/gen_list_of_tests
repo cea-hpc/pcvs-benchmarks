@@ -1,0 +1,108 @@
+#!/bin/sh
+############################# MPC License ##############################
+# Wed Nov 19 15:19:19 CET 2008                                         #
+# Copyright or (C) or Copr. Commissariat a l'Energie Atomique          #
+#                                                                      #
+# IDDN.FR.001.230040.000.S.P.2007.000.10000                            #
+# This file is part of the MPC Runtime.                                #
+#                                                                      #
+# This software is governed by the CeCILL-C license under French law   #
+# and abiding by the rules of distribution of free software.  You can  #
+# use, modify and/ or redistribute the software under the terms of     #
+# the CeCILL-C license as circulated by CEA, CNRS and INRIA at the     #
+# following URL http://www.cecill.info.                                #
+#                                                                      #
+# The fact that you are presently reading this means that you have     #
+# had knowledge of the CeCILL-C license and that you accept its        #
+# terms.                                                               #
+#                                                                      #
+# Authors:                                                             #
+#   - ADAM Julien julien.adam@cea.fr                                   #
+#                                                                      #
+########################################################################
+
+# This script require env :
+# - MPC_TEST_SOURCE_DIR
+# - MPC_TEST_WORK_DIR
+
+######################## IMPORTS ##########################
+#import functions
+. ${MPC_TEST_SOURCE_DIR}/build_scripts/configuration/compilers/${TEST_SUITE_COMPILER}.conf
+. ${MPC_TEST_SOURCE_DIR}/build_scripts/test_suite_functions.sh
+
+##################### CHECK ENV VARS ######################
+if [ -z "${MPC_TEST_CURRENT_SOURCE_DIR}" ]; then
+	common_print_error "Environement variable MPC_TEST_CURRENT_SOURCE_DIR is empty."
+	exit 1
+fi
+if [ -z "${MPC_TEST_CURRENT_WORK_DIR}" ]; then
+	common_print_error "Environement variable MPC_TEST_CURRENT_WORK_DIR is empty."
+	exit 1
+fi
+
+################### SETUP SOME VARS #######################
+export MPC_TEST_CURRENT_SOURCE_DIR="${MPC_TEST_CURRENT_SOURCE_DIR}/$1"
+export MPC_TEST_CURRENT_WORK_DIR="${MPC_TEST_CURRENT_WORK_DIR}/$1"
+export MPC_TEST_EXE_PATH="${MPC_TEST_CURRENT_WORK_DIR}/executables/"
+
+####################### PARAMETERS ########################
+OUTPUT_FILENAME="${MPC_TEST_CURRENT_WORK_DIR}/list_of_tests.xml"
+
+################### CREATE DIRECTORIES ####################
+mkdir -p "${MPC_TEST_CURRENT_WORK_DIR}"
+cd "${MPC_TEST_CURRENT_WORK_DIR}" || exit 1
+
+############### DIRECTORY WITH CONFIG FILE ################
+# Directory which contain a config file named "testSuite_config"
+# Params:
+#   - $1 : config_file : Path to the config file to use (full path).
+#   - MPC_TEST_CURRENT_SOURCE_DIR
+config_file_configuration()
+{
+	if [ ! -f "$1" ]; then
+		common_print_error "Not file $1 to load as configuration file."
+		exit 1
+	fi
+
+	# Source the config file instead of calling it, it permit to avoid to
+	# source confuiguration and function libs in each file. Easier to update and easier for the user.
+	. "$1"
+}
+
+################## GENERATE TESTS COAMMANDS ###############
+# Args:
+#   - $1 : relative path to test dir
+# Globals:
+#   - MPC_TEST_CURRENT_SOURCE_DIR
+gen_test_commands()
+{
+	echo "<jobSuite package=\"$(echo "$MPC_TEST_CURRENT_WORK_DIR" | sed -e "s@$MPC_TEST_WORK_DIR/test_suite/@@g" -e "s@\/\/@\/@g"  -e "s@\/\$@@g" -e "s@\/@\.@g")\">" > "${OUTPUT_FILENAME}"
+	#check generation type to apply
+	if [ -f "${MPC_TEST_CURRENT_SOURCE_DIR}/testSuite_config" ] ; then
+		#user provide a config file
+		mkdir -p "${MPC_TEST_EXE_PATH}" || exit 1
+		config_file_configuration "${MPC_TEST_CURRENT_SOURCE_DIR}/testSuite_config" >> "${OUTPUT_FILENAME}"
+	elif [ -f "${MPC_TEST_CURRENT_SOURCE_DIR}/Makefile" ]; then
+		#user provide a unique makefile in diectory
+		mkdir -p "${MPC_TEST_EXE_PATH}" || exit 1
+		makefile_configuration >> "${OUTPUT_FILENAME}"
+	else
+		#check if directory contain sources
+		files="$(find "${MPC_TEST_CURRENT_SOURCE_DIR}" -maxdepth 1 -regex '.*\.[cC]' -type f )"
+		if [ ! -z "${files}" ]; then
+			#simple generation from sources
+			mkdir -p "${MPC_TEST_EXE_PATH}" || exit 1
+			single_configuration >> "${OUTPUT_FILENAME}"
+		else
+			#move to source dir
+			cd "${MPC_TEST_CURRENT_SOURCE_DIR}" || exit 1
+			#loops on subdirectories, skip the first one (current)
+			subdir_configuration
+		fi
+	fi
+	echo "</jobSuite>" >> ${OUTPUT_FILENAME}
+}
+
+########################### MAIN ##########################
+echo "   --> Generation ${MPC_TEST_CURRENT_WORK_DIR}" | sed -e "s@${MPC_TEST_SOURCE_DIR}/build/test_suite/@@g" -e "s@//@/@g" 1>&2
+gen_test_commands "$1"

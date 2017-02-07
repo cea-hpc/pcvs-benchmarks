@@ -1,0 +1,116 @@
+#!/bin/sh
+############################# MPC License ##############################
+# Wed Nov 19 15:19:19 CET 2008                                         #
+# Copyright or (C) or Copr. Commissariat a l'Energie Atomique          #
+#                                                                      #
+# IDDN.FR.001.230040.000.S.P.2007.000.10000                            #
+# This file is part of the MPC Runtime.                                #
+#                                                                      #
+# This software is governed by the CeCILL-C license under French law   #
+# and abiding by the rules of distribution of free software.  You can  #
+# use, modify and/ or redistribute the software under the terms of     #
+# the CeCILL-C license as circulated by CEA, CNRS and INRIA at the     #
+# following URL http://www.cecill.info.                                #
+#                                                                      #
+# The fact that you are presently reading this means that you have     #
+# had knowledge of the CeCILL-C license and that you accept its        #
+# terms.                                                               #
+#                                                                      #
+# Authors:                                                             #
+#   - ADAM Julien julien.adam@cea.fr                                   #
+#   - VALAT Sebastien sebastien.valat@cea.fr                           #
+#                                                                      #
+########################################################################
+
+#################### SOURCES FILES ######################
+. ${MPC_TEST_SOURCE_DIR}/build_scripts/common_functions.sh
+
+################## LOAD CONFIG FILE #####################
+. ${MPC_TEST_SOURCE_DIR}/build_scripts/load_config.sh
+
+######################## VARS ###########################
+SALLOC_NB_NODES="1"
+SALLOC_NB_CORES_PER_TASK="1"
+SALLOC_NB_TASKS="1"
+SALLOC_NB_TASKS_PER_NODE="1"
+SALLOC_TIMEOUT=""
+
+#################### PARSE MPCRUN ARGS ##################
+#capture interesting arguements of mpcrun line
+MPCRUN_ARG_NB_PROCESS="1"
+MPCRUN_ARG_NB_TASKS="1"
+MPCRUN_ARG_NB_NODE=""
+for arg in $*
+do
+	case ${arg} in
+#		-p=*)
+#			MPCRUN_ARG_NB_PROCESS=$(common_read_param_value "${arg}" -p)
+#			;;
+#		-n=*)
+#			MPCRUN_ARG_NB_TASKS=$(common_read_param_value "${arg}" -n)
+#			;;
+		--nb-resources=*)
+			MPCRUN_ARG_NB_NODE=$(common_read_param_value "${arg}" --nb-resources)
+			;;
+		--autokill=*)
+			SALLOC_TIMEOUT="$(( $(common_read_param_value "$arg" --autokill) / 60 ))"
+            		if [ "$SALLOC_TIMEOUT" = "0" ] ; then
+                		SALLOC_TIMEOUT=1
+            		fi
+			SALLOC_TIMEOUT="-t $SALLOC_TIMEOUT"
+			;;
+	esac
+done
+
+################# COMPUTE SALLOC ARGS ###################
+#compute number of nodes
+
+if [ -z "${MPCRUN_ARG_NB_NODE}" ]; then
+	#Don't get hint, so compute with number of process
+	#if less process than number of nodes, use one process per node
+	#otherwise, use max number of node
+	common_get_first_if_smaller ${MPCRUN_ARG_NB_PROCESS} ${CLUSTER_MAX_NODE_PER_TEST}
+	SALLOC_NB_NODES=$value
+elif [ ${MPCRUN_ARG_NB_NODE} -gt ${CLUSTER_MAX_NODES} ]; then
+	common_print_error "Not enough nodes for this test, you have CLUSTER_MAX_NODES = ${CLUSTER_MAX_NODES}, but request ${MPCRUN_ARG_NB_NODE}"
+	exit 1
+else
+	#use the user hint
+	SALLOC_NB_NODES=${MPCRUN_ARG_NB_NODE}
+fi
+
+#Number of salloc task is number of mpc process
+SALLOC_NB_TASKS=${SALLOC_NB_NODES}
+
+#Compute temporary number of taks per node
+#if [ ${SALLOC_NB_TASKS} -lt ${SALLOC_NB_NODES} ]; then
+#	common_print_error "You try to launch a test with more nodes (${SALLOC_NB_NODES]} than processes (${SALLOC_NB_TASKS})."
+#	exit 1
+#fi
+SALLOC_NB_TASKS_PER_NODE=$(( ${SALLOC_NB_TASKS} / ${SALLOC_NB_NODES} ))
+
+#We multiply to handle the case when SALLOC_NB_TASKS is not divisible by SALLOC_NB_NODES
+if [ $(( $SALLOC_NB_TASKS_PER_NODE * $SALLOC_NB_NODES )) -ne $SALLOC_NB_TASKS ]; then
+	SALLOC_NB_TASKS_PER_NODE=$(( $SALLOC_NB_TASKS_PER_NODE + 1 ))
+fi
+
+#each test use a complete node, so compute to use maximum number of core per node
+SALLOC_NB_CORES_PER_TASK=$(( ${CLUSTER_MAX_CORES_PER_NODE} / ${SALLOC_NB_TASKS_PER_NODE} ))
+if [ ${SALLOC_NB_CORES_PER_TASK} -eq 0 ]; then
+	SALLOC_NB_CORES_PER_TASK=1
+fi
+
+if [ -z "${LAUNCHER_COMMAND}" ] ; then
+	LAUNCHER_COMMAND="salloc"
+fi
+
+################### GENERATE COMMAND ####################
+salloc_args="-N ${SALLOC_NB_NODES} -n ${SALLOC_NB_TASKS} -c ${SALLOC_NB_CORES_PER_TASK} ${SALLOC_TIMEOUT} ${LAUNCHER_EXTRA_ARGS}"
+final_user_command="$(echo "$@")"
+command="${LAUNCHER_COMMAND} ${salloc_args} ${SLURM_SALLOC_OPTS} ${final_user_command}"
+
+################## EXECUTE THE COMMAND ##################
+echo "Launched from slurm wrapper"
+echo "${command}"
+${command}
+exit $?

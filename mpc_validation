@@ -1,0 +1,1202 @@
+#!/bin/sh
+
+############################# MPC License ##############################
+# Wed Nov 19 15:19:19 CET 2008                                         #
+# Copyright or (C) or Copr. Commissariat a l'Energie Atomique          #
+#                                                                      #
+# IDDN.FR.001.230040.000.S.P.2007.000.10000                            #
+# This file is part of the MPC Runtime.                                #
+#                                                                      #
+# This software is governed by the CeCILL-C license under French law   #
+# and abiding by the rules of distribution of free software.  You can  #
+# use, modify and/ or redistribute the software under the terms of     #
+# the CeCILL-C license as circulated by CEA, CNRS and INRIA at the     #
+# following URL http://www.cecill.info.                                #
+#                                                                      #
+# The fact that you are presently reading this means that you have     #
+# had knowledge of the CeCILL-C license and that you accept its        #
+# terms.                                                               #
+#                                                                      #
+# Authors:                                                             #
+#   - ADAM Julien julien.adam@cea.fr                                   #
+#   - VALAT Sebastien sebastien.valat@cea.fr                           #
+#                                                                      #
+########################################################################
+
+########################## VARIABLES ###########################
+MPC_TEST_SOURCE_DIR="${PWD}"
+MPC_TEST_MODE="TEST_MODE"
+MPC_INSTALL_PREFIX=""
+MAKE_J=1
+CONFIGURE_ARGS=""
+LANG="en_US.UTF-8"
+NET_LIST=""
+MPC_TEST_WORK_DIR="build"
+CLUSTER_MAX_NODE_PER_TEST=""
+MPC_TEST_LIST=""
+BUILD_MODE=""
+RESTART_MODE=""
+MAKE_TARGET=""
+LAUNCHDIR=""
+TESTS_NAME_SPECIFIED=""
+HAVE_PARALLEL="no"
+BUILDTYPE="default"
+# var containing all subfolders to analyse in root test-suite directory"
+ALL_MODES="MPI OpenMP reproducer simple UnitTests coding_rules MPC_Config applications performance_test Threads gcc fortran compilers " #gdb
+EXIT_STATUS="0"
+CONFIG_NAME=""
+CONFIG_OVERRIDE=""
+UPDATE_WEBVIEW="false"
+HAVE_MPC_GCC=""
+INFORMATION_COLOR=""
+DEFAULT_COLOR=""
+IMPORTANT_COLOR=""
+WARNING_COLOR=""
+TESTTYPE="default"
+TEST_SUPPORT="supported"
+FAST_FILE=""
+DEFAULT_FAST_FILE="$MPC_TEST_SOURCE_DIR/build_scripts/configuration/fast_tests.lst"
+TEST_VERBOSITY=0
+WORKERS=""
+UNSUPPORTED_FILE="$MPC_TEST_SOURCE_DIR/build_scripts/configuration/unsupported.lst"
+SCHEDULER_CFLAGS="-DDISABLE_OPENMP=yes"
+SCHED_SURFACE=""
+ENABLE_JSLOC_TRACE="no"
+FAKE_SCHED=""
+MPC_INSTALL_DEFINED=""
+LOG_COMMAND="tee"
+LOG_RECORD=""
+WHITELIST_FILES=""
+BLACKLIST_FILES=""
+INPUT_BLACKLIST_FILES=""
+INPUT_WHITELIST_FILES=""
+CAPTURE_LOGFILE="no"
+KEEP_ALL_LOG=""
+INSTALLMPC_COLOR=""
+ECHO_OPTIONS=
+TYPE_SHELL="strict"
+GEN_SEQ=""
+SCHED_POLICY=""
+SKIP_GEN="no"
+TEST_SUITE_COMPILER="mpc"
+PRIVATIZATION="-fmpc-privatize"
+
+########## DISABLE X
+unset DISPLAY
+PATH=${PWD}/env_bin:$PATH
+export PATH
+
+
+##################### SOME COLOUR INFORMATIONS ##################
+define_color(){
+    if [ "${MPC_ENABLE_COLOR}" = "true" ] ; then
+		INFORMATION_COLOR="$(printf "\\033[0;32m")"
+		DEFAULT_COLOR="$(printf "\\033[0;39m")"
+		IMPORTANT_COLOR="$(printf "\\033[1;31m")"
+		WARNING_COLOR="$(printf "\\033[4;33m")"
+		SCHEDULER_CFLAGS="${SCHEDULER_CFLAGS} -DENABLE_COLOR=yes"
+	else
+		INSTALLMPC_COLOR="--disable-color"
+	fi
+}
+
+trap_validation(){
+	echo "Caught SIGINT --> Stop childs " 1>&2
+	kill -- -$(ps -o pgid= $PID | grep -o '[0-9]*')
+	exit 127
+}
+
+############################ HELP ##############################
+# Display the help. Caution, it didn't exit by itself.
+help() {
+
+	echo "############################### MPC VALIDATION USAGE ###############################"
+	echo "#                       ./mpc_validation [mode] [options]                          #"
+	echo "####################################################################################"
+	echo "# AVAILABLE MODES :                                                                #"
+	echo "#   --test                     Only execute the test suite with mpc installed      #"
+	echo "#                              into {mpc_prefix} [default].                        #"
+	echo "#   --build                    Only pass the mpc build test and install into       #"
+	echo "#                              {mpc_prefix}.                                       #"
+	echo "#   --all                      Run mpc build test, then use the installation       #"
+	echo "#                              to run the test suite.                              #"
+	echo "#   --generate-fast-file       Generate a file with fast tests of the last build.  #"
+	echo "#                                                                                  #"
+	echo "# BUILDING OPTIONS :                                                               #"
+	echo "#   --fast                     Execute the fast build (mpc_default) with fast test.#"
+	echo "#   --full                     Execute all available configurations to build.      #"
+	echo "#   --default                  Execute MPC, GCC and GDB (option by default).       #"
+	echo "#   --configure=<args>         List of arguments to transmit to MPC configure.     #"
+	echo "#   --prefix=<path>            MPC install prefix [build/mpc_prefix].              #"
+	echo "#   --build-mode=<mode>        Specific build to validate flag combination.        #"
+	echo "#                              (Choose one in default, full, fast).                #"
+	echo "#   -j=<number>|-j<number>     Compile project using Make with [number] threads.   #"
+	echo "#                                                                                  #"
+	echo "# TESTING OPTIONS :                                                                #"
+	echo "#   --select=<list>            Select the subdirectory to execute using            #"
+	echo "#                              comma as separator (eg. OpenMP,IMB,MPICH).          #"
+	echo "#   --filter=<reg1,reg2,...>   NOT TO USE FOR NOW. Prefer --select option          #"
+	echo "#   --launcher=<script>        Defines machine which execute TestSuite.            #"
+	echo "#                              (default or slurm).                                 #"
+	echo "#   --clauncher=<script>       Defines machine where execute testSuite compilation.#"
+	echo "#                              (Default: '[--launcher option]_compil')             #"
+	echo "#   --slurm                    Equivalent to --launcher=slurm                      #"
+	echo "#   --net=<type>               Enable some selected network mode.                  #"
+	echo "#                              (tcp, tcp_only, ib, ib_only).                       #"
+	echo "#   --parallel<number>         Chooses the number of allocation at the same time.  #"
+	echo "#                              (e.g. the parallelism level of scheduler.)          #"
+	echo "#   --verbosity=<0|1|2>        Verbosity level of test execution. 0 = silent (-s), #"
+	echo "#                              1 = normal (-v), 2 = verbose (-vv).                 #"
+	echo "#   --color                    In silent mode, color the output for success/fail.  #"
+	echo "#   --fast                     Execute fast tests from file generated.             #"
+	echo "#   --support=<mode>           Select support mode all | supported | unsupported   #"
+	echo "#   --input-fast=<path_file>   Choose fast test file (default or generated).       #"
+	echo "#                              (file with an absolute path).                       #"
+	echo "#   --input-support=<file>     Specifies the file where unsupported tests          #"
+	echo "#                              are stored.                                         #"
+	echo "#   --input-blacklist=<file>   Specifies tests file to add to black list.          #"
+	echo "#   --input-whitelist=<file>   Specifies tests file to add to white list.          #"
+	echo "#   --Sched-surface            Use surface filling scheduling option from scheduler#"
+	echo "#   --keep-all                 Keep logs for all tests (failed and passed).        #"
+	echo "#                                                                                  #"
+	echo "# DEBUGGING & TRACES OPTIONS :                                                     #"
+	echo "#   --webview                  Dynamically update the webview (build/webview) when #"
+	echo "#                              after testing each subdirectory.                    #"
+	echo "#   --debug                    Prints some debug informations from scheduler       #"
+	echo "#   --debug-silent             Prints some debug informations from scheduler in    #"
+	echo "#                              file at <build_path>/test_suite/tmp/debug.log       #"
+	echo "#   --jsloc                    Enable JsLoc module (trace files generation)        #"
+	echo "#   --fake                     Enable test execution simulation.                   #"
+	echo "#   --nodes=<number>           Specifies number of available nodes for TestSuite.  #"
+	echo "#                                                                                  #"
+	echo "# OTHERS OPTIONS :                                                                 #"
+	echo "#   --help,-h                  Display this help                                   #"
+	echo "#   --test-dir=<dir>           Specifies binary files destination.                 #"
+	echo "#   --compiler=<compiler>      Select a compiler for tests (see list-compilers)    #"
+	echo "#   --list-compilers           List available compilers to construct test-suite    #"
+	echo "#   --config=<name>            Load predefine site configuration [try hostname].   #"
+	echo "#   --clean                    Clean build directory (build & test_suite folders)  #"
+	echo "#   --log                      Allows to capture output (stdout & stderr) into a   #"
+	echo "#                              file in order to display validation log.            #"
+	echo "#   --no-log                   Disable --log option (by default).                  #"
+	echo "#   --diff=<tarball>           Specifies a tarball where reference build are       #"
+	echo "#                              stored. This is used by webview diff tool.          #"
+	echo "#   --restart|--restart=<file> Restart validation with or without backup file      #"
+	echo "#   --skip-gen | --sg          Run mpc_validation with no call to test generation  #"
+	echo "####################################################################################"
+}
+
+#################### OVERRIDE CONFIG PARAM ####################
+# Override a value from config file with config parameter
+# This function aims to be used in argument parsing swtich.
+# Params :
+#   - $1 : Param name
+#   - $2 : Param value (you can give the full command argument as it use common_read_param_value for you)
+#   - $3 : Command arguement used to override
+# Globals :
+#   - CONFIG_OVERRIDE : Temporary variable in which to place the data for
+#                       future call to gen_and_load_config_file.
+config_override()
+{
+	value=$(common_read_param_value "$2" "$3")
+	CONFIG_OVERRIDE="${CONFIG_OVERRIDE}#Override by $3\n$1=\"$value\" \n"
+	eval "$1=\"$value\""
+}
+
+###################### LOAD CONFIG FILE #######################
+# Load default site configuration.
+# GLobals:
+#  - CONFIG_NAME : Define the site name to use (empty try to use hostname)
+#  - MPC_TEST_SOURCE_DIR  : Path to MPC_Test_Suite directory.
+print_default_config_file() {
+	#check if MPC_TestSuite source directory
+	if [ -z "${MPC_TEST_SOURCE_DIR}" ]; then
+		common_print_error "Undefined variable MPC_TEST_SOURCE_DIR."
+		exit 1
+	fi
+	#if no default config specified, try default name by using hostname
+	if [ -z "${CONFIG_NAME}" ]; then
+		if [ -f ${MPC_TEST_SOURCE_DIR}/config/`hostname`.cfg ]; then
+			CONFIG_NAME=`hostname`
+		#try hostname without digits
+		elif [ -f ${MPC_TEST_SOURCE_DIR}/config/$(hostname | sed -e 's/[0-9]//g').cfg ]; then
+			CONFIG_NAME=$(hostname | sed -e 's/[0-9]//g')
+		else # don't use config file
+			return
+		fi
+	fi
+	#calc config file path
+	config_file="${MPC_TEST_SOURCE_DIR}/config/${CONFIG_NAME}.cfg"
+
+	#import the config
+	if [ -f "$config_file" ]; then
+		echo "# Import config from config/${CONFIG_NAME}.cfg"
+		cat "$config_file"
+	else
+		common_print_error "Unknown site ${CONFIG_NAME}"
+		exit 1
+	fi
+}
+
+###################### LOAD CONFIG FILE #######################
+# Load default site configuration.
+# GLobals:
+#  - CONFIG_NAME : Define the site name to use (empty try to use hostname)
+#  - MPC_TEST_SOURCE_DIR  : Path to MPC_Test_Suite directory.
+#  - CONFIG_OVERRIDE : Config parameter redefined by command parameters via config_override() function
+#  - MPC_TEST_WORK_DIR : Directory in which to write the final config file to use for tests (config.cfg)
+gen_and_load_config_file() {
+	#eval "`print_default_config_file`"
+	#check workdir
+	if [ -z "${MPC_TEST_WORK_DIR}" ]; then
+		common_print_error "Undefined variable MPC_TEST_WORK_DIR."
+		exit 1
+	fi
+
+	#create directory if does not exist
+	mkdir -p "${MPC_TEST_WORK_DIR}"
+
+	#load the given config file
+    	print_default_config_file > "${MPC_TEST_WORK_DIR}/config.cfg"
+	echo "" >> "${MPC_TEST_WORK_DIR}/config.cfg"
+
+	#print override
+	echo "##################### VARIABLES OVERRIDES #####################" >> "$MPC_TEST_WORK_DIR/config.cfg"
+
+	echo ${ECHO_OPTIONS} "${CONFIG_OVERRIDE}" >> "${MPC_TEST_WORK_DIR}/config.cfg"
+
+	#display if not empty
+	if [ ! -z "$(cat ${MPC_TEST_WORK_DIR}/config.cfg)" ]; then
+		echo "${INFORMATION_COLOR}=====================> LOAD CONFIG <=======================${DEFAULT_COLOR}"
+		cat "${MPC_TEST_WORK_DIR}/config.cfg"
+	fi
+
+	#source it : load default.cfg + WORK/config.cfg
+	common_safe_exec "loading current configuration" . $MPC_TEST_SOURCE_DIR/build_scripts/load_config.sh
+
+	#init defined compiler
+	if [ ! -f ${MPC_TEST_SOURCE_DIR}/build_scripts/configuration/compilers/${TEST_SUITE_COMPILER}.conf ] ; then
+		common_print_error "Unknown compiler \"${TEST_SUITE_COMPILER}\""
+		exit 1
+	fi
+    export TEST_SUITE_COMPILER
+	#check if compiler loading effectively set the main used ones
+	#if test -z "${CC}" -o -z "${CXX}" -o -z "${F77}";
+	#then
+		## no compiler defined
+		#common_print_error "\"${TEST_SUITE_COMPILER}\" configuration does not set one of base compiler !"
+		#exit 1
+	#fi
+}
+
+######################## CLEAN FILES ##########################
+# Clear files into ${MPC_TEST_WORK_DIR}/${1}
+# Params:
+#  - $1 : Subdirectory to cleanup, empty to all
+# Globals:
+#  - MPC_TEST_WORK_DIR : working directory, used to prefix the given relative path
+clean_files() {
+
+	#check non empty MPC_TEST_WORK_DIR
+	if [ -z "${MPC_TEST_WORK_DIR}" ]; then
+		common_print_error "Invalid empty MPC_TEST_WORK_DIR"
+		exit 1
+	fi
+
+	#do cleanup
+	if [ -d "${MPC_TEST_WORK_DIR}/${1}" ] ; then
+		common_safe_exec "Cleaning repository ${MPC_TEST_WORK_DIR}/${1}" rm -rf "${MPC_TEST_WORK_DIR}/${1}"
+	fi
+}
+
+
+
+####################### CHECK MPC #############################
+# Check MPC availability by searching mpc_cc in the given prefix.
+# Globals:
+#   - MPC_INSTALL_PREFIX : MPC installation directory to check.
+check_mpc_dir() {
+	#check if mpc is ok
+	. ${MPC_INSTALL_PREFIX}/mpcvars.sh
+	which mpc_cc > /dev/null 2>&1
+	VALID="$?"
+	if  test "${VALID}" = "0" ; then
+		echo " * Valid distribution found into ${MPC_INSTALL_PREFIX}"
+		MPC_TARGET_INSTALL_PREFIX="`which mpc_cc | xargs dirname`/../"
+	else
+		common_print_error "Can't find MPC in ${MPC_INSTALL_PREFIX}, try --prefix="
+		exit 1
+	fi
+}
+
+##################### SETUP CLEAN SUBDIR ######################
+# Create a clean subdirectory in ./build to start the tests.
+# Params:
+#   - $1       : Define the name of subdirectory to use.
+#Globals:
+#   - MPC_TEST_SOURCE_DIR : MPC_Test_Suite folder
+#   - MPC_TEST_WORK_DIR : Name of root working directory to prefix the given relative one.
+setup_clean_subdir() {
+	#move to MPC_TEST_SOURCE_DIR
+	cd "${MPC_TEST_SOURCE_DIR}"
+
+	#clean files
+	clean_files "${1}"
+
+	#check if valid directory
+	if [ ! -f ./mpc_validation ]; then
+		common_print_error "Bad directory MPC_TEST_SOURCE_DIR=${MPC_TEST_SOURCE_DIR}, must be in MPC_Test_Suite."
+		exit 1
+	fi
+
+	#move to build dir
+	if [ ! -d ${MPC_TEST_WORK_DIR}/${1} ]; then
+		common_safe_exec "Generation build/$1 folder" mkdir -p "${MPC_TEST_WORK_DIR}/${1}"
+	fi
+
+	common_safe_exec "Moving into build/$1 folder" cd "${MPC_TEST_WORK_DIR}/${1}"
+}
+
+####################### GET SUBTEST LIST ######################
+# Display the list of subtest groups. It take into account the
+# usage of --select to select a subset of tests.
+get_subtest_list() {
+	if [ -z "$MPC_TEST_LIST" ]; then
+		echo "${ALL_MODES}"
+	else
+		echo "$MPC_TEST_LIST" | sed -e "s/[,;]/ /g" | cut -f 2- -d =
+	fi
+}
+
+################## SIMPLE SCHEDULER EXECUTION ################
+# Run the test suite into ./build/test_suite (sequential or parallel
+# Globals:
+#   - MPC_TEST_LIST       : contains list of modes to launch in this execution
+test_simple_scheduler(){
+
+	#init
+	blacklist=""
+	whitelist=""
+	launcher=""
+	compil_launcher=""
+	nbnodes=""
+	nbcores=""
+	max_test_time=""
+	max_alloc_time=""
+	workers=""
+	policy=""
+	fake_exec=""
+
+	#execute tests commands to generate XML outputs
+	test_files=$(find "$MPC_TEST_CURRENT_WORK_DIR" -iname "list_of_tests.xml")
+	#if a wrapper have been setted
+	if [ ! -z "$JCHRNS_WRAPPER" ]; then
+		if [ -f "$MPC_TEST_SOURCE_DIR/build_scripts/launchers/$JCHRNS_WRAPPER" ] ; then
+            		launcher="--launcher=$MPC_TEST_SOURCE_DIR/build_scripts/launchers/$JCHRNS_WRAPPER"
+	    	else  # but this wrapper haven't been founded
+            		echo "WARNING: LAUNCHER $JCHRNS_WRAPPER NOT FOUND !!!"
+            		echo "WARNING: DEFAULT USING (local execution) !!!"
+        	fi
+    	fi
+
+	#same thing for compile wrapper
+	if [ ! -z "$JCHRNS_COMPIL_WRAPPER" ]; then
+		if [ -f "$MPC_TEST_SOURCE_DIR/build_scripts/launchers/$JCHRNS_COMPIL_WRAPPER" ] ; then
+			compil_launcher="--compil-launcher=$MPC_TEST_SOURCE_DIR/build_scripts/launchers/$JCHRNS_COMPIL_WRAPPER"
+		else
+            		echo "WARNING: LAUNCHER $JCHRNS_COMPIL_WRAPPER NOT FOUND !!!"
+            		echo "WARNING: NOT USED !!!"
+		fi
+	#try to find a compil wrapper which would be a similar wrapper to exec wrapper
+	elif [ -f "$MPC_TEST_SOURCE_DIR/build_scripts/launchers/${JCHRNS_WRAPPER}_compil" ] ; then
+		compil_launcher="--compil-launcher=$MPC_TEST_SOURCE_DIR/build_scripts/launchers/${JCHRNS_WRAPPER}_compil"
+	fi
+
+	#setting number of nodes available
+	if [ ! -z "$CLUSTER_MAX_NODES" ]; then
+		nbnodes="--nb-resources=$CLUSTER_MAX_NODES"
+	fi
+
+	#defining timeout for a test in scheduling
+	if [ ! -z "$JCHRNS_MEDIAN_JOB_TIME" ] ; then
+		max_test_time="--maxt-job=$JCHRNS_MEDIAN_JOB_TIME"
+	fi
+
+	#defining a timeout for a ressources allocation
+	if [ ! -z "$JCHRNS_MAX_ALLOC_TIME" ] ; then
+		max_alloc_time="--maxt-slave=$JCHRNS_MAX_ALLOC_TIME"
+	fi
+	
+	if [ ! -z "$JCHRNS_MIN_ALLOC_TIME" ] ; then
+		min_alloc_time="--mint-slave=$JCHRNS_MIN_ALLOC_TIME"
+	fi
+
+	#defining duration after which slave scheduler will be killed
+	if [ ! -z "$JCHRNS_AUTOKILL_TIME" ] ; then
+		sched_autokill="--autokill=$JCHRNS_AUTOKILL_TIME"
+	fi
+
+	if [ ! -z "`echo "$JCHRNS_FAKE_EXEC" | grep -i "true"`" ] ; then
+		fake_exec="--fake"
+	fi
+
+	if [ ! -z "$JCHRNS_POLICY" ] ; then
+		policy="--policy=$JCHRNS_POLICY"
+	fi
+
+	if [ ! -z "$JCHRNS_EXPECT_SUCCESS" ] ; then
+		expect_success="--expect-success"
+	fi
+
+	#generating tests filters
+	gen_blacklist_whitelist_files
+
+	#define the number of workers authorized to work at the same time
+	if [ ! -z "$JCHRNS_SLAVES" ]; then
+	    	workers="--nb-slaves=$JCHRNS_SLAVES"
+   	fi
+	mkdir -p $MPC_TEST_WORK_DIR/test_suite/tmp
+	#launching scheduler
+	$MPC_TEST_WORK_DIR/tmp/bin/jchronoss ${test_files} $min_alloc_time $sched_autokill $max_test_time $max_alloc_time $compil_launcher $workers $policy $expect_success $fake_exec $nbnodes $launcher ${KEEP_ALL_LOG} --black=$BLACKLIST_FILES --white=$WHITELIST_FILES --build="$MPC_TEST_WORK_DIR/test_suite/tmp" --verbosity=$JCHRNS_VERBOSITY || exit 1
+}
+
+test_restart_scheduler(){
+	check_mpc_dir
+	MPC_TEST_MODE="TEST_MODE"
+	cd ${MPC_TEST_WORK_DIR}/test_suite
+	echo "${JCHRNS_BACKUP_FILE}"
+	if [ -z "`echo ${JCHRNS_BACKUP_FILE} | egrep "^/.*"`" ] ; then
+		JCHRNS_BACKUP_FILE="${MPC_TEST_SOURCE_DIR}/${JCHRNS_BACKUP_FILE}"	
+	fi
+	if [ -z "${JCHRNS_BACKUP_FILE}" ] ; then
+		common_print_error "You have to specify a restart file (see --restart=<file> option)"
+		exit 1
+	elif [ ! -f ${JCHRNS_BACKUP_FILE} ] || [ "`basename ${JCHRNS_BACKUP_FILE}`" != "jns_chkpt.json" ] ; then
+		common_print_error "${JCHRNS_BACKUP_FILE} is not a valid file"
+		exit 1
+	fi	
+	$MPC_TEST_WORK_DIR/tmp/bin/jchronoss --restart=${JCHRNS_BACKUP_FILE} || exit 1
+}
+
+###################### RUN TEST SUITE GEN COMMANDS ##############################
+#  Generate list of tests to execute for this validation
+#	- MPC_TEST_SOURCE_DIR : Root directory of MPC_TestSuite
+#	- MPC_TEST_LIST	: list of subdirectory where tests will be found
+run_test_suite_gen_commands()
+{
+	#avoid regeneration of jobs list if required
+	if [ "${SKIP_GEN}" = "yes" ] ; then
+		return
+	fi
+
+	if [ -z "${GEN_SEQ}" ]; then
+		for one_mode in ${MPC_TEST_LIST}; do
+			(${MPC_TEST_SOURCE_DIR}/build_scripts/generation/gen_list_of_tests "${one_mode}" || INTERRUPT=1) &
+		done
+	else
+		for one_mode in ${MPC_TEST_LIST}; do
+			(${MPC_TEST_SOURCE_DIR}/build_scripts/generation/gen_list_of_tests "${one_mode}" || INTERRUPT=1)
+		done
+
+	fi
+	
+	wait
+	if [ "$INTERRUPT" = "1" ] ; then
+		exit 1
+	fi
+}
+
+####################### RUN TEST SUITE ####################################
+# Run the test suite into ./build/test_suite
+# Globals:
+#   - MPC_INSTALL_PREFIX : MPC installation to check.
+#   - HAVE_PARALLEL   : Define if we can execute the test suite in parallel
+run_test_suite()
+{
+	#launch in parallel or sequential
+	echo ""
+	echo "${WARNING_COLOR}>>> START EXECUTION OF THE TEST-SUITE [TESTS] <<<${DEFAULT_COLOR}"
+
+    # some pre actions
+	if [ "${SKIP_GEN}" = "no" ] ; then
+		take_pause "Previous generations cleaned" 3
+		setup_clean_subdir test_suite
+	fi
+
+	setup_clean_subdir traces
+
+
+	#update current workdir
+	export MPC_TEST_CURRENT_WORK_DIR="${MPC_TEST_WORK_DIR}/test_suite"
+	cd "${MPC_TEST_CURRENT_WORK_DIR}"
+
+	#obtain list of tests if --select option is specified
+	MPC_TEST_LIST="$(get_subtest_list)"
+
+	check_mpc_dir
+
+	#sequentialy generate the commands
+	common_safe_exec "List of tests generation" run_test_suite_gen_commands
+	common_safe_exec "Check libxml" export PATH="${MPC_INSTALL_PREFIX}/libxml2/bin:$PATH"
+	common_safe_exec "Scheduler Tests Running" test_simple_scheduler
+}
+
+################# CHECK BUILKD MODE ######################
+#Choose specific options to each configuration
+#Globals:
+#  - CONFIGURE_ARGS : list of arguments to ./configure
+#  - MAKE_TARGET    : Specific options to make
+check_build_mode(){
+
+	case "$1" in
+		mpc_complete   ) COMPLETE_CONFIGURE_ARGS="${CONFIGURE_ARGS}";;
+		mpc_default    ) COMPLETE_CONFIGURE_ARGS="${CONFIGURE_ARGS} --disable-mpc-gcc --disable-mpc-gdb";;
+		mpc_gcc        ) COMPLETE_CONFIGURE_ARGS="${CONFIGURE_ARGS} --disable-mpc-gdb"; MAKE_TARGET="mpc-gcc_make";;
+		mpc_gdb        ) COMPLETE_CONFIGURE_ARGS="${CONFIGURE_ARGS} --disable-mpc-gcc"; MAKE_TARGET="mpc-gdb_make";;
+		mpc_noopenmp   ) COMPLETE_CONFIGURE_ARGS="${CONFIGURE_ARGS} --disable-mpc-gcc --disable-mpc-gdb --mpc-option=\"--disable-MPC_OpenMP\"";;
+		mpc_noAllocator) COMPLETE_CONFIGURE_ARGS="${CONFIGURE_ARGS} --disable-mpc-gcc --disable-mpc-gdb --mpc-option=\"--disable-MPC_Allocator\"";;
+		mpc_debug      ) COMPLETE_CONFIGURE_ARGS="${CONFIGURE_ARGS} --disable-mpc-gcc --disable-mpc-gdb --mpc-option=\"--enable-debug-strict\"";;
+		mpc_noshm      ) COMPLETE_CONFIGURE_ARGS="${CONFIGURE_ARGS} --disable-mpc-gcc --disable-mpc-gdb --mpc-option=\"--disable-shm\"";;
+		mpc_debugger   ) COMPLETE_CONFIGURE_ARGS="${CONFIGURE_ARGS} --disable-mpc-gcc --disable-mpc-gdb --mpc-option=\"--enable-MPC_Debugger\"";;
+		mpc_nompi      ) COMPLETE_CONFIGURE_ARGS="${CONFIGURE_ARGS} --disable-mpc-gcc --disable-mpc-gdb --disable-MPC_MPI --mpc-option=\"--disable-MPC_MPI\"";;
+		mpc_profiler   ) COMPLETE_CONFIGURE_ARGS="${CONFIGURE_ARGS} --disable-mpc-gcc --disable-mpc-gdb --mpc-option=\"--enable-MPC_Profiler\"";;
+		mpc_nothreads  ) COMPLETE_CONFIGURE_ARGS="${CONFIGURE_ARGS} --disable-mpc-gcc --disable-mpc-gdb --disable-MPC_MPI --mpc-option=\"--disable-MPC_Threads --disable-MPC_Message_Passing --disable-MPC_Microthreads --disable-MPC_MPI --disable-MPC_OpenMP\"";;
+		mpc_threadonly ) COMPLETE_CONFIGURE_ARGS="${CONFIGURE_ARGS} --disable-mpc-gcc --disable-mpc-gdb --disable-MPC_MPI --mpc-option=\"--disable-MPC_Allocator --disable-MPC_Message_Passing --disable-MPC_Microthreads --disable-MPC_MPI --disable-MPC_OpenMP\"";;
+		*              )   common_print_error "Error in build mode \"$1\" ";  exit 1;;
+	esac
+}
+
+###################### RUN BUILD CHECK - ONE BUILD ########################
+# Generate a build report from one configuration
+#Params:
+#   - $1              : name of configuration to build
+# Globals:
+#   - MPC_INSTALL_PREFIX : MPC installation to check.
+#   - MPC_TEST_SOURCE_DIR        : Path to MPC_Test_Suite directory.
+#   - MAKE_J          : -jX option to pass to make command.
+#   - MAKE_TARGET     : specific options to make
+run_one_build(){
+	echo ""
+	echo "${WARNING_COLOR}>>> START EXECUTION OF THE TEST-SUITE [$1] <<<${DEFAULT_COLOR}"
+	#some pre actions
+	mkdir $1
+	cd $1
+	ret_status=0
+
+	#check mode and get configure params
+	check_build_mode $1
+
+	if [ "$MPC_INSTALL_DEFINED" = "yes" ] ; then
+		install_dir="${MPC_INSTALL_PREFIX}"
+	else
+		install_dir="${MPC_TEST_WORK_DIR}/mpc_prefix/$1"
+	fi
+	MPC_INSTALL_PREFIX=$install_dir
+	#display configure line and call
+	common_safe_exec "Setting up MPC " ${MPC_TEST_SOURCE_DIR}/../installmpc ${COMPLETE_CONFIGURE_ARGS} --prefix="${install_dir}" -j${MAKE_J} ${INSTALLMPC_COLOR}|| exit 1
+
+	#compile
+	#common_safe_exec "MPC Compiling" make ${MAKE_TARGET} -j ${MAKE_J} || exit 1
+	#common_safe_exec "MPC Installing" make install || exit 1
+
+	check_mpc_dir
+
+	mkdir -p $MPC_TEST_WORK_DIR/build_check/$1/tmp
+	echo "<jobSuite package=\"$1\">" > list_of_tests.xml
+	#generate test list
+	. ${MPC_TEST_SOURCE_DIR}/build_scripts/configuration/compilers/${TEST_SUITE_COMPILER}.conf
+	common_insert_test "compile_HelloWorld" '0' "${TS_CC} -o hello_world ${MPC_TEST_SOURCE_DIR}/UnitTests/installTest/hello_world.c"  >> list_of_tests.xml
+	common_insert_test "test_HelloWorld" '0' "./hello_world" "compile_HelloWorld" >> list_of_tests.xml
+	echo "</jobSuite>" >> list_of_tests.xml
+	#execute some tests
+	common_safe_exec "MPC build tests Running" $MPC_TEST_WORK_DIR/tmp/bin/jchronoss $PWD/list_of_tests.xml --build="$MPC_TEST_WORK_DIR/build_check/$1/tmp" --nb-resources=$CLUSTER_MAX_NODES  --nb-slaves=1 --verbosity=$JCHRNS_VERBOSITY || ret_status=1
+	cd ..
+	return $ret_status
+}
+
+##################### RUN BUILD CHECK ###########################
+#Build all configuration specified (--fast | --full | --default | one of the list from check_build_mode())
+#Globals:
+#  - BUILDTYPE        : Type of build specified (fast | full | default)
+#  - BUILD_MODE       : Type of configuration specified
+#   - MPC_INSTALL_PREFIX : MPC installation to check.
+#   - MPC_TEST_SOURCE_DIR        : Path to MPC_Test_Suite directory.
+run_build_check(){
+	#some pre actions
+	cd ${MPC_TEST_SOURCE_DIR}
+	clean_files mpc_prefix
+	setup_clean_subdir build_check
+
+	case ${BUILDTYPE} in
+		"full"    ) BUILD_MODE="mpc_complete mpc_gcc mpc_gdb mpc_noopenmp mpc_nothreads mpc_noAllocator mpc_debug mpc_noshm mpc_debugger mpc_nompi mpc_profiler mpc_threadonly" ;;
+		"fast"    ) BUILD_MODE="mpc_complete"; CONFIGURE_ARGS="${CONFIGURE_ARGS} --disable-mpc-gcc --disable-mpc-gdb";;
+		"default" ) BUILD_MODE="mpc_complete";;
+		*         ) BUILD_MODE=${BUILDTYPE};;
+	esac
+
+	#loop on all build modes
+	for mode in ${BUILD_MODE}
+	do
+		
+		run_one_build "$mode" || EXIT_STATUS="1"
+	done
+
+	return ${EXIT_STATUS}
+}
+
+###################### SUBMIT LAST RESULTS ####################
+# Simply extract the archive build/last_results.tar.gz
+# and submit the content with the internal script submit.sh
+run_gen_last_results()
+{
+	build_files=""
+	test_files=""
+	traces_files=""
+
+	echo ""
+	echo "${WARNING_COLOR}>>> RESULTS TARBALL GENERATION <<<${DEFAULT_COLOR}"
+	cd ${MPC_TEST_SOURCE_DIR}
+
+	DEFAULT_COLOR="" INFORMATION_COLOR="" display_informations "#" >> $MPC_TEST_WORK_DIR/config.cfg
+
+	rm -rf ${MPC_TEST_WORK_DIR}/last_results.tar.gz
+	setup_clean_subdir last_results
+	
+	cp -r $MPC_TEST_WORK_DIR/jsLoc* $MPC_TEST_WORK_DIR/webview* .
+	cp $MPC_TEST_WORK_DIR/config.cfg .
+
+	if [ -d ../build_check ] ; then
+		build_files="`find ../build_check/* -iname 'output*.xml' `"
+	fi
+
+	if [ -d ../test_suite ] ; then
+		test_files="`find ../test_suite/* -iname 'output*.xml' `"
+	fi
+
+	if [ -d ../traces ] ; then
+	    common_safe_exec "Copying TRACE Files" cp -r ../traces .
+    	fi
+	copy_output_files ${build_files} ${test_files}
+
+	if [ -f $MPC_TEST_SOURCE_DIR/output.log ] ; then
+		echo "Ending date : `date +"%d %h %Y At %H:%M"`" >> $MPC_TEST_SOURCE_DIR/output.log
+		common_safe_exec "Copying validation log in tarball" cp $MPC_TEST_SOURCE_DIR/output.log .
+ 	fi
+
+	#clean_path
+	common_safe_exec "Cleaning paths" common_clean_path
+	cd ..
+
+	#generate final archive
+	common_safe_exec "last_results tarball generation" tar -czf last_results.tar.gz last_results
+	rm -rf last_results
+}
+
+###################### gen_blacklist_whitelist_files #############
+#Fill BLACKLIST_FILES and WHITELIST_FILES with file name representing tests to filter
+gen_blacklist_whitelist_files(){
+
+	#Filters about unsupported tests file
+	common_check_existing_files "$UNSUPPORTED_FILE"
+	case "$TEST_SUPPORT" in
+       	    supported)
+		BLACKLIST_FILES="$UNSUPPORTED_FILE"
+		;;
+       	    unsupported)
+	    	WHITELIST_FILES="$UNSUPPORTED_FILE"
+		;;
+       	esac
+
+	#Filters about fasts tests file
+	if [ "$TESTTYPE" = "fast" ] ; then
+		common_check_existing_files "$FAST_FILE"
+		WHITELIST_FILES="$WHITELIST_FILES,$FAST_FILE"
+	fi
+
+	#others WHITELIST filters
+	for file in `echo $INPUT_WHITELIST_FILES | sed "s@[,;]@ @g"`
+	do
+		common_check_existing_files "$file"
+		WHITELIST_FILES=$WHITELIST_FILES,$file
+	done
+
+	#others WHITELIST filters
+	for file in `echo $INPUT_BLACKLIST_FILES | sed "s@[,;]@ @g"`
+	do
+		common_check_existing_files "$file"
+		BLACKLIST_FILES=$BLACKLIST_FILES,$file
+	done
+
+}
+##################### FAST TEST FILE GENERATION #################
+# From previous build, extract tests whose execution time is less than a given time in gen_fasts_tests.xsl
+generate_fasts_tests_file(){
+	echo " * Fast tests file generation"
+	LIST_XML=`find ${MPC_TEST_WORK_DIR}/test_suite -iname 'output.xml' 2> /dev/null`
+
+	if [ -z "$LIST_XML" ] ; then
+		common_print_error "There are no data to analyze in order to extract fast tests."
+		exit 1
+	fi
+
+	common_safe_exec "Cleaning old fast tests file" rm ${MPC_TEST_WORK_DIR}/test_suite/fast_tests 2> /dev/null
+
+
+	for fic in ${LIST_XML}
+	do
+		xsltproc ${MPC_TEST_SOURCE_DIR}/build_scripts/generation/gen_fasts_tests.xsl $fic >> ${MPC_TEST_WORK_DIR}/test_suite/fast_tests
+	done
+	echo "File generated in ${MPC_TEST_WORK_DIR}/test_suite/fast_tests"
+}
+
+
+###################### COPY OUTPUT FILES ####################
+# Copy all 'output.xml' files in archive
+# $* : files to copy
+copy_output_files(){
+    	echo " * Copying output files"
+	for file in $*
+	do
+	 	sed -r -i "s/\x1[b|B]\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g" $file
+		path_file="`echo "${file}" | sed -e "s@^../@@g"`"
+		path_folder="$(echo "${path_file}" | sed "s@/output-.*\.xml@@g")"
+		mkdir -p ${MPC_TEST_WORK_DIR}/last_results/${path_folder}
+		cp $file ${MPC_TEST_WORK_DIR}/last_results/${path_folder}/
+	done
+
+}
+
+######################### LIST COMPILERS ################
+# List available compiler to construct the test-suite
+# - No arguments
+list_compilers()
+{
+	list="`ls ${MPC_TEST_SOURCE_DIR}/build_scripts/configuration/compilers/ | xargs echo | sed -e "s@\.conf@ -@g"`"
+	echo "Available compilers: ${list}"
+	echo "Consider using one of them with --compiler= option"
+}
+
+###################### ABOUT INFORMATIONS ###############
+# display some informations about the run
+#	-$1: character to insert before each line (comment insertion)
+display_informations()
+{
+	. ${MPC_TEST_SOURCE_DIR}/../mpcframework/.MPC_version
+	MPC_VERSION="${MAJOR}.${MINOR}.${REVISION}"
+	echo ""
+	echo "$1${INFORMATION_COLOR}=====================> ABOUT THE RUN <=====================${DEFAULT_COLOR}"
+	echo "$1Date of execution: `date`"
+	echo "$1Launched on ${HOSTNAME}"
+	echo "$1Starting date : `date +"%d %h %Y At %H:%M"`"
+	echo "$1MPC Version: ${MPC_VERSION}"
+	echo "$1Git Revision: `git log | head -n 1 | cut -f2 -d\" \"`"
+	echo ""
+}
+
+#################### SOME PRE ACTIONS #########################
+pre_actions(){
+	define_color
+	display_informations
+	mkdir -p $MPC_TEST_WORK_DIR/tmp && cd $MPC_TEST_WORK_DIR/tmp
+	echo " * JChronoss compiling (-j${MAKE_J})" 
+	common_safe_exec "" cmake $MPC_TEST_SOURCE_DIR/build_scripts/generation/jchronoss/ -DENABLE_TRACE=yes ${SCHEDULER_CFLAGS} > /dev/null && make --quiet -j${MAKE_J} > /dev/null || exit 1
+}
+
+#################### POST ACTIONS ############################
+post_actions(){
+	# Remove AINSI color escape sequences which would break the
+	# XML with the webview.
+	remove_ainsi_color_escape_sequence	
+	
+	cp -r $MPC_TEST_SOURCE_DIR/build_scripts/ressources/banners $MPC_TEST_WORK_DIR/
+
+
+	run_gen_jsloc "$MPC_TEST_WORK_DIR/test_suite/tmp"
+	if [ "$MPC_TEST_MODE" = "TEST_MODE" ] || [ "$MPC_TEST_MODE" = "ALL_MODE" ] ; then
+		#actions about jsloc
+		if [ "$JCHRNS_JSLOC_TRACE" = "yes" ] ; then
+			cd $MPC_TEST_WORK_DIR
+			common_safe_warn "JsLoc image generation" ./jsLoc_gen_all.sh --res=${CLUSTER_MAX_NODES} --in=$MPC_TEST_WORK_DIR/traces --out=$MPC_TEST_WORK_DIR/traces
+		fi
+	fi
+
+	#actions about webview
+	setup_clean_subdir webview
+	run_gen_webview
+	if [ "$UPDATE_WEBVIEW" = "true" ] ; then
+		cd $MPC_TEST_WORK_DIR
+		common_safe_warn "WebView pages generation" ./webview_gen_all.sh --new=.
+	fi
+
+	run_gen_last_results
+}
+
+take_pause()
+{
+	BF_START=$2
+	for i in `seq 1 $BF_START`
+	do
+		printf "\r * $1 in $(( $BF_START - $i + 1 )) second(s)"
+		sleep 1
+	done
+	printf "\n\n"
+}
+
+preprocessing_compatibility(){	
+	# bash interpretation
+	if [ "`echo -e "OK"`" = "OK" ] ; then
+		ECHO_OPTIONS="-e"
+	fi
+
+	if [ ! -z "`which lsof`" ] ; then
+		if [ "`lsof -p $$ | awk '(NR==2) {print $1}'`" = "bash" ] ; then
+			TYPE_SHELL="bash"
+		fi
+	fi
+}
+
+################## GENERATE TRACES OUTPUT #####################
+# Trace the tests scheduling of the current run
+# Globals:
+# MPC_TEST_WORK_DIR: the build path
+# Parameters:
+# $1: 	the path where .TRACE files are stored
+run_gen_jsloc(){
+    cd $MPC_TEST_WORK_DIR
+    common_safe_exec "Copying JsLoc ressources into last_results" cp -r $MPC_TEST_SOURCE_DIR/build_scripts/generation/jchronoss/tools/jsLoc/* .
+    if [ ! -z "`find $1/ -iname "*.trace"`" ] ; then
+    	setup_clean_subdir traces
+	common_safe_exec "Copying *.trace file from current build generation (if needed)" cp $1/*.trace .
+	cd ..
+    fi
+}
+
+remove_ainsi_color_escape_sequence(){
+	cd $MPC_TEST_WORK_DIR
+	find . -iname "output*.xml" | xargs sed -i "s/\x1B\[[0-9;]*[JKmsu]//g"
+}
+
+
+run_gen_webview(){
+	cd $MPC_TEST_WORK_DIR
+    	common_safe_exec "Copying WebView ressources into last_results" cp -r $MPC_TEST_SOURCE_DIR/build_scripts/generation/jchronoss/tools/webview/* .
+}
+
+################### MAIN FUNCTION #######################
+#main function in a function in order to wrap whith a log command if needed
+mpc_testSuite_main(){
+
+	###################### EXPORT SOME GLOBAL VARS ################
+	export LANG
+	export TYPE_SHELL
+	export MPC_INSTALL_PREFIX
+	export MPC_TARGET_INSTALL_PREFIX
+	export MPC_TEST_SOURCE_DIR
+	export MPC_TEST_WORK_DIR
+	export MPC_TEST_CURRENT_SOURCE_DIR
+	export MPC_TEST_CURRENT_WORK_DIR
+	export LAUNCHER_COMMAND
+	export LAUNCHER_EXTRA_ARGS
+    export PRIVATIZATION
+	########################### MAIN ACTIONS ######################
+	case "${MPC_TEST_MODE}" in
+		TEST_MODE)
+			pre_actions 
+			run_test_suite
+			post_actions
+			;;
+		BUILD_MODE)
+			pre_actions
+			run_build_check
+			post_actions 
+			;;
+		ALL_MODE)
+			pre_actions 
+			run_build_check
+			run_test_suite
+			post_actions
+			;;
+		FAST_GENERATION_MODE)
+			display_informations
+			generate_fasts_tests_file
+			;;
+		RESTART_MODE)
+			pre_actions
+			test_restart_scheduler
+			post_actions
+			;;
+		*)
+			common_print_error "ERROR : Unknown mode $MPC_TEST_MODE"
+			exit 1
+			;;
+	esac
+
+	#return final status
+	exit "${EXIT_STATUS}"
+}
+
+############################# BANNER ##########################
+cat $MPC_TEST_SOURCE_DIR/build_scripts/ressources/banners/test_suite_banner
+
+################# CHECK EXECUTION FROM GOOD PLACE #############
+if [ ! -f "${PWD}/mpc_validation" ]; then
+	echo "######################################### ERROR #########################################"
+	echo "# You must execute this script from MPC_Test_Suite directory by using ./mpc_validation. #"
+	echo "#########################################################################################"
+	exit 1
+fi
+
+######################## SOURCE DEPS ###########################
+. build_scripts/common_functions.sh
+
+preprocessing_compatibility
+######################### PARSE ARGS ##########################
+for arg in $*
+do
+	case "$arg" in
+		--help|-h)
+			help
+			exit 0
+			;;
+		--hwloc-xmlfile=*)
+			config_override 'MPC_SET_XML_TOPOLOGY_FILE' "$arg" '--hwloc-xmlfile'
+			echo "xmlfile = '$MPC_SET_XML_TOPOLOGY_FILE'"
+			if test -e "${MPC_SET_XML_TOPOLOGY_FILE}";
+			then
+				export MPC_SET_XML_TOPOLOGY_FILE
+				HWLOC_XMLFILE=1
+				export HWLOC_XMLFILE
+			else
+				echo "Wronf xml file"
+				exit
+			fi
+			;;
+		--test)
+			config_override 'MPC_TEST_MODE' "TEST_MODE" '--test'
+			;;
+		 --build)
+			config_override 'MPC_TEST_MODE' "BUILD_MODE" '--build'
+			;;
+		--all)
+			config_override 'MPC_TEST_MODE' "ALL_MODE" '--all'
+			;;
+		--generate-fast-file)
+			config_override 'MPC_TEST_MODE' "FAST_GENERATION_MODE" '--generate-fast-file'
+			;;
+		--prefix=*)
+			config_override 'MPC_INSTALL_PREFIX' "$arg" '--prefix'
+			MPC_INSTALL_DEFINED="yes"
+			;;
+		--select=*)
+			MPC_TEST_LIST="$(common_read_param_value $arg --select | sed -e 's/,/ /g')"
+			config_override 'MPC_TEST_LIST' "$MPC_TEST_LIST" '--select'
+			;;
+		#--filter=*)
+		#	TESTS_NAME_SPECIFIED="$(common_read_param_value $arg --filter | sed -e 's/,/ /g')"
+		#	;;
+        --no-privatize)
+            PRIVATIZATION="-fnompc-privatize"
+            export PRIVATIZATION
+            ;;
+		--net=*)
+			arg="$(echo "$arg" | sed -e 's/,/ /g')"
+			config_override 'MPC_NET_LIST' "$arg" '--net'
+			;;
+		--launcher=*)
+			config_override 'JCHRNS_WRAPPER' "$arg" '--launcher'
+			;;
+		--clauncher=*)
+			config_override 'JCHRNS_COMPIL_WRAPPER' "$arg" '--clauncher'
+			;;
+		--support=*)
+			tmp_support="$(common_read_param_value $arg '--support')"
+			case $tmp_support in
+				unsupported | supported | all)
+					config_override 'TEST_SUPPORT' "$arg" '--support'
+					;;
+				*)
+					common_print_error "Un-available option to support !"
+					exit 1
+					;;
+
+			esac
+			;;
+		--slurm)
+			config_override 'JCHRNS_WRAPPER' "slurm" '--launcher'
+			;;
+		--verbosity=*)
+			config_override 'JCHRNS_VERBOSITY' "$arg" '--verbosity'
+			;;
+		-v)
+			config_override 'JCHRNS_VERBOSITY' "1" '-v'
+			;;
+		-s)
+			config_override 'JCHRNS_VERBOSITY' "0" '-s'
+			;;
+		-vv)
+			config_override 'JCHRNS_VERBOSITY' "2" '-vv'
+			;;
+		--color)
+			config_override 'MPC_ENABLE_COLOR' 'true' '--color';
+			;;
+		-j=*)
+			config_override 'MAKE_J' $(common_read_param_value $arg -j) '-j'
+			;;
+		-j*)
+			config_override 'MAKE_J' $(echo $arg | sed -e 's/-j//g') '-j'
+			;;
+		--configure=*)
+			arg="$(common_read_param_value $arg --configure | sed -e 's/\"//g' -e "s/,/ /g")"
+			config_override 'CONFIGURE_ARGS' "$arg" '--configure'
+			;;
+		--clean)
+			clean_files
+			exit 0
+			;;
+		--test-dir=*)
+			arg="$(common_read_param_value $arg '--test-dir')"
+			if [ -z "`echo $arg | grep "^/"`" ] ; then
+				arg="$PWD/$arg"
+			fi
+			config_override 'MPC_TEST_WORK_DIR' "$arg" '--test-dir'
+			MPC_TEST_WORK_DIR="$arg"
+			;;
+		--fast)
+			config_override 'TESTTYPE' 'fast' '--fast'
+			config_override 'BUILDTYPE' 'fast' '--fast'
+			if [ -z "$FAST_FILE" ] ; then
+				config_override 'FAST_FILE' "$DEFAULT_FAST_FILE" '--fast'
+			fi
+			;;
+		--full)
+			config_override 'BUILDTYPE' 'full' '--full'
+			;;
+		--default)
+			config_override 'BUILDTYPE' 'default' '--default'
+			;;
+		--build-mode=*)
+			config_override 'BUILDTYPE' "$(common_read_param_value "$arg" --build-mode)" '--build-mode'
+			;;
+		--webview)
+			config_override 'UPDATE_WEBVIEW' "true" '--webview'
+			;;
+		--input-fast=*)
+			config_override 'FAST_FILE' "$(common_read_param_value $arg --input-fast)" '--input-fast'
+			;;
+        	--input-support=*)
+                	config_override 'UNSUPPORTED_FILE' "$(common_read_param_value $arg --input-support)" '--input-unsupport'
+            		;;
+		--input-whitelist=*)
+			config_override 'INPUT_WHITELIST_FILES' "$(common_read_param_value $arg --input-whitelist)" '--input-whitelist'
+			;;
+		--input-blacklist=*)
+			config_override 'INPUT_BLACKLIST_FILES' "$(common_read_param_value $arg --input-blacklist)" '--input-blacklist'
+			;;
+		--parallel=*)
+          		config_override 'JCHRNS_SLAVES' "$arg" '--parallel'
+		    	;;
+		--debug-silent)
+			config_override 'SCHEDULER_CFLAGS' "${SCHEDULER_CFLAGS}-DSILENT_SCHEDULER_DEBUG_MODE " '--debug-silent'
+            		;;
+		--debug)
+            		config_override 'SCHEDULER_CFLAGS' "${SCHEDULER_CFLAGS}-DSCHEDULER_DEBUG_MODE " '--debug'
+            		;;
+        	--sched-surface)
+            		config_override 'JCHRNS_POLICY' "2" '--sched-surface'
+            		;;
+		--list-compilers)
+				list_compilers
+				exit 0;
+			;;
+		--compiler=*)
+			config_override 'TEST_SUITE_COMPILER' "$(common_read_param_value $arg --compiler)" '--compiler'
+			;;
+		--fake)
+			config_override 'JCHRNS_FAKE_EXEC' "true" ''
+			;;
+		--jsloc)
+			config_override 'JCHRNS_JSLOC_TRACE' "yes" '--jsloc'
+			;;
+		-X)
+			config_override 'JCHRNS_EXPECT_SUCCESS' "yes" '-X'
+			;;
+		--config=*)
+			config_override 'CONFIG_NAME' "$arg" '--config'
+			;;
+		--nodes=*)
+			config_override 'CLUSTER_MAX_NODES' "$arg" "--nodes"
+			;;
+		--diff=*)
+			tmp="`common_read_param_value "$arg" "--diff"`"
+			if [ -z "$(echo "${tmp}" | grep '^/')" ]; then
+				tmp="${PWD}/$tmp"
+			fi
+			config_override 'DIFF_TARBALL' "$tmp" "--diff" 
+			config_override 'UPDATE_WEBVIEW' "true" '--webview'
+			;;
+		--no-log)
+			CAPTURE_LOGFILE="no"
+			;;
+		--log)
+			CAPTURE_LOGFILE="yes"
+			;;
+		--keep-all)
+			KEEP_ALL_LOG="--keep-all"
+			;;
+		--seq)
+			GEN_SEQ="OK"
+			;;
+		--policy=*)
+			config_override 'JCHRNS_POLICY' "$arg" "--policy"
+			;;
+		--restart=*)
+			config_override 'JCHRNS_BACKUP_FILE' "$arg" "--restart"
+			config_override 'MPC_TEST_MODE' "RESTART_MODE" "--all"
+			;;
+		--restart)
+			config_override 'MPC_TEST_MODE' "RESTART_MODE" "--all"
+			;;
+		--skip-gen|--sg)
+			SKIP_GEN="yes"
+			;;
+		*)
+			common_print_error "    ERROR : Unknown argument --> \"$arg\"."
+			exit 1
+			;;
+	esac
+done
+
+####################### SETUP SOME FINAL VARS #################
+#if MPC_TEST_WORK_DIR is relative, make it absolute
+if [ -z "$(echo "${MPC_TEST_WORK_DIR}" | grep '^/')" ]; then
+	MPC_TEST_WORK_DIR="${PWD}/${MPC_TEST_WORK_DIR}"
+fi
+MPC_TEST_CURRENT_WORK_DIR=${MPC_TEST_WORK_DIR}
+MPC_TEST_CURRENT_SOURCE_DIR=${MPC_TEST_SOURCE_DIR}
+
+###################### CONFIGURATION FILE SOURCING ##################
+gen_and_load_config_file
+
+#################### MPC INSTALL DIRECTORY ###################
+if [ -z "${MPC_INSTALL_PREFIX}" ] ; then
+	MPC_INSTALL_PREFIX="${MPC_TEST_WORK_DIR}/mpc_prefix/mpc_complete"
+
+elif [ "$BUILDTYPE" != "default" ] ; then
+	if [ "$MPC_TEST_MODE" = "BUILD_MODE" ] || [ "$MPC_TEST_MODE" = "ALL_MODE" ] ; then
+		common_print_error "We can't compile MPC Framework anywhere different that default path if build type is different from default. Try to use --default or not user --prefix options."
+		exit 1
+	fi
+fi
+
+###################### TEE OUTPUT DATA  ######################
+if [ ! -z "`which $LOG_COMMAND`" ] && [ "$CAPTURE_LOGFILE" = "yes" ] ; then
+	echo "" > $MPC_TEST_SOURCE_DIR/output.log
+	LOG_RECORD=" 2>&1 | $LOG_COMMAND -a $MPC_TEST_SOURCE_DIR/output.log"
+
+fi
+trap trap_validation INT
+eval "mpc_testSuite_main $LOG_RECORD"
+
+echo "Ending date : `date +"%d %h %Y At %H:%M"`"
+common_safe_exec "Moving validation log" mv $MPC_TEST_SOURCE_DIR/output.log $MPC_TEST_WORK_DIR/
+exit $EXIT_STATUS

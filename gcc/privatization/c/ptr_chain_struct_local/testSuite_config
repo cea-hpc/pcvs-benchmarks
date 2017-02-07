@@ -1,0 +1,31 @@
+#!/bin/sh
+
+gen_makefile()
+{
+echo "
+
+TARGETS= ptr_chain_struct_local ptr_chain_struct_local_opt
+
+all : \$(TARGETS)
+
+CC=\${TS_CC}
+
+ptr_chain_struct_local : ${MPC_TEST_CURRENT_SOURCE_DIR}/a.c
+	\$(CC) -g -O0 $^ -fdump-tree-gimple -o ./executables/\$@
+
+ptr_chain_struct_local_opt :  ${MPC_TEST_CURRENT_SOURCE_DIR}/a.c 
+	\$(CC) -g -O3 $^ -fdump-tree-gimple -o ./executables/\$@
+"
+}
+
+MPC_AUTO_KILL_TIMEOUT=5
+
+gen_makefile > ${MPC_TEST_CURRENT_WORK_DIR}/Makefile
+makefile_configuration "compile_GCC_ptr_chain_struct_local" "-C ${MPC_TEST_CURRENT_WORK_DIR}/"
+
+LIST_TESTS_NAME="ptr_chain_struct_local ptr_chain_struct_local_opt"
+
+for exe in ${LIST_TESTS_NAME}
+do
+	helper_configuration_loop "test_${exe}" "${MPC_TEST_CURRENT_WORK_DIR}/executables/${exe}" "compile_GCC_ptr_chain_struct_local"
+done

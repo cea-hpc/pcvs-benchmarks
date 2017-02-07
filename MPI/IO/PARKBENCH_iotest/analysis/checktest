@@ -1,0 +1,77 @@
+#!/bin/awk -f
+
+# Print test argument contents of an output file
+
+BEGIN {
+  printOn = 0;
+  testno = 0;
+  sumchecktype = 1;
+  sumcheckprob = 0;
+  print "";
+}
+
+( ($1 == "##")&&($2 == "Test")&&($3 == "input")&&($4 == "arguments")){
+  printOn = 1;
+  testno = testno + 1;
+  print "TEST ",testno;
+}
+
+( ($1 == "##")&&($2 == "Test")&&($3 == "output")&&($4 == "information")){
+  printOn = 0;
+}
+
+( printOn == 1 ){
+  print;
+}
+
+( $1 == "nprocs" ){
+  nprocs = $2;
+}
+
+( $1 == "filesize" ){
+  filesize = $2*0.000001;
+}
+
+( $1 == "blocksize" ){
+  blocksize = $2*0.000001;
+}
+
+( $1 == "error" ){
+  print "ERROR: Error in test",testno;
+  print "filesize",filesize," MB";
+  print "blocksize",blocksize," MB";
+}
+
+( ($1 == "sumcheck") ){
+  sumchecktype = sumchecktype +1;
+  for(i=2;i<=nprocs+1;i++){
+    if($i != 0.0 ){
+      sumcheckprob++;
+    }
+  }
+  if (sumcheckprob > 0){
+    sumcheckprob = 0;
+    print "Checksum error type",sumchecktype%2,"in test",testno;
+    print $0;
+    print "filesize",filesize," MB";
+    print "blocksize",blocksize," MB";
+    print "niter",filesize/blocksize;
+    print "";    
+  }
+  if (sumcheckprob > 11){
+    print "Too many errors -- exiting";
+    exit;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,143 @@
+
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+ <meta name="generator" content="Adobe RoboHelp 10">
+<title>Building Intel® MPI Benchmarks on Linux* OS</title>
+<link rel="StyleSheet" href="styles_w_rh_ict.css" type="text/css">
+<style title="hcp" type="text/css">
+<!--
+ol.hcp1 { list-style:decimal; }
+td.hcp2 { padding-left:5px;
+padding-top:5px;
+padding-right:5px;
+padding-bottom:5px; }
+-->
+</style>
+</head>
+
+<script src="NavScript.js" language="JavaScript1.2" type="text/javascript"></script>
+<script language="JavaScript1.2" type="text/javascript">WriteNavLink(0);</script>
+<body>
+<script type="text/javascript" src="ehlpdhtm.js" language="JavaScript1.2"></script>
+
+<div style="width: 100%; position: relative;" id="header">
+	
+ <p style="font-style: italic;">Intel® 
+	 MPI Benchmarks 4.0</p>
+</div>
+
+
+<h1>Building Intel® MPI Benchmarks on Linux* OS</h1>
+<p>To build the benchmarks for Linux* OS, do the following:</p>
+<ol class="hcp1">
+	<li><p>Set the <samp class="codeph">CC</samp> variable 
+	 to point to the appropriate compiler wrapper, <samp class="codeph">mpiicc</samp> 
+	or <samp class="codeph">mpicc</samp>.</p></li>
+	<li><p>Run one or more makefile commands listed below.</p></li>
+</ol>
+<table frame="border" rules="all" style="table-layout: fixed; border-collapse: separate; 
+		 border-collapse: separate;" cellspacing="0" width="600" border="1">
+	<col style="width: 33.333%;">
+	<col style="width: 33.333%;">
+	<tr>
+		<th class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>Command</p></th>
+		<th class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>Description</p></th>
+	</tr>
+	<tr>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p><samp class="codeph">make 
+		 clean</samp></p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>Remove legacy 
+		 binary object files and executable files</p></td>
+	</tr>
+	<tr>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p><samp class="codeph">make 
+		 MPI1</samp></p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>Build the executable 
+		 file for the IMB-MPI1 component.</p></td>
+	</tr>
+	<tr>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p><samp class="codeph">make 
+		 EXT</samp></p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>Build the executable 
+		 file for one-sided communications benchmarks.</p></td>
+	</tr>
+	<tr>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p><samp class="codeph">make 
+		 IO</samp></p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>Build the executable 
+		 file for I/O benchmarks.</p></td>
+	</tr>
+	<tr>
+		<td class="hcp2"><p><samp class="codeph">make NBC</samp></p></td>
+		<td class="hcp2"><p>Build the executable file for <samp 
+		 class="codeph">IMB-NBC</samp> benchmarks. </p></td>
+	</tr>
+	<tr>
+		<td class="hcp2"><p><samp class="codeph">make RMA</samp></p></td>
+		<td class="hcp2"><p>Build the executable file for <samp 
+		 class="codeph">IMB-RMA</samp> benchmarks. </p></td>
+	</tr>
+	<tr>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p><samp class="codeph">make 
+		 all</samp></p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>Build all executable 
+		 files available.</p></td>
+	</tr>
+</table>
+<p>To build the benchmarks for Intel® Many Integrated Core Architecture 
+ (Intel® MIC Architecture), follow these steps:</p>
+<ol class="hcp1">
+	<li><p>Build the Intel MPI Benchmarks for the host system:</p></li>
+	<p><samp class="codeph">host$&#160;source&#160;<i>&lt;install-dir&gt;</i>/composer_xe/bin/compilervars.sh&#160;intel64</samp></p>
+	<p><samp class="codeph">host$&#160;source&#160;<i>&lt;install-dir&gt;</i>/intel64/bin/mpivars.sh</samp></p>
+	<p><samp class="codeph">host$ cd <i>&lt;path to IMB directory&gt;</i>/src</samp></p>
+	<p><samp class="codeph">host$ make -f make_ict</samp></p>
+	<p>where</p>
+	<p><samp class="codeph"><i>&lt;install-dir&gt;</i>/composer_xe</samp> 
+	 refers to the Intel® Composer XE installation directory</p>
+	<p>and</p>
+	<p><i><samp class="codeph">&lt;install-dir&gt;</samp></i> refers to 
+	 the Intel® MPI Library installation directory</p>
+	<div class="NoteCont">
+		<p class="NoteTipHead">NOTE:</p>
+		<p>If you have already sourced <samp class="codeph">ictvars.sh</samp> 
+		 for the Bourne command-line shell, you can skip the sourcing of 
+		 the environment variables controlled by <samp class="codeph">compilervars.sh</samp> 
+		 and <samp class="codeph">mpivars.sh</samp>.</p>
+	</div>
+	<li><p>Build the Intel MPI Benchmarks for the target system based on 
+	 the Intel® MIC Architecture.</p></li>
+	<p><samp class="codeph">host$ cd <i>&lt;path to IMB directory&gt;</i>/src</samp></p>
+	<p><samp class="codeph">host$ make -f make_ict_mic</samp></p>
+</ol>
+<p>For details on running the resulting executable files on the Intel® 
+ MIC Architecture, see the <i>Intel® MPI Library</i> documentation.</p>
+<p class="seealso">See Also</p>
+<p class="seealsoitem"><a href="Running.htm">Running Intel® MPI Benchmarks</a></p>
+<div>
+<div class="docfeedback">
+	<p style="font-family: Verdana, sans-serif; font-size: 10pt; font-weight: bold; 
+		 color: #0860A8;"><span 
+	 style="font-weight: bold; color: #0860A8;"><a href="http://www.intel.com/software/products/softwaredocs_feedback" 
+													 target="_blank" style="text-decoration: none; "><b>Submit 
+	 feedback on this help topic</b></a></span></p>
+</div>
+</div>
+</body>
+</html>

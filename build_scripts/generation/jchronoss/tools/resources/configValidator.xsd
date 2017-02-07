@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!-- ############################################################################# -->
+<!-- ############################ MINIMAL CONFIG ENTITIES ######################## -->
+<!-- ############################################################################# -->
+
+	<xsd:element name="item" type="xsd:string" nillable="true"/>
+	<xsd:element name="verbosity" type="xsd:nonNegativeInteger" nillable="true"/>
+	<xsd:element name="logging" type="xsd:nonNegativeInteger" nillable="true"/>
+	<xsd:element name="fakeExecution" type="xsd:string" nillable="true"/>
+	<xsd:element name="maxJobTime" type="xsd:nonNegativeInteger" nillable="true"/>
+	<xsd:element name="maxNbJobs" type="xsd:nonNegativeInteger" nillable="true"/>
+	
+	<xsd:element name="jobsCommand" type="xsd:string" nillable="true"/>
+	<xsd:element name="compilationCommand" type="xsd:string" nillable="true"/>
+	<xsd:element name="output" type="xsd:string" nillable="true"/>
+	<xsd:element name="build" type="xsd:string" nillable="true"/>
+	<xsd:element name="maxResources" type="xsd:nonNegativeInteger" nillable="true"/>
+	<xsd:element name="maxSlaves" type="xsd:nonNegativeInteger" nillable="true"/>
+	<xsd:element name="autokill" type="xsd:nonNegativeInteger" nillable="true"/>
+	<xsd:element name="maxSlaveTime" type="xsd:nonNegativeInteger" nillable="true"/>
+	<xsd:element name="minSlaveTime" type="xsd:nonNegativeInteger" nillable="true"/>
+	<xsd:element name="policy" type="xsd:nonNegativeInteger" nillable="true"/>
+	<xsd:element name="flowsize" type="xsd:nonNegativeInteger" nillable="true"/>
+	
+<!-- ############################################################################# -->
+<!-- ######################### JOB CONFIGURATION DESCRIPTION ##################### -->
+<!-- ############################################################################# -->
+
+	<xsd:element name="jobslist">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="item" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="whitelist">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="item" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="blacklist">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="item" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="job">
+		<xsd:complexType>
+			<xsd:all>
+				<xsd:element ref="jobslist" minOccurs="0" maxOccurs="1"/>
+				<xsd:element ref="whitelist" minOccurs="0" maxOccurs="1"/>
+				<xsd:element ref="blacklist" minOccurs="0" maxOccurs="1"/>
+				<xsd:element ref="verbosity" minOccurs="0" maxOccurs="1"/>
+				<xsd:element ref="logging" minOccurs="0" maxOccurs="1"/>
+				<xsd:element ref="fakeExecution" minOccurs="0" maxOccurs="1"/>
+				<xsd:element ref="maxJobTime" minOccurs="0" maxOccurs="1"/>
+				<xsd:element ref="maxNbJobs" minOccurs="0" maxOccurs="1"/>
+			</xsd:all>
+		</xsd:complexType>
+	</xsd:element>
+
+<!-- ############################################################################# -->
+<!-- ###################### SYSTEM CONFIGURATION DESCRIPTION ##################### -->
+<!-- ############################################################################# -->
+
+	<xsd:element name="system">
+		<xsd:complexType>
+			<xsd:all>
+				<xsd:element ref="jobsCommand" minOccurs="0" maxOccurs="1"/>
+				<xsd:element ref="compilationCommand" minOccurs="0" maxOccurs="1"/>
+				<xsd:element ref="output" minOccurs="0" maxOccurs="1"/>
+				<xsd:element ref="build" minOccurs="0" maxOccurs="1"/>
+				<xsd:element ref="maxResources" minOccurs="0" maxOccurs="1"/>
+				<xsd:element ref="maxSlaves" minOccurs="0" maxOccurs="1"/>
+				<xsd:element ref="maxSlaveTime" minOccurs="0" maxOccurs="1"/>
+				<xsd:element ref="minSlaveTime" minOccurs="0" maxOccurs="1"/>
+				<xsd:element ref="policy" minOccurs="0" maxOccurs="1"/>
+				<xsd:element ref="flowsize" minOccurs="0" maxOccurs="1"/>
+				<xsd:element ref="autokill" minOccurs="0" maxOccurs="1"/>
+			</xsd:all>
+		</xsd:complexType>
+	</xsd:element>
+	
+<!-- ############################################################################# -->
+<!-- ################################# MAIN MARKUP ############################### -->
+<!-- ############################################################################# -->
+
+	<xsd:element name="configuration">
+		<xsd:complexType>
+			<xsd:all>
+				<xsd:element ref="job" minOccurs="0" maxOccurs="1"/>
+				<xsd:element ref="system" minOccurs="0" maxOccurs="1"/>
+			</xsd:all>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

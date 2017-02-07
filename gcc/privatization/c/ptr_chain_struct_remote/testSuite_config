@@ -1,0 +1,40 @@
+#!/bin/sh
+
+gen_makefile()
+{
+echo "
+
+TARGETS= ptr_chain_struct_remote ptr_chain_struct_remote_opt ptr_chain_struct_remote_tu ptr_chain_struct_remote_tu_opt
+
+all : \$(TARGETS)
+
+CC=\${TS_CC}
+
+libp.so : ${MPC_TEST_CURRENT_SOURCE_DIR}/b.c
+	\$(CC) -g  $^ -fpic -shared -o ./executables/\$@
+
+ptr_chain_struct_remote : ${MPC_TEST_CURRENT_SOURCE_DIR}/a.c libp.so 
+	\$(CC) -g -O0 ${MPC_TEST_CURRENT_SOURCE_DIR}/a.c -fdump-tree-gimple -o ./executables/\$@ -L$PWD/executables/ -lp  -Wl,-rpath=$PWD/executables/
+
+ptr_chain_struct_remote_opt :  ${MPC_TEST_CURRENT_SOURCE_DIR}/a.c libp.so 
+	\$(CC) -g -O3 ${MPC_TEST_CURRENT_SOURCE_DIR}/a.c -fdump-tree-gimple -o ./executables/\$@ -L$PWD/executables/ -lp  -Wl,-rpath=$PWD/executables/
+
+ptr_chain_struct_remote_tu : ${MPC_TEST_CURRENT_SOURCE_DIR}/a.c ${MPC_TEST_CURRENT_SOURCE_DIR}/b.c 
+	\$(CC) -g -O0 ${MPC_TEST_CURRENT_SOURCE_DIR}/a.c ${MPC_TEST_CURRENT_SOURCE_DIR}/b.c -fdump-tree-gimple -o ./executables/\$@ -L$PWD/executables/
+
+ptr_chain_struct_remote_tu_opt :  ${MPC_TEST_CURRENT_SOURCE_DIR}/a.c ${MPC_TEST_CURRENT_SOURCE_DIR}/b.c 
+	\$(CC) -g -O3 ${MPC_TEST_CURRENT_SOURCE_DIR}/a.c ${MPC_TEST_CURRENT_SOURCE_DIR}/b.c -fdump-tree-gimple -o ./executables/\$@ -L$PWD/executables/
+"
+}
+
+MPC_AUTO_KILL_TIMEOUT=5
+
+gen_makefile > ${MPC_TEST_CURRENT_WORK_DIR}/Makefile
+makefile_configuration "compile_GCC_ptr_chain_struct_remote" "-C ${MPC_TEST_CURRENT_WORK_DIR}/"
+
+LIST_TESTS_NAME=" ptr_chain_struct_remote ptr_chain_struct_remote_opt ptr_chain_struct_remote_tu ptr_chain_struct_remote_tu_opt"
+
+for exe in ${LIST_TESTS_NAME}
+do
+	helper_configuration_loop "test_${exe}" "${MPC_TEST_CURRENT_WORK_DIR}/executables/${exe}" "compile_GCC_ptr_chain_struct_remote"
+done

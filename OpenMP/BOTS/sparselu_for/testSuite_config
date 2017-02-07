@@ -1,0 +1,19 @@
+#!/bin/sh
+REQUIRE_OPENMP=true
+
+
+set_openmp_threads_list
+
+MPC_PROC_NB_LIST=1
+MPC_TASK_NB_LIST=1
+MPC_THREAD_NB_LIST=1
+
+EXPECTED_EXIT_CODE=0
+
+COMMON_FILES="${MPC_TEST_CURRENT_SOURCE_DIR}/../common/bots_main.c ${MPC_TEST_CURRENT_SOURCE_DIR}/../common/bots_common.c"
+
+COMMAND_OPTIONS="-c -n 25"
+
+CFLAGS="${CFLAGS} -O3 -fopenmp ${PRIVATIZATION} -I${MPC_TEST_CURRENT_SOURCE_DIR}/../common -I${MPC_TEST_CURRENT_SOURCE_DIR} -lm"
+
+openmp_configuration "for_Matrix25x25"

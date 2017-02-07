@@ -1,0 +1,40 @@
+#!/bin/sh
+
+REQUIRE_OPENMP=true
+
+#CLASS="S W A B C D E F"
+CLASS="S"
+MPC_OPENMP_THREAD_LIST="1 2 4"
+MPC_PROC_NB_LIST=1
+MPC_TASK_NB_LIST=1
+MPC_THREAD_NB_LIST=1
+
+for i in ${CLASS}
+do
+	make -C ${MPC_TEST_CURRENT_SOURCE_DIR}/../ clean
+	make -C ${MPC_TEST_CURRENT_SOURCE_DIR}/../ lu-mz CLASS=${i}
+	cp ${MPC_TEST_CURRENT_SOURCE_DIR}/../bin/* ${MPC_TEST_EXE_PATH}/
+	
+	if [ ! -e "${MPC_TEST_EXE_PATH}/lu-mz.$i" ]; then
+		common_print_error "$files"
+		exit 1
+	fi
+
+	#calc test name by removing file extention
+    test_exe="${MPC_TEST_EXE_PATH}/lu-mz.$i"
+	
+	for openmp_thread in ${MPC_OPENMP_THREAD_LIST}	    
+	do
+		for thread in ${MPC_THREAD_LIST}
+		do
+			#gen options
+			opts="--clean --autokill=${MPC_AUTO_KILL_TIMEOUT} -N=1 -n=1 -p=1 -net=tcp -m=${thread}"
+
+			#gen command
+			command="OMP_NUM_THREADS=$openmp_thread ${MPCRUN} ${opts} ${MPCRUN_ARGS} ${test_exe} ${COMMAND_OPTIONS}"
+
+			#insert test
+			common_insert_test "test_lu-mz_class_${i}_${openmp_thread}_${thread}" "${EXPECTED_EXIT_CODE}" "$command" ""
+		done
+	done
+done

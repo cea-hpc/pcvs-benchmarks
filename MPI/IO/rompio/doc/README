@@ -1,0 +1,85 @@
+Routine to test MPI collective, independent, and posix file i/o performance.
+
+To build: 
+
+1) setenv MPI_ROOT "your mpi root path"
+    or
+    use modules, if you really must.
+
+2) modify Makefile whether mpi is called "mpi or mpich"
+3) gmake
+
+For help type: "mpirun -np 1 rompio.x"
+-nw   #         Number of writes for each processor
+-size #         Number of bytes (min, max, increment, [element size(1)]) for each write per processor
+-strided        Use Strided instead of Nonstrided I/O[default:Nonstrided]
+-nton           Use N Processes to N Files I/O       [default:N Processes to 1 File]
+-cwrite         Use MPI_File_write_at_all            --- collective
+-cread          Use MPI_File_read_at_all             --- collective
+-mwrite         Use MPI_File_write_at                --- independent
+-iwrite         Use MPI_File_iwrite                  --- independent
+-maxout #       Maximum number of outstanding I/O requests for iwrite
+-mread          Use MPI_File_read_at                 --- independent
+-pwrite         Use POSIX pwrite                     --- independent
+-pread          Use POSIX pread                      --- independent
+-rcheck         Check data after read                --- no read check[default]
+-ftrunc         Truncate file to calculated size on close[no truncate]
+-wsync          Call fsync (-pwrite) or MPI_File_sync (-[c,m]write) after each write
+-csync          Call fsync (-pwrite) or MPI_File_sync (-[c,m]write) after end  write  test
+-wbarr          Call MPI_Barrier   before each write
+-wallg          Call MPI_Allgather before each write
+-watoa          Call MPI_Alltoall  before each write
+-wsleep #       Call usleep for # micro-seconds  before each write
+-fname   %s     Path and file name to write to.
+-hints   %s %s ... %s %s        String pairs in the form of hint name (key) and value.
+         Hints are expected to be in pairs and can list as many pairs as you like.
+         File will be open with these hints.
+
+
+*********************************************************************
+To use the rompio_timing() function in your code:
+
+1) decide what indices of romio_time array to instrument code with
+2) manually instrument code, e.g., the following snippet tallys 
+
+#include "rompio.h"
+/* ---------------------------------------------------------------------------------------------- */
+/* romio_time[index  ] == total time in code                                                      */
+/* romio_time[index+1] == if len_IO is size of each request, minimum len I/O requests for this pe */
+/* romio_time[index+2] == if len_IO is size of each request, maximum len I/O requests for this pe */
+/* romio_time[index+2] == if len_IO is size of each request, maximum len I/O requests for this pe */
+/* romio_time[index+4] == total number of time code called (# of I/O requests)                    */
+/* ---------------------------------------------------------------------------------------------- */
+
+   romio_tims[index] = MPI_Wtime();
+     --- code to time here ---
+   romio_time[index] = MPI_Wtime() - romio_tims[index]
+   if (romio_time[index+1] == 0) romio_time[index+1] = romio_time[index+2] = (double)len_IO;
+   romio_time[index+1]  = ((double)len_IO < romio_time[index+1]) ? (double)len_IO : romio_time[index+1];
+   romio_time[index+2]  = ((double)len_IO > romio_time[index+2]) ? (double)len_IO : romio_time[index+2];
+   romio_time[index+3] += (double)len_IO;
+   romio_time[index+4] += 1.0;
+
+3) at a relevant timing termination point in code source (e.g. close) add the following call to 
+   gather and print stats. Use the memset call to reset romio_time for the next test, if any.
+   If desired, replace (stdout,stderr) with any user defined output, error file descriptors
+
+   rompio_timing(stdout,stderr);
+   memset(romio_time, 0, RTT);
+
+4) Update romio_desc[index] through [index+4] to describe metric, 
+   or over write it manually at instrument point with 32 chars max:
+
+    strncpy(&romio_desc[index][0], "my local description", 32);
+
+5) setting these in your code with cause a comparison with what the romio layer did and 
+   informative message if things don't add up:
+
+     double rompio_file_size_check;
+     double rompio_test_time_check;
+
+6) build rompio_timing.o
+
+7) link to rompio_timing.o
+
+8) to integrate into an existing build system, only files rompio.h and rompio_timing.c are needed.

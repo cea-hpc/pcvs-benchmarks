@@ -1,0 +1,21 @@
+Here's a simple runline:                      
+  -type 2                                                                       
+  -size 65536                                                                   
+  -nobj 16                                                                      
+  -target /panfs/jennyp/output                                                  
+                                                                                
+  By the way, if you run the code with --help, it shows you the usage.  If      
+  you run with --help [something], it gives more detailed help about that       
+  particular something.                                                         
+                                                                                
+  -type [1|2] is whether to do N-N or N-1.  If you do -type 1 (N-N), you        
+  should append an .%r on the back of the output file name (e.g.                
+  /tmp/output.%r); this makes each rank open a distinct file.  Adding a
+  %s to the filename is also useful; it is expanded into the UNIX epoch
+  which is useful for ensuring that each job writes to a different file(s).
+                                                                                
+  -strided [0|1] is to do strided mode or not for N-1.                          
+                                                                                
+  -hints passes hints like panfs_concurrent_write=1 to the mpi hints.      
+
+  -touch 2 -check 2 is the recommended data integrity check.

@@ -1,0 +1,38 @@
+#!/bin/nawk -f
+#
+#  To make the binned distribution for interactive gnuplot
+#  eg:  gnuplot> plot '< awkdist2 -v B=0.01 single.tmp1' with boxes
+#  B is the bin width
+
+BEGIN {
+	tmpfile = testname ".av";
+	maxindex = 1;
+}
+
+	($1 ~ /##?/){
+	print
+}
+
+	($1 == "#filesize"){
+	filesize = $2;
+}
+
+	($1 == "#blocksize"){
+	blocksize = $2;
+	niter = filesize/blocksize;
+}
+
+	($1 !~ /##?/){
+	i = 1 + int($1/B);
+	if (i > maxindex) maxindex = i;
+	a[i] ++;
+}
+        
+END {
+	for (i=1;i<maxindex + 2;i++){
+	  printf "%f %f\n", i*B, a[i];  
+	}
+} 
+
+
+

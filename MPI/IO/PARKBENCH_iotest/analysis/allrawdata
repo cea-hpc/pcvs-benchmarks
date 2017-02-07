@@ -1,0 +1,14 @@
+#!/bin/csh
+# Routine to select all raw test results for a given key.
+#
+if ($#argv != 3) then
+	usage:
+	echo "To select all results from a particular test."
+	echo "Usage: allrawdata file testname key"
+	echo "  key: "w","r","t","wI"...."
+	exit 1
+else
+	awkallselect -v testname=$argv[2] -v key=$argv[3] $argv[1]
+endif
+#
+

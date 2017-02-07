@@ -1,0 +1,54 @@
+##################################
+# Template for input file
+# IOT: MPI IO Test Suite Release 1.0 (11/8/97)
+# Copyright Fujitsu Ltd. 1997
+##################################
+#
+# Timingfilename only appears once in an input file. 
+#
+timingsfilename    ./lowlevel.out 
+#
+# Classname and testname must come at the beginning of each test section.
+#
+classname          lowlevel  
+testname           single  
+filename           out.dat  
+#
+# Options valid for this test   
+#
+# Number of filesize/blocksize pairs to read from list  
+numruns            6
+# List of filesizes (in MB = 1000000 bytes)  
+filesize           0.01 0.1 1 10 100 4096  
+# List of blocksizes (in MB = 1000000 bytes)  
+blocksize          0.005 0.05  1 1 10 128
+#
+############################
+# Classname and testname for the second set of tests  
+#
+classname          lowlevel  
+testname           multiple  
+#
+filename           out.dat  
+preallocate        t
+#
+# Options valid for this test   
+#
+collective         t 
+striping_factor    2
+striping_unit      131072
+numruns            1  
+filesize           0.5 
+blocksize          0.1 
+# 
+
+classname          lowlevel  
+testname           sinunix  
+filename           out.dat  
+
+numruns            4
+filesize           10 64 128 1024
+blocksize          5 32 64 32
+
+
+ 

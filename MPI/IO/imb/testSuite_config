@@ -1,0 +1,23 @@
+#!/bin/sh
+
+#We could have used the one from the IMB directory
+#but we believe that it its cleaner to gather all
+#the IO related tests in the same directory
+
+MPC_AUTO_KILL_TIMEOUT=2000
+
+#Make sure we run in a temporary directory for parallel tests
+MPCRUN_ARGS+=" --tempdir"
+
+MPC_PROC_NB_LIST="1 2"
+MPC_TASK_NB_LIST="4"
+
+#generate compile command. for standard build
+common_insert_test "compile_IMB_IO_test" "0" "cp -r ${MPC_TEST_CURRENT_SOURCE_DIR}/* ${MPC_TEST_CURRENT_WORK_DIR} && cd ${MPC_TEST_CURRENT_WORK_DIR}/src;  make -f make_ict IMB-IO"
+
+TEST_ARGS="-npmin 4 -iter 1"
+
+for i in S_Write_Indv S_IWrite_Indv S_Write_Expl S_IWrite_Expl P_Write_Indv P_IWrite_Indv P_Write_Priv P_IWrite_Priv P_Write_Expl P_IWrite_Expl C_Write_Indv C_IWrite_Indv C_Write_Expl C_IWrite_Expl S_Read_Indv S_IRead_Indv S_Read_Expl S_IRead_Expl P_Read_Indv P_IRead_Indv P_Read_Priv P_IRead_Priv P_Read_Expl P_IRead_Expl C_Read_Indv C_IRead_Indv C_Read_Expl C_IRead_Expl Open_Close
+do
+	helper_configuration_loop "test_IMB_IO_test_${i}" "${MPC_TEST_CURRENT_WORK_DIR}/src/IMB-IO ${TEST_ARGS} ${i}" "compile_IMB_IO_test"
+done

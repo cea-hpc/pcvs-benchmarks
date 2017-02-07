@@ -1,0 +1,65 @@
+#! /bin/tcsh -x
+
+setenv RUNDIR /users/swh/rompio/src
+setenv EXEC   ${RUNDIR}/rompio.x
+setenv IODIR  /net/scratch2/swh/rompio
+setenv RESULTS /users/swh/rompio/tests
+
+which mpirun
+rm -f $IODIR/testwrite.*
+
+#n = total number of procs in each collective write/read
+#c = total number of aggregator procs.
+#w = total number of collective writes.
+#s = base  number of bytes per write per proc.
+
+      @ n =   $1
+while ($n <=  $2)
+
+      @ h = $n / 2
+
+      @ s =   $3
+while ($s <=  $4)
+
+      @ m = $n / 2
+      @ c = $m
+while ($c <= $m)
+
+ @ z = ( $s * $n ) / $c
+ if ( $z < 4194304 ) @ z = 4194304
+
+#target 2GB files, but > 4 and < 1000 writes
+    @ w =  (1024 * 1024 * 1024)
+    @ w =  $w / $s
+    @ w =  $w / $n
+    @ w =  $w * 40
+if ( $w <    4 ) @ w =    4
+#if ( $w > 10240  ) @ w = 10240
+
+#foreach iomode ( "c" "m" "p" )
+foreach iomode (   "m" "p" )
+set runid = "${iomode}s1.p$n.c$c.s$s.w$w.b$z"
+if ( ! -f ${RESULTS}/${runid}.log) then
+date   >& ${RESULTS}/${runid}.log
+@ ntrys = 0
+touch       $IODIR/NOK.${runid}
+while (  -f $IODIR/NOK.${runid} && ${ntrys} < 1 ) 
+rm       -f $IODIR/NOK.${runid}
+rm -f $IODIR/testwrite.${runid}
+mpirun -np $n -N $h ${EXEC} -nw $w -size $s $s $s -${iomode}write -${iomode}read -strided \
+      -hints panfs_concurrent_write 1 romio_cb_write enable cb_nodes $c cb_buffer_size $z \
+      -fname $IODIR/testwrite.${runid}  >>& ${RESULTS}/${runid}.log
+@ ntrys += 1
+end
+#rm -f $IODIR/testwrite.${runid}
+rm -f $IODIR/NOK.${runid}
+date >>& ${RESULTS}/${runid}.log
+endif
+end
+@ c *= 2
+end
+@ s *= 4
+end
+@ n *= 2
+end
+exit

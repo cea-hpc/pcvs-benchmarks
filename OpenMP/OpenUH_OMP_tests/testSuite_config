@@ -1,0 +1,31 @@
+#!/bin/sh
+
+REQUIRE_OPENMP=true
+
+if [ -z "$OMP_NUM_THREADS" ] || [ $OMP_NUM_THREADS -eq 1 ] ;then
+  MPC_OPENMP_THREAD_LIST=$CLUSTER_MAX_CORES_PER_NODE
+else
+  MPC_OPENMP_THREAD_LIST=$OMP_NUM_THREADS
+fi
+
+#cleanup old build
+make clean -C ${MPC_TEST_CURRENT_SOURCE_DIR} &> /dev/null
+
+makefile_configuration "compile_OpenUH_OMP"
+
+#loop on all tests
+for one_test in `find ${MPC_TEST_CURRENT_SOURCE_DIR}/src -type f -regex '.*\.[cC]'`
+do
+  for num_threads in $MPC_OPENMP_THREAD_LIST
+  do
+	#compute test name
+	testName="$(basename $one_test | sed -e "s/\.c//g")"
+
+	#generate execution command
+	helper_gen_exec_command "${MPC_TEST_CURRENT_WORK_DIR}/executables/execTestSuite ${testName}"
+    command="OMP_NUM_THREADS=$num_threads ${command}"
+
+	#add the test, param is {TEST_NAME} {EXPECTED_EXIT_STATUS} {COMMAND} {DEPS}
+	common_insert_test "test_OpenUH_OMP_${testName}" "0" "${command}" "compile_OpenUH_OMP"
+  done
+done

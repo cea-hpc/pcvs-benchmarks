@@ -1,0 +1,15 @@
+#!/bin/csh
+# Routine to select particular raw test results for given keys.
+#
+if ($#argv != 5) then
+	usage:
+	echo "To select particular results from a particular test."
+	echo "Usage: rawdata file testname filesize# blocksize# key"
+	echo "   filesize and blocksize in MB"
+	echo "  key: "w","r","t","wI"...."
+	exit 1
+else
+	awkselect -v testname=$argv[2] -v filesize=$argv[3] -v blocksize=$argv[4] -v key=$argv[5] $argv[1]
+endif
+#
+

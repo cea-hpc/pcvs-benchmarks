@@ -1,0 +1,201 @@
+
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+ <meta name="generator" content="Adobe RoboHelp 10">
+<title>Building Intel® MPI Benchmarks on Windows* OS</title>
+<link rel="StyleSheet" href="styles_w_rh_ict.css" type="text/css">
+<style title="hcp" type="text/css">
+<!--
+table.hcp1 { table-layout:fixed;
+border-collapse:separate; }
+ul.hcp2 { list-style:disc; }
+p.hcp3 { text-align:center; }
+-->
+</style>
+</head>
+
+<script src="NavScript.js" language="JavaScript1.2" type="text/javascript"></script>
+<script language="JavaScript1.2" type="text/javascript">WriteNavLink(0);</script>
+<body>
+<script type="text/javascript" src="ehlpdhtm.js" language="JavaScript1.2"></script>
+
+<div style="width: 100%; position: relative;" id="header">
+	
+ <p style="font-style: italic;">Intel® 
+	 MPI Benchmarks 4.0</p>
+</div>
+
+
+<h1>Building Intel® MPI Benchmarks on Windows* OS</h1>
+<p>To build the benchmarks for <samp class="codeph">IMB-MPI1</samp>, <samp 
+	 class="codeph">IMB-IO</samp>, <samp class="codeph">IMB-EXT</samp>, 
+ <samp class="codeph">IMB-NBC</samp>, or <samp class="codeph">IMB-RMA</samp>, 
+ follow these steps:</p>
+<ol>
+	<li><p>Check the environment variable settings for <samp class="codeph">Include</samp>, 
+	 <samp class="codeph">Lib</samp>, and <samp class="codeph">Path</samp>. 
+	 Make sure they are set in accordance with this table:</p></li>
+	<table frame="border" rules="all" cellspacing="0" width="800" border="1" class="hcp1">
+		<col style="width: 33.333%;">
+		<col style="width: 33.333%;">
+		<tr>
+			<th class="cellrowborder"><p>Intel® 64 Architecture Settings</p></th>
+			<th class="cellrowborder"><p>IA-32 Architecture Settings</p></th>
+		</tr>
+		<tr>
+			<td class="cellrowborder"><p><samp class="codeph">%I_MPI_ROOT%\intel64\include</samp></p>
+			<p><samp class="codeph">%I_MPI_ROOT%\intel64\lib</samp></p>
+			<p><samp class="codeph">%I_MPI_ROOT%\intel64\bin</samp></p></td>
+			<td class="cellrowborder"><p><samp class="codeph">%I_MPI_ROOT%\ia32\include</samp></p>
+			<p><samp class="codeph">%I_MPI_ROOT%\ia32\lib</samp></p>
+			<p><samp class="codeph">%I_MPI_ROOT%\ia32\bin</samp></p></td>
+		</tr>
+	</table>
+	<div class="NoteCont">
+		<p class="NoteTipHead">NOTE:</p>
+		<p>Intel® MPI Library 5.0 does not support the IA-32 architecture. 
+		 Use an earlier version of Intel MPI Library to build IA-32 architecture 
+		 benchmarks.</p>
+	</div>
+	<li><p>Go to the subfolder that corresponds to the Intel® MPI Benchmarks 
+	 component you would like to build and the Microsoft* Visual Studio* 
+	 version installed on your system. For example, to build <samp class="codeph">IMB-EXT.exe</samp> 
+	 with the Visual* Studio* 2010, go to <samp class="codeph">IMB-EXT_VS_2010</samp>.</p></li>
+	<li><p>Open the <samp class="codeph">.vcproj</samp> or <samp class="codeph">.vcxproj</samp> 
+	 file in Visual Studio*. The executable file for one of the Intel MPI 
+	 Benchmarks components is created: </p></li>
+	<ul class="hcp2">
+		<li><samp class="codeph">IMB-EXT.exe</samp></li>
+		<li><samp class="codeph">IMB-IO.exe</samp></li>
+		<li><samp class="codeph">IMB-MPI1.exe</samp></li>
+		<li><samp class="codeph">IMB-NBC.exe</samp></li>
+		<li><samp class="codeph">IMB-RMA.exe</samp></li>
+	</ul>
+	<li><p>From the <b>Solution Platforms</b> drop-down list, choose the 
+	 required architecture (<b>x64</b> or <b>Win32</b>).</p></li>
+	<li><p>From the <b>Solution Configurations</b> drop-down list, choose 
+	 <b>Release</b>.</p></li>
+	<li><p>Highlight the project folder in the <b>Solution Explorer</b>.</p></li>
+	<li><p>Go to <b>Project &gt; Properties</b> to open <b>Configuration 
+	 Properties</b> dialog box. Make sure you have something like the following 
+	 settings: </p></li>
+	<table frame="border" rules="all" cellspacing="0" width="100%" border="1" class="hcp1">
+		<col style="width: 20%;">
+		<col style="width: 60%;">
+		<col style="width: 20%;">
+		<tr>
+			<th class="cellrowborder"><p>Setting</p></th>
+			<th class="cellrowborder"><p>Value</p></th>
+			<th class="cellrowborder"><p>Notes</p></th>
+		</tr>
+		<tr>
+			<td class="cellrowborder" colspan="3"><p class="hcp3"><b>General</b> 
+			 &gt; <b>Project Defaults</b></p></td>
+			
+		</tr>
+		<tr>
+			<td class="cellrowborder"><p><b>Character Set</b></p></td>
+			<td class="cellrowborder"><p><samp class="codeph">Use Multi-Byte 
+			 Character Set</samp></p></td>
+			<td class="cellrowborder">&#160;</td>
+		</tr>
+		<tr>
+			<td class="cellrowborder" colspan="3"><p class="hcp3"><b>Debugging</b></p></td>
+			
+		</tr>
+		<tr>
+			<td class="cellrowborder"><p><b>Debugger&#160;to&#160;launch</b></p></td>
+			<td class="cellrowborder"><p><samp class="codeph">Local Windows 
+			 Debugger</samp></p></td>
+			<td class="cellrowborder"><p>Depending on your system configuration, 
+			 you may select other debuggers.</p></td>
+		</tr>
+		<tr>
+			<td class="cellrowborder"><p><b>Command</b></p></td>
+			<td class="cellrowborder"><ul class="hcp2">
+				<li>x64: <samp class="codeph">$(I_MPI_ROOT)\intel64\bin\mpiexec.exe</samp></li>
+				<li>IA-32:<samp class="codeph">$(I_MPI_ROOT)\ia32\bin\mpiexec.exe</samp></li>
+			</ul></td>
+			<td class="cellrowborder"><p>&#160;</p></td>
+		</tr>
+		<tr>
+			<td class="cellrowborder"><p><b>Command Arguments</b></p></td>
+			<td class="cellrowborder"><p><samp class="codeph">-n 2 $(TargetPath)</samp></p></td>
+			<td class="cellrowborder"><p><samp class="codeph">$(TargetPath)</samp> 
+			 should be quoted as in: <samp class="codeph">-n 2 $(TargetPath)</samp> 
+			 </p></td>
+		</tr>
+		<tr>
+			<td class="cellrowborder" colspan="3"><p class="hcp3"><b>C/C++ 
+			 &gt; General</b></p></td>
+			
+		</tr>
+		<tr>
+			<td class="cellrowborder"><p><b>Additional Include Directories</b></p></td>
+			<td class="cellrowborder"><ul class="hcp2">
+				<li>x64: <samp class="codeph">$(I_MPI_ROOT)\intel64\include</samp></li>
+				<li>IA-32:<samp class="codeph">$(I_MPI_ROOT)\ia32\include</samp></li>
+			</ul></td>
+			<td class="cellrowborder">&#160;</td>
+		</tr>
+		<tr>
+			<td class="cellrowborder"><p><b>Warning Level</b></p></td>
+			<td class="cellrowborder"><p><samp class="codeph">to Level 
+			 1 (/W1)</samp></p></td>
+			<td class="cellrowborder">&#160;</td>
+		</tr>
+		<tr>
+			<td class="cellrowborder" colspan="3"><p class="hcp3"><b>C/C++ 
+			 &gt; Preprocessor</b></p></td>
+			
+		</tr>
+		<tr>
+			<td class="cellrowborder"><p><b>Preprocessor Definition</b></p></td>
+			<td class="cellrowborder"><ul class="hcp2">
+				<li>IMB-EXT: <samp class="codeph">WIN_IMB, _CRT_SECURE_NO_DEPRECATE, 
+				 EXT</samp></li>
+				<li>IMB-IO: <samp class="codeph">WIN_IMB, _CRT_SECURE_NO_DEPRECATE, 
+				 MPIIO</samp></li>
+				<li>IMB-MPI1: <samp class="codeph">WIN_IMB, _CRT_SECURE_NO_DEPRECATE, 
+				 MPI1</samp></li>
+				<li>IMB-NBC: <samp class="codeph">WIN_IMB, _CRT_SECURE_NO_DEPRECATE, 
+				 NBC</samp></li>
+				<li>IMB-RMA: <samp class="codeph">WIN_IMB, _CRT_SECURE_NO_DEPRECATE, 
+				 RMA</samp></li>
+			</ul></td>
+			<td class="cellrowborder">&#160;</td>
+		</tr>
+		<tr>
+			<td class="cellrowborder" colspan="3"><p class="hcp3"><b>Linker 
+			 &gt; Input</b></p></td>
+			
+		</tr>
+		<tr>
+			<td class="cellrowborder"><p><b>Additional Dependencies</b></p></td>
+			<td class="cellrowborder"><ul class="hcp2">
+				<li>x64: <samp class="codeph">$(I_MPI_ROOT)\intel64\lib\impi.lib</samp></li>
+				<li>IA-32: <samp class="codeph">$(I_MPI_ROOT)\ia32\lib\impi.lib</samp></li>
+			</ul></td>
+			<td class="cellrowborder"><p>&#160;</p></td>
+		</tr>
+	</table>
+	<li><p>Go to <b>Build &gt; Build Solution</b> to create an executable 
+	 file.</p></li>
+	<li><p>Run the executable file using <b>Debug</b> &gt; <b>Start Without 
+	 Debugging</b> command.</p></li>
+</ol>
+<div>
+<div class="docfeedback">
+	<p style="font-family: Verdana, sans-serif; font-size: 10pt; font-weight: bold; 
+		 color: #0860A8;"><span 
+	 style="font-weight: bold; color: #0860A8;"><a href="http://www.intel.com/software/products/softwaredocs_feedback" 
+													 target="_blank" style="text-decoration: none; "><b>Submit 
+	 feedback on this help topic</b></a></span></p>
+</div>
+</div>
+</body>
+</html>

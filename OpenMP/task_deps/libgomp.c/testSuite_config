@@ -1,0 +1,14 @@
+#!/bin/sh
+
+REQUIRE_OPENMP=true
+
+if [ -z "$OMP_NUM_THREADS" ] || [ $OMP_NUM_THREADS -eq 1 ] ;then
+  MPC_OPENMP_THREAD_LIST=$CLUSTER_MAX_CORES_PER_NODE
+else
+  MPC_OPENMP_THREAD_LIST=$OMP_NUM_THREADS
+fi
+
+#add openmp cflags
+CFLAGS="${CFLAGS} -fopenmp ${PRIVATIZATION}"
+
+openmp_configuration "" "depend-1.c depend-2.c depend-3.c depend-4.c depend-5.c depend-6.c depend-7.c depend-8.c depend-9.c depend-10.c"

@@ -1,0 +1,12 @@
+#!/bin/sh
+
+COMMON_FILES="${MPC_TEST_CURRENT_SOURCE_DIR}/../common/libmpitest.c ${MPC_TEST_CURRENT_SOURCE_DIR}/../common/reduce.c"
+CFLAGS="${CFLAGS} -I${MPC_TEST_CURRENT_SOURCE_DIR}/../common/"
+
+MPC_AUTO_KILL_TIMEOUT=400
+
+
+multiple_configuration
+
+#EXPECTED_EXIT_CODE=6
+#multiple_configuration "MPI_Abort.c"

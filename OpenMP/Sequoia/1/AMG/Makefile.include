@@ -1,0 +1,35 @@
+#BHEADER***********************************************************************
+# (c) 2000   The Regents of the University of California
+#
+# See the file COPYRIGHT_and_DISCLAIMER for a complete copyright
+# notice, contact person, and disclaimer.
+#
+#EHEADER***********************************************************************
+
+# set the compiler here
+#CC = mpiicc
+CC = ${TS_CC}
+
+# set compile flags here
+# MPI only:
+#   add '-DTIMER_USE_MPI'  to 'INCLUDE_CFLAGS'
+# MPI with OpenMP:
+#   add '-DHYPRE_USING_OPENMP -DTIMER_USE_MPI'  to 'INCLUDE_CFLAGS'
+# Use assumed partition (for thousands of processors):
+#   add '-DHYPRE_NO_GLOBAL_PARTITION'  to 'INCLUDE_CFLAGS'
+# Use 64-bit integers for global variables (needed for large problems
+#	with more than 2 billion variables)
+#   add '-DHYPRE_LONG_LONG'  to 'INCLUDE_CFLAGS'
+
+# set compile flags here
+INCLUDE_CFLAGS = ${TS_CFLAGS}
+INCLUDE_CFLAGS += -O3 -fopenmp ${PRIVATIZATION} -DTIMER_USE_MPI -DHYPRE_USING_OPENMP -DHYPRE_NO_GLOBAL_PARTITION -DHYPRE_LONG_LONG
+#INCLUDE_CFLAGS = -blpdata -O3 -qthreaded -qsmp=omp -DTIMER_USE_MPI -DHYPRE_USING_OPENMP -DHYPRE_NO_GLOBAL_PARTITION -DHYPRE_LONG_LONG
+
+#-DHYPRE_NO_GLOBAL_PARTITION 
+#-DHYPRE_LONG_LONG
+
+# set link flags here
+#INCLUDE_LFLAGS = -blpdata -lxlf90 -lxlopt -lxlsmp  -lm
+INCLUDE_LFLAGS = ${TS_LDFLAGS}
+INCLUDE_LFLAGS += -fopenmp ${PRIVATIZATION} -lm

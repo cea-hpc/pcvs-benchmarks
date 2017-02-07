@@ -1,0 +1,16 @@
+#!/bin/sh
+
+REQUIRE_OPENMP=true
+
+if [ -z "$OMP_NUM_THREADS" ] || [ $OMP_NUM_THREADS -eq 1 ] ;then
+  MPC_OPENMP_THREAD_LIST=$CLUSTER_MAX_CORES_PER_NODE
+else
+  MPC_OPENMP_THREAD_LIST=$OMP_NUM_THREADS
+fi
+
+#add openmp cflags
+CFLAGS="${CFLAGS} -I${MPC_TEST_CURRENT_SOURCE_DIR} -fopenmp ${PRIVATIZATION}"
+
+#COMMON_FILES="${MPC_TEST_CURRENT_SOURCE_DIR}/pr24455-1.c"
+openmp_configuration "" "has_openmp.c omp_atomic.c omp_barrier.c omp_critical.c omp_flush.c omp_for_collapse.c omp_for_firstprivate.c omp_for_lastprivate.c omp_for_nowait.c omp_for_ordered.c omp_for_private.c omp_for_reduction.c omp_for_schedule_auto.c omp_for_schedule_dynamic.c omp_for_schedule_guided.c omp_for_schedule_static_3.c omp_for_schedule_static.c omp_get_num_threads.c omp_get_wtick.c omp_get_wtime.c omp_in_parallel.c omp_lock.c omp_master_3.c omp_master.c omp_nested.c omp_nest_lock.c omp_parallel_copyin.c omp_parallel_default.c omp_parallel_firstprivate.c omp_parallel_for_firstprivate.c omp_parallel_for_if.c omp_parallel_for_lastprivate.c omp_parallel_for_ordered.c omp_parallel_for_private.c omp_parallel_for_reduction.c omp_parallel_if.c omp_parallel_num_threads.c omp_parallel_private.c omp_parallel_reduction.c omp_parallel_sections_firstprivate.c omp_parallel_sections_lastprivate.c omp_parallel_sections_private.c omp_parallel_sections_reduction.c omp_parallel_shared.c omp_section_firstprivate.c omp_section_lastprivate.c omp_section_private.c omp_sections_nowait.c omp_sections_reduction.c omp_single.c omp_single_copyprivate.c omp_single_nowait.c omp_single_private.c omp_task.c omp_task_final.c omp_task_firstprivate.c omp_task_if.c omp_task_imp_firstprivate.c omp_task_private.c omp_task_shared.c omp_task_untied.c omp_taskwait.c omp_taskyield.c omp_test_lock.c omp_test_nest_lock.c omp_threadprivate.c omp_threadprivate_for.c"
+

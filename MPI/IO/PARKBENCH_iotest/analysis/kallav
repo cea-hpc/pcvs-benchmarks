@@ -1,0 +1,15 @@
+#!/bin/csh
+# Routine to average all kernel test results for a given key.
+#
+if ($#argv != 3) then
+	usage:
+	echo "To average all results for a given kernel test."
+	echo "Usage: kallav file testname key"
+	echo "  key: write,fview_time......."
+	echo " Output averages in testname.avs file"
+	exit 1
+else
+	awkkallav -v testname=$argv[2]  -v key=$argv[3] $argv[1]
+endif
+#
+

@@ -1,0 +1,26 @@
+#!/bin/sh
+
+MPC_AUTO_KILL_TIMEOUT=100
+
+
+for test_path in `ls ${MPC_TEST_CURRENT_SOURCE_DIR}/*.c`
+do
+	test_name=$(basename ${test_path} | sed -r -e 's/\.[a-zA-Z0-9+]+$//g')
+    full_test_name="futex_${test_name}"
+    test_exec="${MPC_TEST_EXE_PATH}/${full_test_name}"
+
+	#generate compile command. We also include the 'include' directory in the compilation line
+	helper_gen_compile_command "${test_exec}" "${test_path}" "-g -O2 -Wall -D_GNU_SOURCE -fnompc-privatize -DSCTK_FUTEX_SUPPORTED"
+
+	#insert the rule
+	common_insert_test "compile_${full_test_name}" "0" "$command"
+
+	#loop on all configurations and generate the execution line
+	for thread in ethread_mxn ethread_mxn_ng pthread; do
+	  opts="--clean --autokill=${MPC_AUTO_KILL_TIMEOUT} -n=1 --share-node -p=1 -net=none -m=${thread}"
+	  command="${MPCRUN} ${opts} ${MPCRUN_ARGS} ${test_exec} ${COMMAND_OPTIONS}"
+
+	  common_insert_test "test_${full_test_name}_${thread}" "${EXPECTED_EXIT_CODE}" "$command" "compile_${full_test_name}"
+	done
+
+done

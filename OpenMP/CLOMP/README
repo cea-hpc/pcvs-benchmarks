@@ -1,0 +1,72 @@
+CLOMP README (Updated for Version 1.2 23Dec2013)
+------------------------------------------------
+
+CLOMP is the C version of the Livermore OpenMP benchmark developed to
+measure OpenMP overheads and other performance impacts due to threading
+in order to influence future system designs.  A detailed description 
+of CLOMP and how to build/run CLOMP is can be found
+under the CLOMP link at:  https://asc.llnl.gov/CORAL-benchmarks/
+Please see that web page for much more complete and recent information.
+
+
+New in Version 1.2:
+The serial section of CLOMP (calc_deposit()) now takes practically no time,
+allowing much larger number of parts and threads to be used.   Performance 
+results will be better than previous versions of CLOMP.   
+
+CLOMP now can use MPI. By default, CLOMP does not use MPI but if compiled 
+with -DWITH_MPI (referred to as CLOMP_MPI from now on), CLOMP_MPI will report 
+the slowest run over all MPI tasks for each measurement.  In our Hybrid 
+MPI/OpenMP runs, the slowest task determines overall performance. 
+
+CLOMP's new last line is comma-separated values requested for the CORAL RFP.
+
+
+CLOMP consists of just one source file, clomp.c, and should be built with
+your favorite OpenMP compiler and optimization levels.   The Makefile
+supports just a few compilers by default (icc, bgq, gcc) and typing
+'make icc', 'make bgq', or 'make gcc' with invoke those build lines.
+Feel free to add or tweak the Makefile and the CLOMP benchmark assumes the
+code will be highly optimized.   The sample makefile will also attempt to
+build CLOMP_MPI.
+
+On most systems we have tried, at least one environment variable needs to
+be set in order to get good OpenMP/threading performance.   Usually this
+parameter tells the threading library to spin wait at locks/barriers and 
+to never yield the processor.  Here are the minimum settings 
+(the web page describes others) for two OS/compiler combinations 
+to get you started:
+
+BG/Q/xlc:
+setenv BG_SMP_FAST_WAKEUP YES
+setenv OMP_WAIT_POLICY ACTIVE
+
+Linux/icc:
+setenv KMP_BLOCKTIME 10000
+
+CLOMP is highly configurable (as described on the CLOMP web page) and a
+wide variety of runs can be done.   Running CLOMP with around 6400 
+total zones with 16 threads is highly representative for many interesting 
+applications when running large parallel simulations.   Here is how to run CLOMP
+in what we consider one of the most important configurations to make run well:
+
+clomp 16 1 16 400 32 1 100
+
+The above command runs CLOMP with the 16 threads allowed on the 
+node, uses 16 zone partitions with 400 zones each, and uses the standard
+settings for the other parameters.  See the web page or run CLOMP with
+no arguments for more details.  On all current systems we have tested,
+OpenMP overheads usually make the above 6400 total zone run not scale well.
+We typically see less than a 4X speedup with 16 threads
+for the "Static OMP Speedup" result reported by CLOMP.  Our hope is that
+threading overheads can be reduced so that so that near ideal speedups
+can be achieved for the 6400 zone case in the future.  We know it is
+possible since BG/Q's Lightweight OpenMP Research Prototype compiler gets a
+11.8X speedup with this input on BG/Q.
+
+The provided run_clomp.bgq example script that shows how CLOMP and CLOMP_MPI
+was run on BG/Q for the CORAL RFP.  This script generates a comma delimited 
+data file run_clomp.CORAL_RFP that can be loaded into the RFP spreadsheet.  
+This script can be modified to run on other architectures if desired.
+
+
