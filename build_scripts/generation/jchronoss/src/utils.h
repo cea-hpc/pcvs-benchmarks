@@ -3,7 +3,7 @@
 /*                         Copyright or (C) or Copr.                        */
 /*       Commissariat a l'Energie Atomique et aux Energies Alternatives     */
 /*                                                                          */
-/* Version : 1.2                                                            */
+/* Version : 2.0                                                            */
 /* Date    : Tue Jul 22 13:28:10 CEST 2014                                  */
 /* Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      */
 /* Author  : Julien Adam <julien.adam@cea.fr>                               */
@@ -68,8 +68,26 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <signal.h>
 /****** MY LIBS *****/
 #include "defines.h"
+
+extern std::string type;
+
+/**
+ * Struct which gathers global information about the whole run and print them
+ */
+typedef struct Summary_s {
+	size_t nbJobs;        ///< number of jobs provided by input
+	size_t nbSuccess;     ///< number of succeeded jobs
+	size_t nbErrors;      ///< number of errors during scheduling
+	size_t nbFailed;      ///< number of failed jobs
+	size_t nbSkipped;     ///< number of not-scheduled jobs
+	size_t nbTotalSlaves; ///< total number of run slaves
+	time_t startRun;      ///< Start time (init runnerMaster)
+	time_t endRun;        ///< end time (just before summary print)
+	double elapsed;       ///< elapsed time with interruption (before restart)
+} Summary;
 
 /************* FUNCTIONS *************/
 /// get current timestamp
@@ -127,6 +145,12 @@ void printHeader();
 size_t hash_fn(std::string toHash);
 /// compute time interval between to call to the function (NOT THREAD SAFE FUNCTION !!!)
 void measureTimeInterval(bool init, std::string info = "");
+///convert a time in seconds in human-readable format.
+/**
+ * \param[in] elapsed time to convert
+ */
 std::string convertDate(double elapsed);
+std::string& replace(std::string&, std::string, std::string);
+
 
 #endif

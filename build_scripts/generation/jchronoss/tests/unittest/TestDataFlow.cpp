@@ -3,7 +3,7 @@
 /*                         Copyright or (C) or Copr.                        */
 /*       Commissariat a l'Energie Atomique et aux Energies Alternatives     */
 /*                                                                          */
-/* Version : 1.2                                                            */
+/* Version : 2.0                                                            */
 /* Date    : Tue Jul 22 13:28:10 CEST 2014                                  */
 /* Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      */
 /* Author  : Julien Adam <julien.adam@cea.fr>                               */
@@ -89,15 +89,15 @@ void TestDataFlow::tearDown(void){
 }
 
 void TestDataFlow::testSimplePush ( void ) {
-	SVUT_ASSERT_EQUAL(mainDataFlow->fillFrom(shortFile), 478);
+	SVUT_ASSERT_EQUAL(mainDataFlow->fillFrom(shortFile), (size_t)478);
 }
 
 void TestDataFlow::testMediumPush( void ) {
-	SVUT_ASSERT_EQUAL(mainDataFlow->fillFrom(mediumFile), 1274);
+	SVUT_ASSERT_EQUAL(mainDataFlow->fillFrom(mediumFile), (size_t)1274);
 }
 
 void TestDataFlow::testComplexPush( void ) {
-	SVUT_ASSERT_EQUAL(mainDataFlow->fillFrom(longFile), 2*(1024));
+	SVUT_ASSERT_EQUAL(mainDataFlow->fillFrom(longFile), (size_t)(2*(1024)));
 }
 
 void TestDataFlow::testCreateHash ( void ) {
@@ -112,4 +112,4 @@ void TestDataFlow::testMatchHash ( void ) {
 	SVUT_ASSERT_EQUAL(mainDataFlow->matchHash(ref), true);
 }
 
-SVUT_REGISTER_STANDELONE(TestDataFlow);
+SVUT_REGISTER_STANDELONE(TestDataFlow)

@@ -3,7 +3,7 @@
 #                         Copyright or (C) or Copr.                        #
 #       Commissariat a l'Energie Atomique et aux Energies Alternatives     #
 #                                                                          #
-# Version : 1.2                                                            #
+# Version : 2.0                                                            #
 # Date    : Tue Jul 22 13:28:10 CEST 2014                                  #
 # Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      #
 # Author  : Julien Adam <julien.adam@cea.fr>                               #
@@ -40,8 +40,8 @@
 ############################################################################
 #set(XML_TESTS testSimple testWithDeps testFailed testMultiJobs)
 
-#pre actions
-set(GENERIC_CALL ${EXECUTABLE_OUTPUT_PATH}/jchronoss --master)
+#pre actions : dirty hook...
+set(GENERIC_CALL ${CMAKE_BINARY_DIR}/src/jchronoss --master)
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/testSimple.xml ${CMAKE_CURRENT_BINARY_DIR}/testSimple.xml)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/testWithDeps.xml ${CMAKE_CURRENT_BINARY_DIR}/testWithDeps.xml)
@@ -50,7 +50,7 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/testMultiJobs.xml ${CMAKE_CURRENT_BIN
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/testBlocking.xml ${CMAKE_CURRENT_BINARY_DIR}/testBlocking.xml)
 
 #good execution
-add_test(Integration_noTest ${EXECUTABLE_OUTPUT_PATH}/jchronoss --master --nb-resources=1)
+add_test(Integration_noTest ${GENERIC_CALL} --nb-resources=1)
 add_test(Integration_testSimple ${GENERIC_CALL} --nb-resources=10 ${CMAKE_CURRENT_BINARY_DIR}/testSimple.xml)
 add_test(Integration_testWithDeps ${GENERIC_CALL} --nb-resources=10 ${CMAKE_CURRENT_BINARY_DIR}/testWithDeps.xml)
 add_test(Integration_testFailed ${GENERIC_CALL} --nb-resources=10 ${CMAKE_CURRENT_BINARY_DIR}/testFailed.xml)

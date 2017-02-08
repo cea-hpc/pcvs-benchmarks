@@ -3,7 +3,7 @@
 /*                         Copyright or (C) or Copr.                        */
 /*       Commissariat a l'Energie Atomique et aux Energies Alternatives     */
 /*                                                                          */
-/* Version : 1.2                                                            */
+/* Version : 2.0                                                            */
 /* Date    : Tue Jul 22 13:28:10 CEST 2014                                  */
 /* Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      */
 /* Author  : Julien Adam <julien.adam@cea.fr>                               */
@@ -72,6 +72,14 @@ void XMLConfigParser::loadInt(int &val, const bool parent, const char nodeName[]
 	if(chain != "")
 		val =  atoi(chain.c_str());
 }
+void XMLConfigParser::loadFloat(float &val, const bool parent, const char nodeName[]) const
+{
+	xmlNodePtr dad = (parent == JOB_CONF) ? jobNode : systemNode;
+	string chain = findChildNodeContent(dad, (char*)nodeName);
+	if(chain != "")
+		val =  atof(chain.c_str());
+}
+
 void XMLConfigParser::loadBool(bool& val, const bool parent, const char nodeName[]) const{
 	xmlNodePtr dad = (parent == JOB_CONF) ? jobNode : systemNode;
 	string chain = findChildNodeContent(dad, (char*)nodeName);

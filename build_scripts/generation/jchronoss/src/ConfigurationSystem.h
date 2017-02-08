@@ -3,7 +3,7 @@
 /*                         Copyright or (C) or Copr.                        */
 /*       Commissariat a l'Energie Atomique et aux Energies Alternatives     */
 /*                                                                          */
-/* Version : 1.2                                                            */
+/* Version : 2.0                                                            */
 /* Date    : Tue Jul 22 13:28:10 CEST 2014                                  */
 /* Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      */
 /* Author  : Julien Adam <julien.adam@cea.fr>                               */
@@ -66,6 +66,7 @@ private:
 	/************** MEMBERS **************/
 	std::string * jobsLauncherCommand;            ///< current launcher for jobs
 	std::string * compilationJobsLauncherCommand; ///< current compilation launcher for jobs
+	std::string * serverLauncherCommand;          ///< specific launcher for remote log server
 	std::string * outputDirectory;                ///< where additionnaly files will be stored (traces...)
 	std::string * buildDirectory;                 ///< where temporary files will be stored (before erasing)
 	size_t nbMaxResources;                        ///< max number of resources allowed
@@ -75,6 +76,12 @@ private:
 	unsigned int minSlaveTime;                    ///< min time to start a slave (avoid wastes)
 	policyMode policySelected;                    ///< policy mode selected by user
 	size_t flowMaxBytes;                          ///< max bytes to keep in log
+	std::vector<std::string> outputFormats;       ///< User-defined list of format to "output"
+	std::string* servName;                        ///< remote log server hostname (propagated by master to slaves)
+	int frontendPort;                             ///< Listen port for WebSocket interface (frontend)
+	int backendPort;                              ///< Listen port for data log polling
+	bool online_mode;                             ///< Switch to 1 to enable real-time support
+	float interval;                               ///< User-defined data-sending interval by each worker
 
 public:
 	/************** STATICS **************/
@@ -88,6 +95,8 @@ public:
 	static const unsigned int DEFAULT_MIN_SLAVE_TIME = 0;             ///< if no value specified by user, global min time allowed to a slave
 	static const unsigned int DEFAULT_AUTOKILL = 0;                   ///< if no value specified by user, autokill desactived
 	static const unsigned int DEFAULT_FLOW_MAX_BYTES = 0;             ///< if no value specified by user, global max bytes caught from run	
+	static const float DEFAULT_ONLINE_INTERVAL;                       ///< if no value specified by user, polling interval for real-time workers
+	static const std::vector<std::string> AVAIL_OUTPUT_FORMATS;       ///< possible values for formatting the results (the default used will be the first one)
 	/************* FUNCTIONS *************/
 	/**** NON-CONST ****/
 	///standard SystemConfiguration constructor
@@ -124,8 +133,10 @@ public:
 	 * \param[in] maxTime max Slave time
 	 * \param[in] policy current policy
 	 * \param[in] flow flow size
+	 * \param[in] online online mode
+	 * \param[in] interval online polling interval
 	 */
-	void setSystemConfiguration(std::string* launcher, std::string* compil, std::string* output, std::string*build, size_t res, size_t slaves, unsigned int autokill, unsigned int minTime, unsigned int maxTime, policyMode policy, size_t flow);
+	void setSystemConfiguration(std::string* launcher, std::string* compil, std::string* output, std::string*build, size_t res, size_t slaves, unsigned int autokill, unsigned int minTime, unsigned int maxTime, policyMode policy, size_t flow, bool online, float interval);
 	///virtual destructor to unset the current SystemConfiguration
 	virtual ~SystemConfiguration();
 
@@ -144,6 +155,11 @@ public:
 	 * \return A string containing the current compilation launcher command
 	 */
 	std::string* getCompilationJobsLauncherCommand() const;
+	/// get the server launcher command
+	/**
+	 * \return A string containing the current server launcher command
+	 */
+	std::string* getServerLauncherCommand() const;
 	///get the output directory for stored data
 	/**
 	 * \return A string containing the current output directory
@@ -190,6 +206,63 @@ public:
 	 * \return an unsigned int which is the desired value
          */ 
 	size_t getFlowMaxBytes() const;
+	/// Get the list of available format for the run
+	/**
+	 * \return the const reference to the format vector.
+	 */
+	const std::vector<std::string>& getOutputFormats() const;
+	/**
+	 * Retrieve the remote server hostname as a pointer
+	 *
+	 * \return a pointer to the string name
+	 */
+	std::string* getServerName() const;
+	/**
+	 * Update the server name with the given parameter
+	 * 
+	 * \param[in] name the new server name.
+	 */
+	void setServerName(const char* name);
+	/**
+	 * Retrieve the backend port server log listens to.
+	 * \return the port number as an int.
+	 */
+	int getBackendPort() const;
+	/**
+	 * Retrieve the frontend port (ws) the server log is listening to.
+	 * \return the port number as an int.
+	 */
+	int getFrontendPort() const;
+	/**
+	 * Configure the backend port with an argument.
+	 * \param[in] p the port number.
+	 */
+	void setBackendPort(int p);
+	/**
+	 * Configure the frontend port with an argument.
+	 * \param[in] p the port number.
+	 */
+	void setFrontendPort(int p);
+	/**
+	 * Test if the real-time support is enabled.
+	 * \return true if online mode is enabled, false otherwise.
+	 */
+	bool needOnlineMode() const;
+	/**
+	 * Disable the real-time support.
+	 * 
+	 * This takes place when an issue occurs with remote log server.
+	 */
+	void disableOnlineMode();
+	/**
+	 * Enable the real-time support.
+	 */
+	void enableOnlineMode();
+	/**
+	 * Get the currently set polling interval for real-time support.
+	 * \return the number of second (float).
+	 */
+	float getOnlineInterval() const;
 };
 
 #endif // SYSTEMCONFIGURATION_H

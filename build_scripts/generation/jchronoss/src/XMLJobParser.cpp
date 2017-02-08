@@ -3,7 +3,7 @@
 /*                         Copyright or (C) or Copr.                        */
 /*       Commissariat a l'Energie Atomique et aux Energies Alternatives     */
 /*                                                                          */
-/* Version : 1.2                                                            */
+/* Version : 2.0                                                            */
 /* Date    : Tue Jul 22 13:28:10 CEST 2014                                  */
 /* Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      */
 /* Author  : Julien Adam <julien.adam@cea.fr>                               */
@@ -145,12 +145,12 @@ Job* XMLJobParser::parseJob(xmlNodePtr location) {
 
 	parseDeps(vDeps, location);
 	parseConstraints(vConstraints, location);
-/*
-	for(vector<JobConstraint*>::iterator it = vConstraints.begin(); it != vConstraints.end() && !directly_selected; it++){
-		if((*it)->getName() == JobConstraint::COMPILATION_TAG)
-			directly_selected=true;
-	}
-*/
+
+	//for(vector<JobConstraint*>::iterator it = vConstraints.begin(); it != vConstraints.end() && !directly_selected; it++){
+		//if((*it)->getName() == JobConstraint::COMPILATION_TAG)
+			//directly_selected=true;
+	//}
+
 	if(!filter->accept(name) && !directly_selected)
 		return NULL;
 	

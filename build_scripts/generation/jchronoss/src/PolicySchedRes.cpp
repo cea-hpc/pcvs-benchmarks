@@ -3,7 +3,7 @@
 /*                         Copyright or (C) or Copr.                        */
 /*       Commissariat a l'Energie Atomique et aux Energies Alternatives     */
 /*                                                                          */
-/* Version : 1.2                                                            */
+/* Version : 2.0                                                            */
 /* Date    : Tue Jul 22 13:28:10 CEST 2014                                  */
 /* Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      */
 /* Author  : Julien Adam <julien.adam@cea.fr>                               */
@@ -67,15 +67,12 @@ void SchedResPolicy::fillingAlgo(Worker * cur, size_t maxIndice,
 			if(nbJobs >= nbMaxJobs && nbMaxJobs != JobConfiguration::DEFAULT_MAX_NB_JOBS && time <= maxTime)
 				break;
 			else if( jcur->isDepInvalid()){
-				if(!jcur->addATry())
-					jcur->updateStatus(MUCH_TRIES);
-				it++;
+				it = jobMan->delayJob(i, it);
 				continue;
 			}
 			time += jcur->getExpectedTime();
 			cur->add(jcur);
-			// here the it++ is done by erase function !!!!
-			it = currentJM[i].erase(it);
+			it = jobMan->pickJob(i, it);	
 			nbJobs++;
 		}
 	i--;

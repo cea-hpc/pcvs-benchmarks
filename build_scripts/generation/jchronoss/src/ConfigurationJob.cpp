@@ -3,7 +3,7 @@
 /*                         Copyright or (C) or Copr.                        */
 /*       Commissariat a l'Energie Atomique et aux Energies Alternatives     */
 /*                                                                          */
-/* Version : 1.2                                                            */
+/* Version : 2.0                                                            */
 /* Date    : Tue Jul 22 13:28:10 CEST 2014                                  */
 /* Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      */
 /* Author  : Julien Adam <julien.adam@cea.fr>                               */
@@ -55,7 +55,7 @@ JobConfiguration::JobConfiguration() {
 
 void JobConfiguration::printHelp() const {
 	//print help
-	cout 	<< COLOR_PASS"\n JOB OPTIONS :"COLOR_NORM"\n"
+	cout 	<<  COLOR_PASS "\n JOB OPTIONS :" COLOR_NORM "\n"
 		<< PADDED_HELP << "   -s, --silent "			<<"Print only job status.\n"
 		<< PADDED_HELP << "   -v, --verbose "			<<"Print only failed jobs traces + --silent.\n"
 		<< PADDED_HELP << "   -V, --very-verbose "		<<"Print all about jobs and status.\n"

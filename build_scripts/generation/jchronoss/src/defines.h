@@ -3,7 +3,7 @@
 /*                         Copyright or (C) or Copr.                        */
 /*       Commissariat a l'Energie Atomique et aux Energies Alternatives     */
 /*                                                                          */
-/* Version : 1.2                                                            */
+/* Version : 2.0                                                            */
 /* Date    : Tue Jul 22 13:28:10 CEST 2014                                  */
 /* Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      */
 /* Author  : Julien Adam <julien.adam@cea.fr>                               */
@@ -51,13 +51,13 @@
 /************************/
 
 /** print an error message and exit with given signal **/
-#define printError(chain, sig) do{ std::cerr<<COLOR_FAIL" ERROR        : "<< chain <<COLOR_NORM << endl; exit(sig); } while(0)
+#define printError(chain, sig) do{ std::cerr<<COLOR_FAIL" ERROR        : "<< chain <<COLOR_NORM << std::endl; exit(sig); } while(0)
 
 /** print a warning message and continue execution **/
-#define printWarning(chain)    do{ std::cerr<<COLOR_URUN" WARNING      : "<< chain <<COLOR_NORM << endl;            } while(0)
+#define printWarning(chain)    do{ std::cerr<<COLOR_URUN" WARNING      : "<< chain <<COLOR_NORM << std::endl;            } while(0)
 
 /** print an info message and continue execution **/
-#define printInfo(chain)       do{ std::cerr<<COLOR_INFO" INFO         : "<< chain <<COLOR_NORM << endl;            } while(0)
+#define printInfo(chain)       do{ std::cerr<<COLOR_INFO" INFO "<<type<<"  : "<< chain <<COLOR_NORM << std::endl;            } while(0)
 
 /** declare a parameter as unused. Useful to avoid warning about unused paramters (like signal handlers...) **/
 #define UNUSED(x) (void)(x)                  ///< define an unused paramater
@@ -84,8 +84,13 @@
 #define MAX_RANDOM 5000                      ///< define max random time in millisecond
 #define MIN_RANDOM 0                         ///< define min random time
 #define VAR_COEFF 0.5                        ///< define variance on random time
-#define DEFAULT_MAGIK_NUMBER 42              ///< define magik number to ensure data coherency
+#define DEFAULT_MAGIK_NUMBER 42U             ///< define magik number to ensure data coherency
 #define DEFAULT_OUTPUT_FILENAME "/output-"   ///< define default prefix filename for output xml file
+#define RANDOM_PORT_NUMBER   0               ///< define default port number generation
+#define DEFAULT_ONLINE_MODE false
+#define CHECKPOINT_PREFIX "jns_chkpt"
+#define CHECKPOINT_EXT    ".json"
+#define CHECKPOINT_FILENAME "/" + CHECKPOINT_PREFIX + CHECKPOINT_EXT
 
 /*******************/
 /****** COLORS *****/
@@ -115,7 +120,7 @@
 #define PREFIX_URUN COLOR_URUN" NOT RUNNABLE : "
 #define PREFIX_DEBG COLOR_DEBG" DEBUG        : "
 
-#ifdef ENABLE_MEASURE
+#ifdef ENABLE_PROFILING
 	#define TIME_MEASURE_INIT() measureTimeInterval(true)
 	#define TIME_MEASURE_END(u) measureTimeInterval(false, u)
 #else

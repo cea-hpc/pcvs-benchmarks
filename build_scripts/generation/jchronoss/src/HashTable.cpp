@@ -3,7 +3,7 @@
 /*                         Copyright or (C) or Copr.                        */
 /*       Commissariat a l'Energie Atomique et aux Energies Alternatives     */
 /*                                                                          */
-/* Version : 1.2                                                            */
+/* Version : 2.0                                                            */
 /* Date    : Tue Jul 22 13:28:10 CEST 2014                                  */
 /* Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      */
 /* Author  : Julien Adam <julien.adam@cea.fr>                               */
@@ -49,6 +49,11 @@ void HashTable::add ( int pid, Worker* nw ) {
 
 Worker* HashTable::remove ( int pid ) {
 	list<HashItem*>::iterator elt = find(pid);
+	
+	if(elt == table.end())
+	{
+		printError("Worker with PID "<< pid << " not found !", JE_UNKNOWN);
+	}
 	Worker *val = NULL;
 	
 	if((*elt)->pid == pid){
@@ -82,7 +87,7 @@ void HashTable::stopAll()
 		flux.str("");
 		flux << "\t --> Stopping " << (*it)->pid;
 		printInfo(flux.str());
-		kill((*it)->pid, SIGALRM);
+		killpg(getpgid((*it)->pid), SIGUSR1);
 	}
 }
 

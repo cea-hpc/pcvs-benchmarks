@@ -3,7 +3,7 @@
 /*                         Copyright or (C) or Copr.                        */
 /*       Commissariat a l'Energie Atomique et aux Energies Alternatives     */
 /*                                                                          */
-/* Version : 1.2                                                            */
+/* Version : 2.0                                                            */
 /* Date    : Tue Jul 22 13:28:10 CEST 2014                                  */
 /* Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      */
 /* Author  : Julien Adam <julien.adam@cea.fr>                               */
@@ -87,7 +87,7 @@ void TestJobResult::testFillHeader ( void ) {
 	SVUT_ASSERT_EQUAL(mainJobResult->getMagik(), DEFAULT_MAGIK_NUMBER);
 	SVUT_ASSERT_EQUAL(mainJobResult->getStartTime(),123456789.23);
 	SVUT_ASSERT_EQUAL(mainJobResult->getTime(), 1.0);
-	SVUT_ASSERT_EQUAL(mainJobResult->getId(), 1);
+	SVUT_ASSERT_EQUAL(mainJobResult->getId(), (size_t)1);
 }
 
 void TestJobResult::testInsertData ( void ) {
@@ -99,4 +99,4 @@ void TestJobResult::testInsertData ( void ) {
 }
 
 
-SVUT_REGISTER_STANDELONE(TestJobResult);
+SVUT_REGISTER_STANDELONE(TestJobResult)

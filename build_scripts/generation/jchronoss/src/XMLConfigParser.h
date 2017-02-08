@@ -3,7 +3,7 @@
 /*                         Copyright or (C) or Copr.                        */
 /*       Commissariat a l'Energie Atomique et aux Energies Alternatives     */
 /*                                                                          */
-/* Version : 1.2                                                            */
+/* Version : 2.0                                                            */
 /* Date    : Tue Jul 22 13:28:10 CEST 2014                                  */
 /* Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      */
 /* Author  : Julien Adam <julien.adam@cea.fr>                               */
@@ -80,6 +80,16 @@ public:
 	 * \param[in] nodeName node name where data will be extracted.
 	 */
 	void loadInt(int& val, const bool parent, const char nodeName[]) const;
+	/// load a node content as a float value
+	/**
+	 * This function loads the content of nodeName node, located is the subtree
+	 * belonging to parent (job or system ones). Then, the value is casted into
+	 * float and assigned to val
+	 * \param[out] val where to store value
+	 * \param[in] parent a bool to select job or system parent node
+	 * \param[in] nodeName node name where data will be extracted.
+	 */
+	void loadFloat(float& val, const bool parent, const char nodeName[]) const;
 	/// load a node content as a string value
 	/**
 	 * This function loads the content of nodeName node, located is the subtree

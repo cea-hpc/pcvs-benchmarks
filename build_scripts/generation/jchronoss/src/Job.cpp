@@ -3,7 +3,7 @@
 /*                         Copyright or (C) or Copr.                        */
 /*       Commissariat a l'Energie Atomique et aux Energies Alternatives     */
 /*                                                                          */
-/* Version : 1.2                                                            */
+/* Version : 2.0                                                            */
 /* Date    : Tue Jul 22 13:28:10 CEST 2014                                  */
 /* Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      */
 /* Author  : Julien Adam <julien.adam@cea.fr>                               */
@@ -51,11 +51,8 @@ Job::Job ( std::string name, std::string command, size_t nbRes,  int rc, double 
 {
 	myId = ++id;
 	size_t ind = fullName.find_last_of(".");
-	if(ind >= fullName.size()){
-		ind = 0;	
-	}
+	shortName = (ind < fullName.size()) ? fullName.substr(ind+1) : fullName;
 
-	shortName = fullName.substr(ind+1);
 }
 
 Job::~Job() {

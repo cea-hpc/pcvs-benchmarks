@@ -3,7 +3,7 @@
 /*                         Copyright or (C) or Copr.                        */
 /*       Commissariat a l'Energie Atomique et aux Energies Alternatives     */
 /*                                                                          */
-/* Version : 1.2                                                            */
+/* Version : 2.0                                                            */
 /* Date    : Tue Jul 22 13:28:10 CEST 2014                                  */
 /* Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      */
 /* Author  : Julien Adam <julien.adam@cea.fr>                               */
@@ -45,6 +45,22 @@
 
 #include "Runner.h"
 #include "DataFlow.h"
+#include <time.h>
+#ifdef ENABLE_PLUGIN_SERVER
+/**
+ * Structure forwarded to the polling thread.
+ *
+ * This struct helps the dedicated thread to interact job contents.
+ */
+typedef struct polling_data_s
+{
+	Configuration* config;               ///< the current config
+	JobManager* manager;                 ///< the current manager
+	std::list<Job*>::const_iterator cur; ///< iterator pointing the last job sent to the server
+	int socket;                          ///< the backend connection
+	pthread_t tid;                       ///< Thread id to stop it when the worker ends
+} polling_data_t;
+#endif
 
 /// main class for slave execution mode
 /**
@@ -60,13 +76,13 @@ private:
 	Worker* nextWorker;                ///< current worker to deal with
 	FileManager* outputFile;           ///< global output file (where data will be pushed)
 	FileManager* traceFile;            ///< global trace file (log for JSLoc)
+	int serverSock;                    ///< remote server socket (stored in polling_data_t too)
 	/// represent the worker object given to pthread as argument
 	typedef struct sThreadItem {
 		RunnerSlave* slave;   ///< the current Runner (to have lockers)
 		Worker* worker;       ///< the current worker to launch
 	} ThreadItem;      
-	
-	/************* FUNCTIONS *************/
+
 	/**** NON-CONST ****/
 	/// function called by thread to launch a worker (thread function)
 	/**
@@ -105,6 +121,30 @@ public:
 	virtual void launchWorker ( Worker* cur );
 	virtual void preActions();
 	virtual void postActions(Worker* cur);
+#ifdef ENABLE_PLUGIN_SERVER
+	/**
+	 * function called at startup to run the polling thread.
+	 * In this function, the connection is established w/ the 
+	 * remote server and the polling thread is started.
+	 */
+	void runClient();
+	/**
+	 * main function for the polling thread.
+	 * This function aims to replace the event loop :
+	 * 	while(1) { callback(); sleep();}
+	 * \param[in] arg the thread data, can be cast into polling_data_t
+	 * \return NULL
+	 */
+	static void * polling_handler(void* arg);
+	/**
+	 * Polling function.
+	 * Here, we drain not-already-sent jobs to the remote log server.
+	 * This function has to ensure thread-safety, as some other threads
+	 * can update the JobManager too.
+	 * \param[in] data thread data
+	 */
+	static void timer_callback(polling_data_t* data);
+#endif
 	virtual ~RunnerSlave();
 };
 

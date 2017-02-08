@@ -3,7 +3,7 @@
 /*                         Copyright or (C) or Copr.                        */
 /*       Commissariat a l'Energie Atomique et aux Energies Alternatives     */
 /*                                                                          */
-/* Version : 1.2                                                            */
+/* Version : 2.0                                                            */
 /* Date    : Tue Jul 22 13:28:10 CEST 2014                                  */
 /* Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      */
 /* Author  : Julien Adam <julien.adam@cea.fr>                               */
@@ -42,27 +42,13 @@
 #ifndef JOBMANAGER_H
 #define JOBMANAGER_H
 
+#include "json.h"
 #include "utils.h"
 #include "Job.h"
 #include "Configuration.h"
 #include "FilterBox.h"
 #include "XMLJobParser.h"
-#include "json.h"
-
-/**
- * Struct which gathers global information about the whole run and print them
- */
-typedef struct Summary_s {
-	size_t nbJobs;        ///< number of jobs provided by input
-	size_t nbSuccess;     ///< number of succeeded jobs
-	size_t nbErrors;      ///< number of errors during scheduling
-	size_t nbFailed;      ///< number of failed jobs
-	size_t nbSkipped;     ///< number of not-scheduled jobs
-	size_t nbTotalSlaves; ///< total number of run slaves 
-	time_t startRun;      ///< Start time (init runnerMaster)
-	time_t endRun;        ///< end time (just before summary print)	
-	double elapsed;       ///< elapsed time with interruption (before restart)
-} Summary;
+#include "OutputFormat.h"
 
 /// Main class gathering all jobs for the current validation
 /**
@@ -79,14 +65,16 @@ private:
 	std::list<Job*> executedJobsList;   ///< the executed jobs list (after execution, before pushing)
 	size_t nbRemainingJobs;             ///< number of jobs which still are in job Manager (at any t moment)
 	size_t nbJobs;                      ///< total number of jobs parsed from files
+	std::vector<OutputFormat*> outputs; ///< Output standard format required by the user
 	Configuration* config;              ///< current global configuration
-	
+	std::list<Job*>::iterator jobCpt;   ///< log server utility (used by the slave) */
+
 	/************* FUNCTIONS *************/
 	/**** NON-CONST ****/
 	void resolveAJobDeps( Job* current );    ///< used by jobManager to match job deps (as string) to real jobs (as pointer)
 	Job* resolveADep( std::string pattern ); ///< Looking for the matching deps stored into the manager
 	void pushInOneFile(FileManager* file);   ///< used by JobManager to write down results info output xml files
-	
+
 public:
 	/**************** VARS ***************/
 	Summary sumRun;                   ///< filled at the end : summary and stats about the run
@@ -154,7 +142,7 @@ public:
 	void loadBackup();
 	///virtual destructor to unset the job Manager
 	virtual ~JobManager();
-	
+
 	/****** CONST ******/
 	///print a job manager on screen (debug)
 	void display() const;
@@ -205,6 +193,30 @@ public:
 	void displaySummary() const;
 	///Update final return code in config depending on validation state
 	void updateFinalState() const;
+	/// get the first element of executed list, as a const_iterator
+	/**
+	 * \return a const_iterator to list.begin()
+	 */
+	std::list<Job*>::const_iterator getExecutedStart() const;
+	/// get the last element of executed list, as a const_iterator
+	/**
+	 * \return a const_iterator to list.end()
+	 */
+	std::list<Job*>::const_iterator getExecutedEnd() const;
+	/**
+	 * Tag a job as not executable yet and delay it in Policy scheduling.
+	 * \param[in] id the list id where job has been found
+	 * \param[in] job the job to delay
+	 * \return the iterator to the next element
+	 */
+	std::list<Job*>::iterator delayJob(int id, std::list<Job*>::iterator job);
+	/**
+	 * Pick a job in JobManager list and return the next element.
+	 * \param[in] id the list id where job has been found
+	 * \param[in] job the job to remove
+	 * \return the iterator to the next element
+	 */
+	std::list<Job*>::iterator pickJob(int id, std::list<Job*>::iterator job);
 };
 
 #endif // JOBMANAGER_H

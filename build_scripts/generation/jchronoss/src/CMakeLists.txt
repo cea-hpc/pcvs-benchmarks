@@ -3,7 +3,7 @@
 #                         Copyright or (C) or Copr.                        #
 #       Commissariat a l'Energie Atomique et aux Energies Alternatives     #
 #                                                                          #
-# Version : 1.2                                                            #
+# Version : 2.0                                                            #
 # Date    : Tue Jul 22 13:28:10 CEST 2014                                  #
 # Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      #
 # Author  : Julien Adam <julien.adam@cea.fr>                               #
@@ -43,35 +43,32 @@
 #find sources files
 file(GLOB_RECURSE src_files *.cpp)
 
-
 ########################################################
 #setting compilation flags according to options
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${ADD_FLAGS}")
-
-if(OPENMP_FOUND AND NOT DISABLE_OPENMP)
+if(OPENMP_FOUND AND ENABLE_OPENMP)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
 	add_definitions("-DENABLE_OPENMP")
 endif()
 
-if(ENABLE_COLOR OR ENABLE_ALL)
+if(ENABLE_COLOR)
 	add_definitions("-DENABLE_COLOR")
 endif()
-if(ENABLE_TRACE OR ENABLE_ALL)
+if(ENABLE_TRACE)
 	add_definitions("-DENABLE_TRACE")
 endif()
 
-if(ENABLE_MEASURE OR ENABLE_ALL)
-	add_definitions("-DENABLE_MEASURE")
+if(ENABLE_PROFILING)
+	add_definitions("-DENABLE_PROFILING")
 endif()
 
 
 ########################################################
 #generate JCHRONOSS
 add_executable(jchronoss ${src_files})
-target_link_libraries(jchronoss ${LIBS_TO_LINK})
-
-if(ENABLE_TEST_SUITE OR ENABLE_ALL)
+target_link_libraries(jchronoss ${EXTRA_LIBS})
+if(ENABLE_TESTS)
 	add_library(testSuite SHARED ${src_files})
-endif(ENABLE_TEST_SUITE OR ENABLE_ALL)
+	target_link_libraries(testSuite ${EXTRA_LIBS})
+endif(ENABLE_TESTS)
 
 INSTALL(TARGETS jchronoss DESTINATION bin)

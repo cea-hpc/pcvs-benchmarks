@@ -3,7 +3,7 @@
 /*                         Copyright or (C) or Copr.                        */
 /*       Commissariat a l'Energie Atomique et aux Energies Alternatives     */
 /*                                                                          */
-/* Version : 1.2                                                            */
+/* Version : 2.0                                                            */
 /* Date    : Tue Jul 22 13:28:10 CEST 2014                                  */
 /* Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      */
 /* Author  : Julien Adam <julien.adam@cea.fr>                               */
@@ -126,6 +126,9 @@ const string XMLValidator::xsdConfigValidation = "\
         <xs:element name=\"autokill\" type=\"xs:nonNegativeInteger\"/>\
         <xs:element name=\"policy\" type=\"xs:nonNegativeInteger\"/>\
         <xs:element name=\"flowsize\" type=\"xs:nonNegativeInteger\"/>\
+        <xs:element name=\"online\" type=\"xs:boolean\"/>\
+        <xs:element name=\"refresh\" type=\"xs:nonNegativeInteger\"/>\
+        <xs:element name=\"exit_type\" type=\"xs:string\"/>\
         <xs:element name=\"jobslist\">\
                 <xs:complexType>\
                         <xs:sequence>\
@@ -175,6 +178,8 @@ const string XMLValidator::xsdConfigValidation = "\
                                 <xs:element ref=\"policy\" minOccurs=\"0\" maxOccurs=\"1\"/>\
                                 <xs:element ref=\"flowsize\" minOccurs=\"0\" maxOccurs=\"1\"/>\
                                 <xs:element ref=\"autokill\" minOccurs=\"0\" maxOccurs=\"1\"/>\
+                                <xs:element ref=\"online\" minOccurs=\"0\" maxOccurs=\"1\"/>\
+                                <xs:element ref=\"refresh\" minOccurs=\"0\" maxOccurs=\"1\"/>\
                         </xs:all>\
                 </xs:complexType>\
         </xs:element>\
@@ -183,6 +188,7 @@ const string XMLValidator::xsdConfigValidation = "\
                         <xs:all>\
                                 <xs:element ref=\"job\" minOccurs=\"0\" maxOccurs=\"1\"/>\
                                 <xs:element ref=\"system\" minOccurs=\"0\" maxOccurs=\"1\"/>\
+                                <xs:element ref=\"exit_type\" minOccurs=\"0\" maxOccurs=\"1\"/>\
                         </xs:all>\
                 </xs:complexType>\
         </xs:element>\

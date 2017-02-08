@@ -3,7 +3,7 @@
 /*                         Copyright or (C) or Copr.                        */
 /*       Commissariat a l'Energie Atomique et aux Energies Alternatives     */
 /*                                                                          */
-/* Version : 1.2                                                            */
+/* Version : 2.0                                                            */
 /* Date    : Tue Jul 22 13:28:10 CEST 2014                                  */
 /* Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      */
 /* Author  : Julien Adam <julien.adam@cea.fr>                               */
@@ -45,7 +45,7 @@ using namespace std;
  * - shortopts : struct contains short options tags where ":" means option require argument
  * - longopts : struct contains long options tags with ("name", haveArg?, NOT_USED, short_match)
  */
-static char * shortopts = (char*)":ab:c:dfhj:k:lm:no:p:r:st:vw:AB:C:D:FK:L:MNR:ST:VXY:"; // short options
+static char * shortopts = (char*)"ab:c:efhi:j:k:lm:no:p:r:st:vw:x:AB:C:D:FK:L:MNO:P:R:ST:VW:XY:"; // short options
 static struct option longopts[]= {                                                // long options
 	/* opt			has_arg			flag	val*/
 	/**************************** GLOBAL *************************/
@@ -54,7 +54,7 @@ static struct option longopts[]= {                                              
 	{"slave",		no_argument,		NULL,	'S'},
 	{"config-file",		required_argument,	NULL,	'c'},
 	{"restart",             required_argument,      NULL,   'R'},
-	{"expect-success", no_argument, NULL, 'X'},
+	{"expect-success",	no_argument, 		NULL, 	'X'},
 
 	/****************************   JOB  *************************/
 	{"silent",		no_argument,		NULL,	's'},
@@ -74,7 +74,7 @@ static struct option longopts[]= {                                              
 	{"long-names",          no_argument,            NULL,   'l'},
 
 	/**************************** SYSTEM *************************/
-	{"output",		required_argument,	NULL,	'o'},
+	{"output",	    	required_argument,	NULL,	'o'},
 	{"autokill",		required_argument,	NULL,	'k'},
 	{"build",		required_argument,	NULL,	'B'},
 	{"nb-resources",	required_argument,	NULL,	'r'},
@@ -83,8 +83,14 @@ static struct option longopts[]= {                                              
 	{"mint-slave",		required_argument,	NULL,	'm'},
 	{"launcher",		required_argument,	NULL,	'L'},
 	{"compil-launcher",	required_argument,	NULL,	'C'},
-	{"policy",		required_argument,	NULL,	'p'},
+	{"server-launcher",	required_argument,	NULL,	'W'},
+	{"server-name",		required_argument,	NULL,	'x'},
+	{"server-port", 	required_argument,	NULL,	'P'},
+	{"policy",  		required_argument,	NULL,	'p'},
 	{"size-flow",		required_argument,	NULL,	'D'},
+	{"output-format",	required_argument,	NULL,	'O'},
+	{"online",		no_argument,		NULL,	'e'},
+	{"interval", 		required_argument,	NULL,	'i'},
 	
 	/*************************** END TAG *************************/
 	{NULL,			no_argument,		NULL,	 0 }
@@ -109,9 +115,9 @@ void Configuration::printHelp() const {
 	banner();
 		
 	//display global help
-	cout 	<< COLOR_NRUN"         Usage: ./jchronoss [options] <XML Files> "COLOR_NORM"\n"
+	cout 	<< COLOR_NRUN "         Usage: ./jchronoss [options] <XML Files> " COLOR_NORM "\n"
 	
-		<< COLOR_FAIL"\n GLOBAL OPTIONS :"COLOR_NORM"\n"
+		<< COLOR_FAIL "\n GLOBAL OPTIONS :" COLOR_NORM "\n"
 		<< PADDED_HELP << "   -h, --help " 		<< "Print this help.\n"
 		<< PADDED_HELP << "   -M, --master "		<<"Launch JChronoss as master (recommended).\n"
 		<< PADDED_HELP << "   -S, --slave " 		<<"Launch JChronoss as slave (rarely to use).\n"
@@ -231,14 +237,14 @@ void Configuration::printConfiguration() const
 {	
 	//global configuration printing
 	if(configFile != NULL){
-		cout << COLOR_NRUN"+--------------------- GLOBAL CONFIGURATION -------------------+"COLOR_NORM << endl;
+		cout << COLOR_NRUN "+--------------------- GLOBAL CONFIGURATION -------------------+" COLOR_NORM << endl;
 		cout << PADDED_OPT << "| - Configuration file : " << *configFile << endl;
 	}
 	
 	//other printing
-	cout << COLOR_NRUN"+--------------------- SYSTEM CONFIGURATION -------------------+"COLOR_NORM << endl;
+	cout << COLOR_NRUN "+--------------------- SYSTEM CONFIGURATION -------------------+" COLOR_NORM << endl;
 	configSystem.printConfiguration();
-	cout << COLOR_NRUN"+----------------------- JOB CONFIGURATION --------------------+"COLOR_NORM << endl;
+	cout << COLOR_NRUN "+----------------------- JOB CONFIGURATION --------------------+" COLOR_NORM << endl;
 	configJobs.printConfiguration();
 }
 
@@ -269,11 +275,13 @@ void Configuration::checkOptionsValidity() const {
 	
 	//check intermediate wrappers exist
 	if(!FileManager::isCreated(configSystem.getCompilationJobsLauncherCommand()))
-		printError("The given Compilation launcher script not found", JE_NFND_FIL);
+		printError("The given Compilation launcher script not found or executable permission is missing", JE_NFND_FIL);
 		
 	if(!FileManager::isCreated(configSystem.getJobsLauncherCommand()))
-		printError("The given launcher script not found", JE_NFND_FIL);
+		printError("The given launcher script not found or executable permission is missing", JE_NFND_FIL);
 	
+	if(configSystem.needOnlineMode() && !FileManager::isCreated(configSystem.getServerLauncherCommand()))
+		printError("The given Server launcher script not found or executable permission is missing", JE_NFND_FIL);
 	//specific check on policy TIME
 	if(configSystem.getPolicy() != POLICY_DEFAULT){
 		//user should set max time for an allocation, to set upper bound for allocation
@@ -296,6 +304,21 @@ void Configuration::checkOptionsValidity() const {
 		printError("Output path doesn't exist !", JE_NFND_FIL);
 	if(!FileManager::isCreated(configSystem.getBuildDirectory()))
 		printError("Build path doesn't exist !", JE_NFND_FIL);
+
+	if(configSystem.getOutputFormats().size() <= 0)
+	{
+		printError("You should have at least one valid output format !!!", JE_INVA_VAL);
+	}
+
+	bool server_compiled = false;
+#ifdef ENABLE_PLUGIN_SERVER
+	server_compiled = true;
+#endif
+	if(!server_compiled && configSystem.needOnlineMode())
+	{
+		printError("Unable to use Real-Time support (--online) without passing -DENABLE_PLUGIN_SERVER=ON to CMake fonfiguration !", JE_UNKNOWN);
+	}
+
 }
 
 std::string Configuration::getRestoredFile() const {

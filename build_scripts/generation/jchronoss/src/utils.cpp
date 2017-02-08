@@ -3,7 +3,7 @@
 /*                         Copyright or (C) or Copr.                        */
 /*       Commissariat a l'Energie Atomique et aux Energies Alternatives     */
 /*                                                                          */
-/* Version : 1.2                                                            */
+/* Version : 2.0                                                            */
 /* Date    : Tue Jul 22 13:28:10 CEST 2014                                  */
 /* Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      */
 /* Author  : Julien Adam <julien.adam@cea.fr>                               */
@@ -40,12 +40,13 @@
 /****************************************************************************/
 
 #include "utils.h"
+
 using namespace std;
 
 /************* GLOBAL VARS ***********/
 ///store timers in order to time measurement
 static double previous_date = 0.0;
-
+std::string type = "";
 double getCurrentDate() {
 	double time=0.0;
 	struct timeval tic;
@@ -65,10 +66,13 @@ void printLine ( string prefix, string format, ... ) {
 	va_start(args, format);
 
 	cursor += vsprintf(output+cursor, format.c_str(), args);
-	cursor += sprintf(output+cursor, "%s", (char*)COLOR_NORM);
+	cursor += sprintf(output+cursor, "%s", (char*) COLOR_NORM );
 
 	va_end(args);
-	write(1, output, cursor);
+	if(write(1, output, cursor) != cursor)
+	{
+		printError("Unable to write (printLine routine)", JE_UNKNOWN);
+	}
 }
 
 int safeRead(FILE* fd, void * buf, int size) {
@@ -144,23 +148,23 @@ size_t hash_fn(string toHash){
 }
 
 void printHeader() {
-	cout << COLOR_NRUN"+--------------------------------------------------------------+"COLOR_NORM << endl;
-	cout << COLOR_NRUN"|   "COLOR_INFO"STATUS"COLOR_NORM"    |   "COLOR_INFO"ID  /  SZ"COLOR_NORM"   | "COLOR_INFO"LEFT"COLOR_NORM" |    "COLOR_INFO"TIME"COLOR_NORM"    |    "COLOR_INFO"NAME"COLOR_NORM"    |"COLOR_NORM << endl;
-	cout << COLOR_NRUN"+--------------------------------------------------------------+"COLOR_NORM << endl;
+	cout << COLOR_NRUN "+--------------------------------------------------------------+" COLOR_NORM << endl;
+	cout << COLOR_NRUN "|   " COLOR_INFO "STATUS" COLOR_NORM "    |   " COLOR_INFO "ID  /  SZ" COLOR_NORM "   | " COLOR_INFO "LEFT" COLOR_NORM " |    " COLOR_INFO "TIME" COLOR_NORM "    |    " COLOR_INFO "NAME" COLOR_NORM "    |" COLOR_NORM << endl;
+	cout << COLOR_NRUN "+--------------------------------------------------------------+" COLOR_NORM << endl;
 }
 
 void banner(){
 #ifdef ENABLE_COLOR
-	cout	<<COLOR_FAIL"    ___ "COLOR_URUN" _____  _   _ "COLOR_PASS"______  _____  _   _  _____  _____        \n"
-		<<COLOR_FAIL"   |_  |"COLOR_URUN"/  __ \\| | | |"COLOR_PASS"| ___ \\|  _  || \\ | ||  _  |/  ___|       \n"
-		<<COLOR_FAIL"     | |"COLOR_URUN"| /  \\/| |_| |"COLOR_PASS"| |_/ /| | | ||  \\| || | | |\\ `--.        \n"
-		<<COLOR_FAIL"     | |"COLOR_URUN"| |    |  _  |"COLOR_PASS"|    / | | | || . ` || | | | `--. \\_____  \n"
-		<<COLOR_FAIL" /\\__/ /"COLOR_URUN"| \\__/\\| | | |"COLOR_PASS"| |\\ \\ \\ \\_/ /| |\\  |\\ \\_/ //\\__/ /  ___| \n"
-		<<COLOR_FAIL" \\____/ "COLOR_URUN" \\____/\\_| |_/"COLOR_PASS"\\_| \\_| \\___/ \\_| \\_/ \\___/ \\____/\\ `--.  \n"
-		<<COLOR_FAIL"        "COLOR_URUN"              "COLOR_PASS"                                   `--. \\ \n"
-		<<COLOR_FAIL"        "COLOR_URUN"              "COLOR_PASS"                                  /\\__/ / \n"
-		<<COLOR_FAIL"        "COLOR_URUN"              "COLOR_PASS"                                  \\____/  \n"
-		<<COLOR_NORM"\n";
+	cout	<< COLOR_FAIL "    ___ " COLOR_URUN " _____  _   _ " COLOR_PASS "______  _____  _   _  _____  _____        \n"
+		<< COLOR_FAIL "   |_  |" COLOR_URUN "/  __ \\| | | |" COLOR_PASS "| ___ \\|  _  || \\ | ||  _  |/  ___|       \n"
+		<< COLOR_FAIL "     | |" COLOR_URUN "| /  \\/| |_| |" COLOR_PASS "| |_/ /| | | ||  \\| || | | |\\ `--.        \n"
+		<< COLOR_FAIL "     | |" COLOR_URUN "| |    |  _  |" COLOR_PASS "|    / | | | || . ` || | | | `--. \\_____  \n"
+		<< COLOR_FAIL " /\\__/ /" COLOR_URUN "| \\__/\\| | | |" COLOR_PASS "| |\\ \\ \\ \\_/ /| |\\  |\\ \\_/ //\\__/ /  ___| \n"
+		<< COLOR_FAIL " \\____/ " COLOR_URUN " \\____/\\_| |_/" COLOR_PASS "\\_| \\_| \\___/ \\_| \\_/ \\___/ \\____/\\ `--.  \n"
+		<< COLOR_FAIL "        " COLOR_URUN "              " COLOR_PASS "                                   `--. \\ \n"
+		<< COLOR_FAIL "        " COLOR_URUN "              " COLOR_PASS "                                  /\\__/ / \n"
+		<< COLOR_FAIL "        " COLOR_URUN "              " COLOR_PASS "                                  \\____/  \n"
+		<< COLOR_NORM "\n";
 
 #else
 	cout	<<"    ___  _____  _   _ ______  _____  _   _  _____  _____        \n"
@@ -191,4 +195,22 @@ string convertDate(double elapsed){
 	if(flux.str().empty())
 		flux << "< 1 sec";
 	return flux.str();
+}
+
+string& replace(std::string& str, std::string from, std::string to)
+{
+	size_t start = 0;
+	while((start = str.find(from, start)) != std::string::npos)
+	{
+		if(start > 0 && str[start-1] != '\\')
+		{
+			str.replace(start, from.size(), to);
+			start += to.size(); // to avoid replacing patterns if to is a substring of "from"
+		}
+		else
+		{
+			start++;
+		}
+	}
+	return str;
 }

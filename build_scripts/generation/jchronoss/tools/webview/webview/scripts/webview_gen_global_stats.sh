@@ -32,10 +32,10 @@ do
 	cnt_test_success=$(( ${cnt_test_cases} - ${cnt_test_errors} - ${cnt_test_failures} - ${cnt_test_skipped}))
 	test_dir=$(egrep -o "<testsuite name=\"[^\"]+\"" $file | sed -e "s@<testsuite name\=@@g" -e "s@\"@@g" -e "s#\.#-#g" -e "s#/#-#g")
 	#check final status
-	if [ "${cnt_test_errors}" != "0" ]; then
-		test_status='error'
-	elif [ "${cnt_test_failures}" != "0" ]; then
+	if [ "${cnt_test_failures}" != "0" ]; then
 		test_status='failed'
+	elif [ "${cnt_test_errors}" != "0" ]; then
+		test_status='error'
 	else
 		test_status='success'
 	fi
@@ -68,10 +68,10 @@ echo "	</details>"
 total_test_success=$(( ${total_test_cases} - ${total_test_failures} - ${total_test_errors} - ${total_test_skipped} ))
 
 #check final status
-if [ "${total_test_errors}" != "0" ]; then
-	final_status='error'
-elif [ "${total_test_failures}" != "0" ]; then
+if [ "${total_test_failures}" != "0" ]; then
 	final_status='failed'
+elif [ "${total_test_errors}" != "0" ]; then
+	final_status='error'
 else
 	final_status='success'
 fi

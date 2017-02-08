@@ -5,7 +5,7 @@
 #                         Copyright or (C) or Copr.                        #
 #       Commissariat a l'Energie Atomique et aux Energies Alternatives     #
 #                                                                          #
-# Version : 1.2                                                            #
+# Version : 2.0                                                            #
 # Date    : Tue Jul 22 13:28:10 CEST 2014                                  #
 # Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      #
 # Author  : Julien Adam <julien.adam@cea.fr>                               #
@@ -45,6 +45,7 @@ SOURCES_LIST=""
 WEBVIEW_PATH="."
 NEW_PATH=""
 DIFF_PATH=""
+SKELETON=""
 
 ###################### FUNCTION ####################
 # Args :
@@ -140,6 +141,9 @@ cat ${WEBVIEW_PATH}/webview/webview_banner
 for arg in $*
 do
 	case $arg in
+		--skeleton)
+			SKELETON="yes"
+			;;
 		--new=*)
 			NEW_PATH="$(echo "$arg" | sed -e "s@^--new=@@g")"
 		;;
@@ -161,6 +165,10 @@ check_sources
 echo " * Check reference sources"
 check_reference
 
+if test "$SKELETON" = "yes" ; then
+	SOURCES_LIST=""
+fi
+
 #cleanup of mkdir
 if [ -d ${WEBVIEW_PATH}/webview/generated ]; then
 	cleanup ${WEBVIEW_PATH}/webview/generated
@@ -180,6 +188,8 @@ generate ${WEBVIEW_PATH}/webview/generated/errors.xml ${WEBVIEW_PATH}/webview/sc
 #generate html pages
 generate_by_xsl ${WEBVIEW_PATH}/webview/generated/main.html ${WEBVIEW_PATH}/webview/generators/main.html.xsl ${WEBVIEW_PATH}/webview/generated/main.xml
 generate_by_xsl ${WEBVIEW_PATH}/webview/generated/errors.html ${WEBVIEW_PATH}/webview/generators/errors.html.xsl ${WEBVIEW_PATH}/webview/generated/errors.xml
+cp ${WEBVIEW_PATH}/webview/generators/realtime.html ${WEBVIEW_PATH}/webview/generated/realtime.html
+cp ${WEBVIEW_PATH}/webview/generators/diff-main.html ${WEBVIEW_PATH}/webview/generated/diff-main.html
 
 for file in $(find $SOURCES_LIST -iname 'output*.xml' )
 do

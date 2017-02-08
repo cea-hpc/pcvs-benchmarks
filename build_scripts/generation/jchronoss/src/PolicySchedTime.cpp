@@ -3,7 +3,7 @@
 /*                         Copyright or (C) or Copr.                        */
 /*       Commissariat a l'Energie Atomique et aux Energies Alternatives     */
 /*                                                                          */
-/* Version : 1.2                                                            */
+/* Version : 2.0                                                            */
 /* Date    : Tue Jul 22 13:28:10 CEST 2014                                  */
 /* Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      */
 /* Author  : Julien Adam <julien.adam@cea.fr>                               */
@@ -123,9 +123,7 @@ void SchedTimePolicy::fillingAlgo(Worker * cur, size_t maxIndice, size_t nbCurRe
 				break;
 			}
 			else if(jcur->isDepInvalid()){
-				if(!jcur->addATry())
-					jcur->updateStatus(MUCH_TRIES);
-				it++;
+				it = jobMan->delayJob(i, it);
 				continue;
 			}
 			cur->add(jcur);
@@ -133,17 +131,18 @@ void SchedTimePolicy::fillingAlgo(Worker * cur, size_t maxIndice, size_t nbCurRe
 			maxRequiredResources += jcur->getNbResources();
 
 			biggestJob = std::max(biggestJob, jcur->getNbResources());
-			// here the it++ is done by erase function !!!!
-			it = currentJM[i].erase(it);
+			it = jobMan->pickJob(i, it);
 		}
 	i--;
 	}while(i >= 0 && !fullWorker);
 
-    if(maxRequiredResources == 0){
-        nRes_1passe = 0;
-        goto ret_func;
-    }
-
+	/* first, we check we take at least one job */
+	if(maxRequiredResources == 0)
+	{
+		/* the worker won't be scheduled */
+		nRes_1passe = 0;
+		goto ret_func;
+	}
 	/*** State some corner case in that scheduling: ***
 	 * 1. If no jobs left, take all remanining resources
 	 * 2. If the number of resources requested by all jobs is lower than number of assigned resources => shrink
@@ -165,7 +164,7 @@ void SchedTimePolicy::fillingAlgo(Worker * cur, size_t maxIndice, size_t nbCurRe
 	/* 4. */
 	nRes_1passe = std::max(biggestJob, nRes_1passe);
 
-ret_func:
+ret_func: /* this label is used to handle special case (no jobs to run,...) */
 	assert(nRes_1passe <= nbCurResources);
 	cur->setNbRequiredResources(nRes_1passe);
 }

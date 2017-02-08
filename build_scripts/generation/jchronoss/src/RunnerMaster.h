@@ -3,7 +3,7 @@
 /*                         Copyright or (C) or Copr.                        */
 /*       Commissariat a l'Energie Atomique et aux Energies Alternatives     */
 /*                                                                          */
-/* Version : 1.2                                                            */
+/* Version : 2.0                                                            */
 /* Date    : Tue Jul 22 13:28:10 CEST 2014                                  */
 /* Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      */
 /* Author  : Julien Adam <julien.adam@cea.fr>                               */
@@ -48,22 +48,23 @@
 /// main class for master execution mode
 /**
  * This class contains all required methods and rountines needed to master
- * specific behaviour. It's derived from Runner class and implement the whole
- * virtuals functions from this base class. 
+ * specific behavior. It's derived from Runner class and implement the whole
+ * virtual functions from this base class. 
  */
 class RunnerMaster : public Runner {
 private:
 	/************** MEMBERS **************/
 	HashTable tabWorkers;  ///< list of currently running workers
 	bool firstRound;       ///< check if a first worker have been launched
-	
+
 	/************** STATICS **************/
 	/****** CONST ******/
-	static const size_t NB_PARAMETERS_COMMAND = 11;  ///< max number of parameters used to start a new jchronoss instance
+	static const size_t NB_PARAMETERS_COMMAND = 14;  ///< max number of parameters used to start a new jchronoss instance
+	static pid_t serverPid;	                         ///< stored PID of the remote log server
 	
 	/************* FUNCTIONS *************/
 	/**** NON-CONST ****/
-	/// behaviour used to sigaction call
+	/// behavior used to sigaction call
 	/**
 	 * This function is called when an signal is caught by application. This 
 	 * function is passed to sigaction call
@@ -83,6 +84,20 @@ public:
 	 * backup creation routine to generate backup file with job manager
 	 */
 	void createBackup();
+	/**
+	 * Start log server. 
+	 * The current process is the master
+	 */
+	void startServer();
+	/**
+	 * Start the logger.
+	 * The current process mimics the worker behavior.
+	 * This is mandatory, as invalid jobs are not scheduled by the workers but
+	 * the remote server has to know about it. When jobs are invalidated (JobMManager),
+	 * the master sends these job "results" to the remote server through the
+	 * socket created by this function.
+	 */
+	void startLogger();
 	/// Destroy RunnerMaster (print last end line)
 	~RunnerMaster();
 	virtual void pullJobsFromFiles();

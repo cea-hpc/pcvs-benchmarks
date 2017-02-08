@@ -42,6 +42,7 @@ namespace svUnitTest
 {
 
 /********************  MACROS  **********************/
+#define SVUT_UNUSED(u) ((void)u)
 #define SVUT_STATUS_TODO "TODO"
 #define SVUT_STATUS_INDEV "INDEV"
 #define SVUT_STATUS_SKIPED "SKIPED"
@@ -76,8 +77,10 @@ class svutExTestStatus : public svutExAssertFake
 		svutExTestStatus(void) {}
 		svutExTestStatus(std::string name,svutStatus status,svutCodeLocation  location,std::string message="")  throw()
 		{
+			SVUT_UNUSED(name);
 			this->location = location;
 			this->message = message;
+			this->status = status;
 		}
 };
 
@@ -98,6 +101,7 @@ class svutExAssertFailBool : public svutExAssertFail
 		svutExAssertFailBool(bool expected, const svutCodeLocation &  location) throw()
 			: svutExAssertFail("AssertBool",SVUT_STATUS_FAILED,location,"Failed on BOOLEAN test.")
 		{
+			SVUT_UNUSED(expected);
 		}
 };
 
@@ -108,7 +112,7 @@ class svutExAssertFailNullPointer : public svutExAssertFail
 		svutExAssertFailNullPointer(bool expectNull, svutCodeLocation  location) throw()
 			: svutExAssertFail("AssertNull",SVUT_STATUS_FAILED,location,"Failed on NULL pointer test.")
 		{
-			
+			SVUT_UNUSED(expectNull);
 		}
 };
 
@@ -120,6 +124,9 @@ class svutExAssertFailEqual : public svutExAssertFail
 			svutCodeLocation  location) throw()
 			: svutExAssertFail("AssertEqual",SVUT_STATUS_FAILED,location,"Failed on expected value.")
 		{
+			SVUT_UNUSED(expectTestRes);
+			SVUT_UNUSED(exptected);
+			SVUT_UNUSED(actual);
 		}
 };
 
@@ -152,6 +159,8 @@ class svutExAssertFailThrow : public svutExAssertFail
 			svutCodeLocation  location) throw()
 			: svutExAssertFail("AssertThrow",SVUT_STATUS_FAILED,location,"Failed on waiting exception.")
 		{
+			SVUT_UNUSED(expected);
+			SVUT_UNUSED(actual);
 			
 		}
 };
@@ -633,6 +642,7 @@ inline svutTestCase::svutTestCase(std::string name)
 /*******************  FUNCTION  *********************/
 inline svutTestCase::svutTestCase(const svutTestCase & testCase)
 {
+	SVUT_UNUSED(testCase);
 	std::cerr << "Can't made a copy of svutTestCase, it was forbidden." << std::endl;
 	abort();
 }
@@ -688,6 +698,7 @@ inline void svutTestCase::setTestCaseName(std::string name)
 /*******************  FUNCTION  *********************/
 inline void svutTestCase::MARK_AS_KNOWN_ERROR(std::string message)
 {
+	SVUT_UNUSED(message);
 }
 
 /*******************  FUNCTION  *********************/
@@ -1073,7 +1084,8 @@ extern std::vector<svutTestCaseBuilder *> * __fake_svut_test_cases_registry__;
 static int defaultMain(int argc,char * argv[])
 {
 	bool final = true;
-
+	SVUT_UNUSED(argc);
+	SVUT_UNUSED(argv);
 	std::set<svUnitTest::svutTestCaseBuilder *> lst = getRegistredFlatTestCases();
 	if (__fake_svut_test_cases_registry__ != NULL)
 		lst.insert(__fake_svut_test_cases_registry__->begin(),__fake_svut_test_cases_registry__->end());

@@ -3,7 +3,7 @@
 /*                         Copyright or (C) or Copr.                        */
 /*       Commissariat a l'Energie Atomique et aux Energies Alternatives     */
 /*                                                                          */
-/* Version : 1.2                                                            */
+/* Version : 2.0                                                            */
 /* Date    : Tue Jul 22 13:28:10 CEST 2014                                  */
 /* Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      */
 /* Author  : Julien Adam <julien.adam@cea.fr>                               */
@@ -50,7 +50,7 @@ void DefaultPolicy::fillingAlgo(Worker * cur, size_t maxIndice, size_t nbCurReso
 {
 	int i = maxIndice;
 	std::list<Job*>* currentJM = jobMan->jobsLists();
-	bool stop = false;
+	bool pick_one = false;
 	assert(maxIndice <= nbCurResources);
 	UNUSED(nbCurResources);
 	do{
@@ -58,18 +58,15 @@ void DefaultPolicy::fillingAlgo(Worker * cur, size_t maxIndice, size_t nbCurReso
 			Job * jcur = *it;
 			assert(jcur->getStatus() == NOT_RUN);
 			if(jcur->isDepInvalid()){
-				if(!jcur->addATry())
-					jcur->updateStatus(MUCH_TRIES);
-				it++;
+				it = jobMan->delayJob(i, it);
 				continue;
 			}
 			cur->add(jcur);
-			// here the it++ is done by erase function !!!!
-			it = currentJM[i].erase(it);
-			stop = true;
+			it = jobMan->pickJob(i, it);
+			pick_one = true;
 			break;
 		}
 	i--;
-	}while(i >= 0 && cur->size() <= 0 && !stop);
+	}while(i >= 0 && cur->size() <= 0 && !pick_one);
 	cur->setNbRequiredResources(i+2);
 }

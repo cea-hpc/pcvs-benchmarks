@@ -3,7 +3,7 @@
 /*                         Copyright or (C) or Copr.                        */
 /*       Commissariat a l'Energie Atomique et aux Energies Alternatives     */
 /*                                                                          */
-/* Version : 1.2                                                            */
+/* Version : 2.0                                                            */
 /* Date    : Tue Jul 22 13:28:10 CEST 2014                                  */
 /* Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      */
 /* Author  : Julien Adam <julien.adam@cea.fr>                               */
@@ -39,18 +39,33 @@
 /*                                                                          */
 /****************************************************************************/
 
-
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <sys/socket.h>
+#include <netdb.h>
 #include "RunnerMaster.h"
+#include "OutputFormatJSON.h"
+#include "network.h"
 using namespace std;
 
+/** global hash table to retrieve data in signal handlers */
 static HashTable *globalHashTable;
+/** pointer to the jobManager, to retrieve data in signal handlers */
 static JobManager*globalJobManager;
-
+#ifdef ENABLE_PLUGIN_SERVER
+/** temporary socket from the master instance (server startup) */
+static int sock = -1;
+/** server socket once startup is done and the server attempt to conect */
+static int log_sock = -1;
+/** logger socket, to push not scheduler jobs to the remote server */
+int backend_sock = -1;
+pid_t RunnerMaster::serverPid = -1;
+#endif
 RunnerMaster::RunnerMaster() {}
 
 RunnerMaster::RunnerMaster(JobManager* jobMan, Configuration* config) : Runner(jobMan, config), firstRound(true)
 {
-	struct sigaction sig1, sig2;
+	struct sigaction sig1, sig2, sig3;
 
 	time(&(jobMan->sumRun.startRun));
 	globalJobManager = jobMan;
@@ -66,13 +81,147 @@ RunnerMaster::RunnerMaster(JobManager* jobMan, Configuration* config) : Runner(j
 	sigemptyset(&sig2.sa_mask);
 	sigaddset(&sig2.sa_mask, SIGALRM);
 	if(sigaction(SIGALRM, &sig2, NULL) < 0) printWarning("Unable to Handle SIGALARM signal\n");
-	
+	sig3.sa_flags=SA_SIGINFO;
+	sig3.sa_sigaction=&RunnerMaster::handlerSignal;
+	sigemptyset(&sig3.sa_mask);
+	sigaddset(&sig3.sa_mask, SIGUSR1);
+	if(sigaction(SIGUSR1, &sig3, NULL) < 0) printWarning("Unable to Handle SIGUSR1 signal\n");
+
+	/* First, create a new group and set the current process as the leader */
+	setpgid(0,0);
+#ifdef ENABLE_PLUGIN_SERVER
+	if(config->system().needOnlineMode())
+	{
+		startServer();
+		startLogger();
+	}
+#endif
+
+	config->printConfiguration();
 	printHeader();
 }
+
+#ifdef ENABLE_PLUGIN_SERVER
+void RunnerMaster::startLogger()
+{
+	struct hostent * host;
+	struct sockaddr_in addr;
+
+	host = gethostbyname(config->system().getServerName()->c_str());
+	if(host == NULL){
+		printError("Hostname " << *config->system().getServerName() << " cannot be translated to IP address", SIGINT);
+	}
+	
+	backend_sock = socket(AF_INET, SOCK_STREAM, 0);
+	memset(&addr, 0, sizeof(sockaddr_in));
+	addr.sin_family = AF_INET;
+	addr.sin_port = htons(config->system().getBackendPort());
+	addr.sin_addr = * (struct in_addr*)host->h_addr;
+	
+	if(connect(backend_sock, (struct sockaddr*)&addr, sizeof(struct sockaddr)) != 0){
+		printWarning("Master disabling Logging: Unable to connect to " << *config->system().getServerName() << ":" << config->system().getBackendPort()) ;
+		backend_sock = -1;
+	}
+}
+
+void RunnerMaster::startServer(){
+
+	const short SIZE = 1024;
+	char * tabArgs[5], hostname[SIZE];
+	stringstream flux;
+	int cpt = 0, port = RANDOM_PORT_NUMBER, fport = RANDOM_PORT_NUMBER;	
+	struct sockaddr_in addr, cli_addr;
+	socklen_t sockSize = sizeof(struct sockaddr_in);	
+	
+	addr.sin_family=AF_INET;
+	addr.sin_port=htons(RANDOM_PORT_NUMBER);
+	addr.sin_addr.s_addr=htonl(INADDR_ANY);
+
+	/* create the socket to get data back from server */
+	if((sock = socket(AF_INET,SOCK_STREAM, 0)) == -1)
+	{
+		printError("Unable to create a new socket.", JE_UNKNOWN);
+	}
+	if(bind(sock, (struct sockaddr*)&addr, sizeof(struct sockaddr)) != 0)
+	{
+		printError("Unable to attach Master socket before launching the log server.", JE_UNKNOWN);
+	}
+	if(listen(sock, 5) < 0)
+	{
+		printError("Unable to make the master socket listening, before launching the log server.", JE_UNKNOWN);
+	}
+
+	if(gethostname(hostname, SIZE) != 0){
+		perror("gethostname()");
+		exit(1);
+	}
+	if (getsockname(sock, (struct sockaddr *)&addr, &sockSize) == -1)
+	{
+		printError("Unable to retrieve port number from the Master side !", JE_UNKNOWN);
+	}
+
+	flux << ntohs(addr.sin_port) ;
+	if(config->system().getServerLauncherCommand() != NULL){
+		tabArgs[cpt++] =  const_cast<char*>((new string(*config->system().getServerLauncherCommand()))->c_str());
+	}
+
+	/* to execute the server, we need to forward him the hostname and port where the master socket is listening */
+	tabArgs[cpt++] = const_cast<char*>((new string(config->getExeName()+"_online_server"))->c_str());
+	tabArgs[cpt++] = hostname;
+	tabArgs[cpt++] = const_cast<char*>((new string(flux.str()))->c_str());
+	tabArgs[cpt++] = NULL;
+
+	//printInfo("Listening socket at " << hostname << ":" << addr.sin_port);
+	serverPid = fork();
+	if(serverPid == 0){
+		execvp(tabArgs[0], tabArgs);
+		printWarning("Server cannot be launched ! Disabling Online Mode");
+		//config->system().disableOnlineMode();
+		exit(1);
+	} else {
+		bzero(hostname, SIZE);
+		port = 100;
+		size_t hostname_len;
+		log_sock = accept(sock, (struct sockaddr*)&cli_addr, &sockSize);
+		
+		safe_recv(log_sock,(void*)&hostname_len, sizeof(size_t));
+		
+		assert(hostname_len <= SIZE);
+		safe_recv(log_sock,(void*)hostname, hostname_len);
+		safe_recv(log_sock,(void*)&port, sizeof(int));
+		safe_recv(log_sock,(void*)&fport, sizeof(int));
+		
+		/* send the configuration object */
+		OutputFormatJSON out(config);
+		out.appendConfig();
+
+		std::string s = out.stringify();
+		const char * output = s.c_str();
+		size_t output_size = s.size() * sizeof(char);
+		
+		safe_send(log_sock, (void*)&output_size, sizeof(size_t) );
+		safe_send(log_sock, (void*)output, output_size) ;
+		//close(log_sock);
+		//close(sock);
+		config->system().setServerName(hostname);
+	        config->system().setBackendPort(port);
+		config->system().setFrontendPort(fport);
+	}
+}
+#endif
 
 RunnerMaster::~RunnerMaster(){
 	time(&(jobMan->sumRun.endRun));
 	jobMan->displaySummary();
+	#ifdef ENABLE_PLUGIN_SERVER
+	if(sock > 0) { close(sock); sock = -1;}
+	if(log_sock > 0) { close(log_sock); log_sock = -1;}
+	if(backend_sock > 0) { close(backend_sock); backend_sock = -1;}
+	if(config->system().needOnlineMode() && serverPid != -1)
+	{
+		kill(serverPid, SIGUSR1);
+	}
+	#endif
 }
 
 void RunnerMaster::fillWorker ( Worker* cur, size_t nbResources) {
@@ -111,7 +260,7 @@ void RunnerMaster::launchWorker ( Worker* cur ) {
 			tab_args[cpt++] = const_cast<char*>(config->system().getJobsLauncherCommand()->c_str());
 		}
 		// main minimal options to restart a slave
-		tab_args[cpt++] = const_cast<char*>(config->getExeName().c_str());
+		tab_args[cpt++] = const_cast<char*>((new string(config->getExeName()))->c_str());
 		tab_args[cpt++] = (char*)"--slave";
 		tab_args[cpt++] = const_cast<char*>(in.c_str());
 		
@@ -126,7 +275,18 @@ void RunnerMaster::launchWorker ( Worker* cur ) {
 		
 		uniqFlux.str(""); uniqFlux << "--size-flow=" << config->system().getFlowMaxBytes();
 		tab_args[cpt++] = const_cast<char*>((new string(uniqFlux.str()))->c_str());
+	
 		
+		if(config->system().needOnlineMode()){
+			uniqFlux.str(""); uniqFlux << "--server-name=" << *config->system().getServerName();
+			tab_args[cpt++] = const_cast<char*>((new string(uniqFlux.str()))->c_str());
+
+			uniqFlux.str(""); uniqFlux << "--server-port=" << config->system().getBackendPort();
+			tab_args[cpt++] = const_cast<char*>((new string(uniqFlux.str()))->c_str());
+			
+			tab_args[cpt++] = (char*)"--online";
+		}
+        
 		if(*config->system().getOutputDirectory() != "")
 			tab_args[cpt++] = const_cast<char*>((new string("--output="+*config->system().getOutputDirectory()))->c_str()); 
 
@@ -177,11 +337,23 @@ Worker* RunnerMaster::waitNextWorker() {
 	createBackup();	
 	TIME_MEASURE_END("Backup");
 
-	pid = wait(&ret);
-	
+	pid = waitpid(0, &ret, 0);
+#ifdef ENABLE_PLUGIN_SERVER
+	if(pid == serverPid)
+	{
+		printWarning("Abnormal Log Server Termination !");
+		serverPid = -1;
+		config->system().disableOnlineMode();
+		/* start to parse aborted slave to prepare a restart */
+		pid = waitpid(0, &ret, 0);
+	}
+#endif
+	/* The slave or wrapper have to terminate normally */
+	assert(WIFEXITED(ret));
+
 	cur = tabWorkers.remove(pid);
 	cur->pullJobsOutputFile();
-	if(WIFEXITED(ret) && WEXITSTATUS(ret) == SIGINT)
+	if(WEXITSTATUS(ret) == SIGINT)
 		handlerSignal(SIGINT, NULL, NULL);
 
 	return cur;
@@ -204,13 +376,22 @@ void RunnerMaster::handlerSignal(int sig, siginfo_t * siginfo, void *context)
 	UNUSED(context);
 	
 	if(sig == SIGALRM)
-		printInfo("* Interrupted by Autokill");
-	else if(sig == SIGINT)
-		printInfo("* Interrupted by User");
+	{
+		printInfo("* Interrupted by Autokill ("<<sig<<")");
+	}
+	else if(sig == SIGUSR1)
+	{
+		/* nothing special to do here...*/
+		return;
+	}
 	else
-		printInfo("* Interrupted by SIG " << sig);
+	{
+		printInfo("* Interrupted by signal " << sig << " ("<< strsignal(sig) <<")");
+	}
+
+
 	printInfo("* Interrupt child processes...");
-	globalHashTable->stopAll();
+	killpg(getpgid(0), SIGUSR1);
 	printInfo("[ENDED]");
 	exit(sig);
 }

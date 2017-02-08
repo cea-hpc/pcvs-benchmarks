@@ -3,7 +3,7 @@
 /*                         Copyright or (C) or Copr.                        */
 /*       Commissariat a l'Energie Atomique et aux Energies Alternatives     */
 /*                                                                          */
-/* Version : 1.2                                                            */
+/* Version : 2.0                                                            */
 /* Date    : Tue Jul 22 13:28:10 CEST 2014                                  */
 /* Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      */
 /* Author  : Julien Adam <julien.adam@cea.fr>                               */
@@ -77,11 +77,11 @@ void TestConfiguration::testparseOptions ( void ) {
 	SVUT_ASSERT_EQUAL(mainConfiguration->getExeName(), "/path/to/exe");
 	SVUT_ASSERT_EQUAL(mainConfiguration->isMaster(), true);
 	
-	SVUT_ASSERT_EQUAL(mainConfiguration->system().getNbMaxResources(), 10);
+	SVUT_ASSERT_EQUAL(mainConfiguration->system().getNbMaxResources(), (size_t)10);
 	SVUT_ASSERT_EQUAL(mainConfiguration->job().getVerbosity(), VERBOSE_ONLY_ERROR);
 	SVUT_ASSERT_EQUAL(*mainConfiguration->getConfigFile(),"../../../tests/integration/configSimple.xml");
 	
 }
 
 
-SVUT_REGISTER_STANDELONE(TestConfiguration);
+SVUT_REGISTER_STANDELONE(TestConfiguration)

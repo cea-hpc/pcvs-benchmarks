@@ -3,7 +3,7 @@
 /*                         Copyright or (C) or Copr.                        */
 /*       Commissariat a l'Energie Atomique et aux Energies Alternatives     */
 /*                                                                          */
-/* Version : 1.2                                                            */
+/* Version : 2.0                                                            */
 /* Date    : Tue Jul 22 13:28:10 CEST 2014                                  */
 /* Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      */
 /* Author  : Julien Adam <julien.adam@cea.fr>                               */
@@ -102,7 +102,7 @@ bool DataFlow::matchHash ( size_t hash ) const {
 	return (createHash() == hash);
 }
 
-std::string DataFlow::getContent()  const {
+std::string DataFlow::getContent(std::string*extraInfos)  const {
 	string insert, finalChain;
 	int overhead, modPosSecBuf;
 
@@ -122,6 +122,13 @@ std::string DataFlow::getContent()  const {
 	} else if(posSecondBuffer > 0){
 		finalChain += secondBuffer.substr(0, posSecondBuffer - 1);
 	}
+
+	/* now, extra data appended by JCHRONOSS */
+	if(extraInfos)
+	{
+		size_t time_start = finalChain.find_last_of('\n', finalChain.size() - 2);
+		*extraInfos = finalChain.substr(time_start+1);
+	}	
 
 	//return correct chain
 	return(finalChain);
