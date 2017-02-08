@@ -272,6 +272,7 @@ gen_and_load_config_file() {
 
 	if [ ! -f ${MPC_TEST_SOURCE_DIR}/build_scripts/configuration/runtime/${MPI_RUNTIME}.conf ]; then
 		common_print_error "Unkown MPI target: \"${MPI_RUNTIME}\""
+		exit 1
 	fi
 	. ${MPC_TEST_SOURCE_DIR}/build_scripts/configuration/runtime/${MPI_RUNTIME}.conf
 	#check if compiler loading effectively set the main used ones
@@ -1155,7 +1156,7 @@ done
 
 ####################### SETUP SOME FINAL VARS #################
 #if MPC_TEST_WORK_DIR is relative, make it absolute
-if [ -z "$(echo "${MPC_TEST_WORK_DIR}" | grep '^/')" ]; then
+if [ -z "`echo "${MPC_TEST_WORK_DIR}" | grep '^/'`" ]; then
 	MPC_TEST_WORK_DIR="${PWD}/${MPC_TEST_WORK_DIR}"
 fi
 MPC_TEST_CURRENT_WORK_DIR=${MPC_TEST_WORK_DIR}
