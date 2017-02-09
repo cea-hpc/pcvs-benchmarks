@@ -22,13 +22,13 @@
 ########################################################################
 
 # This script require env :
-# - MPC_TEST_SOURCE_DIR
+# - PCVS_SOURCE_DIR
 # - MPC_TEST_WORK_DIR
 
 ######################## IMPORTS ##########################
 #import functions
-. ${MPC_TEST_SOURCE_DIR}/build_scripts/configuration/compilers/${TEST_SUITE_COMPILER}.conf
-. ${MPC_TEST_SOURCE_DIR}/build_scripts/test_suite_functions.sh
+. ${PCVS_SOURCE_DIR}/build_scripts/configuration/compilers/${TEST_SUITE_COMPILER}.conf
+. ${PCVS_SOURCE_DIR}/build_scripts/test_suite_functions.sh
 
 ##################### CHECK ENV VARS ######################
 if [ -z "${MPC_TEST_CURRENT_SOURCE_DIR}" ]; then
@@ -104,5 +104,5 @@ gen_test_commands()
 }
 
 ########################### MAIN ##########################
-echo "   --> Generation ${MPC_TEST_CURRENT_WORK_DIR}" | sed -e "s@${MPC_TEST_SOURCE_DIR}/build/test_suite/@@g" -e "s@//@/@g" 1>&2
+echo "   --> Generation ${MPC_TEST_CURRENT_WORK_DIR}" | sed -e "s@${PCVS_SOURCE_DIR}/build/test_suite/@@g" -e "s@//@/@g" 1>&2
 gen_test_commands "$1"

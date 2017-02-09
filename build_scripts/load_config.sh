@@ -23,7 +23,7 @@
 
 ################## LOAD CONFIG FILE #####################
 #default
-. ${MPC_TEST_SOURCE_DIR}/config/default.cfg
+. ${PCVS_INTERNALS_DIR}/config/default.cfg
 #the current one
 . ${MPC_TEST_WORK_DIR}/config.cfg
 
@@ -31,7 +31,7 @@
 #apply some links between arguments and complete some otheres
 #prefix MPCRUN with MPCRUN_WRAPPER
 #if [ ! -z "${MPCRUN_WRAPPER}" ]; then
-#	launcher="${MPC_TEST_SOURCE_DIR}/build_scripts/launchers/${MPCRUN_WRAPPER}"
+#	launcher="${PCVS_SOURCE_DIR}/build_scripts/launchers/${MPCRUN_WRAPPER}"
 #   MPCRUN="${launcher} ${MPCRUN}"
 #	if [ ! -f "${launcher}" ]; then common_print_error "Invalid launcher : ${launcher}"; fi
 #fi

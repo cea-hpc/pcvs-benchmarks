@@ -180,7 +180,7 @@ common_check_existing_files(){
 common_clean_path()
 {
 	find . -exec sed -i "s@${MPC_INSTALL_PREFIX}@MPC_INSTALL_PATH@g" {} \;     2> /dev/null
-	find . -exec sed -i "s@${MPC_TEST_SOURCE_DIR}@TESTSUITE_PATH@g" {} \;      2> /dev/null
+	find . -exec sed -i "s@${PCVS_SOURCE_DIR}@TESTSUITE_PATH@g" {} \;      2> /dev/null
 	find . -exec sed -i "s@${HOME}@HOME_PATH@g" {} \;                         2> /dev/null
 	find . -exec sed -i "s@/cea/local/opt@MODULES_PATH@g" {} \;               2> /dev/null
 	find . -exec sed -i "s@`whoami`@USER@g" {} \;                              2> /dev/null

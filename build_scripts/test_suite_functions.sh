@@ -27,11 +27,11 @@ COMMON_FILES=""
 TEST_ARGS=""
 
 #################### SOURCES FILES ######################
-. ${MPC_TEST_SOURCE_DIR}/build_scripts/common_functions.sh
-. ${MPC_TEST_SOURCE_DIR}/build_scripts/helper_functions.sh
+. ${PCVS_SOURCE_DIR}/build_scripts/common_functions.sh
+. ${PCVS_SOURCE_DIR}/build_scripts/helper_functions.sh
 
 ################## LOAD CONFIG FILE #####################
-. ${MPC_TEST_SOURCE_DIR}/build_scripts/load_config.sh
+. ${PCVS_SOURCE_DIR}/build_scripts/load_config.sh
 
 ############## SINGLE CONFIGURATION LOADING #############
 # Parameters :
@@ -280,7 +280,7 @@ makefile_configuration()
 	#source a potential configuration file
 	#duplicate from helper_functions.sh (helper_get_compiler not executed in case of Makefile)
 	if test -n "${TEST_SUITE_COMPILER}"; then
-		file=$MPC_TEST_SOURCE_DIR/build_scripts/configuration/compilers/${TEST_SUITE_COMPILER}.conf
+		file=$PCVS_SOURCE_DIR/build_scripts/configuration/compilers/${TEST_SUITE_COMPILER}.conf
 
 		if test -f ${file}; then
 			. ${file}
@@ -302,6 +302,6 @@ subdir_configuration()
 
 	for subdir in ${SUBDIRS}
 	do
-		${MPC_TEST_SOURCE_DIR}/build_scripts/generation/gen_list_of_tests "${subdir}"
+		${PCVS_SOURCE_DIR}/build_scripts/generation/gen_list_of_tests "${subdir}"
 	done
 }

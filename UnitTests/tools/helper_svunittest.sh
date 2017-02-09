@@ -16,7 +16,7 @@ helper_find_svunittest()
 		SVUNITTEST_PREFIX="`pkg-config --variable=prefix svUnitTest`"
 		HAVE_SVUNITTEST="yes"
 	else
-		SVUNITTEST_CFLAGS="-I${MPC_TEST_SOURCE_DIR}/UnitTests/tools/svUnitTest_fake"
+		SVUNITTEST_CFLAGS="-I${PCVS_SOURCE_DIR}/UnitTests/tools/svUnitTest_fake"
 		SVUNITTEST_LDFLAGS=""
 		HAVE_SVUNITTEST="no"
 	fi

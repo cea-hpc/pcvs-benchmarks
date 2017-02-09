@@ -88,7 +88,7 @@ RunnerMaster::RunnerMaster(JobManager* jobMan, Configuration* config) : Runner(j
 	if(sigaction(SIGUSR1, &sig3, NULL) < 0) printWarning("Unable to Handle SIGUSR1 signal\n");
 
 	/* First, create a new group and set the current process as the leader */
-	setpgid(0,0);
+	//setpgid(0,0);
 #ifdef ENABLE_PLUGIN_SERVER
 	if(config->system().needOnlineMode())
 	{
@@ -391,7 +391,7 @@ void RunnerMaster::handlerSignal(int sig, siginfo_t * siginfo, void *context)
 
 
 	printInfo("* Interrupt child processes...");
-	killpg(getpgid(0), SIGUSR1);
+	//killpg(getpgid(0), SIGUSR1);
 	printInfo("[ENDED]");
 	exit(sig);
 }

@@ -83,7 +83,7 @@ helper_get_compiler()
 {
 	#source a potential configuration file
 	if test -n "${TEST_SUITE_COMPILER}"; then
-		file=$MPC_TEST_SOURCE_DIR/build_scripts/configuration/compilers/${TEST_SUITE_COMPILER}.conf
+		file=$PCVS_SOURCE_DIR/build_scripts/configuration/compilers/${TEST_SUITE_COMPILER}.conf
 
 		if test -f ${file}; then
 			. ${file}
@@ -160,9 +160,9 @@ helper_configuration_loop()
 				for tasks in ${MPC_TASK_NB_LIST}
 				do
 					if [ $proc -le $tasks ] ; then
-						if [ $proc -gt $CLUSTER_MAX_NODE_PER_TEST ]  ; then
-							nbNodes="$CLUSTER_MAX_NODE_PER_TEST"
-							cores="$((($CLUSTER_MAX_CORES_PER_NODE*$CLUSTER_MAX_NODE_PER_TEST)/$proc))"
+						if [ $proc -gt $CLUSTER_MAX_NODES ]  ; then
+							nbNodes="$CLUSTER_MAX_NODES"
+							cores="$((($CLUSTER_MAX_CORES_PER_NODE*$CLUSTER_MAX_NODES)/$proc))"
 						else 
 							nbNodes="$proc"
 							cores="$CLUSTER_MAX_CORES_PER_NODE"
