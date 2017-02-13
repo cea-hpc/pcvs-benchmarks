@@ -27,11 +27,3 @@
 #the current one
 . ${MPC_TEST_WORK_DIR}/config.cfg
 
-################# ARGUEMENT COMPLETION ##################
-#apply some links between arguments and complete some otheres
-#prefix MPCRUN with MPCRUN_WRAPPER
-#if [ ! -z "${MPCRUN_WRAPPER}" ]; then
-#	launcher="${PCVS_SOURCE_DIR}/build_scripts/launchers/${MPCRUN_WRAPPER}"
-#   MPCRUN="${launcher} ${MPCRUN}"
-#	if [ ! -f "${launcher}" ]; then common_print_error "Invalid launcher : ${launcher}"; fi
-#fi

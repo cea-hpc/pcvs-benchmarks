@@ -51,7 +51,7 @@ TESTTYPE="default"
 TEST_SUPPORT="supported"
 FAST_FILE=""
 DEFAULT_FAST_FILE="$PCVS_INTERNALS_DIR/configuration/fast_tests.lst"
-UNSUPPORTED_FILE="$PCVS_INTERNALS_DIR/configuration/unsupported.lst"
+UNSUPPORTED_FILE="$PCVS_INTERNALS_DIR/configuration/unsupported_tests.lst"
 SCHEDULER_CFLAGS="-DENABLE_OPENMP=OFF"
 MPC_INSTALL_DEFINED=""
 LOG_COMMAND="tee"
@@ -271,11 +271,11 @@ gen_and_load_config_file() {
 	fi
 	export TEST_SUITE_COMPILER
 
-	if [ ! -f ${PCVS_INTERNALS_DIR}/configuration/runtime/${MPI_RUNTIME}.conf ]; then
-		common_print_error "Unkown MPI target: \"${MPI_RUNTIME}\""
+	if [ ! -f ${PCVS_INTERNALS_DIR}/configuration/runtimes/${PCVS_RUNTIME}.conf ]; then
+		common_print_error "Unkown runtime target: \"${PCVS_RUNTIME}\""
 		exit 1
 	fi
-	. ${PCVS_INTERNALS_DIR}/configuration/runtime/${MPI_RUNTIME}.conf
+	. ${PCVS_INTERNALS_DIR}/configuration/runtime/${PCVS_RUNTIME}.conf
 	#check if compiler loading effectively set the main used ones
 	#if test -z "${CC}" -o -z "${CXX}" -o -z "${F77}";
 	#then
@@ -528,6 +528,7 @@ run_test_suite()
 
 	#obtain list of tests if --select option is specified
 	MPC_TEST_LIST="$(get_subtest_list)"
+	echo "TEST_LIST = $MPC_TEST_LIST"
 
 	check_mpc_dir
 
@@ -652,7 +653,7 @@ run_gen_last_results()
 	rm -rf ${MPC_TEST_WORK_DIR}/last_results.tar.gz
 	setup_clean_subdir last_results
 
-	cp -r $MPC_TEST_WORK_DIR/jsLoc* $MPC_TEST_WORK_DIR/webview* .
+	cp -r $MPC_TEST_WORK_DIR/generation/jchronoss/tools/jsLoc/* $MPC_TEST_WORK_DIR/generation/jchronoss/tools/webview/* .
 	cp $MPC_TEST_WORK_DIR/config.cfg .
 
 	if [ -d ../build_check ] ; then
@@ -756,12 +757,22 @@ copy_output_files(){
 
 }
 
+######################### LIST RUNTIMES ################
+# List available runtimes which have a configured bridge
+# - No arguments
+list_runtimes()
+{
+	list="`ls ${PCVS_INTERNALS_DIR}/configuration/runtime/ | egrep -v "\.template" | xargs echo | sed -e "s@\.conf@@g"`"
+	echo "Available runtimes: ${list}"
+	echo "Consider using one of them with --with-mpi= option"
+}
+
 ######################### LIST COMPILERS ################
 # List available compiler to construct the test-suite
 # - No arguments
 list_compilers()
 {
-	list="`ls ${PCVS_INTERNALS_DIR}/configuration/compilers/ | xargs echo | sed -e "s@\.conf@ -@g"`"
+	list="`ls ${PCVS_INTERNALS_DIR}/configuration/compilers/ |egrep -v "\.template" | xargs echo | sed -e "s@\.conf@@g"`"
 	echo "Available compilers: ${list}"
 	echo "Consider using one of them with --compiler= option"
 }
@@ -798,7 +809,7 @@ post_actions(){
 	# XML with the webview.
 	remove_ainsi_color_escape_sequence	
 
-	cp -r $PCVS_INTERNALS_DIR/ressources/banners $MPC_TEST_WORK_DIR/
+	cp -r $PCVS_INTERNALS_DIR/resources/banners $MPC_TEST_WORK_DIR/
 
 
 	run_gen_jsloc "$MPC_TEST_WORK_DIR/test_suite/tmp"
@@ -853,7 +864,7 @@ preprocessing_compatibility(){
 # $1: 	the path where .TRACE files are stored
 run_gen_jsloc(){
 	cd $MPC_TEST_WORK_DIR
-	common_safe_exec "Copying JsLoc ressources into last_results" cp -r $PCVS_INTERNALS_DIR/generation/jchronoss/tools/jsLoc/* .
+	common_safe_exec "Copying JsLoc resources into last_results" cp -r $PCVS_INTERNALS_DIR/generation/jchronoss/tools/jsLoc/* .
 	if [ ! -z "`find $1/ -iname "*.trace"`" ] ; then
 		setup_clean_subdir traces
 		common_safe_exec "Copying *.trace file from current build generation (if needed)" cp $1/*.trace .
@@ -927,7 +938,7 @@ mpc_testSuite_main(){
 }
 
 ############################# BANNER ##########################
-cat $PCVS_INTERNALS_DIR/ressources/banners/test_suite_banner
+cat $PCVS_INTERNALS_DIR/resources/banners/test_suite_banner
 
 ################# CHECK EXECUTION FROM GOOD PLACE #############
 if [ ! -f "${PWD}/run_validation" ]; then
@@ -974,7 +985,7 @@ do
 			config_override 'MPC_TEST_LIST' "$MPC_TEST_LIST" '--select'
 			;;
 		--with-mpi=*)
-			MPI_RUNTIME="$(common_read_param_value "$arg" "--with-mpi")"
+			PCVS_RUNTIME="$(common_read_param_value "$arg" "--with-mpi")"
 			;;
 		--no-privatize)
 			PRIVATIZATION="-fnompc-privatize"
@@ -1044,16 +1055,9 @@ do
 			;;
 		--fast)
 			config_override 'TESTTYPE' 'fast' '--fast'
-			config_override 'BUILDTYPE' 'fast' '--fast'
 			if [ -z "$FAST_FILE" ] ; then
 				config_override 'FAST_FILE' "$DEFAULT_FAST_FILE" '--fast'
 			fi
-			;;
-		--full)
-			config_override 'BUILDTYPE' 'full' '--full'
-			;;
-		--default)
-			config_override 'BUILDTYPE' 'default' '--default'
 			;;
 		--input-fast=*)
 			config_override 'FAST_FILE' "$(common_read_param_value $arg --input-fast)" '--input-fast'
@@ -1079,15 +1083,16 @@ do
 		--sched-surface)
 			config_override 'JCHRNS_POLICY' "2" '--sched-surface'
 			;;
-		--list-compilers)
+		--list-runtimes|--lr)
+			list_runtimes
+			exit 0;
+			;;
+		--list-compilers|--lc)
 			list_compilers
 			exit 0;
 			;;
 		--compiler=*)
 			config_override 'TEST_SUITE_COMPILER' "$(common_read_param_value $arg --compiler)" '--compiler'
-			;;
-		--fake)
-			config_override 'JCHRNS_FAKE_EXEC' "true" ''
 			;;
 		--jsloc)
 			config_override 'JCHRNS_JSLOC_TRACE' "yes" '--jsloc'

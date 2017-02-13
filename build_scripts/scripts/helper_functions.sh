@@ -22,7 +22,6 @@
 ########################################################################
 
 ################## DEFAULT FOR VARS #######################
-MPCRUN_CONFIGURATION=""
 EXPECTED_EXIT_CODE=0
 COMMAND_OPTIONS=""
 
@@ -83,7 +82,7 @@ helper_get_compiler()
 {
 	#source a potential configuration file
 	if test -n "${TEST_SUITE_COMPILER}"; then
-		file=$PCVS_SOURCE_DIR/build_scripts/configuration/compilers/${TEST_SUITE_COMPILER}.conf
+		file=$PCVS_INTERNALS_DIR/configuration/compilers/${TEST_SUITE_COMPILER}.conf
 
 		if test -f ${file}; then
 			. ${file}
