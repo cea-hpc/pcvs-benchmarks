@@ -26,12 +26,12 @@
 ########################## VARIABLES ###########################
 PCVS_SOURCE_DIR="`readlink -e $(dirname $0)`"
 PCVS_INTERNALS_DIR="${PCVS_SOURCE_DIR}/build_scripts"
+PCVS_WORK_DIR="${PCVS_SOURCE_DIR}/build"
 MPC_TEST_MODE="TEST_MODE"
 MPC_INSTALL_PREFIX=""
 MAKE_J=1
 CONFIGURE_ARGS=""
 LANG="en_US.UTF-8"
-MPC_TEST_WORK_DIR="build"
 MPC_TEST_LIST=""
 BUILD_MODE=""
 RESTART_MODE=""
@@ -234,31 +234,31 @@ print_default_config_file() {
 #  - CONFIG_NAME : Define the site name to use (empty try to use hostname)
 #  - PCVS_SOURCE_DIR  : Path to MPC_Test_Suite directory.
 #  - CONFIG_OVERRIDE : Config parameter redefined by command parameters via config_override() function
-#  - MPC_TEST_WORK_DIR : Directory in which to write the final config file to use for tests (config.cfg)
+#  - PCVS_WORK_DIR : Directory in which to write the final config file to use for tests (config.cfg)
 gen_and_load_config_file() {
 	#eval "`print_default_config_file`"
 	#check workdir
-	if [ -z "${MPC_TEST_WORK_DIR}" ]; then
-		common_print_error "Undefined variable MPC_TEST_WORK_DIR."
+	if [ -z "${PCVS_WORK_DIR}" ]; then
+		common_print_error "Undefined variable PCVS_WORK_DIR."
 		exit 1
 	fi
 
 	#create directory if does not exist
-	mkdir -p "${MPC_TEST_WORK_DIR}"
+	mkdir -p "${PCVS_WORK_DIR}"
 
 	#load the given config file
-	print_default_config_file > "${MPC_TEST_WORK_DIR}/config.cfg"
-	echo "" >> "${MPC_TEST_WORK_DIR}/config.cfg"
+	print_default_config_file > "${PCVS_WORK_DIR}/config.cfg"
+	echo "" >> "${PCVS_WORK_DIR}/config.cfg"
 
 	#print override
-	echo "##################### VARIABLES OVERRIDES #####################" >> "$MPC_TEST_WORK_DIR/config.cfg"
+	echo "##################### VARIABLES OVERRIDES #####################" >> "$PCVS_WORK_DIR/config.cfg"
 
-	echo ${ECHO_OPTIONS} "${CONFIG_OVERRIDE}" >> "${MPC_TEST_WORK_DIR}/config.cfg"
+	echo ${ECHO_OPTIONS} "${CONFIG_OVERRIDE}" >> "${PCVS_WORK_DIR}/config.cfg"
 
 	#display if not empty
-	if [ ! -z "$(cat ${MPC_TEST_WORK_DIR}/config.cfg)" ]; then
+	if [ ! -z "$(cat ${PCVS_WORK_DIR}/config.cfg)" ]; then
 		echo "${INFORMATION_COLOR}=====================> LOAD CONFIG <=======================${DEFAULT_COLOR}"
-		cat "${MPC_TEST_WORK_DIR}/config.cfg"
+		cat "${PCVS_WORK_DIR}/config.cfg"
 	fi
 
 	#source it : load default.cfg + WORK/config.cfg
@@ -286,22 +286,22 @@ gen_and_load_config_file() {
 }
 
 ######################## CLEAN FILES ##########################
-# Clear files into ${MPC_TEST_WORK_DIR}/${1}
+# Clear files into ${PCVS_WORK_DIR}/${1}
 # Params:
 #  - $1 : Subdirectory to cleanup, empty to all
 # Globals:
-#  - MPC_TEST_WORK_DIR : working directory, used to prefix the given relative path
+#  - PCVS_WORK_DIR : working directory, used to prefix the given relative path
 clean_files() {
 
-	#check non empty MPC_TEST_WORK_DIR
-	if [ -z "${MPC_TEST_WORK_DIR}" ]; then
-		common_print_error "Invalid empty MPC_TEST_WORK_DIR"
+	#check non empty PCVS_WORK_DIR
+	if [ -z "${PCVS_WORK_DIR}" ]; then
+		common_print_error "Invalid empty PCVS_WORK_DIR"
 		exit 1
 	fi
 
 	#do cleanup
-	if [ -d "${MPC_TEST_WORK_DIR}/${1}" ] ; then
-		common_safe_exec "Cleaning repository ${MPC_TEST_WORK_DIR}/${1}" rm -rf "${MPC_TEST_WORK_DIR}/${1}"
+	if [ -d "${PCVS_WORK_DIR}/${1}" ] ; then
+		common_safe_exec "Cleaning repository ${PCVS_WORK_DIR}/${1}" rm -rf "${PCVS_WORK_DIR}/${1}"
 	fi
 }
 
@@ -331,7 +331,7 @@ check_mpc_dir() {
 #   - $1       : Define the name of subdirectory to use.
 #Globals:
 #   - PCVS_SOURCE_DIR : MPC_Test_Suite folder
-#   - MPC_TEST_WORK_DIR : Name of root working directory to prefix the given relative one.
+#   - PCVS_WORK_DIR : Name of root working directory to prefix the given relative one.
 setup_clean_subdir() {
 	#move to PCVS_SOURCE_DIR
 	cd "${PCVS_SOURCE_DIR}"
@@ -346,11 +346,11 @@ setup_clean_subdir() {
 	fi
 
 	#move to build dir
-	if [ ! -d ${MPC_TEST_WORK_DIR}/${1} ]; then
-		common_safe_exec "Generation build/$1 folder" mkdir -p "${MPC_TEST_WORK_DIR}/${1}"
+	if [ ! -d ${PCVS_WORK_DIR}/${1} ]; then
+		common_safe_exec "Generation build/$1 folder" mkdir -p "${PCVS_WORK_DIR}/${1}"
 	fi
 
-	common_safe_exec "Moving into build/$1 folder" cd "${MPC_TEST_WORK_DIR}/${1}"
+	common_safe_exec "Moving into build/$1 folder" cd "${PCVS_WORK_DIR}/${1}"
 }
 
 ####################### GET SUBTEST LIST ######################
@@ -384,7 +384,7 @@ test_simple_scheduler(){
 	fake_exec=""
 
 	#execute tests commands to generate XML outputs
-	test_files=$(find "$MPC_TEST_CURRENT_WORK_DIR" -iname "list_of_tests.xml")
+	test_files=$(find "$PCVS_CWORK_DIR" -iname "list_of_tests.xml")
 	#if a wrapper have been setted
 	if [ ! -z "$JCHRNS_WRAPPER" ]; then
 		if [ -f "$PCVS_INTERNALS_DIR/launchers/$JCHRNS_WRAPPER" ] ; then
@@ -451,15 +451,15 @@ test_simple_scheduler(){
 	if [ ! -z "$JCHRNS_SLAVES" ]; then
 		workers="--nb-slaves=$JCHRNS_SLAVES"
 	fi
-	mkdir -p $MPC_TEST_WORK_DIR/test_suite/tmp
+	mkdir -p $PCVS_WORK_DIR/test_suite/tmp
 	#launching scheduler
-	$MPC_TEST_WORK_DIR/tmp/bin/jchronoss ${test_files} $min_alloc_time $sched_autokill $max_test_time $max_alloc_time $compil_launcher $workers $policy $expect_success $fake_exec $nbnodes $launcher ${KEEP_ALL_LOG} --black=$BLACKLIST_FILES --white=$WHITELIST_FILES --build="$MPC_TEST_WORK_DIR/test_suite/tmp" --verbosity=$JCHRNS_VERBOSITY || exit 1
+	$PCVS_WORK_DIR/tmp/bin/jchronoss ${test_files} $min_alloc_time $sched_autokill $max_test_time $max_alloc_time $compil_launcher $workers $policy $expect_success $fake_exec $nbnodes $launcher ${KEEP_ALL_LOG} --black=$BLACKLIST_FILES --white=$WHITELIST_FILES --build="$PCVS_WORK_DIR/test_suite/tmp" --verbosity=$JCHRNS_VERBOSITY || exit 1
 }
 
 test_restart_scheduler(){
 	check_mpc_dir
 	MPC_TEST_MODE="TEST_MODE"
-	cd ${MPC_TEST_WORK_DIR}/test_suite
+	cd ${PCVS_WORK_DIR}/test_suite
 	echo "${JCHRNS_BACKUP_FILE}"
 	if [ -z "`echo ${JCHRNS_BACKUP_FILE} | egrep "^/.*"`" ] ; then
 		JCHRNS_BACKUP_FILE="${PCVS_SOURCE_DIR}/${JCHRNS_BACKUP_FILE}"	
@@ -471,7 +471,7 @@ test_restart_scheduler(){
 		common_print_error "${JCHRNS_BACKUP_FILE} is not a valid file"
 		exit 1
 	fi	
-	$MPC_TEST_WORK_DIR/tmp/bin/jchronoss --restart=${JCHRNS_BACKUP_FILE} || exit 1
+	$PCVS_WORK_DIR/tmp/bin/jchronoss --restart=${JCHRNS_BACKUP_FILE} || exit 1
 }
 
 ###################### RUN TEST SUITE GEN COMMANDS ##############################
@@ -523,8 +523,8 @@ run_test_suite()
 
 
 	#update current workdir
-	export MPC_TEST_CURRENT_WORK_DIR="${MPC_TEST_WORK_DIR}/test_suite"
-	cd "${MPC_TEST_CURRENT_WORK_DIR}"
+	export PCVS_CWORK_DIR="${PCVS_WORK_DIR}/test_suite"
+	cd "${PCVS_CWORK_DIR}"
 
 	#obtain list of tests if --select option is specified
 	MPC_TEST_LIST="$(get_subtest_list)"
@@ -584,7 +584,7 @@ run_one_build(){
 	if [ "$MPC_INSTALL_DEFINED" = "yes" ] ; then
 		install_dir="${MPC_INSTALL_PREFIX}"
 	else
-		install_dir="${MPC_TEST_WORK_DIR}/mpc_prefix/$1"
+		install_dir="${PCVS_WORK_DIR}/mpc_prefix/$1"
 	fi
 	MPC_INSTALL_PREFIX=$install_dir
 	#display configure line and call
@@ -592,7 +592,7 @@ run_one_build(){
 
 	check_mpc_dir
 
-	mkdir -p $MPC_TEST_WORK_DIR/build_check/$1/tmp
+	mkdir -p $PCVS_WORK_DIR/build_check/$1/tmp
 	echo "<jobSuite package=\"$1\">" > list_of_tests.xml
 	#generate test list
 	. ${PCVS_INTERNALS_DIR}/configuration/compilers/${TEST_SUITE_COMPILER}.conf
@@ -600,7 +600,7 @@ run_one_build(){
 	common_insert_test "test_HelloWorld" '0' "./hello_world" "compile_HelloWorld" >> list_of_tests.xml
 	echo "</jobSuite>" >> list_of_tests.xml
 	#execute some tests
-	common_safe_exec "MPC build tests Running" $MPC_TEST_WORK_DIR/tmp/bin/jchronoss $PWD/list_of_tests.xml --build="$MPC_TEST_WORK_DIR/build_check/$1/tmp" --nb-resources=$CLUSTER_MAX_NODES  --nb-slaves=1 --verbosity=$JCHRNS_VERBOSITY || ret_status=1
+	common_safe_exec "MPC build tests Running" $PCVS_WORK_DIR/tmp/bin/jchronoss $PWD/list_of_tests.xml --build="$PCVS_WORK_DIR/build_check/$1/tmp" --nb-resources=$CLUSTER_MAX_NODES  --nb-slaves=1 --verbosity=$JCHRNS_VERBOSITY || ret_status=1
 	cd ..
 	return $ret_status
 }
@@ -648,13 +648,13 @@ run_gen_last_results()
 	echo "${WARNING_COLOR}>>> RESULTS TARBALL GENERATION <<<${DEFAULT_COLOR}"
 	cd ${PCVS_SOURCE_DIR}
 
-	#DEFAULT_COLOR="" INFORMATION_COLOR="" display_informations "#" >> $MPC_TEST_WORK_DIR/config.cfg
+	#DEFAULT_COLOR="" INFORMATION_COLOR="" display_informations "#" >> $PCVS_WORK_DIR/config.cfg
 
-	rm -rf ${MPC_TEST_WORK_DIR}/last_results.tar.gz
+	rm -rf ${PCVS_WORK_DIR}/last_results.tar.gz
 	setup_clean_subdir last_results
 
-	cp -r $MPC_TEST_WORK_DIR/generation/jchronoss/tools/jsLoc/* $MPC_TEST_WORK_DIR/generation/jchronoss/tools/webview/* .
-	cp $MPC_TEST_WORK_DIR/config.cfg .
+	cp -r $PCVS_WORK_DIR/generation/jchronoss/tools/jsLoc/* $PCVS_WORK_DIR/generation/jchronoss/tools/webview/* .
+	cp $PCVS_WORK_DIR/config.cfg .
 
 	if [ -d ../build_check ] ; then
 		build_files="`find ../build_check/* -iname 'output*.xml' `"
@@ -723,21 +723,21 @@ gen_blacklist_whitelist_files(){
 # From previous build, extract tests whose execution time is less than a given time in gen_fasts_tests.xsl
 generate_fasts_tests_file(){
 	echo " * Fast tests file generation"
-	LIST_XML=`find ${MPC_TEST_WORK_DIR}/test_suite -iname 'output.xml' 2> /dev/null`
+	LIST_XML=`find ${PCVS_WORK_DIR}/test_suite -iname 'output.xml' 2> /dev/null`
 
 	if [ -z "$LIST_XML" ] ; then
 		common_print_error "There are no data to analyze in order to extract fast tests."
 		exit 1
 	fi
 
-	common_safe_exec "Cleaning old fast tests file" rm ${MPC_TEST_WORK_DIR}/test_suite/fast_tests 2> /dev/null
+	common_safe_exec "Cleaning old fast tests file" rm ${PCVS_WORK_DIR}/test_suite/fast_tests 2> /dev/null
 
 
 	for fic in ${LIST_XML}
 	do
-		xsltproc ${PCVS_INTERNALS_DIR}/generation/gen_fasts_tests.xsl $fic >> ${MPC_TEST_WORK_DIR}/test_suite/fast_tests
+		xsltproc ${PCVS_INTERNALS_DIR}/generation/gen_fasts_tests.xsl $fic >> ${PCVS_WORK_DIR}/test_suite/fast_tests
 	done
-	echo "File generated in ${MPC_TEST_WORK_DIR}/test_suite/fast_tests"
+	echo "File generated in ${PCVS_WORK_DIR}/test_suite/fast_tests"
 }
 
 
@@ -751,8 +751,8 @@ copy_output_files(){
 		sed -r -i "s/\x1[b|B]\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g" $file
 		path_file="`echo "${file}" | sed -e "s@^../@@g"`"
 		path_folder="$(echo "${path_file}" | sed "s@/output-.*\.xml@@g")"
-		mkdir -p ${MPC_TEST_WORK_DIR}/last_results/${path_folder}
-		cp $file ${MPC_TEST_WORK_DIR}/last_results/${path_folder}/
+		mkdir -p ${PCVS_WORK_DIR}/last_results/${path_folder}
+		cp $file ${PCVS_WORK_DIR}/last_results/${path_folder}/
 	done
 
 }
@@ -798,9 +798,9 @@ display_informations()
 pre_actions(){
 	define_color
 	#display_informations
-	mkdir -p $MPC_TEST_WORK_DIR/tmp && cd $MPC_TEST_WORK_DIR/tmp
+	mkdir -p $PCVS_WORK_DIR/tmp && cd $PCVS_WORK_DIR/tmp
 	echo " * JChronoss compiling (-j${MAKE_J})" 
-	common_safe_exec "" cmake $PCVS_INTERNALS_DIR/generation/jchronoss/ -DENABLE_TRACE=yes ${SCHEDULER_CFLAGS} -DCMAKE_INSTALL_PREFIX=${MPC_TEST_WORK_DIR}/tmp > /dev/null && make --quiet -j${MAKE_J} install> /dev/null || exit 1
+	common_safe_exec "" cmake $PCVS_INTERNALS_DIR/generation/jchronoss/ -DENABLE_TRACE=yes ${SCHEDULER_CFLAGS} -DCMAKE_INSTALL_PREFIX=${PCVS_WORK_DIR}/tmp > /dev/null && make --quiet -j${MAKE_J} install> /dev/null || exit 1
 }
 
 #################### POST ACTIONS ############################
@@ -809,15 +809,15 @@ post_actions(){
 	# XML with the webview.
 	remove_ainsi_color_escape_sequence	
 
-	cp -r $PCVS_INTERNALS_DIR/resources/banners $MPC_TEST_WORK_DIR/
+	cp -r $PCVS_INTERNALS_DIR/resources/banners $PCVS_WORK_DIR/
 
 
-	run_gen_jsloc "$MPC_TEST_WORK_DIR/test_suite/tmp"
+	run_gen_jsloc "$PCVS_WORK_DIR/test_suite/tmp"
 	if [ "$MPC_TEST_MODE" = "TEST_MODE" ] || [ "$MPC_TEST_MODE" = "ALL_MODE" ] ; then
 		#actions about jsloc
 		if [ "$JCHRNS_JSLOC_TRACE" = "yes" ] ; then
-			cd $MPC_TEST_WORK_DIR
-			common_safe_warn "JsLoc image generation" ./jsLoc_gen_all.sh --res=${CLUSTER_MAX_NODES} --in=$MPC_TEST_WORK_DIR/traces --out=$MPC_TEST_WORK_DIR/traces
+			cd $PCVS_WORK_DIR
+			common_safe_warn "JsLoc image generation" ./jsLoc_gen_all.sh --res=${CLUSTER_MAX_NODES} --in=$PCVS_WORK_DIR/traces --out=$PCVS_WORK_DIR/traces
 		fi
 	fi
 
@@ -825,7 +825,7 @@ post_actions(){
 	setup_clean_subdir webview
 	run_gen_webview
 	if [ "$UPDATE_WEBVIEW" = "true" ] ; then
-		cd $MPC_TEST_WORK_DIR
+		cd $PCVS_WORK_DIR
 		common_safe_warn "WebView pages generation" ./webview_gen_all.sh --new=.
 	fi
 
@@ -859,11 +859,11 @@ preprocessing_compatibility(){
 ################## GENERATE TRACES OUTPUT #####################
 # Trace the tests scheduling of the current run
 # Globals:
-# MPC_TEST_WORK_DIR: the build path
+# PCVS_WORK_DIR: the build path
 # Parameters:
 # $1: 	the path where .TRACE files are stored
 run_gen_jsloc(){
-	cd $MPC_TEST_WORK_DIR
+	cd $PCVS_WORK_DIR
 	common_safe_exec "Copying JsLoc resources into last_results" cp -r $PCVS_INTERNALS_DIR/generation/jchronoss/tools/jsLoc/* .
 	if [ ! -z "`find $1/ -iname "*.trace"`" ] ; then
 		setup_clean_subdir traces
@@ -873,13 +873,13 @@ run_gen_jsloc(){
 }
 
 remove_ainsi_color_escape_sequence(){
-	cd $MPC_TEST_WORK_DIR
+	cd $PCVS_WORK_DIR
 	find . -iname "output*.xml" | xargs sed -i "s/\x1B\[[0-9;]*[JKmsu]//g"
 }
 
 
 run_gen_webview(){
-	cd $MPC_TEST_WORK_DIR
+	cd $PCVS_WORK_DIR
 	common_safe_exec "Copying WebView ressources into last_results" cp -r $PCVS_INTERNALS_DIR/generation/jchronoss/tools/webview/* .
 }
 
@@ -894,9 +894,9 @@ mpc_testSuite_main(){
 	export MPC_TARGET_INSTALL_PREFIX
 	export PCVS_SOURCE_DIR
 	export PCVS_INTERNALS_DIR
-	export MPC_TEST_WORK_DIR
+	export PCVS_WORK_DIR
 	export MPC_TEST_CURRENT_SOURCE_DIR
-	export MPC_TEST_CURRENT_WORK_DIR
+	export PCVS_CWORK_DIR
 	export LAUNCHER_COMMAND
 	export LAUNCHER_EXTRA_ARGS
 	export PRIVATIZATION
@@ -1050,8 +1050,8 @@ do
 			if [ -z "`echo $arg | grep "^/"`" ] ; then
 				arg="$PWD/$arg"
 			fi
-			config_override 'MPC_TEST_WORK_DIR' "$arg" '--test-dir'
-			MPC_TEST_WORK_DIR="$arg"
+			config_override 'PCVS_WORK_DIR' "$arg" '--test-dir'
+			PCVS_WORK_DIR="$arg"
 			;;
 		--fast)
 			config_override 'TESTTYPE' 'fast' '--fast'
@@ -1147,11 +1147,11 @@ do
 done
 
 ####################### SETUP SOME FINAL VARS #################
-#if MPC_TEST_WORK_DIR is relative, make it absolute
-if [ -z "`echo "${MPC_TEST_WORK_DIR}" | grep '^/'`" ]; then
-	MPC_TEST_WORK_DIR="${PWD}/${MPC_TEST_WORK_DIR}"
+#if PCVS_WORK_DIR is relative, make it absolute
+if [ -z "`echo "${PCVS_WORK_DIR}" | grep '^/'`" ]; then
+	PCVS_WORK_DIR="${PWD}/${PCVS_WORK_DIR}"
 fi
-MPC_TEST_CURRENT_WORK_DIR=${MPC_TEST_WORK_DIR}
+PCVS_CWORK_DIR=${PCVS_WORK_DIR}
 MPC_TEST_CURRENT_SOURCE_DIR=${PCVS_SOURCE_DIR}
 
 ###################### CONFIGURATION FILE SOURCING ##################
@@ -1159,7 +1159,7 @@ gen_and_load_config_file
 
 #################### MPC INSTALL DIRECTORY ###################
 if [ -z "${MPC_INSTALL_PREFIX}" ] ; then
-	MPC_INSTALL_PREFIX="${MPC_TEST_WORK_DIR}/mpc_prefix/mpc_complete"
+	MPC_INSTALL_PREFIX="${PCVS_WORK_DIR}/mpc_prefix/mpc_complete"
 
 elif [ "$BUILDTYPE" != "default" ] ; then
 	if [ "$MPC_TEST_MODE" = "BUILD_MODE" ] || [ "$MPC_TEST_MODE" = "ALL_MODE" ] ; then
@@ -1178,5 +1178,5 @@ trap trap_validation INT
 eval "mpc_testSuite_main $LOG_RECORD"
 
 echo "Ending date : `date +"%d %h %Y At %H:%M"`"
-common_safe_exec "Moving validation log" mv $PCVS_SOURCE_DIR/output.log $MPC_TEST_WORK_DIR/
+common_safe_exec "Moving validation log" mv $PCVS_SOURCE_DIR/output.log $PCVS_WORK_DIR/
 exit $EXIT_STATUS

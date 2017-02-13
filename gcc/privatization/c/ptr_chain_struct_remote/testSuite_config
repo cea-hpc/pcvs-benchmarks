@@ -29,12 +29,12 @@ ptr_chain_struct_remote_tu_opt :  ${MPC_TEST_CURRENT_SOURCE_DIR}/a.c ${MPC_TEST_
 
 MPC_AUTO_KILL_TIMEOUT=5
 
-gen_makefile > ${MPC_TEST_CURRENT_WORK_DIR}/Makefile
-makefile_configuration "compile_GCC_ptr_chain_struct_remote" "-C ${MPC_TEST_CURRENT_WORK_DIR}/"
+gen_makefile > ${PCVS_CWORK_DIR}/Makefile
+makefile_configuration "compile_GCC_ptr_chain_struct_remote" "-C ${PCVS_CWORK_DIR}/"
 
 LIST_TESTS_NAME=" ptr_chain_struct_remote ptr_chain_struct_remote_opt ptr_chain_struct_remote_tu ptr_chain_struct_remote_tu_opt"
 
 for exe in ${LIST_TESTS_NAME}
 do
-	helper_configuration_loop "test_${exe}" "${MPC_TEST_CURRENT_WORK_DIR}/executables/${exe}" "compile_GCC_ptr_chain_struct_remote"
+	helper_configuration_loop "test_${exe}" "${PCVS_CWORK_DIR}/executables/${exe}" "compile_GCC_ptr_chain_struct_remote"
 done

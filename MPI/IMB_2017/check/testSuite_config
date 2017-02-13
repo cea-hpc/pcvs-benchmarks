@@ -33,7 +33,7 @@ gen_imb_command()
 	for exe in ${LIST_TESTS_NAME}
 	do
 		#helper_configuration_loop "test_${exe}" "./executables/standard/IMB-MPI1 ${exe} -off_cache 2" "compile_IMB-MPI1"
-		helper_configuration_loop "test_${exe}_check" "${MPC_TEST_CURRENT_WORK_DIR}/executables/check/$1 ${exe}" "compile_IMB_CHECK"
+		helper_configuration_loop "test_${exe}_check" "${PCVS_CWORK_DIR}/executables/check/$1 ${exe}" "compile_IMB_CHECK"
 	done
 }
 
@@ -47,10 +47,10 @@ MPC_AUTO_KILL_TIMEOUT=900
 
 #generate compile command. for -DCHECK build
 mkdir executables/check/ || exit 1
-cp -r ${MPC_TEST_CURRENT_SOURCE_DIR}/src/* ${MPC_TEST_CURRENT_WORK_DIR}/executables/check/
+cp -r ${MPC_TEST_CURRENT_SOURCE_DIR}/src/* ${PCVS_CWORK_DIR}/executables/check/
 gen_makefile '-DCHECK'> executables/check/Makefile
 
-common_insert_test "compile_IMB_CHECK" "0" "make -C ${MPC_TEST_CURRENT_WORK_DIR}/executables/check/  -f Makefile -i "
+common_insert_test "compile_IMB_CHECK" "0" "make -C ${PCVS_CWORK_DIR}/executables/check/  -f Makefile -i "
 
 source ${MPC_TEST_CURRENT_SOURCE_DIR}/IMB_LIST_OF_TESTS
 

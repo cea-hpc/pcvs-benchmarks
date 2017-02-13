@@ -20,12 +20,12 @@ hdf5_pattern_opt :  ${MPC_TEST_CURRENT_SOURCE_DIR}/an.c ${MPC_TEST_CURRENT_SOURC
 
 MPC_AUTO_KILL_TIMEOUT=5
 
-gen_makefile > ${MPC_TEST_CURRENT_WORK_DIR}/Makefile
-makefile_configuration "compile_GCC_hdf5_pattern" "-C ${MPC_TEST_CURRENT_WORK_DIR}/"
+gen_makefile > ${PCVS_CWORK_DIR}/Makefile
+makefile_configuration "compile_GCC_hdf5_pattern" "-C ${PCVS_CWORK_DIR}/"
 
 LIST_TESTS_NAME="hdf5_pattern hdf5_pattern_opt"
 
 for exe in ${LIST_TESTS_NAME}
 do
-	helper_configuration_loop "test_${exe}" "${MPC_TEST_CURRENT_WORK_DIR}/executables/${exe}" "compile_GCC_hdf5_pattern"
+	helper_configuration_loop "test_${exe}" "${PCVS_CWORK_DIR}/executables/${exe}" "compile_GCC_hdf5_pattern"
 done

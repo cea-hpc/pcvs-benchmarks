@@ -25,5 +25,5 @@
 #default
 . ${PCVS_INTERNALS_DIR}/config/default.cfg
 #the current one
-. ${MPC_TEST_WORK_DIR}/config.cfg
+. ${PCVS_WORK_DIR}/config.cfg
 

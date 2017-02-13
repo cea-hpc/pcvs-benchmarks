@@ -49,7 +49,7 @@ function configure()
     fi  
 }
 
-common_insert_test "compile_MPICH" "0" "make -C ${MPC_TEST_CURRENT_WORK_DIR}&& make install -C ${MPC_TEST_CURRENT_WORK_DIR}"
+common_insert_test "compile_MPICH" "0" "make -C ${PCVS_CWORK_DIR}&& make install -C ${PCVS_CWORK_DIR}"
 
 function copy()
 {
@@ -57,7 +57,7 @@ function copy()
     for file in `find ${MPC_TEST_CURRENT_SOURCE_DIR}/ -name "testlist"`;
     do  
         new_dest=`echo ${file} | sed 's|'${MPC_TEST_CURRENT_SOURCE_DIR}'||'`
-        cp -f ${file} ${MPC_TEST_CURRENT_WORK_DIR}/${new_dest}
+        cp -f ${file} ${PCVS_CWORK_DIR}/${new_dest}
     done
     echo "done." 1>&2
 }
@@ -124,7 +124,7 @@ function processing()
                             #gen options
                             opts="--clean --autokill=${autokill_timeout} $nbNodes -n=${tasks} --share-node -p=${proc} -net=${net} -m=${thread} -c=$cores"
                             #gen command
-                            command="${MPC_TEST_CURRENT_SOURCE_DIR}/wrapper.sh '${pattern}' '${launcher} ${opts} ${MPCRUN_ARGS} ${MPC_TEST_CURRENT_WORK_DIR}/${name_exe} ${COMMAND_OPTIONS}'"
+                            command="${MPC_TEST_CURRENT_SOURCE_DIR}/wrapper.sh '${pattern}' '${launcher} ${opts} ${MPCRUN_ARGS} ${PCVS_CWORK_DIR}/${name_exe} ${COMMAND_OPTIONS}'"
                             #insert test
                             common_insert_test "test_MPICH_${name_test}_${thread}_${exec_mode}_${net}_proc_nb_${proc}_${tasks}" "${EXPECTED_EXIT_CODE}" "$command" "compile_MPICH"
                         fi

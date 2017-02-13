@@ -31,8 +31,8 @@ gen_imb_command()
 {
 	for exe in ${LIST_TESTS_NAME}
 	do
-		#helper_configuration_loop "test_${exe}" "gdb --command /ccc/scratch/cont001/ocre/capraa/validation_mpc_shm/mpc2/MPC_Test_Suite/gdb_command_line.sh --args ${MPC_TEST_CURRENT_WORK_DIR}/executables/standard/IMB-MPI1 ${exe} -off_cache 2" "compile_IMB-MPI1"
-		helper_configuration_loop "test_${exe}" "${MPC_TEST_CURRENT_WORK_DIR}/executables/standard/$1 ${exe} -off_cache 2" "compile_IMB"
+		#helper_configuration_loop "test_${exe}" "gdb --command /ccc/scratch/cont001/ocre/capraa/validation_mpc_shm/mpc2/MPC_Test_Suite/gdb_command_line.sh --args ${PCVS_CWORK_DIR}/executables/standard/IMB-MPI1 ${exe} -off_cache 2" "compile_IMB-MPI1"
+		helper_configuration_loop "test_${exe}" "${PCVS_CWORK_DIR}/executables/standard/$1 ${exe} -off_cache 2" "compile_IMB"
 		#helper_configuration_loop "test_${exe}_check" "./executables/check/IMB-MPI1 ${exe}" "compile_IMB-MPI1_CHECK"
 	done
 }
@@ -42,10 +42,10 @@ MPC_AUTO_KILL_TIMEOUT=900
 
 #generate compile command. for standard build
 mkdir executables/standard/ || exit 1
-cp -r ${MPC_TEST_CURRENT_SOURCE_DIR}/src/* ${MPC_TEST_CURRENT_WORK_DIR}/executables/standard/
+cp -r ${MPC_TEST_CURRENT_SOURCE_DIR}/src/* ${PCVS_CWORK_DIR}/executables/standard/
 gen_makefile > executables/standard/Makefile
 
-common_insert_test "compile_IMB" "0" "make -C ${MPC_TEST_CURRENT_WORK_DIR}/executables/standard/ -f Makefile -i"
+common_insert_test "compile_IMB" "0" "make -C ${PCVS_CWORK_DIR}/executables/standard/ -f Makefile -i"
 
 
 #generate compile command. for -DCHECK build

@@ -23,12 +23,12 @@ priv_chain_lib_opt :  ${MPC_TEST_CURRENT_SOURCE_DIR}/a.c libp.so
 
 MPC_AUTO_KILL_TIMEOUT=5
 
-gen_makefile > ${MPC_TEST_CURRENT_WORK_DIR}/Makefile
-makefile_configuration "compile_GCC_priv_chain_lib" "-C ${MPC_TEST_CURRENT_WORK_DIR}/"
+gen_makefile > ${PCVS_CWORK_DIR}/Makefile
+makefile_configuration "compile_GCC_priv_chain_lib" "-C ${PCVS_CWORK_DIR}/"
 
 LIST_TESTS_NAME="priv_chain_lib priv_chain_lib_opt"
 
 for exe in ${LIST_TESTS_NAME}
 do
-	helper_configuration_loop "test_${exe}" "${MPC_TEST_CURRENT_WORK_DIR}/executables/${exe}" "compile_GCC_priv_chain_lib"
+	helper_configuration_loop "test_${exe}" "${PCVS_CWORK_DIR}/executables/${exe}" "compile_GCC_priv_chain_lib"
 done

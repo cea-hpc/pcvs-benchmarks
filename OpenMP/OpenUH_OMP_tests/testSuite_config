@@ -22,7 +22,7 @@ do
 	testName="$(basename $one_test | sed -e "s/\.c//g")"
 
 	#generate execution command
-	helper_gen_exec_command "${MPC_TEST_CURRENT_WORK_DIR}/executables/execTestSuite ${testName}"
+	helper_gen_exec_command "${PCVS_CWORK_DIR}/executables/execTestSuite ${testName}"
     command="OMP_NUM_THREADS=$num_threads ${command}"
 
 	#add the test, param is {TEST_NAME} {EXPECTED_EXIT_STATUS} {COMMAND} {DEPS}

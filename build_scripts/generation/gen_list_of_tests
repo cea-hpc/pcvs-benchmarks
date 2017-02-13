@@ -23,7 +23,7 @@
 
 # This script require env :
 # - PCVS_SOURCE_DIR
-# - MPC_TEST_WORK_DIR
+# - PCVS_WORK_DIR
 
 ######################## IMPORTS ##########################
 #import functions
@@ -36,22 +36,22 @@ if [ -z "${MPC_TEST_CURRENT_SOURCE_DIR}" ]; then
 	common_print_error "Environement variable MPC_TEST_CURRENT_SOURCE_DIR is empty."
 	exit 1
 fi
-if [ -z "${MPC_TEST_CURRENT_WORK_DIR}" ]; then
-	common_print_error "Environement variable MPC_TEST_CURRENT_WORK_DIR is empty."
+if [ -z "${PCVS_CWORK_DIR}" ]; then
+	common_print_error "Environement variable PCVS_CWORK_DIR is empty."
 	exit 1
 fi
 
 ################### SETUP SOME VARS #######################
 export MPC_TEST_CURRENT_SOURCE_DIR="${MPC_TEST_CURRENT_SOURCE_DIR}/$1"
-export MPC_TEST_CURRENT_WORK_DIR="${MPC_TEST_CURRENT_WORK_DIR}/$1"
-export MPC_TEST_EXE_PATH="${MPC_TEST_CURRENT_WORK_DIR}/executables/"
+export PCVS_CWORK_DIR="${PCVS_CWORK_DIR}/$1"
+export MPC_TEST_EXE_PATH="${PCVS_CWORK_DIR}/executables/"
 
 ####################### PARAMETERS ########################
-OUTPUT_FILENAME="${MPC_TEST_CURRENT_WORK_DIR}/list_of_tests.xml"
+OUTPUT_FILENAME="${PCVS_CWORK_DIR}/list_of_tests.xml"
 
 ################### CREATE DIRECTORIES ####################
-mkdir -p "${MPC_TEST_CURRENT_WORK_DIR}"
-cd "${MPC_TEST_CURRENT_WORK_DIR}" || exit 1
+mkdir -p "${PCVS_CWORK_DIR}"
+cd "${PCVS_CWORK_DIR}" || exit 1
 
 ############### DIRECTORY WITH CONFIG FILE ################
 # Directory which contain a config file named "testSuite_config"
@@ -77,7 +77,7 @@ config_file_configuration()
 #   - MPC_TEST_CURRENT_SOURCE_DIR
 gen_test_commands()
 {
-	echo "<jobSuite package=\"$(echo "$MPC_TEST_CURRENT_WORK_DIR" | sed -e "s@$MPC_TEST_WORK_DIR/test_suite/@@g" -e "s@\/\/@\/@g"  -e "s@\/\$@@g" -e "s@\/@\.@g")\">" > "${OUTPUT_FILENAME}"
+	echo "<jobSuite package=\"$(echo "$PCVS_CWORK_DIR" | sed -e "s@$PCVS_WORK_DIR/test_suite/@@g" -e "s@\/\/@\/@g"  -e "s@\/\$@@g" -e "s@\/@\.@g")\">" > "${OUTPUT_FILENAME}"
 	#check generation type to apply
 	if [ -f "${MPC_TEST_CURRENT_SOURCE_DIR}/testSuite_config" ] ; then
 		#user provide a config file
@@ -105,5 +105,5 @@ gen_test_commands()
 }
 
 ########################### MAIN ##########################
-echo "   --> Generation ${MPC_TEST_CURRENT_WORK_DIR}" | sed -e "s@${PCVS_SOURCE_DIR}/build/test_suite/@@g" -e "s@//@/@g" 1>&2
+echo "   --> Generation ${PCVS_CWORK_DIR}" | sed -e "s@${PCVS_SOURCE_DIR}/build/test_suite/@@g" -e "s@//@/@g" 1>&2
 gen_test_commands "$1"

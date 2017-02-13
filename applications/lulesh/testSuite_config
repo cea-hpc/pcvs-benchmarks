@@ -5,8 +5,8 @@ OMP_THREAD_LIST="2 4 8"
 MPI_THREAD_LIST="1 8"
 MPI_NODE_NB="2 4"
 
-cp -r ${MPC_TEST_CURRENT_SOURCE_DIR}/* ${MPC_TEST_CURRENT_WORK_DIR}
-common_insert_test "compile_lulesh" "0" "make -C ${MPC_TEST_CURRENT_WORK_DIR}"
+cp -r ${MPC_TEST_CURRENT_SOURCE_DIR}/* ${PCVS_CWORK_DIR}
+common_insert_test "compile_lulesh" "0" "make -C ${PCVS_CWORK_DIR}"
 
 for net in ${MPC_NET_LIST}
 do
@@ -15,7 +15,7 @@ do
 		for omp_thread in ${OMP_THREAD_LIST}
 		do
 			opts="--profiling=xml,stdout --clean --autokill=${autokill_timeout} -N=1 -p=1 -n=1 --share-node -net=${net} -m=${thread} -c=${CLUSTER_MAX_CORES_PER_NODE}"
-			command="OMP_NUM_THREADS=${omp_thread} ${MPCRUN} ${opts} ${MPCRUN_ARGS} ${MPC_TEST_CURRENT_WORK_DIR}/lulesh2.0 ${COMMAND_OPTIONS}"
+			command="OMP_NUM_THREADS=${omp_thread} ${MPCRUN} ${opts} ${MPCRUN_ARGS} ${PCVS_CWORK_DIR}/lulesh2.0 ${COMMAND_OPTIONS}"
 			common_insert_test "test_lulesh_${net}_${thread}_omp_thread_${omp_thread}" "${EXPECTED_EXIT_CODE}" "$command" "compile_lulesh"
 		done
 		for mpi_thread in ${MPI_THREAD_LIST}
@@ -35,7 +35,7 @@ do
                 fi
 			fi
 			opts="--profiling=xml,stdout --clean --autokill=${autokill_timeout} ${node} ${proc} -n=${mpi_thread} --share-node -net=${net} -m=${thread} -c=${nb_core}"
-			command="OMP_NUM_THREADS=0 ${MPCRUN} ${opts} ${MPCRUN_ARGS} ${MPC_TEST_CURRENT_WORK_DIR}/lulesh2.0 ${COMMAND_OPTIONS}"
+			command="OMP_NUM_THREADS=0 ${MPCRUN} ${opts} ${MPCRUN_ARGS} ${PCVS_CWORK_DIR}/lulesh2.0 ${COMMAND_OPTIONS}"
 			common_insert_test "test_lulesh_${net}_${thread}_mpi_task_${mpi_thread}" "${EXPECTED_EXIT_CODE}" "$command" "compile_lulesh"
 		    done
 		done

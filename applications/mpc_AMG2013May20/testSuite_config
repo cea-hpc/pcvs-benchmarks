@@ -6,8 +6,8 @@ MPI_THREAD_LIST="8"
 MPI_NODE_NB="2 4"
 COMMAND_OPTIONS="-laplace -P 2 2 2 -n 150 150 150 -solver "
 
-cp -r ${MPC_TEST_CURRENT_SOURCE_DIR}/* ${MPC_TEST_CURRENT_WORK_DIR}
-common_insert_test "compile_mpc_AMG2013May20" "0" "make -C ${MPC_TEST_CURRENT_WORK_DIR}/src"
+cp -r ${MPC_TEST_CURRENT_SOURCE_DIR}/* ${PCVS_CWORK_DIR}
+common_insert_test "compile_mpc_AMG2013May20" "0" "make -C ${PCVS_CWORK_DIR}/src"
 
 for solver in "1" "2" "3"
 do
@@ -32,7 +32,7 @@ do
                 fi
 			fi
 			opts="--profiling=xml,stdout --clean --autokill=${autokill_timeout} ${node} ${proc} -n=${mpi_thread} --share-node -net=${net} -m=${thread} -c=${nb_core}"
-			command="OMP_NUM_THREADS=0 ${MPCRUN} ${opts} ${MPCRUN_ARGS} ${MPC_TEST_CURRENT_WORK_DIR}/src/test/amg2013 ${COMMAND_OPTIONS} $solver"
+			command="OMP_NUM_THREADS=0 ${MPCRUN} ${opts} ${MPCRUN_ARGS} ${PCVS_CWORK_DIR}/src/test/amg2013 ${COMMAND_OPTIONS} $solver"
 			common_insert_test "test_mpc_AMG2013May20_${net}_${thread}_mpi_task_${mpi_thread}" "${EXPECTED_EXIT_CODE}" "$command" "compile_mpc_AMG2013May20"
 		    done
 		done

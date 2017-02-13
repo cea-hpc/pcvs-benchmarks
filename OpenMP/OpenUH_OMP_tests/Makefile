@@ -5,14 +5,14 @@ LDFLAGS=${TS_LD_FLAGS}
 LDFLAGS+=-lm
 MAKE=make
 SOURCES=$(wildcard src/*.c)
-OBJS=$(SOURCES:src/%.c=${MPC_TEST_CURRENT_WORK_DIR}/OpenMP/OpenUH_OMP_tests/executables/%.o)
+OBJS=$(SOURCES:src/%.c=${PCVS_CWORK_DIR}/OpenMP/OpenUH_OMP_tests/executables/%.o)
 
-all: ${MPC_TEST_CURRENT_WORK_DIR}/OpenMP/OpenUH_OMP_tests/executables/execTestSuite
+all: ${PCVS_CWORK_DIR}/OpenMP/OpenUH_OMP_tests/executables/execTestSuite
 
 subdirs:
 	$(MAKE) -C src
 
-${MPC_TEST_CURRENT_WORK_DIR}/OpenMP/OpenUH_OMP_tests/executables/execTestSuite: subdirs main.c
+${PCVS_CWORK_DIR}/OpenMP/OpenUH_OMP_tests/executables/execTestSuite: subdirs main.c
 	$(CC) -o $@ main.c ${OBJS} ${PRIVATIZATION} $(CFLAGS) $(LDFLAGS)
 
 clean:
