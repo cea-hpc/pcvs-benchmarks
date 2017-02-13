@@ -27,13 +27,13 @@
 
 ######################## IMPORTS ##########################
 #import functions
-. ${PCVS_INTERNALS_DIR}/scripts/configuration/compilers/${TEST_SUITE_COMPILER}.conf
-. ${PCVS_INTERNALS_DIR}/scripts/configuration/runtimes/${PCVS_RUNTIME}.conf
+. ${PCVS_INTERNALS_DIR}/configuration/compilers/${PCVS_COMPILER}.conf
+. ${PCVS_INTERNALS_DIR}/configuration/runtimes/${PCVS_RUNTIME}.conf
 . ${PCVS_INTERNALS_DIR}/scripts/test_suite_functions.sh
 
 ##################### CHECK ENV VARS ######################
-if [ -z "${MPC_TEST_CURRENT_SOURCE_DIR}" ]; then
-	common_print_error "Environement variable MPC_TEST_CURRENT_SOURCE_DIR is empty."
+if [ -z "${PCVS_CSOURCE_DIR}" ]; then
+	common_print_error "Environement variable PCVS_CSOURCE_DIR is empty."
 	exit 1
 fi
 if [ -z "${PCVS_CWORK_DIR}" ]; then
@@ -42,7 +42,7 @@ if [ -z "${PCVS_CWORK_DIR}" ]; then
 fi
 
 ################### SETUP SOME VARS #######################
-export MPC_TEST_CURRENT_SOURCE_DIR="${MPC_TEST_CURRENT_SOURCE_DIR}/$1"
+export PCVS_CSOURCE_DIR="${PCVS_CSOURCE_DIR}/$1"
 export PCVS_CWORK_DIR="${PCVS_CWORK_DIR}/$1"
 export MPC_TEST_EXE_PATH="${PCVS_CWORK_DIR}/executables/"
 
@@ -57,7 +57,7 @@ cd "${PCVS_CWORK_DIR}" || exit 1
 # Directory which contain a config file named "testSuite_config"
 # Params:
 #   - $1 : config_file : Path to the config file to use (full path).
-#   - MPC_TEST_CURRENT_SOURCE_DIR
+#   - PCVS_CSOURCE_DIR
 config_file_configuration()
 {
 	if [ ! -f "$1" ]; then
@@ -74,29 +74,29 @@ config_file_configuration()
 # Args:
 #   - $1 : relative path to test dir
 # Globals:
-#   - MPC_TEST_CURRENT_SOURCE_DIR
+#   - PCVS_CSOURCE_DIR
 gen_test_commands()
 {
 	echo "<jobSuite package=\"$(echo "$PCVS_CWORK_DIR" | sed -e "s@$PCVS_WORK_DIR/test_suite/@@g" -e "s@\/\/@\/@g"  -e "s@\/\$@@g" -e "s@\/@\.@g")\">" > "${OUTPUT_FILENAME}"
 	#check generation type to apply
-	if [ -f "${MPC_TEST_CURRENT_SOURCE_DIR}/testSuite_config" ] ; then
+	if [ -f "${PCVS_CSOURCE_DIR}/testSuite_config" ] ; then
 		#user provide a config file
 		mkdir -p "${MPC_TEST_EXE_PATH}" || exit 1
-		config_file_configuration "${MPC_TEST_CURRENT_SOURCE_DIR}/testSuite_config" >> "${OUTPUT_FILENAME}"
-	elif [ -f "${MPC_TEST_CURRENT_SOURCE_DIR}/Makefile" ]; then
+		config_file_configuration "${PCVS_CSOURCE_DIR}/testSuite_config" >> "${OUTPUT_FILENAME}"
+	elif [ -f "${PCVS_CSOURCE_DIR}/Makefile" ]; then
 		#user provide a unique makefile in diectory
 		mkdir -p "${MPC_TEST_EXE_PATH}" || exit 1
 		makefile_configuration >> "${OUTPUT_FILENAME}"
 	else
 		#check if directory contain sources
-		files="$(find "${MPC_TEST_CURRENT_SOURCE_DIR}" -maxdepth 1 -regex '.*\.[cC]' -type f )"
+		files="$(find "${PCVS_CSOURCE_DIR}" -maxdepth 1 -regex '.*\.[cC]' -type f )"
 		if [ ! -z "${files}" ]; then
 			#simple generation from sources
 			mkdir -p "${MPC_TEST_EXE_PATH}" || exit 1
 			single_configuration >> "${OUTPUT_FILENAME}"
 		else
 			#move to source dir
-			cd "${MPC_TEST_CURRENT_SOURCE_DIR}" || exit 1
+			cd "${PCVS_CSOURCE_DIR}" || exit 1
 			#loops on subdirectories, skip the first one (current)
 			subdir_configuration
 		fi

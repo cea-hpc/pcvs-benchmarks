@@ -62,7 +62,7 @@ single_configuration()
 
 	#check errors
 	if [ -z "${files}" ]; then
-		common_print_error "No source files found in ${MPC_TEST_CURRENT_SOURCE_DIR}"
+		common_print_error "No source files found in ${PCVS_CSOURCE_DIR}"
 		exit 1
 	fi
 
@@ -159,7 +159,7 @@ openmp_configuration()
 
 	#check errors
 	if [ -z "${files}" ]; then
-		common_print_error "No source files found in ${MPC_TEST_CURRENT_SOURCE_DIR}"
+		common_print_error "No source files found in ${PCVS_CSOURCE_DIR}"
 		exit 1
 	fi
 
@@ -239,7 +239,7 @@ multiple_configuration()
 
 	#check errors
 	if [ -z "${files}" ]; then
-		common_print_error "No source files found in ${MPC_TEST_CURRENT_SOURCE_DIR}"
+		common_print_error "No source files found in ${PCVS_CSOURCE_DIR}"
 		exit 1
 	fi
 
@@ -268,25 +268,25 @@ multiple_configuration()
 # - CFLAGS      :  Compilation flags to MPC
 makefile_configuration()
 {
-	make clean -C ${MPC_TEST_CURRENT_SOURCE_DIR}/ 2> /dev/null >&2
+	make clean -C ${PCVS_CSOURCE_DIR}/ 2> /dev/null >&2
 	
 	if test "$#" = "0";
 	then
-		test_name="$(basename ${MPC_TEST_CURRENT_SOURCE_DIR})"
+		test_name="$(basename ${PCVS_CSOURCE_DIR})"
 	else
 		test_name="$1"
 		shift;
 	fi
 	#source a potential configuration file
 	#duplicate from helper_functions.sh (helper_get_compiler not executed in case of Makefile)
-	if test -n "${TEST_SUITE_COMPILER}"; then
-		file=$PCVS_INTERNALS_DIR/configuration/compilers/${TEST_SUITE_COMPILER}.conf
+	if test -n "${PCVS_COMPILER}"; then
+		file=$PCVS_INTERNALS_DIR/configuration/compilers/${PCVS_COMPILER}.conf
 
 		if test -f ${file}; then
 			. ${file}
 		fi
 	fi
-	common_insert_test "${test_name}" "0" "make -C ${MPC_TEST_CURRENT_SOURCE_DIR}/ $@ TS_CC=\"${TS_CC}\" TS_CXX=\"${TS_CXX}\" TS_F77=\"${TS_F77}\" TS_NV=\"${TS_NV}\" TS_CFLAGS=\"${TS_CFLAGS}\" TS_LDFLAGS=\"${TS_LDFLAGS}\""
+	common_insert_test "${test_name}" "0" "make -C ${PCVS_CSOURCE_DIR}/ $@ TS_CC=\"${TS_CC}\" TS_CXX=\"${TS_CXX}\" TS_F77=\"${TS_F77}\" TS_NV=\"${TS_NV}\" TS_CFLAGS=\"${TS_CFLAGS}\" TS_LDFLAGS=\"${TS_LDFLAGS}\""
 }
 
 ####################### SUBDIR CASE #######################
@@ -296,8 +296,8 @@ makefile_configuration()
 subdir_configuration()
 {
 	if [ -z "$1" ] ; then
-		SUBDIRS=$(find "$MPC_TEST_CURRENT_SOURCE_DIR/" -maxdepth 1 -xtype d | sed -e '1d' -e 's#^\./##g')
-		SUBDIRS=$(find "$MPC_TEST_CURRENT_SOURCE_DIR/" -maxdepth 1 -xtype d | sed -e "s@$MPC_TEST_CURRENT_SOURCE_DIR\/@@g")
+		SUBDIRS=$(find "$PCVS_CSOURCE_DIR/" -maxdepth 1 -xtype d | sed -e '1d' -e 's#^\./##g')
+		SUBDIRS=$(find "$PCVS_CSOURCE_DIR/" -maxdepth 1 -xtype d | sed -e "s@$PCVS_CSOURCE_DIR\/@@g")
 	fi
 
 	for subdir in ${SUBDIRS}

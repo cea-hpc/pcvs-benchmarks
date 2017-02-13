@@ -10,10 +10,10 @@ MPC_THREAD_NB_LIST=1
 
 EXPECTED_EXIT_CODE=0
 
-COMMON_FILES="${MPC_TEST_CURRENT_SOURCE_DIR}/../common/bots_main.c ${MPC_TEST_CURRENT_SOURCE_DIR}/../common/bots_common.c ${MPC_TEST_CURRENT_SOURCE_DIR}/sequence.c"
+COMMON_FILES="${PCVS_CSOURCE_DIR}/../common/bots_main.c ${PCVS_CSOURCE_DIR}/../common/bots_common.c ${PCVS_CSOURCE_DIR}/sequence.c"
 
-COMMAND_OPTIONS="-c -f ${MPC_TEST_CURRENT_SOURCE_DIR}/../inputs/alignment/prot.20.aa"
+COMMAND_OPTIONS="-c -f ${PCVS_CSOURCE_DIR}/../inputs/alignment/prot.20.aa"
 
-CFLAGS="${CFLAGS} -O3 -fopenmp ${PRIVATIZATION} -I${MPC_TEST_CURRENT_SOURCE_DIR}/../common -I${MPC_TEST_CURRENT_SOURCE_DIR} -lm"
+CFLAGS="${CFLAGS} -O3 -fopenmp ${PRIVATIZATION} -I${PCVS_CSOURCE_DIR}/../common -I${PCVS_CSOURCE_DIR} -lm"
 
 openmp_configuration "single20" "alignment.c"

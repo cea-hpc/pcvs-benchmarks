@@ -10,14 +10,14 @@ all : \$(TARGETS)
 
 CC=\${TS_CC}
 
-libp.so : ${MPC_TEST_CURRENT_SOURCE_DIR}/b.c
+libp.so : ${PCVS_CSOURCE_DIR}/b.c
 	\$(CC) -g  $^ -fpic -shared -o ./executables/\$@
 
-priv_lib : ${MPC_TEST_CURRENT_SOURCE_DIR}/a.c libp.so 
-	\$(CC) -g -O0 ${MPC_TEST_CURRENT_SOURCE_DIR}/a.c -fdump-tree-gimple -o ./executables/\$@ -L$PWD/executables/ -lp  -Wl,-rpath=$PWD/executables/
+priv_lib : ${PCVS_CSOURCE_DIR}/a.c libp.so 
+	\$(CC) -g -O0 ${PCVS_CSOURCE_DIR}/a.c -fdump-tree-gimple -o ./executables/\$@ -L$PWD/executables/ -lp  -Wl,-rpath=$PWD/executables/
 
-priv_lib_opt :  ${MPC_TEST_CURRENT_SOURCE_DIR}/a.c libp.so 
-	\$(CC) -g -O3 ${MPC_TEST_CURRENT_SOURCE_DIR}/a.c -fdump-tree-gimple -o ./executables/\$@ -L$PWD/executables/ -lp  -Wl,-rpath=$PWD/executables/
+priv_lib_opt :  ${PCVS_CSOURCE_DIR}/a.c libp.so 
+	\$(CC) -g -O3 ${PCVS_CSOURCE_DIR}/a.c -fdump-tree-gimple -o ./executables/\$@ -L$PWD/executables/ -lp  -Wl,-rpath=$PWD/executables/
 "
 }
 

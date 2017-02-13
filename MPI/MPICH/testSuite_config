@@ -38,7 +38,7 @@ function check_env()
 function configure()
 {
     echo -n "   --> Configuring MPICH... " 1>&2
-    ${MPC_TEST_CURRENT_SOURCE_DIR}/configure CC="mpc_cc -include mpc.h -g" CXX="mpc_cxx -include mpc.h -g" F77="mpc_f77 -include mpc.h -g" --disable-maintainer_mode --enable-threads=multiple --enable-strictmpi &> ${MPC_TEST_CURRENT_SOURCE_DIR}/configure.log
+    ${PCVS_CSOURCE_DIR}/configure CC="mpc_cc -include mpc.h -g" CXX="mpc_cxx -include mpc.h -g" F77="mpc_f77 -include mpc.h -g" --disable-maintainer_mode --enable-threads=multiple --enable-strictmpi &> ${PCVS_CSOURCE_DIR}/configure.log
     if test "$?" -ne 0 ; 
     then
         echo "Error !" 1>&2
@@ -54,9 +54,9 @@ common_insert_test "compile_MPICH" "0" "make -C ${PCVS_CWORK_DIR}&& make install
 function copy()
 {
     echo -n "   --> Copying list of tests... " 1>&2
-    for file in `find ${MPC_TEST_CURRENT_SOURCE_DIR}/ -name "testlist"`;
+    for file in `find ${PCVS_CSOURCE_DIR}/ -name "testlist"`;
     do  
-        new_dest=`echo ${file} | sed 's|'${MPC_TEST_CURRENT_SOURCE_DIR}'||'`
+        new_dest=`echo ${file} | sed 's|'${PCVS_CSOURCE_DIR}'||'`
         cp -f ${file} ${PCVS_CWORK_DIR}/${new_dest}
     done
     echo "done." 1>&2
@@ -124,7 +124,7 @@ function processing()
                             #gen options
                             opts="--clean --autokill=${autokill_timeout} $nbNodes -n=${tasks} --share-node -p=${proc} -net=${net} -m=${thread} -c=$cores"
                             #gen command
-                            command="${MPC_TEST_CURRENT_SOURCE_DIR}/wrapper.sh '${pattern}' '${launcher} ${opts} ${MPCRUN_ARGS} ${PCVS_CWORK_DIR}/${name_exe} ${COMMAND_OPTIONS}'"
+                            command="${PCVS_CSOURCE_DIR}/wrapper.sh '${pattern}' '${launcher} ${opts} ${MPCRUN_ARGS} ${PCVS_CWORK_DIR}/${name_exe} ${COMMAND_OPTIONS}'"
                             #insert test
                             common_insert_test "test_MPICH_${name_test}_${thread}_${exec_mode}_${net}_proc_nb_${proc}_${tasks}" "${EXPECTED_EXIT_CODE}" "$command" "compile_MPICH"
                         fi

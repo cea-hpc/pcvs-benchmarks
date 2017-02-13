@@ -68,7 +68,7 @@ TYPE_SHELL="strict"
 GEN_SEQ=""
 SCHED_POLICY=""
 SKIP_GEN="no"
-TEST_SUITE_COMPILER="mpc"
+PCVS_COMPILER="mpc"
 PRIVATIZATION="-fmpc-privatize"
 
 ########## DISABLE X
@@ -76,6 +76,8 @@ unset DISPLAY
 PATH=${PWD}/env_bin:$PATH
 export PATH
 
+######################## SOURCE DEPS ###########################
+. ${PCVS_INTERNALS_DIR}/scripts/common_functions.sh
 
 ##################### SOME COLOUR INFORMATIONS ##################
 define_color(){
@@ -206,17 +208,17 @@ print_default_config_file() {
 	fi
 	#if no default config specified, try default name by using hostname
 	if [ -z "${CONFIG_NAME}" ]; then
-		if [ -f ${PCVS_INTERNALS_DIR}/config/`hostname`.cfg ]; then
+		if [ -f ${PCVS_INTERNALS_DIR}/environment/`hostname`.cfg ]; then
 			CONFIG_NAME=`hostname`
 			#try hostname without digits
-		elif [ -f ${PCVS_INTERNALS_DIR}/config/$(hostname | sed -e 's/[0-9]//g').cfg ]; then
+		elif [ -f ${PCVS_INTERNALS_DIR}/environment/$(hostname | sed -e 's/[0-9]//g').cfg ]; then
 			CONFIG_NAME=$(hostname | sed -e 's/[0-9]//g')
 		else # don't use config file
 			return
 		fi
 	fi
 	#calc config file path
-	config_file="${PCVS_INTERNALS_DIR}/config/${CONFIG_NAME}.cfg"
+	config_file="${PCVS_INTERNALS_DIR}/environment/${CONFIG_NAME}.cfg"
 
 	#import the config
 	if [ -f "$config_file" ]; then
@@ -251,38 +253,40 @@ gen_and_load_config_file() {
 	echo "" >> "${PCVS_WORK_DIR}/config.cfg"
 
 	#print override
-	echo "##################### VARIABLES OVERRIDES #####################" >> "$PCVS_WORK_DIR/config.cfg"
+	echo "################################### VARIABLES OVERRIDES ###################################" >> "$PCVS_WORK_DIR/config.cfg"
 
 	echo ${ECHO_OPTIONS} "${CONFIG_OVERRIDE}" >> "${PCVS_WORK_DIR}/config.cfg"
 
 	#display if not empty
 	if [ ! -z "$(cat ${PCVS_WORK_DIR}/config.cfg)" ]; then
-		echo "${INFORMATION_COLOR}=====================> LOAD CONFIG <=======================${DEFAULT_COLOR}"
+		echo "${INFORMATION_COLOR}#################################### DEFAULT VARIABLES ####################################${DEFAULT_COLOR}"
 		cat "${PCVS_WORK_DIR}/config.cfg"
 	fi
 
 	#source it : load default.cfg + WORK/config.cfg
-	common_safe_exec "loading current configuration" . $PCVS_INTERNALS_DIR/load_config.sh
+	. $PCVS_INTERNALS_DIR/scripts/load_config.sh
 
 	#init defined compiler
-	if [ ! -f ${PCVS_INTERNALS_DIR}/configuration/compilers/${TEST_SUITE_COMPILER}.conf ] ; then
-		common_print_error "Unknown compiler \"${TEST_SUITE_COMPILER}\""
+	if [ ! -f ${PCVS_INTERNALS_DIR}/configuration/compilers/${PCVS_COMPILER}.conf ] ; then
+		common_print_error "Unknown compiler \"${PCVS_COMPILER}\""
 		exit 1
 	fi
-	export TEST_SUITE_COMPILER
+	export PCVS_COMPILER
 
 	if [ ! -f ${PCVS_INTERNALS_DIR}/configuration/runtimes/${PCVS_RUNTIME}.conf ]; then
 		common_print_error "Unkown runtime target: \"${PCVS_RUNTIME}\""
 		exit 1
 	fi
-	. ${PCVS_INTERNALS_DIR}/configuration/runtime/${PCVS_RUNTIME}.conf
-	#check if compiler loading effectively set the main used ones
-	#if test -z "${CC}" -o -z "${CXX}" -o -z "${F77}";
-	#then
-	## no compiler defined
-	#common_print_error "\"${TEST_SUITE_COMPILER}\" configuration does not set one of base compiler !"
-	#exit 1
-	#fi
+	. ${PCVS_INTERNALS_DIR}/configuration/runtimes/${PCVS_RUNTIME}.conf
+	export PCVS_RUNTIME
+}
+
+print_validation_infos()
+{
+	echo "#################################### VALIDATION OVERALL ###################################"
+	echo "PCVS_SOURCE_DIR : $PCVS_SOURCE_DIR"
+	echo "PCVS_WORK_DIR   : $PCVS_WORK_DIR"
+	echo "Date of build   : `date`"
 }
 
 ######################## CLEAN FILES ##########################
@@ -528,7 +532,6 @@ run_test_suite()
 
 	#obtain list of tests if --select option is specified
 	MPC_TEST_LIST="$(get_subtest_list)"
-	echo "TEST_LIST = $MPC_TEST_LIST"
 
 	check_mpc_dir
 
@@ -536,103 +539,6 @@ run_test_suite()
 	common_safe_exec "List of tests generation" run_test_suite_gen_commands
 	common_safe_exec "Check libxml" export PATH="${MPC_INSTALL_PREFIX}/libxml2/bin:$PATH"
 	common_safe_exec "Scheduler Tests Running" test_simple_scheduler
-}
-
-################# CHECK BUILKD MODE ######################
-#Choose specific options to each configuration
-#Globals:
-#  - CONFIGURE_ARGS : list of arguments to ./configure
-check_build_mode(){
-
-	case "$1" in
-		mpc_complete   ) COMPLETE_CONFIGURE_ARGS="${CONFIGURE_ARGS}";;
-		mpc_default    ) COMPLETE_CONFIGURE_ARGS="${CONFIGURE_ARGS} --disable-mpc-gcc --disable-mpc-gdb";;
-		mpc_gcc        ) COMPLETE_CONFIGURE_ARGS="${CONFIGURE_ARGS} --disable-mpc-gdb";; 
-		mpc_gdb        ) COMPLETE_CONFIGURE_ARGS="${CONFIGURE_ARGS} --disable-mpc-gcc";;
-		mpc_noopenmp   ) COMPLETE_CONFIGURE_ARGS="${CONFIGURE_ARGS} --disable-mpc-gcc --disable-mpc-gdb --mpc-option=\"--disable-MPC_OpenMP\"";;
-		mpc_noAllocator) COMPLETE_CONFIGURE_ARGS="${CONFIGURE_ARGS} --disable-mpc-gcc --disable-mpc-gdb --mpc-option=\"--disable-MPC_Allocator\"";;
-		mpc_debug      ) COMPLETE_CONFIGURE_ARGS="${CONFIGURE_ARGS} --disable-mpc-gcc --disable-mpc-gdb --mpc-option=\"--enable-debug-strict\"";;
-		mpc_noshm      ) COMPLETE_CONFIGURE_ARGS="${CONFIGURE_ARGS} --disable-mpc-gcc --disable-mpc-gdb --mpc-option=\"--disable-shm\"";;
-		mpc_debugger   ) COMPLETE_CONFIGURE_ARGS="${CONFIGURE_ARGS} --disable-mpc-gcc --disable-mpc-gdb --mpc-option=\"--enable-MPC_Debugger\"";;
-		mpc_nompi      ) COMPLETE_CONFIGURE_ARGS="${CONFIGURE_ARGS} --disable-mpc-gcc --disable-mpc-gdb --disable-MPC_MPI --mpc-option=\"--disable-MPC_MPI\"";;
-		mpc_profiler   ) COMPLETE_CONFIGURE_ARGS="${CONFIGURE_ARGS} --disable-mpc-gcc --disable-mpc-gdb --mpc-option=\"--enable-MPC_Profiler\"";;
-		mpc_nothreads  ) COMPLETE_CONFIGURE_ARGS="${CONFIGURE_ARGS} --disable-mpc-gcc --disable-mpc-gdb --disable-MPC_MPI --mpc-option=\"--disable-MPC_Threads --disable-MPC_Message_Passing --disable-MPC_Microthreads --disable-MPC_MPI --disable-MPC_OpenMP\"";;
-		mpc_threadonly ) COMPLETE_CONFIGURE_ARGS="${CONFIGURE_ARGS} --disable-mpc-gcc --disable-mpc-gdb --disable-MPC_MPI --mpc-option=\"--disable-MPC_Allocator --disable-MPC_Message_Passing --disable-MPC_Microthreads --disable-MPC_MPI --disable-MPC_OpenMP\"";;
-		*              )   common_print_error "Error in build mode \"$1\" ";  exit 1;;
-	esac
-}
-
-###################### RUN BUILD CHECK - ONE BUILD ########################
-# Generate a build report from one configuration
-#Params:
-#   - $1              : name of configuration to build
-# Globals:
-#   - MPC_INSTALL_PREFIX : MPC installation to check.
-#   - PCVS_SOURCE_DIR        : Path to MPC_Test_Suite directory.
-#   - MAKE_J          : -jX option to pass to make command.
-run_one_build(){
-	echo ""
-	echo "${WARNING_COLOR}>>> START EXECUTION OF THE TEST-SUITE [$1] <<<${DEFAULT_COLOR}"
-	#some pre actions
-	mkdir $1
-	cd $1
-	ret_status=0
-
-	#check mode and get configure params
-	check_build_mode $1
-
-	if [ "$MPC_INSTALL_DEFINED" = "yes" ] ; then
-		install_dir="${MPC_INSTALL_PREFIX}"
-	else
-		install_dir="${PCVS_WORK_DIR}/mpc_prefix/$1"
-	fi
-	MPC_INSTALL_PREFIX=$install_dir
-	#display configure line and call
-	common_safe_exec "Setting up MPC " ${PCVS_SOURCE_DIR}/../installmpc ${COMPLETE_CONFIGURE_ARGS} --prefix="${install_dir}" -j${MAKE_J} ${INSTALLMPC_COLOR}|| exit 1
-
-	check_mpc_dir
-
-	mkdir -p $PCVS_WORK_DIR/build_check/$1/tmp
-	echo "<jobSuite package=\"$1\">" > list_of_tests.xml
-	#generate test list
-	. ${PCVS_INTERNALS_DIR}/configuration/compilers/${TEST_SUITE_COMPILER}.conf
-	common_insert_test "compile_HelloWorld" '0' "${TS_CC} -o hello_world ${PCVS_SOURCE_DIR}/UnitTests/installTest/hello_world.c"  >> list_of_tests.xml
-	common_insert_test "test_HelloWorld" '0' "./hello_world" "compile_HelloWorld" >> list_of_tests.xml
-	echo "</jobSuite>" >> list_of_tests.xml
-	#execute some tests
-	common_safe_exec "MPC build tests Running" $PCVS_WORK_DIR/tmp/bin/jchronoss $PWD/list_of_tests.xml --build="$PCVS_WORK_DIR/build_check/$1/tmp" --nb-resources=$CLUSTER_MAX_NODES  --nb-slaves=1 --verbosity=$JCHRNS_VERBOSITY || ret_status=1
-	cd ..
-	return $ret_status
-}
-
-##################### RUN BUILD CHECK ###########################
-#Build all configuration specified (--fast | --full | --default | one of the list from check_build_mode())
-#Globals:
-#  - BUILDTYPE        : Type of build specified (fast | full | default)
-#  - BUILD_MODE       : Type of configuration specified
-#   - MPC_INSTALL_PREFIX : MPC installation to check.
-#   - PCVS_SOURCE_DIR        : Path to MPC_Test_Suite directory.
-run_build_check(){
-	#some pre actions
-	cd ${PCVS_SOURCE_DIR}
-	clean_files mpc_prefix
-	setup_clean_subdir build_check
-
-	case ${BUILDTYPE} in
-		"full"    ) BUILD_MODE="mpc_complete mpc_gcc mpc_gdb mpc_noopenmp mpc_nothreads mpc_noAllocator mpc_debug mpc_noshm mpc_debugger mpc_nompi mpc_profiler mpc_threadonly" ;;
-		"fast"    ) BUILD_MODE="mpc_complete"; CONFIGURE_ARGS="${CONFIGURE_ARGS} --disable-mpc-gcc --disable-mpc-gdb";;
-		"default" ) BUILD_MODE="mpc_complete";;
-		*         ) BUILD_MODE=${BUILDTYPE};;
-	esac
-
-	#loop on all build modes
-	for mode in ${BUILD_MODE}
-	do
-
-		run_one_build "$mode" || EXIT_STATUS="1"
-	done
-
-	return ${EXIT_STATUS}
 }
 
 ###################### SUBMIT LAST RESULTS ####################
@@ -653,7 +559,7 @@ run_gen_last_results()
 	rm -rf ${PCVS_WORK_DIR}/last_results.tar.gz
 	setup_clean_subdir last_results
 
-	cp -r $PCVS_WORK_DIR/generation/jchronoss/tools/jsLoc/* $PCVS_WORK_DIR/generation/jchronoss/tools/webview/* .
+	cp -r $PCVS_WORK_DIR/jsLoc* $PCVS_WORK_DIR/webview* .
 	cp $PCVS_WORK_DIR/config.cfg .
 
 	if [ -d ../build_check ] ; then
@@ -799,7 +705,6 @@ pre_actions(){
 	define_color
 	#display_informations
 	mkdir -p $PCVS_WORK_DIR/tmp && cd $PCVS_WORK_DIR/tmp
-	echo " * JChronoss compiling (-j${MAKE_J})" 
 	common_safe_exec "" cmake $PCVS_INTERNALS_DIR/generation/jchronoss/ -DENABLE_TRACE=yes ${SCHEDULER_CFLAGS} -DCMAKE_INSTALL_PREFIX=${PCVS_WORK_DIR}/tmp > /dev/null && make --quiet -j${MAKE_J} install> /dev/null || exit 1
 }
 
@@ -895,7 +800,7 @@ mpc_testSuite_main(){
 	export PCVS_SOURCE_DIR
 	export PCVS_INTERNALS_DIR
 	export PCVS_WORK_DIR
-	export MPC_TEST_CURRENT_SOURCE_DIR
+	export PCVS_CSOURCE_DIR
 	export PCVS_CWORK_DIR
 	export LAUNCHER_COMMAND
 	export LAUNCHER_EXTRA_ARGS
@@ -908,9 +813,8 @@ mpc_testSuite_main(){
 			post_actions
 			;;
 		BUILD_MODE)
-			pre_actions
-			run_build_check
-			post_actions 
+			common_print_error "Unreachable Mode !"
+			exit 1
 			;;
 		ALL_MODE)
 			pre_actions 
@@ -947,9 +851,6 @@ if [ ! -f "${PWD}/run_validation" ]; then
 	echo "#########################################################################################"
 	exit 1
 fi
-
-######################## SOURCE DEPS ###########################
-. ${PCVS_INTERNALS_DIR}/common_functions.sh
 
 preprocessing_compatibility
 ######################### PARSE ARGS ##########################
@@ -990,10 +891,6 @@ do
 		--no-privatize)
 			PRIVATIZATION="-fnompc-privatize"
 			export PRIVATIZATION
-			;;
-		--net=*)
-			arg="$(echo "$arg" | sed -e 's/,/ /g')"
-			config_override 'MPC_NET_LIST' "$arg" '--net'
 			;;
 		--launcher=*)
 			config_override 'JCHRNS_WRAPPER' "$arg" '--launcher'
@@ -1071,18 +968,6 @@ do
 		--input-blacklist=*)
 			config_override 'INPUT_BLACKLIST_FILES' "$(common_read_param_value $arg --input-blacklist)" '--input-blacklist'
 			;;
-		--parallel=*)
-			config_override 'JCHRNS_SLAVES' "$arg" '--parallel'
-			;;
-		--debug-silent)
-			config_override 'SCHEDULER_CFLAGS' "${SCHEDULER_CFLAGS}-DSILENT_SCHEDULER_DEBUG_MODE " '--debug-silent'
-			;;
-		--debug)
-			config_override 'SCHEDULER_CFLAGS' "${SCHEDULER_CFLAGS}-DSCHEDULER_DEBUG_MODE " '--debug'
-			;;
-		--sched-surface)
-			config_override 'JCHRNS_POLICY' "2" '--sched-surface'
-			;;
 		--list-runtimes|--lr)
 			list_runtimes
 			exit 0;
@@ -1092,10 +977,7 @@ do
 			exit 0;
 			;;
 		--compiler=*)
-			config_override 'TEST_SUITE_COMPILER' "$(common_read_param_value $arg --compiler)" '--compiler'
-			;;
-		--jsloc)
-			config_override 'JCHRNS_JSLOC_TRACE' "yes" '--jsloc'
+			config_override 'PCVS_COMPILER' "$(common_read_param_value $arg --compiler)" '--compiler'
 			;;
 		-X)
 			config_override 'JCHRNS_EXPECT_SUCCESS' "yes" '-X'
@@ -1103,31 +985,14 @@ do
 		--config=*)
 			config_override 'CONFIG_NAME' "$arg" '--config'
 			;;
-		--nodes=*)
-			config_override 'CLUSTER_MAX_NODES' "$arg" "--nodes"
-			;;
-		--diff=*)
-			tmp="`common_read_param_value "$arg" "--diff"`"
-			if [ -z "$(echo "${tmp}" | grep '^/')" ]; then
-				tmp="${PWD}/$tmp"
-			fi
-			config_override 'DIFF_TARBALL' "$tmp" "--diff" 
-			config_override 'UPDATE_WEBVIEW' "true" '--webview'
-			;;
 		--no-log)
 			CAPTURE_LOGFILE="no"
 			;;
 		--log)
 			CAPTURE_LOGFILE="yes"
 			;;
-		--keep-all)
-			KEEP_ALL_LOG="--keep-all"
-			;;
 		--seq)
 			GEN_SEQ="OK"
-			;;
-		--policy=*)
-			config_override 'JCHRNS_POLICY' "$arg" "--policy"
 			;;
 		--restart=*)
 			config_override 'JCHRNS_BACKUP_FILE' "$arg" "--restart"
@@ -1152,10 +1017,11 @@ if [ -z "`echo "${PCVS_WORK_DIR}" | grep '^/'`" ]; then
 	PCVS_WORK_DIR="${PWD}/${PCVS_WORK_DIR}"
 fi
 PCVS_CWORK_DIR=${PCVS_WORK_DIR}
-MPC_TEST_CURRENT_SOURCE_DIR=${PCVS_SOURCE_DIR}
+PCVS_CSOURCE_DIR=${PCVS_SOURCE_DIR}
 
 ###################### CONFIGURATION FILE SOURCING ##################
 gen_and_load_config_file
+print_validation_infos
 
 #################### MPC INSTALL DIRECTORY ###################
 if [ -z "${MPC_INSTALL_PREFIX}" ] ; then

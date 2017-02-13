@@ -23,7 +23,7 @@
 
 ################## LOAD CONFIG FILE #####################
 #default
-. ${PCVS_INTERNALS_DIR}/config/default.cfg
+. ${PCVS_INTERNALS_DIR}/environment/default.cfg
 #the current one
 . ${PCVS_WORK_DIR}/config.cfg
 

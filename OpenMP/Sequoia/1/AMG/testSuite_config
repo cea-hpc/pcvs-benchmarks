@@ -21,9 +21,9 @@ do
 		opts="--clean --autokill=${MPC_AUTO_KILL_TIMEOUT} -N=1 -n=1 -p=1 -net=tcp -m=${thread}"
 
 		
-		COMMAND_OPTIONS="-in ${MPC_TEST_CURRENT_SOURCE_DIR}/test/sstruct.in.AMG.FD"
+		COMMAND_OPTIONS="-in ${PCVS_CSOURCE_DIR}/test/sstruct.in.AMG.FD"
 		# Gen command
-		command="OMP_NUM_THREADS=$openmp_thread ${MPCRUN} ${opts} ${MPCRUN_ARGS} ${MPC_TEST_CURRENT_SOURCE_DIR}/test/amg2006 ${COMMAND_OPTIONS}"
+		command="OMP_NUM_THREADS=$openmp_thread ${MPCRUN} ${opts} ${MPCRUN_ARGS} ${PCVS_CSOURCE_DIR}/test/amg2006 ${COMMAND_OPTIONS}"
 
 		# Insert test
 		common_insert_test "test_${TYPE}_${openmp_thread}_${thread}" "${EXPECTED_EXIT_CODE}" "$command" "compile_Sequoia_${TYPE}"

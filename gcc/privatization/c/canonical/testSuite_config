@@ -10,10 +10,10 @@ all : \$(TARGETS)
 
 CC=\${TS_CC}
 
-priv_canon : ${MPC_TEST_CURRENT_SOURCE_DIR}/a.c ${MPC_TEST_CURRENT_SOURCE_DIR}/b.c
+priv_canon : ${PCVS_CSOURCE_DIR}/a.c ${PCVS_CSOURCE_DIR}/b.c
 	\$(CC) -g -O0 $^ -fdump-tree-gimple -o ./executables/\$@
 
-priv_canon_opt :  ${MPC_TEST_CURRENT_SOURCE_DIR}/a.c ${MPC_TEST_CURRENT_SOURCE_DIR}/b.c
+priv_canon_opt :  ${PCVS_CSOURCE_DIR}/a.c ${PCVS_CSOURCE_DIR}/b.c
 	\$(CC) -g -O3 $^ -fdump-tree-gimple -o ./executables/\$@
 "
 }

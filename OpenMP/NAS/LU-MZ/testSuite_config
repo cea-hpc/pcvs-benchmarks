@@ -11,9 +11,9 @@ MPC_THREAD_NB_LIST=1
 
 for i in ${CLASS}
 do
-	make -C ${MPC_TEST_CURRENT_SOURCE_DIR}/../ clean
-	make -C ${MPC_TEST_CURRENT_SOURCE_DIR}/../ lu-mz CLASS=${i}
-	cp ${MPC_TEST_CURRENT_SOURCE_DIR}/../bin/* ${MPC_TEST_EXE_PATH}/
+	make -C ${PCVS_CSOURCE_DIR}/../ clean
+	make -C ${PCVS_CSOURCE_DIR}/../ lu-mz CLASS=${i}
+	cp ${PCVS_CSOURCE_DIR}/../bin/* ${MPC_TEST_EXE_PATH}/
 	
 	if [ ! -e "${MPC_TEST_EXE_PATH}/lu-mz.$i" ]; then
 		common_print_error "$files"

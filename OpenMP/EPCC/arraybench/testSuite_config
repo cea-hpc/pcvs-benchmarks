@@ -1,7 +1,7 @@
 #!/bin/sh
 
 REQUIRE_OPENMP=true
-COMMON_FILES="${MPC_TEST_CURRENT_SOURCE_DIR}/../common/common.c"
+COMMON_FILES="${PCVS_CSOURCE_DIR}/../common/common.c"
 
 
 set_openmp_threads_list
@@ -15,7 +15,7 @@ CFLAGS_M="${CFLAGS}"
 
 for ida in ${IDA}
 do
-	CFLAGS="${CFLAGS} -DIDA=$ida -fopenmp ${PRIVATIZATION} -DOMPVER2 -DOMPVER3 -I${MPC_TEST_CURRENT_SOURCE_DIR}/../common/ -lm"
+	CFLAGS="${CFLAGS} -DIDA=$ida -fopenmp ${PRIVATIZATION} -DOMPVER2 -DOMPVER3 -I${PCVS_CSOURCE_DIR}/../common/ -lm"
 	openmp_configuration "IDA$ida"
     CFLAGS="${CFLAGS_M}"
 done

@@ -11,22 +11,22 @@ NAS_TYPE="bt-mz lu-mz sp-mz"
 
 MPC_AUTO_KILL_TIMEOUT=900
 
-if test ! -d ${MPC_TEST_CURRENT_SOURCE_DIR}/bin; then
-	mkdir ${MPC_TEST_CURRENT_SOURCE_DIR}/bin
+if test ! -d ${PCVS_CSOURCE_DIR}/bin; then
+	mkdir ${PCVS_CSOURCE_DIR}/bin
 fi
 
 makefile_configuration "compile_NAS" "suite"
 
-echo "" > ${MPC_TEST_CURRENT_SOURCE_DIR}/config/suite.def
+echo "" > ${PCVS_CSOURCE_DIR}/config/suite.def
 
 for type in ${NAS_TYPE}
 do
 	for i in ${CLASS}
 	do
-		echo "$type	$i" >> ${MPC_TEST_CURRENT_SOURCE_DIR}/config/suite.def
+		echo "$type	$i" >> ${PCVS_CSOURCE_DIR}/config/suite.def
 
 		#calc test name by removing file extention
-    	test_exe="${MPC_TEST_CURRENT_SOURCE_DIR}/bin/$type.$i"
+    	test_exe="${PCVS_CSOURCE_DIR}/bin/$type.$i"
 	
 		for openmp_thread in ${MPC_OPENMP_THREAD_LIST}	    
 		do

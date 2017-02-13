@@ -38,17 +38,17 @@ helper_set_if_valid()
 }
 
 ###################### PREFIX FILES #######################
-# Add a MPC_TEST_CURRENT_SOURCE_DIR as prefix for all files given in parameter and print
+# Add a PCVS_CSOURCE_DIR as prefix for all files given in parameter and print
 # Params:
 #  - $* : list of files to prefix
 # Args:
-#  - MPC_TEST_CURRENT_SOURCE_DIR
+#  - PCVS_CSOURCE_DIR
 helper_make_absolute_source_paths()
 {
 	for tmp in $*
 	do
 		if [ -z "$(echo "${tmp}" | grep '^/')" ]; then
-			echo "${MPC_TEST_CURRENT_SOURCE_DIR}/${tmp}"
+			echo "${PCVS_CSOURCE_DIR}/${tmp}"
 		else
 			echo "$tmp"
 		fi
@@ -58,15 +58,15 @@ helper_make_absolute_source_paths()
 ################# LIST_TESTS_NAME FROM FILES ##############
 # Display list of test files obtained by using wildcards.
 # Globals:
-#   - MPC_TEST_CURRENT_SOURCE_DIR
+#   - PCVS_CSOURCE_DIR
 helper_wildcard_test_list()
 {
-	find "${MPC_TEST_CURRENT_SOURCE_DIR}" -iname "*.c" -type f
-	find "${MPC_TEST_CURRENT_SOURCE_DIR}" -iname "*.cu" -type f
-	find "${MPC_TEST_CURRENT_SOURCE_DIR}" -iname "*.cpp" -type f
-	find "${MPC_TEST_CURRENT_SOURCE_DIR}" -iname "*.cxx" -type f
-	find "${MPC_TEST_CURRENT_SOURCE_DIR}" -iname "*.f" -type f
-	find "${MPC_TEST_CURRENT_SOURCE_DIR}" -iname "*.f90" -type f
+	find "${PCVS_CSOURCE_DIR}" -iname "*.c" -type f
+	find "${PCVS_CSOURCE_DIR}" -iname "*.cu" -type f
+	find "${PCVS_CSOURCE_DIR}" -iname "*.cpp" -type f
+	find "${PCVS_CSOURCE_DIR}" -iname "*.cxx" -type f
+	find "${PCVS_CSOURCE_DIR}" -iname "*.f" -type f
+	find "${PCVS_CSOURCE_DIR}" -iname "*.f90" -type f
 }
 
 ###################### GET COMPILER #######################
@@ -81,8 +81,8 @@ helper_wildcard_test_list()
 helper_get_compiler()
 {
 	#source a potential configuration file
-	if test -n "${TEST_SUITE_COMPILER}"; then
-		file=$PCVS_INTERNALS_DIR/configuration/compilers/${TEST_SUITE_COMPILER}.conf
+	if test -n "${PCVS_COMPILER}"; then
+		file=$PCVS_INTERNALS_DIR/configuration/compilers/${PCVS_COMPILER}.conf
 
 		if test -f ${file}; then
 			. ${file}

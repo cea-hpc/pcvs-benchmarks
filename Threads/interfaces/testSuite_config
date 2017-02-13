@@ -2,7 +2,7 @@
 
 MPC_AUTO_KILL_TIMEOUT=100
 
-for directory in `find ${MPC_TEST_CURRENT_SOURCE_DIR}/ -maxdepth 1 -mindepth 1 -type d`
+for directory in `find ${PCVS_CSOURCE_DIR}/ -maxdepth 1 -mindepth 1 -type d`
 do
   for test_path in ${directory}/*.c
   do
@@ -20,7 +20,7 @@ do
     test_exec="${MPC_TEST_EXE_PATH}/${full_test_name}"
 
     #generate compile command. We also include the 'include' directory in the compilation line
-    helper_gen_compile_command "${test_exec}" "${test_path}" "-I/${MPC_TEST_CURRENT_SOURCE_DIR}/../include"
+    helper_gen_compile_command "${test_exec}" "${test_path}" "-I/${PCVS_CSOURCE_DIR}/../include"
 
     #insert the rule
     common_insert_test "compile_${full_test_name}" "0" "$command"

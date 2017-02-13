@@ -10,10 +10,10 @@ all : \$(TARGETS)
 
 CC=\${TS_CC}
 
-priv_chain : ${MPC_TEST_CURRENT_SOURCE_DIR}/a.c ${MPC_TEST_CURRENT_SOURCE_DIR}/b.c ${MPC_TEST_CURRENT_SOURCE_DIR}/c.c
+priv_chain : ${PCVS_CSOURCE_DIR}/a.c ${PCVS_CSOURCE_DIR}/b.c ${PCVS_CSOURCE_DIR}/c.c
 	\$(CC) -g -O0 $^ -fdump-tree-gimple -o ./executables/\$@
 
-priv_chain_opt :  ${MPC_TEST_CURRENT_SOURCE_DIR}/a.c ${MPC_TEST_CURRENT_SOURCE_DIR}/b.c ${MPC_TEST_CURRENT_SOURCE_DIR}/c.c
+priv_chain_opt :  ${PCVS_CSOURCE_DIR}/a.c ${PCVS_CSOURCE_DIR}/b.c ${PCVS_CSOURCE_DIR}/c.c
 	\$(CC) -g -O3 $^ -fdump-tree-gimple -o ./executables/\$@
 "
 }

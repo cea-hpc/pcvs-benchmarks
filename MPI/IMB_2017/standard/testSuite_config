@@ -13,7 +13,7 @@ OPTFLAGS    = -fmpc-include -O3 $1
 CLINKER     = ${TS_CC}
 LDFLAGS     =
 CPPFLAGS    =
-SRCDIR      = ${MPC_TEST_CURRENT_SOURCE_DIR}/src
+SRCDIR      = ${PCVS_CSOURCE_DIR}/src
 
 IMB-MPI1 = IMB-MPI1
 IMB-EXT  = IMB-EXT
@@ -37,12 +37,12 @@ gen_imb_command()
 	done
 }
 
-MPC_TEST_CURRENT_SOURCE_DIR="${MPC_TEST_CURRENT_SOURCE_DIR}/../"
+PCVS_CSOURCE_DIR="${PCVS_CSOURCE_DIR}/../"
 MPC_AUTO_KILL_TIMEOUT=900
 
 #generate compile command. for standard build
 mkdir executables/standard/ || exit 1
-cp -r ${MPC_TEST_CURRENT_SOURCE_DIR}/src/* ${PCVS_CWORK_DIR}/executables/standard/
+cp -r ${PCVS_CSOURCE_DIR}/src/* ${PCVS_CWORK_DIR}/executables/standard/
 gen_makefile > executables/standard/Makefile
 
 common_insert_test "compile_IMB" "0" "make -C ${PCVS_CWORK_DIR}/executables/standard/ -f Makefile -i"
@@ -53,5 +53,5 @@ common_insert_test "compile_IMB" "0" "make -C ${PCVS_CWORK_DIR}/executables/stan
 #gen_makefile '-DCHECK'> executables/check/Makefile
 #common_insert_test "compile_IMB-MPI1_CHECK" "0" "make -C executables/check/ IMB-MPI1"
 
-source ${MPC_TEST_CURRENT_SOURCE_DIR}/IMB_LIST_OF_TESTS
+source ${PCVS_CSOURCE_DIR}/IMB_LIST_OF_TESTS
 

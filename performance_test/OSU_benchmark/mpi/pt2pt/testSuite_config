@@ -4,12 +4,12 @@
 MPC_TASK_NB_LIST="2"
 MPC_PROC_NB_LIST="2"
 
-COMMON_FILES="${MPC_TEST_CURRENT_SOURCE_DIR}/osu_pt2pt.c"
-CFLAGS="${CFLAGS} -I${MPC_TEST_CURRENT_SOURCE_DIR}/"
+COMMON_FILES="${PCVS_CSOURCE_DIR}/osu_pt2pt.c"
+CFLAGS="${CFLAGS} -I${PCVS_CSOURCE_DIR}/"
 
 OSU_COLLECTIVE_LIST=""
-for i in ${MPC_TEST_CURRENT_SOURCE_DIR}/*.c; do
-if test "$i" != "${MPC_TEST_CURRENT_SOURCE_DIR}/osu_pt2pt.c"; then
+for i in ${PCVS_CSOURCE_DIR}/*.c; do
+if test "$i" != "${PCVS_CSOURCE_DIR}/osu_pt2pt.c"; then
     OSU_COLLECTIVE_LIST="$OSU_COLLECTIVE_LIST `basename $i`"
 fi
 done

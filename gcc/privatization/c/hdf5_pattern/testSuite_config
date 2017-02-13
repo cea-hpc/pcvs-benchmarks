@@ -10,10 +10,10 @@ all : \$(TARGETS)
 
 CC=\${TS_CC}
 
-hdf5_pattern : ${MPC_TEST_CURRENT_SOURCE_DIR}/an.c ${MPC_TEST_CURRENT_SOURCE_DIR}/bn.c
+hdf5_pattern : ${PCVS_CSOURCE_DIR}/an.c ${PCVS_CSOURCE_DIR}/bn.c
 	\$(CC) -g -O0 $^ -fdump-tree-gimple -o ./executables/\$@
 
-hdf5_pattern_opt :  ${MPC_TEST_CURRENT_SOURCE_DIR}/an.c ${MPC_TEST_CURRENT_SOURCE_DIR}/bn.c
+hdf5_pattern_opt :  ${PCVS_CSOURCE_DIR}/an.c ${PCVS_CSOURCE_DIR}/bn.c
 	\$(CC) -g -O3 $^ -fdump-tree-gimple -o ./executables/\$@
 "
 }

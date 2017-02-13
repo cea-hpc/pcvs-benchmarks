@@ -13,10 +13,10 @@ OPTFLAGS    = -O3 $1
 CLINKER     = ${TS_CC}
 LDFLAGS     =
 CPPFLAGS    =
-SRCDIR      = ${MPC_TEST_CURRENT_SOURCE_DIR}/src
+SRCDIR      = ${PCVS_CSOURCE_DIR}/src
 
 export MPI_INCLUDE CC LIB_PATH LIBS OPTFLAGS CLINKER LDFLAGS CPPFLAGS
-$(cat ${MPC_TEST_CURRENT_SOURCE_DIR}/src/Makefile.base)
+$(cat ${PCVS_CSOURCE_DIR}/src/Makefile.base)
 "
 }
 
@@ -30,7 +30,7 @@ gen_imb_command()
 	done
 }
 
-MPC_TEST_CURRENT_SOURCE_DIR="${MPC_TEST_CURRENT_SOURCE_DIR}/../"
+PCVS_CSOURCE_DIR="${PCVS_CSOURCE_DIR}/../"
 MPC_AUTO_KILL_TIMEOUT=900
 
 #generate compile command. for standard build

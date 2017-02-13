@@ -9,14 +9,14 @@ MPC_PROC_NB_LIST="1"
 MPC_TASK_NB_LIST="4"
 
 #generate compile command. for standard build
-common_insert_test "compile_PIO_tile_io" "0" "cp -rf ${MPC_TEST_CURRENT_SOURCE_DIR}/* ${PCVS_CWORK_DIR}; cd ${PCVS_CWORK_DIR}/mpi-tile-io; make"
+common_insert_test "compile_PIO_tile_io" "0" "cp -rf ${PCVS_CSOURCE_DIR}/* ${PCVS_CWORK_DIR}; cd ${PCVS_CWORK_DIR}/mpi-tile-io; make"
 
 TEST_ARGS=" --nr_tiles_x 2 --nr_tiles_y 2 --sz_tile_x  256 --sz_tile_y 256 --sz_element 10000 --filename ./out.dat --collective --write_file"
 
 helper_configuration_loop "test_PIO_tile_io_test" "${PCVS_CWORK_DIR}/mpi-tile-io/mpi-tile-io ${TEST_ARGS}" "compile_PIO_tile_io"
 
 
-common_insert_test "compile_PIO_noncontig_io" "0" "cp -rf ${MPC_TEST_CURRENT_SOURCE_DIR}/* ${PCVS_CWORK_DIR}; cd ${PCVS_CWORK_DIR}/noncontig; make"
+common_insert_test "compile_PIO_noncontig_io" "0" "cp -rf ${PCVS_CSOURCE_DIR}/* ${PCVS_CWORK_DIR}; cd ${PCVS_CWORK_DIR}/noncontig; make"
 
 TEST_ARGS="-fname ./out.dat -veclen 16384 -elmtcount 1 -sfact 8  -all -loops 8 -ssize 128 -displs 8 -veccount 512"
 

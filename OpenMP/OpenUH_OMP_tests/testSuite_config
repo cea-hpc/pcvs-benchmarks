@@ -9,12 +9,12 @@ else
 fi
 
 #cleanup old build
-make clean -C ${MPC_TEST_CURRENT_SOURCE_DIR} &> /dev/null
+make clean -C ${PCVS_CSOURCE_DIR} &> /dev/null
 
 makefile_configuration "compile_OpenUH_OMP"
 
 #loop on all tests
-for one_test in `find ${MPC_TEST_CURRENT_SOURCE_DIR}/src -type f -regex '.*\.[cC]'`
+for one_test in `find ${PCVS_CSOURCE_DIR}/src -type f -regex '.*\.[cC]'`
 do
   for num_threads in $MPC_OPENMP_THREAD_LIST
   do
