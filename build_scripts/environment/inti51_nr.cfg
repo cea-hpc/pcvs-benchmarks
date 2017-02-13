@@ -17,7 +17,7 @@
 # terms.                                                               #
 #                                                                      #
 # Authors:                                                             #
-#   - ADAM Julien julien.adam@cea.fr                                   #
+#   - Julien Adam <adamj@paratools.com>                                   #
 #   - VALAT Sebastien sebastien.valat@cea.fr                           #
 #                                                                      #
 ########################################################################
