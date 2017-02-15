@@ -101,7 +101,7 @@ function processing()
                     do
                         if test ${proc} -le ${tasks};
                         then
-                            if test ${proc} -gt ${CLUSTER_MAX_NODE_PER_TEST} -a ${CLUSTER_MAX_NODE_PER_TEST} -ne 0;
+                            if test ${proc} -gt ${CLUSTER_MAX_NODES} ;
                             then
                                 nbNodes="-N=$CLUSTER_MAX_NODE_PER_TEST"
                                 cores="$(($CLUSTER_MAX_CORES_PER_NODE/($proc/$CLUSTER_MAX_NODE_PER_TEST)))"

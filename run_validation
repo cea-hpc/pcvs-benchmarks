@@ -28,7 +28,6 @@ PCVS_SOURCE_DIR="`readlink -e $(dirname $0)`"
 PCVS_INTERNALS_DIR="${PCVS_SOURCE_DIR}/build_scripts"
 PCVS_WORK_DIR="${PCVS_SOURCE_DIR}/build"
 MPC_TEST_MODE="TEST_MODE"
-MPC_INSTALL_PREFIX=""
 MAKE_J=1
 CONFIGURE_ARGS=""
 LANG="en_US.UTF-8"
@@ -53,7 +52,6 @@ FAST_FILE=""
 DEFAULT_FAST_FILE="$PCVS_INTERNALS_DIR/configuration/fast_tests.lst"
 UNSUPPORTED_FILE="$PCVS_INTERNALS_DIR/configuration/unsupported_tests.lst"
 SCHEDULER_CFLAGS="-DENABLE_OPENMP=OFF"
-MPC_INSTALL_DEFINED=""
 LOG_COMMAND="tee"
 LOG_RECORD=""
 WHITELIST_FILES=""
@@ -311,24 +309,6 @@ clean_files() {
 
 
 
-####################### CHECK MPC #############################
-# Check MPC availability by searching mpc_cc in the given prefix.
-# Globals:
-#   - MPC_INSTALL_PREFIX : MPC installation directory to check.
-check_mpc_dir() {
-	#check if mpc is ok
-	. ${MPC_INSTALL_PREFIX}/mpcvars.sh
-	which mpc_cc > /dev/null 2>&1
-	VALID="$?"
-	if  test "${VALID}" = "0" ; then
-		echo " * Valid distribution found into ${MPC_INSTALL_PREFIX}"
-		MPC_TARGET_INSTALL_PREFIX="`which mpc_cc | xargs dirname`/../"
-	else
-		common_print_error "Can't find MPC in ${MPC_INSTALL_PREFIX}, try --prefix="
-		exit 1
-	fi
-}
-
 ##################### SETUP CLEAN SUBDIR ######################
 # Create a clean subdirectory in ./build to start the tests.
 # Params:
@@ -461,7 +441,7 @@ test_simple_scheduler(){
 }
 
 test_restart_scheduler(){
-	check_mpc_dir
+	#check_mpc_dir
 	MPC_TEST_MODE="TEST_MODE"
 	cd ${PCVS_WORK_DIR}/test_suite
 	echo "${JCHRNS_BACKUP_FILE}"
@@ -509,7 +489,6 @@ run_test_suite_gen_commands()
 ####################### RUN TEST SUITE ####################################
 # Run the test suite into ./build/test_suite
 # Globals:
-#   - MPC_INSTALL_PREFIX : MPC installation to check.
 #   - HAVE_PARALLEL   : Define if we can execute the test suite in parallel
 run_test_suite()
 {
@@ -533,11 +512,10 @@ run_test_suite()
 	#obtain list of tests if --select option is specified
 	MPC_TEST_LIST="$(get_subtest_list)"
 
-	check_mpc_dir
+	#check_mpc_dir
 
 	#sequentialy generate the commands
 	common_safe_exec "List of tests generation" run_test_suite_gen_commands
-	common_safe_exec "Check libxml" export PATH="${MPC_INSTALL_PREFIX}/libxml2/bin:$PATH"
 	common_safe_exec "Scheduler Tests Running" test_simple_scheduler
 }
 
@@ -795,15 +773,11 @@ mpc_testSuite_main(){
 	###################### EXPORT SOME GLOBAL VARS ################
 	export LANG
 	export TYPE_SHELL
-	export MPC_INSTALL_PREFIX
-	export MPC_TARGET_INSTALL_PREFIX
 	export PCVS_SOURCE_DIR
 	export PCVS_INTERNALS_DIR
 	export PCVS_WORK_DIR
 	export PCVS_CSOURCE_DIR
 	export PCVS_CWORK_DIR
-	export LAUNCHER_COMMAND
-	export LAUNCHER_EXTRA_ARGS
 	export PRIVATIZATION
 	########################### MAIN ACTIONS ######################
 	case "${MPC_TEST_MODE}" in
@@ -861,36 +835,15 @@ do
 			help
 			exit 0
 			;;
-		--hwloc-xmlfile=*)
-			config_override 'MPC_SET_XML_TOPOLOGY_FILE' "$arg" '--hwloc-xmlfile'
-			echo "xmlfile = '$MPC_SET_XML_TOPOLOGY_FILE'"
-			if test -e "${MPC_SET_XML_TOPOLOGY_FILE}";
-			then
-				export MPC_SET_XML_TOPOLOGY_FILE
-				HWLOC_XMLFILE=1
-				export HWLOC_XMLFILE
-			else
-				echo "Wronf xml file"
-				exit
-			fi
-			;;
 		--generate-fast-file)
 			config_override 'MPC_TEST_MODE' "FAST_GENERATION_MODE" '--generate-fast-file'
 			;;
 		--prefix=*)
-			config_override 'MPC_INSTALL_PREFIX' "$arg" '--prefix'
-			MPC_INSTALL_DEFINED="yes"
+			printf "Warning: deprecated option (--prefix)"
 			;;
 		--select=*)
 			MPC_TEST_LIST="$(common_read_param_value $arg --select | sed -e 's/,/ /g')"
 			config_override 'MPC_TEST_LIST' "$MPC_TEST_LIST" '--select'
-			;;
-		--with-mpi=*)
-			PCVS_RUNTIME="$(common_read_param_value "$arg" "--with-mpi")"
-			;;
-		--no-privatize)
-			PRIVATIZATION="-fnompc-privatize"
-			export PRIVATIZATION
 			;;
 		--launcher=*)
 			config_override 'JCHRNS_WRAPPER' "$arg" '--launcher'
@@ -934,10 +887,6 @@ do
 		-j*)
 			config_override 'MAKE_J' $(echo $arg | sed -e 's/-j//g') '-j'
 			;;
-		--configure=*)
-			arg="$(common_read_param_value $arg --configure | sed -e 's/\"//g' -e "s/,/ /g")"
-			config_override 'CONFIGURE_ARGS' "$arg" '--configure'
-			;;
 		--clean)
 			clean_files
 			exit 0
@@ -976,8 +925,11 @@ do
 			list_compilers
 			exit 0;
 			;;
-		--compiler=*)
+		--with-cc=*)
 			config_override 'PCVS_COMPILER' "$(common_read_param_value $arg --compiler)" '--compiler'
+			;;
+		--with-runtime=*)
+			PCVS_RUNTIME="$(common_read_param_value "$arg" "--with-runtime")"
 			;;
 		-X)
 			config_override 'JCHRNS_EXPECT_SUCCESS' "yes" '-X'
@@ -1022,17 +974,6 @@ PCVS_CSOURCE_DIR=${PCVS_SOURCE_DIR}
 ###################### CONFIGURATION FILE SOURCING ##################
 gen_and_load_config_file
 print_validation_infos
-
-#################### MPC INSTALL DIRECTORY ###################
-if [ -z "${MPC_INSTALL_PREFIX}" ] ; then
-	MPC_INSTALL_PREFIX="${PCVS_WORK_DIR}/mpc_prefix/mpc_complete"
-
-elif [ "$BUILDTYPE" != "default" ] ; then
-	if [ "$MPC_TEST_MODE" = "BUILD_MODE" ] || [ "$MPC_TEST_MODE" = "ALL_MODE" ] ; then
-		common_print_error "We can't compile MPC Framework anywhere different that default path if build type is different from default. Try to use --default or not user --prefix options."
-		exit 1
-	fi
-fi
 
 ###################### TEE OUTPUT DATA  ######################
 if [ ! -z "`which $LOG_COMMAND`" ] && [ "$CAPTURE_LOGFILE" = "yes" ] ; then

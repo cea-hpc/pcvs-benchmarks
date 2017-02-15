@@ -305,3 +305,20 @@ subdir_configuration()
 		${PCVS_INTERNALS_DIR}/generation/gen_list_of_tests "${subdir}"
 	done
 }
+
+pcvs_compile_binary()
+{
+	helper_gen_compile_command "$2" "$1" ""
+	common_insert_test "compile_$2" "0" "${command}"
+}
+
+pcvs_generate_tests()
+{
+	nb_iterators="`echo " $PCVS_ITERATOR " | tr -s ' ' | egrep -o " " | wc -l`"
+	echo "nb_iterators = $nb_iterators"
+	for it in $PCVS_ITERATOR
+	do
+
+	done
+
+}

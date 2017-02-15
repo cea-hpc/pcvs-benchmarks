@@ -179,7 +179,7 @@ common_check_existing_files(){
 # Clean all paths contained in tarball
 common_clean_path()
 {
-	find . -exec sed -i "s@${MPC_INSTALL_PREFIX}@MPC_INSTALL_PATH@g" {} \;     2> /dev/null
+	#find . -exec sed -i "s@${MPC_INSTALL_PREFIX}@MPC_INSTALL_PATH@g" {} \;     2> /dev/null
 	find . -exec sed -i "s@${PCVS_SOURCE_DIR}@TESTSUITE_PATH@g" {} \;      2> /dev/null
 	find . -exec sed -i "s@${HOME}@HOME_PATH@g" {} \;                         2> /dev/null
 	find . -exec sed -i "s@/cea/local/opt@MODULES_PATH@g" {} \;               2> /dev/null
