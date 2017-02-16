@@ -1,41 +1,47 @@
 {
 	"compiler" : {
-		"target"        : "mpc",
-		"compiler_args" : "-fmpc-privatize"
+		"target"          : "mpc"
+		, "compiler_args" : "-fmpc-privatize"
 	},
 
 	"runtime" : {
-		"target"       : "mpc",
-		"runtime_args" : "--share-node --clean"
+		"target"         : "mpc"
+		, "runtime_args" : "--share-node --clean"
 	},
 
 	"tests" : {
-		"nnode"         : 1,
-		"nproc"         : [1, 2, 4, 8, 16],
-		"ntask"         : [1, 2, 4, 8, 16],
-		"ncore"         : [2, 4],
-		"nomp"          : [2, 4, 8],
-		"thread_engine" : ["pthread", "ethread", "ethread_mxn"],
-		"networks"      : ["infiniband", "tcp", "shmem", "portals"],
-		"autokill"      : [300],
-		"support_model" : "supported"
+		"nnode"           : 1
+		, "nproc"         : [1, 2, 4, 8, 16]
+		, "ntask"         : [1, 2, 4, 8, 16]
+		, "ncore"         : [1, 2, 4]
+		, "nomp"          : [1, 2, 4, 8]
+		, "thread_engine" : ["pthread", "ethread", "ethread_mxn"]
+		, "networks"      : ["infiniband", "tcp", "shmem", "portals"]
+		, "autokill"      : [300]
 	},
 
 	"cluster" : {
-		"max_nodes"          : 1,
-		"max_cores_per_node" : 4,
-		"cluster_args"       : ""
+		"max_nodes"            : 1
+		, "max_cores_per_node" : 4
+		, "cluster_args"       : ""
 	},
 
 	"jchronoss" : {
-		"verbosity"      : 0,
-		"nb_workers"     : 1,
-		"sched_policy"   : 0,
-		"run_wrapper"    : "",
-		"compil_wrapper" : "",
-		"worker_mintime" : 0,
-		"worker_maxtime" : 3000,
-		"autokill"       : 0,
-		"job_meantime"   : 50
+		"nb_workers"       : 1
+		, "sched_policy"   : 0
+		, "run_wrapper"    : ""
+		, "compil_wrapper" : ""
+		, "worker_mintime" : 0
+		, "worker_maxtime" : 3000
+		, "autokill"       : 0
+		, "job_meantime"   : 50
+	},
+
+	"validation" : {
+		"support_model"   : "supported"
+		, "whitelist_files" : ""
+		, "blacklist_files" : ""
+		, "tee"             : 1
+		, "verbosity"       : 0
 	}
 }
