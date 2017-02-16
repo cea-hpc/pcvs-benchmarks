@@ -27,8 +27,11 @@ use lib "$srcdir/build_scripts/modules";
 
 # dep inclusions
 use File::Tee "tee"; # get the output sync'd w/ a file
+use File::Path;
+use File::Chdir;
+use Sys::Hostname;
 use JSON; #parse JSON string into hash object
-use File::Copy; 
+use File::Copy::Recursive qw(fcopy dircopy pathempty);
 use Getopt::Long;    # parsing options
 use Sys::Hostname;   # get current Hostname
 use Data::Dumper; #to help printing hashes (can be removed)
@@ -80,11 +83,14 @@ sub print_help
 
 sub print_summary
 {
+	my $config_target = "\'default\'";
+	$config_target .= " & \'$configuration{'with-config'}\'" if(exists $configuration{'with-config'});
 	print " * GLOBAL INFOS (please see config.json for further details): \n";
 	print "      - Run Start date   : ".localtime()."\n";
+	print "      - Host name        : ".hostname."\n";
 	print "      - Source directory : $configuration{'src'}\n";
 	print "      - Build directory  : $configuration{'build'}\n";
-	print "      - Loaded Config.   : \'default\' & \'$configuration{'with-config'}\'\n";
+	print "      - Loaded Config.   : $config_target\n";
 	print "      - Loaded Runtime   : \'$configuration{'runtime'}{'target'}\'\n";
 	print "      - Loaded Compiler  : \'$configuration{'compiler'}{'target'}\'\n";
 	print "      - Test directories :";
@@ -93,7 +99,7 @@ sub print_summary
 	{
 		print " $dir";
 	}
-	print "\n";
+	print "\n\n";
 }
 
 sub trap_signal
@@ -107,13 +113,48 @@ sub trap_signal
 	exit(127);
 }
 
+sub validate_user_configuration
+{
+
+
+	my $prefix = "$internaldir/environment";
+	my $name = lc(hostname);
+	if(not exists $configuration{'with-config'})
+	{
+		if (-f "$prefix/$name.json")
+		{
+			$configuration{'with-config'} = $name;
+			return "$prefix/$name.json";
+		}
+		
+		$name =~ s/[0-9]*//g;
+		if(-f "$prefix/$name.json")
+		{
+			$configuration{'with-config'} = $name;
+			return "$prefix/$name.json";
+		}
+	}
+	else
+	{
+		my $user_config = "$internaldir/environment/$configuration{'with-config'}.json";
+		if(-f $user_config)
+		{
+			return "$prefix/$name.json";
+		}
+		else 
+		{
+			die("Bad configuration value : $configuration{'with-config'} !");
+		}
+	}
+
+	return undef;
+}
+
 sub build_current_configuration
 {
+
 	my $default_config = "$internaldir/environment/default.json";
 	my %default_data;
-	my $user_config = "$internaldir/environment/$configuration{'with-config'}.json";
-	my %user_data;
-
 	#check if defualt config exists
 	if(! -f $default_config)
 	{
@@ -131,9 +172,12 @@ sub build_current_configuration
 	foreach my $key (keys %default_data){
 		$configuration{$key}  = $default_data{$key};
 	}
+	
+	my $user_config = validate_user_configuration();
+	my %user_data;
 
 	#if the user config file exists
-	if(-f $user_config)
+	if(defined $user_config)
 	{
 		#read the file and dump it into an hash
 		local $/ = undef;
@@ -152,20 +196,65 @@ sub build_current_configuration
 			}
 		}
 	}
-	
-	#print Dumper(\%{$user_data});
-	#print Dumper(\%configuration);
 
 	open(my $output_file, '>', "$configuration{'build'}/config.json") || die("Unable to write current configuration file !");
 	print $output_file encode_json(\%configuration);
 	close($output_file);
 }
 
+sub prepare_run
+{
+	#copy the webview in target dir
+	print ' * Building the Webview (reachable at $buildir/webview//index.html)'."\n";
+	dircopy("$internaldir/generation/jchronoss/tools/webview/*", "$buildir/") or die("Unable to copy the webview: $!");
+	my $var = `$buildir/webview_gen_all.sh --skeleton --new=.`;
+	#copy jsloc
+	print " * Saving JsLoc into build directory.\n";
+	dircopy("$internaldir/generation/jchronoss/tools/jsLoc/*", "$buildir/") or die("Unable to copy JsLoc: $!");
+	
+	#build JCHRONOSS
+	print " * Building JCHRONOSS (-j$configuration{j})\n";
+	mkpath("$buildir/tmp/build") if (! -d "$buildir/tmp/build");
+	{
+		$CWD = "$buildir/tmp/build"; # equivalent to chdir()
+		`cmake $internaldir/generation/jchronoss -DCMAKE_INSTALL_PREFIX=$buildir/tmp && make -j$configuration{'j'} install`;
+	}
+	#
+}
+
+sub finalize_run
+{
+
+	#remove colors sequences
+	#copy banners
+	dircopy("$internaldir/resources/banners", "$buildir/");
+	#generate tarball
+	unlink("$buildir/last_results.tar.gz");
+	mkpath("$buildir/last_results") if (! -d "$buildir/last_results");
+	pathempty("$buildir/last_results");
+	print "looking at $buildir/test_suite/*.xml";
+	foreach my $res_file(<"*.xml">)
+	{
+		print $res_file."\n";
+	}
+}
+
+sub configure_run
+{
+}
+
+sub run
+{
+}
+
+
 ###########################################################################
 #### MAIN
 ###########################################################################
 $SIG{INT} = "trap_signal";
 
+##### DEFAULT VALUES
+$configuration{"j"} = 1;
 GetOptions (
 	\%configuration,
 	"with-config=s",
@@ -196,7 +285,7 @@ $configuration{'src'} = $srcdir;
 $configuration{'build'} = $buildir = $srcdir."/build" if (!$configuration{'build'});
 
 #create build directory and create a tee file if logging is enabled
-mkdir($buildir) if (! -d $buildir);
+mkpath($buildir) if (! -d $buildir);
 tee(STDOUT, '>', "$buildir/output.log") if ($configuration{'log'});
 
 build_current_configuration();
@@ -205,5 +294,8 @@ my $banner = `cat $internaldir/resources/banners/test_suite_banner`;
 print $banner;
 
 print_summary();
-#print Dumper(\%configuration);
 
+prepare_run();
+configure_run();
+run();
+finalize_run();
