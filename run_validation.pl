@@ -149,7 +149,7 @@ sub validate_user_configuration
 		my $user_config = "$internaldir/environment/$configuration{'with-config'}.json";
 		if(-f $user_config)
 		{
-			return "$prefix/$name.json";
+			return "$user_config";
 		}
 		else 
 		{
@@ -268,7 +268,7 @@ sub finalize_run
 	}
 
 	print " * End Date : ".localtime()."\n";
-	fcopy("$buildir/output.log", "$buildir/last_results/") or die("Unable to copy output.log !");
+	fcopy("$buildir/output.log", "$buildir/last_results/") if(exists $configuration{'log'});
 
 	print " * Creating the archive (located at $buildir/last_results.tar.gz)\n";
 	{
@@ -286,9 +286,20 @@ sub configure_run
 
 sub run
 {
+	my $my_file = "$srcdir/list_of_tests.xml";
 	print "\n >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> RUN STEP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
-	print " * Starting JCHRONOSS\n";
+	my $nb_resources = "";
+	my $nb_workers = "";
+	my $autokill = "";
 
+
+	$nb_resources = ($configuration{'cluster'}{'max_nodes'} or die("DO NOT edit default.json file !"));
+	$nb_workers = ($configuration{'validation'}{'nb_workers'} or die("DO NOT edit default.json file !"));
+
+	$autokill = "--autokill=$configuration{'validation'}{'autokill'}" if(exists $configuration{'validation'}{'autokill'} );
+	
+	system("$buildir/tmp/bin/jchronoss --build=$buildir/tmp --nb-resources=$nb_resources $my_file $autokill");
+	die("Something happen with JCHRONOSS !: $!") if($? ne 0);
 }
 
 
@@ -347,4 +358,4 @@ run();
 finalize_run();
 
 my ($d, $h, $m, $s) = sec_to_dhms(time()-$validation_start);
-print "\n==> Completed in $d day(s), $h hour(s), $m minute(s) and $s second(s))\n";
+print "\n==> Validation completed in $d day(s), $h hour(s), $m minute(s) and $s second(s))\n";
