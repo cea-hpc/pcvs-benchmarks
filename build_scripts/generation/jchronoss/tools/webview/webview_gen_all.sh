@@ -160,13 +160,13 @@ do
 	esac
 done
 
-echo " * Check sources"
-check_sources
-echo " * Check reference sources"
-check_reference
-
 if test "$SKELETON" = "yes" ; then
 	SOURCES_LIST=""
+else
+	echo " * Check sources"
+	check_sources
+	echo " * Check reference sources"
+	check_reference
 fi
 
 #cleanup of mkdir
@@ -183,13 +183,19 @@ export WEBVIEW_PATH
 echo " * Start generation :"
 #generate summary
 generate ${WEBVIEW_PATH}/webview/generated/main.xml ${WEBVIEW_PATH}/webview/scripts/webview_gen_global_stats.sh
-generate ${WEBVIEW_PATH}/webview/generated/errors.xml ${WEBVIEW_PATH}/webview/scripts/webview_gen_fail_list.sh
 
 #generate html pages
 generate_by_xsl ${WEBVIEW_PATH}/webview/generated/main.html ${WEBVIEW_PATH}/webview/generators/main.html.xsl ${WEBVIEW_PATH}/webview/generated/main.xml
-generate_by_xsl ${WEBVIEW_PATH}/webview/generated/errors.html ${WEBVIEW_PATH}/webview/generators/errors.html.xsl ${WEBVIEW_PATH}/webview/generated/errors.xml
 cp ${WEBVIEW_PATH}/webview/generators/realtime.html ${WEBVIEW_PATH}/webview/generated/realtime.html
 cp ${WEBVIEW_PATH}/webview/generators/diff-main.html ${WEBVIEW_PATH}/webview/generated/diff-main.html
+
+if test -z $SOURCES_LIST; then
+	echo " * Website Skeleton Generated !";
+	exit 0;
+fi
+
+generate ${WEBVIEW_PATH}/webview/generated/errors.xml ${WEBVIEW_PATH}/webview/scripts/webview_gen_fail_list.sh
+generate_by_xsl ${WEBVIEW_PATH}/webview/generated/errors.html ${WEBVIEW_PATH}/webview/generators/errors.html.xsl ${WEBVIEW_PATH}/webview/generated/errors.xml
 
 for file in $(find $SOURCES_LIST -iname 'output*.xml' )
 do

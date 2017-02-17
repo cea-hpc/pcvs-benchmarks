@@ -28,7 +28,7 @@ use lib "$srcdir/build_scripts/modules";
 # dep inclusions
 use File::Tee "tee"; # get the output sync'd w/ a file
 use File::Path;
-use File::Chdir;
+use File::chdir;
 use Sys::Hostname;
 use JSON; #parse JSON string into hash object
 use File::Copy::Recursive qw(fcopy dircopy pathempty);
@@ -39,6 +39,18 @@ use Data::Dumper; #to help printing hashes (can be removed)
 ###########################################################################
 #### FUNCTIONS
 ###########################################################################
+sub sec_to_dhms {
+	my $t = shift;
+	return int($t / 86400), (gmtime($t))[2, 1, 0];
+}
+
+sub clean_path
+{
+	my ($path,$with_clean) = @_;
+	mkpath($path) if (! -d $path);
+	(print " * Cleaning $path\n" and pathempty($path)) if ($with_clean); 
+}
+
 sub list_compilers
 {
 	opendir(my $dirlist, "$internaldir/configuration/compilers");
@@ -85,7 +97,7 @@ sub print_summary
 {
 	my $config_target = "\'default\'";
 	$config_target .= " & \'$configuration{'with-config'}\'" if(exists $configuration{'with-config'});
-	print " * GLOBAL INFOS (please see config.json for further details): \n";
+	print "\n >>>>>>>>>>>>>>>>>>>>> GLOBAL INFOS (see \$buildir/config.json) <<<<<<<<<<<<<<<<<<\n";
 	print "      - Run Start date   : ".localtime()."\n";
 	print "      - Host name        : ".hostname."\n";
 	print "      - Source directory : $configuration{'src'}\n";
@@ -99,7 +111,7 @@ sub print_summary
 	{
 		print " $dir";
 	}
-	print "\n\n";
+	print "\n";
 }
 
 sub trap_signal
@@ -115,8 +127,6 @@ sub trap_signal
 
 sub validate_user_configuration
 {
-
-
 	my $prefix = "$internaldir/environment";
 	my $name = lc(hostname);
 	if(not exists $configuration{'with-config'})
@@ -204,47 +214,81 @@ sub build_current_configuration
 
 sub prepare_run
 {
+	print "\n >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> PRE-RUN STEP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
 	#copy the webview in target dir
 	print ' * Building the Webview (reachable at $buildir/webview//index.html)'."\n";
 	dircopy("$internaldir/generation/jchronoss/tools/webview/*", "$buildir/") or die("Unable to copy the webview: $!");
-	my $var = `$buildir/webview_gen_all.sh --skeleton --new=.`;
+	my $var = `$buildir/webview_gen_all.sh --skeleton`;
 	#copy jsloc
 	print " * Saving JsLoc into build directory.\n";
 	dircopy("$internaldir/generation/jchronoss/tools/jsLoc/*", "$buildir/") or die("Unable to copy JsLoc: $!");
 	
 	#build JCHRONOSS
 	print " * Building JCHRONOSS (-j$configuration{j})\n";
-	mkpath("$buildir/tmp/build") if (! -d "$buildir/tmp/build");
+	clean_path("$buildir/tmp/build", 0);
 	{
 		$CWD = "$buildir/tmp/build"; # equivalent to chdir()
 		`cmake $internaldir/generation/jchronoss -DCMAKE_INSTALL_PREFIX=$buildir/tmp && make -j$configuration{'j'} install`;
 	}
-	#
+	clean_path("$buildir/tmp/traces", 1);
 }
 
 sub finalize_run
 {
 
+	print "\n >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> POST-RUN STEP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
 	#remove colors sequences
 	#copy banners
-	dircopy("$internaldir/resources/banners", "$buildir/");
+	dircopy("$internaldir/resources/banners", "$buildir/banners");
+	
 	#generate tarball
 	unlink("$buildir/last_results.tar.gz");
-	mkpath("$buildir/last_results") if (! -d "$buildir/last_results");
-	pathempty("$buildir/last_results");
-	print "looking at $buildir/test_suite/*.xml";
-	foreach my $res_file(<"*.xml">)
+
+	#copy the generated webview
+	clean_path("$buildir/last_results", 1);
+	dircopy("$buildir/webview", "$buildir/last_results/webview") or die("Unable to save the webview in the archive !");
+	fcopy("$buildir/webview_gen_all.sh", "$buildir/last_results/") or die("Unable to copy webview_gen_all.sh !");
+	dircopy("$buildir/jsLoc", "$buildir/last_results/jsLoc") or die("Unable to save JsLoc in the archive !");
+	fcopy("$buildir/jsLoc_gen_all.sh", "$buildir/last_results/jsLoc_gen_all.sh") or die("Unable to save JsLoc_gen_all.sh in the archive !");
+	fcopy("$buildir/config.json", "$buildir/last_results/") or die ("Unable to save the configuration file !");
+	dircopy("$buildir/tmp/traces", "$buildir/last_results/") or die ("Unable to copy trace files !");
+
+	clean_path("$buildir/last_results/test_suite", 1);
 	{
-		print $res_file."\n";
+		$CWD = "$buildir/last_results/test_suite/";
+		my @list_files = `find $buildir/test_suite/ -iname 'output*.xml' 2> /dev/null`; chomp @list_files;
+		foreach my $res_file(@list_files)
+		{
+			(my $new_path = $res_file) =~ s@$buildir@$buildir/last_results@;
+			my $path = `dirname $new_path`; chomp $path;
+			
+			mkpath($path) if (! -d $path);
+			fcopy($res_file, $path);
+		}
+	}
+
+	print " * End Date : ".localtime()."\n";
+	fcopy("$buildir/output.log", "$buildir/last_results/") or die("Unable to copy output.log !");
+
+	print " * Creating the archive (located at $buildir/last_results.tar.gz)\n";
+	{
+		$CWD = $buildir;
+		`tar -czf $buildir/last_results.tar.gz last_results`;
 	}
 }
 
 sub configure_run
 {
+	print "\n >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> BUILD STEP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
+	clean_path("$buildir/test_suite", 1);
+	print " * Building list_of_tests.xml\n";
 }
 
 sub run
 {
+	print "\n >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> RUN STEP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
+	print " * Starting JCHRONOSS\n";
+
 }
 
 
@@ -274,6 +318,8 @@ GetOptions (
 	"help"
 )  or die("Abort due to error(s) while parsing arguments (see --help)!\n");
 
+my $validation_start = time();
+
 #check special cases (no validation run)
 print_help() if ($configuration{help});
 list_compilers() if ($configuration{'list-compilers'});
@@ -285,7 +331,7 @@ $configuration{'src'} = $srcdir;
 $configuration{'build'} = $buildir = $srcdir."/build" if (!$configuration{'build'});
 
 #create build directory and create a tee file if logging is enabled
-mkpath($buildir) if (! -d $buildir);
+clean_path($buildir, 0);
 tee(STDOUT, '>', "$buildir/output.log") if ($configuration{'log'});
 
 build_current_configuration();
@@ -299,3 +345,6 @@ prepare_run();
 configure_run();
 run();
 finalize_run();
+
+my ($d, $h, $m, $s) = sec_to_dhms(time()-$validation_start);
+print "\n==> Completed in $d day(s), $h hour(s), $m minute(s) and $s second(s))\n";
