@@ -103,8 +103,8 @@ sub print_summary
 	print "      - Source directory : $configuration{'src'}\n";
 	print "      - Build directory  : $configuration{'build'}\n";
 	print "      - Loaded Config.   : $config_target\n";
-	print "      - Loaded Runtime   : \'$configuration{'runtime'}{'target'}\'\n";
-	print "      - Loaded Compiler  : \'$configuration{'compiler'}{'target'}\'\n";
+	print "      - Loaded Runtime   : \'$configuration{'runtime_target'}\'\n";
+	print "      - Loaded Compiler  : \'$configuration{'compiler_target'}\'\n";
 	print "      - Test directories :";
 	# configuration is mapped with references: @{} dereferences it
 	foreach my $dir(@{ $configuration{'select'} } )
@@ -170,11 +170,11 @@ sub validate_run_configuration
 	$current_field = $configuration{'validation'}{'compil_wrapper'};
 	(!$current_field or (-f "$internaldir/launchers/$current_field.sh")) or die("\'validation/compil_wrapper = $current_field\' is INVALID from configuration: $!");
 	
-	$current_field = $configuration{'compiler'}{'target'};
-	(!$current_field or (-f "$internaldir/configuration/compilers/$current_field.conf")) or die("\'compiler/target = $current_field\' is INVALID from configuration: $!");
+	$current_field = $configuration{'compiler_target'};
+	(!$current_field or (-f "$internaldir/configuration/compilers/$current_field.json")) or die("\'compiler/target = $current_field\' is INVALID from configuration: $!");
 	
-	$current_field = $configuration{'runtime'}{'target'};
-	(!$current_field or (-f "$internaldir/configuration/runtimes/$current_field.conf")) or die("\'runtime/target = $current_field\' is INVALID from configuration: $!");
+	$current_field = $configuration{'runtime_target'};
+	(!$current_field or (-f "$internaldir/configuration/runtimes/$current_field.json")) or die("\'runtime/target = $current_field\' is INVALID from configuration: $!");
 	
 	$current_field = $configuration{'validation'}{'nb_workers'};
 	($current_field ge 0) or die("\'validation/nb_workers = $current_field\' is INVALID from configuration: Value must be positive");
@@ -192,39 +192,36 @@ sub validate_run_configuration
 	($current_field ge 0 and $current_field le 2) or die("\'validation/sched_policy = $current_field\' is INVALID from configuration: Value must be in range 0..2");
 }
 
+sub dump_and_parse_json
+{
+	my ($json_path) = @_;
+
+	die("Error with $json_path: $!") if(! -f $json_path);
+	
+	local $/ = undef;
+	open(my $stream, '<', $json_path) or die "Error with $json_path: $!";
+	
+	return %{ decode_json(<$stream>) };
+}
+
+
 sub build_current_configuration
 {
 
 	my $default_config = "$internaldir/environment/default.json";
-	my %default_data;
-	#check if defualt config exists
-	if(! -f $default_config)
-	{
-		die("Error: Default configuration file not found !!\n");
-	}
-
-	#read the default configuration => build a hash with it
-	{
-		local $/ = undef;
-		open(my $stream, '<', $default_config) or die "could not open $default_config: $!";
-		%default_data = %{ decode_json(<$stream>) };
-	}
-
+	my %default_data = dump_and_parse_json ("$default_config");
+	
 	#update the current configuration hash with default value (no overlap w/ options)
 	foreach my $key (keys %default_data){
-		$configuration{$key}  = $default_data{$key};
+		$configuration{$key}  = $default_data{$key} if(!exists $configuration{$key});
 	}
 	
 	my $user_config = retrieve_user_configuration();
-	my %user_data;
 
 	#if the user config file exists
 	if(defined $user_config)
 	{
-		#read the file and dump it into an hash
-		local $/ = undef;
-		open(my $stream, '<', $user_config) or die "could not open $user_config: $!";
-		%user_data = %{decode_json(<$stream>)};
+		my %user_data = dump_and_parse_json($user_config);
 		
 		#update default config with overriden values
 		foreach my $key(keys %user_data)
@@ -237,6 +234,32 @@ sub build_current_configuration
 				$configuration{$key}{$subkey} = $user_data{$key}{$subkey};
 			}
 		}
+	}
+
+	my $target = $configuration{'compiler_target'};
+	if($target)
+	{
+		my $cc_config = "$internaldir/configuration/compilers/$target.json";
+		die("Unable to find $target as Compiler target (compiler_target)") if(! -f $cc_config);
+		my %cc_data = dump_and_parse_json($cc_config);
+		$configuration{'compiler'} = \%cc_data;
+	}
+	else
+	{
+		die("You must specify a Compilation target (compiler/target)");
+	}
+
+	$target = $configuration{'runtime_target'};
+	if($target)
+	{
+		my $run_config = "$internaldir/configuration/runtimes/$target.json";
+		die("Unable to find $target as Runtime target (runtime_target)") if(! -f $run_config);
+		my %run_data = dump_and_parse_json($run_config);
+		$configuration{'runtime'} = \%run_data; 
+	}
+	else
+	{
+		die("You must specify a Runtime target (runtime/target)");
 	}
 
 	validate_run_configuration();
@@ -356,7 +379,6 @@ sub run
 	my $test_files = join(" ", @{ $configuration{'selected_testlist'} });
 	my $command = "$buildir/tmp/bin/jchronoss --nb-resources=$nb_resources --nb-slaves=$nb_workers --build=$buildir/tmp $run_w $compil_w $autokill $verbosity $policy $max_workert $min_workert $rc_on_fail $maxjobt $test_files";
 	
-	print($command);
 	system($command);
 	my $ret = $?;
 	if($ret ne 0 and $rc_on_fail)
@@ -378,6 +400,7 @@ $configuration{"j"} = 1;
 $configuration{'regen'} = 1;
 $configuration{'src'} = $srcdir;
 $configuration{'build'} = $srcdir."/build";
+$configuration{'verbose'} = 0;
 
 GetOptions (
 	\%configuration,
@@ -385,6 +408,8 @@ GetOptions (
 	"list-configs|lco",
 	"build=s",
 	"select=s@",
+	"compiler_target=s",
+	"runtime_target=s",
 	"j:i" ,
 	"log!",
 	"with-runtime=s",

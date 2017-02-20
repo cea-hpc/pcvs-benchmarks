@@ -1,15 +1,9 @@
 {
-	"compiler" : {
-		"target"          : "mpc"
-		, "compiler_args" : "-fmpc-privatize"
-	},
+	"compiler_target"          : "default"
 
-	"runtime" : {
-		"target"         : "mpc"
-		, "runtime_args" : "--share-node --clean"
-	},
-
-	"tests" : {
+	, "runtime_target"         : "default"
+	
+	, "tests" : {
 		"nnode"           : 1
 		, "nproc"         : [1, 2, 4, 8, 16]
 		, "ntask"         : [1, 2, 4, 8, 16]
@@ -18,15 +12,15 @@
 		, "thread_engine" : ["pthread", "ethread", "ethread_mxn"]
 		, "networks"      : ["infiniband", "tcp", "shmem", "portals"]
 		, "autokill"      : [300]
-	},
+	}
 
-	"cluster" : {
+	, "cluster" : {
 		"max_nodes"            : 1
 		, "max_cores_per_node" : 4
 		, "cluster_args"       : ""
-	},
+	}
 
-	"validation" : {
+	, "validation" : {
 		"support_model"   : "supported"
 		, "whitelist_files" : ""
 		, "blacklist_files" : ""
