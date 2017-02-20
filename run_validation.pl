@@ -125,7 +125,7 @@ sub trap_signal
 	exit(127);
 }
 
-sub validate_user_configuration
+sub retrieve_user_configuration
 {
 	my $prefix = "$internaldir/environment";
 	my $name = lc(hostname);
@@ -160,6 +160,38 @@ sub validate_user_configuration
 	return undef;
 }
 
+sub validate_run_configuration
+{
+	my $current_field;
+
+	$current_field = $configuration{'validation'}{'run_wrapper'};
+	(!$current_field or (-f "$internaldir/launchers/$current_field.sh")) or die("\'validation/run_wrapper = $current_field\' is INVALID from configuration: $!");
+	
+	$current_field = $configuration{'validation'}{'compil_wrapper'};
+	(!$current_field or (-f "$internaldir/launchers/$current_field.sh")) or die("\'validation/compil_wrapper = $current_field\' is INVALID from configuration: $!");
+	
+	$current_field = $configuration{'compiler'}{'target'};
+	(!$current_field or (-f "$internaldir/configuration/compilers/$current_field.conf")) or die("\'compiler/target = $current_field\' is INVALID from configuration: $!");
+	
+	$current_field = $configuration{'runtime'}{'target'};
+	(!$current_field or (-f "$internaldir/configuration/runtimes/$current_field.conf")) or die("\'runtime/target = $current_field\' is INVALID from configuration: $!");
+	
+	$current_field = $configuration{'validation'}{'nb_workers'};
+	($current_field ge 0) or die("\'validation/nb_workers = $current_field\' is INVALID from configuration: Value must be positive");
+	
+	$current_field = $configuration{'cluster'}{'max_nodes'};
+	($current_field ge 0) or die("\'cluster/max_nodes = $current_field\' is INVALID from configuration: Value must be strictly positive");
+	
+	$current_field = $configuration{'validation'}{'worker_mintime'};
+	($current_field ge 0) or die("\'validation/worker_mintime = $current_field\' is INVALID from configuration: Value must be positive");
+	
+	$current_field = $configuration{'validation'}{'worker_maxtime'};
+	($current_field ge 0) or die("\'validation/worker_mintime = $current_field\' is INVALID from configuration: Value must be positive and higher than validation/worker_mintime");
+	
+	$current_field = $configuration{'validation'}{'sched_policy'};
+	($current_field ge 0 and $current_field le 2) or die("\'validation/sched_policy = $current_field\' is INVALID from configuration: Value must be in range 0..2");
+}
+
 sub build_current_configuration
 {
 
@@ -183,7 +215,7 @@ sub build_current_configuration
 		$configuration{$key}  = $default_data{$key};
 	}
 	
-	my $user_config = validate_user_configuration();
+	my $user_config = retrieve_user_configuration();
 	my %user_data;
 
 	#if the user config file exists
@@ -207,7 +239,9 @@ sub build_current_configuration
 		}
 	}
 
-	open(my $output_file, '>', "$configuration{'build'}/config.json") || die("Unable to write current configuration file !");
+	validate_run_configuration();
+
+	open(my $output_file, '>', "$buildir/config.json") || die("Unable to write current configuration file !");
 	print $output_file encode_json(\%configuration);
 	close($output_file);
 }
@@ -227,7 +261,7 @@ sub prepare_run
 	print " * Building JCHRONOSS (-j$configuration{j})\n";
 	clean_path("$buildir/tmp/build", 0);
 	{
-		$CWD = "$buildir/tmp/build"; # equivalent to chdir()
+		local $CWD = "$buildir/tmp/build"; # equivalent to chdir()
 		`cmake $internaldir/generation/jchronoss -DCMAKE_INSTALL_PREFIX=$buildir/tmp && make -j$configuration{'j'} install`;
 	}
 	clean_path("$buildir/tmp/traces", 1);
@@ -255,7 +289,7 @@ sub finalize_run
 
 	clean_path("$buildir/last_results/test_suite", 1);
 	{
-		$CWD = "$buildir/last_results/test_suite/";
+		local $CWD = "$buildir/last_results/test_suite/";
 		my @list_files = `find $buildir/test_suite/ -iname 'output*.xml' 2> /dev/null`; chomp @list_files;
 		foreach my $res_file(@list_files)
 		{
@@ -272,7 +306,7 @@ sub finalize_run
 
 	print " * Creating the archive (located at $buildir/last_results.tar.gz)\n";
 	{
-		$CWD = $buildir;
+		local $CWD = $buildir;
 		`tar -czf $buildir/last_results.tar.gz last_results`;
 	}
 }
@@ -282,23 +316,33 @@ sub configure_run
 	print "\n >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> BUILD STEP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
 	clean_path("$buildir/test_suite", 1);
 	print " * Building list_of_tests.xml\n";
+	#foreach my $path (@{ $configuration{'select'}})
+	{
+		push($configuration{'select'}, "$srcdir/list_of_tests.xml");
+	}
 }
 
 sub run
-{
-	my $my_file = "$srcdir/list_of_tests.xml";
+{	
 	print "\n >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> RUN STEP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
 	my $nb_resources = "";
 	my $nb_workers = "";
+	my $compil_w ="";
+	my $run_w = "";
 	my $autokill = "";
-
-
-	$nb_resources = ($configuration{'cluster'}{'max_nodes'} or die("DO NOT edit default.json file !"));
-	$nb_workers = ($configuration{'validation'}{'nb_workers'} or die("DO NOT edit default.json file !"));
-
-	$autokill = "--autokill=$configuration{'validation'}{'autokill'}" if(exists $configuration{'validation'}{'autokill'} );
+	my $wlist = "";
+	my $blist = "";
 	
-	system("$buildir/tmp/bin/jchronoss --build=$buildir/tmp --nb-resources=$nb_resources $my_file $autokill");
+	$nb_resources = $configuration{'cluster'}{'max_nodes'};
+	$nb_workers = $configuration{'validation'}{'nb_workers'};;
+	$autokill = ("--autokill=$configuration{'validation'}{'autokill'}") if ($configuration{'validation'}{'autokill'} > 0);
+	$run_w = ("--launcher=$internaldir/launcher/$configuration{'validation'}{'run_wrapper'}.sh") if ($configuration{'validation'}{'run_wrapper'});
+	$compil_w = ("--compil-launcher=$internaldir/launcher/$configuration{'validation'}{'compil_wrapper'}.sh") if ($configuration{'validation'}{'compil_wrapper'});
+	$compil_w = ("--compil-launcher=$internaldir/launcher/$configuration{'validation'}{'compil_wrapper'}.sh") if ($configuration{'validation'}{'compil_wrapper'});
+	$compil_w = ("--compil-launcher=$internaldir/launcher/$configuration{'validation'}{'compil_wrapper'}.sh") if ($configuration{'validation'}{'compil_wrapper'});
+
+	print $CWD."\n";
+	system("$buildir/tmp/bin/jchronoss --build=$buildir/tmp $run_w $compil_w --nb-resources=$nb_resources ".join(" ", @{ $configuration{'select'} })." $autokill\n");
 	die("Something happen with JCHRONOSS !: $!") if($? ne 0);
 }
 
@@ -339,7 +383,18 @@ list_configs() if ($configuration{'list-configs'});
 
 #add extra infos to the global configuration
 $configuration{'src'} = $srcdir;
-$configuration{'build'} = $buildir = $srcdir."/build" if (!$configuration{'build'});
+if(! exists $configuration{'build'})
+{
+	$configuration{'build'} = $srcdir."/build";
+} else
+{
+	$_ = $configuration{'build'};
+	if(/^[^\/].*$/) #check if relative path to prepend it with $CWD
+	{
+		$configuration{'build'}	= "$CWD/".$configuration{'build'};
+	}
+}
+$buildir = $configuration{'build'};
 
 #create build directory and create a tee file if logging is enabled
 clean_path($buildir, 0);

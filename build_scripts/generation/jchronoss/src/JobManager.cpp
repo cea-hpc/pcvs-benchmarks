@@ -353,11 +353,14 @@ void JobManager::pushInOneFile(FileManager* file){
 		(*ito)->clear();
 	}
 
-	//for(list<Job*>::iterator it = executedJobsList.begin(); it != executedJobsList.end(); it++){
-	while(! executedJobsList.empty()) {
-		Job* it = executedJobsList.back();
+	for(list<Job*>::iterator iter = executedJobsList.begin(); iter != executedJobsList.end(); iter++){
+	//while(! executedJobsList.empty()) {
+		Job* it = *iter;
 		assert(it->getStatus() != NOT_RUN);
-		if(it->getReferentFilename() != file->toString()) continue;
+		if(it->getReferentFilename() != file->toString()) 
+		{
+			continue;
+		}
 
 		/* if the following is executed, at least one job will be present in the current file */
 		not_empty = true;
@@ -397,7 +400,7 @@ void JobManager::pushInOneFile(FileManager* file){
 			}
 		}
 
-		executedJobsList.pop_back();
+		//executedJobsList.pop_back();
 	}
 
 	// if empty file, avoid to create it
