@@ -318,7 +318,7 @@ sub configure_run
 	print " * Building list_of_tests.xml\n";
 	#foreach my $path (@{ $configuration{'select'}})
 	{
-		push($configuration{'select'}, "$srcdir/list_of_tests.xml");
+		push(@{$configuration{'selected_testlist'}}, "$srcdir/list_of_tests.xml");
 	}
 }
 
@@ -332,6 +332,12 @@ sub run
 	my $autokill = "";
 	my $wlist = "";
 	my $blist = "";
+	my $verbosity = "";
+	my $policy = "";
+	my $maxjobt = "";
+	my $max_workert = "";
+	my $min_workert = "";
+	my $rc_on_fail = "";
 	
 	$nb_resources = $configuration{'cluster'}{'max_nodes'};
 	$nb_workers = $configuration{'validation'}{'nb_workers'};;
@@ -340,10 +346,25 @@ sub run
 	$compil_w = ("--compil-launcher=$internaldir/launcher/$configuration{'validation'}{'compil_wrapper'}.sh") if ($configuration{'validation'}{'compil_wrapper'});
 	$compil_w = ("--compil-launcher=$internaldir/launcher/$configuration{'validation'}{'compil_wrapper'}.sh") if ($configuration{'validation'}{'compil_wrapper'});
 	$compil_w = ("--compil-launcher=$internaldir/launcher/$configuration{'validation'}{'compil_wrapper'}.sh") if ($configuration{'validation'}{'compil_wrapper'});
+	$verbosity = "--verbosity=$configuration{'verbose'}";
+	$policy = "--policy=$configuration{'validation'}{'sched_policy'}";
+	$maxjobt = "--maxt-job=$configuration{'validation'}{'job_meantime'}";
+	$max_workert = "--maxt-slave=$configuration{'validation'}{'worker_maxtime'}";
+	$min_workert = "--mint-slave=$configuration{'validation'}{'worker_mintime'}";
+	$rc_on_fail = "--expect-success" if ($configuration{'validation'}{'expect_success'});
 
-	print $CWD."\n";
-	system("$buildir/tmp/bin/jchronoss --build=$buildir/tmp $run_w $compil_w --nb-resources=$nb_resources ".join(" ", @{ $configuration{'select'} })." $autokill\n");
-	die("Something happen with JCHRONOSS !: $!") if($? ne 0);
+	my $test_files = join(" ", @{ $configuration{'selected_testlist'} });
+	my $command = "$buildir/tmp/bin/jchronoss --nb-resources=$nb_resources --nb-slaves=$nb_workers --build=$buildir/tmp $run_w $compil_w $autokill $verbosity $policy $max_workert $min_workert $rc_on_fail $maxjobt $test_files";
+	
+	print($command);
+	system($command);
+	my $ret = $?;
+	if($ret ne 0 and $rc_on_fail)
+	{
+		print "Aborting Validation due to failed results (expect-success requirement)\n";
+		exit $ret;
+
+	}
 }
 
 
@@ -354,6 +375,10 @@ $SIG{INT} = "trap_signal";
 
 ##### DEFAULT VALUES
 $configuration{"j"} = 1;
+$configuration{'regen'} = 1;
+$configuration{'src'} = $srcdir;
+$configuration{'build'} = $srcdir."/build";
+
 GetOptions (
 	\%configuration,
 	"with-config=s",
@@ -381,18 +406,10 @@ list_compilers() if ($configuration{'list-compilers'});
 list_runtimes() if ($configuration{'list-runtimes'});
 list_configs() if ($configuration{'list-configs'});
 
-#add extra infos to the global configuration
-$configuration{'src'} = $srcdir;
-if(! exists $configuration{'build'})
+$_ = $configuration{'build'};
+if(/^[^\/].*$/) #check if relative path to prepend it with $CWD
 {
-	$configuration{'build'} = $srcdir."/build";
-} else
-{
-	$_ = $configuration{'build'};
-	if(/^[^\/].*$/) #check if relative path to prepend it with $CWD
-	{
-		$configuration{'build'}	= "$CWD/".$configuration{'build'};
-	}
+	$configuration{'build'}	= "$CWD/".$configuration{'build'};
 }
 $buildir = $configuration{'build'};
 
@@ -408,7 +425,7 @@ print $banner;
 print_summary();
 
 prepare_run();
-configure_run();
+configure_run() if($configuration{'regen'});
 run();
 finalize_run();
 
