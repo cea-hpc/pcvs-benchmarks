@@ -1,6 +1,6 @@
 /*****************************************************************************
  *                                                                           *
- * Copyright (c) 2003-2011 Intel Corporation.                                *
+ * Copyright (c) 2003-2016 Intel Corporation.                                *
  * All rights reserved.                                                      *
  *                                                                           *
  *****************************************************************************
@@ -14,7 +14,7 @@ contained in above mentioned license.
 Use of the name and trademark "Intel(R) MPI Benchmarks" is allowed ONLY
 within the regulations of the "License for Use of "Intel(R) MPI
 Benchmarks" Name and Trademark" as reproduced in the file
-"use-of-trademark-license.txt" in the "license" subdirectory. 
+"use-of-trademark-license.txt" in the "license" subdirectory.
 
 THE PROGRAM IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OR
 CONDITIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT
@@ -34,7 +34,7 @@ WITHOUT LIMITATION LOST PROFITS), HOWEVER CAUSED AND ON ANY THEORY OF
 LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OR
 DISTRIBUTION OF THE PROGRAM OR THE EXERCISE OF ANY RIGHTS GRANTED
-HEREUNDER, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. 
+HEREUNDER, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 EXPORT LAWS: THIS LICENSE ADDS NO RESTRICTIONS TO THE EXPORT LAWS OF
 YOUR JURISDICTION. It is licensee's responsibility to comply with any
@@ -50,25 +50,26 @@ goods and services.
 
 For more documentation than found here, see
 
-[1] doc/ReadMe_IMB.txt 
+[1] doc/ReadMe_IMB.txt
 
 [2] Intel (R) MPI Benchmarks
     Users Guide and Methodology Description
-    In 
+    In
     doc/IMB_Users_Guide.pdf
-    
- File: IMB_output.c 
 
- Implemented functions: 
+ File: IMB_output.c
+
+ Implemented functions:
 
  IMB_output;
  IMB_display_times;
+ IMB_calculate_times;
  IMB_show_selections;
  IMB_show_procids;
  IMB_print_array;
  IMB_print_int_row;
  IMB_print_info;
- IMB_print_headlines;
+ IMB_print_header;
  IMB_edit_format;
  IMB_make_line;
 
@@ -77,753 +78,772 @@ New in IMB_3.0:
 
  ***************************************************************************/
 
+#include <float.h> // DBL_MAX
 #include <string.h>
-#include "IMB_declare.h"
+
 #include "IMB_benchmark.h"
+#include "IMB_declare.h"
 
 #include "IMB_prototypes.h"
 
+enum output_format {
+  /* print msg size, number of iterations, time and bandwidth */
+  OUT_TIME_AND_BW,
+
+  /* print msg size, number of iterations, bandwidth and msg rate */
+  OUT_BW_AND_MSG_RATE,
+
+  /* print msg size, number of iterations,
+   * min, max and avrg times (among all ranks) and bandwidth */
+  OUT_TIME_RANGE_AND_BW,
+
+  /* print msg size, number of iterations
+   * min, max and avrg times (among all ranks) */
+  OUT_TIME_RANGE,
+
+  /* print pure communication time, total time, computation time and
+     the overlap of computation and communication (in %-s) */
+  OUT_OVERLAP,
+
+  /* It is used for operations where msg size is not relevant
+   * (for instance Barrier, Ibarrier). The format may differ for
+   * different benchmarks, and msg size is not printed. */
+  OUT_SYNC
+};
 
 /*****************************************************************/
-
-
 
 /* IMB 3.1 << */
 /*
 Introduce new ITERATIONS object
 */
-void IMB_output(struct comm_info* c_info, struct Bench* Bmark, MODES BMODE, 
-                int header, int size, struct iter_schedule* ITERATIONS,
+void IMB_output(struct comm_info *c_info, struct Bench *Bmark, MODES BMODE,
+                int header, int size, struct iter_schedule *ITERATIONS,
                 double *time)
 /* >> IMB 3.1  */
 /*
 
 
 
-Input variables: 
+Input variables:
 
--c_info               (type struct comm_info*)                      
+-c_info               (type struct comm_info*)
                       Collection of all base data for MPI;
                       see [1] for more information
-                      
 
--Bmark                (type struct Bench*)                      
+
+-Bmark                (type struct Bench*)
                       (For explanation of struct Bench type:
                       describes all aspects of modes of a benchmark;
                       see [1] for more information)
-                      
+
                       The actual benchmark
-                      
 
--BMODE                (type MODES)                      
-                      The actual benchmark mode (if relevant; only MPI-2 case, see [1])
-                      
 
--header               (type int)                      
+-BMODE                (type MODES)
+                      The actual benchmark mode (if relevant; only MPI-2 case,
+see [1])
+
+
+-header               (type int)
                       1/0 for do/don't print table headers
-                      
 
--size                 (type int)                      
+
+-size                 (type int)
                       Benchmark message size
-                      
 
--ITERATIONS           (type struct iter_schedule)                      
+
+-ITERATIONS           (type struct iter_schedule)
                       Benchmark repetition descr. object
-                      
 
--time                 (type double *)                      
+
+-time                 (type double *)
                       Benchmark timing outcome
                       3 numbers (min/max/average)
-                      
+
 
 
 */
 {
-    double scaled_time[MAX_TIMINGS];
-  
-    int DO_OUT;
-    int GROUP_OUT;
-    int i,i_gr;
-    int li_len;
-    int edit_type;
-  
-    ierr = 0;
+  double scaled_time[MAX_TIME_ID];
 
-    DO_OUT    = (c_info->w_rank  == 0 );
-    GROUP_OUT = (c_info->group_mode > 0 );
+  int i, i_gr;
+  int li_len;
+  int out_format;
 
-    if (DO_OUT)
-    {
-	/* Fix IMB_1.0.1: NULL all_times before allocation */
-	IMB_v_free((void**)&all_times);
+  const int DO_OUT = (c_info->w_rank == 0) ? 1 : 0;
+  const int GROUP_OUT = (c_info->group_mode > 0) ? 1 : 0;
 
-	all_times = 
-	    (double*)IMB_v_alloc(c_info->w_num_procs * Bmark->Ntimes * sizeof(double), "Output 1");
+  ierr = 0;
+
+  if (DO_OUT) {
+    /* Fix IMB_1.0.1: NULL all_times before allocation */
+    IMB_v_free((void **)&all_times);
+
+    all_times = (double *)IMB_v_alloc(
+        c_info->w_num_procs * Bmark->Ntimes * sizeof(double), "Output 1");
 #ifdef CHECK
-      if(!all_defect)
-      {
-	  all_defect = (double*)IMB_v_alloc(c_info->w_num_procs * sizeof(double), "Output 1");
-          for(i=0; i<c_info->w_num_procs; i++) all_defect[i]=0.;
-      }
-#endif  	  
-    } /*if (DO_OUT)*/
+    if (!all_defect) {
+      all_defect = (double *)IMB_v_alloc(c_info->w_num_procs * sizeof(double),
+                                         "Output 1");
+      for (i = 0; i < c_info->w_num_procs; i++)
+        all_defect[i] = 0.;
+    }
+#endif
+  } /*if (DO_OUT)*/
 
-    /* Scale the timings */
-    for(i=0; i<Bmark->Ntimes;  i++)
-	scaled_time[i] = time[i] * SCALE * Bmark->scale_time;
+  /* Scale the timings */
+  for (i = 0; i < Bmark->Ntimes; i++) {
+    scaled_time[i] = time[i] * SCALE * Bmark->scale_time;
+  }
 
+  /* collect all times  */
+  ierr = MPI_Gather(scaled_time, Bmark->Ntimes, MPI_DOUBLE, all_times,
+                    Bmark->Ntimes, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+  MPI_ERRHAND(ierr);
 
-    /* collect all times  */
-    ierr=MPI_Gather(scaled_time,Bmark->Ntimes,MPI_DOUBLE,all_times,Bmark->Ntimes,MPI_DOUBLE,0,MPI_COMM_WORLD);
-    MPI_ERRHAND(ierr);
-
-#ifdef CHECK      
-    /* collect all defects */	      
-    ierr=MPI_Gather(&defect,1,MPI_DOUBLE,all_defect,1,MPI_DOUBLE,0,MPI_COMM_WORLD);
-    MPI_ERRHAND(ierr);
+#ifdef CHECK
+  /* collect all defects */
+  ierr = MPI_Gather(&defect, 1, MPI_DOUBLE, all_defect, 1, MPI_DOUBLE, 0,
+                    MPI_COMM_WORLD);
+  MPI_ERRHAND(ierr);
 #endif
 
-    if( DO_OUT )
-    {
-	BTYPES type= Bmark->RUN_MODES[0].type;
-	if ( Bmark->RUN_MODES[0].NONBLOCKING )
-	    edit_type = 4;
-	else if ( type == SingleTransfer && c_info->group_mode != 0 )
-	    edit_type=0;
-	else if ( type == ParallelTransfer || type == SingleTransfer )
-	    edit_type=1;
-	else if (type == Collective )
+  if (DO_OUT) {
+    BTYPES type = Bmark->RUN_MODES[0].type;
+    const int n_groups = GROUP_OUT ? c_info->n_groups : 1;
+
+    if (Bmark->RUN_MODES[0].NONBLOCKING && type != Sync) {
+      out_format = OUT_OVERLAP;
+    } else if ((type == SingleTransfer && c_info->group_mode != 0) ||
+               type == MultPassiveTransfer || type == SingleElementTransfer) {
+      out_format = OUT_TIME_AND_BW;
+    } else if (type == ParallelTransfer || type == SingleTransfer) {
+      out_format = OUT_TIME_RANGE_AND_BW;
+    } else if (type == ParallelTransferMsgRate) {
+      out_format = OUT_BW_AND_MSG_RATE;
+    } else if (type == Collective) {
 #ifdef MPIIO
-	    edit_type=1;
+      out_format = OUT_TIME_RANGE_AND_BW;
 #else
-	    edit_type=2;
+      out_format = OUT_TIME_RANGE;
 #endif
-	else 
-	    edit_type=3;
+    } else {
+      out_format = OUT_SYNC;
+    }
 
-	if( header )
-	{
-	    fprintf(unit,"\n");            /* FOR GNUPLOT: CURVE SEPERATOR  */
+    if (header) {
+      IMB_print_header(out_format, Bmark, c_info, BMODE);
+    }
 
-	    if( GROUP_OUT ) {strcpy(aux_string,"&Group") ; li_len=1;}
-	    else            {strcpy(aux_string,"");  li_len=0;}
+    if (GROUP_OUT) {
+      fprintf(unit, "\n");
+    }
 
-	    if ( edit_type == 0 )
-	    {
-		li_len+=4;
-		strcat(aux_string,"&#bytes&#repetitions&t[usec]&Mbytes/sec&");
-	    }
-	    else if ( edit_type == 1 )
-	    {
-		li_len+=6;
-		strcat(aux_string,
-		       "&#bytes&#repetitions&t_min[usec]&t_max[usec]&t_avg[usec]&Mbytes/sec&");
-	    }
-	    else if ( edit_type == 2 )
-	    {
-		li_len+=5;
-		strcat(aux_string,
-		       "&#bytes&#repetitions&t_min[usec]&t_max[usec]&t_avg[usec]&");
-	    }
-	    else if ( edit_type == 3 )
-	    {
-		li_len+=4;
-		strcat(aux_string,
-		       "&#repetitions&t_min[usec]&t_max[usec]&t_avg[usec]&");
-	    }
-	    else
-	    {
-		li_len+=6;
-		strcat(aux_string,
-		       "&#bytes&#repetitions&t_ovrl[usec]&t_pure[usec]&t_CPU[usec]& overlap[%]&");
-	    }
-
-#ifdef CHECK
-	    if( Bmark->RUN_MODES[0].type != Sync &&
-		strcmp(Bmark->name,"Window") )
-	    {
-		li_len+=1;
-		strcat(aux_string,"&defects&");
-	    }
-#endif
-	    IMB_make_line(li_len);
-
-	    if( c_info->n_groups > 1) 
-		fprintf(unit,"# Benchmarking Multi-%s ",Bmark->name);
-	    else
-		fprintf(unit,"# Benchmarking %s ",Bmark->name);
-
-	    IMB_show_procids(c_info); 
-
-	    IMB_make_line(li_len);
-
-	    switch(BMODE->AGGREGATE)
-	    {
-		case 1:
-		    fprintf(unit,"#\n#    MODE: AGGREGATE \n#\n");
-		    break;
-
-		case 0:
-		    fprintf(unit,"#\n#    MODE: NON-AGGREGATE \n#\n");
-		    break;
-	    }
-
-	    IMB_print_headlines(aux_string);
-	} /*if( header )*/
-
-	if( GROUP_OUT )
-	{
-
-	    /* IMB 3.1 << use ITERATIONS object */
-	    for( i_gr=0; i_gr<c_info->n_groups; i_gr++ )
-	    {
-		if(i_gr == 0) fprintf(unit,"\n");
-
-		IMB_display_times(Bmark, all_times, c_info, i_gr, ITERATIONS->n_sample, size, edit_type);
-	    } /*for( i_gr=0; */
-	}
-	else
-	    IMB_display_times(Bmark, all_times, c_info,  0, ITERATIONS->n_sample, size, edit_type);
-    } /*if( DO_OUT )*/
+    for (i_gr = 0; i_gr < n_groups; i_gr++) {
+      IMB_display_times(Bmark, all_times, c_info, i_gr, ITERATIONS->n_sample,
+                        size, out_format);
+    }
+  } /*if( DO_OUT )*/
 }
 
-
 /*****************************************************************/
-void IMB_display_times(struct Bench* Bmark, double* tlist, struct comm_info* c_info, 
-                       int group, int n_sample, int size, 
-                       int edit_type)
+void IMB_display_times(struct Bench *Bmark, double *tlist,
+                       struct comm_info *c_info, int group, int n_sample,
+                       int size, int out_format)
 /*
 
 
 
-Input variables: 
+   Input variables:
 
--Bmark                (type struct Bench*)                      
-                      (For explanation of struct Bench type:
-                      describes all aspects of modes of a benchmark;
-                      see [1] for more information)
-                      
-                      The actual benchmark
-                      
+   -Bmark                (type struct Bench*)
+   (For explanation of struct Bench type:
+   describes all aspects of modes of a benchmark;
+   see [1] for more information)
 
--tlist                (type double*)                      
-                      Benchmark timing outcome
-                      3 numbers (min/max/average)
-                      
+   The actual benchmark
 
--c_info               (type struct comm_info*)                      
-                      Collection of all base data for MPI;
-                      see [1] for more information
-                      
 
--group                (type int)                      
-                      Index of group to be displayed (multi-case only)
-                      
+   -tlist                (type double*)
+   Benchmark timing outcome
+   3 numbers (min/max/average)
 
--n_sample             (type int)                      
-                      Benchmark repetition number
-                      
 
--size                 (type int)                      
-                      Benchmark message size
-                      
+   -c_info               (type struct comm_info*)
+   Collection of all base data for MPI;
+   see [1] for more information
 
--edit_type            (type int)                      
-                      Code for table formatting details
-                      
+
+   -group                (type int)
+   Index of group to be displayed (multi-case only)
+
+
+   -n_sample             (type int)
+   Benchmark repetition number
+
+
+   -size                 (type int)
+   Benchmark message size
+
+
+   -out_format            (type int)
+   Code for table formatting details
+
 
 
 */
 {
-    static double MEGA = 1.0/1048576.0;
+  int i, offset = 0, peers;
+  static double MEGA = 1.0 / 1048576.0;
 
-    double tmax, tmin, tav, t_pure, throughput, overlap; 
+  double throughput = 0.;
+  double overlap = 0.;
+  double t_pure = 0.;
+  double t_ovrlp = 0.;
+  double t_comp = 0.;
+  double msgrate = 0;
+
+  Timing timing[MAX_TIME_ID]; // min, max and avg
 #ifdef CHECK
-    double defect;
+  double defect = 0.;
 #endif
-    int i, ip, itim, inc;
-  
-    if( c_info->g_sizes[group]<= 0 ) return;
+  memset(&timing, 0, MAX_TIME_ID * sizeof(timing[MIN]));
 
-    inc = Bmark->Ntimes;
+  if (c_info->g_sizes[group] <= 0) {
+    return;
+  }
 
-    for(itim=0; itim < Bmark->Ntimes; itim++ )
-    {
-	if( c_info->group_mode > 0)
-	{
-	    i =0;
-	    ip=0;
-
-	    while( i<group )
-	    {
-		ip+= c_info->g_sizes[i++];
-	    }
- 
-	    tmin = tlist[ip*inc+itim];
-	    tmax = 0.;
-	    tav  = 0.;
 #ifdef CHECK
-	    defect = 0.;
-#endif
-	    for(i=0; i<c_info->g_sizes[group]; i++)
-	    {
-		tmax  =  max(tmax,tlist[(ip+i)*inc+itim]);
-		tmin  =  min(tmin,tlist[(ip+i)*inc+itim]);
-		tav  += tlist[(ip+i)*inc+itim];
-#ifdef CHECK 
-		defect = max ( defect, all_defect[c_info->g_ranks[ip+i]] );
-#endif 
-	    }
-	    tav /= c_info->g_sizes[group];
-	}
-	else
-	{
-	    ip = 0;
-	    for( i=0; i<c_info->n_groups; i++ ) ip += c_info->g_sizes[i];
-	    tmin = tlist[itim];
-	    tmax = 0.;
-	    tav  = 0.;
-#ifdef CHECK
-	    defect = 0.;
+  IMB_calculate_times(Bmark->Ntimes, c_info, group, tlist, timing, &defect);
+#else
+  IMB_calculate_times(Bmark->Ntimes, c_info, group, tlist, timing);
 #endif
 
-	    for(i=0; i<ip; i++)
-	    {
-		int rank=c_info->g_ranks[i];
-		tmax  =  max(tmax,tlist[rank*inc+itim]);
-		tmin  =  min(tmin,tlist[rank*inc+itim]);
-		tav  += tlist[rank*inc+itim];
-#ifdef CHECK 
-		defect = max ( defect, all_defect[rank] );
-#endif 
-	    }
-	    tav /= ip;
-	} /*if( c_info->group_mode > 0)*/
+#ifdef NBC
+  if (!strstr(Bmark->name, "_pure")) {
+    const size_t rank_index = timing[MAX].offset[OVRLP];
+    t_pure = tlist[rank_index + PURE];
+    t_ovrlp = tlist[rank_index + OVRLP];
+    t_comp = tlist[rank_index + COMP];
+    overlap =
+        100. *
+        max(0., min(1., (t_pure + t_comp - t_ovrlp) / max(t_pure, t_comp)));
+  }
 
-	ip=0;
+#elif defined RMA
+  /* RMA benchmarks which test truly passive synchronisation presence */
+  if (Bmark->RUN_MODES[0].NONBLOCKING) {
+    /* Time when the target was inside MPI stack */
+    t_pure = timing[MAX].times[PURE];
 
-	if( Bmark->RUN_MODES[0].NONBLOCKING )
-	    if( itim == 0 )
-	    {
-		t_pure = tmax;
-	    }
-	    else
-	    {
-		overlap = 100.*max(0,min(1,(t_pure+tCPU-tmax)/min(t_pure,tCPU)));
-	    }
+    /* Time when the target was calculating something outside the MPI stack
+     * for a while and then entered the MPI stack */
+    t_ovrlp = timing[MAX].times[OVRLP];
+  }
 
-    }  /* for (itim .. ) */
+#else  // NBC || RMA
+  if (Bmark->RUN_MODES[0].NONBLOCKING) {
+    t_pure = timing[MAX].times[PURE];
+    t_ovrlp = timing[MAX].times[OVRLP];
+    t_comp = tCPU;
+    overlap = 100. *
+              max(0, min(1, (t_pure + t_comp - t_ovrlp) / min(t_pure, t_comp)));
+  }
+#endif // NBC || RMA
 
-    throughput = 0.;
-    if( tmax > 0. ) throughput = (Bmark->scale_bw*SCALE*MEGA)*size/tmax;
-    
-    if(c_info->group_mode > 0 )
-    {
-	IMB_edit_format(1,0);
-	sprintf(aux_string,format,group);
-	ip=strlen(aux_string);
+  if (timing[MAX].times[PURE] > 0.) {
+    if (Bmark->RUN_MODES[0].type != ParallelTransferMsgRate)
+      throughput =
+          (Bmark->scale_bw * SCALE * MEGA) * size / timing[MAX].times[PURE];
+#ifndef MPIIO
+    else {
+      peers = c_info->num_procs / 2;
+      msgrate = (Bmark->scale_bw * SCALE * MAX_WIN_SIZE * peers) /
+                timing[MAX].times[PURE];
+      throughput = MEGA * msgrate * size;
+    }
+#endif
+  }
+  if (c_info->group_mode > 0) {
+    IMB_edit_format(1, 0);
+    sprintf(aux_string, format, group);
+    offset = strlen(aux_string);
+  }
+
+  if (Bmark->sample_failure) {
+    IMB_edit_format(1, 0);
+    sprintf(aux_string + offset, format, size);
+    offset = strlen(aux_string);
+
+    switch (Bmark->sample_failure) {
+    case SAMPLE_FAILED_MEMORY:
+      sprintf(aux_string + offset, " out-of-mem.; needed X=%8.3f GB; use flag "
+                                   "\"-mem X\" or MAX_MEM_USAGE>=X "
+                                   "(IMB_mem_info.h)",
+              (1000. * c_info->used_mem + 1.) / 1000.);
+      break;
+
+    case SAMPLE_FAILED_INT_OVERFLOW:
+      sprintf(aux_string + offset, " int-overflow.; The production rank*size "
+                                   "caused int overflow for given sample");
+      break;
+    case SAMPLE_FAILED_TIME_OUT:
+      aux_string[offset] = '\0';
+      fprintf(unit, "%s%s", aux_string,
+              " time-out.; Time limit (secs_per_sample * msg_sizes_list_len) "
+              "is over; use \"-time X\" or SECS_PER_SAMPLE=X (IMB_settings.h) "
+              "to increase time limit.");
+      aux_string[0] = '\0';
+      break;
+    } /*switch*/
+  } else {
+    switch (out_format) {
+    case OUT_TIME_AND_BW:
+      IMB_edit_format(2, 2);
+      sprintf(aux_string + offset, format, size, n_sample,
+              timing[MAX].times[PURE], throughput);
+      break;
+    case OUT_BW_AND_MSG_RATE:
+      IMB_edit_format(2, 1);
+      offset +=
+          sprintf(aux_string + offset, format, size, n_sample, throughput);
+      sprintf(&(format[0]), "%%%d.0f", ow_format);
+      sprintf(aux_string + offset, format, msgrate);
+      break;
+    case OUT_TIME_RANGE_AND_BW:
+      IMB_edit_format(2, 4);
+      sprintf(aux_string + offset, format, size, n_sample,
+              timing[MIN].times[PURE], timing[MAX].times[PURE],
+              timing[AVG].times[PURE], throughput);
+      break;
+    case OUT_TIME_RANGE:
+      IMB_edit_format(2, 3);
+      sprintf(aux_string + offset, format, size, n_sample,
+              timing[MIN].times[PURE], timing[MAX].times[PURE],
+              timing[AVG].times[PURE]);
+      break;
+    case OUT_SYNC:
+#ifdef NBC
+      if (Bmark->RUN_MODES[0].NONBLOCKING && !strstr(Bmark->name, "_pure")) {
+        IMB_edit_format(1, 4);
+        sprintf(aux_string + offset, format, n_sample, t_ovrlp, t_pure, t_comp,
+                overlap);
+      } else
+#endif // NBC
+      {
+        IMB_edit_format(1, 3);
+        sprintf(aux_string + offset, format, n_sample, timing[MIN].times[PURE],
+                timing[MAX].times[PURE], timing[AVG].times[PURE]);
+      }
+      break;
+    case OUT_OVERLAP:
+#ifdef RMA
+      IMB_edit_format(2, 2);
+      sprintf(aux_string + offset, format, size, n_sample, t_pure, t_ovrlp);
+#else
+      IMB_edit_format(2, 4);
+      sprintf(aux_string + offset, format, size, n_sample, t_ovrlp, t_pure,
+              t_comp, overlap);
+#endif
+      break;
     }
 
-/* IMB 3.1 << */
-    if( Bmark->sample_failure )
-    {
-	IMB_edit_format(1,0);
-	sprintf(aux_string+ip,format,size);
-	ip=strlen(aux_string);
+#ifdef CHECK
+    if (out_format != OUT_SYNC && strcmp(Bmark->name, "Window")) {
+      IMB_edit_format(0, 1);
+      offset = strlen(aux_string);
+      sprintf(aux_string + offset, format, defect);
 
-	switch( Bmark->sample_failure )
-	{
-	    case SAMPLE_FAILED_MEMORY:
-		sprintf(aux_string+ip," out-of-mem.; needed X=%8.3f GB; use flag \"-mem X\" or MAX_MEM_USAGE>=X (IMB_mem_info.h)",(1000.*c_info->used_mem+1.)/1000.);
-		break;
-
-	    case SAMPLE_FAILED_INT_OVERFLOW:
-		sprintf(aux_string+ip," int-overflow.; The production rank*size caused int overflow for given sample");
-		break;
-	
-	} /*switch*/
+      if (defect > TOL) {
+        Bmark->success = 0;
+      }
     }
-    else
-    {
-/* >> IMB 3.1  */
-	if( edit_type == 0 )
-	{
-	    IMB_edit_format(2,2);
-	    sprintf(aux_string+ip,format,size,n_sample, tmax,throughput);
-	}
-	else if ( edit_type == 1 )
-	{
-	    IMB_edit_format(2,4);
-	    sprintf(aux_string+ip,format,size,n_sample,tmin,tmax,
-		    tav,throughput);
-	}
-	else if ( edit_type == 2 )
-	{
-	    IMB_edit_format(2,3);
-	    sprintf(aux_string+ip,format,size,n_sample,tmin,tmax,tav);
-	}
-	else if ( edit_type == 3 )
-	{
-	    IMB_edit_format(1,3);
-	    sprintf(aux_string+ip,format,n_sample,tmin,tmax,tav);
-	}
-	else if ( edit_type == 4 )
-	{
-	    IMB_edit_format(2,4);
-	    sprintf(aux_string+ip,format,size,n_sample,tmax,t_pure,tCPU,overlap);
-	}
-
-#ifdef CHECK 
-	if ( edit_type != 3 && strcmp(Bmark->name,"Window") )
-	{
-	    IMB_edit_format(0,1);
-	    ip=strlen(aux_string);
-	    sprintf(aux_string+ip,format,defect);
-
-	    if( defect > TOL    ) Bmark->success=0;
-	}
 #endif
 
-/* IMB 3.1 << */
-    } /*if( Bmark->sample_failure )*/
-/* >> IMB 3.1  */
+  } /*if( Bmark->sample_failure )*/
 
-    fprintf(unit,"%s\n",aux_string);
-    fflush(unit);
- 
+  fprintf(unit, "%s\n", aux_string);
+  fflush(unit);
 }
 
+void IMB_calculate_times(int ntimes, struct comm_info *c_info, int group_id,
+                         double *tlist, Timing *timing
+#ifdef CHECK
+                         ,
+                         double *defect
+#endif
+                         ) {
+  int offset = 0;
+  int nproc = 0;
+  int rank = 0;
+  int times_count = 0;
+  int i = 0;
+  Time_Id time_id = PURE;
+
+  const int is_group_mode = c_info->group_mode > 0 ? 1 : 0;
+
+  int ncount = is_group_mode ? group_id : c_info->n_groups;
+
+#ifdef CHECK
+  *defect = 0;
+#endif
+
+  for (i = 0; i < ncount; i++) {
+    nproc += c_info->g_sizes[i];
+  }
+
+  ncount = is_group_mode ? c_info->g_sizes[group_id] : nproc;
+
+  for (time_id = PURE; time_id < ntimes; time_id++) {
+    times_count = 0;
+    timing[MIN].times[time_id] = DBL_MAX;
+
+    for (i = 0; i < ncount; i++) {
+      rank = is_group_mode ? (nproc + i) * ntimes : c_info->g_ranks[i] * ntimes;
+
+      offset = rank + time_id;
+      if (tlist[offset] < 0.) {
+        continue;
+      }
+      times_count++;
+
+      if (tlist[offset] < timing[MIN].times[time_id]) {
+        timing[MIN].times[time_id] = tlist[offset];
+        timing[MIN].offset[time_id] = rank;
+      }
+
+      if ((tlist[offset] > timing[MAX].times[time_id])) {
+        timing[MAX].times[time_id] = tlist[offset];
+        timing[MAX].offset[time_id] = rank;
+      }
+
+      timing[AVG].times[time_id] += tlist[offset];
+#ifdef CHECK
+      {
+        const size_t check_index =
+            is_group_mode ? c_info->g_ranks[nproc + i] : c_info->g_ranks[i];
+        *defect = max(*defect, all_defect[check_index]);
+      }
+#endif
+    }
+    timing[AVG].times[time_id] /= times_count;
+  }
+}
 
 /************************************************************************/
 /* IMB 3.1 << */
 // Re-display calling sequence
-void IMB_show_selections(struct comm_info* c_info, struct Bench* BList, int *argc, char ***argv)
+void IMB_show_selections(struct comm_info *c_info, struct Bench *BList,
+                         int *argc, char ***argv)
 /* >> IMB 3.1  */
 /*
 
-                      
-                      Displays on stdout an overview of the user selections
-                      
+
+   Displays on stdout an overview of the user selections
 
 
-Input variables: 
 
--c_info               (type struct comm_info*)                      
-                      Collection of all base data for MPI;
-                      see [1] for more information
-                      
+   Input variables:
 
--BList                (type struct Bench*)                      
-                      (For explanation of struct Bench type:
-                      describes all aspects of modes of a benchmark;
-                      see [1] for more information)
-                      
-                      The requested list of benchmarks
-                      
--argc                 (type int *)                      
-                      Number of command line arguments
-                      
+   -c_info               (type struct comm_info*)
+   Collection of all base data for MPI;
+   see [1] for more information
 
--argv                 (type char ***)                      
-                      List of command line arguments
-                      
+
+   -BList                (type struct Bench*)
+   (For explanation of struct Bench type:
+   describes all aspects of modes of a benchmark;
+   see [1] for more information)
+
+   The requested list of benchmarks
+
+   -argc                 (type int *)
+   Number of command line arguments
+
+
+   -argv                 (type char ***)
+   List of command line arguments
+
 
 
 
 */
 {
-    int iarg=0;
-    int i;
+  int iarg = 0;
+  int i;
 
-    if(c_info->w_rank == 0 )
-    {
-	IMB_general_info();
-/* IMB 3.1 << */
+  if (c_info->w_rank == 0) {
+    IMB_general_info();
+    /* IMB 3.1 << */
 
-	// repeat calling sequence
-	fprintf(unit,"\n\n# Calling sequence was: \n\n#");
+    // repeat calling sequence
+    fprintf(unit, "\n\n# Calling sequence was: \n\n#");
 
-	while( iarg<*argc )
-	{
-	    if (iarg>0 && iarg%6==0)
-	    {
-		if( (*argv)[iarg][0]=='-' && iarg+1<*argc ) 
-		{
-		    fprintf(unit," %s %s\n#", (*argv)[iarg], (*argv)[iarg+1]);
-		    iarg++;
-		}
-		else
-		    fprintf(unit," %s\n#", (*argv)[iarg]);
+    while (iarg < *argc) {
+      if (iarg > 0 && iarg % 6 == 0) {
+        if ((*argv)[iarg][0] == '-' && iarg + 1 < *argc) {
+          fprintf(unit, " %s %s\n#", (*argv)[iarg], (*argv)[iarg + 1]);
+          iarg++;
+        } else
+          fprintf(unit, " %s\n#", (*argv)[iarg]);
 
-		for(i=0; i<=strlen((*argv)[0]); i++) fprintf(unit," ");
-	    }
-	    else
-		fprintf(unit," %s", (*argv)[iarg]);
+        for (i = 0; i <= strlen((*argv)[0]); i++)
+          fprintf(unit, " ");
+      } else
+        fprintf(unit, " %s", (*argv)[iarg]);
 
-	    iarg++;
-	} /*while( iarg<*argc )*/
+      iarg++;
+    } /*while( iarg<*argc )*/
 
-	fprintf(unit,"\n\n");
+    fprintf(unit, "\n\n");
 #ifndef MPIIO
-	if( c_info->n_lens>0 )
-	{
-	    fprintf(unit,"# Message lengths were user defined\n");
-	}
-	else
-/* >> IMB 3.1  */
-	{
-	    fprintf(unit,"# Minimum message length in bytes:   %d\n",0);
-	    fprintf(unit,"# Maximum message length in bytes:   %d\n",1<<c_info->max_msg_log);
-	}
+    if (c_info->n_lens > 0) {
+      fprintf(unit, "# Message lengths were user defined\n");
+    } else
+    /* >> IMB 3.1  */
+    {
+      fprintf(unit, "# Minimum message length in bytes:   %d\n", 0);
+      fprintf(unit, "# Maximum message length in bytes:   %d\n",
+              1 << c_info->max_msg_log);
+    }
 
-	fprintf(unit,"#\n");
-	fprintf(unit,"# MPI_Datatype                   :   MPI_BYTE \n");
-	fprintf(unit,"# MPI_Datatype for reductions    :   MPI_FLOAT\n");
-	fprintf(unit,"# MPI_Op                         :   MPI_SUM  \n");
+    fprintf(unit, "#\n");
+    fprintf(unit, "# MPI_Datatype                   :   MPI_BYTE \n");
+    fprintf(unit, "# MPI_Datatype for reductions    :   MPI_FLOAT\n");
+    fprintf(unit, "# MPI_Op                         :   MPI_SUM  \n");
 #else
-	if( c_info->n_lens>0 )
-	{
-	    fprintf(unit,"# IO lengths were user defined\n");
-	}
-	else
-	{
-	    fprintf(unit,"# Minimum io portion in bytes:   %d\n",0);
-	    fprintf(unit,"# Maximum io portion in bytes:   %d\n",1<<c_info->max_msg_log);
-	}
-	fprintf(unit,"#\n");
-	IMB_print_info();
+    if (c_info->n_lens > 0) {
+      fprintf(unit, "# IO lengths were user defined\n");
+    } else {
+      fprintf(unit, "# Minimum io portion in bytes:   %d\n", 0);
+      fprintf(unit, "# Maximum io portion in bytes:   %d\n",
+              1 << c_info->max_msg_log);
+    }
+    fprintf(unit, "#\n");
+    IMB_print_info();
 #endif
-	fprintf(unit,"#\n");
+    fprintf(unit, "#\n");
 
 #ifdef IMB_OPTIONAL
-	fprintf(unit,"#\n\n");
-	fprintf(unit,"# !! Attention: results have been achieved in\n");
-	fprintf(unit,"# !! IMB_OPTIONAL mode.\n");
-	fprintf(unit,"# !! Results may differ from standard case.\n");
-	fprintf(unit,"#\n");
+    fprintf(unit, "#\n\n");
+    fprintf(unit, "# !! Attention: results have been achieved in\n");
+    fprintf(unit, "# !! IMB_OPTIONAL mode.\n");
+    fprintf(unit, "# !! Results may differ from standard case.\n");
+    fprintf(unit, "#\n");
 #endif
 
-      fprintf(unit,"#\n");
+    fprintf(unit, "#\n");
 
-      IMB_print_blist(c_info, BList);
+    IMB_print_blist(c_info, BList);
 
-      if( do_nonblocking )
-      {
-	  fprintf(unit,"\n\n# For nonblocking benchmarks:\n\n");
-	  fprintf(unit,"# Function CPU_Exploit obtains an undisturbed\n");
-	  fprintf(unit,"# performance of %7.2f MFlops\n",MFlops);         
-      }
+    if (do_nonblocking) {
+      fprintf(unit, "\n\n# For nonblocking benchmarks:\n\n");
+      fprintf(unit, "# Function CPU_Exploit obtains an undisturbed\n");
+      fprintf(unit, "# performance of %7.2f MFlops\n", MFlops);
+    }
 
-    } /*if(c_info->w_rank == 0 )*/
+  } /*if(c_info->w_rank == 0 )*/
 
 } /* end of IMB_show_selections*/
 
 /****************************************************************************/
-void IMB_show_procids(struct comm_info* c_info)
+void IMB_show_procids(struct comm_info *c_info)
 /*
-                     
-                      Prints to stdout the process ids (of group eventually)
-                     
-Input variables: 
 
--c_info               (type struct comm_info*)                      
-                      Collection of all base data for MPI;
-                      see [1] for more information
-                      
+   Prints to stdout the process ids (of group eventually)
+
+   Input variables:
+
+   -c_info               (type struct comm_info*)
+   Collection of all base data for MPI;
+   see [1] for more information
+
 
 
 */
 {
-    int ip, py, i, k, idle;
-  
-    if( c_info->w_rank == 0 )
-    {
-	if(c_info->n_groups == 1)
-	{
-	    if( c_info->px>1 && c_info->py>1 )
-	    {
-		fprintf(unit,"\n# #processes = %d; rank order (rowwise): \n",
-			c_info->num_procs);
-		ip=0;
+  int ip, py, i, k, idle;
 
-		for( i=0; i<c_info->px && ip<c_info->NP; i++)
-		{  
-		    py = c_info->w_num_procs/c_info->px;
-		    if( i<c_info->w_num_procs%c_info->px ) py++;
-		    py = min(py,c_info->NP-ip);
-		    IMB_print_array(c_info->g_ranks+ip,1,0,py,"",unit);
-		    fprintf(unit,"\n");
-		    ip = ip+py;
-		}
-	    }
-	    else
-		fprintf(unit,"\n# #processes = %d \n",c_info->num_procs);
+  if (c_info->w_rank == 0) {
+    if (c_info->n_groups == 1) {
+      if (c_info->px > 1 && c_info->py > 1) {
+        fprintf(unit, "\n# #processes = %d; rank order (rowwise): \n",
+                c_info->num_procs);
+        ip = 0;
 
-	    idle = c_info->w_num_procs-c_info->num_procs;
-	} /*if(c_info->n_groups == 1)*/
+        for (i = 0; i < c_info->px && ip < c_info->NP; i++) {
+          py = c_info->w_num_procs / c_info->px;
+          if (i < c_info->w_num_procs % c_info->px)
+            py++;
+          py = min(py, c_info->NP - ip);
+          IMB_print_array(c_info->g_ranks + ip, 1, 0, py, "", unit);
+          fprintf(unit, "\n");
+          ip = ip + py;
+        }
+      } else
+        fprintf(unit, "\n# #processes = %d \n", c_info->num_procs);
 
-	if(c_info->n_groups != 1)
-	{
-	    fprintf(unit,"\n# ( %d groups of %d processes each running simultaneous ) \n",
-		    c_info->n_groups,c_info->num_procs); 
+      idle = c_info->w_num_procs - c_info->num_procs;
+    } /*if(c_info->n_groups == 1)*/
 
-	    IMB_print_array(c_info->g_ranks,c_info->n_groups,0,
-			    c_info->g_sizes[0],"Group ",unit);
+    if (c_info->n_groups != 1) {
+      fprintf(unit,
+              "\n# ( %d groups of %d processes each running simultaneous ) \n",
+              c_info->n_groups, c_info->num_procs);
 
-	    idle = c_info->w_num_procs - c_info->n_groups*c_info->g_sizes[0];
-	}
+      IMB_print_array(c_info->g_ranks, c_info->n_groups, 0, c_info->g_sizes[0],
+                      "Group ", unit);
 
-	if( idle )
-	{
-	    if( idle == 1 )
-		fprintf(unit,"# ( %d additional process waiting in MPI_Barrier)\n",idle);
-	    else
-		fprintf(unit,"# ( %d additional processes waiting in MPI_Barrier)\n",idle);
-	}
-    } /*if( c_info->w_rank == 0 )*/
+      idle = c_info->w_num_procs - c_info->n_groups * c_info->g_sizes[0];
+    }
+
+    if (idle) {
+      if (idle == 1)
+        fprintf(unit, "# ( %d additional process waiting in MPI_Barrier)\n",
+                idle);
+      else
+        fprintf(unit, "# ( %d additional processes waiting in MPI_Barrier)\n",
+                idle);
+    }
+  } /*if( c_info->w_rank == 0 )*/
 
 } /* end of IMB_show_procids*/
 
-
 /****************************************************************************/
-void IMB_print_array(int* Array, int N, int disp_N, 
-                     int M, char* txt, FILE* unit)
+void IMB_print_array(int *Array, int N, int disp_N, int M, char *txt,
+                     FILE *unit)
 /*
 
-                      
-                      Formattedly prints to stdout a M by N int array 
-                      
+
+   Formattedly prints to stdout a M by N int array
 
 
-Input variables: 
 
--Array                (type int*)                      
-                      Array to be printed
-                      
+   Input variables:
 
--N                    (type int)                      
-                      Number of rows to be printed
-                      
+   -Array                (type int*)
+   Array to be printed
 
--disp_N               (type int)                      
-                      Displacement in Array where frist row begins
-                      
 
--M                    (type int)                      
-                      Number of columns
-                      
+   -N                    (type int)
+   Number of rows to be printed
 
--txt                  (type char*)                      
-                      Accompanying text
-                      
 
--unit                 (type FILE*)                      
-                      Output unit
-                      
+   -disp_N               (type int)
+   Displacement in Array where frist row begins
+
+
+   -M                    (type int)
+   Number of columns
+
+
+   -txt                  (type char*)
+   Accompanying text
+
+
+   -unit                 (type FILE*)
+   Output unit
+
 
 
 */
 {
 #define MAX_SHOW 1024
-    int i,j;
+  int i, j;
 
-    char* outtxt;
-    int do_out;
+  char *outtxt;
+  int do_out;
 
-    do_out=0;
+  do_out = 0;
 
-    if( txt )
-	if( strcmp(txt,"") )
-	{
-	    outtxt = (char*)IMB_v_alloc((strlen(txt)+6)*sizeof(char)," IMB_print_array ");
-	    do_out=1;
-	}
+  if (txt)
+    if (strcmp(txt, "")) {
+      outtxt = (char *)IMB_v_alloc((strlen(txt) + 6) * sizeof(char),
+                                   " IMB_print_array ");
+      do_out = 1;
+    }
 
-	if( N<=1 )
-	{
-	    if( M>MAX_SHOW )
-	    {
-		fprintf(unit,"#  "); 
-		IMB_print_int_row(unit, Array, MAX_SHOW/2);
-		fprintf(unit," ... "); 
-		IMB_print_int_row(unit, &Array[M-MAX_SHOW/2], MAX_SHOW/2);
-	    }
-	    else
-	    {
-		if( do_out ) fprintf(unit,"# %s",txt); 
-		else         fprintf(unit,"# "); 
-		IMB_print_int_row(unit, Array, M);
-	    }
-	}
-	else if ( N<=MAX_SHOW )
-	{
-	    int zero=0, one=1;
-	    for( i=0; i<N; i++) 
-	    {
-		if( do_out )
-		    sprintf(outtxt,"%s %d: ",txt,disp_N+i);
-		else    outtxt=(char*)NULL;
-		IMB_print_array(&Array[i*M], one, zero, M, outtxt, unit);
+  if (N <= 1) {
+    if (M > MAX_SHOW) {
+      fprintf(unit, "#  ");
+      IMB_print_int_row(unit, Array, MAX_SHOW / 2);
+      fprintf(unit, " ... ");
+      IMB_print_int_row(unit, &Array[M - MAX_SHOW / 2], MAX_SHOW / 2);
+    } else {
+      if (do_out)
+        fprintf(unit, "# %s", txt);
+      else
+        fprintf(unit, "# ");
+      IMB_print_int_row(unit, Array, M);
+    }
+  } else if (N <= MAX_SHOW) {
+    int zero = 0, one = 1;
+    for (i = 0; i < N; i++) {
+      if (do_out)
+        sprintf(outtxt, "%s %d: ", txt, disp_N + i);
+      else
+        outtxt = (char *)NULL;
+      IMB_print_array(&Array[i * M], one, zero, M, outtxt, unit);
 
-		fprintf(unit,"\n");}
-	    } /*for( i=0...*/
-	else
-	{
-	    int disp;
+      fprintf(unit, "\n");
+    }
+  } /*for( i=0...*/
+  else {
+    int disp;
 
-	    disp=0;
-	    IMB_print_array(Array, MAX_SHOW/2, disp, M, txt, unit);
-	    fprintf(unit,"#  . \n"); 
-	    fprintf(unit,"#  . \n"); 
-	    disp=N-MAX_SHOW/2;
-	    IMB_print_array(&Array[(N-MAX_SHOW/2)*M], MAX_SHOW/2, disp, M, txt, unit);
-	}
+    disp = 0;
+    IMB_print_array(Array, MAX_SHOW / 2, disp, M, txt, unit);
+    fprintf(unit, "#  . \n");
+    fprintf(unit, "#  . \n");
+    disp = N - MAX_SHOW / 2;
+    IMB_print_array(&Array[(N - MAX_SHOW / 2) * M], MAX_SHOW / 2, disp, M, txt,
+                    unit);
+  }
 
-	if( do_out )
-	{
-	    IMB_v_free((void**)&outtxt);
-	}
+  if (do_out) {
+    IMB_v_free((void **)&outtxt);
+  }
 }
 
 /****************************************************************************/
-void IMB_print_int_row(FILE* unit, int* Array, int M)
+void IMB_print_int_row(FILE *unit, int *Array, int M)
 /*
 
-                      
-                      Formattedly prints to stdout a row of int numbers
-                      
+
+   Formattedly prints to stdout a row of int numbers
 
 
-Input variables: 
 
--unit                 (type FILE*)                      
-                      Output unit
-                      
+   Input variables:
 
--Array                (type int*)                      
-                      Data to be printed
-                      
+   -unit                 (type FILE*)
+   Output unit
 
--M                    (type int)                      
-                      Number of data
-                      
+
+   -Array                (type int*)
+   Data to be printed
+
+
+   -M                    (type int)
+   Number of data
+
 
 
 */
 {
 #define X_PER_ROW 16
-    int i,j,i0,irest;
+  int i, j, i0, irest;
 
-    irest = M%X_PER_ROW;
-    for(j=0; j<(M+X_PER_ROW-1)/X_PER_ROW; j++)
-    {
-	i0=j*X_PER_ROW;
+  irest = M % X_PER_ROW;
+  for (j = 0; j < (M + X_PER_ROW - 1) / X_PER_ROW; j++) {
+    i0 = j * X_PER_ROW;
 
-	for(i=0; i<min(M-i0,X_PER_ROW); i++) fprintf(unit," %4d",Array[i0+i]);
+    for (i = 0; i < min(M - i0, X_PER_ROW); i++)
+      fprintf(unit, " %4d", Array[i0 + i]);
 
-	fprintf(unit,"\n# ");
-    }
- 
+    fprintf(unit, "\n# ");
+  }
 }
 
 #ifdef MPIIO
@@ -831,409 +851,589 @@ Input variables:
 void IMB_print_info()
 /*
 
-                      
-                      Prints MPI_Info selections (MPI-2 only)
-                      
+
+   Prints MPI_Info selections (MPI-2 only)
+
 
 
 */
 {
-    int nkeys,ikey,vlen,exists;
-    MPI_Info tmp_info;
-    char key[MPI_MAX_INFO_KEY], *value;
- 
-    IMB_user_set_info(&tmp_info);
+  int nkeys, ikey, vlen, exists;
+  MPI_Info tmp_info;
+  char key[MPI_MAX_INFO_KEY], *value;
 
-/* July 2002 fix V2.2.1: handle NULL case */
-    if( tmp_info!=MPI_INFO_NULL ) 
-    {
-/* end change */
+  IMB_user_set_info(&tmp_info);
 
-	MPI_Info_get_nkeys(tmp_info, &nkeys);
+  /* July 2002 fix V2.2.1: handle NULL case */
+  if (tmp_info != MPI_INFO_NULL) {
+    /* end change */
 
-	if( nkeys > 0) fprintf(unit,"# Got %d Info-keys:\n\n",nkeys);
- 
-	for( ikey=0; ikey<nkeys; ikey++ )
-	{
-	    MPI_Info_get_nthkey(tmp_info, ikey, key);
- 
-	    MPI_Info_get_valuelen(tmp_info, key, &vlen, &exists);
- 
-	    value = (char*)IMB_v_alloc((vlen+1)* sizeof(char), "Print_Info");
- 
-	    MPI_Info_get(tmp_info, key, vlen, value, &exists);
-	    printf("# %s = \"%s\"\n",key,value);
- 
-	    IMB_v_free ((void**)&value);
-	}
+    MPI_Info_get_nkeys(tmp_info, &nkeys);
 
-	MPI_Info_free(&tmp_info);
+    if (nkeys > 0)
+      fprintf(unit, "# Got %d Info-keys:\n\n", nkeys);
 
-/* July 2002 fix V2.2.1: end if */
+    for (ikey = 0; ikey < nkeys; ikey++) {
+      MPI_Info_get_nthkey(tmp_info, ikey, key);
+
+      MPI_Info_get_valuelen(tmp_info, key, &vlen, &exists);
+
+      value = (char *)IMB_v_alloc((vlen + 1) * sizeof(char), "Print_Info");
+
+      MPI_Info_get(tmp_info, key, vlen, value, &exists);
+      printf("# %s = \"%s\"\n", key, value);
+
+      IMB_v_free((void **)&value);
     }
-/* end change */
- 
+
+    MPI_Info_free(&tmp_info);
+
+    /* July 2002 fix V2.2.1: end if */
+  }
+  /* end change */
 }
 #endif
 
-
-
 /*****************************************************************/
-void IMB_print_headlines(char* h_line)
-/*
+void IMB_print_header(int out_format, struct Bench *bmark,
+                      struct comm_info *c_info, MODES bench_mode) {
 
-                      
-                      Prints header legend of table
-                      
+  int line_len = 0;
+  char *help;
+  char *token;
 
+  fprintf(unit, "\n"); /* FOR GNUPLOT: CURVE SEPERATOR  */
 
-Input variables: 
+  if (c_info->group_mode > 0) {
+    /* several groups output*/
+    strcpy(aux_string, "&Group");
+    line_len = 1;
+  } else {
+    strcpy(aux_string, "");
+    line_len = 0;
+  }
 
--h_line               (type char*)                      
-                      Header legend, single items separated by '&'
-                      
+  switch (out_format) {
+  case OUT_TIME_AND_BW:
+    line_len += 4;
+    strcat(aux_string, "&#bytes&#repetitions&t[usec]&Mbytes/sec&");
+    break;
 
+  case OUT_BW_AND_MSG_RATE:
+    line_len += 4;
+    strcat(aux_string, "&#bytes&#repetitions&Mbytes/sec&Msg/sec&");
+    break;
 
-*/
-{
-    char* help;
-    char* token;
+  case OUT_TIME_RANGE_AND_BW:
+    line_len += 6;
+    strcat(
+        aux_string,
+        "&#bytes&#repetitions&t_min[usec]&t_max[usec]&t_avg[usec]&Mbytes/sec&");
+    break;
 
-    help=h_line;
+  case OUT_TIME_RANGE:
+    line_len += 5;
+    strcat(aux_string,
+           "&#bytes&#repetitions&t_min[usec]&t_max[usec]&t_avg[usec]&");
+    break;
 
-    while(token = strtok(help, "&") )
-    {
-	sprintf(format,"%%%ds",ow_format);
-	fprintf(unit,format,token);
-	help = NULL;
+  case OUT_SYNC:
+    if (bmark->RUN_MODES[0].NONBLOCKING && !strstr(bmark->name, "_pure")) {
+      line_len += 5;
+      strcat(
+          aux_string,
+          "&#repetitions&t_ovrl[usec]&t_pure[usec]&t_CPU[usec]& overlap[%]&");
+    } else {
+      line_len += 4;
+      strcat(aux_string, "&#repetitions&t_min[usec]&t_max[usec]&t_avg[usec]&");
     }
-    fprintf(unit,"\n");
+    break;
+
+  case OUT_OVERLAP:
+#ifdef RMA
+    line_len += 4;
+    strcat(aux_string, "&#bytes&#repetitions&t_pure[usec]&t_ovrl[usec]&");
+#else
+    line_len += 6;
+    strcat(aux_string, "&#bytes&#repetitions&t_ovrl[usec]&t_pure[usec]&t_CPU["
+                       "usec]& overlap[%]&");
+#endif
+    break;
+  }
+
+#ifdef CHECK
+  if (bmark->RUN_MODES[0].type != Sync && strcmp(bmark->name, "Window")) {
+    line_len += 1;
+    strcat(aux_string, "&defects&");
+  }
+#endif
+
+  IMB_make_line(line_len);
+
+  if (c_info->n_groups > 1) {
+    fprintf(unit, "# Benchmarking Multi-%s ", bmark->name);
+  } else {
+    fprintf(unit, "# Benchmarking %s ", bmark->name);
+  }
+
+  IMB_show_procids(c_info);
+
+  IMB_make_line(line_len);
+
+  switch (bench_mode->AGGREGATE) {
+  case 1:
+    fprintf(unit, "#\n#    MODE: AGGREGATE \n#\n");
+    break;
+
+  case 0:
+    fprintf(unit, "#\n#    MODE: NON-AGGREGATE \n#\n");
+    break;
+  }
+
+  help = aux_string;
+  while (token = strtok(help, "&")) {
+    sprintf(format, "%%%ds", ow_format);
+    fprintf(unit, format, token);
+    help = NULL;
+  }
+  fprintf(unit, "\n");
+
+  return;
 }
 
-
 /*****************************************************************/
-void IMB_edit_format(int n_ints , int n_floats)
+void IMB_edit_format(int n_ints, int n_floats)
 /*
 
-                      
-                      Edits format string for output
-                      
+
+   Edits format string for output
 
 
-In/out variables: 
 
--n_ints               (type int)                      
-                      # of int items to be printed
-                      
+   In/out variables:
 
--n_floats             (type int)                      
-                      # of float items to be printed
-                      
+   -n_ints               (type int)
+# of int items to be printed
+
+
+-n_floats             (type int)
+# of float items to be printed
+
 
 
 */
 {
-    int ip,i;
-  
-    ip=0;
+  int ip, i;
 
-    for(i=1 ; i<=n_ints; i++)
-    {    
-	sprintf(&(format[ip]),"%%%dd",ow_format); 
-	ip=strlen(format);
-    }
+  ip = 0;
 
-    for(i=1 ; i<=n_floats ; i++)
-    {
-	sprintf(&(format[ip]),"%%%d.2f",ow_format);
-	ip=strlen(format);
-    }
+  for (i = 1; i <= n_ints; i++) {
+    sprintf(&(format[ip]), "%%%dd", ow_format);
+    ip = strlen(format);
+  }
+
+  for (i = 1; i <= n_floats; i++) {
+    sprintf(&(format[ip]), "%%%d.2f", ow_format);
+    ip = strlen(format);
+  }
 }
 
 /***************************************************************************/
-void IMB_make_line(int li_len)
+void IMB_make_line(int line_len)
 /*
 
-                      
-                      Prints an underline
-                      
+
+   Prints an underline
 
 
-Input variables: 
 
--li_len               (type int)                      
-                      Length of underline
-                      
+   Input variables:
+
+   -line_len               (type int)
+   Length of underline
+
 
 
 */
 {
-    int i;
-    char* char_line = "-";
-    fprintf(unit,"#");
+  int i;
+  char *char_line = "-";
+  fprintf(unit, "#");
 
-    for( i=1;i<li_len*ow_format; i++ )
-    {
-	fprintf(unit,"%s",char_line);
-    }
-    fprintf(unit,"\n");	
+  for (i = 1; i < line_len * ow_format; i++) {
+    fprintf(unit, "%s", char_line);
+  }
+  fprintf(unit, "\n");
 }
 
 /***************************************************************************/
 /* New function for IMB_3.0 */
-void IMB_help()
-{
-    fflush(stderr);
-    fflush(unit);
+void IMB_help() {
+  fflush(stderr);
+  fflush(unit);
 
-    fprintf(unit,"\nCalling sequence (command line will be repeated in Output table!):\n\n");
+  fprintf(unit, "\nCalling sequence (command line will be repeated in Output "
+                "table!):\n\n");
 
 #ifdef MPI1
-    fprintf(unit,"\nIMB-MPI1    [-h{elp}]\n");
+  fprintf(unit, "\nIMB-MPI1       [-h{elp}]\n");
 #elif defined(EXT)
-    fprintf(unit,"\nIMB-EXT     [-h{elp}]\n");
-#elif defined (MPIIO)
-    fprintf(unit,"\nIMB-IO      [-h{elp}]\n");
+  fprintf(unit, "\nIMB-EXT        [-h{elp}]\n");
+#elif defined(MPIIO)
+  fprintf(unit, "\nIMB-IO         [-h{elp}]\n");
 #endif
 
-/* IMB 3.1 << */
-/* Update calling sequence */
-/* >> IMB 3.1  */
-    fprintf(unit,
-	    "[-npmin     <NPmin>]\n"
-            "[-multi     <MultiMode>]\n"
-            "[-off_cache <cache_size[,cache_line_size]>\n"
-            "[-iter      <msgspersample[,overall_vol[,msgs_nonaggr]]>\n"
-            "[-time      <max_runtime per sample>]\n"
-            "[-mem       <max. per process memory for overall message buffers>]\n"
-            "[-msglen    <Lengths_file>]\n"
-            "[-map       <PxQ>]\n"
-            "[-input     <filename>]\n"
-            "[benchmark1 [,benchmark2 [,...]]]\n"
-            "[-include   [benchmark1 [,benchmark2 [,...]]]\n"
-            "[-exclude   [benchmark1 [,benchmark2 [,...]]]\n"
-	    "[-msglog	 <[min_msglog]:max_msglog>\n"
-	    "\n"
-	    "where \n"
-	    "\n"
-	    "- h ( or help) just provides basic help \n"
-	    "(if active, all other arguments are ignored)\n"
-	    "\n"
-	    "- npmin\n\n"
-	    "the argumaent after npmin is NPmin, \n"
-	    "the minimum number of processes to run on\n"
-	    "(then if IMB is started on NP processes, the process numbers \n"
-	    "NPmin, 2*NPmin, ... ,2^k * NPmin < NP, NP are used)\n"
-	    ">>>\n"
-	    "to run on just NP processes, run IMB on NP and select -npmin NP\n"
-	    "<<<\n"
-	    "default: \n"
-	    "NPmin=2\n"
-	    "\n");
+  /* IMB 3.1 << */
+  /* Update calling sequence */
+  /* >> IMB 3.1  */
+  fprintf(
+      unit,
+      "[-npmin        <NPmin>]\n"
+      "[-multi        <MultiMode>]\n"
+      "[-off_cache    <cache_size[,cache_line_size]>\n"
+      "[-iter         "
+      "<msgspersample[,overall_vol[,msgs_nonaggr[,iter_policy]]]>\n"
+      "[-iter_policy  <iter_policy>]\n"
+      "[-time         <max_runtime per sample>]\n"
+      "[-mem          <max. per process memory for overall message buffers>]\n"
+      "[-msglen       <Lengths_file>]\n"
+      "[-map          <PxQ>]\n"
+      "[-input        <filename>]\n"
+      "[benchmark1    [,benchmark2 [,...]]]\n"
+      "[-include      [benchmark1 [,benchmark2 [,...]]]\n"
+      "[-exclude      [benchmark1 [,benchmark2 [,...]]]\n"
+      "[-msglog       <[min_msglog]:max_msglog>]\n"
+#if (defined MPI1 || defined NBC)
+      "[-root_shift   <on or off>]\n"
+      "[-sync         <on or off>]\n"
+#endif
+      "\n"
+      "where \n"
+      "\n"
+      "- h ( or help) just provides basic help \n"
+      "(if active, all other arguments are ignored)\n"
+      "\n"
+      "- npmin\n\n"
+      "the argumaent after npmin is NPmin, \n"
+      "the minimum number of processes to run on\n"
+      "(then if IMB is started on NP processes, the process numbers \n"
+      "NPmin, 2*NPmin, ... ,2^k * NPmin < NP, NP are used)\n"
+      ">>>\n"
+      "to run on just NP processes, run IMB on NP and select -npmin NP\n"
+      "<<<\n"
+      "default: \n"
+      "NPmin=2\n"
+      "\n");
 #ifdef MPIIO
-    fprintf(unit,
-	    "-off_cache \n\n"
-	    "no effect for IMB-IO (only IMB-MPI1, IMB-EXT) \n"
-	    "\n");
+  fprintf(unit, "-off_cache \n\n"
+                "no effect for IMB-IO (only IMB-MPI1, IMB-EXT) \n"
+                "\n");
 #else
-    fprintf(unit,
-	    "- off_cache \n"
-	    "\n"
-	    "the argument after off_cache can be either 1 single number (cache_size),  \n"
-	    "or 2 comma separated numbers (cache_size,cache_line_size), or just -1 \n"
-	    "\n"
-	    "By default, without this flag, the communications buffer is  \n"
-	    "the same within all repetitions of one message size sample;   \n"
-	    "most likely, cache reusage is yielded and thus throughput results   \n"
-	    "that might be non realistic.    \n"
-	    "\n"
-	    "With -off_cache, it is attempted to avoid cache reusage.    \n"
-	    "cache_size is a float for an upper bound of the size of the last level cache in MBytes \n"
-	    "cache_line_size is assumed to be the size (Bytes) of a last level cache line  \n"
-	    "(can be an upper estimate).  \n"
-	    "The sent/recv'd data are stored in buffers of size ~ 2 x MAX( cache_size, message_size );  \n"
-	    "when repetitively using messages of a particular size, their addresses are advanced within those  \n"
-	    "buffers so that a single message is at least 2 cache lines after the end of the previous message.  \n"
-	    "Only when those buffers have been marched through (eventually), they will re-used from the beginning.  \n"
-	    "\n"
-	    "A cache_size and a cache_line_size are assumed as statically defined    \n"
-	    "in  => IMB_mem_info.h; these are used when -off_cache -1 is entered  \n"
-	    "\n"
-	    "remark: -off_cache is effective for IMB-MPI1, IMB-EXT, but not IMB-IO  \n"
-	    "\n"
-	    "examples  \n"
-	    "-off_cache -1 (use defaults of IMB_mem_info.h);  \n"
-	    "-off_cache 2.5 (2.5 MB last level cache, default line size);  \n"
-	    "-off_cache 16,128 (16 MB last level cache, line size 128);  \n"
-	    "\n"
-	    "NOTE: the off_cache mode might also be influenced by eventual internal  \n"
-	    "caching with the MPI library. This could make the interpretation \n"
-	    "intricate.  \n"
-	    "\n"
-	    "default: \n"
-	    "no cache control, data likely to come out of cache most of the time \n"
-	    "\n");
+  fprintf(
+      unit,
+      "- off_cache \n"
+      "\n"
+      "the argument after off_cache can be either 1 single number "
+      "(cache_size),  \n"
+      "or 2 comma separated numbers (cache_size,cache_line_size), or just -1 \n"
+      "\n"
+      "By default, without this flag, the communications buffer is  \n"
+      "the same within all repetitions of one message size sample;   \n"
+      "most likely, cache reusage is yielded and thus throughput results   \n"
+      "that might be non realistic.    \n"
+      "\n"
+      "With -off_cache, it is attempted to avoid cache reusage.    \n"
+      "cache_size is a float for an upper bound of the size of the last level "
+      "cache in MBytes \n"
+      "cache_line_size is assumed to be the size (Bytes) of a last level cache "
+      "line  \n"
+      "(can be an upper estimate).  \n"
+      "The sent/recv'd data are stored in buffers of size ~ 2 x MAX( "
+      "cache_size, message_size );  \n"
+      "when repetitively using messages of a particular size, their addresses "
+      "are advanced within those  \n"
+      "buffers so that a single message is at least 2 cache lines after the "
+      "end of the previous message.  \n"
+      "Only when those buffers have been marched through (eventually), they "
+      "will re-used from the beginning.  \n"
+      "\n"
+      "A cache_size and a cache_line_size are assumed as statically defined    "
+      "\n"
+      "in  => IMB_mem_info.h; these are used when -off_cache -1 is entered  \n"
+      "\n"
+      "remark: -off_cache is effective for IMB-MPI1, IMB-EXT, but not IMB-IO  "
+      "\n"
+      "\n"
+      "examples  \n"
+      "-off_cache -1 (use defaults of IMB_mem_info.h);  \n"
+      "-off_cache 2.5 (2.5 MB last level cache, default line size);  \n"
+      "-off_cache 16,128 (16 MB last level cache, line size 128);  \n"
+      "\n"
+      "NOTE: the off_cache mode might also be influenced by eventual internal  "
+      "\n"
+      "caching with the MPI library. This could make the interpretation \n"
+      "intricate.  \n"
+      "\n"
+      "default: \n"
+      "no cache control, data likely to come out of cache most of the time \n"
+      "\n");
 #endif
-	fprintf(unit,
-		"- iter \n\n"
-		"the argument after -iter can be 1 single, 2 comma separated, or 3 comma separated \n"
-		"integer numbers, which override the defaults \n"
-		"MSGSPERSAMPLE, OVERALL_VOL, MSGS_NONAGGR of =>IMB_settings.h \n"
-		"examples \n"
-		"-iter 2000        (override MSGSPERSAMPLE by value 2000) \n"
-		"-iter 1000,100    (override OVERALL_VOL by 100) \n"
-		"-iter 1000,40,150 (override MSGS_NONAGGR by 150) \n"
-		"\n"
-		"\n"
-		"default: \n"
-		"iteration control through parameters MSGSPERSAMPLE,OVERALL_VOL,MSGS_NONAGGR => IMB_settings.h \n"
-		"\n"
-		"NOTE: !! New in versions from IMB 3.2 on !!  \n"
-		"the iter selection is overridden by a dynamic selection that is a new default in \n"
-		"IMB 3.2: when a maximum run time (per sample) is expected to be exceeded, the \n"
-		"iteration number will be cut down; see -time flag  \n"
-		"\n"
-		"- time\n\n"
-		"the argument after -time is a float, specifying that \n"
-		"a benchmark will run at most that many seconds per message size \n"
-		"the combination with the -iter flag or its defaults is so that always \n"
-		"the maximum number of repetitions is chosen that fulfills all restrictions \n"
-		"example \n"
-		"-time 0.150       (a benchmark will (roughly) run at most 150 milli seconds per message size, iff\n"
-		"the default (or -iter selected) number of repetitions would take longer than that) \n"
-		"\n"
-		"remark: per sample, the rough number of repetitions to fulfill the -time request \n"
-		"is estimated in preparatory runs that use ~ 1 second overhead \n"
-		"\n"
-		"default: \n"
-		"A fixed time limit SECS_PER_SAMPLE =>IMB_settings.h; currently set to 10  \n"
-		"(new default in IMB_3.2) \n"
-		"\n"
-		"- mem\n\n"
-		"the argument after -mem is a float, specifying that \n"
-		"at most that many GBytes are allocated per process for the message buffers \n"
-		"if the size is exceeded, a warning will be output, stating how much memory \n"
-		"would have been necessary, but the overall run is not interrupted \n"
-		"example \n"
-		"-mem 0.2         (restrict memory for message buffers to 200 MBytes per process) \n"
-		"\n"
-		"default: \n"
-		"the memory is restricted by MAX_MEM_USAGE => IMB_mem_info.h \n"
-		"\n"
-		"- map\n\n"
-		"the argument after -map is PxQ, P,Q are integer numbers with P*Q <= NP\n"
-		"enter PxQ with the 2 numbers separated by letter \"x\" and no blancs\n"
-		"the basic communicator is set up as P by Q process grid\n"
-		"\n"
-		"if, e.g., one runs on N nodes of X processors each, and inserts\n"
-		"P=X, Q=N, then the numbering of processes is \"inter node first\"\n"
-		"running PingPong with P=X, Q=2 would measure inter-node performance\n"
-		"(assuming MPI default would apply 'normal' mapping, i.e. fill nodes\n"
-		"first priority) \n"
-		"\n"
-		"default: \n"
-		"Q=1\n"
-		"\n"
-		"- multi\n\n"
-		"the argument after -multi is MultiMode (0 or 1)\n"
-		"\n"
-		"if -multi is selected, running the N process version of a benchmark\n"
-		"on NP overall, means running on (NP/N) simultaneous groups of N each.\n"
-		"\n"
-		"MultiMode only controls default (0) or extensive (1) output charts.\n"
-		"0: only lowest performance groups is output\n"
-		"1: all groups are output\n"
-		"\n"
-		"default: \n"
-		"multi off\n"
-		"\n"
-		"- msglen\n\n"
-		"the argument after -msglen is a lengths_file, an ASCII file, containing any set of nonnegative\n"
-		"message lengths, 1 per line\n"
-		"\n"
-		"default: \n"
-		"no lengths_file, lengths defined by settings.h, settings_io.h\n"
-		"\n"
-		"- input\n\n"
-		"the argument after -input is a filename is any text file containing, line by line, benchmark names\n"
-		"facilitates running particular benchmarks as compared to using the\n"
-		"command line.\n"
-		"default: \n"
-		"no input file exists\n"
-		"\n"
-		"- include\n\n"
-		"the argument after -include  is one or more benchmark names separated by spaces\n"
-		"\n"
-		"- exclude\n\n"
-		"the argument after -exclude  is one or more benchmark names separated by spaces\n"
-		"\n"
-		"\n"
-		"-msglog\n\n"
-		"the argument after -msglog min:max, min and max are positive integer numbers, min<max\n"
-		"where min is power of 2 so that second smallest data transfer size is max(unit,2^min)\n"
-		"(the smallest always being 0), where unit = sizeof(float) for reductions, unit = 1 else\n"
-		"max is power of 2 so that 2^max is largest messages size, max must be less than 31"
-		"\n"
-		"\n"
-		"- benchmarkX is (in arbitrary lower/upper case spelling)\n"
-		"\n");
+  fprintf(
+      unit,
+      "- iter \n\n"
+      "the argument after -iter can contain from 1 to 4 comma separated "
+      "values\n"
+      "3 integer numbers override the defaults \n"
+      "MSGSPERSAMPLE, OVERALL_VOL, MSGS_NONAGGR of =>IMB_settings.h\n"
+      "and 1 string value overrides the default ITER_POLICY of => "
+      "IMB_settings.h\n"
+      "examples \n"
+      "-iter 2000        (override MSGSPERSAMPLE by value 2000) \n"
+      "-iter 1000,100    (override OVERALL_VOL by 100) \n"
+      "-iter 1000,40,150 (override MSGS_NONAGGR by 150) \n"
+      "\n"
+      "\n"
+      "default: \n"
+      "iteration control through parameters "
+      "MSGSPERSAMPLE,OVERALL_VOL,MSGS_NONAGGR,ITER_POLICY => IMB_settings.h \n"
+      "\n"
+      "NOTE: !! New in versions from IMB 3.2 on !!  \n"
+      "the iter selection is overridden by a dynamic selection that is a new "
+      "default in \n"
+      "IMB 3.2: when a maximum run time (per sample) is expected to be "
+      "exceeded, the \n"
+      "iteration number will be cut down; see -time flag  \n"
+      "\n"
+      "- iter_policy\n"
+      "\n"
+      "the argument after -iter_policy is a one from possible strings,\n"
+      "specifying that policy will be used for auto iteration control:\n"
+      "dynamic,multiple_np,auto,off\n"
+      "example \n"
+      "-iter_policy auto\n"
+      "default:\n"
+      "iteration control through parameter ITER_POLICY => IMB_settings.h \n"
+      "\n"
+      "- time\n"
+      "\n"
+      "the argument after -time is a float, specifying that \n"
+      "a benchmark will run at most that many seconds per message size \n"
+      "the combination with the -iter flag or its defaults is so that always \n"
+      "the maximum number of repetitions is chosen that fulfills all "
+      "restrictions \n"
+      "example \n"
+      "-time 0.150       (a benchmark will (roughly) run at most 150 milli "
+      "seconds per message size, iff\n"
+      "the default (or -iter selected) number of repetitions would take longer "
+      "than that) \n"
+      "\n"
+      "remark: per sample, the rough number of repetitions to fulfill the "
+      "-time request \n"
+      "is estimated in preparatory runs that use ~ 1 second overhead \n"
+      "\n"
+      "default: \n"
+      "A fixed time limit SECS_PER_SAMPLE =>IMB_settings.h; currently set to "
+      "10  \n"
+      "(new default in IMB_3.2) \n"
+      "\n"
+      "- mem\n\n"
+      "the argument after -mem is a float, specifying that \n"
+      "at most that many GBytes are allocated per process for the message "
+      "buffers \n"
+      "if the size is exceeded, a warning will be output, stating how much "
+      "memory \n"
+      "would have been necessary, but the overall run is not interrupted \n"
+      "example \n"
+      "-mem 0.2         (restrict memory for message buffers to 200 MBytes per "
+      "process) \n"
+      "\n"
+      "default: \n"
+      "the memory is restricted by MAX_MEM_USAGE => IMB_mem_info.h \n"
+      "\n"
+      "- map\n\n"
+      "the argument after -map is PxQ, P,Q are integer numbers with P*Q <= NP\n"
+      "enter PxQ with the 2 numbers separated by letter \"x\" and no blancs\n"
+      "the basic communicator is set up as P by Q process grid\n"
+      "\n"
+      "if, e.g., one runs on N nodes of X processors each, and inserts\n"
+      "P=X, Q=N, then the numbering of processes is \"inter node first\"\n"
+      "running PingPong with P=X, Q=2 would measure inter-node performance\n"
+      "(assuming MPI default would apply 'normal' mapping, i.e. fill nodes\n"
+      "first priority) \n"
+      "\n"
+      "default: \n"
+      "Q=1\n"
+      "\n"
+      "- multi\n\n"
+      "the argument after -multi is MultiMode (0 or 1)\n"
+      "\n"
+      "if -multi is selected, running the N process version of a benchmark\n"
+      "on NP overall, means running on (NP/N) simultaneous groups of N each.\n"
+      "\n"
+      "MultiMode only controls default (0) or extensive (1) output charts.\n"
+      "0: only lowest performance groups is output\n"
+      "1: all groups are output\n"
+      "\n"
+      "default: \n"
+      "multi off\n"
+      "\n"
+      "- msglen\n\n"
+      "the argument after -msglen is a lengths_file, an ASCII file, containing "
+      "any set of nonnegative\n"
+      "message lengths, 1 per line\n"
+      "\n"
+      "default: \n"
+      "no lengths_file, lengths defined by settings.h, settings_io.h\n"
+      "\n"
+      "- input\n\n"
+      "the argument after -input is a filename is any text file containing, "
+      "line by line, benchmark names\n"
+      "facilitates running particular benchmarks as compared to using the\n"
+      "command line.\n"
+      "default: \n"
+      "no input file exists\n"
+      "\n"
+      "- include\n\n"
+      "the argument after -include  is one or more benchmark names separated "
+      "by spaces\n"
+      "\n"
+      "- exclude\n\n"
+      "the argument after -exclude  is one or more benchmark names separated "
+      "by spaces\n"
+      "\n"
+      "\n"
+      "-msglog\n\n"
+      "the argument after -msglog min:max, min and max are positive integer "
+      "numbers, min<max\n"
+      "where min is power of 2 so that second smallest data transfer size is "
+      "max(unit,2^min)\n"
+      "(the smallest always being 0), where unit = sizeof(float) for "
+      "reductions, unit = 1 else\n"
+      "max is power of 2 so that 2^max is largest messages size, max must be "
+      "less than 31"
+      "\n\n"
+#if (defined MPI1 || defined NBC)
+      "-root_shift\n\n"
+      "controls root change at each iteration step for certain collective "
+      "benchmarks,\n"
+      "possible argument values are on (1|enable|yes) or off (0|disable|no)\n"
+      "default:\n"
+      "off\n"
+      "\n"
+      "-sync\n\n"
+      "controls whether all processes are syncronized at each iteration step "
+      "in collective benchmarks,\n"
+      "possible argument values are on (1|enable|yes) or off (0|disable|no)\n"
+      "default:\n"
+      "on\n"
+      "\n"
+      "\n"
+#endif
+      "- benchmarkX is (in arbitrary lower/upper case spelling)\n"
+      "\n");
 #ifdef MPI1
-	fprintf(unit,
-		"PingPongSpecificSource\n"
-		"PingPingSpecificSource\n"
-		"PingPing\n"
-		"PingPong\n"
-		"PingPing\n"
-		"Sendrecv\n"
-		"Exchange\n"
-		"Bcast\n"
-		"Allgather\n"
-		"Allgatherv\n"
-		"Gather\n"
-		"Gatherv\n"
-		"Scatter\n"
-		"Scatterv\n"
-		"Alltoall\n"
-		"Alltoallv\n"
-		"Reduce\n"
-		"Reduce_scatter\n"
-		"Allreduce\n"
-		"Barrier\n"
-		"\n");
+  fprintf(unit, "PingPongSpecificSource\n"
+                "PingPingSpecificSource\n"
+                "PingPing\n"
+                "PingPong\n"
+                "Sendrecv\n"
+                "Exchange\n"
+                "Bcast\n"
+                "Allgather\n"
+                "Allgatherv\n"
+                "Gather\n"
+                "Gatherv\n"
+                "Scatter\n"
+                "Scatterv\n"
+                "Alltoall\n"
+                "Alltoallv\n"
+                "Reduce\n"
+                "Reduce_scatter\n"
+                "Allreduce\n"
+                "Barrier\n"
+                "Uniband\n"
+                "Biband\n"
+                "\n");
 
 #elif defined(EXT)
-	fprintf(unit,
-		"Window\n"
-		"Unidir_Put\n"
-		"Unidir_Get\n"
-		"Bidir_Get\n"
-		"Bidir_Put\n"
-		"Accumulate\n"
-		"\n");
+  fprintf(unit, "Window\n"
+                "Unidir_Put\n"
+                "Unidir_Get\n"
+                "Bidir_Get\n"
+                "Bidir_Put\n"
+                "Accumulate\n"
+                "\n");
 
-#else
+#elif defined(MPIIO)
+  fprintf(unit, "S_Write_indv\n"
+                "S_Read_indv\n"
+                "S_Write_expl\n"
+                "S_Read_expl\n"
+                "P_Write_indv\n"
+                "P_Read_indv\n"
+                "P_Write_expl\n"
+                "P_Read_expl\n"
+                "P_Write_shared\n"
+                "P_Read_shared\n"
+                "P_Write_priv\n"
+                "P_Read_priv\n"
+                "C_Write_indv\n"
+                "C_Read_indv\n"
+                "C_Write_expl\n"
+                "C_Read_expl\n"
+                "C_Write_shared\n"
+                "C_Read_shared\n"
+                "\n");
 
-	fprintf(unit,
-		"S_Write_indv\n"
-		"S_Read_indv\n"
-		"S_Write_expl\n"
-		"S_Read_expl\n"
-		"P_Write_indv\n"
-		"P_Read_indv\n"
-		"P_Write_expl\n"
-		"P_Read_expl\n"
-		"P_Write_shared\n"
-		"P_Read_shared\n"
-		"P_Write_priv\n"
-		"P_Read_priv\n"
-		"C_Write_indv\n"
-		"C_Read_indv\n"
-		"C_Write_expl\n"
-		"C_Read_expl\n"
-		"C_Write_shared\n"
-		"C_Read_shared\n"
-		"\n");
+#elif defined(NBC)
+  fprintf(unit, "Ibcast\n"
+                "Ibcast_pure\n"
+                "Iallgather\n"
+                "Iallgather_pure\n"
+                "Iallgatherv\n"
+                "Iallgatherv_pure\n"
+                "Igather\n"
+                "Igather_pure\n"
+                "Igatherv\n"
+                "Igatherv_pure\n"
+                "Iscatter\n"
+                "Iscatter_pure\n"
+                "Iscatterv\n"
+                "Iscatterv_pure\n"
+                "Ialltoall\n"
+                "Ialltoall_pure\n"
+                "Ialltoallv\n"
+                "Ialltoallv_pure\n"
+                "Ireduce\n"
+                "Ireduce_pure\n"
+                "Ireduce_scatter\n"
+                "Ireduce_scatter_pure\n"
+                "Iallreduce\n"
+                "Iallreduce_pure\n"
+                "Ibarrier\n"
+                "Ibarrier_pure\n"
+                "\n");
 
+#elif defined(RMA)
+  fprintf(unit, "Unidir_put\n"
+                "Unidir_get\n"
+                "Bidir_put\n"
+                "Bidir_get\n"
+                "One_put_all\n"
+                "One_get_all\n"
+                "All_put_all\n"
+                "All_get_all\n"
+                "Put_local\n"
+                "Get_local\n"
+                "Put_all_local\n"
+                "Get_all_local\n"
+                "Exchange_put\n"
+                "Exchange_get\n"
+                "Accumulate\n"
+                "Get_accumulate\n"
+                "Fetch_and_op\n"
+                "Compare_and_swap\n"
+                "Truly_passive_put\n"
+                "\n");
 #endif
-
 }

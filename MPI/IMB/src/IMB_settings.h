@@ -1,6 +1,6 @@
 /*****************************************************************************
  *                                                                           *
- * Copyright (c) 2003-2011 Intel Corporation.                                *
+ * Copyright (c) 2003-2016 Intel Corporation.                                *
  * All rights reserved.                                                      *
  *                                                                           *
  *****************************************************************************
@@ -14,7 +14,7 @@ contained in above mentioned license.
 Use of the name and trademark "Intel(R) MPI Benchmarks" is allowed ONLY
 within the regulations of the "License for Use of "Intel(R) MPI
 Benchmarks" Name and Trademark" as reproduced in the file
-"use-of-trademark-license.txt" in the "license" subdirectory. 
+"use-of-trademark-license.txt" in the "license" subdirectory.
 
 THE PROGRAM IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OR
 CONDITIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED INCLUDING, WITHOUT
@@ -34,7 +34,7 @@ WITHOUT LIMITATION LOST PROFITS), HOWEVER CAUSED AND ON ANY THEORY OF
 LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OR
 DISTRIBUTION OF THE PROGRAM OR THE EXERCISE OF ANY RIGHTS GRANTED
-HEREUNDER, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. 
+HEREUNDER, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 EXPORT LAWS: THIS LICENSE ADDS NO RESTRICTIONS TO THE EXPORT LAWS OF
 YOUR JURISDICTION. It is licensee's responsibility to comply with any
@@ -50,18 +50,14 @@ goods and services.
 
 For more documentation than found here, see
 
-[1] doc/ReadMe_IMB.txt 
+[1] doc/ReadMe_IMB.txt
 
 [2] Intel (R) MPI Benchmarks
     Users Guide and Methodology Description
-    In 
+    In
     doc/IMB_Users_Guide.pdf
-    
+
  ***************************************************************************/
-
-
-
-
 
 #ifndef _SETTINGS_H
 #define _SETTINGS_H
@@ -93,7 +89,7 @@ IMB. These are
 - MSGS_NONAGGR  (     "      for non aggregate benchmarks)
 
 - OVERALL_VOL   (for all sizes < OVERALL_VOL, the repetition count is eventually
-                reduced so that not more than OVERALL_VOL bytes overall are 
+                reduced so that not more than OVERALL_VOL bytes overall are
                 processed.
                 This avoids unnecessary repetitions for large message sizes.
 
@@ -103,7 +99,7 @@ IMB. These are
 
                 min(MSGSPERSAMPLE,max(1,OVERALL_VOL/X))    (X>0)
 
-                NOTE: OVERALL_VOL does NOT restrict the size of the max. 
+                NOTE: OVERALL_VOL does NOT restrict the size of the max.
                 data transfer. 2^MAXMSGLOG is the largest size, independent
                 of OVERALL_VOL
                )
@@ -120,7 +116,7 @@ IMB. These are
                 CPU seconds (as float) to run concurrent with nonblocking
                 benchmarks
 
-*/ 
+*/
 
 #ifdef IMB_OPTIONAL
 
@@ -133,14 +129,15 @@ DON'T change anything below here !!
 #define MINMSGLOG 0
 #define MAXMSGLOG 22
 
+#define ITER_POLICY imode_dynamic
 #define MSGSPERSAMPLE 1000
-#define MSGS_NONAGGR   100
-#define OVERALL_VOL 40*1048576
+#define MSGS_NONAGGR 100
+#define OVERALL_VOL (40 * 1048576)
 
 #define SECS_PER_SAMPLE 10
 
 #define N_WARMUP 2
-#define N_BARR   2
+#define N_BARR 2
 
 #ifdef CHECK
 #define TARGET_CPU_SECS 0.001
@@ -156,17 +153,19 @@ DON'T change anything below here !!
 
 #ifdef BUFFERS_INT
 
-typedef int assign_type ;
-#define BUF_VALUE(rank,i)  10000000*(1+rank)+i%10000000
+typedef int assign_type;
+#define BUF_VALUE(rank, i) 10000000 * (1 + rank) + i % 10000000
 
 #endif
 
 #ifdef BUFFERS_FLOAT
 
-typedef float assign_type ;
-#define BUF_VALUE(rank,i)  (0.1*((rank)+1)+(float)((i)))
+typedef float assign_type;
+#define BUF_VALUE(rank, i) (0.1 * ((rank) + 1) + (float)((i)))
 
 #endif
 
+/* maximum window size of messages*/
+#define MAX_WIN_SIZE 64
 
 #endif

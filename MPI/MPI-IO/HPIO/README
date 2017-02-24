@@ -1,0 +1,178 @@
+Program: High-performance I/O (HPIO) benchmark
+
+Installation: To use, simply edit the Makefile to point to the right
+MPI installation dirctory.  Save the Makefile and exit.  Then type
+'make'.  This will produce two binaries: hpio and hpio-small.  The
+hpio-small executable uses smaller test cases when compared to the
+hpio executable.
+
+Use: 'mpirun -np 1 ./hpio -h' gives a good list of options to use.
+
+Quick performance test: 'mpirun -np <number of processes> ./hpio-small
+-n 1111 -m 11 -b 111' will run a quick test of your filesystem through
+MPI-IO for performance.
+
+Quick correctness test: 'mpirun -np <number of processes> ./hpio-small
+-v 2' will run a quick test of your filesystem through MPI-IO for
+correctness.
+
+Essential Test Parameters:
+-Generally, you need to specify at least -n, -m, and a test option for
+the test (performance or bandwidth) to be performed.  If not, errors
+inform you on which parameters are missing.
+-Noncontiguous Test Array (-n)
+ 1000 -  c (memory) -  c (file) test
+ 0100 -  c (memory) - nc (file) test
+ 0010 - nc (memory) -  c (file) test
+ 0010 - nc (memory) - nc (file) test
+-I/O Methods (-m)
+ 10 - Individual I/O
+ 01 - Collective I/O
+
+Performance Tests:
+-Default Bandwidth Test Array (-b)
+ Look at how well the system performs when varying region count,
+ region size, and region spacing.
+-Single Bandwidth Test (-B)
+ Look at how well the system performs with set parameters (region
+ count, region size and region spacing).
+
+Correctness Tests:
+-Default Check Test Array (-x)
+ Check an array of correctness tests (currently only 2).  "Human"
+ tests have been verified by hand.  The correct output
+ of "defined" tests is determined at runtime by the MPI implementation.
+
+-Single Check Test (-X)
+ Check system correctness with set parameters (region 
+ count, region size, and region spacing) and a particular correctness test.
+
+Estimate Space Tests:
+-Estimate required space (-E)
+ See how much data is required for your test
+
+Basic Testing Methodology (per repetition):
+-Open a file (collective or individual)
+ (Only on the first repetition if same file = 1)
+-Write/read an interleaved access pattern from the file (reading requires 
+ that the file is already in existance - i.e. was written before 
+ with this test or can be tested with the -o 11 write/read option)
+-Sync (can be turned on or off)
+-Close a file
+ (Only on the last repetition if same file = 1)
+
+-Note: If same file = 1, reads will likely be cached if repetitions
+ are greater than 1.
+
+-Note: Persistent File Realm (PFR) will not perform well unless the
+ same file mode = 1.  This allows the aggregators not to flush their
+ buffer caches until the file is closed at the end of testing (last
+ repetition).  Also PFR is still experimental code and not enabled by 
+ default.
+
+Basic Access Pattern: This test will create a contiguous or
+noncontiguous access pattern and perform I/O.  The count of regions
+used can be specifying during runtime (-c).  <cs> and <fs> are both
+specified at runtime (-p).
+
+Any number = A contiguous data region, (specified during runtime with -s)
+<cs>        = client spacing between the data regions.
+<fs>        = file spacing between the data regions.
+
+A simple example of two processes using the nc-nc pattern is shown
+below.
+
+  Client 0: Memory Buffer
+  0<cs>1<cs>2
+
+  Client 1: Memory Buffer
+  5<cs>6<cs>7
+
+  File:
+  0<fs>5<fs>1<fs>6<fs>2<fs>7
+
+If the pattern was nc-c, then we would have 
+
+  Client 0: Memory Buffer
+  0<cs>1<cs>2
+
+  Client 1: Memory Buffer
+  5<cs>6<cs>7
+
+  File:
+  012567
+
+If the pattern was c-nc, then we would have 
+
+  Client 0: Memory Buffer
+  012
+
+  Client 1: Memory Buffer
+  567
+
+  File:
+  0<fs>5<fs>1<fs>6<fs>2<fs>7
+
+If the pattern was c-c, then we would have 
+
+  Client 0: Memory Buffer
+  012
+
+  Client 1: Memory Buffer
+  567
+
+  File:
+  012567
+
+Averaging method: 
+Each process knows the aggregate I/O time of each repetition with
+respect to total I/O time (I/O time + synchronization time).  When
+repetitions are disgarded, it is based on the the aggregate I/O time.
+
+Verification methods:
+
+(1) - Verify data only.  Write verification is handled by each process
+reading back the data it wrote into a buffer.  The buffer is checked
+against known values.  Read verification is handled by each process
+seperately as the read buffer is packed into another buffer and check
+for correctness against known values.  
+
+(2) - Verify entire file/data array.  For write verification, the
+entire file is read into memory and compared against known values.
+For read verification, the entire read buffer is compared against
+known values.
+
+Note: For "human" check tests, a user defined buffer is checked
+against as well.
+
+Output:
+
+Output is displayed at runtime to the console.  It is allow piped in
+two versions (minimal and Microsoft Excel-ready) to an output
+directory of your choice.  The output files in the output directory
+are timestamped as part of their name.  The have header information,
+general test information, the minimum results and the Microsoft
+Excel-ready results.
+
+Debugging:
+
+Set the DEBUG_MASK environment variable to a comma delimited list
+choosing from the options:
+
+correct, correct_info, filenames, resume, parse_args, io, average,
+multiple_processes, and human
+
+i.e. export DEBUG_MASK="io,human"
+
+Problems:
+
+mpich2-1.0.3 and mpich2-1.0.4 will return an error since there is a
+bug in the MPI_Unpack() code.  This has been resolved by mpich2-1.0.5.
+Additionally, mpich-1.2.7p1 and prior may have an error with the
+MPI_Unpack() code as well.  ANL feels the best solution is to upgrade
+to mpich2-1.0.5.
+
+Additionally, testing with the -D 1 option will not correctly check
+for any human_tests.  -D 0 testing will work perfectly fine.  One
+serious problem is what the correct output of a struct datatype which
+has an underlying datatype with an MPI_LB != 0.
