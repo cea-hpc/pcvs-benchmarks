@@ -75,7 +75,7 @@ sub list_configs
 sub list_avail_directories
 {
 	opendir(my $dirlist, "$srcdir");
-	return grep { -d "$srcdir/$_" and !/^(build_scripts|$buildir|\..*)/} readdir($dirlist);
+	return grep { -d "$srcdir/$_" and !/^(build_scripts|\..*)/} readdir($dirlist);
 }
 
 sub print_help
@@ -347,14 +347,10 @@ sub configure_run
 	print "\n >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> BUILD STEP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
 	clean_path("$buildir/test_suite", 1);
 	print " * Building list_of_tests.xml\n";
-	#foreach my $path (@{ $configuration{'select'}})
-	#{
-		#my @xml_files = `find $path -name 'list_of_tests.xml'`; chomp @xml_files;
-		#foreach my $file (@xml_files)
-		#{
-			#push(@{$configuration{'selected_testlist'}}, $file);
-		#}
-	#}
+	foreach my $path (@{ $configuration{'select'}})
+	{
+		system("$internaldir/generation/gen_list_of_tests $path");
+	}
 }
 
 sub run
@@ -374,6 +370,7 @@ sub run
 	my $min_workert = "";
 	my $rc_on_fail = "";
 	my $user_testfiles ="";
+	my $test_files ="";
 
 	$nb_resources = $configuration{'cluster'}{'max_nodes'};
 	$nb_workers = $configuration{'validation'}{'nb_workers'};;
@@ -387,20 +384,21 @@ sub run
 	$maxjobt = "--maxt-job=$configuration{'validation'}{'job_meantime'}";
 	$max_workert = "--maxt-slave=$configuration{'validation'}{'worker_maxtime'}";
 	$min_workert = "--mint-slave=$configuration{'validation'}{'worker_mintime'}";
-	$rc_on_fail = "--expect-success" if ($configuration{'validation'}{'expect_success'});
+	$rc_on_fail = "--expect-success" if ($configuration{'validation'}{'expect-success'});
 	$user_testfiles = join(" ", @{$configuration{'user-testfiles'}}) if (exists $configuration{'user-testfiles'});
 
-	my $test_files = join(" ", @{ $configuration{'selected_testlist'} });
+	my @list = `find $buildir/test_suite/ -name 'list_of_tests.xml'`; chomp @list;
+	$test_files = join(" ", @list);
+
 	my $command = "$buildir/tmp/bin/jchronoss --nb-resources=$nb_resources --nb-slaves=$nb_workers --build=$buildir/tmp $run_w $compil_w $autokill $verbosity $policy $max_workert $min_workert $rc_on_fail $maxjobt $test_files $user_testfiles";
 
-	print($command);
-	system($command);
+	print($command."\n");
+	#system($command);
 	my $ret = $?;
 	if($ret ne 0 and $rc_on_fail)
 	{
 		print "Aborting Validation due to failed results (expect-success requirement)\n";
 		exit $ret;
-
 	}
 }
 
@@ -436,6 +434,7 @@ GetOptions (
 	"regen!",
 	"color|c",
 	"clean",
+	"expect-success",
 	"verbose:i",
 	"help"
 )  or die("Abort due to error(s) while parsing arguments (see --help)!\n");
@@ -478,7 +477,7 @@ my $validation_start = time();
 
 #create build directory and create a tee file if logging is enabled
 clean_path($buildir, 0);
-tee(STDOUT, '>', "$buildir/output.log") if ($configuration{'log'});
+tee(STDOUT, '>', "$buildir/output.log") if (!exists $configuration{'log'} || $configuration{'log'});
 
 build_current_configuration();
 
