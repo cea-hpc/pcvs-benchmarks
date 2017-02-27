@@ -1,0 +1,13 @@
+#!/bin/sh
+REQUIRE_OPENMP=true
+
+
+MPC_THREAD_LIST=ethread_mxn
+set_openmp_threads_list
+
+CFLAGS="${CFLAGS} -I ${PCVS_SOURCE_DIR}/OpenMP/MPC_OpenMP/topology/include ${PRIVATIZATION}"
+LDFLAGS="${LDFLAGS} -fopenmp -lhwloc "
+
+
+openmp_configuration
+

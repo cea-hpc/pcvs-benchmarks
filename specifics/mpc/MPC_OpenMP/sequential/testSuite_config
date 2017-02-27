@@ -1,0 +1,14 @@
+#!/bin/sh
+
+if [ -z "$OMP_NUM_THREADS" ] || [ $OMP_NUM_THREADS -eq 1 ] ;then
+  MPC_OPENMP_THREAD_LIST=$CLUSTER_MAX_CORES_PER_NODE
+else
+  MPC_OPENMP_THREAD_LIST=$OMP_NUM_THREADS
+fi
+
+#add privatization cflags
+CFLAGS="${CFLAGS} ${PRIVATIZATION}"
+
+#call existing simple configuration
+#single_configuration "omp01.c omp03.c omp05.c omp07.c omp09.c omp11.c omp02.c omp04.c omp06.c omp08.c omp10.c"
+openmp_configuration

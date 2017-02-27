@@ -1,0 +1,20 @@
+#!/bin/sh
+
+#call pre-defined configuration
+#multiple_configuration
+
+LIST_TESTS_NAME="hello_world breakpoint thread_local"
+
+for i in ${LIST_TESTS_NAME}
+do
+    common_insert_test "compile_$i" "0" "mpc_cc -g  ${PCVS_CSOURCE_DIR}/${i}.c  -o ${PCVS_CWORK_DIR}/executables/$i"
+done
+
+for exe in ${LIST_TESTS_NAME}
+do
+    helper_configuration_loop "test_${exe}" "--dbg=mpc-gdb --dbg_opt=\"--return-child-result --batch -x ${PCVS_CSOURCE_DIR}/$i.gdb\" ${PCVS_CWORK_DIR}/executables/${exe}" "compile_$i"
+
+done
+
+
+mkdir -p ${PCVS_CWORK_DIR}/executables/
