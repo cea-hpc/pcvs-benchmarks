@@ -124,7 +124,7 @@ Job* XMLJobParser::parseJob(xmlNodePtr location) {
 	string name = "", command, chain;
 	size_t nbResources = 1;
 	int rc = 0;
-	double time = -1;
+	double time = -1.0, delta = -1.0;
 	bool directly_selected = false;
 	vector<string*> vDeps;
 	vector<JobConstraint*> vConstraints;
@@ -142,6 +142,8 @@ Job* XMLJobParser::parseJob(xmlNodePtr location) {
 		rc = atoi(chain.c_str());
 	if ((chain = findChildNodeContent(location, (char*)"time").c_str()) != "")
 		time = atof(chain.c_str());
+	if ((chain = findChildNodeContent(location, (char*)"delta").c_str()) != "")
+		delta = atof(chain.c_str());
 
 	parseDeps(vDeps, location);
 	parseConstraints(vConstraints, location);
@@ -154,7 +156,7 @@ Job* XMLJobParser::parseJob(xmlNodePtr location) {
 	if(!filter->accept(name) && !directly_selected)
 		return NULL;
 	
-	return new Job(name, command, nbResources, rc, time , vDeps, vConstraints, nameFile);
+	return new Job(name, command, vDeps, vConstraints, nameFile, nbResources, rc, time, delta);
 }
 
 std::list<Job*>* XMLJobParser::parseJobsSuite(size_t *property) {

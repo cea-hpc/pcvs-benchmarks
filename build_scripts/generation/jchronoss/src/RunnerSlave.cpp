@@ -372,7 +372,7 @@ void RunnerSlave::launchWorkerThreadStart(Job* job)
 		curName = job->getName();
 	else curName = job->getShortName();
 
-	if (finalRC == job->getExpectedReturn())
+	if(job->isPassed(finalRC, time))
 		printLine(PREFIX_PASS, "%6d/%-6d (%6d) %8.2f   %s\n",job->getId(), jobMan->getNbJobs(), jobMan->getNbRemainingJobs(), job->getResult().getTime(), curName.c_str());
 	else 
 		printLine(PREFIX_FAIL, "%6d/%-6d (%6d) %8.2f   %s\n",job->getId(), jobMan->getNbJobs(), jobMan->getNbRemainingJobs(), job->getResult().getTime(), curName.c_str());

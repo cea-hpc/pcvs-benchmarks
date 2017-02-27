@@ -235,6 +235,7 @@ void OutputFormatJSON::appendPendingJob(Job* job, const char * tagname)
 	test["file"] = job->getReferentFilename() ;
 	test["returncode"] = (Json::Int)job->getExpectedReturn() ;
 	test["time"] = job->getExpectedTime() ;
+	test["delta"] = job->getDelta() ;
 	test["name"] = job->getName();
 
 	if(strcmp(tagname, "jobsExecutedList") == 0)

@@ -189,8 +189,8 @@ generate_by_xsl ${WEBVIEW_PATH}/webview/generated/main.html ${WEBVIEW_PATH}/webv
 cp ${WEBVIEW_PATH}/webview/generators/realtime.html ${WEBVIEW_PATH}/webview/generated/realtime.html
 cp ${WEBVIEW_PATH}/webview/generators/diff-main.html ${WEBVIEW_PATH}/webview/generated/diff-main.html
 
-if test -z $SOURCES_LIST; then
-	echo " * Website Skeleton Generated !";
+if test -z "$SOURCES_LIST"; then
+	echo "Website skeleton successfully generated."
 	exit 0;
 fi
 

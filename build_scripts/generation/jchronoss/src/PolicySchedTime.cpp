@@ -113,7 +113,8 @@ void SchedTimePolicy::fillingAlgo(Worker * cur, size_t maxIndice, size_t nbCurRe
 		for(list<Job*>::iterator it = currentJM[i].begin(); it != currentJM[i].end();){
 			Job * jcur = *it;
 			assert(jcur->getStatus() == NOT_RUN);
-			if(jcur->getExpectedTime() > tWorkerMax){
+			double jobTime = (jcur->getExpectedTime() < 0) ? JobConfiguration::DEFAULT_MAX_JOB_TIME : jcur->getExpectedTime(); 
+			if(jobTime > tWorkerMax){
 				printError("A job time is bigger than max time allowed to allocation.\n ERROR        : The \"Sched by Time\" won't schedule this job !", JE_LACK_TIM);
 			}
 
@@ -127,7 +128,7 @@ void SchedTimePolicy::fillingAlgo(Worker * cur, size_t maxIndice, size_t nbCurRe
 				continue;
 			}
 			cur->add(jcur);
-			currentSurface += (jcur->getNbResources() * jcur->getExpectedTime());
+			currentSurface += (jcur->getNbResources() * jobTime);
 			maxRequiredResources += jcur->getNbResources();
 
 			biggestJob = std::max(biggestJob, jcur->getNbResources());
@@ -175,7 +176,8 @@ void SchedTimePolicy::recomputeCurSurface(std::list<Job*>* currentJM, size_t nbL
 
 	for(size_t i = 0; i < nbLists ; i++){
 		for(list<Job*>::iterator it = currentJM[i].begin(); it != currentJM[i].end(); it++){
-			curJobManSurface += ((*it)->getExpectedTime() * (*it)->getNbResources());
+			double jobTime = ((*it)->getExpectedTime() < 0) ? JobConfiguration::DEFAULT_MAX_JOB_TIME : (*it)->getExpectedTime(); 
+			curJobManSurface += (jobTime * (*it)->getNbResources());
 		}
 	}
 }

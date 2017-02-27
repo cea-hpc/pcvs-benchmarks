@@ -111,6 +111,7 @@ void Worker::pushJobsInputFile(int nbRemain)
 			<< "\t<resources>"<< (*it)->getNbResources()<<"</resources>\n"
 			<< "\t<rc>" << (*it)->getExpectedReturn() << "</rc>\n"
 			<< "\t<time>" << (*it)->getExpectedTime() << "</time>\n"
+			<< "\t<delta>" << (*it)->getDelta() << "</delta>\n"
 			<< "\t<command>" << command << "</command>\n"
 			<< "</job>\n";
 	}
@@ -140,9 +141,11 @@ void Worker::pullJobsOutputFile()
 			}
 		}
 		assert(jobCur != NULL);
-		// some checks to do on objet read from file
-		if(jobCur->getExpectedReturn() == resCur->getFinalRC())
+		
+		if(jobCur->isPassed(resCur->getFinalRC(), resCur->getTime()))
+		{
 			jobCur->updateStatus(PASSED);
+		}
 		else{
 			jobCur->updateStatus(FAILED);
 		}

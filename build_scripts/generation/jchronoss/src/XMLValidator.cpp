@@ -65,6 +65,7 @@ const string XMLValidator::xsdJobsvalidation = " \
         <xs:element name=\"command\" type=\"xs:string\"/>\
         <xs:element name=\"rc\" type=\"xs:string\"/>\
         <xs:element name=\"time\" type=\"xs:decimal\"/>\
+        <xs:element name=\"delta\" type=\"xs:decimal\"/>\
         <xs:element name=\"resources\" type=\"xs:string\"/>\
         <xs:element name=\"dep\" type=\"xs:string\"/>\
         <xs:element name=\"constraint\" type=\"xs:string\"/>\
@@ -89,6 +90,7 @@ const string XMLValidator::xsdJobsvalidation = " \
                                 <xs:element ref=\"command\" minOccurs=\"1\" maxOccurs=\"1\"/>\
                                 <xs:element ref=\"rc\" minOccurs=\"0\" maxOccurs=\"1\"/>\
                                 <xs:element ref=\"time\" minOccurs=\"0\" maxOccurs=\"1\"/>\
+                                <xs:element ref=\"delta\" minOccurs=\"0\" maxOccurs=\"1\"/>\
                                 <xs:element ref=\"resources\" minOccurs=\"0\" maxOccurs=\"1\"/>\
                                 <xs:element ref=\"deps\" minOccurs=\"0\" maxOccurs=\"1\"/>\
                                 <xs:element ref=\"constraints\" minOccurs=\"0\" maxOccurs=\"1\"/>\

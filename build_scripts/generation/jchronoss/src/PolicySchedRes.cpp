@@ -70,7 +70,7 @@ void SchedResPolicy::fillingAlgo(Worker * cur, size_t maxIndice,
 				it = jobMan->delayJob(i, it);
 				continue;
 			}
-			time += jcur->getExpectedTime();
+			time += (jcur->getExpectedTime() < 0) ? JobConfiguration::DEFAULT_MAX_JOB_TIME : jcur->getExpectedTime();
 			cur->add(jcur);
 			it = jobMan->pickJob(i, it);	
 			nbJobs++;

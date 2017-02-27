@@ -296,7 +296,6 @@ void RunnerMaster::launchWorker ( Worker* cur ) {
 		// conditional options
 		if(config->job().isFake())
 			tab_args[cpt++] = (char*)"--fake";
-// 		if(config->job().getMaxTestTime() != JobConfiguration::DEFAULT_MAX_TEST_TIME)
 		execvp(tab_args[0], tab_args);
 		printError("A worker couln't be started ! ABORT\n", JE_EXEC_WRK);
 	}

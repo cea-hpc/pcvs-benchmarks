@@ -76,6 +76,7 @@ private:
 	size_t nbResources;                        ///< number of resources required by the job
 	int expectedReturnCode;                    ///< return code which means job is succeeded
 	double timer;                              ///< expected time for test (DEFAULT_MAX_TEST_TIME by default)
+	double delta;                              ///< Used for performance measurement.
 	std::vector<std::string*>vDepsNamesTab;    ///< deps names list (as string, used to resolve dependances later)
 	std::vector<Job*> vDeps;                   ///< job deps list
 	std::vector<JobConstraint*> vConstraints;  ///< job constraints list
@@ -110,7 +111,7 @@ public:
 	 * \param[in] constraints the list of constraints
 	 * \param[in] file the referent file where job have been extracted
 	 */
-	Job ( std::string name, std::string command, size_t nbRes, int rc, double time, std::vector< std::string* > deps, std::vector< JobConstraint* > constraints, std::string file);
+	Job ( std::string name, std::string command, std::vector< std::string* > deps, std::vector< JobConstraint* > constraints, std::string file, size_t nbRes = 1, int rc = 0, double time = 0.0, double delta = 0.0);
 	/// add a constraint to the current job
 	/**
 	 * add a constraint on the job.static size_t id; 
@@ -288,6 +289,20 @@ public:
 	 * \param[in] time the timer used to set
 	 */
 	void setExpectedTime(double time);
+	/// get the range of seconds around "time" the test is considered as success.
+	/**
+	 * \returns number of seconds as a double
+	 */
+	double getDelta() const;
+	/// evaluate if the current test is passed
+	/**
+	 * \param[in] rc the effective return code
+	 * \param[in] time the elasped time to result
+	 * \returns <b>True</b> if the test passed
+	 * \returns <b>False</b> otherwise.
+	 */
+	bool isPassed(int rc, double time) const;
+
 };
 
 #endif // JOB_H

@@ -316,8 +316,8 @@ void JobManager::pullJobsFromFiles () {
 	for(size_t i = 0; i < vFiles.size(); i++){
 		if(tabJobs[i] == NULL) continue;
 		for(list<Job*>::iterator it = tabJobs[i]->begin(); it != tabJobs[i]->end();){
-			if((*it)->getExpectedTime() == -1)
-				(*it)->setExpectedTime(config->job().getMaxJobTime());
+			//if((*it)->getExpectedTime() == -1)
+				//(*it)->setExpectedTime(config->job().getMaxJobTime());
 			addJob(*it);
 			cpt++;
 			it = tabJobs[i]->erase(it);
@@ -682,12 +682,13 @@ void JobManager::loadBackup(){
 			addJob(new Job(
 						jobsGraphList[index]["name"].asString(),
 						jobsGraphList[index]["command"].asString(),
+						depVec,
+						consVec,
+						jobsGraphList[index]["file"].asString(),
 						jobsGraphList[index]["nbResources"].asUInt(),
 						jobsGraphList[index]["returncode"].asInt(),
 						jobsGraphList[index]["time"].asFloat(),
-						depVec,
-						consVec,
-						jobsGraphList[index]["file"].asString()
+						jobsGraphList[index]["delta"].asFloat()
 				      ));
 		}
 	}
@@ -712,12 +713,13 @@ void JobManager::loadBackup(){
 			Job * cur = new Job(
 					jobsGraphList[index]["name"].asString(),
 					jobsGraphList[index]["command"].asString(),
+					depVec,
+					consVec,
+					jobsGraphList[index]["file"].asString(),
 					jobsGraphList[index]["nbResources"].asUInt(),
 					jobsGraphList[index]["returncode"].asInt(),
 					jobsGraphList[index]["time"].asFloat(),
-					depVec,
-					consVec,
-					jobsGraphList[index]["file"].asString()
+					jobsGraphList[index]["delta"].asFloat()
 					);
 			cur->updateStatus((JobStatus)jobsGraphList[index]["status"].asInt());
 			cur->addResult(

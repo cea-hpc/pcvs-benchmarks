@@ -46,8 +46,8 @@ size_t Job::id = 0;
 
 Job::Job() : status(NOT_RUN) {}
 
-Job::Job ( std::string name, std::string command, size_t nbRes,  int rc, double time, std::vector< std::string* > deps, std::vector< JobConstraint* > constraints, std::string file ) :
-	fullName(name), command(command), nbDeps(deps.size()), nbTries(0), nbResources(nbRes), expectedReturnCode(rc), timer(time), vDepsNamesTab(deps), vConstraints(constraints), status(NOT_RUN), result(NULL), referentFilename(file)
+Job::Job ( std::string name, std::string command, std::vector< std::string* > deps, std::vector< JobConstraint* > constraints, std::string file, size_t nbRes, int rc, double time, double delta ) :
+	fullName(name), command(command), nbDeps(deps.size()), nbTries(0), nbResources(nbRes), expectedReturnCode(rc), timer(time), delta(delta), vDepsNamesTab(deps), vConstraints(constraints), status(NOT_RUN), result(NULL), referentFilename(file)
 {
 	myId = ++id;
 	size_t ind = fullName.find_last_of(".");
@@ -106,6 +106,26 @@ void Job::addConstraint ( JobConstraint* constraint ) {
 
 void Job::addDependency ( Job* dep ) {
 	vDeps.push_back(dep);
+}
+
+double Job::getDelta() const
+{
+	return delta;
+}
+
+bool Job::isPassed(int rc, double time) const
+{
+	/* Evaluate the job :
+	 * 1 if return codes match
+	 * 2 if expected_time set, check if measured time <= expected_time + delta
+	 * Here, no detection if measured_time <= expected_time - delta
+	 */
+
+	cout << timer << " + " << delta << " == " << time << endl;
+	return expectedReturnCode == rc &&
+		(timer < 0 
+		 || delta < 0
+		|| timer + delta >= time);
 }
 
 const std::vector< JobConstraint* >& Job::getConstraints() const {
