@@ -13,7 +13,7 @@ my %configuration;
 my $srcdir;
 my $internaldir;
 my $buildir;
-my $initcwd;
+my $rundir;
 
 ###########################################################################
 #### COMPILATION TIME
@@ -28,6 +28,8 @@ use lib "$srcdir/build_scripts/modules";
 
 # dep inclusions
 use File::Tee "tee"; # get the output sync'd w/ a file
+#use PCVS::Vars;
+#use PCVS::Configuration;
 use File::Path;
 use File::chdir;
 use Sys::Hostname;
@@ -73,7 +75,7 @@ sub list_configs
 sub list_avail_directories
 {
 	opendir(my $dirlist, "$srcdir");
-	return grep(/(MPI|OpenMP|accelerators)/, readdir($dirlist));
+	return grep { -d "$srcdir/$_" and !/^(build_scripts|$buildir|\..*)/} readdir($dirlist);
 }
 
 sub print_help
@@ -187,7 +189,7 @@ sub validate_run_configuration
 		{
 			if(! ($el =~ /^\/.*$/))
 			{
-				$el = $initcwd."/".$el;
+				$el = $rundir."/".$el;
 			}
 
 			die("Unable to find \'$el\' !") if(! -f $el);
@@ -346,9 +348,13 @@ sub configure_run
 	clean_path("$buildir/test_suite", 1);
 	print " * Building list_of_tests.xml\n";
 	#foreach my $path (@{ $configuration{'select'}})
-	{
-		push(@{$configuration{'selected_testlist'}}, "$srcdir/list_of_tests.xml");
-	}
+	#{
+		#my @xml_files = `find $path -name 'list_of_tests.xml'`; chomp @xml_files;
+		#foreach my $file (@xml_files)
+		#{
+			#push(@{$configuration{'selected_testlist'}}, $file);
+		#}
+	#}
 }
 
 sub run
@@ -403,7 +409,7 @@ sub run
 #### MAIN
 ###########################################################################
 $SIG{INT} = "trap_signal";
-$initcwd = $CWD;
+$rundir = $CWD;
 
 ##### DEFAULT VALUES
 $configuration{"j"} = 1;
@@ -411,6 +417,7 @@ $configuration{'regen'} = 1;
 $configuration{'src'} = $srcdir;
 $configuration{'build'} = $srcdir."/build";
 $configuration{'verbose'} = 0;
+
 
 GetOptions (
 	\%configuration,
@@ -432,6 +439,13 @@ GetOptions (
 	"verbose:i",
 	"help"
 )  or die("Abort due to error(s) while parsing arguments (see --help)!\n");
+
+$_ = $configuration{'build'};
+if(/^[^\/].*$/) #check if relative path to prepend it with $CWD
+{
+	$configuration{'build'}	= "$CWD/".$configuration{'build'};
+}
+$buildir = $configuration{'build'};
 
 #check special cases (no validation run)
 print_help() if ($configuration{help});
@@ -461,13 +475,6 @@ if ($configuration{'list-directories'})
 
 
 my $validation_start = time();
-
-$_ = $configuration{'build'};
-if(/^[^\/].*$/) #check if relative path to prepend it with $CWD
-{
-	$configuration{'build'}	= "$CWD/".$configuration{'build'};
-}
-$buildir = $configuration{'build'};
 
 #create build directory and create a tee file if logging is enabled
 clean_path($buildir, 0);
