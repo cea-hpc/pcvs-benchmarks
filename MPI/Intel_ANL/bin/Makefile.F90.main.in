@@ -1,0 +1,40 @@
+SHELL = /bin/sh
+
+buildhomedir  = @buildhomedir@
+master_srcdir = @master_srcdir@
+#
+# test_srcdir is the source directory for the test files.
+# In the VPATH case, this may be in the local directory
+
+# Added -I$(srcdir) for the few tests that have a header file in the
+# source directory (e.g., reduce.h)
+MPICC  = @MPITEST_CC@ @DEFS@ -I$(buildhomedir)/include -I$(master_srcdir)/include  \
+       -I$(srcdir) @MPITEST_CFLAGS@
+MPIF90 = @MPITEST_F90@ -I$(buildhomedir)/include -I$(master_srcdir)/include \
+       -I$(srcdir)  @MPITEST_F90FLAGS@
+MPITEST_ARCH = @MPITEST_ARCH@
+
+MPITEST_CLIBS = ${buildhomedir}/lib/libmpitest_${MPITEST_ARCH}.a -lm
+MPITEST_FLIBS = ${buildhomedir}/lib/libmpitestf_${MPITEST_ARCH}.a -lm
+
+.SUFFIXES: .c .F
+
+# Some makes, such as the standard Solaris version, fail to build
+# "node" when used with VPATH (this is a bug in that make; the 
+# program correctly decides to build node but then fails to and then
+# silently exits).  For this reason, we have included 
+# explicit node targets
+node: $(test_srcdir)/node.F90
+	$(MPIF90) -o node $(test_srcdir)/node.F90 $(other_objs) ${MPITEST_FLIBS}
+
+.F90:
+	$(MPIF90) -o $* $< $(other_objs) ${MPITEST_FLIBS}
+
+.F90.o:
+	$(MPIF90) -c $< 
+
+clean:
+	rm -f node
+
+distclean: clean
+	rm -f Makefile

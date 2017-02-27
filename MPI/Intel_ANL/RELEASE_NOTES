@@ -1,0 +1,12 @@
+Release Notes for the Intel Test Suite
+--------------------------------------
+
+Known problems:
+A number of the arrays used for messages are declared with a numeric
+size, such as info_buf[256], but are then used in contexts where, for
+example, MPI_MAX_ERROR_STRING elements may be required.  In addtion, the
+messages are often created with sprintf; where available, snprintf
+should be used instead to ensure that the available buffer space is
+not exceeded.  These usually do not cause problems when tests run
+correctly, but can make it difficult to get information in the case
+where a test fails.

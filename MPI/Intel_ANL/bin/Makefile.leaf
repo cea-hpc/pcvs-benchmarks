@@ -1,0 +1,13 @@
+SHELL = /bin/sh
+
+.SUFFIXES: .c .F .F90
+
+srcdir        = @srcdir@
+test_srcdir   = @test_srcdir@
+
+VPATH = .:@srcdir@
+other_files = @other_files@
+other_objs = ${other_files:.@ext@=.o}
+node: node.@ext@ $(other_objs)
+
+      

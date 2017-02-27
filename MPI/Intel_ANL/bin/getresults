@@ -1,0 +1,294 @@
+#! /usr/bin/perl
+#
+# Read the test list and extract the messages.
+#
+$debug = 0;
+$arch  = "mpich2";
+$np    = 2;
+$xmloutput = 0;
+$newline = "\n";
+$max_log_lines = 25;
+$ignore_missing_exec = 0;
+$testlist = "";
+$print_output = 0;
+$only_failed = 0;
+foreach (@ARGV) {
+    # Multiple -file arguments are allowed
+    if (/-file=(.*)/) {
+	$testlist .= " $1";
+    }
+    elsif (/-xml=(.*)/) {
+	$xmlfile = $1;
+	open (XMLFD, ">$xmlfile" ) || die "Cannot open $xmlfile\n";
+	$xmloutput = 1;
+    }
+    elsif (/-arch=(.*)/) {
+	$arch = $1;
+    }
+    elsif (/-showbuildfail/) {
+	$ignore_missing_exec = 0;
+       }
+    elsif (/-ignoremissing/) {
+	$ignore_missing_exec = 1;
+       }
+    elsif (/-onlyfailed/) {
+	$only_failed = 1;
+    }
+    elsif (/-debug/) {
+	$debug = 1;
+    }
+    elsif (/-date=(.*)/) {
+	$date = $1;
+    }
+    elsif (/-np=(\d*)/) {
+	$np = $1;
+    }
+    else {
+	print STDERR "Unrecognized argument $_"; 
+	exit(1);
+    }
+}
+
+if ($xmloutput) {
+    print XMLFD "<?xml version=\'1.0\' ?>$newline"; 
+    print XMLFD "<?xml-stylesheet href=\"er.xsl\" type=\"text/xsl\" ?>$newline";
+    print XMLFD "<MPITESTRESULTS>$newline";
+    if ($date ne "") {
+	print XMLFD "<DATE>$date</DATE>$newline";
+    }
+    #print XMLFD "<MPISOURCE>@MPIPATH@</MPISOURCE>$newline";
+}
+
+# Global
+$reason_msg = "";
+
+foreach $dir (`cat $testlist`) {
+    chop $dir;
+    print "Checking $dir\n" if $debug;
+    $build_failed = "no";
+    $status = &GetTestStatus( $dir );
+    print "$status $dir" if $print_output;
+    $logmsg="";
+    if ($status eq "F") {
+	# Get reason for failing status
+	print " $reason_msg" if $print_output;
+	$build_failed = "no";
+	$logmsg = &GetTestLog( $dir );
+	if ($build_failed eq "yes") {
+	    $logmsg = "Could not build executable\n";
+	    if (-s "$dir/makelog.${arch}_$np" ) {
+		$logmsg .= `cat "$dir/makelog.${arch}_$np"`;
+	    }
+	    else {
+		$logmsg .= "Cannot file $dir/makelog.${arch}_$np\n";
+	    }
+	}
+	else {		       
+	    print $logmsg if $print_output;
+	}
+    }
+    elsif ($status eq "V") {
+	# Get log for verification
+	print " $reason_msg" if $print_output;
+	$logmsg = &GetTestLog( $dir );
+	print $logmsg if $print_output;
+    }
+    elsif ($status eq "U") {
+	# Get reasons for unknown status
+	;
+    }
+    elsif ($status eq "NB") {
+	# Not built
+	;
+    }
+    elsif ($status ne "P") { 
+	print STDERR "Unrecognized status $status!\n";
+    }
+    print "\n" if $print_output;
+    if ($xmloutput) {
+	if (! ($build_failed eq "yes" && $ignore_missing_exec) ) {
+	    if (($only_failed && $status eq "F") ||
+		!$only_failed) {
+		&PrintTestSummary( $dir, $status, $logmsg );
+	    }
+	}
+    }
+}
+
+if ($xmloutput) {
+    print XMLFD "</MPITESTRESULTS>$newline";
+}
+
+# Files to check for are
+#  $testname.$arch_$np_L (log file)
+#  $testname.$arch_$np_R (results file)
+#  makelog.$arch_$np (makelog)
+
+
+sub GetTestStatus {
+    my $dirname = $_[0];
+    my $result = "U";  # Unknown
+    my $results_file;
+
+    # Get the basename
+    my $testname = $dirname;
+    $testname =~ s/.*\///g;
+
+    $results_file = "$dirname/$testname.$arch";
+    $results_file .= "_$np" . "_R";
+    if (! -s $results_file) { 
+	$makelog = "$dirname/makelog.$arch" . "_$np";
+	if (! -s $makelog) { $result = "NB"; }
+	return $result; 
+    }
+
+    open (FD, "<$results_file" ) || die "Could not open $results_file";
+    $reason_msg = "";
+    while (<FD>) {
+	# Should just have a single line
+	if (/TEST_RESULT:\s*([A-Z])\s*\(([^\)]*)\)/) {
+	    $result = $1;
+	    $reason_msg =    $2;
+	    last;
+	}
+	elsif (/TEST_RESULT:\s*([A-Z])/) {
+	    $result = $1;
+	    $reason_msg =    "";
+	    last;
+	}
+	elsif (/Binary file .* matches/) {
+	    # Something went badly wrong in the test.  Try to find out what
+	    $log_file = "$dirname/$testname.$arch";
+	    $log_file .= "_$np" . "_L";
+	    if (! -s $results_file) { last; }
+	    open (NFD, "<$log_file" );
+	    while (<NFD>) {
+		if (/TEST_RESULT:\s*([A-Z])\s*\(([^\)]*)\)/) {
+		    $result = $1;
+		    $reason_msg =    $2;
+		    last;
+		}
+		elsif (/TEST_RESULT:\s*([A-Z])/) {
+		    $result = $1;
+		    $reason_msg =    "";
+		    last;
+		}
+	    }
+	    close(NFD);
+	}
+    }
+    close( FD );
+    return $result;
+}
+
+sub GetTestLog {
+    my $dirname = $_[0];
+    my $result = "";  # Unknown
+    my $results_file;
+
+    # Get the basename
+    my $testname = $dirname;
+    $testname =~ s/.*\///g;
+
+    $results_file = "$dirname/$testname.$arch";
+    $results_file .= "_$np" . "_L";
+    my $test_results = "";
+
+    if (! -s $results_file) { return $test_results; }
+
+    open( FD, "<$results_file" ) || die "Could not open $results_file";
+    $build_failed = "no";
+    my $state = "BEGIN";
+    while (<FD>) {
+	if (/\*\*\s*BEGIN/ && $state eq "BEGIN") {
+	    $state = "MSG";
+	}			
+	elsif (/\*\*\s*END/ && $state eq "MSG") {
+	    last;
+	}
+	elsif ($state eq "MSG") {
+	    if (/node\..*not executable/) {
+		# Special case - could not build executable
+		$build_failed = "yes";
+	    }
+	    # Remove any non-printable characters from the line first
+	    $line = $_;
+	    chop $line;
+	    $line =~ s/[[:^print:]]/X/g;
+	    $line =~ s/\f/X/g;
+	    $test_results .= "$line\n";
+	}
+    }
+
+    return $test_results;
+}
+
+sub PrintTestSummary {
+    my ($testname,$status,$logmsg) = @_;
+
+    if ($status eq "P") {
+	$status = "pass";
+    }
+    elsif ($status eq "F") {
+	$status = "fail";
+    }
+    elsif ($status eq "V") {
+	# This is for tests that must be checked by hand
+	$status = "verify";
+    }
+    elsif ($status eq "NB") {
+	$status = "Not built";
+    }
+    else {
+	$status = "unknown";
+    }
+
+    print XMLFD "<MPITEST>$newline";
+    print XMLFD "<NAME>$testname</NAME>$newline";
+    print XMLFD "<STATUS>$status</STATUS>$newline";
+    print XMLFD "<NP>$np</NP>$newline";
+    print XMLFD "<WORKDIR>$dir</WORKDIR>$newline";
+    if ($status ne "pass") {
+	print XMLFD "<TESTDIFF>$newline";
+	$logmsg =~ s/</AMPlt;/g;
+	$logmsg =~ s/>/AMPgt;/g;
+	$logmsg =~ s/\&/AMPamp;/g;
+	$logmsg =~ s/AMP/\&/g;
+
+	my $linecount = 0;
+	$#lastlines = -1;
+	foreach $line (split(/\n/,$logmsg)) {
+	    if ($linecount++ > $max_log_lines) { 
+		if ($linecount == $max_log_lines + 2) {
+		    print XMLFD "... rest of log not shown here$newline"; 
+		    $lastcnt = 0;
+		}
+		# maintain an array of the last 5 lines
+		
+		$lastlines[$lastcnt++ % 5] = "$line$newline";
+	    }
+	    else {
+		print XMLFD "$line$newline";
+	    }
+	}
+	if ($#lastlines > -1) {
+	    # print the last few lines
+	    # $lastcount is the location of the next free line (first to 
+	    # print)
+	    if ($#lastlines == 4) {
+		for ($i = 0; $i < $#lastlines; $i++) {
+		    print XMLFD "$lastlines[($lastcount + $i)%5]";
+		}
+	    }
+	    else {
+		for ($i=0; $i <= $#lastlines; $i++) {
+		    print XMLFD "$lastlines[$i]";
+		}
+	    }
+	}
+	    
+	#print XMLFD $logmsg;
+	print XMLFD "</TESTDIFF>$newline";
+    }
+    print XMLFD "</MPITEST>$newline";
+}

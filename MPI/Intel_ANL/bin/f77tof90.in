@@ -1,0 +1,169 @@
+#! @PERL@
+#
+# f77tof90 indir outdir [ Makefile-template ]
+# For each file in indir/*.[fF], create a corresponding file in outdir
+# with .f90/.F90, and with any include "mpif.h" replaced with use mpi
+#
+$indir = $ARGV[0];
+$outdir = $ARGV[1];
+$makeTemplate = $ARGV[2];
+$convertToFreeForm = 1;
+# Including a newline variable allows us to handle Unix and DOS source files
+$newline = "\n";
+
+#
+# Check the input arguments
+if ($indir eq "" || $outdir eq "") {
+    print STDERR "Usage: f77tof90 indir outdir [ makefile-template ]\n";
+    exit 1;
+}
+if ( ! -d $indir) {
+    print STDERR "Input directory $indir does not exist\n";
+    exit 1;
+}
+if (! -d $outdir) {
+    print STDERR "Output directory $outdir does not exist\n";
+    exit 1;
+}
+
+opendir( DIR, "$indir" );
+my @filelist = ();
+while ($file = readdir(DIR)) {
+    # Extract the extension
+    if ($file =~ /^(.*)\.([^\.]*)$/) {
+	$name = $1;
+	$ext  = $2;
+	# Skip if the file isn't a Fortran source file
+	if ($ext !~ /^[fFh]$/) { next; }
+	$ext =~ /^[fF]$/ and
+	    &ConvertToF90( "$indir/$file", "$outdir/$name.${ext}90" );
+	$ext =~ /^h$/ and
+	    &ConvertToF90( "$indir/$file", "$outdir/$name.${ext}" );
+	$filelist[$#filelist+1] = $file;
+    }
+}
+closedir( DIR );
+
+# &CreateMakefile( "filelist", $outdir );
+if ($makeTemplate ne "" &&
+    -s "$indir/$makeTemplate") {
+    &ConvertMakefile( $indir, $outdir, $makeTemplate );
+}
+
+exit 0;
+
+# -----------------------------------------------------------------------------
+
+sub ConvertToF90 {
+    my $infile = $_[0];
+    my $outfile = $_[1];
+    
+    open (INF, "<$infile" ) || die "Could not open $infile\n";
+    open (OUTF, ">$outfile" ) || die "Could not open $outfile\n";
+
+    my $lastLine = "";
+    my $firstline = 1;
+    my ($saw_subroutine, $sub_opened_par) = (0, 0);
+    #
+    # Here's a problem.  The "USE MPI" line must preceed most of the other
+    # declarations, but that isn't how the programs were written.   Instead,
+    # we look for "PROGRAM TEST".  We add USE MPI after this, then 
+    # *remove* the mpif.h line
+    $sawProgram = 0;
+    while (<INF>) {
+	if ($sawProgram || ($saw_subroutine && 0==$sub_opened_par)) {
+	    $lastline .= "$newline        USE MPI";
+	    $sawProgram = $saw_subroutine = 0;
+	}
+	if (/\r/) { $newline = "\r\n"; }
+	# Remove any end-of-line characters
+	s/[\r\n]*//g;
+	if (/^\s*PROGRAM\s+/) {
+	    $sawProgram = 1;
+	}
+        if ($saw_subroutine) {
+	    $sub_opened_par += tr/(/(/ - tr/)/)/;
+	}
+	if (/^\s*SUBROUTINE\s+/i or /^\s+.+\s+FUNCTION\s+/i) {
+	    $saw_subroutine = 1;
+	    $sub_opened_par =  tr/(/(/ - tr/)/)/;
+	}
+	# Handle the various include files
+	if (/^(\s*)include\s+[\'\"]mpif\.h/) {
+	    # $_ = "$1use MPI";
+	    $_ = "";
+	}
+	if (/^(\s*)INCLUDE\s+[\'\"]mpif\.h/) {
+	    # $_ = "$1USE MPI";
+	    $_ = "";
+	}
+	if (/^#\s*include\s+\"foptions.h\"/) {
+	    $_ = "#include \"f90options.h\"";
+	}
+	if (/^(\s*)INCLUDE\s+[\'\"]mpitest_cfgf.h/) {
+	    $_ = "$1INCLUDE \'mpitest_cfgf90.h\'";
+	}
+	if (/^(\s*)INCLUDE\s+[\'\"]mpitestf.h/) {
+	    $_ = "$1INCLUDE \'mpitestf90.h\'";
+	}
+	if (/^(\s*)INCLUDE\s+[\'\"]externalf.h/) {
+	    $_ = "$1INCLUDE \'externalf90.h\'";
+	}
+	# We could also detect continuations in column six and 
+	# convert to free-form input by holding one line back
+	if ($convertToFreeForm) {
+	    if (/^     [^ ](.*)/) {
+		$leftover = $1;
+		# This line contains a continuation marker
+		$lastline .= " &";
+		$_ = "      $leftover";
+	    }
+	    elsif (/^C/i) {
+		s/^C/!/i;
+	    }
+	    elsif (/^\*/) {
+		s/^\*/!/;
+	    }
+	}
+	print OUTF "$lastline$newline" if (! $firstline);
+	$firstline = 0;
+	$lastline = $_;
+    }
+    print OUTF "$lastline$newline";
+
+    close (INF);
+    close (OUTF);
+}
+
+# Create a makefile from a template.  Replace @EXECS@ with the programs
+# in the filelist.
+# CreateMakefile( "filelist", $outdir )
+sub CreateMakefile {
+    my $filelist = $_[0];
+    my $outdir   = $_[1];
+}
+
+#
+# Take an existing makefile and perform the following transformations:
+# .f -> .f90, .F -> .F90
+# Others as necessary
+# ConvertMakefile( indir, outdir, filename )
+# By providing the filename, we can accept Makefile, Makefile.in, Makefile.am,
+# Makefile.sm, or even nonstandard names such as buildscript
+sub ConvertMakefile {
+    my ($indir, $outdir, $filename) = @_;
+    open( INF, "<$indir/$filename" ) || die "Cannot open $indir/$filename\n";
+    open( OUTF, ">$outdir/$filename" ) || die "Cannot open $outdir/$filename\n";
+    while (<INF>) {
+	s/\.f/.f90/g;
+	s/\.F/.F90/g;
+	s/f77/f90/g;
+	s/F77/F90/g;
+	# Eventually need some way to update directory paths (particularly
+	# relative ones) and add F90 compile rules when not present.
+	print OUTF $_;
+    }
+
+    close( INF );
+    close( OUTF );
+}

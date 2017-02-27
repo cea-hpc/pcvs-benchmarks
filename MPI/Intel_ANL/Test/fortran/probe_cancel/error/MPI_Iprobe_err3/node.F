@@ -1,0 +1,225 @@
+C ----------------------------------------------------------------------
+C MESSAGE PASSING INTERFACE TEST CASE SUITE
+C 
+C Copyright - 1996 Intel Corporation
+C 
+C Intel Corporation hereby grants a non-exclusive license under Intel's
+C copyright to copy, modify and distribute this software for any purpose 
+C and without fee, provided that the above copyright notice and the
+C following paragraphs appear on all copies.
+C 
+C Intel Corporation makes no representation that the test cases
+C comprising this suite are correct or are an accurate representation
+C of any standard.
+C 
+C IN NO EVENT SHALL INTEL HAVE ANY LIABILITY FOR ANY DIRECT, INDIRECT
+C OR SPECULATIVE DAMAGES, (INCLUDING WITHOUT LIMITING THE FOREGOING,
+C CONSEQUENTIAL, INCIDENTAL AND SPECIAL DAMAGES) INCLUDING, BUT NOT
+C LIMITED TO INFRINGEMENT, LOSS OF USE, BUSINESS INTERRUPTIONS, AND
+C LOSS OF PROFITS, IRRESPECTIVE OF WHETHER INTEL HAS ADVANCE NOTICE OF
+C THE POSSIBILITY OF ANY SUCH DAMAGES.
+C
+C INTEL CORPORATION SPECIFICALLY DISCLAIMS ANY WARRANTIES INCLUDING,
+C BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS
+C FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.  THE SOFTWARE PROVIDED
+C HEREUNDER IS ON AN "AS IS" BASIS AND INTEL CORPORATION HAS NO
+C OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS OR
+C MODIFICATIONS.
+C 
+C ----------------------------------------------------------------------
+C **********************************************************************
+C                    Error test for MPI_IPROBE()
+C
+C This test verifies that the correct error is returned if MPI_IPROBE()
+C is called with an invalid argument.
+C
+C
+C Blocking iprobe error tests
+C ------------------------------------
+C 1). Negative source rank ........... [MPI_ERR_RANK]
+C 2)  Negative tag ................... [MPI_ERR_TAG]
+C 3)  tag > MPI_TAG_UB ............... [MPI_ERR_TAG]
+C 4)  Call with MPI_COMM_NULL ........ [MPI_ERR_COMM]
+C 5)  source rank = comm_size  ....... [MPI_ERR_RANK]
+C
+C In all cases, expect to receive appropriate error.
+C
+C Test history:
+C    1  06/18/96     simont       Original version
+C
+C *****************************************************************************/
+C
+#include "foptions.h"
+
+      PROGRAM MAIN
+
+      INCLUDE 'mpitestf.h'
+      INCLUDE 'externalf.h'
+      INCLUDE 'mpif.h'
+
+      INTEGER DEST
+      INTEGER PASS, FAIL, VERIFY
+      INTEGER IERR, IERR2
+      INTEGER ERRORCLASS
+      INTEGER SOURCE
+      INTEGER SIZE
+      INTEGER COUNT
+      INTEGER TAG, BADTAG
+      INTEGER ATTR_UB
+
+      LOGICAL FLAG, FOUND
+
+      CHARACTER*(IOSIZE)  INFOBUF
+      CHARACTER*32   TESTNAME
+
+      CHARACTER*(MPI_MAX_ERROR_STRING)  ERRORSTRING
+
+      INTEGER STATUS(MPI_STATUS_SIZE)
+
+ 20   FORMAT(A)
+ 98   FORMAT(A,INT_FMT,A)
+ 90   FORMAT(A, INT_FMT, A, INT_FMT, A)
+ 99   FORMAT(A,INT_FMT)
+ 100  FORMAT(A200)
+ 110  FORMAT(A, INT_FMT, A, INT_FMT)
+ 150  FORMAT(A, INT_FMT, A, INT_FMT, A, INT_FMT)
+ 160  FORMAT(A, INT_FMT, A, INT_FMT, A, INT_FMT, A)
+
+C
+C  Initialize the MPI environment and test environment.
+C
+      CALL MPI_INIT(IERR)
+      IF (IERR .NE. MPI_SUCCESS) THEN
+        WRITE(INFOBUF,99) 'MPI_INIT() returned ', IERR 
+        CALL MPITEST_MESSAGE(MPITEST_NONFATAL, INFOBUF)
+        ERRORSTRING=' '
+        CALL MPI_ERROR_STRING(IERR, ERRORSTRING, SIZE, IERR2)
+        WRITE(INFOBUF, 100) ERRORSTRING(1:SIZE)
+        CALL MPITEST_MESSAGE(MPITEST_FATAL, INFOBUF)
+      END IF
+
+      PASS   = 0
+      VERIFY = 0
+      FAIL   = 0
+      TESTNAME='MPI_Iprobe_err3'
+      CALL MPITEST_INIT(IERR)
+      IF (MPITEST_ME .EQ. 0) THEN
+        INFOBUF = 'Starting test '//TESTNAME
+        CALL MPITEST_MESSAGE(MPITEST_INFO0, INFOBUF)
+      END IF
+
+
+C     Get MPI_TAG_UB's value
+C
+      CALL MPI_ATTR_GET(MPI_COMM_WORLD, MPI_TAG_UB, ATTR_UB, FOUND,
+     $   IERR)
+      IF (IERR .NE. MPI_SUCCESS) THEN
+         WRITE(INFOBUF, 99)
+     $      'MPITEST_COMM_TEST_INTER() returned ', IERR
+         CALL MPITEST_MESSAGE(MPITEST_NONFATAL, INFOBUF)
+         INFOBUF=' '
+         CALL MPI_ERROR_STRING(IERR, ERRORSTRING, SIZE, IERR2)
+         CALL MPITEST_MESSAGE(MPITEST_FATAL, ERRORSTRING)
+      END IF
+
+      IF (FOUND .EQV. .FALSE.) THEN
+         WRITE(INFOBUF, 20) 'Cannot find a value for key MPI_TAG_UB'
+         CALL MPITEST_MESSAGE(MPITEST_FATAL, INFOBUF)
+      ELSE IF (ATTR_UB .LT. MPITEST_TAG_UB_MIN) THEN
+         WRITE(INFOBUF, 90) 'Attribute MPI_TAG_UB (', ATTR_UB,
+     $      'is less than the required minimum (', MPITEST_TAG_UB_MIN,
+     $      ')'
+         CALL MPITEST_MESSAGE(MPITEST_FATAL, INFOBUF)
+      END IF
+
+C     User of this fortran test need to define MPITEST_MAX_INT
+C     (the largest integer) for the specific platform this test
+C     is testing upon.  The definition is in foptions.h
+C
+      IF (ATTR_UB .LT. MPITEST_MAX_INT) THEN
+         BADTAG = ATTR_UB + 1
+      ELSE
+         PASS = PASS + 1
+         WRITE(INFOBUF, 98)
+     $        'MPI_Iprobe_err3: MPI_TAG_UB = maximum integer (',
+     $        ATTR_UB, ') Test not applicable, bailing out...'
+         CALL MPITEST_MESSAGE(MPITEST_NONFATAL, INFOBUF)
+         CALL MPITEST_REPORT(PASS,FAIL,VERIFY,TESTNAME)
+         CALL MPI_FINALIZE(IERR)
+         STOP
+      END IF
+
+      PASS = 0
+      FAIL = 0
+
+C     Set an errhandler so we get control back.
+      CALL MPI_ERRHANDLER_SET(MPI_COMM_WORLD, MPI_ERRORS_RETURN,
+     $                        IERR)
+      IF (IERR .NE. MPI_SUCCESS) THEN
+         FAIL = FAIL + 1
+         WRITE(INFOBUF, 99) 'MPI_ERRHANDLER_SET() returned ',
+     $        IERR
+         CALL MPITEST_MESSAGE(MPITEST_NONFATAL, INFOBUF)
+         ERRORSTRING=' '
+         CALL MPI_ERROR_STRING(IERR, ERRORSTRING, SIZE, IERR2)
+         WRITE(INFOBUF, 100) ERRORSTRING(1:SIZE)
+         CALL MPITEST_MESSAGE(MPITEST_FATAL, INFOBUF)
+      END IF
+
+      DEST = 1
+      COUNT = 1
+      TAG = 1
+      SOURCE = 0
+
+C        MPI_IPROBE() call with too large tag
+         WRITE(INFOBUF, 98)
+     $        'Calling MPI_IPROBE() with too large tag (',
+     $        BADTAG, ') ...'
+         CALL MPITEST_MESSAGE(MPITEST_INFO1, INFOBUF)
+
+         CALL MPI_IPROBE(SOURCE, BADTAG, MPI_COMM_WORLD, FLAG,
+     $                   STATUS, IERR2)
+         IF (IERR2 .EQ. MPI_SUCCESS) THEN
+            FAIL = FAIL + 1
+            WRITE(INFOBUF,98)
+     $           'MPI_IPROBE() with too large tag (', BADTAG,
+     $           ') returned MPI_SUCCESS'
+            CALL MPITEST_MESSAGE(MPITEST_NONFATAL, INFOBUF)
+         ELSE
+            CALL MPI_ERROR_CLASS(IERR2, ERRORCLASS, IERR)
+            IF (IERR .NE. MPI_SUCCESS) THEN
+               FAIL = FAIL + 1
+               WRITE(INFOBUF,99) 'MPI_ERROR_CLASS() returned ', IERR 
+               CALL MPITEST_MESSAGE(MPITEST_NONFATAL, INFOBUF)
+               ERRORSTRING=' '
+               CALL MPI_ERROR_STRING(IERR, ERRORSTRING, SIZE, IERR2)
+               WRITE(INFOBUF, 100) ERRORSTRING(1:SIZE)
+               CALL MPITEST_MESSAGE(MPITEST_FATAL, INFOBUF)
+            ELSE IF (ERRORCLASS .NE. MPI_ERR_TAG) THEN
+               FAIL = FAIL + 1
+               WRITE(INFOBUF,160)
+     $              'MPI_IPROBE() with too large tag (',
+     $              BADTAG, ') returned error class ', ERRORCLASS,
+     $              ', expecting MPI_ERR_TAG (', MPI_ERR_TAG, ')' 
+               CALL MPITEST_MESSAGE(MPITEST_NONFATAL, INFOBUF)
+               ERRORSTRING=' '
+               CALL MPI_ERROR_STRING(IERR2, ERRORSTRING, SIZE, IERR)
+               WRITE(INFOBUF, 100) ERRORSTRING(1:SIZE)
+               CALL MPITEST_MESSAGE(MPITEST_NONFATAL, INFOBUF)
+            ELSE
+               PASS = PASS + 1
+               WRITE(INFOBUF, 110)
+     $              'ierr = ', IERR2, ', errorclass = ', ERRORCLASS
+               CALL MPITEST_MESSAGE(MPITEST_INFO2, INFOBUF)
+               ERRORSTRING=' '
+               CALL MPI_ERROR_STRING(IERR2, ERRORSTRING, SIZE, IERR)
+               WRITE(INFOBUF, 100) ERRORSTRING(1:SIZE)
+               CALL MPITEST_MESSAGE(MPITEST_INFO1, INFOBUF)
+            END IF 
+         END IF
+
+      CALL MPITEST_REPORT(PASS, FAIL, 0, TESTNAME)
+
+      CALL MPI_FINALIZE(IERR)
+
+      END

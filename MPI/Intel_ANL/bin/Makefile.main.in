@@ -1,0 +1,43 @@
+SHELL = /bin/sh
+
+buildhomedir = @buildhomedir@
+master_srcdir = @master_srcdir@
+# Added -I$(srcdir) for the few tests that have a header file in the
+# source directory (e.g., reduce.h)
+MPICC  = @MPITEST_CC@ @DEFS@ -I$(master_srcdir)/include  -I$(srcdir) @MPITEST_CFLAGS@
+MPIF77 = @MPITEST_F77@ -I$(master_srcdir)/include -I$(srcdir) @MPITEST_FFLAGS@
+MPITEST_ARCH = @MPITEST_ARCH@
+
+MPITEST_CLIBS = ${buildhomedir}/lib/libmpitest_${MPITEST_ARCH}.a -lm
+MPITEST_FLIBS = ${buildhomedir}/lib/libmpitestf_${MPITEST_ARCH}.a -lm
+
+.SUFFIXES: .c .F
+
+# Some makes, such as the standard Solaris version, fail to build
+# "node" when used with VPATH (this is a bug in that make; the 
+# program correctly decides to build node but then fails to and then
+# silently exits).  For this reason, we have included 
+# explicit node targets
+anode: $(srcdir)/node.c
+	$(MPICC) -o node $(srcdir)/node.c $(other_objs) ${MPITEST_CLIBS}
+
+node: $(srcdir)/node.F
+	$(MPIF77) -o node $(srcdir)/node.F $(other_objs) ${MPITEST_FLIBS}
+
+.c:
+	$(MPICC) -o $* $< $(other_objs) ${MPITEST_CLIBS}
+
+.F:
+	$(MPIF77) -o $* $< $(other_objs) ${MPITEST_FLIBS}
+
+.c.o:
+	$(MPICC) -c $< 
+
+.F.o:
+	$(MPIF77) -c $< 
+
+clean:
+	rm -f node
+
+distclean: clean
+	rm -f Makefile

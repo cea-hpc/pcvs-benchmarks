@@ -1,0 +1,580 @@
+#!/bin/sh 
+#
+####################################################################
+# 
+# mpiresults - gather results from MPI tests
+#
+####################################################################
+#
+# Copyright - 1996 Intel Corporation
+# 
+# Intel Corporation hereby grants a non-exclusive license under Intel's
+# copyright to copy, modify and distribute this software for any purpose 
+# and without fee, provided that the above copyright notice and the following
+# paragraphs appear on all copies.
+# 
+# Intel Corporation makes no representation that the test cases comprising
+# this suite are correct or are an accurate representation of any standard.
+# 
+# IN NO EVENT SHALL INTEL HAVE ANY LIABILITY FOR ANY DIRECT, INDIRECT OR
+# SPECULATIVE DAMAGES, (INCLUDING WITHOUT LIMITING THE FOREGOING, CONSEQUENTIAL,
+# INCIDENTAL AND SPECIAL DAMAGES) INCLUDING, BUT NOT LIMITED TO INFRINGEMENT,
+# LOSS OF USE, BUSINESS INTERRUPTIONS, AND LOSS OF PROFITS, IRRESPECTIVE OF
+# WHETHER INTEL HAS ADVANCE NOTICE OF THE POSSIBILITY OF ANY SUCH DAMAGES.
+# 
+# INTEL CORPORATION SPECIFICALLY DISCLAIMS ANY WARRANTIES INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+# PARTICULAR PURPOSE AND NON-INFRINGEMENT.  THE SOFTWARE PROVIDED HEREUNDER
+# IS ON AN "AS IS" BASIS AND INTEL CORPORATION HAS NO OBLIGATION TO PROVIDE
+# MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS OR MODIFICATIONS.
+# 
+####################################################################
+
+#
+# 1. Initialize constants & variables
+#
+
+bell=""
+
+devNull=/dev/null
+
+#logFile=/tmp/log.$$
+logFile=/dev/null
+
+listFile=/tmp/list.$$
+
+testList=
+
+testCount=0
+
+warning=0
+error=0
+
+buildOnlyFlag=""
+
+status=""
+
+userConfigFlag=""
+
+ResDir=""
+
+Sorter=${MPITEST_CAT:-cat}
+
+KeepTmps=0
+
+#
+# Log function: record output in log file, with date/time stamp
+Log()
+{
+   if test -z "$MPITEST_DATE"
+   then
+      if test -z "$MPITEST_HOSTNAME"
+      then
+         ${MPITEST_ECHO:-echo} "$*" | tee -a $logFile
+      else
+         ${MPITEST_ECHO:-echo} "`${MPITEST_HOSTNAME:-hostname}` $*" | tee -a $logFile
+      fi
+   else
+      if test -z "$MPITEST_HOSTNAME"
+      then
+         ${MPITEST_ECHO:-echo} "`${MPITEST_DATE:-date} '+%D %T'` $*" | tee -a $logFile
+      else
+         ${MPITEST_ECHO:-echo} "`${MPITEST_DATE:-date} '+%D %T'` `${MPITEST_HOSTNAME:-date}` $*" | tee -a $logFile
+      fi
+   fi
+}
+
+# Interrupt function: trap interrupt signals
+#                     Handle the interrupt signals desired, pass others thru
+Interrupt()
+{
+
+   Log "Interrupted, signal #$1 $bell ..."
+
+   # Where we were
+   if test -n "$verboseFlag" ; then
+      Log "Circuit #$nCircuit of $maxCircuit, directory #$nDir of $maxDir"
+      Log "Test directory $dir"
+   fi
+
+   # Set exit code
+   exitCode=21
+
+   # Consider removing the lock file here
+   # Depends if this is a mesh-hanging test, in which case you would rather
+   # leave the lock
+
+   case $1 in
+        1) # Hang-up
+#           CleanUp
+           ;;
+        2) # Interrupt (^C)
+           ${MPITEST_RM:-rm} -f ${MPITEST_LOCKFILE}
+           ${MPITEST_RM:-rm} -f $listFile
+           ;;
+        *) # Pass thru remaining interrupts
+           break
+           ;;
+   esac
+
+   $sync
+
+   exit $exitCode
+}
+
+#
+# 1. Initialize constants & variables
+#
+#MPITEST_HOME=
+#MPITEST_ARCH=
+
+#    a. String constants
+if test -z "$MPITEST_HOME"
+then
+   Log "ERROR: MPITEST_HOME is not defined."
+   exit 99 # ??? Need a std exit code for this
+elif test ! -r "$MPITEST_HOME"
+then
+   Log "ERROR: Invalid MPITEST_HOME, directory does not exist or not readable."
+   exit 99 # Need a new exit code ?????
+elif test ! -x "$MPITEST_HOME"
+then
+   Log "ERROR: Invalid MPITEST_HOME, directory not executable."
+   exit 99 # Need a new exit code ?????
+fi
+
+# May need to check for file and executables existance here ????????
+
+if test "$BINDIR" = "/bin" ; then
+   ${MPITEST_ECHO:-echo} "Invalid BINDIR value, $BINDIR."
+   unset BINDIR
+   exit 20
+fi
+
+# 3. Process command line options, until first unrecognized option
+#    All the unrecognised option will be passed to the platform
+#    specific script.
+
+
+while test $# -gt 0 ; do
+      case "$1" in
+           -arch)         # Machine architecture
+               if test -n "$2" ; then
+                  # Assume this a valid MPITEST_ARCH
+                  # the input arch will not be verified, that way, any new
+                  # arch added later will not require code change here.
+                  MPITEST_ARCH="$2"
+                  export MPITEST_ARCH
+                  shift
+               else
+                  Log "ERROR: \"-arch\" option: architecture argument required."
+#                  CleanUp
+                  exit 22
+               fi
+               shift
+               ;;
+           -config)       # Config file
+               if test -n "$2" ; then
+                  if test -r "$2" ; then
+                     MPITEST_CONFIG_FILE="$2"
+                     export MPITEST_CONFIG_FILE
+                     userConfigFlag=1
+                     shift
+                  else
+                     Log "ERROR: \"-config\" option: config file specified not readable."
+                     exit 99 # ????
+                  fi
+               else
+                  Log "ERROR: \"-config\" option: argument required."
+                  exit 99 # ???
+               fi
+               shift
+               ;;
+           -envfile)      # Environment file
+               if test -n "$2" ; then
+                  if test -f "$2" ; then
+                     MPITEST_ENVFILE="$2"
+                     export MPITEST_ENVFILE
+                     shift
+                  else
+                     Log "ERROR: \"-envfile\" option: environment file specified not found or un-readable."
+                     exit 99 # ???
+                  fi
+               else
+                  Log "ERROR: \"-envfile\" option: argument required."
+                  exit 10 # Need to decide on a different exit code ????????????? 
+               fi
+               shift
+               ;;
+           -help)         # Help option, this message
+               ${MPITEST_ECHO:-echo}
+               ${MPITEST_ECHO:-echo} "Usage: $0 [ -<opts> ...]"
+               # Find first while-done pair, and use lines containing plus or
+               # dash followed by any number of alpha-numeric strings that is
+               # terminated with ")" to display the "#" comment for that option
+               ${MPITEST_SED:-sed} -n '/^while/,/^done/ p' $0 | ${MPITEST_SED:-sed} '/^done/ q' | \
+               ${MPITEST_SED:-sed} -n 's/^.*\([-+][0-9A-Za-z]*)\)/\1/p' | ${MPITEST_SED:-sed} -n 's/ #//p' | ${MPITEST_SED:-sed} -n 's/) /  /p'
+
+#               CleanUp # for now comment out ????
+               exit 0
+               ;;
+           -keeptmps)     # Leave the two temporary files around
+               KeepTmps=1
+               shift
+               ;;
+           -np)           # Number of process(es)
+               if test -n "$2" ; then
+                  MPITEST_NPROCS="$2"
+                  export MPITEST_NPROCS
+                  shift
+               else
+                  Log "ERROR: \"-np\" option: number argument required."
+                  exit 99 # ?????
+               fi
+               shift
+               ;;
+           -resultsdir)   # Directory for working files and results files
+               if test -n "$2" ; then
+                  if test -d "$2" ; then
+                     if test -r "$2" ; then
+                        if test -w "$2" ; then
+                           if test -x "$2" ; then
+                              ResDir="$2"
+                              export ResDir
+                              shift
+                           else
+                              Log "ERROR: \"-resultsdir\" option: the directory, $2, is not executable."
+                              exit 99 # ???
+                           fi
+                        else
+                           Log "ERROR: \"-resultsdir\" option: the directory, $2, is not writable."
+                           exit 99 # ???
+                        fi
+                     else
+                        Log "ERROR: \"-resultsdir\" option: the directory, $2, is not readable."
+                        exit 99 # ???
+                     fi
+                  else
+                     Log "ERROR: \"-resultsdir\" option: the directory, $2, does not exist or is not a directory."
+                     exit 99 # ???
+                  fi
+               else
+                  Log "ERROR: \"-resultsdir\" option: argument required."
+                  exit 99 # ???
+               fi
+               ;;
+           -sortbystatus) # Sort output by status
+               Sorter=${MPITEST_SORT:-sort}
+               shift
+               ;;
+           -softbytest)   # Sort output by test path
+               Sorter="${MPITEST_SORT:-sort} +0.4" # use GNU sort if necessicary
+               shift
+	       ;;
+           -softbylist)   # Sort output by test list order
+	       Sorter=${MPITEST_CAT:-cat} # the results start in list order
+               shift
+	       ;;
+           -tag)          # User tag
+               if test -n "$2" ; then
+                  MPITEST_USERTAG="_$2"
+                  export MPITEST_USERTAG
+                  shift
+               else
+                  Log "ERROR: \"-tag\" option: argument required."
+                  exit 99 # ???
+               fi
+               shift
+               ;;
+           -testlist)     # Test(s) to gather results from
+               if test -n "$2" ; then
+                  if test -r "$2" ; then
+                     MPITEST_TESTLIST="$2"
+                     export MPITEST_TESTLIST
+                     shift ; shift
+                  else
+                     Log "ERROR: \"-testlist\" option: test_list_file, $2, not found or un-readable."
+#                     CleanUp
+                     exit 23
+                  fi
+               else
+                  Log "ERROR: \"-testlist\" option: test_list_file argument required."
+#                  CleanUp
+                  exit 22
+               fi
+               ;;
+           -verbose)      # Verbose option
+               MPITEST_VERBOSE=1
+               export MPITEST_VERBOSE
+               shift
+               ;;
+           *) # Since there are no other programs to pass to any unknown
+              # arguments are user error
+              Log "ERROR: \"$1\" is not a valid argument."
+              exit 99
+              ;;
+      esac
+done
+
+
+#
+# Make sure -arch was specified
+#
+if test -z "$MPITEST_ARCH"
+then
+   Log "ERROR: -arch option is required if MPITEST_ARCH is not predefined to run test"
+   exit 99 # Need a new exit code ???
+fi
+
+#
+# Obtain environment variables if not already defined
+#
+if test -z "$MPITEST_ENVFILE"
+then
+   MPITEST_ENVFILE="${MPITEST_HOME}/bin/mpitest.${MPITEST_ARCH}.env"
+fi
+
+if test -r "$MPITEST_HOME/bin/mpitest.$MPITEST_ARCH.env"
+then
+   . $MPITEST_ENVFILE
+else
+   Log "ERROR: ${MPITEST_HOME}/bin/mpitest.${MPITEST_ARCH}.env does not exist or not readable"
+   exit 99  # Need a new exit code ????
+fi
+
+#
+# Traps!
+#
+# Would have use the signal name instead for more portability but sh
+# doesn't support this (ksh does though but not all architectures
+# necessarily provide ksh)
+#
+# Ignore hang up (so test can continue running
+trap "" ${MPITEST_SIGHUP:-1}
+
+# Handle control-C
+trap "Interrupt 2" ${MPITEST_SIGINT:-2}
+
+#
+# Save current directory
+#
+parentDir=`pwd`
+
+#
+# If ResDir is not defined yet then set it to the parent directory
+#
+if test -z "${ResDir}"; then
+   if test -r $parentDir; then
+      if test -w $parentDir; then
+	 if test -x $parentDir; then
+            ResDir="$parentDir"
+            export ResDir
+         else
+            Log "ERROR: the results directory, $2, is not executable."
+            exit 99 # ???
+         fi
+      else
+         Log "ERROR: the results directory, $2, is not writable."
+         exit 99 # ???
+      fi
+   else
+      Log "ERROR: the results directory, $2, is not readable."
+      exit 99 # ???
+   fi
+fi
+
+#
+# Make sure number of process(es) to be created has been specified
+#
+if test -z "$MPITEST_NPROCS"
+then
+   Log "ERROR: -np option is required if MPITEST_NPROCS is not predefined to run test"
+   exit 88 # ??
+fi
+
+#
+# Prepare list of tests to be run
+#
+if test -z "$MPITEST_TESTLIST"
+then
+   # if there is a test in the current directory
+   if test -f "Makefile"
+   then
+      echo "." >$listFile
+   fi
+   # Use all subdirectory in the current directory
+   ${MPITEST_LS:-ls} | ${MPITEST_GREP:-grep} -v Makefile >>$listFile
+else
+   # Use the user specified test list skipping all comments
+   ${MPITEST_GREP:-grep} -v "^#" $MPITEST_TESTLIST > $listFile
+fi
+
+Suffix="${MPITEST_ARCH}_${MPITEST_NPROCS}${MPITEST_USERTAG}"
+
+#
+# Trash previous results files
+#
+# We do assume here that if the result's files are not owned by the user
+# that the directory does not have the tackey bit set.
+# 
+
+${MPITEST_RM:-rm} -f "${ResDir}/rawres.${Suffix}"
+${MPITEST_RM:-rm} -f "${ResDir}/tmpres.${Suffix}"
+${MPITEST_RM:-rm} -f "${ResDir}/results.${Suffix}"
+
+#
+# Run tests!
+#
+
+
+nDir=0
+maxDir=`${MPITEST_SED:-sed} -n '$=' $listFile`
+
+while [ $nDir -lt $maxDir ] 
+#for testName in $testList
+do
+   nDir=`expr $nDir + 1`
+   testName=`${MPITEST_SED:-sed} -n "$nDir p" $listFile`
+   if test -d "$testName" # Is it a directory?
+   then
+      if test -r "$testName" # Is it a readable directory?
+      then
+         if test -x "$testName" # Is it an executable directory?
+         then
+            if test -f "${testName}/Makefile" # Does it contain a test?
+            then
+               cd $testName
+
+               # Current directory
+               currDir=`pwd`
+
+               #
+               # Determine name of test
+               #
+               if test "$testName" = "."
+               then
+                  MPITEST_TESTNAME=`${MPITEST_BASENAME:-basename} $currDir`
+               else
+                  MPITEST_TESTNAME=`${MPITEST_BASENAME:-basename} $testName`
+               fi
+               # Not collecting results, simply cleaning all log, result, makelogs, lock files.
+               if test -f "${MPITEST_LOCKFILE}" # Does lock file exist in this directory?
+               then
+                  # if there is a lock file we assume the test hung
+#                  Log "HUNG? $MPITEST_TESTNAME: Lock exists ... "
+                  testCount=`${MPITEST_EXPR:-expr} $testCount + 1` 
+                  ${MPITEST_ECHO:-echo} "$testName TEST_RESULT: E" >> "${ResDir}/rawres.${Suffix}"
+               else
+                  # Get info
+#                  Log "Test: $MPITEST_TESTNAME"
+
+                  if test -r "${MPITEST_TESTNAME}.${Suffix}_L"
+                  then
+                     if test -r "${MPITEST_TESTNAME}.${Suffix}_R"
+                     then
+                        ${MPITEST_ECHO:-echo} -n "$testName " >> "${ResDir}/rawres.${Suffix}"
+                        ${MPITEST_CAT:-cat} "${MPITEST_TESTNAME}.${Suffix}_R" >> "${ResDir}/rawres.${Suffix}"
+                        testCount=`${MPITEST_EXPR:-expr} $testCount + 1` 
+                     else
+                         Log "$MPITEST_TESTNAME: results file does not exist"
+                        ${MPITEST_ECHO:-echo} "$testName TEST_RESULT: E" >> "${ResDir}/rawres.${Suffix}"
+                        testCount=`${MPITEST_EXPR:-expr} $testCount + 1` 
+                     fi
+                  else
+#                     Log "$MPITEST_TESTNAME: log file does not exist"
+                     ${MPITEST_ECHO:-echo} "$testName TEST_RESULT: E" >> "${ResDir}/rawres.${Suffix}"
+                     testCount=`${MPITEST_EXPR:-expr} $testCount + 1` 
+                  fi
+               fi
+            else
+               ${MPITEST_ECHO:-echo} "$testName TEST_RESULT: N" >> "${ResDir}/rawres.${Suffix}"
+            fi
+         else
+            Log "SKIP $testName: Not an executable directory."
+            warning=`${MPITEST_EXPR:-expr} $warning + 1`
+         fi
+      else
+         Log "SKIP $testName: Not a readable directory."
+         warning=`${MPITEST_EXPR:-expr} $warning + 1`
+      fi
+   else
+      Log "SKIP $testName: Not a directory."
+      warning=`${MPITEST_EXPR:-expr} $warning + 1`
+   fi
+
+   cd "$parentDir"
+done
+
+${MPITEST_RM:-rm} -f $listFile
+#
+# got to the ResDir
+#
+cd ${ResDir}
+
+#
+# Create the lists of result codes and test paths
+#
+${MPITEST_AWK:-awk} '$3 ~ /[FPHNLE]/ { print $3,"  "$1}
+                $3 ~ /V/ { print $3,"  "$1" VERIFY RESULT MANUALLY"}
+                $3 ~ /U/ { print $3,"  "$1" UNSUPPORTED FUNCTION"}
+		$3 !~ /[FPHNLVUE]/ { print $3,"  "$1" UNKNOWN RESULT CODE"}
+                ' < "rawres.${Suffix}" \
+                >> "tmpres.${Suffix}"
+
+#
+# Create the final results file, place summaries at the top.
+#
+${MPITEST_ECHO:-echo} "results.${Suffix}" >> results.${Suffix}
+${MPITEST_ECHO:-echo} "Results gathered at: `date`" >> results.${Suffix}
+#${MPITEST_ECHO:-echo} '
+#    Test Status Key
+#    ---------------
+#    P :  Passed
+#    F :  Failed for known reasons
+#    E :  Error in run
+#    V :  Tests needing maual verification
+#    N :  Not run / Not a test' \
+#>> results.${Suffix}
+
+${MPITEST_ECHO:-echo} '
+    Results Summary/Test Status Key
+    -------------------------------------------' >> results.${Suffix}
+${MPITEST_ECHO:-echo} "    P : Passed tests                      : `${MPITEST_AWK:-awk} ' $1 ~ /^P/ {passed+=1} END {print passed}' passed=0 < tmpres.${Suffix}`" >> results.${Suffix}
+${MPITEST_ECHO:-echo} "    F : Failed tests                      : `${MPITEST_AWK:-awk} ' $1 ~ /^F/ {failed+=1} END {print failed}' failed=0 < tmpres.${Suffix}`" >> results.${Suffix}
+${MPITEST_ECHO:-echo} "    E : Status unknown or not found       : `${MPITEST_AWK:-awk} ' $1 ~ /^E/ {not_run+=1} END {print not_run}' not_run=0 < tmpres.${Suffix}`" >> results.${Suffix}
+${MPITEST_ECHO:-echo} "    V : Tests needing manual verification : `${MPITEST_AWK:-awk} ' $1 ~ /^V/ {verify+=1} END {print verify}' verify=0 < tmpres.${Suffix}`" >> results.${Suffix}
+${MPITEST_ECHO:-echo} "    N : Not run (not a valid test?)       : `${MPITEST_AWK:-awk} ' $1 ~ /^N/ {not_run+=1} END {print not_run}' not_run=0 < tmpres.${Suffix}`" >> results.${Suffix}
+${MPITEST_ECHO:-echo} "        Error in test (invalid result)    : `${MPITEST_AWK:-awk} ' $1 !~ /(^P|^F|^E|^V|^N)/ {unknown+=1} END {print unknown}' unknown=0 < tmpres.${Suffix}`" >> results.${Suffix}
+${MPITEST_ECHO:-echo} "    -------------------------------------------" >> results.${Suffix}
+${MPITEST_ECHO:-echo} "    Total                                 : `${MPITEST_AWK:-awk} '{tests+=1} END {print tests}' tests=0 < tmpres.${Suffix}`" >> results.${Suffix}
+
+${MPITEST_ECHO:-echo} "" >> results.${Suffix}
+
+#
+# Write the (optionaly) sorted results to the results file
+#
+${MPITEST_CAT} tmpres.${Suffix} | $Sorter >> results.${Suffix}
+
+#
+# Clean up the tmp files
+#
+
+if test "$KeepTmps" = "0"
+then
+   ${MPITEST_RM:-rm} -f "${ResDir}/rawres.${Suffix}"
+   ${MPITEST_RM:-rm} -f "${ResDir}/tmpres.${Suffix}"
+fi
+
+Log "Completed gathering results from $testCount test(s) $bell"
+
+# Warning?
+if test "$warning" != "0"
+then
+   Log "There was $warning warning(s)"
+fi
+
+# Error?
+if test "$error" != "0"
+then
+   Log "There was $error error(s)"
+fi

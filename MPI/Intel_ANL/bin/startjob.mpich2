@@ -1,0 +1,18 @@
+    #!/bin/sh
+
+    if test -z "$2"
+    then
+       echo "ERROR: $0 \"-appname\" option: argument required"
+       exit 201
+    else
+       if test -x "$2"
+       then
+           # run test
+           dir=`pwd`
+           cd $dir
+           ${MPIRUN} -np $MPITEST_NPROCS $2
+       else
+          echo "ERROR: $0 \"-appname\" option: $2 does not exist or is not executable"
+          exit 201
+       fi
+    fi

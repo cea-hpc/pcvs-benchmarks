@@ -1,0 +1,418 @@
+####################################################################
+#
+# Master Makefile common to all MPI Validation Suites makefiles
+#
+####################################################################
+#
+# Copyright - 1996 Intel Corporation
+# 
+# Intel Corporation hereby grants a non-exclusive license under Intel's
+# copyright to copy, modify and distribute this software for any purpose 
+# and without fee, provided that the above copyright notice and the following
+# paragraphs appear on all copies.
+# 
+# Intel Corporation makes no representation that the test cases comprising
+# this suite are correct or are an accurate representation of any standard.
+# 
+# IN NO EVENT SHALL INTEL HAVE ANY LIABILITY FOR ANY DIRECT, INDIRECT OR
+# SPECULATIVE DAMAGES, (INCLUDING WITHOUT LIMITING THE FOREGOING, CONSEQUENTIAL,
+# INCIDENTAL AND SPECIAL DAMAGES) INCLUDING, BUT NOT LIMITED TO INFRINGEMENT,
+# LOSS OF USE, BUSINESS INTERRUPTIONS, AND LOSS OF PROFITS, IRRESPECTIVE OF
+# WHETHER INTEL HAS ADVANCE NOTICE OF THE POSSIBILITY OF ANY SUCH DAMAGES.
+# 
+# INTEL CORPORATION SPECIFICALLY DISCLAIMS ANY WARRANTIES INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+# PARTICULAR PURPOSE AND NON-INFRINGEMENT.  THE SOFTWARE PROVIDED HEREUNDER
+# IS ON AN "AS IS" BASIS AND INTEL CORPORATION HAS NO OBLIGATION TO PROVIDE
+# MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS OR MODIFICATIONS.
+# 
+####################################################################
+#	Suffix guide
+#
+#	.c					C source code
+#	.C					C++ source code
+#	.f					Fortran source code
+#	.F					Fortran source code (with cpp macros)
+#	.ksh					Korn shell script (1st line dictates)
+#	.s					Assembly source code
+#	.sh					Bourne shell script (1st line dictates)
+#	.csh					C shell script (1st line dictates)
+#
+#	.sx					Run script
+#
+#	.$(MPITEST_ARCH)_$(MPITEST_USERTAG)_bx			Binary executable
+#
+#	.$(MPITEST_ARCH)_$(MPITEST_USERTAG)_o			Object file
+#
+#	.$(MPITEST_ARCH)_$(MPITEST_NRPOCS)_$(MPITEST_USERTAG)_L	Log file
+#
+#	.$(MPITEST_ARCH)_$(MPITEST_NRPOCS)_$(MPITEST_USERTAG)_R	Result file
+#
+#	make					from
+#
+#	.sx					.csh .sh .ksh
+#	.$(MPITEST_ARCH)_$(MPITEST_USERTAG)_bx			.c .C .f .F .s .$(MPITEST_ARCH)_$(MPITEST_USERTAG)_o
+#	.$(MPITEST_ARCH)_$(MPITEST_NPROCS)_$(MPITEST_USERTAG)_L	.sx
+#	.$(MPITEST_ARCH)_$(MPITEST_NPROCS)_$(MPITEST_USERTAG)_R	.$(MPITEST_ARCH)_$(MPITEST_NPROCS)_$(MPITEST_USERTAG)_L
+#
+####################################################################
+#
+#	Defined Macros and their default values
+#
+####################################################################
+
+SHELL =				@BINSH@
+
+MAKE =				@MPITEST_MAKE@
+
+MPITEST_AR =			@MPITEST_AR@
+MPITEST_AR860 =			@MPITEST_AR860@
+MPITEST_CC =			@MPITEST_CC@
+MPITEST_F77 =			@MPITEST_F77@
+MPITEST_CPP =			@MPITEST_CPP@
+MPITEST_BUF =			@MPITEST_BUF@
+MPITEST_CFLAGS =		@MPITEST_CFLAGS@
+MPITEST_DEFHOST =		@MPITEST_DEFHOST@
+MPITEST_FFLAGS =		@MPITEST_FFLAGS@
+MPITEST_MLIB =			@MPITEST_MLIB@
+MPITEST_USERLIB =		@MPITEST_USERLIB@
+
+MPITEST_ARCH =			@MPITEST_ARCH@
+MPITEST_INCLUDE_OPTION =	@MPITEST_INCLUDE_OPTION@
+MPITEST_MPICLIB =		@MPITEST_MPICLIB@
+MPITEST_MPIFLIB =		@MPITEST_MPIFLIB@
+MPITEST_CLIB =			@MPITEST_CLIB@
+MPITEST_FLIB =			@MPITEST_FLIB@
+MPITEST_INCLUDE_DIR =		@MPITEST_INCLUDE_DIR@
+
+MPITEST_RM   = rm
+MPITEST_MV   = mv
+MPITEST_CAT  = cat
+MPITEST_LN   = ln -s
+MPITEST_LS   = ls
+MPITEST_ECHO = echo
+####################################################################
+#
+#  MACRO RULES
+#
+####################################################################
+
+COMPILE_RULE=	|| ( rm -f $(*F).o && exit 10 )
+
+LOG_RULE=	> $@ 2>&1 || ( exit 11) ; \
+		$(MPITEST_RM) -f scratch
+
+#LOG_RULE=	> $@ 2>&1 || ( ${MPITEST_ECHO} "Log file: $@" ; $(MPITEST_CAT) $@ ; $(MPITEST_RM) -f $@ && exit 11 ) ; \
+#		$(MPITEST_RM) -f scratch
+#		fi ; \
+#		touch ${PULSEFILE}
+
+OBJ_RULE=	fi ; \
+		$(MPITEST_MV) $(*F).o $@
+#		touch ${PULSEFILE}
+
+
+####################################################################
+#
+#  TARGETS
+#
+####################################################################
+
+all:		build run
+
+build:		sources execs
+
+run:		logs results
+
+logs::		execs
+
+results::	logs
+
+
+####################################################################
+#
+#  SUFFIXES
+#
+####################################################################
+
+.SUFFIXES:	\
+	.c .f .F .C .ksh .s .sh .csh \
+	.$(MPITEST_ARCH)${MPITEST_USERTAG}_o \
+	.$(MPITEST_ARCH)${MPITEST_USERTAG}_bx .sx \
+	.$(MPITEST_ARCH)_$(MPITEST_NPROCS)${MPITEST_USERTAG}_L \
+	.$(MPITEST_ARCH)_$(MPITEST_NPROCS)${MPITEST_USERTAG}_R
+
+
+####################################################################
+#
+#  CONFIG FILE RULE
+#
+####################################################################
+node.$(MPITEST_ARCH)${MPITEST_USERTAG}_bx: $(MPITEST_CONFIG_FILE) $(MPITEST_LOCALOBJ)
+
+
+####################################################################
+#
+#  EXECUTABLE RULES
+#
+####################################################################
+
+# Source to object
+
+.c.${MPITEST_ARCH}${MPITEST_USERTAG}_o:
+	@${MPITEST_ECHO} "$< ===> $@"
+	$(MPITEST_AT)$(MPITEST_CC) -c $(MPITEST_INCLUDE_OPTION) $(MPITEST_CFLAGS) \
+           -o $@ $<
+
+.f.${MPITEST_ARCH}${MPITEST_USERTAG}_o:
+	@${MPITEST_ECHO} "$< ===> $@
+	if test ! -f mpitest_cfgf.h ; then \
+            ln -s $(MPITEST_INCLUDE_DIR)/mpitest_cfgf.h mpitest_cfgf.h ;\
+            ln -s $(MPITEST_INCLUDE_DIR)/mpitestf.h mpitestf.h ;\
+            ln -s $(MPITEST_INCLUDE_DIR)/externalf.h externalf.h;\
+            ln -s $(MPITEST_MPI_INCLUDE_DIR)/mpif.h mpif.h ;\
+	fi
+
+	$(MPITEST_AT)$(MPITEST_F77) -c $(MPITEST_INCLUDE_OPTION) $(MPITEST_FFLAGS) \
+           -o $@ $<
+	if test -f mpitest_cfgf.h ; then \
+	    /bin/rm mpitest_cfgf.h ;\
+	    /bin/rm mpitestf.h ;\
+	    /bin/rm externalf.h ;\
+	    /bin/rm mpif.h ;\
+	fi
+
+.F.${MPITEST_ARCH}${MPITEST_USERTAG}_o:
+	@${MPITEST_ECHO} "$< ===> $@"
+	if test ! -f mpitest_cfgf.h ; then \
+	    ln -s $(MPITEST_INCLUDE_DIR)/mpitest_cfgf.h mpitest_cfgf.h ;\
+	    ln -s $(MPITEST_INCLUDE_DIR)/mpitestf.h mpitestf.h ;\
+	    ln -s $(MPITEST_INCLUDE_DIR)/externalf.h externalf.h ;\
+	    ln -s $(MPITEST_MPI_INCLUDE_DIR)/mpif.h mpif.h ;\
+	fi
+	rm -f $@
+	$(MPITEST_AT)$(MPITEST_F77) $(MPITEST_FFLAGS) \
+	$(MPITEST_INCLUDE_OPTION) -c $<
+	mv -f $*.o $@
+	if test -f mpitest_cfgf.h ; then \
+	    /bin/rm mpitest_cfgf.h ;\
+	    /bin/rm mpitestf.h ;\
+	    /bin/rm externalf.h ;\
+	    /bin/rm mpif.h ;\
+	fi
+  
+# Source (and object(s)) to node executable
+
+.c.${MPITEST_ARCH}${MPITEST_USERTAG}_bx .s.${MPITEST_ARCH}${MPITEST_USERTAG}_bx:
+	@${MPITEST_ECHO} "$< ===> $@"
+	$(MPITEST_AT)$(MPITEST_CC) $(MPITEST_INCLUDE_OPTION) $(MPITEST_CFLAGS) \
+           -o $@ $< $(MPITEST_LOCALOBJ) $(MPITEST_CLIB) $(MPITEST_MPICLIB) \
+           $(MPITEST_LOCALLIB) $(MPITEST_USERLIB) ; \
+        $(MPITEST_RM) -f $(MPITEST_TESTNAME).$(MPITEST_ARCH)_$(MPITEST_NPROCS)${MPITEST_USERTAG}_L
+#	$(EXEC_RULE)
+
+.C.${MPITEST_ARCH}${MPITEST_USERTAG}_bx:
+	@${MPITEST_ECHO} "$< ===> $@"
+	$(MPITEST_AT)$(MPITEST_CPP) $(MPITEST_INCLUDE_OPTION) $(MPITEST_CFLAGS) \
+           -o $@ $< $(MPITEST_LOCALOBJ) $(MPITEST_CLIB) $(MPITEST_MPICLIB) \
+           $(MPITEST_LOCALLIB) $(MPITEST_USERLIB) ; \
+        $(MPITEST_RM) -f $(MPITEST_TESTNAME).$(MPITEST_ARCH)_$(MPITEST_NPROCS)${MPITEST_USERTAG}_L
+#	$(EXEC_RULE)
+
+.f.${MPITEST_ARCH}${MPITEST_USERTAG}_bx:
+	@${MPITEST_ECHO} "$< ===> $@"
+	if test ! -f mpitest_cfgf.h ; then \
+	    ln -s $(MPITEST_INCLUDE_DIR)/mpitest_cfgf.h mpitest_cfgf.h ;\
+	    ln -s $(MPITEST_INCLUDE_DIR)/mpitestf.h mpitestf.h ;\
+	    ln -s $(MPITEST_INCLUDE_DIR)/externalf.h externalf.h ;\
+	    ln -s $(MPITEST_MPI_INCLUDE_DIR)/mpif.h mpif.h ;\
+	fi
+	$(MPITEST_AT)$(MPITEST_F77) $(MPITEST_INCLUDE_OPTION) $(MPITEST_FFLAGS) \
+           -o $@ $< $(MPITEST_LOCALOBJ) $(MPITEST_FLIB) $(MPITEST_MPIFLIB) \
+           $(MPITEST_LOCALLIB) $(MPITEST_USERLIB) ; \
+        $(MPITEST_RM) -f $(MPITEST_TESTNAME).$(MPITEST_ARCH)_$(MPITEST_NPROCS)${MPITEST_USERTAG}_L
+	if test -f mpitest_cfgf.h ; then \
+            /bin/rm mpitest_cfgf.h ;\
+            /bin/rm mpitestf.h ;\
+            /bin/rm externalf.h ;\
+            /bin/rm mpif.h ;\
+	fi
+#	$(EXEC_RULE)
+
+.F.${MPITEST_ARCH}${MPITEST_USERTAG}_bx:
+	@${MPITEST_ECHO} "$< ===> $@"
+	if test ! -f mpitest_cfgf.h ; then \
+            ln -s $(MPITEST_INCLUDE_DIR)/mpitest_cfgf.h mpitest_cfgf.h ;\
+            ln -s $(MPITEST_INCLUDE_DIR)/mpitestf.h mpitestf.h ;\
+            ln -s $(MPITEST_INCLUDE_DIR)/externalf.h externalf.h ;\
+            ln -s $(MPITEST_MPI_INCLUDE_DIR)/mpif.h mpif.h ;\
+	fi
+	$(MPITEST_AT)$(MPITEST_F77) $(MPITEST_FFLAGS) \
+        $(MPITEST_INCLUDE_OPTION) -o $@ $< $(MPITEST_LOCALOBJ) $(MPITEST_FLIB) \
+           $(MPITEST_MPIFLIB) $(MPITEST_LOCALLIB) $(MPITEST_USERLIB) ; \
+        $(MPITEST_RM) -f $(MPITEST_TESTNAME).$(MPITEST_ARCH)_$(MPITEST_NPROCS)${MPITEST_USERTAG}_L
+	if test -f mpitest_cfgf.h ; then \
+            /bin/rm mpitest_cfgf.h ;\
+            /bin/rm mpitestf.h ;\
+            /bin/rm externalf.h ;\
+            /bin/rm mpif.h ;\
+	fi
+#	$(EXEC_RULE)
+
+# run scripts
+
+.sh.sx .ksh.sx .csh.sx:
+	@${MPITEST_ECHO} "$< ===> $@" ; \
+	$(MPITEST_RM) -f $@ ; \
+	$(MPITEST_LN) $< $@
+#	$(EXEC_RULE)
+
+####################################################################
+#
+#  LOG RULES
+#
+####################################################################
+
+.sx.$(MPITEST_ARCH)_$(MPITEST_NPROCS)${MPITEST_USERTAG}_L:
+	@${MPITEST_ECHO} "$< ===> $@" ; \
+	$< > $@ 2>&1 || ( ${MPITEST_ECHO} "Log file: $@" ; $(MPITEST_CAT) $@ ; $(MPITEST_RM) -f $@ && exit 11 ) ; \
+	$(MPITEST_RM) -f $(MPITEST_SCRATCH_FILE)
+
+####################################################################
+#
+#  RESULTS RULES
+#
+####################################################################
+
+.$(MPITEST_ARCH)_$(MPITEST_NPROCS)${MPITEST_USERTAG}_L.$(MPITEST_ARCH)_$(MPITEST_NPROCS)${MPITEST_USERTAG}_R:
+	@${MPITEST_ECHO} "$< ===> $@" ; \
+	if [ -r $< ] ; then \
+	       if grep '^TEST_RESULT:' $< > $@ 2>&1 ; then \
+		 $(MPITEST_CAT) $@ ; \
+		 if [ "`$(MPITEST_CAT) $@ | sed -e 's/[^ ]*[ ]*//' -e 's/[ ].*//'`" = "F" ] ; then \
+		   ${MPITEST_ECHO} "$@ test failed." ; \
+		 fi ; \
+	       else \
+		 ${MPITEST_ECHO} "No results in log file, check system ..." ; \
+		 $(MPITEST_RM) -f $@ ; \
+	       fi ; \
+	     else \
+	       ${MPITEST_ECHO} "No log file to make $@" ; \
+	     fi ; \
+
+####################################################################
+#
+#  PRINT Environment
+#
+####################################################################
+#??????????????????
+Print:
+	@${MPITEST_ECHO} "Environment:" ; \
+	${MPITEST_ECHO}  "============" ; \
+	${MPITEST_ECHO} "MPITEST_ARCH:           ${MPITEST_ARCH}" ; \
+	${MPITEST_ECHO} "MPITEST_BINDIR:         ${MPITEST_BINDIR}" ; \
+	${MPITEST_ECHO} "MPITEST_CLIB:           ${MPITEST_CLIB}" ; \
+	${MPITEST_ECHO} "MPITEST_CLIB_HOME:      ${MPITEST_CLIB_HOME}" ; \
+	${MPITEST_ECHO} "MPITEST_CLIB_NAME:      ${MPITEST_CLIB_NAME}" ; \
+	${MPITEST_ECHO} "MPITEST_CSHLIB:         ${MPITEST_CSHLIB}" ; \
+	${MPITEST_ECHO} "MPITEST_DEVNULL:        ${MPITEST_DEVNULL}" ; \
+	${MPITEST_ECHO} "MPITEST_ENVFILE:        ${MPITEST_ENVFILE}" ; \
+	${MPITEST_ECHO} "MPITEST_FAIL:           ${MPITEST_FAIL}" ; \
+	${MPITEST_ECHO} "MPITEST_FLIB:           ${MPITEST_FLIB}" ; \
+	${MPITEST_ECHO} "MPITEST_FLIB_HOME:      ${MPITEST_FLIB_HOME}" ; \
+	${MPITEST_ECHO} "MPITEST_FLIB_NAME:      ${MPITEST_FLIB_NAME}" ; \
+	${MPITEST_ECHO} "MPITEST_HOME:           ${MPITEST_HOME}" ; \
+	${MPITEST_ECHO} "MPITEST_INCLUDE_DIR:    ${MPITEST_INCLUDE_DIR}" ; \
+	${MPITEST_ECHO} "MPITEST_INCLUDE_OPTION: ${MPITEST_INCLUDE_OPTION}" ; \
+	${MPITEST_ECHO} "MPITEST_KSHLIB:         ${MPITEST_KSHLIB}" ; \
+	${MPITEST_ECHO} "MPITEST_LOCAL_OPTIONS:  ${MPITEST_LOCAL_OPTIONS}" ; \
+	${MPITEST_ECHO} "MPITEST_LOCKFILE:       ${MPITEST_LOCKFILE}" ; \
+	${MPITEST_ECHO} "MPITEST_MACHINE_FILE:   ${MPITEST_MACHINE_FILE}" ; \
+	${MPITEST_ECHO} "MPITEST_MAKESHELL:      ${MPITEST_MAKESHELL}" ; \
+	${MPITEST_ECHO} "MPITEST_MMAKEFILE:      ${MPITEST_MMAKEFILE}" ; \
+	${MPITEST_ECHO} "MPITEST_MPICLIB:        ${MPITEST_MPICLIB}" ; \
+	${MPITEST_ECHO} "MPITEST_MPIFLIB:        ${MPITEST_MPIFLIB}" ; \
+	${MPITEST_ECHO} "MPITEST_MPI_INCLUDE_DIR:${MPITEST_MPI_INCLUDE_DIR}" ; \
+	${MPITEST_ECHO} "MPITEST_MAKELOG:        ${MPITEST_MAKELOG}" ; \
+	${MPITEST_ECHO} "MPITEST_NPROCS:         ${MPITEST_NPROCS}" ; \
+	${MPITEST_ECHO} "MPITEST_PASS:           ${MPITEST_PASS}" ; \
+	${MPITEST_ECHO} "MPITEST_RUN_RANLIB:     ${MPITEST_RUN_RANLIB}" ; \
+	${MPITEST_ECHO} "MPITEST_SHLIB:          ${MPITEST_SHLIB}" ; \
+	${MPITEST_ECHO} "MPITEST_SIGHUP:         ${MPITEST_SIGHUP}" ; \
+	${MPITEST_ECHO} "MPITEST_SIGINT:         ${MPITEST_SIGINT}" ; \
+	${MPITEST_ECHO} "MPITEST_STDOUTFILE:     ${MPITEST_STDOUTFILE}" ; \
+	${MPITEST_ECHO} "MPITEST_TESTLIST:       ${MPITEST_TESTLIST}" ; \
+	${MPITEST_ECHO} "MPITEST_USERLIB:        ${MPITEST_USERLIB}" ; \
+	${MPITEST_ECHO} "MPITEST_USERTAG:        ${MPITEST_USERTAG}" ; \
+	${MPITEST_ECHO} "MPITEST_VERBOSE:        ${MPITEST_VERBOSE}" ; \
+	${MPITEST_ECHO} ""
+#
+Printutil:
+	@${MPITEST_ECHO} "System utilities:" ; \
+	${MPITEST_ECHO}  "=================" ; \
+	${MPITEST_ECHO} "MPITEST_AR:             ${MPITEST_AR}" ; \
+	${MPITEST_ECHO} "MPITEST_AWK:            ${MPITEST_AWK}" ; \
+	${MPITEST_ECHO} "MPITEST_BASENAME:       ${MPITEST_BASENAME}" ; \
+	${MPITEST_ECHO} "MPITEST_CAT:            ${MPITEST_CAT}" ; \
+	${MPITEST_ECHO} "MPITEST_CC:             ${MPITEST_CC}" ; \
+	${MPITEST_ECHO} "MPITEST_CFLAGS:         ${MPITEST_CFLAGS}" ; \
+	${MPITEST_ECHO} "MPITEST_CPP:            ${MPITEST_CPP}" ; \
+	${MPITEST_ECHO} "MPITEST_DATE:           ${MPITEST_DATE}" ; \
+	${MPITEST_ECHO} "MPITEST_ECHO:           ${MPITEST_ECHO}}" ; \
+	${MPITEST_ECHO} "MPITEST_EXPR:           ${MPITEST_EXPR}" ; \
+	${MPITEST_ECHO} "MPITEST_F77:            ${MPITEST_F77}" ; \
+	${MPITEST_ECHO} "MPITEST_FFLAGS:         ${MPITEST_FFLAGS}" ; \
+	${MPITEST_ECHO} "MPITEST_GREP:           ${MPITEST_GREP}" ; \
+	${MPITEST_ECHO} "MPITEST_HOSTNAME:       ${MPITEST_HOSTNAME}" ; \
+	${MPITEST_ECHO} "MPITEST_LN:             ${MPITEST_LN}" ; \
+	${MPITEST_ECHO} "MPITEST_LS:             ${MPITEST_LS}" ; \
+	${MPITEST_ECHO} "MPITEST_MAKE:           ${MPITEST_MAKE}" ; \
+	${MPITEST_ECHO} "MPITEST_MORE:           ${MPITEST_MORE}" ; \
+	${MPITEST_ECHO} "MPITEST_MV:             ${MPITEST_MV}" ; \
+	${MPITEST_ECHO} "MPITEST_RANLIB :        ${MPITEST_RANLIB}" ; \
+	${MPITEST_ECHO} "MPITEST_RM:             ${MPITEST_RM}" ; \
+	${MPITEST_ECHO} "MPITEST_RSH:            ${MPITEST_RSH}" ; \
+	${MPITEST_ECHO} "MPITEST_SED:            ${MPITEST_SED}" ; \
+	${MPITEST_ECHO} "MPITEST_SYNC:           ${MPITEST_SYNC}" ; \
+	${MPITEST_ECHO} "MPITEST_TOUCH:          ${MPITEST_TOUCH}" ; \
+	${MPITEST_ECHO} "MPITEST_WC:             ${MPITEST_WC}" ; \
+        ${MPITEST_ECHO} ""
+
+####################################################################
+#
+# Remove previous log, result files, make output and executables
+#
+####################################################################
+clean:
+	$(MPITEST_AT)$(MPITEST_RM) -f \
+           $(MPITEST_TESTNAME).$(MPITEST_ARCH)_$(MPITEST_NPROCS)${MPITEST_USERTAG}_L \
+           $(MPITEST_TESTNAME).$(MPITEST_ARCH)_$(MPITEST_NPROCS)${MPITEST_USERTAG}_R \
+           $(MPITEST_MAKELOG) \
+           $(MPITEST_SCRATCH_FILE) \
+           *.$(MPITEST_ARCH)${MPITEST_USERTAG}_bx \
+           $(MPITEST_TESTNAME).sx \
+           *.$(MPITEST_ARCH)${MPITEST_USERTAG}_o \
+           *.o stdout.*
+
+cleanall:
+	$(MPITEST_AT)$(MPITEST_RM) -f $(MPITEST_TESTNAME).*_L \
+           $(MPITEST_TESTNAME).*_R \
+           makelog.* \
+           $(MPITEST_SCRATCH_FILE) \
+           *.*_bx \
+           $(MPITEST_TESTNAME).sx \
+           $(MPITEST_LOCKFILE) \
+           *pgfile* \
+           *.*_o \
+           *.o stdout.*
+ cleanexe:
+	$(MPITEST_AT)$(MPITEST_RM) -f \
+            *.$(MPITEST_ARCH)${MPITEST_USERTAG}_bx \
+            $(MPITEST_TESTNAME).sx \
+	    *.$(MPITEST_ARCH)${MPITEST_USERTAG}_o \
+            *.o 
+
+
+
+
+

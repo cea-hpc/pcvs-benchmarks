@@ -1,0 +1,58 @@
+#! /bin/sh
+#
+#set -x
+# Run this to create the f90 tests.  This must be run in the source directory,
+# from the toplevel directory
+#
+# If this is from a VPATH build, extract the source directory
+masterdir=`echo $0 | sed -e 's%bin/buildF90Tests%%'`
+
+if [ ! -x bin/f77tof90 ] ; then
+    echo "You must first configure to create bin/f77tof90"
+    exit 1
+fi
+#
+# Create/update the files
+for dir in ${masterdir}Test/fortran/*/*/* ; do
+    if [ ! -d $dir ] ; then continue ; fi
+    if [ ! -s $dir/node.F ] ; then continue ; fi
+    f90TestDir=`echo $dir | sed -e 's/fortran/f90/'`
+    if [ -n "$masterdir" ] ; then
+        f90TestRelDir=`echo $f90TestDir | sed -e "s%$masterdir%%"`
+    else
+        f90TestRelDir=$f90TestDir
+    fi
+    if [ ! -d $f90TestRelDir ] ; then
+        mkdir -p $f90TestRelDir
+    fi
+    bin/f77tof90 $dir $f90TestRelDir Makefile
+done
+#
+# Handle the foptions.h and other include files.  Mostly, this means
+# changing to the free-form comments
+if [ -s ${masterdir}include/foptions.h ] ; then
+    sed -e 's/^C/!/g' ${masterdir}include/foptions.h > ${masterdir}include/f90options.h
+else 
+    if [ -s ${masterdir}include/foptions.h.in ] ; then
+        sed -e 's/^C/!/g' ${masterdir}include/foptions.h.in > ${masterdir}include/f90options.h.in
+        if [ -x config.status ] ; then
+            (CONFIG_FILES=include/f90options.h && export CONFIG_FILES && \
+             config.status)
+        else
+            echo "Need either config.status of include/foptions.h to generate"
+            echo "include/f90options.h"
+        fi
+    fi
+fi
+sed -e 's/^C/!/g' -e 's/mpitestf\.h/mpitestf90.h/g' \
+    ${masterdir}include/mpitest_cfgf.h > include/mpitest_cfgf90.h
+sed -e 's/^C/!/g' ${masterdir}include/mpitestf.h > include/mpitestf90.h
+sed -e 's/^C/!/g' ${masterdir}include/externalf.h > include/externalf90.h
+#
+# Create/update the test lists
+for file in ${masterdir}Test/testlist* ; do 
+    if grep fortran $file >/dev/null 2>&1 ; then 
+        echo "Creating Fortran 90 version of test file $file"
+	grep -v ^c/ $file | sed -e 's/fortran/f90/g' >${file}_f90
+    fi
+done

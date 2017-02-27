@@ -1,0 +1,867 @@
+#!/bin/sh
+#
+# MESSAGE PASSING INTERFACE TEST CASE SUITE
+# 
+# Copyright - 1996 Intel Corporation
+# 
+# Intel Corporation hereby grants a non-exclusive license under Intel's
+# copyright to copy, modify and distribute this software for any purpose
+# and without fee, provided that the above copyright notice and the following
+# paragraphs appear on all copies.
+# 
+# Intel Corporation makes no representation that the test cases comprising
+# this suite are correct or are an accurate representation of any standard.
+# 
+# IN NO EVENT SHALL INTEL HAVE ANY LIABILITY FOR ANY DIRECT, INDIRECT OR
+# SPECULATIVE DAMAGES, (INCLUDING WITHOUT LIMITING THE FOREGOING, CONSEQUENTIAL,
+# INCIDENTAL AND SPECIAL DAMAGES) INCLUDING, BUT NOT LIMITED TO INFRINGEMENT,
+# LOSS OF USE, BUSINESS INTERRUPTIONS, AND LOSS OF PROFITS, IRRESPECTIVE OF
+# WHETHER INTEL HAS ADVANCE NOTICE OF THE POSSIBILITY OF ANY SUCH DAMAGES.
+# 
+# INTEL CORPORATION SPECIFICALLY DISCLAIMS ANY WARRANTIES INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+# PARTICULAR PURPOSE AND NON-INFRINGEMENT.  THE SOFTWARE PROVIDED HEREUNDER
+# IS ON AN "AS IS" BASIS AND INTEL CORPORATION HAS NO OBLIGATION TO PROVIDE
+# MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS OR MODIFICATIONS.
+# -----------------------------------------------------------------------------
+#
+#                                MPI Test driver
+#
+# Dependency files:
+#   Makefile.master
+#   mpitest.env
+#   startjob.${MPITEST_ARCH}  
+#
+#
+# Implementation history:
+#   1  02/01/96     simont       Original version
+#
+# -----------------------------------------------------------------------------
+#
+
+# 1. Initialize constants & variables
+#
+
+versionStr="MPI Validation Suite v1.0"
+
+bell=""
+
+devNull=/dev/null
+
+logFile=/dev/null
+
+listFile=/tmp/list.$$
+
+testList=
+
+cleanAll=""
+
+testCount=0
+
+warning=0
+error=0
+
+buildOnlyFlag=""
+
+status=""
+
+userConfigFlag=""
+
+cLibOnly=""
+
+fLibOnly=""
+
+srcdir=@srcdir@
+master_srcdir=@master_srcdir@
+#
+# Functions definition
+#
+# Log function: record output in log file, with date/time stamp
+Log()
+{
+   if test -z "$MPITEST_DATE"
+   then
+      if test -z "$MPITEST_HOSTNAME"
+      then
+         echo "$*" | tee -a $logFile
+      else
+         echo "`${MPITEST_HOSTNAME:-hostname}` $*" | tee -a $logFile
+      fi
+   else
+      if test -z "$MPITEST_HOSTNAME"
+      then
+         echo "`${MPITEST_DATE:-date} '+%D %T'` $*" | tee -a $logFile
+      else
+         echo "`${MPITEST_DATE:-date} '+%D %T'` `${MPITEST_HOSTNAME:-date}` $*" | tee -a $logFile
+      fi
+   fi
+}
+
+# Interrupt function: trap interrupt signals
+#                     Handle the interrupt signals desired, pass others thru
+Interrupt()
+{
+
+   Log "Interrupted, signal #$1 $bell ..."
+
+   # Where we were
+   if test -n "$MPITEST_VERBOSE" ; then
+      Log "Directory #$nDir of $maxDir"
+      Log "Test directory $testName"
+   fi
+
+   # Set exit code
+   exitCode=21
+
+   # Consider removing the lock file here
+   # Depends if this is a mesh-hanging test, in which case you would rather
+   # leave the lock
+
+   case $1 in
+        1) # Hang-up
+#           CleanUp
+           ;;
+        2) # Interrupt (^C)
+           ${MPITEST_RM:-rm} -f ${MPITEST_LOCKFILE}
+           ${MPITEST_RM:-rm} -f $listFile
+           ;;
+        *) # Pass thru remaining interrupts
+           break
+           ;;
+   esac
+
+   $MPITEST_SYNC
+
+   exit $exitCode
+}
+
+#
+# 1. Initialize constants & variables
+#
+
+MPITEST_HOME=@MPITEST_HOME@
+MPITEST_ARCH=@MPITEST_ARCH@
+
+#    a. String constants
+if test -z "$MPITEST_HOME"
+then
+   Log "ERROR: MPITEST_HOME is not defined."
+   exit 1
+elif test ! -r "$MPITEST_HOME"
+then
+   Log "ERROR: Invalid MPITEST_HOME, directory does not exist or not readable."
+   exit 2
+elif test ! -x "$MPITEST_HOME"
+then
+   Log "ERROR: Invalid MPITEST_HOME, directory not executable."
+   exit 3
+fi
+
+# 3. Process command line options, until first unrecognized option
+#    All the unrecognised option will be passed to the platform
+#    specific script.
+
+while test $# -gt 0 ; do
+      case "$1" in
+           -echo) 
+	       set -x
+	       shift
+	       ;;
+           -arch)         # Machine architecture
+               if test -n "$2" ; then
+                  # Assume this a valid MPITEST_ARCH
+                  # the input arch will not be verified, that way, any new
+                  # arch added later will not require code change here.
+                  MPITEST_ARCH="$2"
+                  export MPITEST_ARCH
+                  shift
+               else
+                  Log "ERROR: \"-arch\" option: architecture argument required."
+#                  CleanUp
+                  exit 4
+               fi
+               shift
+               ;;
+           -build)        # Only build executable(s), do not run test
+               buildOnlyFlag=1
+               shift
+               ;;
+           -cleanall)     # Remove all logs, results, make outputs & executables
+               cleanAll=1
+               shift
+               break
+               ;;
+           -config)       # Config file
+               if test -n "$2" ; then
+                  if test -r "$2" ; then
+                     MPITEST_CONFIG_FILE="$2"
+                     export MPITEST_CONFIG_FILE
+                     userConfigFlag=1
+                     shift
+                  else
+                     Log "ERROR: \"-config\" option: config file specified not readable."
+                     exit 5
+                  fi
+               else
+                  Log "ERROR: \"-config\" option: argument required."
+                  exit 6
+               fi
+               shift
+               ;;
+           -clibonly)     # Build or clean mpitest C library only
+               cLibOnly=1
+               fLibOnly=""
+               shift
+               ;;
+           -envfile)      # Environment file
+               if test -n "$2" ; then
+                  if test -f "$2" ; then
+                     MPITEST_ENVFILE="$2"
+                     export MPITEST_ENVFILE
+                     shift
+                  else
+                     Log "ERROR: \"-envfile\" option: environment file specified not found or un-readable."
+                     exit 7
+                  fi
+               else
+                  Log "ERROR: \"-envfile\" option: argument required."
+                  exit 8
+               fi
+               shift
+               ;;
+           -flibonly)     # Build, or clean mpitest Fortran library only
+               fLibOnly=1
+               cLibOnly=""
+               shift
+               ;;
+           -help)         # Help option, this message
+               echo
+               echo "Usage: mpitest [ -<driver opts> ...]"
+               echo "               [-<platform specific opts> ...]"
+               echo "               [-<job specific opts> ...]"
+               echo ""
+               echo "Test driver options:"
+               echo "===================="
+               echo "-arch <platform name>     Platform name"
+               echo "                          (e.g. -arch INTEL_paragon_nx)"
+               echo ""
+               echo "-build                    Only build executable(s), do not run test"
+               echo ""
+               echo "-cleanall                 Remove all logs, results, makeoutputs"
+               echo "                          and executables"
+               echo ""
+               echo "-config <file>            Configuration file"
+               echo "                          (e.g. -config /usr/local/MPITEST/mpitest_cfg.h)"
+               echo ""
+               echo "-clibonly                 Build or clean mpitest C library only"
+               echo ""
+               echo "-envfile <file>           Environment file"
+               echo "                          (e.g. -envfile /usr/local/MPITEST/my.env)"
+               echo ""
+               echo "-flibonly                 Build, or clean mpitest Fortran library only"
+               echo ""
+               echo "-help                     Help option, this message"
+               echo ""
+               echo "-mmakefile <file>         Alternate master makefile"
+               echo "                          (e.g. -mmakefile /usr/local/MPITEST/bin/Makefile.master)"
+               echo ""
+               echo "-mpiclib <lib opt>        MPI C library link option"
+               echo "                          (e.g. -mpiclib '-L/usr/local/MPITEST/lib -lmpi')"
+               echo ""
+               echo "-mpiflib <lib opt>        MPI Fortran library link option"
+               echo "                          (e.g. -mpiclib '-L/usr/local/MPITEST/lib -lmpi')"
+               echo ""
+               echo "-np <nprocs>              Number of process(es)"
+               echo "                          (e.g. -np 4)"
+               echo ""
+               echo "-stdoutfile               Each process write all stdout to a different file"
+               echo ""
+               echo "-tag <user tag>           User tag"
+               echo "                          (e.g. -tag mytestrun)"
+               echo ""
+               echo "-testclib <lib dir>       C test library directory"
+               echo "                          (e.g. -testclib /usr/local/MPITEST/lib)"
+               echo ""
+               echo "-testflib <lib dir>       Fortran test library directory"
+               echo "                          (e.g. -testflib /usr/local/MPITEST/lib)"
+               echo ""
+               echo "-testlist <testlist file> Test(s) to be run"
+               echo "                          (e.g. -testlist /usr/local/MPITEST/testlist)"
+               echo ""
+               echo "-verbose <level>          Verbose option"
+               echo "                          (e.g. -verbose 2)"
+               echo ""
+               echo "-version                  Shows version"
+               echo ""
+
+               # Display platform specific options help
+               if test -r "${MPITEST_BINDIR:-$MPITEST_HOME/bin}/startjob.${MPITEST_ARCH}" \
+                       -a -x "${MPITEST_BINDIR:-$MPITEST_HOME/bin}/startjob.${MPITEST_ARCH}"
+               then
+                  echo ""
+                  ${MPITEST_BINDIR:-$MPITEST_HOME/bin}/startjob.${MPITEST_ARCH} -help
+               else
+                  echo "Error: ${MPITEST_BINDIR:-$MPITEST_HOME/bin}/startjob.${MPITEST_ARCH} not readable or executable"
+                  echo "       Please make sure platform name are spelled"
+                  echo "       correctly in either -arch or MPITEST_ARCH"
+               fi
+ 
+               exit 0
+               ;;
+           -mmakefile)    # Alternate master Makefile
+               if test -n "$2" ; then
+                  if test -f "$2" ; then
+                     MPITEST_MMAKEFILE="$2"
+                     export MPITEST_MMAKEFILE
+                     shift ; shift
+                  else
+                     Log "ERROR: \"-mmakefile\" option: alternate_master_Makefile, $2, not found or un-readable."
+#                     CleanUp
+                     exit 9
+                  fi
+               else
+                  Log "ERROR: \"-mmakefile\" option: alternate_master_Makefile argument required."
+#                  CleanUp
+                  exit 10
+               fi
+               ;;
+           -mpiclib)      # MPI C library link option
+               if test -n "$2" ; then
+                  if test -r "$2" ; then
+                     MPITEST_MPICLIB="$2"
+                     export MPITEST_MPICLIB
+                     shift
+                  else
+                     Log "ERROR: \"-mpiclib\" option: library specified, $2, does not exist or un-readable."
+                     exit 11
+                  fi
+               else
+                  Log "ERROR: \"-mpiclib\" option: library argument required."
+#                  CleanUp
+                  exit 12
+               fi
+               shift
+               ;;
+           -mpiflib)      # MPI Fortran library link option
+               if test -n "$2" ; then
+                  if test -r "$2" ; then
+                     MPITEST_MPIFLIB="$2"
+                     export MPITEST_MPIFLIB
+                     shift
+                  else
+                     Log "ERROR: \"-mpiflib\" option: library specified, $2, does not exist or un-readable."
+                     exit 13
+                  fi
+               else
+                  Log "ERROR: \"-mpiflib\" option: library argument required."
+#                  CleanUp
+                  exit 14
+               fi
+               shift
+               ;;
+           -np)           # Number of process(es)
+               if test -n "$2" ; then
+                  MPITEST_NPROCS="$2"
+                  export MPITEST_NPROCS
+                  shift
+               else
+                  Log "ERROR: \"-np\" option: number argumnet required."
+                  exit 15
+               fi
+               shift
+               ;;
+           -stdoutfile)   # Each process write all stdout to a different file
+               MPITEST_STDOUTFILE=1
+               export MPITEST_STDOUTFILE
+               shift
+               ;;
+           -tag)          # User tag
+               if test -n "$2" ; then
+                  MPITEST_USERTAG="_$2"
+                  export MPITEST_USERTAG
+                  shift
+               else
+                  Log "ERROR: \"-tag\" option: argumrnt required."
+                  exit 16
+               fi
+               shift
+               ;;
+           -testclib)     # C test library directory
+               if test -n "$2" ; then
+                  if test -r "$2" ; then
+                     MPITEST_CLIB_HOME="$2"
+                     export MPITEST_CLIB_HOME
+                     shift
+                  else
+                     Log "ERROR: \"-testclib\" option: library specified, $2, does not exist or un-readable."
+                     exit 17
+                  fi
+               else
+                  Log "ERROR: \"-testclib\" option: library argument required."
+#                  CleanUp
+                  exit 18
+               fi
+               shift
+               ;;
+           -testflib)     # Fortran test library directory
+               if test -n "$2" ; then
+                  if test -r "$2" ; then
+                     MPITEST_FLIB_HOME="$2"
+                     export MPITEST_FLIB_HOME
+                     shift
+                  else
+                     Log "ERROR: \"-testflib\" option: library specified, $2, does not exist or un-readable."
+                     exit 19
+                  fi
+               else
+                  Log "ERROR: \"-testflib\" option: library argument required."
+#                  CleanUp
+                  exit 20
+               fi
+               shift
+               ;;
+           -testlist)     # Test(s) to be run
+               if test -n "$2" ; then
+                  if test -r "$2" ; then
+                     MPITEST_TESTLIST="$2"
+                     export MPITEST_TESTLIST
+                     shift ; shift
+                  else
+                     Log "ERROR: \"-testlist\" option: test_list_file, $2, not found or un-readable."
+#                     CleanUp
+                     exit 21
+                  fi
+               else
+                  Log "ERROR: \"-testlist\" option: test_list_file argument required."
+#                  CleanUp
+                  exit 22
+               fi
+               ;;
+           -verbose)      # Verbose option
+               if test -n "$2" ; then
+                  MPITEST_VERBOSE="$2"
+                  export MPITEST_VERBOSE
+                  # Enable make echoing!
+                  MPITEST_AT=""
+                  export MPITEST_AT
+                  shift
+               else
+                  Log "ERROR: \"-verbose\" option: verbosity argument required."
+                  exit 23
+               fi
+               shift
+               ;;
+           -version)      # Shows version
+               echo $versionStr
+               exit 0
+               ;;
+           --)            # Options separator
+               shift
+               MPITEST_LOCAL_OPTIONS=$*
+               export MPITEST_LOCAL_OPTIONS
+               break
+               ;;
+           *)  # All the remaining options should eith be platform specific
+               # or job specific and will be passed on to the job submission
+               # script (e.g. startjob.INTEL_paragon_nx)
+               MPITEST_LOCAL_OPTIONS=$*
+               export MPITEST_LOCAL_OPTIONS
+               break
+               ;;
+      esac
+done
+
+#
+# Make sure -arch was specified
+#
+if test -z "$MPITEST_ARCH"
+then
+   Log "ERROR: -arch option is required if MPITEST_ARCH is not predefined to run test"
+   exit 24
+fi
+
+#
+# Obtain environment variables if not already defined
+#
+if test -z "$MPITEST_ENVFILE"
+then
+   MPITEST_ENVFILE="${MPITEST_HOME}/bin/mpitest.env"
+fi
+
+if test -r "$MPITEST_HOME/bin/mpitest.env"
+then
+   . $MPITEST_ENVFILE
+else
+   Log "ERROR: ${MPITEST_HOME}/bin/mpitest.env does not exist or not readable"
+   exit 25
+fi
+
+#
+# Traps!
+#
+# Would have use the signal name instead for more portability but sh
+# doesn't support this (ksh does though but not all architectures
+# necessarily provide ksh)
+#
+# Ignore hang up (so test can continue running
+trap "" ${MPITEST_SIGHUP:-1}
+
+# Handle control-C
+trap "Interrupt 2" ${MPITEST_SIGINT:-2}
+
+#
+# Save current directory
+#
+parentDir=`pwd`
+
+#
+# Make sure number of process(es) to be created has been specified
+#
+if test -z "$MPITEST_NPROCS"
+then
+   Log "ERROR: -np option is required if MPITEST_NPROCS is not predefined to run test"
+   exit 26
+fi
+
+#
+# Prepare list of tests to be run
+#
+if test -z "$MPITEST_TESTLIST"
+then
+   # if there is a test in the current directory
+   if test -f "Makefile"
+   then
+      echo "." > $listFile
+   fi
+   # Use all subdirectory in the current directory
+   ${MPITEST_LS:-ls} | ${MPITEST_GREP:-grep} -v Makefile >> $listFile
+else
+   # Use the user specified test list skipping all comments
+   ${MPITEST_GREP:-grep} -v "^#" $MPITEST_TESTLIST > $listFile
+fi
+
+# Print Environment if -verbose is specified
+if test -n "$MPITEST_VERBOSE"
+then
+   ${MPITEST_MAKE:-make} -e -f $MPITEST_MMAKEFILE Print "SHELL=${MPITEST_MAKESHELL:-/bin/sh}"
+   ${MPITEST_MAKE:-make} -e -f $MPITEST_MMAKEFILE Printutil "SHELL=${MPITEST_MAKESHELL:-/bin/sh}" 
+fi
+
+#
+# Make or clean mpitest library if necessary
+#
+
+# mpitest C library
+if test -z "$fLibOnly"
+then
+   if test -d "$MPITEST_CLIB_HOME"
+   then
+      if test -r "$MPITEST_CLIB_HOME"
+      then
+         if test -x "$MPITEST_CLIB_HOME"
+         then
+            if test -w "$MPITEST_CLIB_HOME"
+            then
+               cd "$MPITEST_CLIB_HOME"
+
+               if test -n "$cleanAll"
+               then
+                  # Cleaning mpitest C library
+                  Log "Cleaning mpitest C library"
+
+                  ${MPITEST_MAKE:-make} -e -f Makefile cleanall "SHELL=${MPITEST_MAKESHELL:-/bin/sh}" > ${MPITEST_DEVNULL:-/dev/null}
+               else
+                  #
+                  # Create library
+                  #
+                  Log "Making mpitest C library"
+
+                  ${MPITEST_MAKE:-make} -e -f Makefile mpitestclib "SHELL=${MPITEST_MAKESHELL:-/bin/sh}" > $MPITEST_MAKELOG 2>&1
+
+                  if test "$?" != 0
+                  then
+                     Log "ERROR: making mpitest C library"
+                     # Remove the library
+                     ${MPITEST_MAKE:-make} -e -f Makefile cleanc "SHELL=${MPITEST_MAKESHELL:-/bin/sh}" >> $MPITEST_MAKELOG 2>&1
+
+                     exit 27
+                  else
+                     Log "Complete making mpitest C library"
+                  fi
+               fi
+
+               cd "$parentDir"
+            else
+               Log "ERROR: $MPITEST_CLIB_HOME: Not writable"
+               exit 28
+            fi
+         else
+            Log "ERROR: $MPITEST_CLIB_HOME: Not executable"
+            exit 29
+         fi
+      else
+         Log "ERROR: $MPITEST_CLIB_HOME: Not readable"
+         exit 30
+      fi
+   else
+       Log "ERROR: $MPITEST_CLIB_HOME: Not a directory"
+       exit 31
+   fi
+fi
+
+
+# mpitest Fortran library
+if test -z "$cLibOnly"
+then
+   if test -d "$MPITEST_FLIB_HOME"
+   then
+      if test -r "$MPITEST_FLIB_HOME"
+      then
+         if test -x "$MPITEST_FLIB_HOME"
+         then
+            if test -w "$MPITEST_FLIB_HOME"
+            then
+               cd "$MPITEST_FLIB_HOME"
+
+               if test -n "$cleanAll"
+               then
+                  # Cleaning mpitest Fortran library
+                  Log "Cleaning mpitest Fortran library"
+
+                  ${MPITEST_MAKE:-make} -e -f Makefile cleanall "SHELL=${MPITEST_MAKESHELL:-/bin/sh}" > ${MPITEST_DEVNULL:-/dev/null}
+               else
+
+                  #
+                  # Create library
+                  #
+                  Log "Making mpitest Fortran library"
+
+                  ${MPITEST_MAKE:-make} -e -f Makefile mpitestflib "SHELL=${MPITEST_MAKESHELL:-/bin/sh}" > $MPITEST_MAKELOG 2>&1
+
+                  if test "$?" != 0
+                  then
+                     Log "ERROR: making mpitest Fortran library"
+                     # Remove the library
+                     ${MPITEST_MAKE:-make} -e -f Makefile cleanf "SHELL=${MPITEST_MAKESHELL:-/bin/sh}" >> $MPITEST_MAKELOG 2>&1
+
+                     exit 32
+                  else
+                     Log "Complete making mpitest Fortran library"
+                  fi
+               fi
+
+               cd "$parentDir"
+            else
+               Log "ERROR: $MPITEST_FLIB_HOME: Not writable"
+               exit 33
+            fi
+         else
+            Log "ERROR: $MPITEST_FLIB_HOME: Not executable"
+            exit 34
+         fi
+      else
+         Log "ERROR: $MPITEST_FLIB_HOME: Not readable"
+         exit 35
+      fi
+   else
+       Log "ERROR: $MPITEST_FLIB_HOME: Not a directory"
+      exit 36
+   fi
+fi
+
+#
+# Run tests!
+#
+
+nDir=0
+maxDir=`${MPITEST_SED:-sed} -n '$=' $listFile`
+
+while [ $nDir -lt $maxDir ]
+do
+   nDir=`expr $nDir + 1`
+   testName=`${MPITEST_SED:-sed} -n "$nDir p" $listFile`
+   # Check for VPATH
+   if test ! -d "$testName" -a -d "${master_srcdir}/Test/$testName" ; then
+       # Assume mkdir -p
+       mkdir -p $testName
+   fi
+   if test -d "$testName" # Is it a directory?
+   then
+      if test -r "$testName" # Is it a readable directory?
+      then
+         if test -w "$testName" # Is it a writable directory?
+         then
+            if test -x "$testName" # Is it an executable directory?
+            then
+               cd $testName
+
+               # Current directory
+               currDir=`pwd`
+
+               #
+               # Determine name of test
+               #
+               if test "$testName" = "."
+               then
+                  MPITEST_TESTNAME=`${MPITEST_BASENAME:-basename} $currDir`
+               else
+                  MPITEST_TESTNAME=`${MPITEST_BASENAME:-basename} $testName`
+               fi
+	       if test ! -f Makefile -a -f $master_srcdir/Test/$testName/Makefile ; then
+	           reldir=$master_srcdir/Test/$testName
+	       else
+                   reldir=.
+               fi
+
+               if test -f $reldir/Makefile
+               then
+                  # Not running test, simply cleaning all log, result, makelogs, lock files.
+                  if test -n "$cleanAll"
+                  then
+                     # Clean all test
+                     Log "Cleaning $MPITEST_TESTNAME"
+
+                     ${MPITEST_MAKE:-make} -e -f $MPITEST_MMAKEFILE cleanall "SHELL=${MPITEST_MAKESHELL:-/bin/sh}" > ${MPITEST_DEVNULL:-/dev/null}
+
+                     # Increment number of tests run
+                     testCount=`${MPITEST_EXPR:-expr} $testCount + 1` 
+                  else
+                     if test -f "${MPITEST_LOCKFILE}" # Does lock file exist in this directory?
+                     then
+                        Log "SKIP $MPITEST_TESTNAME: Lock exists ... "
+                        warning=`${MPITEST_EXPR:-expr} $warning + 1`
+                     else
+                        # Run test
+                        Log "Test: $MPITEST_TESTNAME"
+                        # Determine the config file (mpitest_cfg.h)
+                        if test "$userConfigFlag" = "1"
+                        then	
+                           Log "Using user specified configuration"
+                        else
+                           if test -f "./mpitest_cfg.h"
+                           then
+                              Log "Using local configuration"
+                              MPITEST_CONFIG_FILE="mpitest_cfg.h"
+                           elif test -f "./configf.h"
+                           then
+                              Log "Using local configuration"
+                              MPITEST_CONFIG_FILE="configf.h"
+                           else
+                              Log "Using default configuration"
+                              MPITEST_CONFIG_FILE="${MPITEST_INCLUDE_DIR}/mpitest_cfg.h"
+                           fi
+                           export MPITEST_CONFIG_FILE
+                        fi
+
+                        # Create lock file and start test
+                        echo "`${MPITEST_HOSTNAME:-hostname}` `${MPITEST_DATE:-date} '+%h %d %H:%M'`" > ${MPITEST_LOCKFILE}
+
+                        # Remove previous makefile
+                        ${MPITEST_RM:-rm} -f $MPITEST_MAKELOG
+
+                        # Clean up previous log, result files, makelogs, and
+                        # executables before starting test
+                        ${MPITEST_MAKE:-make} -e -f $MPITEST_MMAKEFILE clean "SHELL=${MPITEST_MAKESHELL:-/bin/sh}" >> $MPITEST_MAKELOG 2>&1
+
+                        # Build or run test
+                        if test -z "$buildOnlyFlag"
+                        then
+                           # Start test
+                           Log "Running $MPITEST_TESTNAME"
+
+                           ${MPITEST_MAKE:-make} -e -f $MPITEST_MMAKEFILE -f $reldir/Makefile -k "SHELL=${MPITEST_MAKESHELL:-/bin/sh}" >> $MPITEST_MAKELOG 2>&1
+                           #
+                           # Test pass or fail?
+                           #
+
+                           if test -r "${MPITEST_TESTNAME}.${MPITEST_ARCH}_${MPITEST_NPROCS}${MPITEST_USERTAG}_L"
+                           then
+                              if test -r "${MPITEST_TESTNAME}.${MPITEST_ARCH}_${MPITEST_NPROCS}${MPITEST_USERTAG}_R"
+                              then
+                                 Log "Complete running $MPITEST_TESTNAME."
+
+                                 # Increment number of tests run
+                                 testCount=`${MPITEST_EXPR:-expr} $testCount + 1` 
+
+                        # Clean up executables after running test
+                        ${MPITEST_MAKE:-make} -e -f $MPITEST_MMAKEFILE cleanexe "SHELL=${MPITEST_MAKESHELL:-/bin/sh}" >> $MPITEST_MAKELOG 2>&1
+
+                              else
+                                 Log "ERROR: Result file not generated."
+                                 error=`${MPITEST_EXPR:-expr} $error + 1`
+                              fi
+                           else
+                              Log "ERROR: Log file not generated."
+                              error=`${MPITEST_EXPR:-expr} $error + 1`
+                           fi
+
+                        else
+                           # Build executable(s) only, not running test(s)
+                           Log "Building $MPITEST_TESTNAME"
+
+                           # Please do not use -k here
+                           ${MPITEST_MAKE:-make} -e -f $MPITEST_MMAKEFILE -f $reldir/Makefile build "SHELL=${MPITEST_MAKESHELL:-/bin/sh}" >> $MPITEST_MAKELOG 2>&1
+
+                           status=$?
+
+                           if test "$status" != "0"
+                           then
+                              error=`${MPITEST_EXPR:-expr} $error + 1`
+                           else
+                              testCount=`${MPITEST_EXPR:-expr} $testCount + 1`
+                           fi
+                        fi
+
+                        # Remove Lock file
+                        ${MPITEST_RM:-rm} -f ${MPITEST_LOCKFILE}
+                     fi
+                  fi
+               else
+                  Log "SKIP $testName: Makefile does not exist or un-readable."
+                  warning=`${MPITEST_EXPR:-expr} $warning + 1`
+               fi
+            else
+               Log "SKIP $testName: Not an executable directory."
+               warning=`${MPITEST_EXPR:-expr} $warning + 1`
+            fi
+         else
+            Log "SKIP $testName: Not a writable directory."
+            warning=`${MPITEST_EXPR:-expr} $warning + 1`
+         fi
+      else
+         Log "SKIP $testName: Not a readable directory."
+         warning=`${MPITEST_EXPR:-expr} $warning + 1`
+      fi
+   fi
+
+   cd "$parentDir"
+done
+
+${MPITEST_RM:-rm} -f $listFile
+
+#
+# Restore back to previous directory
+#
+cd $parentDir
+
+if test -n "$cleanAll"
+then
+   Log "Completed cleaning $testCount test(s) $bell"
+elif test -n "$buildOnlyFlag"
+then
+   Log "Completed building $testCount test(s) $bell"
+else
+   Log "Completed running $testCount test(s) $bell"
+fi
+
+# Warning?
+if test "$warning" != "0"
+then
+   Log "There was $warning warning(s)"
+fi
+
+# Error?
+if test "$error" != "0"
+then
+   Log "There was $error error(s)"
+fi

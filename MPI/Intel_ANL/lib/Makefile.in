@@ -1,0 +1,66 @@
+SHELL = 			@BINSH@
+
+srcdir = @srcdir@
+
+MPITEST_AR = 			@MPITEST_AR@
+# Some systems still require ranlib - do not remove these lines
+MPITEST_RANLIB =                @MPITEST_RANLIB@
+MPITEST_RUN_RANLIB =            @MPITEST_RUN_RANLIB@
+MPITEST_AT= 			@MPITEST_AT@
+MPITEST_CC = 			@MPITEST_CC@
+MPITEST_F77 = 			@MPITEST_F77@
+
+MPITEST_ARCH = 			@MPITEST_ARCH@
+MPITEST_INCLUDE_DIR = 		@MPITEST_INCLUDE_DIR@
+MPITEST_INCLUDE_OPTION =        @MPITEST_INCLUDE_OPTION@ 
+MPITEST_CFLAGS = 		@MPITEST_CFLAGS@
+MPITEST_FFLAGS = 		@MPITEST_FFLAGS@
+MPITEST_MPI_INCLUDE_DIR = 	@MPITEST_MPI_INCLUDE_DIR@
+
+VPATH = .:@srcdir@
+
+mpitestclib: libmpitest_$(MPITEST_ARCH).a
+
+mpitestflib: libmpitestf_$(MPITEST_ARCH).a
+
+libmpitest_$(MPITEST_ARCH).a: libmpitest_$(MPITEST_ARCH).o
+	@echo "$? ===> $@"
+	$(MPITEST_AR) r libmpitest_$(MPITEST_ARCH).a libmpitest_$(MPITEST_ARCH).o
+	if test -n "$(MPITEST_RUN_RANLIB)" ; then \
+	    $(MPITEST_RANLIB) libmpitest_$(MPITEST_ARCH).a ; \
+	fi
+
+libmpitest_$(MPITEST_ARCH).o: libmpitest.c 
+	@echo "$? ===> $@" 
+	$(MPITEST_CC) $(MPITEST_CFLAGS) $(MPITEST_INCLUDE_OPTION) -c ${srcdir}/libmpitest.c -o $@
+
+libmpitestf_$(MPITEST_ARCH).a: libmpitestf_$(MPITEST_ARCH).o
+	@echo "$? ===> $@" 
+	$(MPITEST_AR) r libmpitestf_$(MPITEST_ARCH).a libmpitestf_$(MPITEST_ARCH).o 
+	if test -n "$(MPITEST_RUN_RANLIB)" ; then \
+	    $(MPITEST_RANLIB) libmpitestf_$(MPITEST_ARCH).a ; \
+	fi
+
+libmpitestf_$(MPITEST_ARCH).o: libmpitestf.F 
+	@echo "$? ===> $@"
+	rm -f mpitestf.h mpif.h foptions.h
+	-ln -s $(MPITEST_INCLUDE_DIR)/mpitestf.h mpitestf.h
+	-ln -s $(MPITEST_MPI_INCLUDE_DIR)/mpif.h mpif.h
+	-ln -s ../include/foptions.h foptions.h
+	$(MPITEST_F77) $(MPITEST_FFLAGS) $(MPITEST_INCLUDE_OPTION) -c ${srcdir}/libmpitestf.F -o $@
+	rm -f mpitestf.h mpif.h foptions.h
+        
+clean:
+	$(MPITEST_AT)rm -f libmpitest_$(MPITEST_ARCH).a libmpitest_$(MPITEST_ARCH).o \
+                           libmpitestf_$(MPITEST_ARCH).a libmpitestf_$(MPITEST_ARCH).o
+
+cleanc:
+	$(MPITEST_AT)rm -f libmpitest_$(MPITEST_ARCH).a libmpitest_$(MPITEST_ARCH).o
+
+cleanf:
+	$(MPITEST_AT)rm -f libmpitestf_$(MPITEST_ARCH).a libmpitestf_$(MPITEST_ARCH).o
+	/bin/rm mpitestf.h
+	/bin/rm mpif.h
+
+cleanall:
+	$(MPITEST_AT)rm -f libmpitest*_*.a libmpitest*_*.o makelog.*

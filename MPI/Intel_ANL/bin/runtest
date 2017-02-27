@@ -1,0 +1,57 @@
+#! /bin/sh
+# 
+# This script runs precisely one test and shows the output
+#
+testdir=/tmp/$LOGNAME/MPITEST
+if [ ! -d "$testdir" ] ; then
+    echo "Directory $testdir used for building and running tests does not"
+    echo "exist.  Create that directory (or edit bin/runtest) and rerun"
+    echo "this script."
+    exit 1
+fi
+testname=$1
+np=$2
+outfile=$3
+if [ "$testname" = "-help" ] ; then
+    echo "runtest testname [ np [ outputxml-file ] ]"
+    exit 1
+fi
+#
+# An enhancement is to accept the name of an MPI routine and run all of those
+if [ ! -d $testdir/Test/$testname ] ; then
+    # Try to create a list
+    
+    filelist=`(cd $testdir/Test ; ls -1d */*/*/$testname*)`
+    if [ -z "$filelist" ] ; then
+        echo "Test $testdir does not exist in $testdir/Test"
+        exit 1
+    fi
+else
+    filelist=$testname
+fi
+if [ -z "$np" ] ; then
+    np=2
+fi
+cd $testdir/Test
+rm -f .t1
+for dir in $filelist ; do
+    echo $dir >>.t1
+done
+# Use a DEFAULT of 1 minute but allow the environment to override
+MPIEXEC_TIMEOUT=${MPIEXEC_TIMEOUT:-1}
+MPITEST_ARCH=mpich2
+MPITEST_HOME=$testdir
+export MPIEXEC_TIMEOUT
+export MPITEST_ARCH
+export MPITEST_HOME
+export MPITEST_LEAVEEXE
+../bin/mpitest -np $np -testlist .t1
+# Not quite right.  If this fails, look at the make log.
+for dir in $filelist ; do
+    echo "Test $dir:"
+    cat $dir/*mpich2_${np}_L 
+done
+if [ -n "$outfile" ] ; then
+    $testdir/bin/getresults -file=.t1 -np=$np -xml=$outfile
+fi
+rm -f .t1

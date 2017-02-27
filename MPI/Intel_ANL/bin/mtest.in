@@ -1,0 +1,429 @@
+#! /bin/sh
+# -*- Mode: shell-script; -*-
+#
+# Run the Intel tests, given a list of tests
+# Use the standard files
+# mtest [ -testlist testfile ] [ -leaveexe ] [ -np n ] [ -appsummary ]
+#       [ -endsummary ] [ -noendsummary ] [ directory ]
+# Run the tests specified by the testfile on n processes.  If 
+# a directory is specified instead of a testfile, run just he test
+# in that directory.
+# The -xxxsummary arguments control how data is added or appended to the
+# test summary file.
+#
+# Special feature:
+# Because these tests can take a long time to run, there is an
+# option to cause the tests to stop is a "stopfile" is found.
+# The stopfile can be created by a separate, watchdog process, to ensure that
+# tests end at a certain time.
+# The name of this file is (by default) .stoptest
+# in the  top-level run directory.  The environment variable
+#    MPITEST_STOPTEST
+# can specify a different file name.
+#
+# The environment variable MPITEST_TIMEOUT is used to limit the time that
+# each test runs (this variable is understood by several of the MPICH2
+# mpiexec programs).  The value is in seconds.  For most of the Intel
+# tests, a time of 20 seconds should be more than enough.  For a few,
+# tests may last more than 3 minutes if the tests are run on a single 
+# system.  If no value is set, the variable MPITEST_TIMEOUT_DEFAULT
+# is set to yes, and the time to run each test will be adjusted to
+# either 
+#   MPITEST_TIMEOUT_SHORT
+# or
+#   MPITEST_TIMTOUT_LONG
+#
+MPITEST_TIMEOUT_SHORT=${MPITEST_TIMEOUT_SHORT:-20}
+MPITEST_TIMEOUT_LONG=${MPITEST_TIMEOUT_LONG:-300}
+if [ -z "$MPITEST_TIMEOUT_DEFAULT" ] ; then
+    if [ -z "$MPITEST_TIMEOUT" ] ; then
+        MPITEST_TIMEOUT_DEFAULT=yes
+    else
+        MPITEST_TIMEOUT_DEFAULT=no
+    fi
+fi
+
+# Process the arguments
+testlist=testlist
+TMPDIR=${TMPDIR:-/tmp}
+listfile=$TMPDIR/list.$$
+MPITEST_ARCH=@MPITEST_ARCH@
+master_srcdir=@master_srcdir@
+srcdir=@absolute_srcdir@
+buildhomedir=@buildhomedir@
+mpiexec=@MPIRUN@
+mpiexecnp=-np
+np=2
+nodeargs=""    # Set to "-verbose 2" for more output
+summary_file=`pwd`/summary.xml
+useClib=yes
+useFlib=yes
+newsummary=yes
+endsummary=yes
+if [ -z "$MPITEST_STOPTEST" ] ; then
+    MPITEST_STOPTEST="`pwd`/.stoptest"
+fi
+#
+rmexe=yes
+# Set runprograms to no to (re)create the XML summary file without
+# rerunning the tests.
+runprograms=yes
+MAKE=${MAKE:-make}
+
+while test $# -gt 0 ; do
+    case "$1" in
+    -testlist)
+    if [ -n "$2" -a -r "$2" ] ; then
+        testlist=$2
+	shift
+    else 
+        echo "Testlist file missing or unreadble"
+	exit 1
+    fi
+    ;;
+    -leaveexe)
+    # Set this to leave the executables
+    rmexe=no
+    ;;
+    -np)
+    if [ -z "$2" ] ; then
+        echo "Missing number for the number of processes"
+	exit 1
+    fi
+    np=$2
+    shift
+    ;;
+    
+    # Control the headings and footers on the summary file
+    -appsummary)
+    newsummary=no
+    endsummary=no
+    ;;
+    -endsummary)
+    endsummary=yes
+    ;;
+    -noendsummary)
+    endsummary=no
+    ;;
+
+    # Provide for debugging
+    -echo) set -x
+    ;;
+    *)
+    if [ -s $1/node.c -o -s $1/node.F ] ; then
+        rm -f .tmplist
+	echo "$1" > .tmplist
+	testlist=".tmplist"
+    else
+        echo "Unrecognized arg $1"
+    fi
+    ;;
+    esac
+    shift
+done
+
+# If no arch has been given, try and determine one.
+if [ -z "$arch" ] ; then
+   arch=`uname -s`
+   # Now, normalize the arch name if necessar
+   case $arch in 
+    SunOS*)
+       # Solaris pretends to be SunOS
+       archversion=`uname -r`
+       case $archversion in 
+       4\.*) ;;
+       5\.*) arch=Solaris ;;
+       *) arch=UnknownSunOs ;;
+       esac
+       ;;
+    Linux*)
+       # Check for machine type 
+       machtype=`uname -m`
+       case $machtype in 
+       alpha*) arch=LinuxAlpha ;;
+       ia64*)  arch=LinuxIA64 ;;
+       x86_64*) arch=LinuxAMD64 ;;
+       *) ;;
+       esac
+       ;;
+    Darwin*)
+       # Include the version# on the arch
+       archversion=`uname -r | sed -e 's/\..*//g'`
+       arch="$arch$archversion"
+       ;;
+   esac
+fi
+psStyle=POSIX
+case $arch in 
+    Darwin*)
+    # Remember that ps -fu doesn't work
+    psStyle=BSD
+    ;;
+
+    *)
+    ;;
+esac
+
+#
+# Try to determine a good version of ps to use
+if [ "$psStyle" = POSIX ] ; then
+    psCommand="ps -fu"
+elif [ "$psStyle" = "BSD" ] ; then
+    psCommand="ps -U"
+else
+    psCommand="ps u"
+fi
+
+#
+# Make sure that the necessary libraries have been built
+if [ $runprograms = yes ] ; then
+    if [ ! -d $buildhomedir/lib ] ; then mkdir $buildhomedir/lib ; fi
+    if [ ! -d $buildhomedir/lib ] ; then
+        echo "Could not create $buildhomedir/lib"
+	ls -ld $buildhomedir
+	exit 1
+    fi
+    if [ $useClib = yes ] ; then
+        if [ ! -s $buildhomedir/lib/libmpitest_$MPITEST_ARCH.a ] ; then
+            (cd $buildhomedir/lib && $MAKE mpitestclib >makeclib.log 2>&1 )
+        fi
+        if [ ! -s $buildhomedir/lib/libmpitest_$MPITEST_ARCH.a ] ; then
+            echo "Could not build test library"
+	    if [ -s $buildhomedir/lib/makeclib.log ] ; then
+		cat $buildhomedir/lib/makeclib.log
+	    else
+	        echo "No output from $MAKE mpitestclib in $buildhomedir/lib"
+	    fi
+    	    exit 1
+        fi
+    fi
+    if [ $useFlib = yes ] ; then
+        if [ ! -s $buildhomedir/lib/libmpitestf_$MPITEST_ARCH.a ] ; then
+            (cd $buildhomedir/lib && $MAKE mpitestflib >makeflib.log 2>&1 )
+        fi
+        if [ ! -s $buildhomedir/lib/libmpitestf_$MPITEST_ARCH.a ] ; then
+            echo "Could not build test library (Fortran)"
+	    if [ -s $buildhomedir/lib/makeflib.log ] ; then
+		cat $buildhomedir/lib/makeflib.log
+	    else
+	        echo "No output from $MAKE mpitestflib in $buildhomedir/lib"
+	    fi
+  	    exit 1
+        fi
+    fi
+fi
+
+# Remove comments from the testlist
+trap "rm -f $listfile" 2
+sed -e '/#/d' $testlist > $listfile
+
+#
+# Check to make sure no tests are currently running
+# FIXME: Not all systems will handle the -fu option to ps.
+nleft=`$psCommand $LOGNAME | grep node | grep -v grep | wc -l`
+if [ $nleft -gt 0 ] ; then
+    echo "Detected a running test program.  Running node processes are:"
+    $psCommand $LOGNAME | grep node | grep -v grep
+    echo "(All IntelMPI tests are named node)"
+    echo "Exiting tests.  Kill that node process before rerunning these tests"
+    exit 1
+fi
+
+if [ "$newsummary" = yes ] ; then
+    rm -f $summary_file
+    date=`date`
+    cat >$summary_file <<EOF
+<?xml version='1.0' ?>
+<?xml-stylesheet href="er.xsl" type="text/xsl" ?>
+<MPITESTRESULTS>
+<DATE>$date</DATE>
+<MPISOURCE>$MPITEST_EXEC</MPISOURCE>
+EOF
+fi
+# Run the tests
+nTest=1
+while true ; do
+    testName=`sed -n "$nTest p" $listfile`
+    if [ -z "$testName" ] ; then break ; fi
+    # Handle a vpath build
+    if [ ! -d "$testName" -a -d "$master_srcdir/Test/$testName" ] ; then 
+        mkdir -p $testName
+    fi
+    starttime=`date`
+    echo "<MPITEST>" >> $summary_file
+    echo "<NAME>$testName/node</NAME>" >> $summary_file
+    echo "<NP>$np</NP>" >> $summary_file
+    echo "<STARTTIME>$starttime</STARTTIME>" >> $summary_file
+    echo "<WORKDIR>$testName</WORKDIR>" >> $summary_file
+    if [ $runprograms = yes ] ; then
+        # Create a local Makefile.  We do this instead of 
+        # using configure because (a) there are so many directories and
+        # (b) all of the Makefiles are the same, except for the srcdir.
+        # Do this always in case some of the features changes
+        ext=unknown
+        if [ -f "$master_srcdir/Test/$testName/node.c" ] ; then
+            ext=c
+        elif [ -f "$master_srcdir/Test/$testName/node.F" ] ; then
+            ext=F
+	elif [ -f "$master_srcdir/Test/$testName/node.F90" -o \
+	       -f "$testName/node.F90" ] ; then
+	    ext=F90
+        fi
+	if [ "$ext" = "unknown" ] ; then
+	    echo "Could not find node file in $master_srcdir/Test/$testName"
+	    # We need to skip the rest of this step.  Unfortunately, 
+	    # the basic Bourne shell has no goto, so we have to 
+	    # duplicate the end-of-loop processing here
+	    echo "</MPITEST>" >> $summary_file
+	    nTest=`expr $nTest + 1`
+            continue
+        fi
+        # Some tests have a separate "reduce" file
+        other_files=""
+        if [ -s $master_srcdir/Test/$testName/reduce.$ext ] ; then
+	    other_files="reduce.$ext"
+        fi
+	# test_srcdir is used for directories that may be VPATH dirs
+        sed -e "s%@""srcdir@%$master_srcdir/Test/$testName%g" \
+	    -e "s%@""test_srcdir@%$buildhomedir/Test/$testName%g" \
+	    -e "s%@""ext@%$ext%g" \
+	    -e "s%@""other_files@%$other_files%g" \
+	        $master_srcdir/bin/Makefile.leaf > $testName/Makefile
+        # Make the node program
+        rm -f $testName/make.log $testName/node
+	# Pick the correct Makefile.main .  We need this because
+	# of bugs in the Solaris make program
+	
+        (cd $testName && \
+	$MAKE -f Makefile -f $buildhomedir/bin/Makefile.$ext.main node > make.log 2>&1 )
+
+        rm -f $testName/run.log
+        if [ -x $testName/node ] ; then
+	    if [ "$MPITEST_TIMEOUT_DEFAULT" = "yes" ] ; then
+		MPIEXEC_TIMEOUT=$MPITEST_TIMEOUT_SHORT
+                # Look for "flood" in testname
+		loc=`expr $testName : '.*flood'`
+		if [ "$loc" = 0 ] ; then
+		    # Look for overlap
+		    loc=`expr $testName : '.*overlap'`
+                fi
+		if [ "$loc" = 0 ] ; then
+		    # Look for ator
+		    loc=`expr $testName : '.*ator'`
+                fi
+		if [ "$loc" = 0 ] ; then
+		    # Look for rtoa
+		    loc=`expr $testName : '.*rtoa'`
+                fi
+  	        if [ "$loc" != 0 ] ; then
+	            MPIEXEC_TIMEOUT=$MPITEST_TIMEOUT_LONG
+		fi
+            fi
+            export MPIEXEC_TIMEOUT
+            (cd $testName && \
+	    $mpiexec $mpiexecnp $np ./node $nodeargs > run.log 2>&1 )
+
+	    # With some process managers the node processes are in the middle of
+	    # exiting at this point in the program.  This causes false positives
+	    # for $nleft below.  If we put in this sleep, it seems to leave
+	    # enough time for the OS to completely cleanup the node processes.
+	    sleep 1
+
+	    # We have been having a great deal of trouble with
+	    # processes being left .  The following is 
+	    # code to try and trap this case
+	    nleft=`$psCommand $LOGNAME | grep node | grep -v grep | wc -l`
+	    if [ $nleft -gt 0 ] ; then
+	        # Grr.  mpiexec is broken.  Generate a message and
+	        # abort the test
+	        echo "node programs did not exit.  Tests aborted"
+		echo "Node program in $testName; executable left "
+		echo "and process is still running (for debugging)."
+		$psCommand $LOGNAME | grep node | grep -v grep
+		echo "<STATUS>fail</STATUS>" >> $summary_file
+		echo "<TESTDIFF>" >> $summary_file
+	        echo "node programs did not exit.  Tests aborted" >> $summary_file
+		echo "Running node processes are:" >>$summary_file
+		$psCommand $LOGNAME | grep node | grep -v grep >>$summary_file
+		#
+		# Kill them (comment this out if you want them left around.
+		# Lately, the real problem has been that mpiexec hasn't killed
+		# them, so they hang around).
+		# FIXME: The problem with this is that it is too blunt,
+		# and can catch innocent processes that have node as a
+		# name or even an option
+		#$psCommand $LOGNAME | grep node | grep -v grep | \
+		#    awk '{ print "kill ", $2 }' | sh
+		#
+		if [ -s $testName/run.log ] ; then		
+		    echo "Run step:" >> $summary_file
+		    sed -e "s/&/-AMP-amp;/g" -e "s/>/-AMP-gt;/g" \
+			-e "s/</-AMP-lt;/g" \
+		    $testName/run.log | sed -e "s/-AMP-/\&/g" >> $summary_file
+		fi
+		echo "</TESTDIFF>" >> $summary_file
+		echo "</MPITEST>" >> $summary_file
+		break
+	    fi
+        else
+            echo "node program in $testName is not executable"
+        fi
+	if [ "$rmexe" = "yes" ] ; then
+	    # Remove both the executable, any core files, and any 
+	    # generated log files whose name starts with log)
+	    (cd $testName && rm -f node Makefile core core.* log[0-9]*.*log )
+	fi
+    fi
+    endtime=`date`
+    echo "<ENDTIME>$endtime</ENDTIME>" >> $summary_file
+    # Analyze the test results
+    testfailed=no
+    if [ -s $testName/run.log ] ; then
+        if grep FAILED $testName/run.log >/dev/null ; then
+	    echo "<STATUS>fail</STATUS>" >> $summary_file
+	    testfailed=yes
+	else
+	   passed=`grep -c PASSED $testName/run.log`
+	   if [ "$passed" -lt 1 ] ; then
+	       # Wrong number of passed values
+	       echo "<STATUS>fail</STATUS>" >> $summary_file
+	       testfailed=yes
+	   else
+  	       echo "<STATUS>pass</STATUS>" >> $summary_file
+	   fi
+	fi
+    else 
+        echo "<STATUS>fail</STATUS>" >> $summary_file
+	testfailed=yes
+    fi
+    if [ $testfailed = yes ] ; then
+	echo "<TESTDIFF>" >> $summary_file
+	if [ ! -s $testName/make.log ] ; then
+	    echo "No output from make in $testName!" >> $summary_file
+	else 
+	    echo "Make step:" >> $summary_file
+	    sed -e "s/&/-AMP-amp;/g" -e "s/>/-AMP-gt;/g" -e "s/</-AMP-lt;/g" \
+		$testName/make.log | sed -e "s/-AMP-/\&/g" >> $summary_file
+	fi
+        if [ -s $testName/run.log ] ; then		
+	    echo "Run step:" >> $summary_file
+	    sed -e "s/&/-AMP-amp;/g" -e "s/>/-AMP-gt;/g" -e "s/</-AMP-lt;/g" \
+		$testName/run.log | sed -e "s/-AMP-/\&/g" >> $summary_file
+        fi
+	echo "</TESTDIFF>" >> $summary_file
+    fi
+    echo "</MPITEST>" >> $summary_file
+    nTest=`expr $nTest + 1`
+    if [ -s "$MPITEST_STOPTEST" ] ; then
+        # Found the stop file.  Exit this loop
+        echo "Found $MPITEST_STOPTEST stopfile.  Exiting test"
+	# FIXME.  We need an XML entry for this
+        break
+    fi
+done
+rm -f $listfile
+#
+# Finish off the summary file
+if [ "$endsummary" = yes ] ; then
+    echo "</MPITESTRESULTS>" >> $summary_file
+fi

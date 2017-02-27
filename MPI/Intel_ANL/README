@@ -1,0 +1,321 @@
+		       Configuring the Intel Test Suite
+                       --------------------------------
+
+I.  CONFIGURATION INSTRUCTIONS
+------------------------------
+
+There are 2 types of options when configuring; enabling/disabling of 
+features and specific implementation switches.  The enabling/disabling of 
+features is optional, however, an implementation switch is necessary.
+
+Configure Features (optional)
+-----------------------------
+
+The configure script has several features which can be enabled or disabled.
+They are set by default to enabled.  In order to disable them, configure with
+--disable-FEATURE option, or by setting enable_FEATURE=no in the configuration
+script.  The optional features are listed below.
+
+FEATURE	copyorig		This feature will ensure the use of the 
+				original include files.  When configuring, 
+				some of the original include files are 
+				changed and are backed up into .orig files.  
+				This feature will copy those files back into
+				the original .h files before configuring.  This
+				feature is not meaningful for the first 
+				configuration, however, when configuring for 
+				various architectures, this feature should be 
+				enabled to ensure the use of the correct 
+				include files.	
+
+FEATURE fortranoptionaltypes	This feature was included in order to bypass
+				checking for optional fortran data types.
+				If your MPI implementation does not support
+				these data types, then this should be
+				disabled.  Disabling this feature will result
+				in the removal of all optional fortran data 
+                                types from the appropriate include files.
+
+
+FEATURE fixforttypes            If this feature is enabled, then configure
+				will check to see which optional fortran
+				data types are supported by the compiler.  As
+				a result, all unsupported data types will be
+				removed from the appropriate include files.
+
+FEATURE testdatatypes		If this feature is enabled, then configure
+				will check to see if the size of MPI_Datatypes
+				is the same as the size returned by the
+				sizeof function.  If they are not the same,
+				then they will be removed from the 
+				appropriate include files.
+
+FEATURE fixstart		If this feature is enabled, then configure
+				will create a new startjob file.  This is
+				used instead of the startjob file which was
+				included with the test suite.
+
+FEATURE f90                     If selected, enables the building of
+                                Fortran 90 tests.  See below for more
+                                information on Fortran 90
+
+    Configuration Switches (one implementation is required)
+    -------------------------------------------------------
+
+In order to configure the test suite, you need to configure for one of the
+following MPI implemenatations.
+
+
+MPICH
+-----
+	
+Configuring for the MPICH implementation, the top-level directory for
+mpich is required. 
+
+		--with-mpich=MPI_DIR where MPI_DIR is the top-level 
+			     directory for MPICH
+
+MPICH2
+------
+Configuring for the MPICH2 implementation, the top-level directory for
+mpich is required. 
+First, 
+
+   setenv MPITEST_ARCH mpich2
+   setenv MPITEST_HOME `pwd`
+
+Then, configure with
+
+		--with-mpich2=MPI_DIR where MPI_DIR is the top-level 
+			     directory for MPICH
+
+IBM's SP/MPI
+------------		
+
+		--with-sp
+ 
+If mpiexec is not available, to run the Intel Test Suite, you will
+need to create a mpirun script and a host file.  There is a sample
+mpirun script included in the MPITEST directory. 
+
+		--with-mpirun=MPIRUN_DIR where MPIRUN_DIR is the 
+			      directory where the mpirun script is located. 
+
+SGI's MPI
+---------
+
+SGI's IRIX/32 MPI	--with-sgi32 or 
+
+SGI's IRIX/64 MPI	--with-sgi64
+
+============================================================================
+Running the tests
+
+First make sure that the shell variables MPITEST_HOME and MPITEST_ARCH are 
+properly set.  For MPICH2, use
+
+    setenv MPITEST_HOME <root directory of tests>
+    setenv MPITEST_ARCH mpich2
+
+You can use other values of MPITEST_ARCH, but they must correspond to the
+value used when configure was run.
+
+The simplest way to run the tests is 
+
+       make testing
+
+This will take a *very* long time; depending on your system, it could be a 
+day or more.  There is also the chance that some tests may hang, so you should
+also run
+
+       tail -f Test/test.results
+
+in another window.  If the output stops for more than 5 minutes, you may need
+to hunt down a hung MPI program and kill it.  This includes some tests that
+try to detect errors that are nonlocal; the make target
+
+       make testl
+
+both eliminates these tests and produces XML summaries of the tests.
+If you are using MPICH2, consider setting a timeout on mpiexec with
+
+    setenv MPIEXEC_TIMEOUT 1
+
+To get a summary of the results, use either make results or bin/getresults.
+To use bin/getresults, do, for example
+
+       cd Test
+       ../bin/getresults -file=testlist2l -xml=summary-2.xml -np=2
+
+This places the results of running the tests described in the file testlist2l
+that were run on 2 processes into the xml file summary-2.xml.  To display
+these, you need the XSL file er.xsl, also in the Test directory.
+
+To create a subset of test, list the directories in a new file (use testlist 
+as an example).  For example to run c/blocking/error/MPI_Send_err1, you can
+use either
+    
+     cd Test
+     echo "c/blocking/error/MPI_Send_err1" > t1
+     ../bin/mtest -testlist t1
+     ../bin/getresults -file=t1 -xml=s1.xml
+
+or
+
+     cd Test
+     ../bin/runtest c/blocking/error/MPI_Send_err1
+
+To run all of the test for MPI_Isend on 4 processes, you can use
+
+     cd Test
+     ../bin/runtest MPI_Isend 4
+
+The runtest script will write the results of the tests to standard output.
+
+Using the Original Intel Mechanism
+----------------------------------
+The mechanism described in the Intel document for getting the results of the
+tests can be invoked with
+
+       make results
+
+This places the results in xxxx.  To see a list of the tests that did not
+pass, use
+       egrep -v '^P ' xxxx
+To see the reason for the failure, look in the directory for the test at the
+files
+
+       makelog.<ARCH>_<NP>       - To see if the build failed for some reason
+       <testname>.<ARCH>_<NP>_L  - Log of output
+       <testname>.<ARCH>_<NP>_R  - Summary of results (pass/fail)
+
+Finer-grain control is possible; see the Intel User's Guide (intel-mpitest.ps) 
+for information on using the mpitest and mpiresults scripts.
+
+Creating and Running the Fortran 90 tests
+-----------------------------------------
+The Fortran 90 tests are created from the Fortran 77 tests with the 
+script bin/buildF90Tests .  To run these tests, do the following:
+
+configure --enable-f90 <other options>
+./bin/buildF90Tests
+make newtestl_f90
+
+The step "buildF90Tests" makes a copy of the Fortran tests, replacing 
+references to 'include "mpif.h"' to 'USE MPI', as well as creating new 
+lists of test programs to run.  The make step then runs those tests.
+
+============================================================================
+More Comments on the Tests.  11-04-2002
+1. The tests for error detection now allow more valid value of the error
+   class.  This is to allow the test suite to more accurately detect 
+   problems and to not provide a false signal about a problem.
+
+2. Some of the tests have been updated to match the MPI 1.1 or MPI 1.2 
+   standards, as well as errata clarifications and corrections.
+
+3. This is *not* an official test suite.  Some tests are undoubtably still
+   buggy.
+
+4. One significant change is to fix the tests of null communicators with
+   MPI_COMM_NULL as one parameter.  This is invalid input and should signal
+   an error; the test now looks for this behavior.  To avoid changing the
+   existing directory structure, this test has been left in the
+   "functional" tests rather than moved into the "error" tests.
+
+5. Some tests assumed that MPI_Send and MPI_Send_init/Start buffered.
+   These tests are not valid MPI programs and have been removed from
+   the tests used by the "testl" make target.  This included
+   MPI_Send_self and MPI_Send_init_self.
+
+============================================================================
+Comments on the tests.
+1. The tests for error detection occasionly check for a particular error class
+   (or worse, class as code) when the MPI standard does not specify a
+   particular error class.  Implementations that conform to the MPI
+   specification may disagree with the Intel test suite.
+
+2. Some of the tests, particularly with respect to datatype lower bounds and
+   extents, may reflect MPI 1.0 and not MPI 1.1 or MPI 1.2 (the definition of
+   extent changed subtly in MPI 1.1).
+
+3. The patch file does *not* correct all known problems, particularly for
+   systems with 64-bit pointers.  See the patch file provided by Sun
+   (sun-intel-patch.txt).
+
+4. This is *not* an official test suite.  The MPI Forum has not approved or
+   even evaluated this test suite.  This test suite is primarily intended for
+   implementors of MPI.
+
+5. Some of the Fortran tests do not match the corresponding C tests.  In 
+   particular, the MPI_xxx_ator and MPI_xxx_rtoa tests often hang in Fortran
+   but not in C.  The source code for these tests differs between the C and
+   Fortran versions, suggesting that bugs fixed in the C versions were not
+   propagated to the Fortran versions. 
+
+============================================================================
+Known errors in the test suite.  In this version of the test suite,
+these errors (and other, similar errors) have been corrected.
+
+1. c/grp_ctxt_comm/functional/MPI_Keyval3 expects a particular error code; 
+   this conflicts with MPI 1, MPI 1.1, MPI 1.2 (see MPI 1.2 for specific text
+   on this case).
+
+2. c/nonblocking/functional/async and rings use the symbol 'random' which
+   conflicts with a symbol in stdlib.h .
+
+3. c/topo/error/MPI_Cart_create_err1 expects a particular error class
+
+4. c/topo/error/MPI_Cart_map_err5 expects a particular error class
+
+5. {c,fortran}/grp_ctxt_comm/functional/MPI_Comm_compare_null requires that
+   MPI_COMM_NULL be a valid input to MPI_Comm_compare, in violation of the MPI
+   Standard. 
+
+6. The test c/blocking/functional/MPI_Send_self test assumes that the
+   MPI implementation provides "some" buffering.  This test has been 
+   removed from the default collections.
+
+There are others not listed here.
+
+============================================================================
+Description of the patches (these are all rolled into the one patch file)
+
+1.	Fix for tests which aborted abnormally because code tries to 
+	access buffers which are out of range or which gave erroneous 
+        results due to buffer overflow
+
+2.	Fix for tests which aborted abnormally because of IO errors 
+	due to invalid 'FORMAT' statement
+
+3.	Fix for a test which aborted abnormally because an invalid 
+	datatype argument (MPI_TYPE_NULL) was sent to MPI_COMMIT 
+	because LENGTH = 0. This will fix this error by setting 
+	LENGTH = 1 if LENGTH = 0 
+
+4.	Fix for a test which aborted abnormally because of an error in
+	the position of indices in an array
+
+5.	Fix for tests which did not abnormally abort, but gave 
+	erroneous results due to errors or inconsistencies found 
+        between the C and Fortran versions of the tests
+
+6.	Fix for libmpitestf.F which will correct 3 subroutines: 
+	MPITEST_REPORT, MPITEST_CREATE_COMMUNICATOR, and 
+	MPITEST_NUM_DATATYPES 
+
+7.	Fix to write out only the significant part of the error string.
+	While not strictly required, this is convenient when the size
+	of MPI_MAX_ERROR_STRING is large (e.g., 512 for MPICH).
+
+8.	Use /bin/sh instead of /bin/ksh in the scripts
+
+9.	Replaced MAX_STATUS_ROW with MPI_STATUS_SIZE for 2 Fortran tests
+
+10.	Fix for c/collective/functional/MPI_collective_message/node.c to
+	correctly get the tag upperbound.
+
+11.	Fix Fortran version of error/MPI_Scatter_err3 to be the same as the
+	C version (path invalid sizes to both the root and non-root nodes)
+
+12.	Fix some Fortran tests to initialize LOOP_FAIL to zero.
