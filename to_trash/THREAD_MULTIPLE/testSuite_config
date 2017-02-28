@@ -1,0 +1,59 @@
+#!/bin/sh
+
+############## INFORMATIONS #############
+# The following codes has been written to check the Thread-Multiple ability of MPC.
+# The tests have a lot of constraints (i.e: a fixed number of MPI tasks). This is why
+# we have a couple of loops with different configurations.
+#
+# For people who are coding the TestSuite: I think the code must be easier. If you have
+# any idea, just modify the code :-)
+
+# Number of threads we have to use. Can be a list
+MPC_THREAD_NB_LIST="2 8"
+
+# Generic configurations w/ threads
+for COMMAND_OPTIONS in ${MPC_THREAD_NB_LIST}
+do
+  for test_file in "collcomp_noth.c"
+  do
+    multiple_configuration ${test_file}
+  done
+done
+
+# Generic configurations w/o threads
+COMMAND_OPTIONS=""
+for test_file in "message_rate.c" "bw.c" "overlap.c" "no_overlap.c" "latency.c"
+do
+  multiple_configuration ${test_file}
+done
+
+
+# Tests with 4 processes
+COMMAND_OPTIONS=""
+for test_file in "shortlong.c"
+do
+	MPC_PROC_NB_LIST="1 2 4"
+	MPC_TASK_NB_LIST="4"
+	multiple_configuration "$test_file"
+done
+
+# Tests with 3 processes
+COMMAND_OPTIONS=""
+for test_file in "shortlong_th.c"
+do
+	MPC_PROC_NB_LIST="1 3"
+	MPC_TASK_NB_LIST="3"
+	multiple_configuration "$test_file"
+done
+
+# Tests with 2 processes
+COMMAND_OPTIONS=""
+for test_file in "bw_th.c" "latency_th.c" "collcomp.c" "message_rate_th.c" "conc_allred_th.c" "conc_allred.c" "latency_th_async.c"
+do
+	MPC_PROC_NB_LIST="1 2"
+	MPC_TASK_NB_LIST="2"
+        for COMMAND_OPTIONS in ${MPC_THREAD_NB_LIST}
+        do
+		multiple_configuration "$test_file"
+        done
+done

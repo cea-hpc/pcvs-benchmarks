@@ -79,7 +79,6 @@ int main(int argc, char **argv)
     if (rank == 0) {
 	if( toterrs > 0) {
 	    fprintf( stderr, "Found %d errors\n", toterrs );
-	    abort();
 	}
 	else {
 	    fprintf( stdout, " No Errors\n" );

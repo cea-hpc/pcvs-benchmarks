@@ -1,0 +1,341 @@
+#!/bin/bash
+
+OUTPUT=config/make.config
+
+show_help ()
+{
+   echo "$0 options:"
+   echo "--compiler name    Configures BOTS for given compiler"
+   echo "                   Supported compilers: GCC, ICC, SunStudio, PGI, XLC and  Mercurium"
+   echo "--debug            Enables debug flags"
+   echo "--warnings         Force warnings to be reported as errors"
+   echo "--help             Prints this help"
+}
+
+while [ "$#" -gt 0  ]; do
+	case $1 in
+		--debug) debug=yes
+				;;
+		--warnings) warnings=yes
+				;;
+		--compiler) shift; COMPILER=$1
+				;;
+		--help) 
+			show_help
+			exit
+                        ;;
+		*) echo "Unknown option $1 (skipping)"
+			;;
+	esac
+	shift
+done
+
+if [ -z "$GCC_LIBGOMP" ]; then
+  GCC_LIBGOMP="$HOME/libgomp.so"
+fi
+
+
+GCC=`gcc -x c -c -fopenmp /dev/null -o /dev/null &>/dev/null  && echo "yes"`
+MCC=`mcc --v &> /dev/null && echo "yes"`
+ICC=`icc -v &> /dev/null && echo "yes"`
+XLC=`xlc -qversion &> /dev/null && echo "yes"`
+PGI=`pgcc &> /dev/null && echo "yes"`
+SUN=`cc -xopenmp &> /dev/null && echo "yes"`
+INS=`insiemecc -fopenmp -h &> /dev/null && echo "yes"`
+GCK=`ls /usr/local/lib/xkaapi/libgomp.so > /dev/null &> /dev/null && echo "yes"`
+CUT=`ls $GCC_LIBGOMP > /dev/null &> /dev/null && echo "yes"`
+
+nc=0
+
+if [ -z "$COMPILER" ]; then
+
+   if [ "$GCC" = "yes" ]; then
+	let nc=nc+1
+	COMPILERS[nc]="gcc"
+   fi
+
+   if [ "$MCC" = "yes" ]; then
+	let nc=nc+1
+	COMPILERS[nc]="mcc"
+   fi
+
+   if [ "$ICC" = "yes" ]; then
+	let nc=nc+1
+	COMPILERS[nc]="icc"
+   fi
+
+   if [ "$XLC" = "yes" ]; then
+	let nc=nc+1
+	COMPILERS[nc]="xlc"
+   fi
+
+   if [ "$PGI" = "yes" ]; then
+        let nc=nc+1
+        COMPILERS[nc]="pgi"
+   fi
+
+   if [ "$SUN" = "yes" ]; then
+        let nc=nc+1        
+        COMPILERS[nc]="sunstudio"
+   fi
+
+   if [ "$INS" = "yes" ]; then
+        let nc=nc+1        
+        COMPILERS[nc]="insieme"
+   fi
+
+   if [ "$GCK" = "yes" ]; then
+        let nc=nc+1        
+        COMPILERS[nc]="gcclibkomp"
+   fi
+   
+   if [ "$CUT" = "yes" ]; then
+        let nc=nc+1        
+        COMPILERS[nc]="gcccutoff"
+   fi
+
+   if [ "$nc" -gt "0" ]; then
+	echo "The following compilers are recognized: "
+	n=1
+	for comp in ${COMPILERS[*]}; do
+ 	 	echo "  $n. $comp"
+  		let n=n+1
+	done
+	echo -n "Choose one to use:"
+	read 
+
+	COMPILER=${COMPILERS[$REPLY]}
+   else
+	echo "No suitable compiler was detected"
+	echo "An empty $OUTPUT will be generated"
+   fi
+fi
+
+
+[ "$debug" = "yes" ] && DEBUG=-DBOTS_DEBUG
+[ "$warnings" = "yes" ] && WARNINGS=
+
+if [ "$COMPILER" = "gcc" -a "$GCC" = "yes" ]; then
+	CC=gcc
+	CLINK=$CC
+	OMPC="$CC -fopenmp"
+	OMPLINK="$CC -fopenmp"
+	LABEL=gcc
+	[ "$debug" = "yes" ] && DEBUG=$DEBUG -g
+	[ "$warnings" = "yes" ] && WARNINGS="$WARNINGS -Wall -Werror"
+
+	OPT_FLAGS=-O3
+	CC_FLAGS="$DEBUG $WARNINGS"
+	OMPC_FLAGS="$DEBUG $WARNINGS"
+	CLINK_FLAGS=$DEBUG
+	OMPLINK_FLAGS=$DEBUG
+fi
+
+if [ "$COMPILER" = "icc" -a "$ICC" = "yes" ]; then
+	CC=icc
+	CLINK=$CC
+	OMPC="$CC -openmp"
+	OMPLINK="$CC -openmp"
+	LABEL=icc
+	[ "$debug" = "yes" ] && DEBUG=$DEBUG -g
+	[ "$warnings" = "yes" ] && WARNINGS="$WARNINGS -Wall -Werror"
+
+	OPT_FLAGS=-O2
+	CC_FLAGS="$DEBUG $WARNINGS"
+	OMPC_FLAGS="$DEBUG $WARNINGS"
+	CLINK_FLAGS=$DEBUG
+	OMPLINK_FLAGS=$DEBUG
+fi
+
+
+if [ "$COMPILER" = "mcc" -a "$MCC" = "yes" ]; then
+	case $(uname -i) in
+		x86_64) extras=""
+                        ;;
+        esac
+
+	CC="mcc $extras"
+	CLINK=$CC
+	OMPC=$CC
+	OMPLINK=$CC
+	LABEL=mcc
+	[ "$debug" = "yes" ] && DEBUG=$DEBUG -g
+	[ "$warnings" = "yes" ] && WARNINGS="$WARNINGS -Wall -Werror"
+
+	OPT_FLAGS=-O3
+	CC_FLAGS="$DEBUG $WARNINGS --no-openmp"
+	OMPC_FLAGS="$DEBUG $WARNINGS"
+	CLINK_FLAGS="$DEBUG --no-openmp"
+	OMPLINK_FLAGS=$DEBUG
+        OMPC_FINAL_FLAGS="--serialize"
+
+	supports_final_clause=yes
+fi
+
+if [ "$COMPILER" = "xlc" -a "$XLC" = "yes" ]; then
+	CC=xlc_r
+	CLINK=$CC
+	OMPC="$CC -qsmp=omp"
+	OMPLINK=$OMPC
+	LABEL=xlc
+	[ "$debug" = "yes" ] && DEBUG=$DEBUG -g
+	[ "$warnings" = "yes" ] && WARNINGS="$WARNINGS -qflag=w:w -qhalt=w"
+
+	OPT_FLAGS=-O3
+	CC_FLAGS="$DEBUG $WARNINGS"
+	OMPC_FLAGS="-qthreaded $DEBUG $WARNINGS"
+	CLINK_FLAGS=$DEBUG
+	OMPLINK_FLAGS="-qthreaded $DEBUG"
+fi
+
+if [ "$COMPILER" = "pgi" -a "$PGI" = "yes" ]; then
+        CC=pgcc
+        CLINK=$CC
+        OMPC="$CC -mp -Minfo=mp"
+        OMPLINK=$OMPC
+	LABEL=pgi
+        [ "$debug" = "yes" ] && DEBUG="$DEBUG -g"
+	if [ "$warnings" = "yes" ]; then
+		echo "The pgi compiler doesn't support '--warnings' option (skipping it)"
+		echo "Press (Enter) to continue..."
+		read 
+	fi
+
+        OPT_FLAGS=-fast
+        CC_FLAGS="$DEBUG $WARNINGS"
+        OMPC_FLAGS="$DEBUG $WARNINGS"
+        CLINK_FLAGS=$DEBUG
+        OMPLINK_FLAGS=$DEBUG
+fi
+
+if [ "$COMPILER" = "sunstudio" -a "$SUN" = "yes" ]; then
+        CC=cc                         
+        CLINK=$CC                     
+        OMPC="$CC -xopenmp"           
+        OMPLINK=$OMPC                 
+	LABEL=suns
+        [ "$debug" = "yes" ] && DEBUG=$DEBUG -g
+	if [ "$warnings" = "yes" ]; then
+		echo "The sunstudio compiler doesn't support '--warnings' option (skipping it)"
+		echo "Press (Enter) to continue..."
+		read 
+	fi
+
+        OPT_FLAGS=-fast
+        CC_FLAGS="$DEBUG $WARNINGS"
+        OMPC_FLAGS="$DEBUG $WARNINGS"
+        CLINK_FLAGS=$DEBUG
+        OMPLINK_FLAGS=$DEBUG
+fi
+
+if [ "$COMPILER" = "insieme" -a "$INS" = "yes" ]; then
+        CC=insiemecc                         
+        CLINK=$CC                     
+        OMPC="$CC -fopenmp"           
+        OMPLINK="gcc -fopenmp"                 
+	LABEL=insieme
+        [ "$debug" = "yes" ] && DEBUG=$DEBUG -g
+     	[ "$warnings" = "yes" ] && WARNINGS="$WARNINGS"
+
+        OPT_FLAGS="-O3"
+        CC_FLAGS="$DEBUG $WARNINGS"
+        OMPC_FLAGS="$DEBUG $WARNINGS"
+        CLINK_FLAGS=$DEBUG
+        OMPLINK_FLAGS=$DEBUG
+fi
+
+if [ "$COMPILER" = "gcclibkomp" -a "$GCK" = "yes" ]; then
+	CC=gcc
+	CLINK=$CC
+	OMPC="$CC -fopenmp"
+	OMPLINK="$CC -L/usr/local/lib/xkaapi/libgomp.so"
+	LABEL=gcclibkomp
+	[ "$debug" = "yes" ] && DEBUG=$DEBUG -g
+	[ "$warnings" = "yes" ] && WARNINGS="$WARNINGS -Wall -Werror"
+
+	OPT_FLAGS=-O3
+	CC_FLAGS="$DEBUG $WARNINGS"
+	OMPC_FLAGS="$DEBUG $WARNINGS"
+	CLINK_FLAGS=$DEBUG
+	OMPLINK_FLAGS=$DEBUG
+  EXTRA_LIBS="-lgomp"
+fi
+
+if [ "$COMPILER" = "gcccutoff" -a "$CUT" = "yes" ]; then
+	CC=gcc
+	CLINK=$CC
+	OMPC="$CC -fopenmp"
+	OMPLINK="$CC -L$GCC_LIBGOMP"
+	LABEL=gcccutoff
+	[ "$debug" = "yes" ] && DEBUG=$DEBUG -g
+	[ "$warnings" = "yes" ] && WARNINGS="$WARNINGS -Wall -Werror"
+
+	OPT_FLAGS=-O3
+	CC_FLAGS="$DEBUG $WARNINGS"
+	OMPC_FLAGS="$DEBUG $WARNINGS"
+	CLINK_FLAGS=$DEBUG
+	OMPLINK_FLAGS=$DEBUG
+  EXTRA_LIBS="-lgomp"
+fi
+
+if [ -z "$CC" ]; then
+  echo "Wrong compiler configuration"
+  exit 1
+fi
+
+if [ "$debug" = "yes" ]; then
+	LABEL="$LABEL-debug"
+fi
+
+[ -f $OUTPUT ] && replacing_config=true
+
+cat > $OUTPUT << EOF
+#Automatically generated by configure
+#compilers and linkers
+
+#config name
+LABEL=$LABEL
+
+#compilers
+OMPC=$OMPC
+CC=$CC
+OMPLINK=$OMPLINK
+CLINK=$CLINK
+
+#compiler and linker flags
+
+OPT_FLAGS=$OPT_FLAGS
+
+CC_FLAGS=$CC_FLAGS
+OMPC_FLAGS=$OMPC_FLAGS
+OMPC_FINAL_FLAGS=$OMPC_FINAL_FLAGS
+
+CLINK_FLAGS=$CLINK_FLAGS
+OMPLINK_FLAGS=$OMPLINK_FLAGS
+EXTRA_LIBS=$EXTRA_LIBS
+
+EOF
+
+#check experimental features
+[ "$supports_final_clause" ] && echo "USE_FINAL_CLAUSE=yes" >> $OUTPUT  
+
+echo "make.config generated"
+
+if [ "$replacing_config" ]; then
+	echo "Configuration was changed. Cleaning up"
+	make clean
+fi 
+
+[ -d bin ] || mkdir -p bin
+
+if make -v | grep GNU &> /dev/null; then
+	echo "Run make to compile the benchmarks"
+elif gmake -v | grep GNU &> /dev/null; then 
+	echo "Run gmake to compile the benchmarks"
+else
+	echo "I didn't find a GNU-compatible make. You'll need it to compile the benchmarks"
+fi
+
+echo "You can further refine your configuration in config/make.config"
+echo "Use the scripts in the run directory to execute them"
+

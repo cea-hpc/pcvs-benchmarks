@@ -13,11 +13,12 @@
 #include <mpi.h>
 #include <stdio.h>
 #include <string.h>
-#include <getopt.h>
 
 #define NUM_OBJS 4
 #define OBJ_SIZE 1048576 
 
+extern char *optarg;
+extern int optind, opterr, optopt;
 
 
 char *prog = NULL;
@@ -226,8 +227,24 @@ main( int argc, char *argv[] ) {
 
     prog = strdup( argv[0] );
 
-     debug = 1;
-	target = "out.dat";
+    while( ( c = getopt( argc, argv, "df:h" ) ) != EOF ) {
+        switch( c ) {
+            case 'd':
+                debug = 1;
+                break;
+            case 'f':
+                target = strdup( optarg );
+                break;
+            case 'h':
+                set_hints( &info );
+                break;
+            default:
+                Usage( __LINE__ );
+        }
+    }
+    if ( ! target ) {
+        Usage( __LINE__ );
+    }
 
     write_file( target, rank, &info );
     read_file(  target, rank, &info, &corrupt_blocks );

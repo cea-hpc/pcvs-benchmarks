@@ -38,7 +38,7 @@ static void is_little_or_big_endian( const char* datarep, char* c, char* c_le, i
         case TEST_LE: printf( "LITTLE ENDIAN\n" ); break;
         case TEST_BE: printf( "BIG ENDIAN\n" ); break;
         case TEST_LE | TEST_BE: printf( "LITTLE or BIG ENDIAN\n" ); break;
-        default: printf( "unknown\n" ); abort(); break;
+        default: printf( "unknown\n" ); break;
     }
 }
 

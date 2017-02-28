@@ -1,0 +1,28 @@
+#!/bin/sh
+
+OLD_CFLAGS="${CFLAGS}"
+
+# Basic operations for reduction
+COMMON_FILES="${PCVS_CSOURCE_DIR}/../common/libmpitest.c ${PCVS_CSOURCE_DIR}/../common/reduce/reduce.c"
+CFLAGS="${OLD_CFLAGS} -I${PCVS_CSOURCE_DIR}/../common/ -I${PCVS_CSOURCE_DIR}/../common/reduce/"
+multiple_configuration "MPI_Reduce.c MPI_Allreduce.c MPI_Reduce_scatter.c MPI_Scan.c"
+
+# User operations for reduction
+COMMON_FILES="${PCVS_CSOURCE_DIR}/../common/libmpitest.c ${PCVS_CSOURCE_DIR}/../common/reduce_user/reduce.c"
+CFLAGS="${OLD_CFLAGS} -I${PCVS_CSOURCE_DIR}/../common/ -I${PCVS_CSOURCE_DIR}/../common/reduce_user/"
+multiple_configuration "MPI_Reduce_user.c MPI_Allreduce_user.c MPI_Reduce_scatter_user.c MPI_Scan_user.c"
+
+# Collectives without reduction
+COMMON_FILES="${PCVS_CSOURCE_DIR}/../common/libmpitest.c"
+CFLAGS="${OLD_CFLAGS} -I${PCVS_CSOURCE_DIR}/../common/"
+multiple_configuration "MPI_Allgather.c MPI_Allgatherv.c MPI_Alltoall.c MPI_Alltoallv.c MPI_Barrier.c MPI_Bcast.c MPI_Gather.c MPI_Gatherv.c MPI_Scatter.c MPI_Scatterv.c MPI_collective_message.c MPI_collective_overlap.c"
+
+MPC_AUTO_KILL_TIMEOUT=900
+# Loc operations for reduction
+COMMON_FILES="${PCVS_CSOURCE_DIR}/../common/libmpitest.c ${PCVS_CSOURCE_DIR}/../common/reduce_loc/reduce.c"
+CFLAGS="${OLD_CFLAGS} -I${PCVS_CSOURCE_DIR}/../common/ -I${PCVS_CSOURCE_DIR}/../common/reduce_loc/"
+multiple_configuration "MPI_Reduce_loc.c MPI_Allreduce_loc.c MPI_Reduce_scatter_loc.c MPI_Scan_loc.c"
+
+
+#EXPECTED_EXIT_CODE=6
+#multiple_configuration "MPI_Abort.c"

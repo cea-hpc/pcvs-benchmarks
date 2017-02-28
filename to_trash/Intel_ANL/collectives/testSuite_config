@@ -1,0 +1,9 @@
+#!/bin/sh
+
+COMMON_FILES="${PCVS_CSOURCE_DIR}/../common/libmpitest.c ${PCVS_CSOURCE_DIR}/../common/reduce.c"
+CFLAGS="${CFLAGS} -I${PCVS_CSOURCE_DIR}/../common/"
+MPC_TASK_NB_LIST="6 16"
+multiple_configuration 
+
+#EXPECTED_EXIT_CODE=6
+#multiple_configuration "MPI_Abort.c"

@@ -23,6 +23,8 @@
 #define BOTS_PARAM_TYPE_BOOL 2
 #define BOTS_PARAM_TYPE_STR 3
 
+#define BOTS_DEFAULT_REPETITIONS 1
+
 #ifdef _OPENMP
 # include <omp.h>
 #else

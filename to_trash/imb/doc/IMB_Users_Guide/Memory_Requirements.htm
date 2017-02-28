@@ -1,0 +1,175 @@
+
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+
+ <meta name="generator" content="Adobe RoboHelp 10">
+<title>Memory and Disk Space Requirements</title>
+<link rel="StyleSheet" href="styles_w_rh_ict.css" type="text/css">
+<style type="text/css">
+<!--
+A:visited { color:#800080; }
+A:link { color:#0860A8; }
+-->
+</style>
+<style title="hcp" type="text/css">
+<!--
+ul.hcp1 { list-style:disc; }
+td.hcp2 { padding-left:5px;
+padding-top:5px;
+padding-right:5px;
+padding-bottom:5px; }
+-->
+</style>
+</head>
+
+<script src="NavScript.js" language="JavaScript1.2" type="text/javascript"></script>
+<script language="JavaScript1.2" type="text/javascript">WriteNavLink(0);</script>
+<body>
+<script type="text/javascript" src="ehlpdhtm.js"></script>
+
+<div style="width: 100%; position: relative;" id="header">
+	
+ <p style="font-style: italic;">Intel® 
+	 MPI Benchmarks 4.0</p>
+</div>
+
+
+<h1>Memory and Disk Space Requirements</h1>
+<p>The table below lists memory requirements for benchmarks run with the 
+ default settings (standard mode) and with the user-defined settings (optional 
+ mode). In this table:</p>
+<ul class="hcp1">
+	<li><p>Q is the number of active processes.</p></li>
+	<li><p>X is the maximal size of the passing message.</p></li>
+</ul>
+<table frame="border" rules="all" style="table-layout: fixed; border-collapse: separate; 
+		 border-collapse: separate;" cellspacing="0" width="600" border="1">
+	<col style="width: 33.333%;">
+	<col style="width: 33.333%;">
+	<col style="width: 33.333%;">
+	<tr>
+		<th class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>Benchmarks</p></th>
+		<th class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>Standard Mode</p></th>
+		<th class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>Optional Mode</p></th>
+	</tr>
+	<tr>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p><samp class="codeph">Alltoall</samp></p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>Q*8 MB</p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>Q*2X bytes</p></td>
+	</tr>
+	<tr>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p><samp class="codeph">Allgather, 
+		 Allgatherv</samp></p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>(Q+1)*4 MB</p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>(Q+1)*X bytes</p></td>
+	</tr>
+	<tr>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p><samp class="codeph">Exchange</samp></p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>12 MB</p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>3X bytes</p></td>
+	</tr>
+	<tr>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>All other MPI-1 
+		 benchmarks</p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>8 MB</p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>2X bytes</p></td>
+	</tr>
+	<tr>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p><samp class="codeph">IMB-EXT</samp></p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>80 MB</p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>2 max<samp class="codeph">(X,OVERALL_VOL)</samp> 
+		 bytes</p></td>
+	</tr>
+	<tr>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p><samp class="codeph">IMB-IO</samp></p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>32 MB</p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>3X bytes</p></td>
+	</tr>
+	<tr>
+		<td class="hcp2"><p><samp class="codeph">Ialltoall</samp>, 
+		 <samp class="codeph">Ialltoall_pure</samp></p></td>
+		<td class="hcp2"><p>Q*8 MB</p></td>
+		<td class="hcp2"><p>Q*2X bytes</p></td>
+	</tr>
+	<tr>
+		<td class="hcp2"><p><samp class="codeph">Iallgather</samp>, 
+		 <samp class="codeph">Iallgatherv</samp>, <samp class="codeph">Iallgather_pure</samp>, 
+		 <samp class="codeph">Iallgatherv_pure</samp></p></td>
+		<td class="hcp2"><p>(Q+1)*4 MB</p></td>
+		<td class="hcp2"><p>(Q+1)*X bytes</p></td>
+	</tr>
+	<tr>
+		<td class="hcp2"><p>All other <samp class="codeph">IMB-NBC</samp> 
+		 benchmarks</p></td>
+		<td class="hcp2"><p>8 MB</p></td>
+		<td class="hcp2"><p>2X bytes</p></td>
+	</tr>
+	<tr>
+		<td class="hcp2"><p><samp class="codeph">Compare_and_swap</samp></p></td>
+		<td class="hcp2"><p>12 B</p></td>
+		<td class="hcp2"><p>12 B</p></td>
+	</tr>
+	<tr>
+		<td class="hcp2"><p><samp class="codeph">Exchange_put</samp>, 
+		 <samp class="codeph">Exchange_get</samp></p></td>
+		<td class="hcp2"><p>16 MB</p></td>
+		<td class="hcp2"><p>4X bytes</p></td>
+	</tr>
+	<tr>
+		<td class="hcp2"><p>All other <samp class="codeph">IMB-RMA</samp> 
+		 benchmarks</p></td>
+		<td class="hcp2"><p>8 MB</p></td>
+		<td class="hcp2"><p>2X bytes</p></td>
+	</tr>
+</table>
+<div class="NoteCont">
+	<p class="NoteTipHead">NOTE:</p>
+	<p>If you do not select the <samp class="codeph">-cache</samp> flag, 
+	 add 2X cache size to all of the above.</p>
+</div>
+<p>For <samp class="codeph">IMB-IO</samp> benchmarks, make sure you have 
+ enough disk space available:</p>
+<ul class="hcp1">
+	<li><p>16MB in the standard mode</p></li>
+	<li><p>max<samp class="codeph">(X,OVERALL_VOL)</samp> bytes in the 
+	 optional mode</p></li>
+</ul>
+<p>For instructions on enabling the optional mode, see <a href="Parameters_Controlling_IMB.htm">Parameters 
+ Controlling Intel® MPI Benchmarks</a>.</p>
+<div>
+<div class="docfeedback">
+	<p style="font-family: Verdana, sans-serif; font-size: 10pt; font-weight: bold; 
+		 color: #0860A8;"><span 
+	 style="font-weight: bold; color: #0860A8;"><a href="http://www.intel.com/software/products/softwaredocs_feedback" 
+													 target="_blank" style="text-decoration: none; "><b>Submit 
+	 feedback on this help topic</b></a></span></p>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,270 @@
+
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+
+ <meta name="generator" content="Adobe RoboHelp 10">
+<title>What's New</title>
+<link rel="StyleSheet" href="styles_w_rh_ict.css" type="text/css">
+<style type="text/css">
+<!--
+A:visited { color:#800080; }
+A:link { color:#0860A8; }
+-->
+</style>
+<style title="hcp" type="text/css">
+<!--
+ul.hcp1 { list-style:disc; }
+-->
+</style>
+</head>
+
+<script src="NavScript.js" language="JavaScript1.2" type="text/javascript"></script>
+<script language="JavaScript1.2" type="text/javascript">WriteNavLink(0);</script>
+<body>
+<script type="text/javascript" src="ehlpdhtm.js"></script>
+
+<div style="width: 100%; position: relative;" id="header">
+	
+ <p style="font-style: italic;">Intel® 
+	 MPI Benchmarks 4.0</p>
+</div>
+
+
+<h1>What's New</h1>
+<p>This section provides changes for the Intel® MPI Benchmarks as compared 
+ to the previous versions of this product.</p>
+<h2>Changes in Intel® MPI Benchmarks 4.0</h2>
+<p>This release includes the following updates as compared to the Intel® 
+ MPI Benchmarks 3.2.4: </p>
+<ul class="hcp1">
+	<li>Introduced new components <samp class="codeph">IMB-NBC</samp> and 
+	 <samp class="codeph">IMB-RMA</samp> that conform to the MPI-3.0 standard.</li>
+	<li>Introduced a new feature to set the appropriate policy for automatic 
+	 calculation of iterations. You can set the policy using the -<samp 
+	 class="codeph">iter</samp> and -<samp class="codeph">iter_policy</samp> 
+	 options.</li>
+	<li>Added new targets to the Linux* OS Makefiles:</li>
+	<ul class="hcp1">
+		<li><samp class="codeph"><span class="codeph">N</span>BC </samp>for 
+		 building <samp class="codeph">IMB-NBC</samp></li>
+		<li><samp class="codeph">RMA</samp> for building <samp class="codeph">IMB-RMA</samp></li>
+	</ul>
+	<li>Updated Microsoft* Visual Studio* solutions to include the <samp 
+	 class="codeph">IMB-NBC</samp> and <samp class="codeph">IMB-RMA</samp> 
+	 targets.</li>
+	<li>Support for the Microsoft* Visual Studio* 2013. Microsoft* Visual 
+	 Studio* 2008 support is removed.</li>
+</ul>
+<h2>Changes in Intel® MPI Benchmarks 3.2.4</h2>
+<p>This release includes the following updates as compared to the Intel® 
+ MPI Benchmarks 3.2.3: </p>
+<ul class="hcp1">
+	<li class="p-InlineBullet15"><p class="InlineBullet15">Changes of document 
+	 layout.</p></li>
+</ul>
+<h2>Changes in Intel® MPI Benchmarks 3.2.3</h2>
+<p>This release includes the following updates as compared to the Intel® 
+ MPI Benchmarks 3.2.2:</p>
+<ul class="hcp1">
+	<li><p>Option <samp class="codeph">-msglog</samp> to control the message 
+	 length. Use this option to control the maximum and the second largest 
+	 minimum of the message transfer sizes. The minimum message transfer 
+	 size is always 0.</p></li>
+	<li><p>Thread safety support in the MPI initialization phase. Use <samp 
+	 class="codeph">MPI_Init()</samp>by default because it is supported 
+	 for all MPI implementations. You can choose <samp class="codeph">MPI_Init_thread()</samp> 
+	 by defining the appropriate macro.</p></li>
+	<li><p>Option <samp class="codeph">–thread_level</samp> to specify 
+	 the desired thread level support for <samp class="codeph">MPI_Init_thread.</samp></p></li>
+	<li><p>Support for the Microsoft* Visual Studio* 2010 project folder.</p></li>
+</ul>
+<h2>Changes in Intel® MPI Benchmarks 3.2.2</h2>
+<p>This release includes the following updates as compared to the Intel® 
+ MPI Benchmarks 3.2.1:</p>
+<ul class="hcp1">
+	<li><p>Support for large buffers greater than 2 GB for some MPI collective 
+	 benchmarks (<samp class="codeph">Allgather</samp>, <samp class="codeph">Alltoall</samp>, 
+	 <samp class="codeph">Scatter</samp>, <samp class="codeph">Gather</samp>) 
+	 to support large core counts.</p></li>
+	<li><p>New benchmarks: <samp class="codeph">PingPongSpecificSource</samp> 
+	 and <samp class="codeph">PingPingSpecificSource</samp>. The exact 
+	 destination rank is used for these tests instead of <samp class="codeph">MPI_ANY_SOURCE</samp> 
+	 as in the <samp class="codeph">PingPong</samp> and <samp class="codeph">PingPing</samp> 
+	 benchmarks. These are not executed by default. Use the <samp class="codeph">-include</samp> 
+	 option to enable the new benchmarks. For example,</p></li>
+</ul>
+<samp class="codeph">&#160;&#160;&#160;$ mpirun &#160;n 2 IMB_MPI&#160;-include&#160;PingPongSpecificSource&#160;\&#160;</samp>&#160; 
+ 
+<br><samp class="codeph">&#160;&#160;&#160;PingPingSpecificSource</samp> 
+ 
+<ul class="hcp1">
+	<li><p>New options <samp class="codeph">-include/-exclude</samp> for 
+	 better control over the benchmarks list. Use these options to include 
+	 or exclude benchmarks from the default execution list.</p></li>
+</ul>
+<h2>Changes in Intel® MPI Benchmarks 3.2.1</h2>
+<p>This release includes the following updates as compared to the Intel® 
+ MPI Benchmarks 3.2:</p>
+<ul class="hcp1">
+	<li><p>Fix of the memory corruption issue when the command-line option 
+	 <samp class="codeph">-msglen</samp> is used with the Intel® MPI Benchmarks 
+	 executable files.</p></li>
+	<li><p>Fix in the accumulated benchmark related to using the <samp 
+	 class="codeph">CHECK</samp> conditional compilation macro.</p></li>
+	<li><p>Fix for the integer overflow in dynamic calculations on the 
+	 number of iterations.</p></li>
+	<li><p>Recipes for building IA-32 executable files within Microsoft* 
+	 Visual Studio* 2005 and Microsoft* Visual Studio* 2008 project folders 
+	 associated with the Intel® MPI Benchmarks.</p></li>
+</ul>
+<h2>Changes in Intel® MPI Benchmarks 3.2</h2>
+<p>Intel® MPI Benchmarks 3.2 has the following changes as compared to the 
+ previous version:</p>
+<ul class="hcp1">
+	<li><p>The default settings are different.</p></li>
+	<li><p>Microsoft* Visual Studio* project folders are added and can 
+	 be used on the Microsoft* Windows* platforms.</p></li>
+	<li><p>Makefiles for the Microsoft* Windows* <samp class="codeph">nmake</samp> 
+	 utility provided with the Intel® MPI Benchmarks 3.1 are removed.</p></li>
+</ul>
+<h3>Run Time Control by Default</h3>
+<p>The improved run time control that is associated with the <samp class="codeph">–time</samp> 
+ flag. This is the default value for the Intel® MPI Benchmarks executable 
+ files (with a maximum run time per sample set to <samp class="codeph">10</samp> 
+ seconds by the <samp class="codeph">SECS_PER_SAMPLE</samp> parameter in 
+ the include file <samp class="codeph">IMB_settings.h</samp>).</p>
+<h3>Makefiles</h3>
+<p>The <samp class="codeph">nmake</samp> files for Windows* OS were removed 
+ and replaced by Microsoft* Visual Studio* solutions.</p>
+<p>The Linux* OS Makefiles received new targets:</p>
+<ul class="hcp1">
+	<li><p>Target <samp class="codeph">MPI1</samp> (default) for building 
+	 <samp class="codeph">IMB-MPI1</samp></p></li>
+	<li><p>Target <samp class="codeph">EXT</samp> for building <samp class="codeph">IMB-EXT</samp></p></li>
+	<li><p>Target <samp class="codeph">IO</samp> for building <samp class="codeph">IMB-IO</samp></p></li>
+	<li><p>Target <samp class="codeph">all</samp> for building all three 
+	 of the above</p></li>
+</ul>
+<h3>Microsoft* Visual Studio* Project Folders</h3>
+<p>Intel® MPI Benchmarks 3.2 contains Microsoft* Visual Studio* solutions 
+ based on an installation of the Intel® MPI Library. A dedicated folder 
+ is created for the Microsoft* Windows* OS without duplicating source files. 
+ The solutions refer to the source files that are located at their standard 
+ location within the Intel® MPI Benchmarks directory structure.</p>
+<p>As such solutions are highly version-dependent, see the information 
+ in the corresponding <samp class="codeph">ReadMe.txt</samp> files that 
+ unpack with the folder. You are recommended to learn about the Microsoft* 
+ Visual Studio* philosophy and the run time environment of your Windows 
+ cluster.</p>
+<h2>Changes in Intel® MPI Benchmarks 3.1</h2>
+<p>This release includes the following updates as compared to the Intel® 
+ MPI Benchmarks 3.0:</p>
+<ul class="hcp1">
+	<li><p>New control flags</p></li>
+	<li><p>Better control of the overall repetition counts, run time, and 
+	 memory exploitation</p></li>
+	<li><p>A facility to avoid cache re-usage of message buffers as far 
+	 as possible</p></li>
+	<li><p>A fix of IMB-IO semantics</p></li>
+	<li><p>New benchmarks</p></li>
+	<ul class="hcp1">
+		<li><p><samp class="codeph">Gather</samp></p></li>
+		<li><p><samp class="codeph">Gatherv</samp></p></li>
+		<li><p><samp class="codeph">Scatter</samp></p></li>
+		<li><p><samp class="codeph">Scatterv</samp></p></li>
+	</ul>
+	<li><p>New command-line flags for better control</p></li>
+	<ul class="hcp1">
+		<li><p><samp class="codeph">-off_cache</samp></p></li>
+		<p>Use this flag when measuring performance on high speed interconnects 
+		 or, in particular, across the shared memory within a node. Traditional 
+		 Intel® MPI Benchmarks results included a very beneficial cache 
+		 re-usage of message buffers which led to idealistic results. The 
+		 flag -off_cache allows avoiding cache effects and lets the Intel® 
+		 MPI Benchmarks use message buffers which are very likely not resident 
+		 in cache.</p>
+		<li><p><samp class="codeph">-iter, -time</samp></p></li>
+		<p>Use these flags for enhanced control of the overall run time, 
+		 which is crucial for large clusters, where collectives tend to 
+		 run extremely long in the traditional Intel® MPI Benchmarks settings.</p>
+		<div class="NoteCont">
+			<p class="NoteTipHead">CAUTION</p>
+			<p>In the Intel® MPI Benchmarks, the -time flag has been implemented 
+			 as default.</p>
+		</div>
+		<li><p><samp class="codeph">-mem</samp></p>
+		<p>Use this flag to determine an a priori maximum (per process) 
+		 memory usage of the Intel® MPI Benchmarks for the overall message 
+		 buffers.</p></li>
+	</ul>
+</ul>
+<h3>Miscellaneous Changes</h3>
+<p>In the <samp class="codeph">Exchange</samp> benchmark, the two buffers 
+ sent by <samp class="codeph">MPI_Isend</samp> are separate. The command 
+ line is repeated in the output. Memory management is completely encapsulated 
+ in the functions <samp class="codeph">IMB_v_alloc/IMB_v_free.</samp></p>
+<h2>Changes in Intel® MPI Benchmarks 3.0</h2>
+<p>This release includes the following updates as compared to the Intel® 
+ MPI Benchmarks 2.3:</p>
+<ul class="hcp1">
+	<li><p>A call to the <samp class="codeph">MPI_Init_thread</samp> function 
+	 to determine the MPI threading environment. The MPI threading environment 
+	 is reported each time an Intel® MPI Benchmark application is executed.</p></li>
+	<li><p>A call to the function <samp class="codeph">MPI_Get_version</samp> 
+	 to report the version of the Intel MPI library implementation that 
+	 the three benchmark applications are linking to.</p></li>
+	<li><p>New <samp class="codeph">Alltoallv</samp> benchmark.</p></li>
+	<li><p>New command-line flag <samp class="codeph">-h[elp]</samp> to 
+	 display the calling sequence for each benchmark application.</p></li>
+	<li><p>Removal of the outdated <samp class="codeph">Makefile</samp> 
+	 templates. There are three complete <samp class="codeph">makefiles 
+	 </samp>called <samp class="codeph">Makefile</samp>, <samp class="codeph">make_ict</samp>, 
+	 and <samp class="codeph">make_mpich</samp>. The <samp class="codeph">make_ict</samp> 
+	 option uses the Intel® Composer XE compilers. This option is available 
+	 for both Intel and non-Intel microprocessors but it may result in 
+	 additional optimizations for Intel microprocessors.</p></li>
+	<li><p>Better command-line argument checking, clean message and break 
+	 on most invalid arguments.</p></li>
+</ul>
+<div>
+<table rules="none" style="border-collapse: separate; border-collapse: separate;" 
+		 cellspacing="0" border="1">
+	<tr>
+		<th style="vertical-align: center; text-align: left; color: #ffffff; 
+			 padding-left: 5px; padding-top: 5px; padding-right: 5px; padding-bottom: 5px;" 
+			 height="30" bgcolor="#555555"><p>Optimization Notice</p></th>
+	</tr>
+	<tr bgcolor="#CCECFF">
+		<td style="padding-left: 5px; padding-top: 5px; padding-right: 5px; 
+			 padding-bottom: 5px;"><p>Intel's compilers may or may not 
+		 optimize to the same degree for non-Intel microprocessors for 
+		 optimizations that are not unique to Intel microprocessors. These 
+		 optimizations include SSE2, SSE3, and SSSE3 instruction sets and 
+		 other optimizations. Intel does not guarantee the availability, 
+		 functionality, or effectiveness of any optimization on microprocessors 
+		 not manufactured by Intel. Microprocessor-dependent optimizations 
+		 in this product are intended for use with Intel microprocessors. 
+		 Certain optimizations not specific to Intel microarchitecture 
+		 are reserved for Intel microprocessors. Please refer to the applicable 
+		 product User and Reference Guides for more information regarding 
+		 the specific instruction sets covered by this notice. </p>
+		<p style="text-align: right;">Notice revision #20110804 </p></td>
+	</tr>
+</table>
+</div>
+<div>
+<div class="docfeedback">
+	<p style="font-family: Verdana, sans-serif; font-size: 10pt; font-weight: bold; 
+		 color: #0860A8;"><span 
+	 style="font-weight: bold; color: #0860A8;"><a href="http://www.intel.com/software/products/softwaredocs_feedback" 
+													 target="_blank" style="text-decoration: none; "><b>Submit 
+	 feedback on this help topic</b></a></span></p>
+</div>
+</div>
+</body>
+</html>

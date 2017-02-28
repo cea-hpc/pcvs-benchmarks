@@ -1,0 +1,100 @@
+
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+ <meta name="generator" content="Adobe RoboHelp 10">
+<title>Ireduce_scatter_pure</title>
+<link rel="StyleSheet" href="styles_w_rh_ict.css" type="text/css">
+<style title="hcp" type="text/css">
+<!--
+ul.hcp1 { list-style:disc; }
+-->
+</style>
+</head>
+
+<script src="NavScript.js" language="JavaScript1.2" type="text/javascript"></script>
+<script language="JavaScript1.2" type="text/javascript">WriteNavLink(0);</script>
+<body>
+<script type="text/javascript" src="ehlpdhtm.js" language="JavaScript1.2"></script>
+
+<div style="width: 100%; position: relative;" id="header">
+	
+ <p style="font-style: italic;">Intel® 
+	 MPI Benchmarks 4.0</p>
+</div>
+
+
+<h1>Ireduce_scatter_pure</h1>
+<p>The benchmark for the <samp class="codeph">MPI_Ireduce_scatter</samp> 
+ function&#160;that measures pure communication time. It reduces a vector 
+ of length <samp class="codeph">L = X/sizeof(float)</samp> float items. 
+ The MPI data type is <samp class="codeph">MPI_FLOAT</samp>. The MPI operation 
+ is <samp class="codeph">MPI_SUM</samp>. In the scatter phase, the <samp 
+	 class="codeph">L</samp> items are split as evenly as possible. To 
+ be exact, for <samp class="codeph">np</samp> number of processes:</p>
+<p><samp class="codeph">L = r*np+s</samp></p>
+<p>where</p>
+<ul class="hcp1">
+	<li><p><samp class="codeph">r = &#8970;L/np&#8971;</samp></p></li>
+	<li><p><samp class="codeph">s = L mod np</samp></p></li>
+</ul>
+<p>In this case, the process with rank <samp class="codeph">i</samp> gets:</p>
+<ul class="hcp1">
+	<li><p><samp class="codeph">r+1</samp> items when <samp class="codeph">i&lt;s</samp></p></li>
+	<li><p><samp class="codeph">r</samp> items when <samp class="codeph">i<img src="IMB_Users_Guide_files/more.GIF" alt="" style="border: none;" width="7" height="11" border="0">s</samp></p></li>
+</ul>
+<table frame="border" rules="all" style="table-layout: fixed; border-collapse: separate; 
+		 border-collapse: separate;" cellspacing="0" width="800" border="1">
+	<col style="width: 25%;">
+	<col style="width: 75%;">
+	<tr>
+		<th class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>Property</p></th>
+		<th class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>Description</p></th>
+	</tr>
+	<tr>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>Measured pattern</p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p><samp class="codeph">MPI_Ireduce_scatter/MPI_Wait</samp></p></td>
+	</tr>
+	<tr>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>MPI data type</p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p><samp class="codeph">MPI_FLOAT</samp></p></td>
+	</tr>
+	<tr>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>MPI operation</p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p><samp class="codeph">MPI_SUM</samp></p></td>
+	</tr>
+	<tr>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>Reported timings</p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>Bare time</p></td>
+	</tr>
+	<tr>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>Reported throughput</p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>None </p></td>
+	</tr>
+</table>
+<div>
+<div class="docfeedback">
+	<p style="font-family: Verdana, sans-serif; font-size: 10pt; font-weight: bold; 
+		 color: #0860A8;"><span 
+	 style="font-weight: bold; color: #0860A8;"><a href="http://www.intel.com/software/products/softwaredocs_feedback" 
+													 target="_blank" style="text-decoration: none; "><b>Submit 
+	 feedback on this help topic</b></a></span></p>
+</div>
+</div>
+</body>
+</html>

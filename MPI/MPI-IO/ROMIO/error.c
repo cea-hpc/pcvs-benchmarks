@@ -69,6 +69,18 @@ int main(int argc, char **argv)
        specific error message */
     if (err != MPI_SUCCESS) {
 	MPI_Error_string(err, string, &len);
+	if (!rank) {
+#if VERBOSE
+	    fprintf(stderr, "%s\n", string);
+#else
+	    /* check for the word "displacement" in the message.
+	       This allows other formatting of the message */
+	    if (strstr( string, "displacement" ) == 0) {
+		fprintf( stderr, "Unexpected error message %s\n", string );
+		errs++;
+	    }
+#endif
+	}
     }
     else {
 	errs++;

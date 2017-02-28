@@ -1,0 +1,762 @@
+﻿<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+
+  <title>Contents</title>
+  <link rel="stylesheet" type="text/css" href="tree.css">
+  <script src="tree.js" type="text/javascript">
+  </script>
+
+  <script type="text/javascript">
+  <!--
+
+  if (parent.location.href == self.location.href)
+    window.location.href = "index.htm";
+
+  function CloseNav() {
+    if ((top.right.location == null) || (top.right.location == undefined) || (typeof(top.right.location.href) != "string") || (top.right.location.href == ""))
+      top.location="Intel_MPI_Benchmarks.htm";
+    else
+      top.location=top.right.location;
+  }
+
+  //Links to other domains normally wont work because of browser security 
+  function SyncDocUrl(showError) 
+  { 
+     if ((top.right.location != null) 
+     && (top.right.location != undefined) 
+     && (typeof(top.right.location.href) == "string") 
+     && (top.right.location.href != "") 
+     && (top.right.document != null) 
+     && (top.right.document != undefined)) 
+     { 
+        return top.right.document.URL; 
+     } 
+     else 
+     { 
+	if (showError) 
+          alert("Operation failed!\r\rCross frame communication is blocked. Please check your browser security settings or try another browser."); 
+        return ""; 
+     } 
+  } 
+  
+  // RWC: 2007-06-24 - Get absolute URL to current page
+  
+  function TrimURL(aref)  //Strip off leading protocol http:///
+  {
+    sRet = aref;
+    if ((sRet.substring(0, 7) == "http://") || (sRet.substring(0, 7) == "file://"))
+     	sRet = sRet.substring(7, sRet.length);
+    if (sRet.substring(0, 8) == "https://")
+     	sRet = sRet.substring(8, sRet.length);
+    if (sRet.substring(0, 1) == "/")
+     	sRet = sRet.substring(1, sRet.length);
+    //Scrub embedded codes
+    sRet = unescape(sRet);  //Converts %2520 -> %20  (under FireFox)
+    sRet = unescape(sRet);  //Converts %20 = " "
+    //all Unix slashes /
+    sRet = sRet.replace(/\\/g, "/");
+    return sRet;
+  }
+  
+function GetGotoURL()
+{
+   var topURL = top.location.href;  
+   if (topURL == undefined)      // undefined if frame communication is blocked
+      topURL = location.href;
+   var i = topURL.indexOf("#");  // trim off any bookmark
+   if (i > 0)
+      topURL = topURL.substr(0, i);
+   var baseURL = topURL.substr(0, topURL.lastIndexOf("/") + 1);   // "http://c:/base/start.htm" --> "http://c:/base/"
+   return baseURL + "hh_goto.htm";
+}
+
+function ShowUrlBox(rightURL)
+{
+   var gotoUrl = GetGotoURL();
+   var sBase = gotoUrl.substr(0, gotoUrl.lastIndexOf("/") + 1);   // "http://c:/base/goto.htm" --> "http://c:/base/"
+
+   rightURL = TrimURL(rightURL);     // "http://c:/base/" --> "c:/base/dir/page.htm"
+   sBase = TrimURL(sBase);           // "http://c:/base/" --> "c:/base/"
+   if (rightURL.indexOf(sBase) >= 0)
+      rightURL = rightURL.substr(sBase.length, rightURL.length); // "c:/base/dir/page.htm" --> "dir/page.htm" 
+
+   //create full goto full URL. The bookmark allows goto.htm to set the right frame. 
+   //Using hh_goto.htm works where hh_start.htm usually wont update.
+   var url=gotoUrl + "#"+ rightURL;
+
+   //Show URL in prompt and give option to goto the URL
+   url = prompt("Absolute address. Click OK to load this URL in the browser", url)
+   if (url != "" && url != null)
+     top.location.href= url;
+}
+
+function GetFullLink(){
+  if (SyncDocUrl(false) == "")  // Can't see the right frame -- Use the current TOC selection
+  {
+     var el = findLinkNode();
+     if (el != null && el != undefined)
+       ShowUrlBox(el.getAttribute('href'));
+     else
+       alert("Please select a Table of Contents item."); 
+     return;
+  }
+
+  var rightURL = SyncDocUrl(true);
+  if (rightURL != "")
+  {
+      ShowUrlBox(rightURL);
+  }
+}
+
+
+  function DoTocNext(fwd) { 
+    var aref = selectNext(fwd); 
+    if (aref != null && aref != undefined && aref != "") 
+       top.right.location = aref;
+  } 
+
+  function DoTocSync(showError) { 
+    var url = SyncDocUrl(showError); 
+    if (url != "") 
+       syncTree(url); 
+  } 
+
+  function OnLoadCode() {
+    window.onresize=resizeTree;
+    resizeTree();
+    DoTocSync(false);
+  }
+
+  function KeyDownEvent(event) {
+    if ((event.which && event.which==13) || (event.keyCode && event.keyCode==13)) {  // Return
+      var node = findLinkNode();
+      if (node != null && node != undefined && node != "") 
+      {
+        aref = node.getAttribute('href');
+        if (aref != null && aref != undefined && aref != "") 
+          top.right.location = aref;
+      }
+    }
+    else if ((event.which && event.which==40) || (event.keyCode && event.keyCode==40)) { //down arrow
+      selectNext(true);
+    }
+    else if ((event.which && event.which==38) || (event.keyCode && event.keyCode==38)) { //up arrow
+      selectNext(false);
+    }
+
+    return(true); //do not gobble keypress 
+  }
+  -->
+  </script>
+
+
+</head>
+
+<body id="docBody" style="color: Black; margin: 5px 0px 0px 0px;" 
+  onkeydown="javascript:return(KeyDownEvent(event));"
+  onload="OnLoadCode()" onselectstart="return false;">
+
+
+<div style="display: inline; white-space: nowrap; margin: 0px 0px 0px 5px;">
+<input
+ TYPE="button" VALUE="Contents" ONCLICK="javascript:location='hh_toc.htm';"
+ NAME="HelpTopics"><input
+ TYPE="button" VALUE="Search" ONCLICK="javascript:location='hh_search.htm';"
+ NAME="Search">
+</div>
+
+
+<div align="right" style="margin: 3 8 5 3;">
+   <span title="Get absolute address of current page"
+      style="cursor: pointer; font-size: 8pt; font-family: verdana,arial,sans-serif;"
+      onmouseover="this.style.textDecoration='underline'"
+      onmouseout="this.style.textDecoration='none'"
+      onclick="GetFullLink();">Get Link</span>
+|
+   <span title="Sync table of contents to current page"
+      style="cursor: pointer; font-size: 8pt; font-family: verdana,arial,sans-serif;"
+      onmouseover="this.style.textDecoration='underline'"
+      onmouseout="this.style.textDecoration='none'"
+      onclick="DoTocSync(true);">Sync TOC</span>
+|
+   <span title="Previous Page"
+      style="cursor: pointer; font-size: 8pt; font-family: verdana,arial,sans-serif;"
+      onmouseover="this.style.textDecoration='underline'"
+      onmouseout="this.style.textDecoration='none'"
+      onclick="DoTocNext(false);">&lt;&lt;</span>
+|
+   <span title="Next Page"
+      style="cursor: pointer; font-size: 8pt; font-family: verdana,arial,sans-serif;"
+      onmouseover="this.style.textDecoration='underline'"
+      onmouseout="this.style.textDecoration='none'"
+      onclick="DoTocNext(true);">&gt;&gt;</span>
+</div>
+
+    <div id="tree" style="top: 35px; left: 0px;" class="treeDiv">
+      <div id="treeRoot" onselectstart="return false" ondragstart="return false">
+        <div class="treeNode">
+          <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+          <a href="Intel_MPI_Benchmarks.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Intel(R) MPI Benchmarks</a>
+        </div>
+        <div class="treeNode">
+          <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+          <a href="legal_information.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Legal Information</a>
+        </div>
+        <div class="treeNode">
+          <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+          <a href="Getting_Help_and_Support.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Getting Help and Support</a>
+        </div>
+        <div class="treeNode">
+          <img src="treenodeplus.gif" class="treeLinkImage" onclick="expandCollapse(this.parentNode)" alt="">
+          <a href="About_this_Document.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Introduction</a>
+          <div class="treeSubnodesHidden">
+            <div class="treeNode">
+              <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+              <a href="About_Intel(R)_MPI_Benchmarks.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Introducing Intel(R) MPI Benchmarks</a>
+            </div>
+            <div class="treeNode">
+              <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+              <a href="Whats_New.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">What's New</a>
+            </div>
+            <div class="treeNode">
+              <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+              <a href="Conventions_and_Symbols.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Notational Conventions</a>
+            </div>
+            <div class="treeNode">
+              <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+              <a href="Revision_History.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Document Version Information</a>
+            </div>
+            <div class="treeNode">
+              <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+              <a href="Related_Information.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Related Information</a>
+            </div>
+          </div>
+        </div>
+        <div class="treeNode">
+          <img src="treenodeplus.gif" class="treeLinkImage" onclick="expandCollapse(this.parentNode)" alt="">
+          <a href="Installation_and_Quick_Start.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Installation and Quick Start</a>
+          <div class="treeSubnodesHidden">
+            <div class="treeNode">
+              <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+              <a href="Memory_Requirements.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Memory and Disk Space Requirements</a>
+            </div>
+            <div class="treeNode">
+              <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+              <a href="Software_Requirements.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Software Requirements</a>
+            </div>
+            <div class="treeNode">
+              <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+              <a href="Installing.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Installing Intel(R) MPI Benchmarks</a>
+            </div>
+            <div class="treeNode">
+              <img src="treenodeplus.gif" class="treeLinkImage" onclick="expandCollapse(this.parentNode)" alt="">
+              <a href="Building.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Building Intel(R) MPI Benchmarks</a>
+              <div class="treeSubnodesHidden">
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="Building_lin.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Building Intel(R) MPI Benchmarks on Linux* OS</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="Building_win.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Building Intel(R) MPI Benchmarks on Windows* OS</a>
+                </div>
+              </div>
+            </div>
+            <div class="treeNode">
+              <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+              <a href="Running.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Running Intel(R) MPI Benchmarks</a>
+            </div>
+            <div class="treeNode">
+              <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+              <a href="IMB-MPI_Benchmarks.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Running Benchmarks in Multiple Mode</a>
+            </div>
+          </div>
+        </div>
+        <div class="treeNode">
+          <img src="treenodeplus.gif" class="treeLinkImage" onclick="expandCollapse(this.parentNode)" alt="">
+          <a href="The_Benchmarks.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">MPI-1 Benchmarks</a>
+          <div class="treeSubnodesHidden">
+            <div class="treeNode">
+              <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+              <a href="IMB-MPI1_Benchmark_Classification.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Classification of MPI-1 Benchmarks</a>
+            </div>
+            <div class="treeNode">
+              <img src="treenodeplus.gif" class="treeLinkImage" onclick="expandCollapse(this.parentNode)" alt="">
+              <a href="Single_Transfer.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Single Transfer Benchmarks</a>
+              <div class="treeSubnodesHidden">
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="PingPong.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">PingPong, PingPongSpecificSource</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="PingPing.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">PingPing, PingPingSpecificSource</a>
+                </div>
+              </div>
+            </div>
+            <div class="treeNode">
+              <img src="treenodeplus.gif" class="treeLinkImage" onclick="expandCollapse(this.parentNode)" alt="">
+              <a href="Parallel_Transfer.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Parallel Transfer Benchmarks</a>
+              <div class="treeSubnodesHidden">
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="Sendrecv.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Sendrecv</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="Exchange.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Exchange</a>
+                </div>
+              </div>
+            </div>
+            <div class="treeNode">
+              <img src="treenodeplus.gif" class="treeLinkImage" onclick="expandCollapse(this.parentNode)" alt="">
+              <a href="Collective_Benchmarks.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Collective Benchmarks</a>
+              <div class="treeSubnodesHidden">
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="Reduce.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Reduce</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="Reduce_scatter.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Reduce_scatter</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="Allreduce.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Allreduce</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="Allgather.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Allgather</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="Allgatherv.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Allgatherv</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="Scatter.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Scatter</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="Scatterv.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Scatterv</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="Gather.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Gather</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="Gatherv.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Gatherv</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="Alltoall.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Alltoall</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="Bcast.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Bcast</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="Barrier.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Barrier</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="treeNode">
+          <img src="treenodeplus.gif" class="treeLinkImage" onclick="expandCollapse(this.parentNode)" alt="">
+          <a href="MPI-2_Part_of_Intel(R)_MPI_Benchmarks.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">MPI-2 Benchmarks</a>
+          <div class="treeSubnodesHidden">
+            <div class="treeNode">
+              <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+              <a href="MPI-2_Naming_Conventions.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Naming Conventions</a>
+            </div>
+            <div class="treeNode">
+              <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+              <a href="IMB-MPI2_Benchmark_Classification.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Classification of MPI-2 Benchmarks</a>
+            </div>
+            <div class="treeNode">
+              <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+              <a href="Benchmark_Modes.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">MPI-2 Benchmark Modes</a>
+            </div>
+            <div class="treeNode">
+              <img src="treenodeplus.gif" class="treeLinkImage" onclick="expandCollapse(this.parentNode)" alt="">
+              <a href="IMB-EXT_Benchmarks.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">IMB-EXT Benchmarks</a>
+              <div class="treeSubnodesHidden">
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="Unidir_Put.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Unidir_Put</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="Unidir_Get.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Unidir_Get</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="Bidir_Put.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Bidir_Put</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="Bidir_Get.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Bidir_Get</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="Accumulate.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Accumulate</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="Window.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Window</a>
+                </div>
+              </div>
+            </div>
+            <div class="treeNode">
+              <img src="treenodeplus.gif" class="treeLinkImage" onclick="expandCollapse(this.parentNode)" alt="">
+              <a href="IMB-IO_Benchmarks.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">IMB-IO Blocking Benchmarks</a>
+              <div class="treeSubnodesHidden">
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="S_Action_indv.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">S_[ACTION]_indv</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="S_ACTION_expl.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">S_[ACTION]_expl</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="P_ACTION_indv.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">P_[ACTION]_indv</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="P_ACTION_expl.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">P_[ACTION]_expl</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="P_ACTION_shared.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">P_[ACTION]_shared</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="P_ACTION_priv.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">P_[ACTION]_priv</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="C_ACTION_indv.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">C_[ACTION]_indv</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="C_ACTION_expl.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">C_[ACTION]_expl</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="C_ACTION_shared.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">C_[ACTION]_shared</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="Open_Close.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Open_Close</a>
+                </div>
+              </div>
+            </div>
+            <div class="treeNode">
+              <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+              <a href="Non-Blocking_I_O_Benchmarks.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">IMB-IO Non-Blocking Benchmarks</a>
+            </div>
+          </div>
+        </div>
+        <div class="treeNode">
+          <img src="treenodeplus.gif" class="treeLinkImage" onclick="expandCollapse(this.parentNode)" alt="">
+          <a href="mpi3_benchmarks.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">MPI-3 Benchmarks</a>
+          <div class="treeSubnodesHidden">
+            <div class="treeNode">
+              <img src="treenodeplus.gif" class="treeLinkImage" onclick="expandCollapse(this.parentNode)" alt="">
+              <a href="IMB_NBC_Benchmarks.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">IMB-NBC Benchmarks</a>
+              <div class="treeSubnodesHidden">
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="Measuring_Communication_and_Computation_Overlap.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Measuring Communication and Computation Overlap</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="Measuring_Pure_Communication_Time.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Measuring Pure Communication Time</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Iallgather.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Iallgather</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3Iallgather_pure.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Iallgather_pure</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Iallgatherv.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Iallgatherv</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Iallgatherv_pure.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Iallgatherv_pure</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Iallreduce.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Iallreduce</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Iallreduce_pure.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Iallreduce_pure</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Ialltoall.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Ialltoall</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Ialltoall_pure.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Ialltoall_pure</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Ialltoallv.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Ialltoallv</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Ialltoallv_pure.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Ialltoallv_pure</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Ibarrier.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Ibarrier</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Ibarrier_pure.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Ibarrier_pure</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Ibcast.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Ibcast</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Ibcast_pure.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Ibcast_pure</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Igather.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Igather</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Igather_pure.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Igather_pure</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Igatherv.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Igatherv</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Igatherv_pure.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Igatherv_pure</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Ireduce.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Ireduce</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Ireduce_pure.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Ireduce_pure</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Ireduce_scatter.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Ireduce_scatter</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Ireduce_scatter_pure.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Ireduce_scatter_pure</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Iscatter.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Iscatter</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Iscatter_pure.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Iscatter_pure</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Iscatterv.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Iscatterv</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Iscatterv_pure.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Iscatterv_pure</a>
+                </div>
+              </div>
+            </div>
+            <div class="treeNode">
+              <img src="treenodeplus.gif" class="treeLinkImage" onclick="expandCollapse(this.parentNode)" alt="">
+              <a href="IMB_RMA_Benchmarks.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">IMB-RMA Benchmarks</a>
+              <div class="treeSubnodesHidden">
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="Classification_of_IMB-RMA_Benchmarks.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Classification of IMB-RMA Benchmarks</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Accumulate.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Accumulate</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_All_get_all.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">All_get_all</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_All_put_all.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">All_put_all</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Bidir_get.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Bidir_get</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Bidir_put.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Bidir_put</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Compare_and_swap.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Compare_and_swap</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Exchange_Get.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Exchange_Get</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Exchange_Put.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Exchange_Put</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Fetch_and_op.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Fetch_and_op</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Get_Accumulate.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Get_accumulate</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Get_all_local.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Get_all_local</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Get_local.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Get_local</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Unidir_Put_All.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">One_put_all</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Unidir_Get_All.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">One_get_all</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Unidir_Put_All_Local.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Put_all_local</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Unidir_Put_Local.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Put_local</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Truly_passive_put.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Truly_passive_put</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Unidir_get.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Unidir_get</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="mpi3_Unidir_put.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Unidir_put</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="treeNode">
+          <img src="treenodeplus.gif" class="treeLinkImage" onclick="expandCollapse(this.parentNode)" alt="">
+          <a href="Benchmark_Methodology.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Benchmark Methodology</a>
+          <div class="treeSubnodesHidden">
+            <div class="treeNode">
+              <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+              <a href="Control_Flow.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Control Flow</a>
+            </div>
+            <div class="treeNode">
+              <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+              <a href="Command-Line_Control.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Command-Line Control</a>
+            </div>
+            <div class="treeNode">
+              <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+              <a href="Parameters_Controlling_IMB.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Parameters Controlling Intel(R) MPI Benchmarks</a>
+            </div>
+            <div class="treeNode">
+              <img src="treenodeplus.gif" class="treeLinkImage" onclick="expandCollapse(this.parentNode)" alt="">
+              <a href="Hard-Coded_Settings.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Hard-Coded Settings</a>
+              <div class="treeSubnodesHidden">
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="Communicators_Active_Processes.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Communicators, Active Processes</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="Other_Preparations.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Other Preparations for Benchmarking</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="Message_I-O_Buffer_Lengths.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Message/I-O Buffer Lengths</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="Buffer_Initialization.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Buffer Initialization</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="Warm-Up_Phase_(MPI1_EXT).htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Warm-Up Phase (IMB-MPI1, IMB-EXT, IMB-NBC, and IMB-RMA)</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="Synchronization.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Synchronization</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="The_Actual_Benchmark.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Actual Benchmarking</a>
+                </div>
+              </div>
+            </div>
+            <div class="treeNode">
+              <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+              <a href="Checking_Results.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Checking Results</a>
+            </div>
+            <div class="treeNode">
+              <img src="treenodeplus.gif" class="treeLinkImage" onclick="expandCollapse(this.parentNode)" alt="">
+              <a href="Output.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Output</a>
+              <div class="treeSubnodesHidden">
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="Sample_1.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Sample 1 - IMB-MPI1 PingPong Allreduce</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="Sample_2.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Sample 2 - IMB-MPI1 PingPing Allreduce</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="Sample_3.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Sample 3 - IMB-IO p_write_indv</a>
+                </div>
+                <div class="treeNode">
+                  <img src="treenodedot.gif" class="treeNoLinkImage" alt="">
+                  <a href="Sample_4.htm" target="right" class="treeUnselected" onclick="clickAnchor(this)">Sample 4 - IMB-EXT.exe</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+</body>
+</html>

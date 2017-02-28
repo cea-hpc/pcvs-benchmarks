@@ -1,0 +1,421 @@
+
+<!doctype HTML public "-//W3C//DTD HTML 4.0 Frameset//EN">
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+ <meta name="generator" content="Adobe RoboHelp 10">
+<title>Command-Line Control</title>
+<link rel="StyleSheet" href="styles_w_rh_ict.css" type="text/css">
+<style title="hcp" type="text/css">
+<!--
+ul.hcp1 { list-style:disc; }
+table.hcp2 { table-layout:fixed;
+border-collapse:separate; }
+-->
+</style>
+</head>
+
+<script src="NavScript.js" language="JavaScript1.2" type="text/javascript"></script>
+<script language="JavaScript1.2" type="text/javascript">WriteNavLink(0);</script>
+<body>
+<script type="text/javascript" src="ehlpdhtm.js" language="JavaScript1.2"></script>
+
+<div style="width: 100%; position: relative;" id="header">
+	
+ <p style="font-style: italic;">Intel® 
+	 MPI Benchmarks 4.0</p>
+</div>
+
+
+<h1>Command-line Control</h1>
+<p>You can control all the aspects of the Intel® MPI Benchmarks through 
+ the command-line. The general command-line syntax is the following:</p>
+<pre>
+IMB-MPI1&#160;&#160;&#160;&#160;[-h{elp}]
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[-npmin&#160;&#160;&#160;&#160;&#160;&lt;NPmin&gt;]
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[-multi&#160;&#160;&#160;&#160;&#160;&lt;MultiMode&gt;]
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[-off_cache&#160;&lt;cache_size[,cache_line_size]&gt;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[-iter &#160;&#160;&#160;&#160;&#160;&lt;msgspersample[,overall_vol[,msgs_nonaggr[,iter_policy]]]&gt;]
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[-iter_policy&#160;&#160;&#160;&#160;&#160;&lt;iter_policy&gt;]
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[-time&#160;&#160;&#160;&#160;&#160;&lt;max_runtime&#160;per&#160;sample&gt;]
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[-mem&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;max.&#160;mem&#160;usage&#160;per&#160;process&gt;]
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[-msglen&#160;&#160;&#160;&#160;&lt;Lengths_file&gt;]
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[-map&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;PxQ&gt;]
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[-input&#160;&#160;&#160;&#160;&#160;&lt;filename&gt;]
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[-include]&#160;&#160;[benchmark1&#160;[,benchmark2&#160;[,...]]]
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[-exclude]&#160;&#160;[benchmark1&#160;[,benchmark2&#160;[,...]]]
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[-msglog&#160;[&lt;minlog&gt;:]&lt;maxlog&gt;]
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;[benchmark1&#160;[,benchmark2&#160;[,...]]]</pre>
+<p>The command line is repeated in the output. The options may appear in 
+ any order.</p>
+<p>Examples:</p>
+<p>Use the following command line to get out-of-cache data for PingPong:</p>
+<pre>
+mpirun -np 2 &#160;IMB-MPI1 pingpong -off_cache -1</pre>
+<p>Use the following command line to run a very large configuration: restrict 
+ iterations to 20, max. 1.5 seconds run time per message size, max. 2 GBytes 
+ for message buffers: </p>
+<pre>
+mpirun -np 512 IMB-MPI1 -npmin 512
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;alltoallv&#160;-iter&#160;20&#160;-time&#160;1.5&#160;-mem&#160;2</pre>
+<p>Other examples:</p>
+<pre>
+mpirun -np 8&#160;&#160;IMB-IO
+mpirun -np 10 IMB-MPI1 PingPing Reduce
+mpirun -np 11 IMB-EXT&#160;&#160;-npmin 5
+mpirun -np 14 IMB-IO P_Read_shared -npmin&#160;7
+&#160;
+mpirun -np 3&#160;&#160;IMB-EXT&#160;&#160;-input IMB_SELECT_EXT
+mpirun -np 14 IMB-MPI1 -multi 0 PingPong Barrier
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;-map&#160;2x7
+mpirun -np 16 IMB-MPI1 -msglog 2:7 -include PingPongSpecificsource
+PingPingSpecificsource -exclude Alltoall Alltoallv
+mpirun -np 4 IMB-MPI1 -msglog 16 PingPong PingPing PingPongSpecificsource&#160;PingPingSpecificsource<br>mpirun –np 16 IMB-NBC –include Ialltoall_pure Ibcast_pure<br>mpirun –np 8 IMB-RMA –multi 1 Put_local</pre>
+<h2>Benchmark Selection Arguments</h2>
+<p>Benchmark selection arguments are a sequence of blank-separated strings. 
+ Each argument is the name of a benchmark in exact spelling, case insensitive.</p>
+<p>For example, the string <samp class="codeph">IMB-MPI1&#160;PingPong&#160;Allreduce</samp> 
+ specifies that you want to run <samp class="codeph">PingPong</samp> and 
+ <samp class="codeph">Allreduce</samp> benchmarks only.</p>
+<p>Default: no benchmark selection. All benchmarks of the selected component 
+ are run.</p>
+<h2>-npmin Option</h2>
+<p>Specifies the minimum number of processes <samp class="codeph">P_min</samp> 
+ to run all selected benchmarks on. The <samp class="codeph">P_min</samp> 
+ value after <samp class="codeph">-npmin</samp> must be an integer.</p>
+<p>Given <samp class="codeph">P_min</samp>, the benchmarks run on the processes 
+ with the numbers selected as follows:</p>
+<p><samp class="codeph">P_min,&#160;2P_min,&#160;4P_min,&#160;...,&#160;</samp>largest 
+ <samp class="codeph">2<sup>x</sup>P_min&#160;&lt;P,&#160;P</samp></p>
+<div class="NoteCont">
+	<p class="NoteTipHead">NOTE:</p>
+	<p>You may set <samp class="codeph">P_min</samp> to 1. If you set <samp 
+	 class="codeph">P_min&#160;&gt;&#160;P</samp>, Intel MPI Benchmarks 
+	 interprets this value as&#160;<samp class="codeph">P_min&#160;=&#160;P.</samp></p>
+</div>
+<p>Default: no<samp class="codeph">&#160;-npmin</samp> selection. Active 
+ processes are selected as described in the <a href="Running.htm">Running 
+ Intel® MPI Benchmarks</a> section.</p>
+<h2>-multi outflag Option</h2>
+<p>Defines whether the benchmark runs in the multiple mode. The argument 
+ after <samp class="codeph">-multi</samp> is a meta-symbol <samp class="codeph">&lt;outflag&gt;</samp> 
+ that can take an integer value of 0 or 1. This flag controls the way of 
+ displaying results:</p>
+<ul class="hcp1">
+	<li><p><samp class="codeph">Outflag&#160;=&#160;0</samp> only display 
+	 maximum timings (minimum throughputs) over all active groups</p></li>
+	<li><p><samp class="codeph">Outflag&#160;=&#160;1</samp> report on 
+	 all groups separately. The report may be long in this case.</p></li>
+</ul>
+<p>When the number of processes running the benchmark is more than half 
+ of the overall number <samp class="codeph">MPI_COMM_WORLD</samp>, the 
+ multiple benchmark coincides with the non-multiple one, as not more than 
+ one process group can be created.</p>
+<p>Default: no <samp class="codeph">-multi</samp> selection. Intel® MPI 
+ Benchmarks run non-multiple benchmark flavors.</p>
+<h2>-off_cache cache_size[,cache_line_size] Option</h2>
+<p>Use the <samp class="codeph">-off_cache</samp> flag to avoid cache re-usage. 
+ If you do not use this flag (default), the communications buffer is the 
+ same within all repetitions of one message size sample. In this case, 
+ Intel® MPI Benchmarks reuses the cache, so throughput results might be 
+ non-realistic.</p>
+<p>The argument after <samp class="codeph">off_cache</samp> can be a single 
+ number<samp class="codeph"> (cache_size)</samp>, two comma-separated numbers 
+ <samp class="codeph">(cache_size,cache_line_size)</samp>, or <samp class="codeph">-1</samp>:</p>
+<ul class="hcp1">
+	<li><p><samp class="codeph">cache_size</samp> is a float for an upper 
+	 bound of the size of the last level cache, in MB.</p></li>
+	<li><p><samp class="codeph">cache_line_size</samp> is assumed to be 
+	 the size of a last level cache line (can be an upper estimate).</p></li>
+	<li><p><samp class="codeph">-1 </samp>indicates that the default values 
+	 from <samp class="codeph">IMB_mem_info.h</samp> should be used. The 
+	 <samp class="codeph">cache_size</samp> and <samp class="codeph">cache_line_size</samp> 
+	 values are assumed to be statically defined in <samp class="codeph">IMB_mem_info.h.</samp></p></li>
+</ul>
+<p>The sent/received data is stored in buffers of size ~2x MAX<samp class="codeph">(cache_size, 
+ message_size)</samp>. When repetitively using messages of a particular 
+ size, their addresses are advanced within those buffers so that a single 
+ message is at least 2 cache lines after the end of the previous message. 
+ When these buffers are filled up, they are reused from the beginning.</p>
+<p><samp class="codeph">-off_cache</samp> is effective for IMB-MPI1 and 
+ IMB-EXT. You are not recommended to use this option for IMB-IO.</p>
+<p>Examples</p>
+<p>Use the default values defined in <samp class="codeph">IMB_mem_info.h</samp>:</p>
+<p><samp class="codeph">-off_cache -1</samp></p>
+<p>2.5 MB last level cache, default line size:</p>
+<p><samp class="codeph">-off_cache 2.5</samp></p>
+<p>16 MB last level cache, line size 128:</p>
+<p><samp class="codeph">-off_cache 16,128</samp></p>
+<p>The <samp class="codeph">off_cache</samp> mode might also be influenced 
+ by eventual internal caching with the Intel® MPI Library. This could make 
+ results interpretation complicated.</p>
+<p>Default: no cache control. Data may come out of cache.</p>
+<h2>-iter Option</h2>
+<p>Use this option to control the number of iterations. </p>
+<p>By default, the number of iterations is controlled through parameters 
+ <samp class="codeph">MSGSPERSAMPLE</samp>, <samp class="codeph">OVERALL_VOL</samp>, 
+ <samp class="codeph">MSGS_NONAGGR</samp>, and <samp class="codeph">ITER_POLICY</samp> 
+ defined in <samp class="codeph">IMB_settings.h</samp>.</p>
+<p>You can optionally add one or more arguments after the <samp class="codeph">-iter</samp> 
+ flag, to override the default values defined in <samp class="codeph">IMB_settings.h</samp>. 
+ Use the following guidelines for the optional arguments:</p>
+<ul class="hcp1">
+	<li>To override the <samp class="codeph">MSGSPERSAMPLE</samp> value, 
+	 use a single integer.</li>
+	<li>To override the <samp class="codeph">OVERALL_VOL</samp> use two 
+	 comma-separated integers. The first integer defines the <samp class="codeph">MSGSPERSAMPLE</samp> 
+	 value. The second integer overrides the <samp class="codeph">OVERALL_VOL</samp>&#160;value.</li>
+	<li>To override the <samp class="codeph">MSGS_NONAGGR</samp>&#160;value, 
+	 use three comma-separated integer numbers. The first integer defines 
+	 the <samp class="codeph">MSGSPERSAMPLE</samp> value. The second integer 
+	 overrides the <samp class="codeph">OVERALL_VOL</samp>&#160;value. 
+	 The third overrides the <samp class="codeph">MSGS_NONAGGR</samp>&#160;value.</li>
+	<li>To override the <span><samp class="codeph">-iter_policy</samp> 
+	 argument, enter it after the integer arguments, or right after the 
+	 </span><samp class="codeph">-iter</samp> flag if you do not use any 
+	 other arguments.</li>
+</ul>
+<p>Examples</p>
+<p>To define <samp class="codeph">MSGSPERSAMPLE</samp> as 2000, and <samp 
+	 class="codeph">OVERALL_VOL </samp>as 100, use the following command 
+ line:</p>
+<p><samp class="codeph">-iter 2000,100</samp></p>
+<p>To define <samp class="codeph">MSGS_NONAGGR</samp> as 150, you need 
+ to define values for <samp class="codeph">MSGSPERSAMPLE</samp>&#160;and 
+ <samp class="codeph">OVERALL_VOL</samp> as shown in the following command 
+ line:</p>
+<p><samp class="codeph">-iter 1000,40,150</samp></p>
+<p>To define <samp class="codeph">MSGSPERSAMPLE</samp> as 2000 and set 
+ the <samp class="codeph">multiple_np</samp> policy, use the following 
+ command line (see <samp class="codeph">-iter_policy</samp>):</p>
+<p><samp class="codeph">-iter 2000,multiple_np</samp></p>
+<h2>-iter_policy Option</h2>
+<p>Use this option to set a policy for automatic calculation of the number 
+ of iterations. Use one of the following arguments to override the default 
+ <samp class="codeph">ITER_POLICY</samp> value defined in <samp class="codeph">IMB_settings.h</samp>:</p>
+<table frame="border" rules="all" cellspacing="0" width="100%" border="1" class="hcp2">
+	<col style="width: 17.279%;">
+	<col style="width: 82.721%;">
+	<tr>
+		<th class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>Policy</p></th>
+		<th class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>Description</p></th>
+	</tr>
+	<tr>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p><samp class="codeph">dynamic</samp></p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>Reduces the number 
+		 of iterations when the maximum run time per sample (see <samp 
+		 class="codeph">-time</samp>) is expected to be reached. Using 
+		 this policy ensures faster execution, but may lead to inaccuracy 
+		 of the results</p></td>
+	</tr>
+	<tr>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p><samp class="codeph">multiple_np</samp></p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>Reduces the number 
+		 of iterations when the message size is growing. Using this policy 
+		 ensures the accuracy of the results, but may lead to longer execution 
+		 time. You can control the execution time through the <samp class="codeph">-time</samp> 
+		 option</p></td>
+	</tr>
+	<tr>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p><samp class="codeph">auto</samp></p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>Automatically 
+		 chooses which policy to use:</p>
+		<ul class="hcp1">
+			<li>applies <samp class="codeph">multiple_np</samp> to collective 
+			 operations where one of the ranks acts as the root of the 
+			 operation (for example, <samp class="codeph">MPI_Bcast</samp>)</li>
+			<li>applies <samp class="codeph">dynamic</samp> to all other 
+			 types of operations</li>
+		</ul></td>
+	</tr>
+	<tr>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p><samp class="codeph">off</samp></p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>The number of 
+		 iterations does not change during the execution</p></td>
+	</tr>
+</table>
+<p>You can also set the policy through the <samp class="codeph">-iter</samp> 
+ option. See <samp class="codeph">-iter</samp>.</p>
+<p>Default: <samp class="codeph">ITER_POLICY</samp> value defined in <samp 
+	 class="codeph">IMB_settings.h</samp>. The default policy is <samp 
+	 class="codeph">dynamic</samp>.</p>
+<h2>-time Option</h2>
+<p>Specifies the number of seconds for the benchmark to run per message 
+ size. The argument after <samp class="codeph">-time</samp> is a floating-point 
+ number.</p>
+<p>The combination of this flag with the <samp class="codeph">-iter</samp> 
+ flag or its default alternative ensures that the Intel® MPI Benchmarks 
+ always chooses the maximum number of repetitions that conform to all restrictions.</p>
+<p>A rough number of repetitions per sample to fulfill the <samp class="codeph">-time</samp> 
+ request is estimated in preparatory runs that use ~1 second overhead.</p>
+<p>Default: <samp class="codeph">-time</samp> is activated. The floating-point 
+ value specifying the run-time seconds per sample is set in the <samp class="codeph">SECS_PER_SAMPLE</samp> 
+ variable defined in <samp class="codeph">IMB_settings.h/IMB_settings_io.h</samp>. 
+ The current value is <samp class="codeph">10</samp>.</p>
+<h2>-mem Option</h2>
+<p>Specifies the number of GB to be allocated per process for the message 
+ buffers benchmarks/message. If the size is exceeded, a warning is returned, 
+ stating how much memory is required for the overall run not to be interrupted.</p>
+<p>The argument after <samp class="codeph">-mem</samp> is a floating-point 
+ number.</p>
+<p>Default: the memory is restricted by <samp class="codeph">MAX_MEM_USAGE</samp> 
+ defined in <samp class="codeph">IMB_mem_info.h</samp>.</p>
+<h2>-input &lt;File&gt; Option</h2>
+<p>Use the ASCII input file to select the benchmarks. For example, the 
+ <samp class="codeph">IMB_SELECT_EXT</samp> file looks as follows:</p>
+<pre>
+#
+# IMB benchmark selection file
+#
+# Every line must be a comment (beginning with #), or it
+# must contain exactly one IMB benchmark name
+#
+#Window
+Unidir_Get
+#Unidir_Put
+#Bidir_Get
+#Bidir_Put
+Accumulate</pre>
+<p>With the help of this file, the following command runs only <samp class="codeph">Unidir_Get</samp> 
+ and <samp class="codeph">Accumulate</samp> benchmarks of the <samp class="codeph">IMB-EXT</samp> 
+ component:</p>
+<p><samp class="codeph">mpirun .... IMB-EXT -input IMB_SELECT_EXT</samp></p>
+<h2>-msglen &lt;File&gt; Option</h2>
+<p>Enter any set of non-negative message lengths to an ASCII file, line 
+ by line, and call the Intel® MPI Benchmarks with arguments:</p>
+<p><samp class="codeph">-msglen Lengths</samp></p>
+<p>The <samp class="codeph">Lengths</samp> value overrides the default 
+ message lengths. For IMB-IO, the file defines the I/O portion lengths.</p>
+<h2>-map PxQ Option</h2>
+<p>Numbers processes along rows of the matrix:</p>
+<table frame="border" rules="all" cellspacing="0" width="600" border="1" class="hcp2">
+	<col style="width: 20%;">
+	<col style="width: 20%;">
+	<col style="width: 20%;">
+	<col style="width: 20%;">
+	<col style="width: 20%;">
+	<tr>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>0</p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>P</p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>...</p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>(Q-2)P</p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>(Q-1)P</p></td>
+	</tr>
+	<tr>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>1</p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>&#160;</p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>&#160;</p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>&#160;</p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>&#160;</p></td>
+	</tr>
+	<tr>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>...</p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>&#160;</p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>&#160;</p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>&#160;</p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>&#160;</p></td>
+	</tr>
+	<tr>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>P-1</p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>2P-1</p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>&#160;</p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>(Q-1)P-1</p></td>
+		<td class="cellrowborder" style="padding-left: 5px; padding-top: 5px; 
+			 padding-right: 5px; padding-bottom: 5px;"><p>QP-1</p></td>
+	</tr>
+</table>
+<p>For example, to run <samp class="codeph">Multi-PingPong</samp>between 
+ two nodes of size P, with each process on one node communicating with 
+ its counterpart on the other, call:</p>
+<p><samp class="codeph">mpirun&#160;-np&#160;&lt;2P&gt;&#160;IMB-MPI1&#160;-map&#160;&lt;P&gt;x2&#160;PingPong</samp></p>
+<h2>-include [[benchmark1] benchmark2 ...]</h2>
+<p>Specifies the list of additional benchmarks to run. For example, to 
+ add <samp class="codeph">PingPongSpecificSource</samp> and <samp class="codeph">PingPingSpecificSource</samp> 
+ benchmarks, call:</p>
+<p><samp class="codeph">mpirun&#160;-np&#160;2&#160;IMB-MPI1 -include&#160;PingPongSpecificSource&#160;PingPingSpecificSource</samp></p>
+<h2>-exclude [[benchmark1] benchmark2 ...]</h2>
+<p>Specifies the list of benchmarks to be exclude from the run. For example, 
+ to exclude <samp class="codeph">Alltoall</samp> and <samp class="codeph">Allgather</samp>, 
+ call:</p>
+<p><samp class="codeph">mpirun&#160;-np&#160;2&#160;IMB-MPI1&#160;-exclude&#160;Alltoall&#160;Allgather</samp></p>
+<h2>-msglog [&lt;minlog&gt;:]&lt;maxlog&gt;</h2>
+<p>This option allows you to control the lengths of the transfer messages.&#160;This 
+ setting overrides the <samp class="codeph">MINMSGLOG</samp> and <samp 
+	 class="codeph">MAXMSGLOG</samp> values.&#160;The new message sizes 
+ are <samp class="codeph">0,&#160;2^minlog,&#160;...,&#160;2^maxlog</samp>.</p>
+<p>For example, try running the following command line:</p>
+<p><samp class="codeph">mpirun -np 2 IMB-MPI1 -msglog 3:7 PingPong</samp></p>
+<p>Intel® MPI Benchmarks selects the lengths <samp class="codeph">0,8,16,32,64,128</samp>, 
+ as shown below:</p>
+<pre>
+<p class="Code">#---------------------------------------------------</p><p 
+ class="Code"># Benchmarking PingPong</p><p class="Code"># #processes =&#160;2</p><p 
+ class="Code">#---------------------------------------------------</p><p 
+ class="Code">&#160;&#160;&#160;&#160;&#160;&#160;&#160;#bytes #repetitions&#160;&#160;&#160;&#160;&#160;&#160;t[&#956;sec]&#160;&#160;&#160;Mbytes/sec</p><p 
+ class="Code">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;1000&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0.70&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0.00</p><p 
+ class="Code">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;8&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;1000&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0.73&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;10.46</p><p 
+ class="Code">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;16&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;1000&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0.74&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;20.65</p><p 
+ class="Code">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;32&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;1000&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0.94&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;32.61</p><p 
+ class="Code">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;64&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;1000&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0.94&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;65.14</p><p 
+ class="Code">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;128&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;1000&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;1.06&#160;&#160;&#160;&#160;&#160;&#160;&#160;115.16</p></pre>
+<p>Alternatively, you can specify only the <samp class="codeph">maxlog</samp> 
+ value:</p>
+<pre>
+<p class="Code">#---------------------------------------------------</p><p 
+ class="Code"># Benchmarking PingPong</p><p class="Code"># #processes =&#160;2</p><p 
+ class="Code">#---------------------------------------------------</p><p 
+ class="Code">&#160;&#160;&#160;&#160;&#160;&#160;&#160;#bytes #repetitions&#160;&#160;&#160;&#160;&#160;&#160;t[&#956;sec]&#160;&#160;&#160;Mbytes/sec</p><p 
+ class="Code">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;1000&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0.69&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0.00</p><p 
+ class="Code">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;1&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;1000&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0.72&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;1.33</p><p 
+ class="Code">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;2&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;1000&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0.71&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;2.69</p><p 
+ class="Code">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;4&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;1000&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0.72&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;5.28</p><p 
+ class="Code">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;8&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;1000&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0.73&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;10.47</p></pre>
+<h2>-thread_level Option</h2>
+<p>This option specifies the desired thread level for <samp class="codeph">MPI_Init_thread()</samp>.&#160;See 
+ description of <samp class="codeph">MPI_Init_thread()</samp> for details. 
+ The option is available only if the Intel® MPI Benchmarks is built with 
+ the <samp class="codeph">USE_MPI_INIT_THREAD</samp> macro defined.&#160;Possible 
+ values for <samp class="codeph">&lt;level&gt;</samp> are single, funneled, 
+ serialized, and multiple.</p>
+<div>
+<div class="docfeedback">
+	<p style="font-family: Verdana, sans-serif; font-size: 10pt; font-weight: bold; 
+		 color: #0860A8;"><span 
+	 style="font-weight: bold; color: #0860A8;"><a href="http://www.intel.com/software/products/softwaredocs_feedback" 
+													 target="_blank" style="text-decoration: none; "><b>Submit 
+	 feedback on this help topic</b></a></span></p>
+</div>
+</div>
+</body>
+</html>

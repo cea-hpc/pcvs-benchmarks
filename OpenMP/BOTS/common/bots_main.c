@@ -60,6 +60,7 @@ char bots_cflags[BOTS_TMP_STR_SZ];
 char bots_ld[BOTS_TMP_STR_SZ];
 char bots_ldflags[BOTS_TMP_STR_SZ];
 char bots_cutoff[BOTS_TMP_STR_SZ];
+int bots_repetitions = BOTS_DEFAULT_REPETITIONS;
 
 /* time variables */
 double bots_time_program = 0.0;
@@ -243,6 +244,7 @@ void bots_print_usage()
 #endif
 
    fprintf(stderr, "\n");
+   fprintf(stderr, "  -r <value>   : Number of runs of each kernel.\n");
    fprintf(stderr, "  -e <str>   : Include 'str' execution message.\n");
    fprintf(stderr, "  -v <level> : Set verbose level (default = 1).\n");
    fprintf(stderr, "               0 - none.\n");
@@ -284,6 +286,12 @@ bots_get_params_common(int argc, char **argv)
       {
          switch (argv[i][1])
          {
+ 	    case 'r':
+ 	       argv[i][1] = '*';
+                i++;
+                if (argc == i) { bots_print_usage(); exit(100); }
+                bots_repetitions = atoi(argv[i]);
+                break;
 #ifdef BOTS_APP_USES_ARG_CUTOFF_1
 	    case 'a':
 	       argv[i][1] = '*';
@@ -480,6 +488,7 @@ main(int argc, char* argv[])
    long bots_t_start;
    long bots_t_end;
 #endif
+   int ri;
 
    bots_get_params(argc,argv);
    BOTS_APP_INIT;
@@ -492,30 +501,34 @@ main(int argc, char* argv[])
    if (bots_sequential_flag)
 #endif
    {
-      bots_sequential_flag = 1;
-      KERNEL_SEQ_INIT;
-#ifdef BOTS_APP_SELF_TIMING
-      bots_time_sequential = KERNEL_SEQ_CALL;
-#else
-      bots_t_start = bots_usecs();
-      KERNEL_SEQ_CALL;
-      bots_t_end = bots_usecs();
-      bots_time_sequential = ((double)(bots_t_end-bots_t_start))/1000000;
-#endif
-      KERNEL_SEQ_FINI;
+	   for(ri = 0; ri < bots_repetitions; ++ri) {
+	      bots_sequential_flag = 1;
+	      KERNEL_SEQ_INIT;
+	#ifdef BOTS_APP_SELF_TIMING
+	      bots_time_sequential = KERNEL_SEQ_CALL;
+	#else
+	      bots_t_start = bots_usecs();
+	      KERNEL_SEQ_CALL;
+	      bots_t_end = bots_usecs();
+	      bots_time_sequential += ((double)(bots_t_end-bots_t_start))/1000000;
+	#endif
+	      KERNEL_SEQ_FINI;
+	  }
    }
 #endif
 
-   KERNEL_INIT;
-#ifdef BOTS_APP_SELF_TIMING
-   bots_time_program = KERNEL_CALL;
-#else
-   bots_t_start = bots_usecs();
-   KERNEL_CALL;
-   bots_t_end = bots_usecs();
-   bots_time_program = ((double)(bots_t_end-bots_t_start))/1000000;
-#endif
-   KERNEL_FINI;
+   for(ri = 0; ri < bots_repetitions; ++ri) {
+	   KERNEL_INIT;
+	#ifdef BOTS_APP_SELF_TIMING
+	   bots_time_program = KERNEL_CALL;
+	#else
+	   bots_t_start = bots_usecs();
+	   KERNEL_CALL;
+	   bots_t_end = bots_usecs();
+	   bots_time_program += ((double)(bots_t_end-bots_t_start))/1000000;
+	#endif
+	   KERNEL_FINI;
+   }
 
 #ifdef KERNEL_CHECK
    if (bots_check_flag) {
@@ -526,10 +539,6 @@ main(int argc, char* argv[])
    BOTS_APP_FINI;
 
    bots_print_results();
-#ifdef KERNEL_CHECK
-    return (bots_result != BOTS_RESULT_SUCCESSFUL) ? 1:0; 
-#else /* KERNEL_CHECK */
    return (0);
-#endif
 }
 
