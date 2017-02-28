@@ -1,0 +1,188 @@
+Instructions for Version 1.1 of the MPI threads performance tests.
+
+The tests are described in detail in the following paper: 
+"Test Suite for Evaluating Performance of Multithreaded MPI
+Communication," by Rajeev Thakur and William Gropp, to appear in
+Parallel Computing (journal), 2009.
+Available from http://www.mcs.anl.gov/~thakur/papers/parco-thread-tests.pdf
+
+An earlier version was published at Euro PVM/MPI 2007. 
+"Test Suite for Evaluating Performance of MPI Implementations That
+Support MPI_THREAD_MULTIPLE," by Rajeev Thakur and William Gropp, in
+Proc. of the 14th European PVM/MPI Users' Group Meeting (Euro PVM/MPI
+2007), September 2007. 
+Available from http://www.mcs.anl.gov/~thakur/papers/thread-tests.pdf
+
+
+
+How to compile the tests
+------------------------
+Edit the Makefile to change the compiler if necessary. Then run "make".
+
+
+How to run the tests
+--------------------
+Each test needs to be run slightly differently. Details are given below.
+
+
+1. MPI_THREAD_MULTIPLE Overhead
+-------------------------------
+Edit the file latency.c to use MPI_Init or MPI_Init_thread (each once
+in a separate run).  On a cluster, run it across 2 nodes, with
+one process per node. For example, run it as 
+   mpiexec -n 2 latency 
+across 2 machines (by setting the machines file or whatever way the
+implementation supports it). The difference in times between the run
+with MPI_Init_thread and the run with MPI_Init gives the overhead of
+MPI_THREAD_MULTIPLE.
+
+
+2. Concurrent Bandwidth Test
+----------------------------
+bw.c - process version of test
+bw_th.c - thread version of test
+
+On a cluster, run bw.c across 2 nodes, with multiple processes per
+node. For example, run it as 
+   mpiexec -n 8 bw 
+across 2 machines (by setting the machines file or whatever way the
+implementation supports it). This will create 4 processes per
+node. Ensure that processes are distributed on the two nodes such that
+consecutive ranks are on different nodes. (The code assumes that
+consecutive ranks are on different nodes.) The 4 processes on one node
+send large messages to their counterpart on the other node and
+calculate and print the individual bandwidth obtained by that
+process. You need to sum the bandwidths to determine the total
+bandwidth from one node to the other.
+
+For the threaded version, bw_th.c, run it with 2 processes, one on
+each node, and indicate the number of threads each process should
+spawn. For example, run it as
+   mpiexec -n 2 bw_th 4
+with the 2 processes on 2 different nodes. Each process will create 4
+threads that will send large messages to their counterparts on the
+other node and print the individual bandwith obtained by each
+thread. You need to sum the bandwidths to determine the total
+bandwidth from one node to the other. 
+
+
+3. Concurrent Latency Test
+--------------------------
+latency.c - process version of test
+latency_th.c - thread version of test
+
+On a cluster, run latency.c across 2 nodes, with multiple processes per
+node. For example, run it as 
+   mpiexec -n 8 latency 
+across 2 machines (by setting the machines file or whatever way the
+implementation supports it). This will create 4 processes per
+node. Ensure that processes are distributed on the two nodes such that
+consecutive ranks are on different nodes. The 4 processes on one node
+send a series of short messages of increasing sizes to their
+counterpart on the other node. Rank 0 prints its times.
+
+For the threaded version, latency_th.c, run it with 2 processes, one on
+each node, and indicate the number of threads each process should
+spawn. For example, run it as
+   mpiexec -n 2 latency_th 4
+with the 2 processes on 2 different nodes. Each process will create 4
+threads that will send a series of short messages to their
+counterparts on the other node. One thread prints its times.
+
+
+4. Message Rate Test
+--------------------
+message_rate.c - process version of test
+message_rate_th.c - thread version of test
+
+On a cluster, run message_rate.c across 2 nodes, with multiple processes per
+node. For example, run it as 
+   mpiexec -n 8 message_rate 
+across 2 machines (by setting the machines file or whatever way the
+implementation supports it). This will create 4 processes per
+node. Ensure that processes are distributed on the two nodes such that
+consecutive ranks are on different nodes. The 4 processes on one node
+send a series of 0-byte messages to their counterpart on the other
+node. Each of the sending processes prints its message rate. Add
+these up to get the total message rate.
+
+For the threaded version, message_rate_th.c, run it with 2 processes, one on
+each node, and indicate the number of threads each process should
+spawn. For example, run it as
+   mpiexec -n 2 message_rate_th 4
+with the 2 processes on 2 different nodes. Each process will create 4
+threads. The 4 threads on one node will send a series of 0-byte
+messages to their counterparts on the other node. Each of the
+sending threads prints its message rate. Add these up to get the
+total message rate.
+
+
+5. Concurrent Short-Long Messages
+---------------------------------
+shortlong.c - process version
+shortlong_th.c - thread version
+
+On a cluster, run shortlong.c on 4 processes such that ranks 0 and 1
+are located on 1 node, rank 2 on another node, and rank 3 on a third
+node. 
+
+Run shortlong_th.c on 3 processes, each running on a separate node. 
+
+Plot the output to see the variation in time for the short messages.
+
+
+6. Computation/Communication Overlap
+------------------------------------
+no_overlap.c - version without thread
+overlap.c - version with additional thread that blocks on a Recv
+
+You can run on as many processes as you want, typically with p-1
+processes per node for nodes with p cores.
+
+Each process prints out the average time per iteration.
+
+
+7. Concurrent Collectives
+-------------------------
+conc_allred.c - process version
+conc_allred_th.c - thread version
+
+On a cluster, run conc_allreduce.c on multiple nodes with multiple
+processes per node, e.g., 4 nodes with 4 processes per node if there
+are 4 cores per node. The no. of processes on a node must be indicated
+as a command-line argument. e.g.,
+  mpiexec -n 16 conc_allred 4
+  (with the machines file set appropriately)
+Each process on a node does an allreduce with corresponding processes
+on other nodes, resulting in as many concurrent allreduces as the
+number of processes on a node. Each process prints out the average
+time taken by an allreduce on that process.
+
+Run, conc_allreduce_th.c with 1 process per node on multiple nodes,
+and indicate by a command-line argument the number of threads each
+process will spawn. e.g.
+  mpiexec -n 4 conc_allred_th 4
+Each thread does an allreduce with corresponding threads on other
+nodes, resulting in as many concurrent allreduces as the number of
+threads on each process. Each thread prints out the average
+time taken by an allreduce on that thread.
+
+
+8. Concurrent Collectives and Computation
+-----------------------------------------
+collcomp.c - version with thread that does allreduce
+collcomp_noth.c - version without the allreduce thread
+
+On a cluster, run collcomp.c on as many nodes as you like, with 1
+process per node. If each node has p cores, specify p+1 as the number
+of threads via a command-line argument. e.g.
+   mpiexec -n 8 collcomp 5
+(Run 8 processes on separate nodes; each process creates 5 threads.)
+
+Run collcomp_noth.c the same way, except that the number of threads
+should be specified as p instead of p+1. e.g.,
+   mpiexec -n 8 collcomp_noth 4
+
+Each thread prints out the iterations/sec on that thread. Find the
+average and compare the cases with and without the allreduce thread.
+

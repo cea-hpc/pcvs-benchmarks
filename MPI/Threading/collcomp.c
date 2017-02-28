@@ -144,7 +144,6 @@ void *runfunc(void *thread_rank) {
             for (i=0; i<MAT_SIZE; i++) {
 		count += A[i];
             }
-	    sched_yield();
         } while (!flag);
 	etime = MPI_Wtime();
 

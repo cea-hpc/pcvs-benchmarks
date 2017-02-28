@@ -124,7 +124,6 @@ int main(int argc,char *argv[])
             for (i=0; i<MAT_SIZE; i++) {
             count += A[i];
             }
-	    sched_yield();
         }
 
         end_ctime = MPI_Wtime();
