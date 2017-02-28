@@ -1,20 +1,35 @@
 
       subroutine print_results(name, class, n1, n2, n3, niter, 
-     >               t, mops, num_othreads, tot_threads, optype, 
-     >               verified, npbversion, compiletime, 
-     >               cs1, cs2, cs3, cs4, cs5, cs6, cs7)
+     >               t, mops, optype, verified, npbversion, 
+     >               compiletime, cs1, cs2, cs3, cs4, cs5, cs6, cs7)
       
       implicit none
       character name*(*)
       character class*1
-      integer n1, n2, n3, niter, j, num_othreads, tot_threads
+      integer   n1, n2, n3, niter, j
       double precision t, mops
-      character optype*24, size*13
-      logical verified
+      character optype*24, size*15
+      logical   verified
       character*(*) npbversion, compiletime, 
      >              cs1, cs2, cs3, cs4, cs5, cs6, cs7
+      integer   num_threads, max_threads, i
+c$    integer omp_get_num_threads, omp_get_max_threads
+c$    external omp_get_num_threads, omp_get_max_threads
 
-         write (*, 2) name 
+
+      max_threads = 1
+c$    max_threads = omp_get_max_threads()
+
+c     figure out number of threads used
+      num_threads = 1
+c$omp parallel shared(num_threads)
+c$omp master
+c$    num_threads = omp_get_num_threads()
+c$omp end master
+c$omp end parallel
+
+
+         write (*, 2) name
  2       format(//, ' ', A, ' Benchmark Completed.')
 
          write (*, 3) Class
@@ -27,38 +42,40 @@ c   Otherwise, we print the grid size n1xn2xn3
 
          if ((n2 .eq. 0) .and. (n3 .eq. 0)) then
             if (name(1:2) .eq. 'EP') then
-               write(size, '(f12.0)' ) 2.d0**n1
-               do j =13,1,-1
-                  if (size(j:j) .eq. '.') size(j:j) = ' '
-               end do
-               write (*,42) size
- 42            format(' Size            = ',12x, a14)
+               write(size, '(f15.0)' ) 2.d0**n1
+               j = 15
+               if (size(j:j) .eq. '.') j = j - 1
+               write (*,42) size(1:j)
+ 42            format(' Size            = ',9x, a15)
             else
                write (*,44) n1
  44            format(' Size            = ',12x, i12)
             endif
          else
             write (*, 4) n1,n2,n3
- 4          format(' Size            =  ',8x, i5,'x',i5,'x',i3)
+ 4          format(' Size            =  ',9x, i4,'x',i4,'x',i4)
          endif
 
          write (*, 5) niter
  5       format(' Iterations      = ', 12x, i12)
          
          write (*, 6) t
- 6       format(' Time in seconds = ', 12x, f12.2)
- 
-         write (*, 7) num_othreads
- 7       format(' Total o_threads = ', 12x, i12)
+ 6       format(' Time in seconds = ',12x, f12.2)
 
-         write (*, 8) tot_threads
- 8       format(' Total threads   = ', 12x, i12)
-        
+         write (*,7) num_threads
+ 7       format(' Total threads   = ', 12x, i12)
+         
+         write (*,8) max_threads
+ 8       format(' Avail threads   = ', 12x, i12)
+
+         if (num_threads .ne. max_threads) write (*,88) 
+ 88      format(' Warning: Threads used differ from threads available')
+
          write (*,9) mops
- 9       format(' Mop/s total     = ', 12x, f12.2)
+ 9       format(' Mop/s total     = ',12x, f12.2)
 
-         write (*, 10) mops/tot_threads
- 10      format(' Mop/s/thread    = ', 12x, f12.2)
+         write (*,10) mops/float( num_threads )
+ 10      format(' Mop/s/thread    = ', 12x, f12.2)        
 
          write(*, 11) optype
  11      format(' Operation type  = ', a24)

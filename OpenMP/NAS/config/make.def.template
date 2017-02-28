@@ -11,8 +11,8 @@
 #---------------------------------------------------------------------------
 # Parallel Fortran:
 #
-# For CG, EP, FT, MG, LU, SP and BT, which are in Fortran, the following must 
-# be defined:
+# For CG, EP, FT, MG, LU, SP, BT and UA, which are in Fortran, the following 
+# must be defined:
 #
 # F77        - Fortran compiler
 # FFLAGS     - Fortran compilation arguments
@@ -27,7 +27,7 @@
 #---------------------------------------------------------------------------
 
 #---------------------------------------------------------------------------
-# This is the fortran compiler used for fortran programs
+# This is the fortran compiler used for Fortran programs
 #---------------------------------------------------------------------------
 F77 = f77
 # This links fortran programs; usually the same as ${F77}
@@ -58,7 +58,7 @@ FLINKFLAGS = -O
 #---------------------------------------------------------------------------
 # Parallel C:
 #
-# For IS, which is in C, the following must be defined:
+# For IS and DC, which are in C, the following must be defined:
 #
 # CC         - C compiler 
 # CFLAGS     - C compilation arguments
@@ -82,7 +82,7 @@ CLINK	= $(CC)
 #---------------------------------------------------------------------------
 # These macros are passed to the linker 
 #---------------------------------------------------------------------------
-C_LIB  =
+C_LIB  = -lm
 
 #---------------------------------------------------------------------------
 # These macros are passed to the compiler 
@@ -91,6 +91,18 @@ C_INC =
 
 #---------------------------------------------------------------------------
 # Global *compile time* flags for C programs
+# DC inspects the following flags (preceded by "-D"):
+#
+# IN_CORE - computes all views and checksums in main memory (if there is 
+# enough memory)
+#
+# VIEW_FILE_OUTPUT - forces DC to write the generated views to disk
+#
+# OPTIMIZATION - turns on some nonstandard DC optimizations
+#
+# _FILE_OFFSET_BITS=64 
+# _LARGEFILE64_SOURCE - are standard compiler flags which allow to work with 
+# files larger than 2GB.
 #---------------------------------------------------------------------------
 CFLAGS	= -O
 
@@ -130,16 +142,15 @@ RAND   = randi8
 
 #---------------------------------------------------------------------------
 # The variable WTIME is the name of the wtime source code module in the
-# NPB3.x/common directory.  
+# common directory.  
 # For most machines,       use wtime.c
 # For SGI power challenge: use wtime_sgi64.c
-# Note: WTIME is only used in the serial version.
 #---------------------------------------------------------------------------
 WTIME  = wtime.c
 
 
 #---------------------------------------------------------------------------
-# Enable if either Cray or IBM: 
+# Enable if either Cray (not Cray-X1) or IBM: 
 # (no such flag for most machines: see common/wtime.h)
 # This is used by the C compiler to pass the machine name to common/wtime.h,
 # where the C/Fortran binding interface format is determined

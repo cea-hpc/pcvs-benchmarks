@@ -6,6 +6,7 @@
 
 #---------------------------------------------------------------------------
 # Items in this file will need to be changed for each platform.
+# (Note these definitions are inconsistent with NPB2.1.)
 #---------------------------------------------------------------------------
 
 #---------------------------------------------------------------------------
@@ -27,7 +28,7 @@
 #---------------------------------------------------------------------------
 
 #---------------------------------------------------------------------------
-# This is the fortran compiler used for fortran programs
+# This is the fortran compiler used for Fortran programs
 #---------------------------------------------------------------------------
 F77 = f77 -64
 # This links fortran programs; usually the same as ${F77}
@@ -46,14 +47,15 @@ F_INC =
 #---------------------------------------------------------------------------
 # Global *compile time* flags for Fortran programs
 #---------------------------------------------------------------------------
-FFLAGS	= -O3
+FFLAGS	= -O3 -mp
 # FFLAGS = -g
 
 #---------------------------------------------------------------------------
 # Global *link time* flags. Flags for increasing maximum executable 
 # size usually go here. 
 #---------------------------------------------------------------------------
-FLINKFLAGS = -O3
+FLINKFLAGS = -O3 -mp
+#FLINKFLAGS =
 
 
 #---------------------------------------------------------------------------
@@ -93,14 +95,14 @@ C_INC =
 #---------------------------------------------------------------------------
 # Global *compile time* flags for C programs
 #---------------------------------------------------------------------------
-CFLAGS	= -O3
+CFLAGS	= -O3 -mp
 # CFLAGS = -g
 
 #---------------------------------------------------------------------------
 # Global *link time* flags. Flags for increasing maximum executable 
 # size usually go here. 
 #---------------------------------------------------------------------------
-CLINKFLAGS = -O3
+CLINKFLAGS = -O3 -mp
 
 
 #---------------------------------------------------------------------------
@@ -121,7 +123,7 @@ BINDIR	= ../bin
 
 #---------------------------------------------------------------------------
 # The variable RAND controls which random number generator 
-# is used. It is described in detail in Doc/README.install. 
+# is used. It is described in detail in README.install. 
 # Use "randi8" unless there is a reason to use another one. 
 # Other allowed values are "randi8_safe", "randdp" and "randdpvec"
 #---------------------------------------------------------------------------
@@ -135,7 +137,6 @@ RAND   = randi8
 # NPB3.x/common directory.  
 # For most machines,       use wtime.c
 # For SGI power challenge: use wtime_sgi64.c
-# Note: WTIME is only used in the serial version.
 #---------------------------------------------------------------------------
 WTIME  = wtime_sgi64.c
 

@@ -21,6 +21,7 @@ c   arguments will generate a continuous sequence.
       double precision d2m46
 
       parameter(d2m46=0.5d0**46)
+
       save i246m1
       data i246m1/X'00003FFFFFFFFFFF'/
 
@@ -51,6 +52,7 @@ c that the rhs should be done in 64 bit arithmetic.
 c      parameter(i246m1=2**46-1)
 
       parameter(d2m46=0.5d0**46)
+
       save i246m1
       data i246m1/X'00003FFFFFFFFFFF'/
 

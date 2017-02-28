@@ -8,7 +8,7 @@
 
  * The utility takes 3 arguments: 
  *       setparams benchmark-name class
- *    benchmark-name is "sp-mz", "bt-mz", or "lu-mz"
+ *    benchmark-name is "sp", "bt", etc
  *    class is the size of the benchmark
  * These parameters are checked for the current benchmark. If they
  * are invalid, this program prints a message and aborts. 
@@ -38,7 +38,6 @@
 #include <ctype.h>
 #include <string.h>
 #include <time.h>
-#include <math.h>
 
 /*
  * This is the master version number for this set of 
@@ -51,14 +50,11 @@
 /* controls verbose output from setparams */
 /* #define VERBOSE */
 
-#define MAX_X_ZONES 128
-#define MAX_Y_ZONES 128
-#define FILENAME    "npbparams.h"
-#define DESC_LINE   "c CLASS = %c\n"
+#define FILENAME "npbparams.h"
+#define DESC_LINE "c CLASS = %c\n"
 #define DEF_CLASS_LINE     "#define CLASS '%c'\n"
 #define FINDENT  "        "
 #define CONTINUE "     > "
-#define max(a,b)    (((a) > (b)) ? (a) : (b))
 
 void get_info(char *argv[], int *typep, char *classp);
 void check_info(int type, char class);
@@ -66,7 +62,14 @@ void read_info(int type, char *classp);
 void write_info(int type, char class);
 void write_sp_info(FILE *fp, char class);
 void write_bt_info(FILE *fp, char class);
+void write_dc_info(FILE *fp, char class);
 void write_lu_info(FILE *fp, char class);
+void write_mg_info(FILE *fp, char class);
+void write_cg_info(FILE *fp, char class);
+void write_ft_info(FILE *fp, char class);
+void write_ep_info(FILE *fp, char class);
+void write_is_info(FILE *fp, char class);
+void write_ua_info(FILE *fp, char class);
 void write_compiler_info(int type, FILE *fp);
 void write_convertdouble_info(int type, FILE *fp);
 void check_line(char *line, char *label, char *val);
@@ -74,10 +77,10 @@ int  check_include_line(char *line, char *filename);
 void put_string(FILE *fp, char *name, char *val);
 void put_def_string(FILE *fp, char *name, char *val);
 void put_def_variable(FILE *fp, char *name, char *val);
-void zone_max_xysize(double ratio, int gx_size, int gy_size,
-      	           int x_zones, int y_zones, int *max_lsize);
+int ilog2(int i);
+double power(double base, int i);
 
-enum benchmark_types {SP, BT, LU};
+enum benchmark_types {SP, BT, LU, MG, FT, IS, EP, CG, UA, DC};
 
 int main(int argc, char *argv[])
 {
@@ -149,9 +152,16 @@ void get_info(char *argv[], int *typep, char *classp)
 
   *classp = *argv[2];
 
-  if      (!strcmp(argv[1], "sp-mz") || !strcmp(argv[1], "SP-MZ")) *typep = SP;
-  else if (!strcmp(argv[1], "bt-mz") || !strcmp(argv[1], "BT-MZ")) *typep = BT;
-  else if (!strcmp(argv[1], "lu-mz") || !strcmp(argv[1], "LU-MZ")) *typep = LU;
+  if      (!strcmp(argv[1], "sp") || !strcmp(argv[1], "SP")) *typep = SP;
+  else if (!strcmp(argv[1], "bt") || !strcmp(argv[1], "BT")) *typep = BT;
+  else if (!strcmp(argv[1], "ft") || !strcmp(argv[1], "FT")) *typep = FT;
+  else if (!strcmp(argv[1], "lu") || !strcmp(argv[1], "LU")) *typep = LU;
+  else if (!strcmp(argv[1], "mg") || !strcmp(argv[1], "MG")) *typep = MG;
+  else if (!strcmp(argv[1], "is") || !strcmp(argv[1], "IS")) *typep = IS;
+  else if (!strcmp(argv[1], "ep") || !strcmp(argv[1], "EP")) *typep = EP;
+  else if (!strcmp(argv[1], "cg") || !strcmp(argv[1], "CG")) *typep = CG;
+  else if (!strcmp(argv[1], "ua") || !strcmp(argv[1], "UA")) *typep = UA;
+  else if (!strcmp(argv[1], "dc") || !strcmp(argv[1], "DC")) *typep = DC;
   else {
     printf("setparams: Error: unknown benchmark type %s\n", argv[1]);
     exit(1);
@@ -172,13 +182,20 @@ void check_info(int type, char class)
       class != 'B' && 
       class != 'C' && 
       class != 'D' && 
-      class != 'E' && 
-      class != 'F') {
+      class != 'E') {
     printf("setparams: Unknown benchmark class %c\n", class); 
-    printf("setparams: Allowed classes are \"S\", \"W\", \"A\" through \"F\"\n");
+    printf("setparams: Allowed classes are \"S\", \"W\", and \"A\" through \"E\"\n");
     exit(1);
   }
 
+  if (class == 'E' && (type == IS || type == UA || type == DC)) {
+    printf("setparams: Benchmark class %c not defined for IS, UA, or DC\n", class);
+    exit(1);
+  }
+  if ((class == 'C' || class == 'D') && type == DC) {
+    printf("setparams: Benchmark class %c not defined for DC\n", class);
+    exit(1);
+  }
 }
 
 
@@ -207,8 +224,21 @@ void read_info(int type, char *classp)
   switch(type) {
       case SP:
       case BT:
+      case FT:
+      case MG:
       case LU:
+      case EP:
+      case CG:
+      case UA:
           nread = fscanf(fp, DESC_LINE, classp);
+          if (nread != 1) {
+            printf("setparams: Error parsing config file %s. Ignoring previous settings\n", FILENAME);
+            goto abort;
+          }
+          break;
+      case IS:
+      case DC:
+          nread = fscanf(fp, DEF_CLASS_LINE, classp);
           if (nread != 1) {
             printf("setparams: Error parsing config file %s. Ignoring previous settings\n", FILENAME);
             goto abort;
@@ -221,6 +251,7 @@ void read_info(int type, char *classp)
   }
 
   fclose(fp);
+
 
   return;
 
@@ -249,7 +280,12 @@ void write_info(int type, char class)
   switch(type) {
       case SP:
       case BT:
+      case FT:
+      case MG:
       case LU:
+      case EP:
+      case CG:
+      case UA:
           /* Write out the header */
           fprintf(fp, DESC_LINE, class);
           /* Print out a warning so bozos don't mess with the file */
@@ -261,6 +297,26 @@ c  It sets the number of processors and the class of the NPB\n\
 c  in this directory. Do not modify it by hand.\n\
 c  \n");
 
+          break;
+      case IS:
+          fprintf(fp, DEF_CLASS_LINE, class);
+          fprintf(fp, "\
+/*\n\
+   This file is generated automatically by the setparams utility.\n\
+   It sets the number of processors and the class of the NPB\n\
+   in this directory. Do not modify it by hand.   */\n\
+   \n");
+          break;
+      case DC:
+          fprintf(fp, DEF_CLASS_LINE, class);
+          fprintf(fp, "\
+/*\n\
+   This file is generated automatically by the setparams utility.\n\
+   It sets the number of processors and the class of the NPB\n\
+   in this directory. Do not modify it by hand.\n\
+   This file provided for backward compatibility.\n\
+   It is not used in DC benchmark.   */\n\
+   \n");
           break;
       default:
           printf("setparams: (Internal error): Unknown benchmark type %d\n", 
@@ -275,10 +331,31 @@ c  \n");
     break;	      
   case BT:	      
     write_bt_info(fp, class);
+    break;
+ case DC:
+    write_dc_info(fp, class);
     break;	      
   case LU:	      
     write_lu_info(fp, class);
     break;	      
+  case MG:	      
+    write_mg_info(fp, class);
+    break;	      
+  case IS:	      
+    write_is_info(fp, class);  
+    break;	      
+  case FT:	      
+    write_ft_info(fp, class);
+    break;	      
+  case EP:	      
+    write_ep_info(fp, class);
+    break;	      
+  case CG:	      
+    write_cg_info(fp, class);
+    break;
+  case UA:	      
+    write_ua_info(fp, class);
+    break;
   default:
     printf("setparams: (Internal error): Unknown benchmark type %d\n", type);
     exit(1);
@@ -296,74 +373,24 @@ c  \n");
 
 void write_sp_info(FILE *fp, char class) 
 {
-  int  gx_size, gy_size, gz_size, niter, x_zones, y_zones;
-  int  max_lsize;
-  char *dt, *ratio, *int_type;
-
-  int_type="integer";
-  if      (class == 'S') 
-  {gx_size = 24; gy_size=24; gz_size=6; 
-   x_zones = y_zones = 2;
-   dt = "0.015d0";   niter = 100;}
-  else if (class == 'W') 
-  {gx_size = 64; gy_size=64; gz_size=8;
-   x_zones = y_zones = 4;
-   dt = "0.0015d0";  niter = 400;}
-  else if (class == 'A') 
-  {gx_size = 128; gy_size=128; gz_size=16; 
-   x_zones = y_zones = 4;
-   dt = "0.0015d0";  niter = 400;}
-  else if (class == 'B') 
-  {gx_size = 304; gy_size=208; gz_size=17; 
-   x_zones = y_zones = 8;
-   dt = "0.001d0";   niter = 400;}
-  else if (class == 'C') 
-  {gx_size = 480; gy_size=320; gz_size=28; 
-   x_zones = y_zones = 16;
-   dt = "0.00067d0"; niter = 400;}
-  else if (class == 'D') 
-  {gx_size = 1632; gy_size=1216; gz_size=34; 
-   x_zones = y_zones = 32;
-   dt = "0.0003d0"; niter = 500;}
-  else if (class == 'E') 
-  {gx_size = 4224; gy_size=3456; gz_size=92; 
-   x_zones = y_zones = 64; int_type="integer*8";
-   dt = "0.0002d0"; niter = 500;}
-  else if (class == 'F') 
-  {gx_size = 12032; gy_size=8960; gz_size=250; 
-   x_zones = y_zones = 128; int_type="integer*8";
-   dt = "0.0001d0"; niter = 500;}
+  int problem_size, niter;
+  char *dt;
+  if      (class == 'S') { problem_size = 12;  dt = "0.015d0";   niter = 100; }
+  else if (class == 'W') { problem_size = 36;  dt = "0.0015d0";  niter = 400; }
+  else if (class == 'A') { problem_size = 64;  dt = "0.0015d0";  niter = 400; }
+  else if (class == 'B') { problem_size = 102; dt = "0.001d0";   niter = 400; }
+  else if (class == 'C') { problem_size = 162; dt = "0.00067d0"; niter = 400; }
+  else if (class == 'D') { problem_size = 408; dt = "0.00030d0"; niter = 500; }
+  else if (class == 'E') { problem_size = 1020; dt = "0.0001d0"; niter = 500; }
   else {
     printf("setparams: Internal error: invalid class %c\n", class);
     exit(1);
   }
-  ratio = "1.d0";
-  zone_max_xysize(1.0, gx_size, gy_size, x_zones, y_zones, &max_lsize);
-
-  fprintf(fp, "%scharacter class\n", FINDENT);
-  fprintf(fp, "%sparameter (class='%c')\n", FINDENT,class);
-  fprintf(fp, "%sinteger x_zones, y_zones\n", FINDENT);
-  fprintf(fp, "%sparameter (x_zones=%d, y_zones=%d)\n", FINDENT, x_zones, y_zones);
-  fprintf(fp, "%sinteger gx_size, gy_size, gz_size, niter_default\n", 
-          FINDENT);
-  fprintf(fp, "%sparameter (gx_size=%d, gy_size=%d, gz_size=%d)\n", 
-	       FINDENT, gx_size, gy_size, gz_size);
-  fprintf(fp, "%sparameter (niter_default=%d)\n", FINDENT, niter);
-  fprintf(fp, "%sinteger problem_size\n", FINDENT);
-  fprintf(fp, "%sparameter (problem_size = %d)\n", FINDENT, 
-          max(max_lsize,gz_size));
-  fprintf(fp, "%s%s max_xysize\n", FINDENT, int_type);
-  fprintf(fp, "%s%s proc_max_size, proc_max_size5, proc_max_bcsize\n", FINDENT, int_type);
-  fprintf(fp, "%sparameter (max_xysize=%ld)\n",  FINDENT, 
-      	  (long)(gx_size+x_zones)*gy_size);
-  fprintf(fp, "%sparameter (proc_max_size=max_xysize*gz_size)\n",  FINDENT);
-  fprintf(fp, "%sparameter (proc_max_size5=proc_max_size*5)\n",  FINDENT);
-  fprintf(fp, "%sparameter (proc_max_bcsize=max_xysize*20)\n",  FINDENT);
-
-  fprintf(fp, "%sdouble precision dt_default, ratio\n", FINDENT);
-  fprintf(fp, "%sparameter (dt_default = %s, ratio = %s)\n", FINDENT, dt, ratio);
-  fprintf(fp, "%s%s start1, start5, qstart_west, qstart_east\n", FINDENT, int_type);
-  fprintf(fp, "%s%s qstart_south, qstart_north\n", FINDENT, int_type);
+  fprintf(fp, "%sinteger problem_size, niter_default\n", FINDENT);
+  fprintf(fp, "%sparameter (problem_size=%d, niter_default=%d)\n", 
+	       FINDENT, problem_size, niter);
+  fprintf(fp, "%sdouble precision dt_default\n", FINDENT);
+  fprintf(fp, "%sparameter (dt_default = %s)\n", FINDENT, dt);
 }
   
 /* 
@@ -372,77 +399,45 @@ void write_sp_info(FILE *fp, char class)
 
 void write_bt_info(FILE *fp, char class) 
 {
-  int  gx_size, gy_size, gz_size, niter, x_zones, y_zones;
-  int  max_lsize;
-  char *dt, *ratio, *int_type;
-  double ratio_val;
-
-  int_type="integer";
-  if      (class == 'S') 
-  {gx_size = 24; gy_size=24; gz_size=6;
-   x_zones = y_zones = 2; ratio = "3.d0";
-   dt = "0.010d0";   niter = 60;}
-  else if (class == 'W') 
-  {gx_size = 64; gy_size=64; gz_size=8;  
-   x_zones = y_zones = 4; ratio = "4.5d0";
-   dt = "0.0008d0";  niter = 200;}
-  else if (class == 'A') 
-  {gx_size = 128; gy_size=128; gz_size=16;  
-   x_zones = y_zones = 4; ratio = "4.5d0";
-   dt = "0.0008d0";  niter = 200;}
-  else if (class == 'B') 
-  {gx_size = 304; gy_size=208; gz_size=17; 
-   x_zones = y_zones = 8; ratio = "4.5d0";
-   dt = "0.0003d0";  niter = 200;}
-  else if (class == 'C') 
-  {gx_size = 480; gy_size=320; gz_size=28; 
-   x_zones = y_zones = 16; ratio = "4.5d0";
-   dt = "0.0001d0";  niter = 200;}
-  else if (class == 'D') 
-  {gx_size = 1632; gy_size=1216; gz_size=34; 
-   x_zones = y_zones = 32; ratio = "4.5d0";
-   dt = "0.00002d0"; niter = 250;}
-  else if (class == 'E') 
-  {gx_size = 4224; gy_size=3456; gz_size=92; 
-   x_zones = y_zones = 64; ratio = "4.5d0";
-   dt = "0.000004d0"; niter = 250; int_type="integer*8";}
-  else if (class == 'F') 
-  {gx_size = 12032; gy_size=8960; gz_size=250; 
-   x_zones = y_zones = 128; ratio = "4.5d0";
-   dt = "0.000001d0"; niter = 250; int_type="integer*8";}
+  int problem_size, niter;
+  char *dt;
+  if      (class == 'S') { problem_size = 12;  dt = "0.010d0";   niter = 60; }
+  else if (class == 'W') { problem_size = 24;  dt = "0.0008d0";  niter = 200; }
+  else if (class == 'A') { problem_size = 64;  dt = "0.0008d0";  niter = 200; }
+  else if (class == 'B') { problem_size = 102; dt = "0.0003d0";  niter = 200; }
+  else if (class == 'C') { problem_size = 162; dt = "0.0001d0";  niter = 200; }
+  else if (class == 'D') { problem_size = 408; dt = "0.00002d0";  niter = 250; }
+  else if (class == 'E') { problem_size = 1020; dt = "0.4d-5";    niter = 250; }
   else {
     printf("setparams: Internal error: invalid class %c\n", class);
     exit(1);
   }
-  sscanf(ratio, "%lfd0", &ratio_val);
-  zone_max_xysize(ratio_val, gx_size, gy_size, x_zones, y_zones, &max_lsize);
-
-  fprintf(fp, "%scharacter class\n", FINDENT);
-  fprintf(fp, "%sparameter (class='%c')\n", FINDENT,class);
-  fprintf(fp, "%sinteger x_zones, y_zones\n", FINDENT);
-  fprintf(fp, "%sparameter (x_zones=%d, y_zones=%d)\n", FINDENT, x_zones, y_zones);
-  fprintf(fp, "%sinteger gx_size, gy_size, gz_size, niter_default\n", 
-          FINDENT);
-  fprintf(fp, "%sparameter (gx_size=%d, gy_size=%d, gz_size=%d)\n", 
-	       FINDENT, gx_size, gy_size, gz_size);
-  fprintf(fp, "%sparameter (niter_default=%d)\n", FINDENT, niter);
-  fprintf(fp, "%sinteger problem_size\n", FINDENT);
-  fprintf(fp, "%sparameter (problem_size = %d)\n", FINDENT, 
-          max(max_lsize,gz_size));
-  fprintf(fp, "%s%s max_xysize\n", FINDENT, int_type);
-  fprintf(fp, "%s%s proc_max_size, proc_max_size5, proc_max_bcsize\n", FINDENT, int_type);
-  fprintf(fp, "%sparameter (max_xysize=%ld)\n",  FINDENT, 
-      	  (long)(gx_size+x_zones)*gy_size);
-  fprintf(fp, "%sparameter (proc_max_size=max_xysize*gz_size)\n",  FINDENT);
-  fprintf(fp, "%sparameter (proc_max_size5=proc_max_size*5)\n",  FINDENT);
-  fprintf(fp, "%sparameter (proc_max_bcsize=max_xysize*20)\n",  FINDENT);
-
-  fprintf(fp, "%sdouble precision dt_default, ratio\n", FINDENT);
-  fprintf(fp, "%sparameter (dt_default = %s, ratio = %s)\n", FINDENT, dt, ratio);
-  fprintf(fp, "%s%s start1, start5, qstart_west, qstart_east\n", FINDENT, int_type);
-  fprintf(fp, "%s%s qstart_south, qstart_north\n", FINDENT, int_type);
+  fprintf(fp, "%sinteger problem_size, niter_default\n", FINDENT);
+  fprintf(fp, "%sparameter (problem_size=%d, niter_default=%d)\n", 
+	       FINDENT, problem_size, niter);
+  fprintf(fp, "%sdouble precision dt_default\n", FINDENT);
+  fprintf(fp, "%sparameter (dt_default = %s)\n", FINDENT, dt);
 }
   
+/* 
+ * write_dc_info(): Write DC specific info to config file
+ */
+
+
+void write_dc_info(FILE *fp, char class)
+{
+  long int input_tuples, attrnum;
+  if      (class == 'S') { input_tuples = 1000;     attrnum = 5; }
+  else if (class == 'W') { input_tuples = 100000;   attrnum = 10; }
+  else if (class == 'A') { input_tuples = 1000000;  attrnum = 15; }
+  else if (class == 'B') { input_tuples = 10000000; attrnum = 20; }
+  else {
+    printf("setparams: Internal error: invalid class %c\n", class);
+    exit(1);
+  }
+  fprintf(fp, "long long int input_tuples=%ld, attrnum=%ld;\n",
+              input_tuples, attrnum);
+}
 
 
 /* 
@@ -451,73 +446,264 @@ void write_bt_info(FILE *fp, char class)
 
 void write_lu_info(FILE *fp, char class) 
 {
-  int  itmax, inorm, gx_size, gy_size, gz_size, x_zones, y_zones;
-  int  max_lsize;
-  char *dt_default, *ratio, *int_type;
+  int isiz1, isiz2, itmax, inorm, problem_size;
+  char *dt_default;
 
-  x_zones = y_zones = 4; 
-  int_type="integer";
-  if      (class == 'S') 
-     {gx_size = 24; gy_size=24; gz_size=6; 
-      dt_default = "0.5d0"; itmax = 50; }
-  else if (class == 'W')
-     {gx_size = 64; gy_size=64; gz_size=8; 
-      dt_default = "1.5d-3"; itmax = 300; }
-  else if (class == 'A')  
-     {gx_size = 128; gy_size=128; gz_size=16;
-      dt_default = "2.0d0"; itmax = 250; }
-  else if (class == 'B') 
-     {gx_size = 304; gy_size=208; gz_size=17;
-      dt_default = "2.0d0"; itmax = 250; }
-  else if (class == 'C') 
-     {gx_size = 480; gy_size=320; gz_size=28;
-      dt_default = "2.0d0"; itmax = 250; }
-  else if (class == 'D') 
-     {gx_size = 1632; gy_size=1216; gz_size=34; 
-      dt_default = "1.0d0"; itmax = 300; }
-  else if (class == 'E') 
-     {gx_size = 4224; gy_size=3456; gz_size=92; 
-      dt_default = "0.5d0"; itmax = 300; int_type="integer*8";}
-  else if (class == 'F') 
-     {gx_size = 12032; gy_size=8960; gz_size=250; 
-      dt_default = "0.2d0"; itmax = 300; int_type="integer*8";}
+  if      (class == 'S') { problem_size = 12;  dt_default = "0.5d0"; itmax = 50; }
+  else if (class == 'W') { problem_size = 33;  dt_default = "1.5d-3"; itmax = 300; }
+  else if (class == 'A') { problem_size = 64;  dt_default = "2.0d0"; itmax = 250; }
+  else if (class == 'B') { problem_size = 102; dt_default = "2.0d0"; itmax = 250; }
+  else if (class == 'C') { problem_size = 162; dt_default = "2.0d0"; itmax = 250; }
+  else if (class == 'D') { problem_size = 408; dt_default = "1.0d0"; itmax = 300; }
+  else if (class == 'E') { problem_size = 1020; dt_default = "0.5d0"; itmax = 300; }
   else {
     printf("setparams: Internal error: invalid class %c\n", class);
     exit(1);
   }
   inorm = itmax;
-  ratio = "1.d0";
-  zone_max_xysize(1.0, gx_size, gy_size, x_zones, y_zones, &max_lsize);
+  isiz1 = problem_size;
+  isiz2 = problem_size;
+  
 
-  fprintf(fp, "%scharacter class\n", FINDENT);
-  fprintf(fp, "%sparameter (class='%c')\n", FINDENT,class);
-  fprintf(fp, "%sinteger x_zones, y_zones\n", FINDENT);
-  fprintf(fp, "%sparameter (x_zones=%d, y_zones=%d)\n", FINDENT, x_zones, y_zones);
-  fprintf(fp, "%sinteger gx_size, gy_size, gz_size\n", 
-          FINDENT);
-  fprintf(fp, "%sparameter (gx_size=%d, gy_size=%d, gz_size=%d)\n", 
-	       FINDENT, gx_size, gy_size, gz_size);
-  fprintf(fp, "%sinteger problem_size\n", FINDENT);
-  fprintf(fp, "%sparameter (problem_size = %d)\n", FINDENT, 
-          max(max_lsize,gz_size));
-  fprintf(fp, "%s%s max_xysize\n", FINDENT, int_type);
-  fprintf(fp, "%s%s proc_max_size, proc_max_size5, proc_max_bcsize\n", FINDENT, int_type);
-  fprintf(fp, "%sparameter (max_xysize=%ld)\n",  FINDENT, 
-      	  (long)(gx_size+x_zones)*gy_size);
-  fprintf(fp, "%sparameter (proc_max_size=max_xysize*gz_size)\n",  FINDENT);
-  fprintf(fp, "%sparameter (proc_max_size5=proc_max_size*5)\n",  FINDENT);
-  fprintf(fp, "%sparameter (proc_max_bcsize=max_xysize*20)\n",  FINDENT);
+  fprintf(fp, "\nc full problem size\n");
+  fprintf(fp, "%sinteger isiz1, isiz2, isiz3\n", FINDENT);
+  fprintf(fp, "%sparameter (isiz1=%d, isiz2=%d, isiz3=%d)\n", 
+	       FINDENT, isiz1, isiz2, problem_size );
 
   fprintf(fp, "\nc number of iterations and how often to print the norm\n");
   fprintf(fp, "%sinteger itmax_default, inorm_default\n", FINDENT);
   fprintf(fp, "%sparameter (itmax_default=%d, inorm_default=%d)\n", 
 	  FINDENT, itmax, inorm);
-  fprintf(fp, "%sdouble precision dt_default, ratio\n", FINDENT);
-  fprintf(fp, "%sparameter (dt_default = %s, ratio = %s)\n", FINDENT, 
-                dt_default, ratio);
-  fprintf(fp, "%s%s start1, start5, qstart_west, qstart_east\n", FINDENT, int_type);
-  fprintf(fp, "%s%s qstart_south, qstart_north\n", FINDENT, int_type);
+
+  fprintf(fp, "%sdouble precision dt_default\n", FINDENT);
+  fprintf(fp, "%sparameter (dt_default = %s)\n", FINDENT, dt_default);
+  
 }
+
+/* 
+ * write_mg_info(): Write MG specific info to config file
+ */
+
+void write_mg_info(FILE *fp, char class) 
+{
+  int problem_size, nit, log2_size, lt_default, lm;
+  int ndim1, ndim2, ndim3;
+  if      (class == 'S') { problem_size = 32; nit = 4; }
+/*  else if (class == 'W') { problem_size = 64; nit = 40; }*/
+  else if (class == 'W') { problem_size = 128; nit = 4; }
+  else if (class == 'A') { problem_size = 256; nit = 4; }
+  else if (class == 'B') { problem_size = 256; nit = 20; }
+  else if (class == 'C') { problem_size = 512; nit = 20; }
+  else if (class == 'D') { problem_size = 1024; nit = 50; }
+  else if (class == 'E') { problem_size = 2048; nit = 50; }
+  else {
+    printf("setparams: Internal error: invalid class type %c\n", class);
+    exit(1);
+  }
+  log2_size = ilog2(problem_size);
+  /* lt is log of largest total dimension */
+  lt_default = log2_size;
+  /* log of log of maximum dimension on a node */
+  lm = log2_size;
+  ndim1 = lm;
+  ndim3 = log2_size;
+  ndim2 = log2_size;
+
+  fprintf(fp, "%sinteger nx_default, ny_default, nz_default\n", FINDENT);
+  fprintf(fp, "%sparameter (nx_default=%d, ny_default=%d, nz_default=%d)\n", 
+	  FINDENT, problem_size, problem_size, problem_size);
+  fprintf(fp, "%sinteger nit_default, lm, lt_default\n", FINDENT);
+  fprintf(fp, "%sparameter (nit_default=%d, lm = %d, lt_default=%d)\n", 
+	  FINDENT, nit, lm, lt_default);
+  fprintf(fp, "%sinteger debug_default\n", FINDENT);
+  fprintf(fp, "%sparameter (debug_default=%d)\n", FINDENT, 0);
+  fprintf(fp, "%sinteger ndim1, ndim2, ndim3\n", FINDENT);
+  fprintf(fp, "%sparameter (ndim1 = %d, ndim2 = %d, ndim3 = %d)\n", 
+	  FINDENT, ndim1, ndim2, ndim3);
+  fprintf(fp, "%sinteger%s one, nr, nv, ir\n", 
+          FINDENT, (problem_size > 1024)? "*8" : "");
+  fprintf(fp, "%sparameter (one=1)\n", FINDENT);
+}
+
+
+/* 
+ * write_is_info(): Write IS specific info to config file
+ */
+
+void write_is_info(FILE *fp, char class) 
+{
+  if( class != 'S' &&
+      class != 'W' &&
+      class != 'A' &&
+      class != 'B' &&
+      class != 'C' &&
+      class != 'D')
+  {
+    printf("setparams: Internal error: invalid class type %c\n", class);
+    exit(1);
+  }
+}
+
+
+/* 
+ * write_cg_info(): Write CG specific info to config file
+ */
+
+void write_cg_info(FILE *fp, char class) 
+{
+  int na,nonzer,niter;
+  char *shift,*rcond="1.0d-1";
+  char *shiftS="10.",
+       *shiftW="12.",
+       *shiftA="20.",
+       *shiftB="60.",
+       *shiftC="110.",
+       *shiftD="500.",
+       *shiftE="1.5d3";
+
+
+  if( class == 'S' )
+  { na=1400; nonzer=7; niter=15; shift=shiftS; }
+  else if( class == 'W' )
+  { na=7000; nonzer=8; niter=15; shift=shiftW; }
+  else if( class == 'A' )
+  { na=14000; nonzer=11; niter=15; shift=shiftA; }
+  else if( class == 'B' )
+  { na=75000; nonzer=13; niter=75; shift=shiftB; }
+  else if( class == 'C' )
+  { na=150000; nonzer=15; niter=75; shift=shiftC; }
+  else if( class == 'D' )
+  { na=1500000; nonzer=21; niter=100; shift=shiftD; }
+  else if( class == 'E' )
+  { na=9000000; nonzer=26; niter=100; shift=shiftE; }
+  else
+  {
+    printf("setparams: Internal error: invalid class type %c\n", class);
+    exit(1);
+  }
+  fprintf( fp, "%sinteger            na, nonzer, niter\n", FINDENT );
+  fprintf( fp, "%sdouble precision   shift, rcond\n", FINDENT );
+  fprintf( fp, "%sparameter(  na=%d,\n", FINDENT, na );
+  fprintf( fp, "%s             nonzer=%d,\n", CONTINUE, nonzer );
+  fprintf( fp, "%s             niter=%d,\n", CONTINUE, niter );
+  fprintf( fp, "%s             shift=%s,\n", CONTINUE, shift );
+  fprintf( fp, "%s             rcond=%s )\n", CONTINUE, rcond );
+  
+}
+
+
+
+/* 
+ * write_ua_info(): Write UA specific info to config file
+ */
+
+void write_ua_info(FILE *fp, char class) 
+{
+  int lelt, lmor,refine_max, niter, nmxh, fre;
+  char *alpha;
+
+  fre = 5;
+  if( class == 'S' )
+  { lelt=250;lmor=11600;       refine_max=4;  niter=50;  nmxh=10; alpha="0.040d0"; }
+  else if( class == 'W' )
+  { lelt=700;lmor=26700;       refine_max=5;  niter=100; nmxh=10; alpha="0.060d0"; }
+  else if( class == 'A' )
+  { lelt=2400;lmor=92700;      refine_max=6;  niter=200; nmxh=10; alpha="0.076d0"; }
+  else if( class == 'B' )
+  { lelt=8800;  lmor=334600;   refine_max=7;  niter=200; nmxh=10; alpha="0.076d0"; }
+  else if( class == 'C' )
+  { lelt=33500; lmor=1262100;  refine_max=8;  niter=200; nmxh=10; alpha="0.067d0"; }
+  else if( class == 'D' )
+  { lelt=515000;lmor=19500000; refine_max=10; niter=250; nmxh=10; alpha="0.046d0"; }
+  else
+  {
+    printf("setparams: Internal error: invalid class type %c\n", class);
+    exit(1);
+  }
+  
+  fprintf( fp, "%sinteger          lelt, lmor, refine_max, fre_default\n", FINDENT );
+  fprintf( fp, "%sinteger          niter_default, nmxh_default\n", FINDENT );
+  fprintf( fp, "%scharacter        class_default\n", FINDENT );
+  fprintf( fp, "%sdouble precision alpha_default\n", FINDENT );
+  fprintf( fp, "%sparameter(  lelt=%d,\n", FINDENT, lelt );
+  fprintf( fp, "%s            lmor=%d,\n", CONTINUE, lmor );
+  fprintf( fp, "%s             refine_max=%d,\n", CONTINUE, refine_max );
+  fprintf( fp, "%s             fre_default=%d,\n", CONTINUE, fre );
+  fprintf( fp, "%s             niter_default=%d,\n", CONTINUE, niter );
+  fprintf( fp, "%s             nmxh_default=%d,\n", CONTINUE, nmxh );
+  fprintf( fp, "%s             class_default=\"%c\",\n", CONTINUE, class );
+  fprintf( fp, "%s             alpha_default=%s )\n", CONTINUE, alpha );
+  
+}
+
+
+/* 
+ * write_ft_info(): Write FT specific info to config file
+ */
+
+void write_ft_info(FILE *fp, char class) 
+{
+  /* easiest way (given the way the benchmark is written)
+   * is to specify log of number of grid points in each
+   * direction m1, m2, m3. nt is the number of iterations
+   */
+  int nx, ny, nz, maxdim, niter;
+  if      (class == 'S') { nx = 64; ny = 64; nz = 64; niter = 6;}
+  else if (class == 'W') { nx = 128; ny = 128; nz = 32; niter = 6;}
+  else if (class == 'A') { nx = 256; ny = 256; nz = 128; niter = 6;}
+  else if (class == 'B') { nx = 512; ny = 256; nz = 256; niter =20;}
+  else if (class == 'C') { nx = 512; ny = 512; nz = 512; niter =20;}
+  else if (class == 'D') { nx = 2048; ny = 1024; nz = 1024; niter =25;}
+  else if (class == 'E') { nx = 4096; ny = 2048; nz = 2048; niter =25;}
+  else {
+    printf("setparams: Internal error: invalid class type %c\n", class);
+    exit(1);
+  }
+  maxdim = nx;
+  if (ny > maxdim) maxdim = ny;
+  if (nz > maxdim) maxdim = nz;
+  fprintf(fp, "%sinteger nx, ny, nz, maxdim, niter_default\n", FINDENT);
+  fprintf(fp, "%sinteger%s ntotal, nxp, nyp, ntotalp\n", FINDENT,
+          (nx > 1024)? "*8" : "");
+  fprintf(fp, "%sparameter (nx=%d, ny=%d, nz=%d, maxdim=%d)\n", 
+          FINDENT, nx, ny, nz, maxdim);
+  fprintf(fp, "%sparameter (niter_default=%d)\n", FINDENT, niter);
+  fprintf(fp, "%sparameter (nxp=nx+1, nyp=ny)\n", FINDENT);
+  fprintf(fp, "%sparameter (ntotal=nx*nyp*nz)\n", FINDENT);
+  fprintf(fp, "%sparameter (ntotalp=nxp*nyp*nz)\n", FINDENT);
+
+}
+
+/*
+ * write_ep_info(): Write EP specific info to config file
+ */
+
+void write_ep_info(FILE *fp, char class)
+{
+  /* easiest way (given the way the benchmark is written)
+   * is to specify log of number of grid points in each
+   * direction m1, m2, m3. nt is the number of iterations
+   */
+  int m;
+  if      (class == 'S') { m = 24; }
+  else if (class == 'W') { m = 25; }
+  else if (class == 'A') { m = 28; }
+  else if (class == 'B') { m = 30; }
+  else if (class == 'C') { m = 32; }
+  else if (class == 'D') { m = 36; }
+  else if (class == 'E') { m = 40; }
+  else {
+    printf("setparams: Internal error: invalid class type %c\n", class);
+    exit(1);
+  }
+
+  fprintf(fp, "%scharacter class\n",FINDENT);
+  fprintf(fp, "%sparameter (class =\'%c\')\n",
+                  FINDENT, class);
+  fprintf(fp, "%sinteger m\n", FINDENT);
+  fprintf(fp, "%sparameter (m=%d)\n", FINDENT, m);
+}
+
 
 /* 
  * This is a gross hack to allow the benchmarks to 
@@ -533,7 +719,6 @@ void write_lu_info(FILE *fp, char class)
 
 #define VERBOSE
 #define LL 400
-#include <stdio.h>
 #define DEFFILE "../config/make.def"
 #define DEFAULT_MESSAGE "(none)"
 FILE *deffile;
@@ -594,9 +779,14 @@ setparams: File %s doesn't exist. To build the NAS benchmarks\n\
 
 
   switch(type) {
+      case FT:
       case SP:
       case BT:
+      case MG:
       case LU:
+      case EP:
+      case CG:
+      case UA:
           put_string(fp, "compiletime", compiletime);
           put_string(fp, "npbversion", VERSION);
           put_string(fp, "cs1", f77);
@@ -606,6 +796,17 @@ setparams: File %s doesn't exist. To build the NAS benchmarks\n\
           put_string(fp, "cs5", fflags);
           put_string(fp, "cs6", flinkflags);
 	  put_string(fp, "cs7", randfile);
+          break;
+      case IS:
+      case DC:
+          put_def_string(fp, "COMPILETIME", compiletime);
+          put_def_string(fp, "NPBVERSION", VERSION);
+          put_def_string(fp, "CC", cc);
+          put_def_string(fp, "CFLAGS", cflags);
+          put_def_string(fp, "CLINK", clink);
+          put_def_string(fp, "CLINKFLAGS", clinkflags);
+          put_def_string(fp, "C_LIB", c_lib);
+          put_def_string(fp, "C_INC", c_inc);
           break;
       default:
           printf("setparams: (Internal error): Unknown benchmark type %d\n", 
@@ -640,13 +841,16 @@ void check_line(char *line, char *label, char *val)
   strcpy(val, line);
   /* chop off the newline at the end */
   n = strlen(val)-1;
-  val[n--] = '\0';
+  if (n >= 0 && val[n] == '\n')
+    val[n--] = '\0';
+  if (n >= 0 && val[n] == '\r')
+    val[n--] = '\0';
   /* treat continuation */
   while (val[n] == '\\' && fgets(original_line, LL, deffile)) {
      line = original_line;
      while (isspace(*line)) line++;
      if (isspace(*original_line)) val[n++] = ' ';
-     while (*line && *line != '\n' && n < LL-1)
+     while (*line && *line != '\n' && *line != '\r' && n < LL-1)
        val[n++] = *line++;
      val[n] = '\0';
      n--;
@@ -706,11 +910,29 @@ void put_string(FILE *fp, char *name, char *val)
   fprintf(fp, "%sparameter (%s=\'%s\')\n", FINDENT, name, val);
 }
 
-/* NOTE: is the ... stuff necessary in C? */
-void put_def_string(FILE *fp, char *name, char *val)
+/* need to escape quote (") in val */
+int fix_string_quote(char *val, char *newval, int maxl)
 {
   int len;
+  int i, j;
   len = strlen(val);
+  i = j = 0;
+  while (i < len && j < maxl) {
+    if (val[i] == '"')
+      newval[j++] = '\\';
+    if (j < maxl)
+      newval[j++] = val[i++];
+  }
+  newval[j] = '\0';
+  return j;
+}
+
+/* NOTE: is the ... stuff necessary in C? */
+void put_def_string(FILE *fp, char *name, char *val0)
+{
+  int len;
+  char val[MAXL+3];
+  len = fix_string_quote(val0, val, MAXL+2);
   if (len > MAXL) {
     val[MAXL] = '\0';
     val[MAXL-1] = '.';
@@ -736,12 +958,92 @@ void put_def_variable(FILE *fp, char *name, char *val)
 }
 
 
+
+#if 0
+
+/* this version allows arbitrarily long lines but 
+ * some compilers don't like that and they're rarely
+ * useful 
+ */
+
+#define LINELEN 65
+void put_string(FILE *fp, char *name, char *val)
+{
+  int len, nlines, pos, i;
+  char line[100];
+  len = strlen(val);
+  nlines = len/LINELEN;
+  if (nlines*LINELEN < len) nlines++;
+  fprintf(fp, "%scharacter*%d %s\n", FINDENT, nlines*LINELEN, name);
+  fprintf(fp, "%sparameter (%s = \n", FINDENT, name);
+  for (i = 0; i < nlines; i++) {
+    pos = i*LINELEN;
+    if (i == 0) fprintf(fp, "%s\'", CONTINUE);
+    else        fprintf(fp, "%s", CONTINUE);
+    /* number should be same as LINELEN */
+    fprintf(fp, "%.65s", val+pos);
+    if (i == nlines-1) fprintf(fp, "\')\n");
+    else             fprintf(fp, "\n");
+  }
+}
+
+#endif
+
+
+/* integer log base two. Return error is argument isn't
+ * a power of two or is less than or equal to zero 
+ */
+
+int ilog2(int i)
+{
+  int log2;
+  int exp2 = 1;
+  if (i <= 0) return(-1);
+
+  for (log2 = 0; log2 < 30; log2++) {
+    if (exp2 == i) return(log2);
+    if (exp2 > i) break;
+    exp2 *= 2;
+  }
+  return(-1);
+}
+
+
+/* Power function. We could use pow from the math library, but then
+ * we would have to insist on always linking with the math library, just
+ * for this function. Since we only need pow with integer exponents,
+ * we'll code it ourselves here.
+ */
+
+double power(double base, int i)
+{
+  double x;
+
+  if (i==0) return (1.0);
+  else if (i<0) {
+    base = 1.0/base;
+    i = -i;
+  }
+  x = 1.0;
+  while (i>0) {
+    x *=base;
+    i--;
+  }
+  return (x);
+}
+    
+
 void write_convertdouble_info(int type, FILE *fp)
 {
   switch(type) {
   case SP:
   case BT:
   case LU:
+  case FT:
+  case MG:
+  case EP:
+  case CG:
+  case UA:
     fprintf(fp, "%slogical  convertdouble\n", FINDENT);
 #ifdef CONVERTDOUBLE
     fprintf(fp, "%sparameter (convertdouble = .true.)\n", FINDENT);
@@ -750,74 +1052,4 @@ void write_convertdouble_info(int type, FILE *fp)
 #endif
     break;
   }
-}
-
-
-void zone_max_xysize(double ratio, int gx_size, int gy_size,
-      	           int x_zones, int y_zones, int *max_lsize)
-{
-   int num_zones = x_zones*y_zones;
-   int iz, i, j, cur_size;
-   double x_r0, y_r0, x_r, y_r, x_smallest, y_smallest, aratio;
-
-   int x_size[MAX_X_ZONES], y_size[MAX_Y_ZONES];
-
-   aratio = (ratio > 1.0)? (ratio-1.0) : (1.0-ratio);
-   if (aratio > 1.e-10) {
-
-/*   compute zone stretching only if the prescribed zone size ratio 
-     is substantially larger than unity */
-
-      x_r0  = exp(log(ratio)/(x_zones-1));
-      y_r0  = exp(log(ratio)/(y_zones-1));
-      x_smallest = (double)(gx_size)*(x_r0-1.0)/
-      	           (pow(x_r0, (double)x_zones)-1.0);
-      y_smallest = (double)(gy_size)*(y_r0-1.0)/
-      	           (pow(y_r0, (double)y_zones)-1.0);
-
-/*   compute tops of intervals, using a slightly tricked rounding
-     to make sure that the intervals are increasing monotonically
-     in size */
-
-      x_r = x_r0;
-      for (i = 0; i < x_zones; i++) {
-   	 x_size[i] = x_smallest*(x_r-1.0)/(x_r0-1.0)+0.45;
-	 x_r *= x_r0;
-      }
-
-      y_r = y_r0;
-      for (j = 0; j < y_zones; j++) {
-   	 y_size[j] = y_smallest*(y_r-1.0)/(y_r0-1.0)+0.45;
-	 y_r *= y_r0;
-      }
-   }
-   else {
-
-/*    compute essentially equal sized zone dimensions */
-
-      for (i = 0; i < x_zones; i++)
-         x_size[i]   = (i+1)*gx_size/x_zones;
-
-      for (j = 0; j < y_zones; j++)
-         y_size[j]   = (j+1)*gy_size/y_zones;
-
-   }
-
-   for (i = x_zones-1; i > 0; i--) {
-      x_size[i] = x_size[i] - x_size[i-1];
-   }
-
-   for (j = y_zones-1; j > 0; j--) {
-      y_size[j] = y_size[j] - y_size[j-1];
-   }
-
-/* ... get the largest zone dimension */
-   cur_size = 0;
-   for (iz = 0; iz < num_zones; iz++) {
-      i = iz % x_zones;
-      j = iz / x_zones;
-      if (cur_size < x_size[i]) cur_size = x_size[i];
-      if (cur_size < y_size[j]) cur_size = y_size[j];
-   }
-   *max_lsize = cur_size;
 }

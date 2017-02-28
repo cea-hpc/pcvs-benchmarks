@@ -1,146 +1,157 @@
-NPB3.3-MZ (Multi-Zone) OpenMP Versions
-----------------------------------------
+Some explanations on the OpenMP implementation of NPB 3.3 (NPB3.3-OMP)
+----------------------------------------------------------------------
 
-For details, see
-   http://www.nas.nasa.gov/Research/Reports/Techreports/2003/
-   nas-03-010-abstract.html
+NPB-OMP is a sample OpenMP implementation based on NPB3-SER,
+the sequential implementation of the NAS Parallel Benchmarks.
+This implementation (NPB3.3-OMP) contains all ten benchmarks:
+eight in Fortran: BT, SP, LU, FT, CG, MG, EP, and UA; two in C: IS
+and DC.  Starting in version 3.3, only the pipeline OpenMP 
+implementation of LU is included.
 
-NPB Development Team
+For changes from different versions, see the Changes.log file
+included in the upper directory of this distribution.
+
+This version has been tested, among others, on an SGI Origin3000 and
+an SGI Altix.  For problem reports and suggestions on the implementation, 
+please contact
+
+   NAS Parallel Benchmark Team
    npb@nas.nasa.gov
 
 
-Compilation
-------------
+1. Compilation
 
-1. copy one of the 'make.def' examples in config/NAS.samples or the
-   file config/make.def.template to config/make.def
+   NPB3.x-OMP uses the same directory tree as NPB3.x-SER (and NPB2.x) does.
+   Before compilation, one needs to check the configuration file
+   'make.def' in the config directory and modify the file if necessary. 
+   If it does not (yet) exist, copy 'make.def.template' or one of the
+   sample files in the NAS.samples subdirectory to 'make.def' and
+   edit the content for site- and machine-specific data.  Then
 
-2. modify/specify the compiler and compilation flags in config/make.def
+      make <benchmark> CLASS=<class> [VERSION=VEC]
 
-3. use the following line to compile
-   make benchmark CLASS=class [VERSION=VEC]
+   <benchmark> is one of (BT, SP, LU, FT, CG, MG, EP, UA, IS, DC) 
+   and <class> is one of (S, W, A, B, C, D, E), except that classes C, 
+   D, and E are not defined for DC and class E is not defined for IS and UA.
 
-   [benchmark] is one of [bt-mz, sp-mz, lu-mz]
-   [class] is one of [S, W, A through F]
-   The "VERSION=VEC" option can be used to compile the "vectorizable"
-   version of the selected benchmark.
+   The "VERSION=VEC" option is used for selecting the vectorized 
+   versions of BT and LU.
 
-   However, successful vectorization highly depends on the compiler 
-   used.  Some changes to compiler directives for vectorization in 
-   the current codes (see *_vec.f files) may be required.
+   Class D for IS (Integer Sort) requires a compiler/system that 
+   supports the "long" type in C to be 64-bit.  As examples, the SGI 
+   MIPS compiler for the SGI Origin using the "-64" compilation flag and
+   the Intel compiler for IA64 are known to work.
 
+   In order to build the class E version of CG, the integer type
+   needs to be promoted to 64-bit, which is usually done through 
+   compilation flag (such as "-i8" for FFLAGS in config/make.def).
 
-Execution
-----------
+   To build a suite of benchmarks, one can create the file 
+   "config/suite.def", which contains a list of executables to build.
+   Each line in the file contains the name of a benchmark and the class,
+   separated by spaces or tabs (see suite.def.template for an example).
+   Then
 
-The executable is named <benchmark-name>.<class>.x and is placed
-in the bin directory (or in the directory BINDIR specified in
-the make.def).  In order to run the program, you should first
-specify the number of threads and define any needed runtime 
-parameters (see below for details).
-
-Here is an example of running bt-mz, class A with 4 outer 
-threads and 2 inner threads per outer thread (in csh):
-
-   setenv OMP_NUM_THREADS 4
-   setenv OMP_NUM_THREADS2 2
-   bin/bt-mz.A.x
+      make suite
 
 
-Runtime Environment Variables and Setups
------------------------------------------
+   ================================
+   
+   The "RAND" variable in make.def
+   --------------------------------
+   
+   Most of the NPBs use a random number generator. In two of the NPBs (FT
+   and EP) the computation of random numbers is included in the timed
+   part of the calculation, and it is important that the random number
+   generator be efficient.  The default random number generator package
+   provided is called "randi8" and should be used where possible. It has 
+   the following requirements:
+   
+   randi8:
+     1. Uses integer*8 arithmetic. Compiler must support integer*8
+     2. Uses the Fortran 90 IAND intrinsic. Compiler must support IAND.
+     3. Assumes overflow bits are discarded by the hardware. In particular, 
+        that the lowest 46 bits of a*b are always correct, even if the 
+        result a*b is larger than 2^64. 
+   
+   Since randi8 may not work on all machines, we supply the following
+   alternatives:
+   
+   randi8_safe
+     1. Uses integer*8 arithmetic
+     2. Uses the Fortran 90 IBITS intrinsic. 
+     3. Does not make any assumptions about overflow. Should always
+        work correctly if compiler supports integer*8 and IBITS. 
+   
+   randdp
+     1. Uses double precision arithmetic (to simulate integer*8 operations). 
+        Should work with any system with support for 64-bit floating
+        point arithmetic.      
+   
+   randdpvec
+     1. Similar to randdp but written to be easier to vectorize. 
+   
 
-1. Specify the number of threads
+2. Execution
 
-There are two ways to specify the number of threads:
-   - using a load data file for different benchmark
-      loadbt-mz.data, loadsp-mz.data, or loadlu-mz.data
-   - using environment variables.
+   The executable is named <benchmark-name>.<class>.x and is placed
+   in the bin subdirectory (or in the directory BINDIR specified in
+   make.def, if you've defined it).  Folllowing is an example of running 
+   a benchmark in csh:
 
-1.1 load data file
+      setenv OMP_NUM_THREADS 4
+      bin/bt.A.x > BT.A_out.4
 
-Before a load data file can be used, one needs first specify
-the number of outer-level threads (number_of_othreads) by using
-the environment variable OMP_NUM_THREADS (see next section).
+   It runs BT Class A problem on 4 threads and the output is stored
+   in BT.A_out.4.
 
-A load data file defines the number of threads used for each outer-
-level thread and has the following format:
-   <thread#>  <number_inner_threads>  <flag>
-   <thread#>  <number_inner_threads>  <flag>
-   ...
+   Each benchmark includes a set of additional timers for profiling purpose
+   (reporting timing for selected code blocks).  By default, these timers
+   are disabled.  To enable the timers, create a dummy file 'timer.flag' 
+   in the current working directory (not necessarily where the executable 
+   is located) before running a benchmark.
 
-<thread#> is the outer-level thread number, starting from 0, up to
-<number_of_othreads>-1.  <number_inner_threads> defines the number
-of threads used for each outer thread.  <flag> can be used to control 
-load balancing with threads at the inner-level parallel regions.
-The file will be read from the current working directory.
+   The printed number of threads is the activated threads during the run,
+   which may not be the same as what is requested.
 
-The load data file precedes the environment variables as described in
-Section 1.2, in particular, the load balancing with threads movement
-will not be applied if all values of <flag> are less than one.
+3. Known issues
 
-1.2 environment variables
+   NPB-OMP assumes 'deterministic' static scheduling at run-time to 
+   ensure the correctness of the results.  Verification in some
+   benchmarks might fail if this condition is not met. 
 
-OMP_NUM_THREADS
-  - the number of outer-level threads.  If this variable is not specified,
-    one thread is assumed.
+   For larger problem sizes, the default stack size for slave threads
+   may need to be increased on certain platforms.  For example on SGI
+   Origin 3000, the following command can be used:
+      setenv MP_SLAVE_STACKSIZE 50000000 (to about 50MB)
 
-OMP_NUM_THREADS2
-  - the number of threads per outer-level thread.  If this variable is not
-    specified, one inner thread is assumed for each outer thread.
+   On SGI Altix using the Intel compiler, the runtime variable would be
+      setenv KMP_STACKSIZE 50m  (for 50MB)
 
-    The total number of threads is
-       number_of_othreads * number_inner_threads.
+   In order to build the class E version of CG, the integer type
+   needs to be promoted to 64-bit, which is usually done through 
+   compilation flag (such as "-i8" for FFLAGS in config/make.def).
 
-NPB_OMP_NESTED
-  - control the level of nested OpenMP parallelism in the code.
-    With a value of "1", only the outer-level OpenMP parallelization
-    (among zones) is enabled.  Inner level has no effect.
-    With a value of "2", only the inner-level OpenMP parallelization
-    (with each zone) is enabled.  Outer level has no effect.
-    With other value, both levels are enabled (as the default).
+4. Notes on the implementation
 
-NPB_MZ_BLOAD
-  - flag for load balancing with threads.  By default, load balancing
-    with threads is on (with a value of 1, ON or TRUE).
+   - Based on NPB3.0-SER, except that FT was kept closer to
+     the original version in NPB2.3-serial.
 
-2. Other environment variables
+   - OpenMP directives were added to the outer-most parallel loops. 
+     No nested parallelism was considered.
 
-NPB_VERBOSE
-  - flag to control verbose output.  By default (a value of 0), a summary
-    is printed.  With a value of 1 (or larger), more detailed information 
-    on zones is printed.
+   - Extra loops were added in the beginning of most of the benchmarks
+     to touch data pages.  This is to set up a data layout based on the
+     'first touch' policy.
 
-3. Use the built-in profile timers
+   - For LU, the pipeline algorithm outperforms the hyperplane algorithm
+     consistently on most modern platforms.  So, only the pipeline 
+     implementation is included.
 
-An input parameter file may be used to change several parameters at 
-runtime, one of which is the timer flag that controls the collection of 
-some timing statistics.  In order to use this feature, one needs to create 
-an "input<benchmark>.data" file (<benchmark>=bt-mz, sp-mz or lu-mz) in 
-the working directory from the sample input files included in the source 
-directory.  To collect timing statistics, switch on (with a value of 1)
-the timer flag in the input file.
+   - The IS OpenMP benchmark enables bucket sort by default.  To disable
+     bucket sort, comment out the line in IS/is.c:
+     #define USE_BUCKETS
+     See IS/README.carefully for additional information.
 
-
-Known Problems
----------------
-  - On SGI Altix, if undefined symbols (for getenv) are encountered when
-    compiling with the Intel 7.x FORTRAN compiler, add "-Vaxlib" to
-    F_LIB in config/make.def.
-
-    With some versions of Intel compilers, the following runtime variable
-    may be required to avoid a stacksize overflow:
-
-    "setenv KMP_MONITOR_STACKSIZE 200k" (csh) or
-    "export KMP_MONITOR_STACKSIZE=200k" (sh)
-
-  - The LU-MZ benchmark may require larger stack size for OpenMP threads
-    than the default setup.  Different system may have different way of
-    specifying the size.  For example, the Intel compiler accepts
-
-      setenv KMP_STACKSIZE 30m  (csh)
-      export KMP_STACKSIZE=30m  (sh)
-
-    The value will be different for different class of problems.
-    You may need to try a few times.
-
+   - For Unstructured Adaptive (UA) and DC benchmarks, please see 
+     UA/README or DC/README for additional instruction.

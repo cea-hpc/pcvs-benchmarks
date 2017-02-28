@@ -11,8 +11,8 @@
 #---------------------------------------------------------------------------
 # Parallel Fortran:
 #
-# For CG, EP, FT, MG, LU, SP and BT, which are in Fortran, the following must 
-# be defined:
+# For CG, EP, FT, MG, LU, SP, BT and UA, which are in Fortran, the following 
+# must be defined:
 #
 # F77        - Fortran compiler
 # FFLAGS     - Fortran compilation arguments
@@ -27,16 +27,18 @@
 #---------------------------------------------------------------------------
 
 #---------------------------------------------------------------------------
-# This is the fortran compiler used for fortran programs
+# This is the fortran compiler used for Fortran programs
 #---------------------------------------------------------------------------
-F77 = xlf -q64
+F77 = xlf_r -q64
+
+#---------------------------------------------------------------------------
 # This links fortran programs; usually the same as ${F77}
+#---------------------------------------------------------------------------
 FLINK	= $(F77)
 
 #---------------------------------------------------------------------------
 # These macros are passed to the linker 
 #---------------------------------------------------------------------------
-#F_LIB  = -lmass
 F_LIB  =
 
 #---------------------------------------------------------------------------
@@ -47,20 +49,19 @@ F_INC =
 #---------------------------------------------------------------------------
 # Global *compile time* flags for Fortran programs
 #---------------------------------------------------------------------------
-FFLAGS	= -O3 -qnosave
-# FFLAGS = -g
+FFLAGS	= -O3 -qsmp=omp -qarch=auto -qtune=auto -qhot -qnosave
 
 #---------------------------------------------------------------------------
 # Global *link time* flags. Flags for increasing maximum executable 
 # size usually go here. 
 #---------------------------------------------------------------------------
-FLINKFLAGS = -O3 -bmaxdata:0x80000000 -bmaxstack:0x10000000
+FLINKFLAGS = -O3 -qsmp=omp -qarch=auto
 
 
 #---------------------------------------------------------------------------
 # Parallel C:
 #
-# For IS, which is in C, the following must be defined:
+# For IS and DC, which are in C, the following must be defined:
 #
 # CC         - C compiler 
 # CFLAGS     - C compilation arguments
@@ -77,8 +78,11 @@ FLINKFLAGS = -O3 -bmaxdata:0x80000000 -bmaxstack:0x10000000
 #---------------------------------------------------------------------------
 # This is the C compiler used for C programs
 #---------------------------------------------------------------------------
-CC = xlc -q64
+CC = xlc_r -q64
+
+#---------------------------------------------------------------------------
 # This links C programs; usually the same as ${CC}
+#---------------------------------------------------------------------------
 CLINK	= $(CC)
 
 #---------------------------------------------------------------------------
@@ -93,15 +97,26 @@ C_INC =
 
 #---------------------------------------------------------------------------
 # Global *compile time* flags for C programs
+# DC inspects the following flags (preceded by "-D"):
+#
+# IN_CORE - computes all views and checksums in main memory (if there is 
+# enough memory)
+#
+# VIEW_FILE_OUTPUT - forces DC to write the generated views to disk
+#
+# OPTIMIZATION - turns on some nonstandard DC optimizations
+#
+# _FILE_OFFSET_BITS=64 
+# _LARGEFILE64_SOURCE - are standard compiler flags which allow to work with 
+# files larger than 2GB.
 #---------------------------------------------------------------------------
-CFLAGS	= -O3
-# CFLAGS = -g
+CFLAGS	= -O3 -qsmp=omp -qarch=auto -qtune=auto -qhot
 
 #---------------------------------------------------------------------------
 # Global *link time* flags. Flags for increasing maximum executable 
 # size usually go here. 
 #---------------------------------------------------------------------------
-CLINKFLAGS = -O3
+CLINKFLAGS = -O3 -qsmp=omp -qarch=auto
 
 
 #---------------------------------------------------------------------------
@@ -122,7 +137,7 @@ BINDIR	= ../bin
 
 #---------------------------------------------------------------------------
 # The variable RAND controls which random number generator 
-# is used. It is described in detail in Doc/README.install. 
+# is used. It is described in detail in README.install. 
 # Use "randi8" unless there is a reason to use another one. 
 # Other allowed values are "randi8_safe", "randdp" and "randdpvec"
 #---------------------------------------------------------------------------
@@ -136,7 +151,6 @@ RAND   = randi8
 # NPB3.x/common directory.  
 # For most machines,       use wtime.c
 # For SGI power challenge: use wtime_sgi64.c
-# Note: WTIME is only used in the serial version.
 #---------------------------------------------------------------------------
 WTIME  = wtime.c
 

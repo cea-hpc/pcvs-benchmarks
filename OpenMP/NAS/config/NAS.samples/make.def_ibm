@@ -27,9 +27,9 @@
 #---------------------------------------------------------------------------
 
 #---------------------------------------------------------------------------
-# This is the fortran compiler used for fortran programs
+# This is the fortran compiler used for Fortran programs
 #---------------------------------------------------------------------------
-F77 = xlf
+F77 = xlf_r
 # This links fortran programs; usually the same as ${F77}
 FLINK	= $(F77)
 
@@ -37,7 +37,7 @@ FLINK	= $(F77)
 # These macros are passed to the linker 
 #---------------------------------------------------------------------------
 #F_LIB  = -lmass
-F_LIB  =
+F_LIB  = 
 
 #---------------------------------------------------------------------------
 # These macros are passed to the compiler 
@@ -47,14 +47,14 @@ F_INC =
 #---------------------------------------------------------------------------
 # Global *compile time* flags for Fortran programs
 #---------------------------------------------------------------------------
-FFLAGS	= -O3 -qnosave
+FFLAGS	= -O3 -qnosave -qsmp=omp
 # FFLAGS = -g
 
 #---------------------------------------------------------------------------
 # Global *link time* flags. Flags for increasing maximum executable 
 # size usually go here. 
 #---------------------------------------------------------------------------
-FLINKFLAGS = -O3 -bmaxdata:0x80000000 -bmaxstack:0x10000000
+FLINKFLAGS = -O3 -qsmp=omp -bmaxdata:0x80000000 -bmaxstack:0x10000000
 
 
 #---------------------------------------------------------------------------
@@ -77,7 +77,7 @@ FLINKFLAGS = -O3 -bmaxdata:0x80000000 -bmaxstack:0x10000000
 #---------------------------------------------------------------------------
 # This is the C compiler used for C programs
 #---------------------------------------------------------------------------
-CC = xlc
+CC = xlc_r
 # This links C programs; usually the same as ${CC}
 CLINK	= $(CC)
 
@@ -94,14 +94,14 @@ C_INC =
 #---------------------------------------------------------------------------
 # Global *compile time* flags for C programs
 #---------------------------------------------------------------------------
-CFLAGS	= -O3
+CFLAGS	= -O3 -qsmp=omp
 # CFLAGS = -g
 
 #---------------------------------------------------------------------------
 # Global *link time* flags. Flags for increasing maximum executable 
 # size usually go here. 
 #---------------------------------------------------------------------------
-CLINKFLAGS = -O3
+CLINKFLAGS = -O3 -qsmp=omp
 
 
 #---------------------------------------------------------------------------
@@ -122,7 +122,7 @@ BINDIR	= ../bin
 
 #---------------------------------------------------------------------------
 # The variable RAND controls which random number generator 
-# is used. It is described in detail in Doc/README.install. 
+# is used. It is described in detail in README.install. 
 # Use "randi8" unless there is a reason to use another one. 
 # Other allowed values are "randi8_safe", "randdp" and "randdpvec"
 #---------------------------------------------------------------------------
@@ -136,7 +136,6 @@ RAND   = randi8
 # NPB3.x/common directory.  
 # For most machines,       use wtime.c
 # For SGI power challenge: use wtime_sgi64.c
-# Note: WTIME is only used in the serial version.
 #---------------------------------------------------------------------------
 WTIME  = wtime.c
 

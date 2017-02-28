@@ -3,6 +3,9 @@
 /*****************************************************************/
 #include <stdlib.h>
 #include <stdio.h>
+#ifdef _OPENMP
+#include <omp.h>
+#endif
 
 void c_print_results( char   *name,
                       char   class,
@@ -23,24 +26,56 @@ void c_print_results( char   *name,
                       char   *cflags,
                       char   *clinkflags )
 {
+    int num_threads, max_threads;
+
+
+    max_threads = 1;
+    num_threads = 1;
+
+/*   figure out number of threads used */
+#ifdef _OPENMP
+    max_threads = omp_get_max_threads();
+#pragma omp parallel shared(num_threads)
+{
+    #pragma omp master
+    num_threads = omp_get_num_threads();
+}
+#endif
+
+
     printf( "\n\n %s Benchmark Completed\n", name ); 
 
     printf( " Class           =                        %c\n", class );
 
-    if( n2 == 0 && n3 == 0 )
-        printf( " Size            =             %12d\n", n1 );   /* as in IS */
+    if( n3 == 0 ) {
+        long nn = n1;
+        if ( n2 != 0 ) nn *= n2;
+        printf( " Size            =             %12ld\n", nn );   /* as in IS */
+    }
     else
-        printf( " Size            =              %3dx %3dx %3d\n", n1,n2,n3 );
+        printf( " Size            =             %4dx%4dx%4d\n", n1,n2,n3 );
 
     printf( " Iterations      =             %12d\n", niter );
  
     printf( " Time in seconds =             %12.2f\n", t );
 
+    printf( " Total threads   =             %12d\n", num_threads);
+
+    printf( " Avail threads   =             %12d\n", max_threads);
+
+    if (num_threads != max_threads) 
+        printf( " Warning: Threads used differ from threads available\n");
+
     printf( " Mop/s total     =             %12.2f\n", mops );
+
+    printf( " Mop/s/thread    =             %12.2f\n",
+           mops/(double)num_threads );
 
     printf( " Operation type  = %24s\n", optype);
 
-    if( passed_verification )
+    if( passed_verification < 0 )
+        printf( " Verification    =            NOT PERFORMED\n" );
+    else if( passed_verification )
         printf( " Verification    =               SUCCESSFUL\n" );
     else
         printf( " Verification    =             UNSUCCESSFUL\n" );
@@ -62,15 +97,11 @@ void c_print_results( char   *name,
     printf( "    CFLAGS       = %s\n", cflags );
 
     printf( "    CLINKFLAGS   = %s\n", clinkflags );
-#ifdef SMP
-    evalue = getenv("MP_SET_NUMTHREADS");
-    printf( "   MULTICPUS = %s\n", evalue );
-#endif
 
     printf( "\n\n" );
     printf( " Please send all errors/feedbacks to:\n\n" );
     printf( " NPB Development Team\n" );
-    printf( " npb@nas.nasa.gov\n\n" );
+    printf( " npb@nas.nasa.gov\n\n\n" );
 /*    printf( " Please send the results of this run to:\n\n" );
     printf( " NPB Development Team\n" );
     printf( " Internet: npb@nas.nasa.gov\n \n" );

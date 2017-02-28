@@ -1,4 +1,4 @@
-UCC = ${TS_CC}
+UCC = cc
 include ../config/make.def
 
 # Note that COMPILE is also defined in make.common and should
@@ -13,7 +13,7 @@ all: setparams
 # was compiled and linked
 
 setparams: setparams.c ../config/make.def
-	$(UCC) ${CONVERTFLAG} -o setparams setparams.c -lm
+	$(UCC) ${CONVERTFLAG} -o setparams setparams.c
 
 
 clean: 

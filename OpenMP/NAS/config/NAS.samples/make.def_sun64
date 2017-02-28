@@ -27,9 +27,9 @@
 #---------------------------------------------------------------------------
 
 #---------------------------------------------------------------------------
-# This is the fortran compiler used for fortran programs
+# This is the fortran compiler used for Fortran programs
 #---------------------------------------------------------------------------
-F77 = f77
+F77 = f90
 # This links fortran programs; usually the same as ${F77}
 FLINK	= $(F77)
 
@@ -46,14 +46,14 @@ F_INC =
 #---------------------------------------------------------------------------
 # Global *compile time* flags for Fortran programs
 #---------------------------------------------------------------------------
-FFLAGS	= -fast -xarch=native64
+FFLAGS	= -fast -openmp -xarch=native64
 # FFLAGS = -g
 
 #---------------------------------------------------------------------------
 # Global *link time* flags. Flags for increasing maximum executable 
 # size usually go here. 
 #---------------------------------------------------------------------------
-FLINKFLAGS = -fast -xarch=native64
+FLINKFLAGS = -fast -openmp -xarch=native64
 
 
 #---------------------------------------------------------------------------
@@ -79,6 +79,7 @@ FLINKFLAGS = -fast -xarch=native64
 CC = cc
 # This links C programs; usually the same as ${CC}
 CLINK	= $(CC)
+
 #---------------------------------------------------------------------------
 # These macros are passed to the linker 
 #---------------------------------------------------------------------------
@@ -92,14 +93,14 @@ C_INC =
 #---------------------------------------------------------------------------
 # Global *compile time* flags for C programs
 #---------------------------------------------------------------------------
-CFLAGS	= -fast -xarch=native64
+CFLAGS	= -fast -xopenmp -xarch=native64
 # CFLAGS = -g
 
 #---------------------------------------------------------------------------
 # Global *link time* flags. Flags for increasing maximum executable 
 # size usually go here. 
 #---------------------------------------------------------------------------
-CLINKFLAGS = -fast -xarch=native64
+CLINKFLAGS = -fast -xopenmp -xarch=native64
 
 
 #---------------------------------------------------------------------------
@@ -120,7 +121,7 @@ BINDIR	= ../bin
 
 #---------------------------------------------------------------------------
 # The variable RAND controls which random number generator 
-# is used. It is described in detail in Doc/README.install. 
+# is used. It is described in detail in README.install. 
 # Use "randi8" unless there is a reason to use another one. 
 # Other allowed values are "randi8_safe", "randdp" and "randdpvec"
 #---------------------------------------------------------------------------
@@ -134,7 +135,6 @@ RAND   = randi8
 # NPB3.x/common directory.  
 # For most machines,       use wtime.c
 # For SGI power challenge: use wtime_sgi64.c
-# Note: WTIME is only used in the serial version.
 #---------------------------------------------------------------------------
 WTIME  = wtime.c
 
