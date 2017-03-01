@@ -1,0 +1,36 @@
+#!/bin/bash
+
+#MSUB -S bash
+#MSUB -l nodes=4096:ppn=16
+#MSUB -l walltime=08:00:00
+#MSUB -q pbatch 
+#MSUB -m be
+#MSUB -V
+#MSUB -A coral
+#MSUB    -j oe
+#MSUB    -o /g/g20/ghosh4/CORAL_Benchmarks/miniFE/miniFE_openmp-2.0-rc3/run/test_4Knodes_1T.out
+
+
+# Large problem, sized for approximately 32 TB total memory usage.
+# The script below is based on a 2048 node, 49152 MPI rank run on NERSC's Hopper
+#echo "running large problem on 2048 nodes, 49152 cores"
+#aprun -cc cpu -n 49152 ./miniFE.x -nx 4293 -ny 4293 -nz 4293
+
+
+
+#
+# Hybrid
+#
+EXE=../src/miniFE.x
+
+#
+for T in 1 2 4 
+do
+export OMP_NUM_THREADS=$T
+# OOM: srunx  -N 32    -n 512    $EXE -nx 1048 -ny 1024 -nz 2048
+#srunx  -N 32    -n 512    $EXE -nx 1048 -ny 1024 -nz 1024  # Fits on 16GB BG/Q node.
+srunx  -N 4096  -n 65536  $EXE -nx 4224 -ny 4096 -nz 4096  # Fits on 16GB BG/Q node.
+#srunx  -N 2048  -n 32768  $EXE -nx 4224 -ny 4096 -nz 2048  # Fits on 16GB BG/Q node.
+#srunx  -N 1024  -n 16384  $EXE -nx 4224 -ny 2048 -nz 2048  # Fits on 16GB BG/Q node.
+#srunx  -N 512   -n 8192   $EXE -nx 4224 -ny 2048 -nz 1024  # Fits on 16GB BG/Q node.
+done
