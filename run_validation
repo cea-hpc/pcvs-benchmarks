@@ -217,7 +217,6 @@ sub iterate_sub_configuration
 
 	foreach my $k (keys %{$hashref})
 	{
-		print "${k} is ".ref(${$hashref}{$k})."\n";
 		if(ref(${$hashref}{$k}) eq "HASH")
 		{
 			iterate_sub_configuration($output_file, ${$hashref}{$k}, "${key}_${k}");
@@ -243,25 +242,7 @@ sub dump_run_configuration
 	
 	# build ENV
 	open($output_file, '>', "$buildir/config.env") || die("Unable to write Shell-compliant configuration file !");
-	print Dumper(\%configuration);
 	iterate_sub_configuration($output_file, \%configuration, "pcvs");
-	exit 0;
-	#foreach my $k (keys %configuration)
-	#{
-		#print "$k is ".ref($configuration{$k})."\n";
-		#if(ref($configuration{$k}) eq "HASH")
-		#{
-			
-		#}
-		#elsif(ref $configuration{$k} eq "ARRAY")
-		#{
-			#print $output_file "pcvs_".$k."_list=\"".join(" ", @{$configuration{$k}})."\"\n";
-		#}
-		#else
-		#{
-			#print $output_file "pcvs_$k=\"$configuration{$k}\"\n";
-		#}
-	#}
 	close($output_file);
 }
 
