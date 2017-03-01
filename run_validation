@@ -94,8 +94,8 @@ sub print_summary
 	print "      - Source directory : $configuration{'src'}\n";
 	print "      - Build directory  : $configuration{'build'}\n";
 	print "      - Loaded Config.   : $config_target\n";
-	print "      - Loaded Runtime   : \'$configuration{'runtime-target'}\'\n";
-	print "      - Loaded Compiler  : \'$configuration{'compiler-target'}\'\n";
+	print "      - Loaded Runtime   : \'$configuration{'runtime'}{'target'}\'\n";
+	print "      - Loaded Compiler  : \'$configuration{'compiler'}{'target'}\'\n";
 	print "      - Test directories : ".join(", ", @{ $configuration{'select'} } )."\n";
 }
 
@@ -388,9 +388,25 @@ sub configure_run
 	print "\n >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> BUILD STEP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
 	clean_path("$buildir/test_suite", 1);
 	print " * Building list_of_tests.xml\n";
-	foreach my $path (@{ $configuration{'select'}})
+	foreach my $item (@{ $configuration{'select'}})
 	{
-		system("$internaldir/generation/gen_list_of_tests $path");
+		my $path = "$srcdir/$item";
+		my @defconf = `find $path -name "testSuite_config"`; chomp @defconf;
+		my $setup_out;
+		my $build_out;
+
+		foreach my $sub_item(@defconf)
+		{
+			$sub_item =~ s/\/testSuite_config$//;
+			print "    - Generating $sub_item\n";
+			if(-f "$sub_item/pcvs_setup")
+			{
+				$setup_out = `$sub_item/pcvs_setup`;
+			}
+			
+			#$build_out = `$sub_item/testSuite_config`;
+
+		}
 	}
 }
 
