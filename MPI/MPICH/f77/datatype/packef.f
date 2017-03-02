@@ -171,9 +171,8 @@ C
        enddo
        if (coutbuf(1:csize) .ne. 'This is a string') then
           errs = errs + 1
-          print *, 'coutbuf error'
-C          print *, 'coutbuf = ', coutbuf(1:csize), ' expected ',           &
-C     &             'This is a string'
+          print *, 'coutbuf = ', coutbuf(1:csize), ' expected ',           &
+     &             'This is a string'
        endif
        do i=1, insize2
           if (ioutbuf2(i) .ne. 5000-i) then

@@ -9,7 +9,7 @@
 
 include $(top_srcdir)/Makefile_f08.mtest
 
-EXTRA_DIST = testlist
+EXTRA_DIST = testlist.in
 
 # avoid having to write many "foo_SOURCES = foo.f90" lines
 AM_DEFAULT_SOURCE_EXT = .f90
@@ -28,6 +28,11 @@ noinst_PROGRAMS = \
     baseattrwinf08  \
     winattrf08      \
     winattr2f08
+
+if BUILD_MPIX_TESTS
+noinst_PROGRAMS += aintf08
+endif
+
 ## this test was commented out in the simplemake version...
 ##    allocmem
 

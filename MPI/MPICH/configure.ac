@@ -11,8 +11,13 @@ dnl
 dnl The file name here refers to a file in the source being configured
 dnl FIXME this is the old style, needs updating to new style
 dnl AC_INIT(include/mpitest.h)
-dnl FIXME duplication with VERSION variable below
-AC_INIT([mpich-testsuite],[1.2])
+m4_include([version.m4])
+AC_INIT([mpich-testsuite],
+        MPICH_VERSION_m4,
+        [discuss@mpich.org],
+        [mpich-testsuite],
+        [http://www.mpich.org/])
+
 AC_CONFIG_HEADER(include/mpitestconf.h)
 AH_TOP([/* -*- Mode: C; c-basic-offset:4 ; -*- */
 /*  
@@ -23,11 +28,8 @@ AH_TOP([/* -*- Mode: C; c-basic-offset:4 ; -*- */
 #define MPITESTCONF_H_INCLUDED
 ])
 AH_BOTTOM([#endif])
-# This version is the version of the test suite.
-# 1.0: Initial version (all versions) before independent release
-# 1.1: Initial version that is independent of MPICH  11/08
-# 1.2: Automake replaces simplemake
-VERSION=1.2
+
+VERSION=MPICH_VERSION_m4
 AC_SUBST(VERSION)
 AC_CONFIG_AUX_DIR([confdb])
 AC_CONFIG_MACRO_DIR([confdb])
@@ -171,6 +173,11 @@ AC_ARG_ENABLE(ft-tests,
 	[AC_HELP_STRING([--enable-ft-tests],
 		[Include tests for fault tolerance (default)])],,
 	[enable_ft_tests=yes])
+
+AC_ARG_ENABLE(comm-overlap-tests,
+	[AC_HELP_STRING([--enable-comm-overlap-tests],
+		[Include tests for communicator overlap (default)])],,
+	[enable_comm_overlap_tests=yes])
 
 AC_ARG_ENABLE(checkfaults,
 	[AC_HELP_STRING([--enable-checkfaults],
@@ -368,6 +375,15 @@ if test "$first_pm" = "hydra" -a  "$enable_strictmpi" = "no" -a "$enable_ft_test
 fi
 AC_SUBST(ftdir)
 
+# Setup "comm_overlap" variable based on whether comm_overlap tests
+# are enabled or not
+if test "${enable_comm_overlap_tests}" = "yes" ; then
+   comm_overlap=""
+else
+   comm_overlap="#"
+fi
+AC_SUBST(comm_overlap)
+
 # 
 # Only run the threads tests if multiple is specified
 if test "$enable_threads" = "multiple" -o "$enable_threads" = "runtime" ; then
@@ -413,6 +429,11 @@ if test "$FROM_MPICH" = yes ; then
     if test -n "$MPICH_ENABLE_CXX" ; then
         enable_cxx=$MPICH_ENABLE_CXX
     fi
+    namepub_tests="#"
+    if test -n "$nameserv_name" ; then
+        namepub_tests=""
+    fi
+    AC_SUBST(namepub_tests)
 fi
 
 # Some MPI-2 implementations (including some of the MPICH shared-memory
@@ -463,6 +484,18 @@ if test "$FROM_MPICH" = "yes" -a "$enable_strictmpi" = "no" ; then
    MPI_HAS_MPIX=yes
 fi
 AC_SUBST(MPI_HAS_MPIX)
+
+# Prepend @mpix@ to lines of tests in testlist.in which are MPIX tests so that
+# we can skip running these tests when we do strict MPI test.
+mpix="#"
+if test "$enable_strictmpi" = "no"; then
+    mpix=""
+fi
+AC_SUBST(mpix)
+
+# Use the conditional variable BUILD_MPIX_TESTS to conditionally add MPIX tests
+# to noninst_PROGRAMS to skip building the tests when we do strict MPI test
+AM_CONDITIONAL([BUILD_MPIX_TESTS], [test "$enable_strictmpi" = "no"])
 
 # preserve these values across a reconfigure
 AC_ARG_VAR([WRAPPER_CFLAGS],[])
@@ -676,6 +709,7 @@ if test "$spawndir" = "spawn" ; then
     AC_SUBST(nslib)
 fi
 
+threadlib=""
 # Headers needed for threads tests
 if test "$threadsdir" = "threads" ; then
     # Check for needed threads headers and needed and optional routines
@@ -684,7 +718,7 @@ if test "$threadsdir" = "threads" ; then
     # we shouldn't actually need to do this, but we are dodging the chicken/egg
     # problem b/c we don't have a working mpicc yet and we temporarily discarded
     # the MPICH-set LIBS (probably the wrong thing to do)
-    AC_SEARCH_LIBS([pthread_create],[pthread])
+    AC_SEARCH_LIBS([pthread_create],[pthread],[threadlib="-lpthread"])
     AC_SEARCH_LIBS([pthread_barrier_init],[pthread])
 
     AC_CHECK_FUNCS(pthread_create pthread_yield pthread_barrier_init pthread_barrier_wait)
@@ -692,6 +726,7 @@ if test "$threadsdir" = "threads" ; then
         AC_CHECK_FUNCS(MPI_Init_thread)
     fi    
 fi
+AC_SUBST(threadlib)
 
 # Check for h_addr or h_addr_list.  This is needed for the singjoin test
 # in manual/singjoin.c
@@ -804,7 +839,6 @@ if test "$f77dir" = "f77" ; then
     AC_DEFINE(HAVE_FORTRAN_BINDING,1,[Define if Fortran is supported])
 fi
 
-AM_CONDITIONAL([BUILD_F77_TESTS],[test "X$f77dir" = "f77"])
 
 AC_ARG_VAR([MPI_SIZEOF_AINT],[if set, force MPI_Aint to a width of this many bytes])
 AC_ARG_VAR([MPI_SIZEOF_OFFSET],[if set, force MPI_Offset to a width of this many bytes])
@@ -1189,7 +1223,6 @@ elif test "$enable_fc" = yes ; then
     ])
     AC_LANG_POP([Fortran])
 fi
-AM_CONDITIONAL([BUILD_F90_TESTS],[test "X$f90dir" = "f90"])
 
 f08dir="#"
 AC_SUBST(f08dir)
@@ -1294,7 +1327,6 @@ if test "$enable_cxx" = yes ; then
     fi
     AC_LANG_POP([C++])
 fi
-AM_CONDITIONAL([BUILD_CXX_TESTS],[test "X$cxxdir" = "cxx"])
 
 AC_LANG_C
 # IO
@@ -1498,6 +1530,7 @@ AC_OUTPUT(maint/testmerge \
           attr/Makefile \
           util/Makefile \
           coll/Makefile \
+	  coll/testlist \
           comm/Makefile \
           datatype/Makefile \
           datatype/testlist \
@@ -1510,8 +1543,10 @@ AC_OUTPUT(maint/testmerge \
           rma/Makefile \
           rma/testlist \
           spawn/Makefile \
+          spawn/testlist \
           topo/Makefile \
           io/Makefile \
+          io/testlist \
           f77/Makefile \
           f77/attr/Makefile \
           f77/attr/attraints.h \
@@ -1537,6 +1572,7 @@ AC_OUTPUT(maint/testmerge \
           f77/io/iooffset.h \
           f77/io/iodisp.h \
           f77/io/ioaint.h \
+          f77/io/testlist \
 	  f77/profile/Makefile \
           f90/Makefile \
           f90/attr/Makefile \
@@ -1556,6 +1592,7 @@ AC_OUTPUT(maint/testmerge \
           f90/ext/Makefile \
           f90/ext/testlist \
           f90/io/Makefile \
+          f90/io/testlist \
           f90/misc/Makefile \
 	      f90/profile/Makefile \
 	  f08/Makefile \
@@ -1569,9 +1606,11 @@ AC_OUTPUT(maint/testmerge \
 	      f08/subarray/Makefile \
 	      f08/topo/Makefile \
 	      f08/io/Makefile \
+	      f08/io/testlist \
           f08/init/Makefile \
           f08/info/Makefile \
           f08/spawn/Makefile \
+          f08/spawn/testlist \
           f08/timer/Makefile \
           f08/ext/Makefile \
           f08/misc/Makefile \
@@ -1589,15 +1628,19 @@ AC_OUTPUT(maint/testmerge \
           cxx/init/Makefile \
           cxx/rma/Makefile \
           cxx/spawn/Makefile \
+          cxx/spawn/testlist \
 	  cxx/topo/Makefile \
           threads/Makefile \
           threads/pt2pt/Makefile \
           threads/util/Makefile \
           threads/comm/Makefile \
+          threads/comm/testlist \
           threads/init/Makefile \
           threads/mpi_t/Makefile \
           threads/spawn/Makefile \
           threads/rma/Makefile \
+          threads/coll/Makefile \
+          threads/coll/testlist \
           errors/Makefile \
           errors/attr/Makefile \
           errors/basic/Makefile \
@@ -1609,6 +1652,7 @@ AC_OUTPUT(maint/testmerge \
           errors/pt2pt/Makefile \
           errors/rma/Makefile \
           errors/spawn/Makefile \
+          errors/spawn/testlist \
           errors/topo/Makefile \
           errors/io/Makefile \
           errors/cxx/Makefile \
@@ -1639,6 +1683,9 @@ AC_OUTPUT(maint/testmerge \
           errors/f77/testlist \
           errors/f90/testlist \
           impls/testlist \
+          f77/rma/testlist \
+          f90/rma/testlist \
+          f08/rma/testlist \
           impls/Makefile \
 	  impls/hydra/Makefile \
 	  impls/hydra/proc_binding.sh \

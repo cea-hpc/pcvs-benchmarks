@@ -7,14 +7,13 @@
 
 include $(top_srcdir)/Makefile.mtest
 
-EXTRA_DIST = testlist
+EXTRA_DIST = testlist.in
 
 ## for all programs that are just built from the single corresponding source
 ## file, we don't need per-target _SOURCES rules, automake will infer them
 ## correctly
 noinst_PROGRAMS =          \
     allocmem               \
-    ircpi                  \
     test1                  \
     test2                  \
     test2_shm              \
@@ -26,6 +25,15 @@ noinst_PROGRAMS =          \
     lockcontention2        \
     lockcontention3        \
     lockopts               \
+    lock_dt                \
+    lock_dt_flush          \
+    lock_dt_flushlocal     \
+    lockall_dt             \
+    lockall_dt_flush       \
+    lockall_dt_flushall    \
+    lockall_dt_flushlocal  \
+    lockall_dt_flushlocalall\
+    lock_contention_dt     \
     contention_put         \
     contention_putget      \
     put_base               \
@@ -93,6 +101,8 @@ noinst_PROGRAMS =          \
     win_shared_noncontig   \
     win_shared_noncontig_put \
     win_shared_zerobyte    \
+    win_shared_create_allocshm    \
+    win_shared_create_no_allocshm \
     win_zero               \
     win_large_shm          \
     win_dynamic_acc        \
@@ -137,7 +147,32 @@ noinst_PROGRAMS =          \
     acc-loc                \
     fence_shm              \
     get-struct             \
-    at_complete
+    rput_local_comp        \
+    racc_local_comp        \
+    at_complete            \
+    atomic_rmw_fop         \
+    atomic_rmw_cas         \
+    atomic_rmw_gacc	   \
+    atomic_get             \
+    acc-pairtype           \
+    manyget                \
+    derived-acc-flush_local\
+    large-acc-flush_local  \
+    large-small-acc        \
+    put_flush_get  \
+    acc_flush_get  \
+    gacc_flush_get \
+    fop_flush_get  \
+    cas_flush_get  \
+    win_shared_put_flush_load  \
+    win_shared_acc_flush_load  \
+    win_shared_gacc_flush_load \
+    win_shared_fop_flush_load  \
+    win_shared_cas_flush_load
+
+if BUILD_MPIX_TESTS
+noinst_PROGRAMS += aint
+endif
 
 strided_acc_indexed_LDADD       = $(LDADD) -lm
 strided_acc_onelock_LDADD       = $(LDADD) -lm
@@ -214,4 +249,30 @@ mutex_bench_shm_ordered_SOURCES  = mutex_bench.c mcs-mutex.c mcs-mutex.h
 linked_list_bench_lock_shr_nocheck_SOURCES  = linked_list_bench_lock_shr.c
 linked_list_bench_lock_shr_nocheck_CPPFLAGS = -DUSE_MODE_NOCHECK $(AM_CPPFLAGS)
 
-ircpi_LDADD    = $(LDADD) -lm
+win_shared_create_allocshm_SOURCES = win_shared_create.c
+win_shared_create_no_allocshm_SOURCES = win_shared_create.c
+win_shared_create_allocshm_CPPFLAGS = -DUSE_INFO_ALLOC_SHM $(AM_CPPFLAGS)
+
+put_flush_get_SOURCES        = wrma_flush_get.c
+acc_flush_get_SOURCES        = wrma_flush_get.c
+gacc_flush_get_SOURCES       = wrma_flush_get.c
+fop_flush_get_SOURCES        = wrma_flush_get.c
+cas_flush_get_SOURCES        = wrma_flush_get.c
+
+put_flush_get_CPPFLAGS  = -DTEST_PUT $(AM_CPPFLAGS)
+acc_flush_get_CPPFLAGS  = -DTEST_ACC $(AM_CPPFLAGS)
+gacc_flush_get_CPPFLAGS = -DTEST_GACC $(AM_CPPFLAGS)
+fop_flush_get_CPPFLAGS  = -DTEST_FOP $(AM_CPPFLAGS)
+cas_flush_get_CPPFLAGS  = -DTEST_CAS $(AM_CPPFLAGS)
+
+win_shared_put_flush_load_SOURCES        = win_shared_rma_flush_load.c
+win_shared_acc_flush_load_SOURCES        = win_shared_rma_flush_load.c
+win_shared_gacc_flush_load_SOURCES       = win_shared_rma_flush_load.c
+win_shared_fop_flush_load_SOURCES        = win_shared_rma_flush_load.c
+win_shared_cas_flush_load_SOURCES        = win_shared_rma_flush_load.c
+
+win_shared_put_flush_load_CPPFLAGS  = -DTEST_PUT $(AM_CPPFLAGS)
+win_shared_acc_flush_load_CPPFLAGS  = -DTEST_ACC $(AM_CPPFLAGS)
+win_shared_gacc_flush_load_CPPFLAGS = -DTEST_GACC $(AM_CPPFLAGS)
+win_shared_fop_flush_load_CPPFLAGS  = -DTEST_FOP $(AM_CPPFLAGS)
+win_shared_cas_flush_load_CPPFLAGS  = -DTEST_CAS $(AM_CPPFLAGS)
