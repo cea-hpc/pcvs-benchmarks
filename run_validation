@@ -246,6 +246,13 @@ sub dump_run_configuration
 	close($output_file);
 }
 
+sub display_available_vars()
+{
+	print "Available Variables for the current run :\n";
+	delete $configuration{'list-vars'};
+	iterate_sub_configuration(*STDOUT, \%configuration, "pcvs");
+	exit 0;
+}
 
 
 sub build_current_configuration
@@ -313,9 +320,6 @@ sub build_current_configuration
 	}
 
 	validate_run_configuration();
-
-	dump_run_configuration();
-
 }
 
 sub prepare_run
@@ -487,6 +491,7 @@ GetOptions (
 	"log!",
 	"list-runtimes|lr",
 	"list-compilers|lc",
+	"list-vars",
 	"user-testfiles=s@",
 	"regen!",
 	"color|c",
@@ -532,11 +537,13 @@ if ($configuration{'list-directories'})
 
 my $validation_start = time();
 
+build_current_configuration();
+(display_available_vars() and exit 0) if(exists $configuration{'list-vars'});
+
 #create build directory and create a tee file if logging is enabled
 clean_path($buildir, 0);
 tee(STDOUT, '>', "$buildir/output.log") if (!exists $configuration{'log'} || $configuration{'log'});
-
-build_current_configuration();
+dump_run_configuration();
 
 my $banner = `cat $internaldir/resources/banners/test_suite_banner`;
 print $banner;
