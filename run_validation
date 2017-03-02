@@ -51,7 +51,7 @@ sub clean_path
 {
 	my ($path,$with_clean) = @_;
 	mkpath($path) if (! -d $path);
-	(print " * Cleaning $path\n" and pathempty($path)) if ($with_clean); 
+	(pathempty($path)) if ($with_clean); 
 }
 
 sub list_compilers
@@ -75,7 +75,7 @@ sub list_configs
 sub list_avail_directories
 {
 	opendir(my $dirlist, "$srcdir");
-	return grep { -d "$srcdir/$_" and /^(MPI|OpenMP|performance|reproducers|thread-engines|Threads)/} readdir($dirlist);
+	return grep { -d "$srcdir/$_" and /^(accelerators|applications|MPI|OpenMP|performance|reproducers|thread-engines)/} readdir($dirlist);
 }
 
 sub print_help
@@ -401,15 +401,17 @@ sub configure_run
 
 		foreach my $sub_item(@defconf)
 		{
-			$sub_item =~ s/\/testSuite_config$//;
-			print "    - Generating $sub_item\n";
+			$sub_item =~ s/\/pcvs_tests$//;
+			(my $name = $sub_item) =~ s/$srcdir\///g;
+			print "    - Generating $name\n";
 			if(-f "$sub_item/pcvs_setup")
 			{
 				$setup_out = `$sub_item/pcvs_setup`;
 			}
 			
-			#$build_out = `$sub_item/testSuite_config`;
-
+			my $build_prefix = "$buildir/test_suite/$name";
+			clean_path($build_prefix, 1);
+			system("cat $sub_item/pcvs_tests > $build_prefix/list_of_tests.xml");
 		}
 	}
 }
@@ -438,8 +440,7 @@ sub run
 	$autokill = ("--autokill=$configuration{'validation'}{'autokill'}") if ($configuration{'validation'}{'autokill'} > 0);
 	$run_w = ("--launcher=$internaldir/launcher/$configuration{'validation'}{'run_wrapper'}.sh") if ($configuration{'validation'}{'run_wrapper'});
 	$compil_w = ("--compil-launcher=$internaldir/launcher/$configuration{'validation'}{'compil_wrapper'}.sh") if ($configuration{'validation'}{'compil_wrapper'});
-	$compil_w = ("--compil-launcher=$internaldir/launcher/$configuration{'validation'}{'compil_wrapper'}.sh") if ($configuration{'validation'}{'compil_wrapper'});
-	$compil_w = ("--compil-launcher=$internaldir/launcher/$configuration{'validation'}{'compil_wrapper'}.sh") if ($configuration{'validation'}{'compil_wrapper'});
+	$compil_w = ("--compil-launcher=$internaldir/launcher/$configuration{'validation'}{'run_wrapper'}_compil.sh") if ($configuration{'validation'}{'run_wrapper'});
 	$verbosity = "--verbosity=$configuration{'verbose'}";
 	$policy = "--policy=$configuration{'validation'}{'sched_policy'}";
 	$maxjobt = "--maxt-job=$configuration{'validation'}{'job_meantime'}";
