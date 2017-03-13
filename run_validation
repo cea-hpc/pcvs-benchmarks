@@ -413,7 +413,7 @@ sub configure_run
 			$cleaned_by_setup = 1;
 
 			print "    - Setup $name\n";
-			system(". $buildir/config.env && $setup_elem/pcvs.setup $name > $current_bpath/pcvs.yml.in 2>&1");
+			system(". $buildir/config.env && $setup_elem/pcvs.setup $name > $current_bpath/pcvs.yml.in");
 		}
 
 		#as pcvs.setup can create some YAML file in work dir, we look for these files in both 
@@ -447,7 +447,20 @@ sub configure_run
 			{
 				$writer->startTag("job");
 				$writer->dataElement("name", "$test");
-				$writer->dataElement("command", "echo \"hello World !\" 2>&1 && sleep 1");
+
+				my $command; 
+				if(exists $cur_file->{$test}{'target'}) # makefile
+				{
+					(my $makepath = $cur_file->{$test}{'files'}) =~ s,/[^/]*$,,;
+					(my $makefile = $cur_file->{$test}{'files'}) =~ s/^$makepath\///;
+					$command = "make -f $makefile -C $makepath $cur_file->{$test}{'target'}";
+				}
+				else
+				{
+					$command = "echo Hello, World && return 2";
+				}
+
+				$writer->dataElement("command", $command);
 				#$writer->dataElement("rc", "$cur_file->{$test}{'returns'}");
 				$writer->endTag("job");
 			}

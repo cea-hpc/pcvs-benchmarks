@@ -4,5 +4,7 @@ pcvs_src_current="$pcvs_src/$1"
 pcvs_build_current="$pcvs_build/test_suite/$1"
 
 . $pcvs_src_current/../pcvs.setup.common 
+
+cp -r $pcvs_src_current/../src/* $pcvs_build_current
 pcvs_gen_makefile "-DCHECK" > $pcvs_build_current/Makefile
 cat $pcvs_src_current/../pcvs.yml.common

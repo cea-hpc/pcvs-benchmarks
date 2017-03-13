@@ -1,13 +1,13 @@
 ---
 simple_test:
-        src: '@SRCPATH@/testfile.c'
+        files: '@SRCPATH@/testfile.c'
         limit: 200
         returns: 0
 
 ####################################################
 ####################################################
 compile_make: &compilemake1
-        src: "@SRCPATH@/Makefile.test"
+        files: "@SRCPATH@/Makefile.test"
         target: "TEST-1"
         args: "VERBOSE=1"
         iter: []
@@ -15,7 +15,7 @@ compile_make: &compilemake1
 ####################################################
 ####################################################
 compile_name: &compiletest1
-        src: "@SRCPATH@/file1.c @SRCPATH@/file2.c"
+        files: "@SRCPATH@/file1.c @SRCPATH@/file2.c"
         target: ""
         args: "--test-args --lpthread"
         iter: []
@@ -33,7 +33,7 @@ test_name_:
 ####################################################
 ####################################################
 test_wildcard: &wildcard
-        src: '@SRCPATH@/test.h'
+        files: '@SRCPATH@/test.h'
         limit: 100
         tolerance: 2
         args: '-i 3'
@@ -42,7 +42,7 @@ test_wildcard: &wildcard
 
 group_test1:
         herited : *wildcard
-        src: 'file.c'
+        files: 'file.c'
         args: '-iter 100'
 
 group_test2:
