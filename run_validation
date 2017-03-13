@@ -394,51 +394,54 @@ sub configure_run
 	print "\n >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> BUILD STEP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
 	clean_path("$buildir/test_suite", 1);
 	print " * Building the list of tests:\n";
-	foreach my $item (@{ $configuration{'select'}})
+	foreach my $directory (@{ $configuration{'select'}})
 	{
-		my $path = "$srcdir/$item";
-		my @defconf = `find $path -name "pcvs.setup"`; chomp @defconf;
-		my $clean_done = 0;
+		my $current_path = "$srcdir/$directory";
+		my @current_list = `find $current_path -name "pcvs.setup"`; chomp @current_list;
+		my $cleaned_by_setup = 0;
 
 		# apply pcvs.setup
-		foreach my $sub_item(@defconf)
+		foreach my $setup_elem(@current_list)
 		{
 			#find the associated subtree
-			$sub_item =~ s/\/pcvs.setup$//;
-			(my $name = $sub_item) =~ s/$srcdir\///g;
-			my $build_prefix = "$buildir/test_suite/$name";
+			$setup_elem =~ s/\/pcvs.setup$//;
+			(my $name = $setup_elem) =~ s/$srcdir\///g;
+			my $current_bpath = "$buildir/test_suite/$name";
 
 			#cleaning
-			clean_path($build_prefix, 1);
-			$clean_done = 1;
+			clean_path($current_bpath, 1);
+			$cleaned_by_setup = 1;
 
 			print "    - Setup $name\n";
-			system(". $buildir/config.env && $sub_item/pcvs.setup $name");
+			system(". $buildir/config.env && $setup_elem/pcvs.setup $name > $current_bpath/pcvs.yml.in 2>&1");
 		}
 
 		#as pcvs.setup can create some YAML file in work dir, we look for these files in both 
 		# source and work directories
-		@defconf = `find $path $buildir/test_suite/$item -name "pcvs.yml"`; chomp @defconf;
-		foreach my $sub_item(@defconf)
+		@current_list = `find $current_path $buildir/test_suite/$directory -name "pcvs.yml.in"`; chomp @current_list;
+		foreach my $yaml_elem(@current_list)
 		{
 			# find the test subtree
-			$sub_item =~ s/\/pcvs.yml$//;
-			(my $name = $sub_item) =~ s/($buildir\/test_suite|$srcdir)\///g;
-			my $build_prefix = "$buildir/test_suite/$name";
+			$yaml_elem =~ s/\/pcvs.yml.in$//;
+			(my $name = $yaml_elem) =~ s/($buildir\/test_suite|$srcdir)\///g;
+			my $current_bpath = "$buildir/test_suite/$name";
 			
 			#clean if pcvs.setup didn't do it:
-			clean_path($build_prefix, !$clean_done);
+			clean_path($current_bpath, !$cleaned_by_setup);
+
+			#copy .in file and replace @...@ by real paths (files are in $buildir)
+			fcopy("$yaml_elem/pcvs.yml.in", "$current_bpath/pcvs.yml");
+			system("sed -i -e 's,\@SRCPATH\@,$current_path,g' -e 's,\@BUILDPATH\@,$current_bpath,g' $current_bpath/pcvs.yml");
 			
+			#load the YAML desc file
 			print "    - Generate $name\n";
-		
+			my $cur_file = LoadFile("$yaml_elem/pcvs.yml");
+
 			#ready to write list_of_tests
-			open(my $build_file, ">", "$build_prefix/list_of_tests.xml");
+			open(my $build_file, ">", "$current_bpath/list_of_tests.xml");
 			my $writer = XML::Writer->new(OUTPUT => $build_file, NEWLINES => 1);
 			$writer->startTag("jobSuite", "package" => grep {s/\//\./g} $name);
 		
-			#load the YAML desc file
-			my $cur_file = LoadFile("$sub_item/pcvs.yml");
-
 			# parse each test
 			foreach my $test(keys %{ $cur_file })
 			{

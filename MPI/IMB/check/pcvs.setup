@@ -5,5 +5,4 @@ pcvs_build_current="$pcvs_build/test_suite/$1"
 
 . $pcvs_src_current/../pcvs.setup.common 
 pcvs_gen_makefile "-DCHECK" > $pcvs_build_current/Makefile
-# Not the best way to do it (pcvs.yml is under Git control)
-cp $pcvs_src_current/../pcvs.yml.common $pcvs_build_current/pcvs.yml
+cat $pcvs_src_current/../pcvs.yml.common
