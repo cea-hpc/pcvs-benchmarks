@@ -1,0 +1,69 @@
+NPB3.3-MZ (Multi-Zone) MPI+OpenMP Versions
+-------------------------------------------
+
+NPB Development Team
+   npb@nas.nasa.gov
+
+
+This is the hybrid MPI+OpenMP implementation of the multi-zone
+NAS Parallel Benchmarks.  For detail descriptions of the benchmarks,
+please see:
+   http://www.nas.nasa.gov/Research/Reports/Techreports/2003/
+   nas-03-010-abstract.html
+
+
+For benchmark compilation and runtime setup, please refer to
+README.install included in the directory.
+
+This file briefly summarizes features and changes made in
+different releases of the hybrid versions.
+
+
+NPB 3.3.1-MZ-MPI
+
+  * Fixed a missing argument bug in calling MPI_Abort().
+
+  * Implemented a simple block distribution of zones to MPI processes
+    in SP-MZ and LU-MZ.  This might improve performance of the two 
+    benchmarks in some cases.
+
+
+NPB 3.3-MZ-MPI
+
+  * Merged vector codes into the release.  The vector version
+    can be selected with VERSION=VEC during compilation.
+
+  * Improved cache performance for the SP-MZ benchmark
+
+  * Minor bug fix in mpi_setup.f for mismatched arguments
+
+
+NPB 3.2-MZ-MPI
+
+  * Introduced two new classes of problem: E and F
+
+  * Added "SCHEDULE(STATIC)" to the OpenMP layer of hybrid versions
+
+  * Minor optimization to the communication buffers in MPI versions
+
+  * Fixed a data flush bug for pipeline in LU-MZ
+
+
+NPB 3.1-MZ-MPI
+
+  * Allow variable number of threads for individual processes and 
+    define processor group for each process.
+
+  * Report total number of threads (instead of threads-per-process). 
+
+  * Use accurate surface term in MFLOPS calculation to take into 
+    account non-square zone faces.
+
+  * Improvements for LU-MZ:
+      - Added one SSOR iteraction before timing loop to touch data 
+        pages and code section.
+      - Improved the memory usage for array 'tv'
+      - Made rhs and erhs more cache-friendly.
+
+  * Print built-in timers for all processes 
+

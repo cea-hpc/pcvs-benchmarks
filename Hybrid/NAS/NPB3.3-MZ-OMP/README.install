@@ -1,0 +1,146 @@
+NPB3.3-MZ (Multi-Zone) OpenMP Versions
+----------------------------------------
+
+For details, see
+   http://www.nas.nasa.gov/Research/Reports/Techreports/2003/
+   nas-03-010-abstract.html
+
+NPB Development Team
+   npb@nas.nasa.gov
+
+
+Compilation
+------------
+
+1. copy one of the 'make.def' examples in config/NAS.samples or the
+   file config/make.def.template to config/make.def
+
+2. modify/specify the compiler and compilation flags in config/make.def
+
+3. use the following line to compile
+   make benchmark CLASS=class [VERSION=VEC]
+
+   [benchmark] is one of [bt-mz, sp-mz, lu-mz]
+   [class] is one of [S, W, A through F]
+   The "VERSION=VEC" option can be used to compile the "vectorizable"
+   version of the selected benchmark.
+
+   However, successful vectorization highly depends on the compiler 
+   used.  Some changes to compiler directives for vectorization in 
+   the current codes (see *_vec.f files) may be required.
+
+
+Execution
+----------
+
+The executable is named <benchmark-name>.<class>.x and is placed
+in the bin directory (or in the directory BINDIR specified in
+the make.def).  In order to run the program, you should first
+specify the number of threads and define any needed runtime 
+parameters (see below for details).
+
+Here is an example of running bt-mz, class A with 4 outer 
+threads and 2 inner threads per outer thread (in csh):
+
+   setenv OMP_NUM_THREADS 4
+   setenv OMP_NUM_THREADS2 2
+   bin/bt-mz.A.x
+
+
+Runtime Environment Variables and Setups
+-----------------------------------------
+
+1. Specify the number of threads
+
+There are two ways to specify the number of threads:
+   - using a load data file for different benchmark
+      loadbt-mz.data, loadsp-mz.data, or loadlu-mz.data
+   - using environment variables.
+
+1.1 load data file
+
+Before a load data file can be used, one needs first specify
+the number of outer-level threads (number_of_othreads) by using
+the environment variable OMP_NUM_THREADS (see next section).
+
+A load data file defines the number of threads used for each outer-
+level thread and has the following format:
+   <thread#>  <number_inner_threads>  <flag>
+   <thread#>  <number_inner_threads>  <flag>
+   ...
+
+<thread#> is the outer-level thread number, starting from 0, up to
+<number_of_othreads>-1.  <number_inner_threads> defines the number
+of threads used for each outer thread.  <flag> can be used to control 
+load balancing with threads at the inner-level parallel regions.
+The file will be read from the current working directory.
+
+The load data file precedes the environment variables as described in
+Section 1.2, in particular, the load balancing with threads movement
+will not be applied if all values of <flag> are less than one.
+
+1.2 environment variables
+
+OMP_NUM_THREADS
+  - the number of outer-level threads.  If this variable is not specified,
+    one thread is assumed.
+
+OMP_NUM_THREADS2
+  - the number of threads per outer-level thread.  If this variable is not
+    specified, one inner thread is assumed for each outer thread.
+
+    The total number of threads is
+       number_of_othreads * number_inner_threads.
+
+NPB_OMP_NESTED
+  - control the level of nested OpenMP parallelism in the code.
+    With a value of "1", only the outer-level OpenMP parallelization
+    (among zones) is enabled.  Inner level has no effect.
+    With a value of "2", only the inner-level OpenMP parallelization
+    (with each zone) is enabled.  Outer level has no effect.
+    With other value, both levels are enabled (as the default).
+
+NPB_MZ_BLOAD
+  - flag for load balancing with threads.  By default, load balancing
+    with threads is on (with a value of 1, ON or TRUE).
+
+2. Other environment variables
+
+NPB_VERBOSE
+  - flag to control verbose output.  By default (a value of 0), a summary
+    is printed.  With a value of 1 (or larger), more detailed information 
+    on zones is printed.
+
+3. Use the built-in profile timers
+
+An input parameter file may be used to change several parameters at 
+runtime, one of which is the timer flag that controls the collection of 
+some timing statistics.  In order to use this feature, one needs to create 
+an "input<benchmark>.data" file (<benchmark>=bt-mz, sp-mz or lu-mz) in 
+the working directory from the sample input files included in the source 
+directory.  To collect timing statistics, switch on (with a value of 1)
+the timer flag in the input file.
+
+
+Known Problems
+---------------
+  - On SGI Altix, if undefined symbols (for getenv) are encountered when
+    compiling with the Intel 7.x FORTRAN compiler, add "-Vaxlib" to
+    F_LIB in config/make.def.
+
+    With some versions of Intel compilers, the following runtime variable
+    may be required to avoid a stacksize overflow:
+
+    "setenv KMP_MONITOR_STACKSIZE 200k" (csh) or
+    "export KMP_MONITOR_STACKSIZE=200k" (sh)
+
+  - The LU-MZ benchmark may require larger stack size for OpenMP threads
+    than the default setup.  Different system may have different way of
+    specifying the size.  For example, the Intel compiler accepts
+
+      setenv KMP_STACKSIZE 30m  (csh)
+      export KMP_STACKSIZE=30m  (sh)
+
+    The value will be different for different class of problems.
+    You may need to try a few times.
+

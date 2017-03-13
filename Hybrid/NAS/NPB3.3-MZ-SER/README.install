@@ -1,0 +1,71 @@
+NPB3.3-MZ (Multi-Zone) Serial Versions
+---------------------------------------
+
+For details, see
+   http://www.nas.nasa.gov/Research/Reports/Techreports/2003/
+   nas-03-010-abstract.html
+
+NPB Development Team
+   npb@nas.nasa.gov
+
+
+Compilation
+------------
+
+1. copy one of the 'make.def' examples in config/NAS.samples or the
+   file config/make.def.template to config/make.def
+
+2. modify/specify the compiler and compilation flags in config/make.def
+
+3. use the following line to compile
+   make benchmark CLASS=class [VERSION=VEC]
+
+   [benchmark] is one of [bt-mz, sp-mz, lu-mz]
+   [class] is one of [S, W, A through F]
+   The [VERSION=VEC] option can be used to compile the vector
+   version of the selected benchmark.
+
+   However, successful vectorization highly depends on the compiler 
+   used.  Some changes to compiler directives for vectorization in 
+   the current codes (see *_vec.f files) may be required.
+
+
+Execution
+----------
+
+The executable is named <benchmark-name>.<class>.x and is placed
+in the bin directory (or in the directory BINDIR specified in
+the make.def).  In order to run the program, you should first
+specify any needed runtime parameters (see below for details).
+
+Here is an example of running bt-mz, class A (in csh):
+
+   bin/bt-mz.A.x
+
+
+Runtime Environment Variable
+-----------------------------
+
+NPB_VERBOSE
+  - flag to control verbose output.  By default (a value of 0), a summary
+    is printed.  With a value of 1, more detailed information on zones
+    is printed.
+
+Use the built-in profile timers
+--------------------------------
+
+An input parameter file may be used to change several parameters at 
+runtime, one of which is the timer flag that controls the collection of 
+some timing statistics.  In order to use this feature, one needs to create 
+an "input<benchmark>.data" file (<benchmark>=bt-mz, sp-mz or lu-mz) in 
+the working directory from the sample input files included in the source 
+directory.  To collect timing statistics, switch on (with a value of 1)
+the timer flag in the input file.
+
+
+Known Problems
+---------------
+  - On SGI Altix, if undefined symbols (for getenv) are encountered when
+    compiling with the Intel 7.x FORTRAN compiler, add "-Vaxlib" to
+    F_LIB in config/make.def.
+

@@ -1,0 +1,45 @@
+NPB3.3-MZ (Multi-Zone) Serial Versions
+-------------------------------------------
+
+NPB Development Team
+   npb@nas.nasa.gov
+
+
+This is the serial implementation of the multi-zone
+NAS Parallel Benchmarks.  For detail descriptions of the benchmarks,
+please see:
+   http://www.nas.nasa.gov/Research/Reports/Techreports/2003/
+   nas-03-010-abstract.html
+
+
+For benchmark compilation and runtime setup, please refer to
+README.install included in the directory.
+
+This file briefly summarizes features and changes made in
+different releases of the serial versions.
+
+
+NPB 3.3-MZ-SER
+
+  * Merged vector codes into the release.  The vector version
+    can be selected with VERSION=VEC during compilation.
+
+  * Improved cache performance for the SP-MZ benchmark
+
+
+NPB 3.2-MZ-SER
+
+  * Introduced two new classes of problem: E and F
+
+
+NPB 3.1-MZ-SER
+
+  * Use accurate surface term in MFLOPS calculation to take into 
+    account non-square zone faces.
+
+  * Improvements for LU-MZ:
+      - Added one SSOR iteraction before timing loop to touch data 
+        pages and code section.
+      - Improved the memory usage for array 'tv'
+      - Made rhs and erhs more cache-friendly.
+
