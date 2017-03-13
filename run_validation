@@ -38,6 +38,7 @@ use File::Copy::Recursive qw(fcopy dircopy pathempty);
 use Getopt::Long;    # parsing options
 use Sys::Hostname;   # get current Hostname
 use YAML qw(LoadFile DumpFile); 
+use XML::Writer;
 use Data::Dumper; #to help printing hashes (can be removed)
 
 ###########################################################################
@@ -224,11 +225,11 @@ sub iterate_sub_configuration
 		}
 		elsif(ref ${$hashref}{$k} eq "ARRAY")
 		{
-			print $output_file "${key}_${k}_list=\"".join(" ", @{${$hashref}{$k}})."\"\n";
+			print $output_file "export ${key}_${k}_list=\"".join(" ", @{${$hashref}{$k}})."\"\n";
 		}
 		else
 		{
-			print $output_file "${key}_${k}=\"${$hashref}{$k}\"\n";
+			print $output_file "export ${key}_${k}=\"${$hashref}{$k}\"\n";
 		}
 	}
 }
@@ -392,31 +393,66 @@ sub configure_run
 {
 	print "\n >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> BUILD STEP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
 	clean_path("$buildir/test_suite", 1);
-	print " * Building list_of_tests.xml\n";
+	print " * Building the list of tests:\n";
 	foreach my $item (@{ $configuration{'select'}})
 	{
 		my $path = "$srcdir/$item";
-		my @defconf = `find $path -name "pcvs.yml"`; chomp @defconf;
-		my $setup_out;
-		my $build_out;
+		my @defconf = `find $path -name "pcvs.setup"`; chomp @defconf;
+		my $clean_done = 0;
 
+		# apply pcvs.setup
 		foreach my $sub_item(@defconf)
 		{
+			#find the associated subtree
 			$sub_item =~ s/\/pcvs.setup$//;
 			(my $name = $sub_item) =~ s/$srcdir\///g;
-			print "    - Generating $name\n";
-			if(-f "$sub_item/pcvs.setup")
-			{
-				$setup_out = `$sub_item/pcvs.setup`;
-			}
-			
 			my $build_prefix = "$buildir/test_suite/$name";
+
+			#cleaning
 			clean_path($build_prefix, 1);
+			$clean_done = 1;
+
+			print "    - Setup $name\n";
+			system(". $buildir/config.env && $sub_item/pcvs.setup $name");
+		}
+
+		#as pcvs.setup can create some YAML file in work dir, we look for these files in both 
+		# source and work directories
+		@defconf = `find $path $buildir/test_suite/$item -name "pcvs.yml"`; chomp @defconf;
+		foreach my $sub_item(@defconf)
+		{
+			# find the test subtree
+			$sub_item =~ s/\/pcvs.yml$//;
+			(my $name = $sub_item) =~ s/($buildir\/test_suite|$srcdir)\///g;
+			my $build_prefix = "$buildir/test_suite/$name";
+			
+			#clean if pcvs.setup didn't do it:
+			clean_path($build_prefix, !$clean_done);
+			
+			print "    - Generate $name\n";
+		
+			#ready to write list_of_tests
+			open(my $build_file, ">", "$build_prefix/list_of_tests.xml");
+			my $writer = XML::Writer->new(OUTPUT => $build_file, NEWLINES => 1);
+			$writer->startTag("jobSuite", "package" => grep {s/\//\./g} $name);
+		
+			#load the YAML desc file
 			my $cur_file = LoadFile("$sub_item/pcvs.yml");
 
-			# Do some stuff...
+			# parse each test
+			foreach my $test(keys %{ $cur_file })
+			{
+				$writer->startTag("job");
+				$writer->dataElement("name", "$test");
+				$writer->dataElement("command", "echo \"hello World !\" 2>&1 && sleep 1");
+				#$writer->dataElement("rc", "$cur_file->{$test}{'returns'}");
+				$writer->endTag("job");
+			}
 			
-			DumpFile("$build_prefix/list_of_tests.xml", $cur_file);
+			#close the file
+			$writer->endTag("jobSuite");
+			$writer->end();
+			close($build_file);
 		}
 	}
 }
@@ -457,10 +493,10 @@ sub run
 	my @list = `find $buildir/test_suite/ -name 'list_of_tests.xml'`; chomp @list;
 	$test_files = join(" ", @list);
 
-	my $command = "$buildir/tmp/bin/jchronoss --nb-resources=$nb_resources --nb-slaves=$nb_workers --build=$buildir/tmp $run_w $compil_w $autokill $verbosity $policy $max_workert $min_workert $rc_on_fail $maxjobt $test_files $user_testfiles";
+	my $command = "$buildir/tmp/bin/jchronoss --long-names --nb-resources=$nb_resources --nb-slaves=$nb_workers --build=$buildir/tmp $run_w $compil_w $autokill $verbosity $policy $max_workert $min_workert $rc_on_fail $maxjobt $test_files $user_testfiles";
 
 	print($command."\n");
-	#system($command);
+	system($command);
 	my $ret = $?;
 	if($ret ne 0 and $rc_on_fail)
 	{

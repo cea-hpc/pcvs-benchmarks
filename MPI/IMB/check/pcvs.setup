@@ -1,56 +1,9 @@
 #!/bin/sh
 
+pcvs_src_current="$pcvs_src/$1"
+pcvs_build_current="$pcvs_build/test_suite/$1"
 
-gen_makefile()
-{
-echo "
-
-NULL_STRING :=
-
-LIB_PATH    =
-LIBS        =
-CC          = ${TS_CC}
-OPTFLAGS    = -fmpc-include -O3 $1
-CLINKER     = ${TS_CC}
-LDFLAGS     =
-CPPFLAGS    =
-SRCDIR      = ${PCVS_CSOURCE_DIR}/src
-
-IMB-MPI1 = IMB-MPI1
-IMB-EXT  = IMB-EXT
-IMB-IO   = IMB-IO
-IMB-NBC  = IMB-NBC
-IMB-RMA  = IMB-RMA
-
-export MPI_INCLUDE CC LIB_PATH LIBS OPTFLAGS CLINKER LDFLAGS CPPFLAGS IMB-MPI1 IMB-EXT IMB-IO IMB-NBC IMB-RMA
-include Makefile.base
-
-"
-}
-
-gen_imb_command()
-{
-	for exe in ${LIST_TESTS_NAME}
-	do
-		#helper_configuration_loop "test_${exe}" "./executables/standard/IMB-MPI1 ${exe} -off_cache 2" "compile_IMB-MPI1"
-		helper_configuration_loop "test_${exe}_check" "${PCVS_CWORK_DIR}/executables/check/$1 ${exe}" "compile_IMB_CHECK"
-	done
-}
-
-PCVS_CSOURCE_DIR="${PCVS_CSOURCE_DIR}/../"
-MPC_AUTO_KILL_TIMEOUT=900
-
-#generate compile command. for standard build
-#mkdir executables/standard/ || exit 1
-#gen_makefile > executables/standard/Makefile
-#common_insert_test "compile_IMB-MPI1" "0" "make -C executables/standard/ IMB-MPI1"
-
-#generate compile command. for -DCHECK build
-mkdir executables/check/ || exit 1
-cp -r ${PCVS_CSOURCE_DIR}/src/* ${PCVS_CWORK_DIR}/executables/check/
-gen_makefile '-DCHECK'> executables/check/Makefile
-
-common_insert_test "compile_IMB_CHECK" "0" "make -C ${PCVS_CWORK_DIR}/executables/check/  -f Makefile -i "
-
-source ${PCVS_CSOURCE_DIR}/IMB_LIST_OF_TESTS
-
+. $pcvs_src_current/../pcvs.setup.common 
+pcvs_gen_makefile "-DCHECK" > $pcvs_build_current/Makefile
+# Not the best way to do it (pcvs.yml is under Git control)
+cp $pcvs_src_current/../pcvs.yml.common $pcvs_build_current/pcvs.yml

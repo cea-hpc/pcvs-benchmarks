@@ -121,7 +121,6 @@ bool Job::isPassed(int rc, double time) const
 	 * Here, no detection if measured_time <= expected_time - delta
 	 */
 
-	cout << timer << " + " << delta << " == " << time << endl;
 	return expectedReturnCode == rc &&
 		(timer < 0 
 		 || delta < 0

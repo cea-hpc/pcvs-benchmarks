@@ -1,0 +1,27 @@
+#!/bin/sh
+
+pcvs_gen_makefile()
+{
+
+echo "
+NULL_STRING :=
+
+LIB_PATH    =
+LIBS        =
+CC          = ${pcvs_compiler_c}
+OPTFLAGS    = -O3 $1
+CLINKER     = ${pcvs_compiler_c}
+LDFLAGS     =
+CPPFLAGS    =
+SRCDIR      = ${pcvs_src_current}/src
+
+IMB-MPI1 = IMB-MPI1
+IMB-EXT  = IMB-EXT
+IMB-IO   = IMB-IO
+IMB-NBC  = IMB-NBC
+IMB-RMA  = IMB-RMA
+
+export MPI_INCLUDE CC LIB_PATH LIBS OPTFLAGS CLINKER LDFLAGS CPPFLAGS IMB-MPI1 IMB-EXT IMB-IO IMB-NBC IMB-RMA
+include Makefile.base
+"
+}
