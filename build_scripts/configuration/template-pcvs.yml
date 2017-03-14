@@ -122,21 +122,20 @@ simple_test2:
 # running multiple times the same binary with varying parameters. That's why we handle
 # dependencies.
 
-# "build" type TE, exposing a label thanks to the '&' symbol. The symbol name has to be
-# alphanumeric (no '_', '@', '-', etc...).
-compile_make: &compilemake1
+# "build" type TE
+compile_make:
         # ... We assume you know how to fill this TE with what we showed earlier.
         type: "build"
         files: "@SRCPATH@/Makefile.test"
         target: "TEST-1"
         args: "VERBOSE=1"
 
-# This TE will provide a new field: "deps", an array containing a list of references to
-# previously-defined labels. This dependcy does not only allow to build the binary once, but
-# also ensure that deps will be successfully run before executing tests from this TE. 
+# This TE will provide a new field: "deps", an array containing a list of names 
+# This dependcy does not only allow to build the binary once, but also ensure that deps 
+# will be successfully run before executing tests from this TE. 
 run_target:
         # ... We assume you know how to fill this TE with what we showed earlier.
-        deps: [ *compilemake1 ]
+        deps: [ "compile_make" ]
         limit: 100
         tolerance: 5
         args: "--run-args"

@@ -501,20 +501,40 @@ sub configure_run
 			# parse each test
 			foreach my $test(keys %{ $cur_file })
 			{
+				next if($test =~ m/^pcvst_.*$/);
+
 				$writer->startTag("job");
 				$writer->dataElement("name", "$test");
 
-				my $command; 
-				if(exists $cur_file->{$test}{'target'}) # makefile
+				my $command;
+				if(exists $cur_file->{$test}{'type'} and lc($cur_file->{$test}{'type'}) eq "build")
 				{
-					(my $makepath = $cur_file->{$test}{'files'}) =~ s,/[^/]*$,,;
-					(my $makefile = $cur_file->{$test}{'files'}) =~ s/^$makepath\///;
-					$command = "make -f $makefile -C $makepath $cur_file->{$test}{'target'}";
+					if(exists $cur_file->{$test}{'target'}) # makefile
+					{
+						(my $makepath = $cur_file->{$test}{'files'}) =~ s,/[^/]*$,,;
+						(my $makefile = $cur_file->{$test}{'files'}) =~ s/^$makepath\///;
+						$command = "make -f $makefile -C $makepath $cur_file->{$test}{'target'}";
+					}
+					else
+					{
+						$command = "echo Hello, World && return 1";
+					}
+					$writer->startTag("constraints");
+					$writer->dataElement("constraint", "compilation");
+					$writer->endTag("constraints");
 				}
 				else
 				{
-					$command = "echo Hello, World && return 0";
+					$command="mpirun -np 4 $current_bpath/$cur_file->{$test}{'herit'}{'bin'} $cur_file->{$test}{'args'}";
 				}
+
+				if(exists $cur_file->{$test}{'herit'}{'deps'})
+				{
+					$writer->startTag("deps");
+					$writer->dataElement("dep", $cur_file->{$test}{'herit'}{'deps'}[0]);
+					$writer->endTag("deps");
+				}
+
 
 				$writer->dataElement("command", $command);
 				#$writer->dataElement("rc", "$cur_file->{$test}{'returns'}");
