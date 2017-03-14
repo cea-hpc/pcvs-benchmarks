@@ -101,6 +101,21 @@ sub print_summary
 	print "      - Test directories : ".join(", ", @{ $configuration{'select'} } )."\n";
 }
 
+sub dump_environment
+{
+	my $target = "$buildir/env.log";
+	open(my $fh, ">", "$target");
+	system("module > /dev/null 2>&1");
+	if($? eq 0)
+	{
+		print $fh "\n#####################\n# LOADED MODULES \n#####################\n";
+		print $fh `module list`;
+	}
+	print $fh "\n#####################\n# ENVIRONMENT VARS \n#####################\n";
+	print $fh `env`;
+	close($fh);
+}
+
 sub trap_signal
 {
 	print "Stopped by receiving a signal.\n";
@@ -491,7 +506,6 @@ sub configure_run
 				$writer->dataElement("name", "$test");
 
 				my $command; 
-				print "$test -> ". Dumper($cur_file->{$test});
 				if(exists $cur_file->{$test}{'target'}) # makefile
 				{
 					(my $makepath = $cur_file->{$test}{'files'}) =~ s,/[^/]*$,,;
@@ -650,6 +664,7 @@ my $banner = `cat $internaldir/resources/banners/test_suite_banner`;
 print $banner;
 
 print_summary();
+dump_environment();
 
 prepare_run();
 configure_run() if($configuration{'regen'});
