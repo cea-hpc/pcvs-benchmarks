@@ -5,6 +5,30 @@ pcvs_build_current="$pcvs_build/test_suite/$1"
 
 . $pcvs_src_current/../pcvs.setup.common 
 
+# copy IMB sources
 cp -r $pcvs_src_current/../src/* $pcvs_build_current
+
+# Generate Makefile in build/
 pcvs_gen_makefile "" > $pcvs_build_current/Makefile
+
+# Push "build" rules
 cat $pcvs_src_current/../pcvs.yml.common
+
+# Push "run" rules from ../IMB_LIST_OF_TESTS
+while read l
+do
+	# skip empty lines and lines starting with comment '#'
+	echo $l | egrep -q "^ *(#.*)*$"
+	if test "$?" = "0"; then
+		continue;
+	fi
+
+	bin="`echo $l | cut -f1 -d" " | sed 's/IMB-//g'`"
+	name="`echo $l | cut -f2 -d" "`"
+	cat <<EOF
+
+$name:
+  herit: *T$bin
+  args: "$name"
+EOF
+done < $pcvs_src_current/../IMB_LIST_OF_TESTS

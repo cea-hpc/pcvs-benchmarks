@@ -1,117 +1,76 @@
-#!/bin/sh
+IMB-MPI1 PingPong
+IMB-MPI1 PingPing
+IMB-MPI1 Sendrecv
+IMB-MPI1 Exchange
+IMB-MPI1 Allreduce
+IMB-MPI1 Reduce
+IMB-MPI1 Reduce_scatter
+IMB-MPI1 Allgather
+IMB-MPI1 Allgatherv
+IMB-MPI1 Gather
+IMB-MPI1 Gatherv
+IMB-MPI1 Scatter
+IMB-MPI1 Scatterv
+IMB-MPI1 Alltoall
+IMB-MPI1 Alltoallv
+IMB-MPI1 Bcast
+IMB-MPI1 Barrier
 
-gen_imb_multi_mode(){
-    LIST=$LIST_TESTS_NAME
-    LIST_TESTS_NAME=""
+IMB-EXT Window
+IMB-EXT Unidir_Get
+IMB-EXT Unidir_Put
+IMB-EXT Bidir_Get
+IMB-EXT Bidir_Put
+IMB-EXT Accumulate
 
-    for i in $LIST; do 
-        LIST_TESTS_NAME="$i Multi-$i"
-    done
-}
+IMB-NBC Ibcast
+IMB-NBC Iallgather
+IMB-NBC Iallgatherv
+IMB-NBC Igather
+IMB-NBC Igatherv
+IMB-NBC Iscatter
+IMB-NBC Iscatterv
+IMB-NBC Ialltoall
+IMB-NBC Ialltoallv
+IMB-NBC Ireduce
+IMB-NBC Ireduce_scatter
+IMB-NBC Iallreduce
+IMB-NBC Ibarrier
 
-#PingPong
-# PingPing
-# Sendrecv
-# Exchange
-# Allreduce
-# Reduce
-# Reduce_scatter
-# Allgather
-# Allgatherv
-# Gather
-# Gatherv
-# Scatter
-# Scatterv
-# Alltoall
-# Alltoallv
-# Bcast
-# Barrier
-
-
-#generate test commands
-LIST_TESTS_NAME="PingPong PingPing Sendrecv Exchange Allreduce Reduce Reduce_scatter Allgather Allgatherv Gather Gatherv Scatter Scatterv Alltoall Alltoallv Bcast "
-#gen_imb_multi_mode
-gen_imb_command IMB-MPI1
-
-LIST_TESTS_NAME="Barrier"
-gen_imb_command IMB-MPI1
-
-
-# Window
-# Unidir_Get
-# Unidir_Put
-# Bidir_Get
-# Bidir_Put
-# Accumulate
-
-LIST_TESTS_NAME="Window Unidir_Get Unidir_Put Bidir_Get Bidir_Put Accumulate"
-gen_imb_command IMB-EXT
-
-
-# Ibcast
-# Iallgather
-# Iallgatherv
-# Igather
-# Igatherv
-# Iscatter
-# Iscatterv
-# Ialltoall
-# Ialltoallv
-# Ireduce
-# Ireduce_scatter
-# Iallreduce
-# Ibarrier
-LIST_TESTS_NAME="Ibcast Iallgather Iallgatherv Igather Igatherv Iscatter Iscatterv Ialltoall Ialltoallv Ireduce Ireduce_scatter Iallreduce Ibarrier "
-gen_imb_command IMB-NBC
-
-# S_Write_Indv
-# S_IWrite_Indv
-# S_Write_Expl
-# S_IWrite_Expl
-# P_Write_Indv
-# P_IWrite_Indv
-# P_Write_Shared
-# P_IWrite_Shared
-# P_Write_Priv
-# P_IWrite_Priv
-# P_Write_Expl
-# P_IWrite_Expl
-# C_Write_Indv
-# C_IWrite_Indv
-# C_Write_Shared
-# C_IWrite_Shared
-# C_Write_Expl
-# C_IWrite_Expl
-# S_Read_Indv
-# S_IRead_Indv
-# S_Read_Expl
-# S_IRead_Expl
-# P_Read_Indv
-# P_IRead_Indv
-# P_Read_Shared
-# P_IRead_Shared
-# P_Read_Priv
-# P_IRead_Priv
-# P_Read_Expl
-# P_IRead_Expl
-# C_Read_Indv
-# C_IRead_Indv
-# C_Read_Shared
-# C_IRead_Shared
-# C_Read_Expl
-# C_IRead_Expl
-# Open_Close
-LIST_TESTS_NAME="S_Write_Indv S_IWrite_Indv S_Write_Expl S_IWrite_Expl P_Write_Indv P_IWrite_Indv P_Write_Shared P_IWrite_Shared P_Write_Priv P_IWrite_Priv P_Write_Expl P_IWrite_Expl C_Write_Indv  C_IWrite_Indv C_Write_Shared C_IWrite_Shared C_Write_Expl C_IWrite_Expl S_Read_Indv S_IRead_Indv S_Read_Expl S_IRead_Expl P_Read_Indv P_IRead_Indv P_Read_Shared P_IRead_Shared P_Read_Priv P_IRead_Priv P_Read_Expl P_IRead_Expl C_Read_Indv C_IRead_Indv C_Read_Shared C_IRead_Shared C_Read_Expl C_IRead_Expl Open_Close"
-gen_imb_command IMB-IO 
-
-LIST_TESTS_NAME=""
-gen_imb_command IMB-RMA
-
-
-#limite to 2 MPI tasks for some tests
-MPC_TASK_NB_LIST="2"
-LIST_TESTS_NAME="PingPong PingPing"
-gen_imb_command IMB-MPI1
-
-
-
+IMB-IO S_Write_Indv
+IMB-IO S_IWrite_Indv
+IMB-IO S_Write_Expl
+IMB-IO S_IWrite_Expl
+IMB-IO P_Write_Indv
+IMB-IO P_IWrite_Indv
+IMB-IO P_Write_Shared
+IMB-IO P_IWrite_Shared
+IMB-IO P_Write_Priv
+IMB-IO P_IWrite_Priv
+IMB-IO P_Write_Expl
+IMB-IO P_IWrite_Expl
+IMB-IO C_Write_Indv
+IMB-IO C_IWrite_Indv
+IMB-IO C_Write_Shared
+IMB-IO C_IWrite_Shared
+IMB-IO C_Write_Expl
+IMB-IO C_IWrite_Expl
+IMB-IO S_Read_Indv
+IMB-IO S_IRead_Indv
+IMB-IO S_Read_Expl
+IMB-IO S_IRead_Expl
+IMB-IO P_Read_Indv
+IMB-IO P_IRead_Indv
+IMB-IO P_Read_Shared
+IMB-IO P_IRead_Shared
+IMB-IO P_Read_Priv
+IMB-IO P_IRead_Priv
+IMB-IO P_Read_Expl
+IMB-IO P_IRead_Expl
+IMB-IO C_Read_Indv
+IMB-IO C_IRead_Indv
+IMB-IO C_Read_Shared
+IMB-IO C_IRead_Shared
+IMB-IO C_Read_Expl
+IMB-IO C_IRead_Expl
+IMB-IO Open_Close
