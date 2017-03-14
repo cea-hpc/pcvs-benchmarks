@@ -112,6 +112,35 @@ sub trap_signal
 	exit(127);
 }
 
+sub anonymize_archive
+{
+	my ($path) = @_;
+
+	my %bad_patterns = ( 
+		$srcdir         => "\\\$PCVS_SOURCE_DIR", 
+		$buildir        => "\\\$PCVS_BUILD_DIR", 
+		$ENV{'HOME'}    => "\\\$PCVS_USER_HOME", 
+		$ENV{'LOGNAME'} => "\\\$PCVS_USER_LOGIN",
+		(hostname)      => "\\\$PCVS_HOST_NAME"
+	);
+
+	foreach my $pat(keys %bad_patterns)
+	{
+		my $old = $pat;
+		my $new = $bad_patterns{$pat};
+
+		# 1. EGREP finds files matching pattern and returns the list of matching files (-l option)
+		# 2. perl -pie makes in-place replacement.
+		# (Could be replace by a while() loop instead of calling a extern process
+		my @matching_list = `egrep -ril \"$old\" $path`; chomp @matching_list;
+		if(@matching_list ne 0)
+		{
+			system("perl -p -i -e 's,$old,$new,g' ".join(" ", @matching_list));
+		}
+	}
+	
+}
+
 sub retrieve_user_configuration
 {
 	my $prefix = "$internaldir/environment";
@@ -360,11 +389,13 @@ sub finalize_run
 
 	#copy the generated webview
 	clean_path("$buildir/last_results", 1);
+	dircopy("$internaldir/resources/banners", "$buildir/last_results/banners");
 	dircopy("$buildir/webview", "$buildir/last_results/webview") or die("Unable to save the webview in the archive !");
 	fcopy("$buildir/webview_gen_all.sh", "$buildir/last_results/") or die("Unable to copy webview_gen_all.sh !");
 	dircopy("$buildir/jsLoc", "$buildir/last_results/jsLoc") or die("Unable to save JsLoc in the archive !");
 	fcopy("$buildir/jsLoc_gen_all.sh", "$buildir/last_results/jsLoc_gen_all.sh") or die("Unable to save JsLoc_gen_all.sh in the archive !");
 	fcopy("$buildir/config.json", "$buildir/last_results/") or die ("Unable to save the configuration file !");
+	fcopy("$buildir/config.env", "$buildir/last_results/") or die ("Unable to save the environment file !");
 	dircopy("$buildir/tmp/traces", "$buildir/last_results/") or die ("Unable to copy trace files !");
 
 	clean_path("$buildir/last_results/test_suite", 1);
@@ -382,8 +413,10 @@ sub finalize_run
 	}
 
 	print " * End Date : ".localtime()."\n";
-	fcopy("$buildir/output.log", "$buildir/last_results/") if(exists $configuration{'log'});
+	fcopy("$buildir/output.log", "$buildir/last_results/") if(!exists $configuration{'log'} || $configuration{'log'});
 
+	anonymize_archive("$buildir/last_results");
+	
 	print " * Creating the archive (located at $buildir/last_results.tar.gz)\n";
 	{
 		local $CWD = $buildir;
