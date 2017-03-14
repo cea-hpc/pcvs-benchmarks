@@ -1,27 +1,142 @@
 ---
-simple_test:
-        files: '@SRCPATH@/testfile.c'
-        limit: 200
+#########################################################################################
+#########################################################################################
+# Test Expression Template
+#########################################################################################
+#########################################################################################
+#
+# This file intends to gather all existing values which can be used to build test 
+# expressions. We want to give the best possible customization. If you think a mandatory
+# piece of information cannot be forwarded to built test, please let us know.
+#
+# A Test Expression defines rules to build one or more tests from it. This way, you can
+# basically specify a binary name (ex simple_TE), ready to be validated through the 
+# system for any system-configured combination. If the system is configured to iterate
+# over nnode [1,2] and nproc [2, 4], the simplest test Expression (just a name) will generate 4 test 
+# combinations: (1, 2), (1, 4), (2, 2) and (2, 4). To decribe a Test Expression, we rely
+# on YAML description, where the root value for each element depicts the Test Expression name.
+# The effective test name will be generated depending on the number of iterators applied
+# to it. In the example above, we could have the following tests:
+#     - (1, 2) --> simple_TE_node1_proc2
+#     - (1, 4) --> simple_TE_node1_proc4
+#     - (2, 2) --> simple_TE_node2_proc2
+#     - (2, 4) --> simple_TE_node2_proc4
+# A Test Expression (TE) provides a way of factorize information, to build a more 
+# powerful and robust validation with less effort.
+#
+# Any Test Expression needs at least a name. By default, the system will try to find a 
+# source file with the same name and will be build a binary named "$name.bin". However,
+# we discourage to use targets this way, extending test building time significantly.
+#
+# You can use some macros to refer absolute path:
+#   - @SRCPATH@ : points to the current source directory (where this file is located)
+#   - @BUILDPATH@ : points to the current build directory ( under $buildir)
+#
+# TE = Test Expression
+
+#########################################################################################
+# Basic Expressions
+#########################################################################################
+
+# TE describing a simple file to compile and launch
+simple_compilation_and_run:
+        # type COMPLETE : Compilation & Execution (DEFAULT VALUE if nothing specified)
+        type: "complete"
+        # File to compile : SRCPATH refers to current src directory
+        files: "@SRCPATH@/main.c"
+        # binary name to build, prepended by @BUILDPATH@
+        bin: "compilation_and_run.bin"
+        # test args
+        args: "-iter 100"
+        # reference time to result, in seconds (can be float)
+        time: 100.00
+        # max allowed gap above which a TE is considered failed (if T > time + tolerance)
+        tolerance: 2.5
+        # expected returned code by tests (0 by default)
         returns: 0
 
-####################################################
-####################################################
+# TE describing binary building step only.
+simple_compilation:
+        # in this case, the test type is "build". No binary execution.
+        type: "build"
+        # path to files to compiles
+        files: '@SRCPATH@/file_to_compile.c'
+        # binary name (prependend as explained above)
+        bin: 'simple_compilation.bin'
+
+# TE describing binary building step only
+# "bin" field is not used here. As targets are handled by the Makefile
+simple_makefile_compilation:
+        # in this case, the test type is "build". No binary execution.
+        type: "build"
+        # path to files to compiles
+        files: '@SRCPATH@/makefile_to_use'
+        # this argument presence triggers the compilation into Makefile Expression.
+        # This means that "files" value refers to Makefile path and the compilation
+        # will be run like: 'make -C `dirname $files` -f `basename $files` $target.
+        # If this field is not defined, the standard compilation through ${CC} prevails
+        target: "all"
+
+# TE describing test execution only.
+simple_run:
+        # in this case, the TE type is 'run', requiring no previous compilation
+        type: "run"
+        # in this mode, this field is completely ignored
+        files: ''
+        # the executable to launch
+        bin: "@SRCPATH@/run_tests.sh"
+
+
+#########################################################################################
+# Combination alteration
+#########################################################################################
+# We will describe how to avoid a test combination to be generated from a TE if
+# the user consider a specific combination as invalid (for example, the test require a square
+# number of processors, etc...).
+
+# TE with iterator alteration.
+# In this case, we don't want to consider the node number variation and only unfold this TE
+# for processor number equals to 27. In this case, only test combination which are matching
+# the INTERSECTION between system-defined configuration and user-defined specificiations 
+# will be scheduled. In this case, if '27' does not belong to the system configuration
+# processor combination, this test won't be considered.
+simple_test:
+        # ... We assume you know how to fill this TE with what we showed earlier.
+        # iterator list: start an item with '-' to REMOVE this iterator. If you specify at
+        # least one without a '-', you erase the previous iterator list by setting a new one
+        iter: ["-nnode"]
+        nproc: [27]
+
+simple_test2:
+        # ... We assume you know how to fill this TE with what we showed earlier.
+        iter: ["nproc", "nomp", "ncore", "ntask"]
+        nproc: [27]
+
+
+#########################################################################################
+# Dependencies
+#########################################################################################
+# TE marked with "build" type won't be unfolded by following the combinatory system. Indeed,
+# number of nodes or processors does not affect the compilation step. However, the TE based
+# on "compile-and-run" will build the binary once per test. This is wasteful if your wish is
+# running multiple times the same binary with varying parameters. That's why we handle
+# dependencies.
+
+# "build" type TE, exposing a label thanks to the '&' symbol. The symbol name has to be
+# alphanumeric (no '_', '@', '-', etc...).
 compile_make: &compilemake1
+        # ... We assume you know how to fill this TE with what we showed earlier.
+        type: "build"
         files: "@SRCPATH@/Makefile.test"
         target: "TEST-1"
         args: "VERBOSE=1"
-        iter: []
 
-####################################################
-####################################################
-compile_name: &compiletest1
-        files: "@SRCPATH@/file1.c @SRCPATH@/file2.c"
-        target: ""
-        args: "--test-args --lpthread"
-        iter: []
-
-test_name_:
-        deps: [ *compiletest1 ]
+# This TE will provide a new field: "deps", an array containing a list of references to
+# previously-defined labels. This dependcy does not only allow to build the binary once, but
+# also ensure that deps will be successfully run before executing tests from this TE. 
+run_target:
+        # ... We assume you know how to fill this TE with what we showed earlier.
+        deps: [ *compilemake1 ]
         limit: 100
         tolerance: 5
         args: "--run-args"
@@ -30,23 +145,38 @@ test_name_:
         nproc: [4, 8]
         returns: 0
 
-####################################################
-####################################################
-test_wildcard: &wildcard
-        files: '@SRCPATH@/test.h'
+#########################################################################################
+# Templating
+#########################################################################################
+# This final section describe a way to make TE writing more dense, avoiding redundant text,
+# easing validation updates. Template TE won't be executed at all, and exist just to be 
+# included into other TEs.
+# IMPORTANT: To be recognized, a template TE, should have its name starting by "pcvst_",
+# this is mandatory to avoid adding an extra field inside the TE (making the process heavier).
+#
+# This feature is still experimental and only allow one level of templating. We don't support
+# (and don't want to support) template's template (and so on).
+
+# Similarly to dependencies, templates expose a label
+pcvst_random_name: &model
+        type: "run"
+        deps: [ *compilemake1 ]
+        bin: "TEST-1.bin" 
         limit: 100
         tolerance: 2
-        args: '-i 3'
-        nnode: [1]
-        nproc: [2, 4]
 
-group_test1:
-        herited : *wildcard
-        files: 'file.c'
-        args: '-iter 100'
+no_stress_test:
+        # the field "herited" attach the template TE to the current TE definition.
+        herited : *model
+        args: '-iter 100 -cache off'
 
-group_test2:
-        herited : *wildcard
-        args: '-iter 200'
+very_stressful_test:
+        herited : *model
+        args: '-iter 10000 -cache on'
 
-group_test3: *wildcard
+# In case you don't have any extra fields compared to the template, the two following
+# definitions are equivalent.
+basic_test: 
+        herited: *wildcard
+
+basic_test2: *wildcard
