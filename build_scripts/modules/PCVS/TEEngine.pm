@@ -63,7 +63,6 @@ sub engine_unfold_file
 {
 
 	my ($bpath, $ftree, $filepath) = @_;
-
 	my $filestream = LoadFile("$filepath");
 
 	#ready to write list_of_tests
@@ -74,8 +73,8 @@ sub engine_unfold_file
 	# parse each test
 	foreach my $test(keys %{ $filestream })
 	{
+		# skip test template
 		next if($test =~ m/^pcvst_.*$/);
-
 		engine_unfold_test($xmlwriter, $test, $filestream, $bpath);
 	}
 

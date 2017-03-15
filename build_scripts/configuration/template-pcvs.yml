@@ -159,14 +159,14 @@ run_target:
 # Similarly to dependencies, templates expose a label
 pcvst_random_name: &model
         type: "run"
-        deps: [ *compilemake1 ]
+        deps: [ "compilemake1" ]
         bin: "TEST-1.bin" 
-        limit: 100
+        time: 100
         tolerance: 2
 
 no_stress_test:
         # the field "herited" attach the template TE to the current TE definition.
-        herited : *model
+        herit : *model
         args: '-iter 100 -cache off'
 
 very_stressful_test:
@@ -177,5 +177,8 @@ very_stressful_test:
 # definitions are equivalent.
 basic_test: 
         herited: *wildcard
+
+test1:
+
 
 basic_test2: *wildcard

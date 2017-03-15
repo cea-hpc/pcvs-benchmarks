@@ -9,7 +9,7 @@ use English qw( -no_match_vars );
 ###########################################################################
 #### major vars
 ###########################################################################
-my %configuration;
+my %gconf;
 my $srcdir;
 my $internaldir;
 my $buildir;
@@ -37,8 +37,7 @@ use JSON; #parse JSON string into hash object
 use File::Copy::Recursive qw(fcopy dircopy pathempty);
 use Getopt::Long;    # parsing options
 use Sys::Hostname;   # get current Hostname
-use YAML qw(LoadFile DumpFile); 
-use XML::Writer;
+use PCVS::TEEngine;
 use Data::Dumper; #to help printing hashes (can be removed)
 
 ###########################################################################
@@ -89,16 +88,16 @@ sub print_help
 sub print_summary
 {
 	my $config_target = "\'default\'";
-	$config_target .= " & \'$configuration{'config-target'}\'" if(exists $configuration{'config-target'});
+	$config_target .= " & \'$gconf{'config-target'}\'" if(exists $gconf{'config-target'});
 	print "\n >>>>>>>>>>>>>>>>>>>>> GLOBAL INFOS (see \$buildir/config.json) <<<<<<<<<<<<<<<<<<\n";
 	print "      - Run Start date   : ".localtime()."\n";
 	print "      - Host name        : ".hostname."\n";
-	print "      - Source directory : $configuration{'src'}\n";
-	print "      - Build directory  : $configuration{'build'}\n";
+	print "      - Source directory : $gconf{'src'}\n";
+	print "      - Build directory  : $gconf{'build'}\n";
 	print "      - Loaded Config.   : $config_target\n";
-	print "      - Loaded Runtime   : \'$configuration{'runtime'}{'target'}\'\n";
-	print "      - Loaded Compiler  : \'$configuration{'compiler'}{'target'}\'\n";
-	print "      - Test directories : ".join(", ", @{ $configuration{'select'} } )."\n";
+	print "      - Loaded Runtime   : \'$gconf{'runtime'}{'target'}\'\n";
+	print "      - Loaded Compiler  : \'$gconf{'compiler'}{'target'}\'\n";
+	print "      - Test directories : ".join(", ", @{ $gconf{'select'} } )."\n";
 }
 
 sub dump_environment
@@ -159,27 +158,27 @@ sub retrieve_user_configuration
 {
 	my $prefix = "$internaldir/environment";
 	my $name = lc(hostname);
-	my $user_name = $configuration{'config-target'};
+	my $user_name = $gconf{'config-target'};
 	my @avail_names = list_configs();
 
 	if(not defined $user_name)
 	{
 		if (grep(/^$name$/, @avail_names))
 		{
-			$configuration{'config-target'} = $name;
+			$gconf{'config-target'} = $name;
 			return "$prefix/$name.json";
 		}
 		
 		$name =~ s/[0-9]*//g;
 		if(grep(/^$name$/, @avail_names))
 		{
-			$configuration{'config-target'} = $name;
+			$gconf{'config-target'} = $name;
 			return "$prefix/$name.json";
 		}
 	}
 	else
 	{
-		die("Bad configuration value : $configuration{'config-target'} !") if (!grep(/^$user_name$/, @avail_names));
+		die("Bad configuration value : $gconf{'config-target'} !") if (!grep(/^$user_name$/, @avail_names));
 		return "$prefix/$user_name.json";
 	}
 
@@ -190,47 +189,47 @@ sub validate_run_configuration
 {
 	my $current_field;
 
-	$current_field = $configuration{'validation'}{'run_wrapper'};
+	$current_field = $gconf{'validation'}{'run_wrapper'};
 	(!$current_field or (-f "$internaldir/launchers/$current_field.sh")) or die("\'validation/run_wrapper = $current_field\' is INVALID from configuration: $!");
 
-	$current_field = $configuration{'validation'}{'compil_wrapper'};
+	$current_field = $gconf{'validation'}{'compil_wrapper'};
 	(!$current_field or (-f "$internaldir/launchers/$current_field.sh")) or die("\'validation/compil_wrapper = $current_field\' is INVALID from configuration: $!");
 
-	$current_field = $configuration{'compiler-target'};
+	$current_field = $gconf{'compiler-target'};
 	(!$current_field or (-f "$internaldir/configuration/compilers/$current_field.json")) or die("\'compiler/target = $current_field\' is INVALID from configuration: $!");
 
-	$current_field = $configuration{'runtime-target'};
+	$current_field = $gconf{'runtime-target'};
 	(!$current_field or (-f "$internaldir/configuration/runtimes/$current_field.json")) or die("\'runtime/target = $current_field\' is INVALID from configuration: $!");
 
-	$current_field = $configuration{'validation'}{'nb_workers'};
+	$current_field = $gconf{'validation'}{'nb_workers'};
 	($current_field ge 0) or die("\'validation/nb_workers = $current_field\' is INVALID from configuration: Value must be positive");
 
-	$current_field = $configuration{'cluster'}{'max_nodes'};
+	$current_field = $gconf{'cluster'}{'max_nodes'};
 	($current_field ge 0) or die("\'cluster/max_nodes = $current_field\' is INVALID from configuration: Value must be strictly positive");
 
-	$current_field = $configuration{'validation'}{'worker_mintime'};
+	$current_field = $gconf{'validation'}{'worker_mintime'};
 	($current_field ge 0) or die("\'validation/worker_mintime = $current_field\' is INVALID from configuration: Value must be positive");
 
-	$current_field = $configuration{'validation'}{'worker_maxtime'};
+	$current_field = $gconf{'validation'}{'worker_maxtime'};
 	($current_field ge 0) or die("\'validation/worker_mintime = $current_field\' is INVALID from configuration: Value must be positive and higher than validation/worker_mintime");
 
-	$current_field = $configuration{'validation'}{'sched_policy'};
+	$current_field = $gconf{'validation'}{'sched_policy'};
 	($current_field ge 0 and $current_field le 2) or die("\'validation/sched_policy = $current_field\' is INVALID from configuration: Value must be in range 0..2");
 
 
-	if(!$configuration{'select'})
+	if(!$gconf{'select'})
 	{
-		push @{$configuration{'select'}}, list_avail_directories() if(!$configuration{'select'});
+		push @{$gconf{'select'}}, list_avail_directories() if(!$gconf{'select'});
 	}
 	
-	foreach my $el(@{$configuration{'select'}})
+	foreach my $el(@{$gconf{'select'}})
 	{
 		die("\'SRCDIR/$el\' does not exist ! (see --user-testfiles instead)") if(! -d "$srcdir/$el");
 	}
 
-	if($configuration{'user-testfiles'})
+	if($gconf{'user-testfiles'})
 	{
-		foreach my $el(@{$configuration{'user-testfiles'}})
+		foreach my $el(@{$gconf{'user-testfiles'}})
 		{
 			if(! ($el =~ /^\/.*$/))
 			{
@@ -282,20 +281,20 @@ sub dump_run_configuration
 	# build JSON
 	my $output_file;
 	open($output_file, '>', "$buildir/config.json") || die("Unable to write JSON configuration file !");
-	print $output_file encode_json(\%configuration);
+	print $output_file encode_json(\%gconf);
 	close($output_file);
 	
 	# build ENV
 	open($output_file, '>', "$buildir/config.env") || die("Unable to write Shell-compliant configuration file !");
-	iterate_sub_configuration($output_file, \%configuration, "pcvs");
+	iterate_sub_configuration($output_file, \%gconf, "pcvs");
 	close($output_file);
 }
 
 sub display_available_vars()
 {
 	print "Available Variables for the current run :\n";
-	delete $configuration{'list-vars'};
-	iterate_sub_configuration(*STDOUT, \%configuration, "pcvs");
+	delete $gconf{'list-vars'};
+	iterate_sub_configuration(*STDOUT, \%gconf, "pcvs");
 	exit 0;
 }
 
@@ -308,7 +307,7 @@ sub build_current_configuration
 
 	#update the current configuration hash with default value (no overlap w/ options)
 	foreach my $key (keys %default_data){
-		$configuration{$key}  = $default_data{$key} if(!exists $configuration{$key});
+		$gconf{$key}  = $default_data{$key} if(!exists $gconf{$key});
 	}
 
 	my $user_config = retrieve_user_configuration();
@@ -321,43 +320,43 @@ sub build_current_configuration
 		#update default config with overriden values
 		foreach my $key(keys %user_data)
 		{
-			exists $configuration{$key} or die("\'$key\' object does not exist. Please edit your configuration file !");
+			exists $gconf{$key} or die("\'$key\' object does not exist. Please edit your configuration file !");
 			#iterate over subkeys to update (JSON data is a two-level tree, should be extended to n-level tree).
-			if(ref($configuration{$key} eq 'HASH'))
+			if(ref($gconf{$key} eq 'HASH'))
 			{
 				foreach my $subkey (keys $user_data{$key})
 				{
-					exists $configuration{$key}{$subkey} or die("\'$key/$subkey\' object does not exist. Please edit your configuration file !");
-					$configuration{$key}{$subkey} = $user_data{$key}{$subkey};
+					exists $gconf{$key}{$subkey} or die("\'$key/$subkey\' object does not exist. Please edit your configuration file !");
+					$gconf{$key}{$subkey} = $user_data{$key}{$subkey};
 				}
 			}
 		}
 	}
 
-	my $target = $configuration{'compiler-target'};
+	my $target = $gconf{'compiler-target'};
 	if($target)
 	{
-		delete $configuration{'compiler-target'};
+		delete $gconf{'compiler-target'};
 		my $cc_config = "$internaldir/configuration/compilers/$target.json";
 		die("Unable to find $target as Compiler target (compiler-target)") if(! -f $cc_config);
 		my %cc_data = dump_and_parse_json($cc_config);
-		$configuration{'compiler'} = \%cc_data;
-		$configuration{'compiler'}{'target'} = $target;
+		$gconf{'compiler'} = \%cc_data;
+		$gconf{'compiler'}{'target'} = $target;
 	}
 	else
 	{
 		die("You must specify a Compilation target (compiler/target)");
 	}
 
-	$target = $configuration{'runtime-target'};
+	$target = $gconf{'runtime-target'};
 	if($target)
 	{	
-		delete $configuration{'runtime-target'};
+		delete $gconf{'runtime-target'};
 		my $run_config = "$internaldir/configuration/runtimes/$target.json";
 		die("Unable to find $target as Runtime target (runtime-target)") if(! -f $run_config);
 		my %run_data = dump_and_parse_json($run_config);
-		$configuration{'runtime'} = \%run_data; 
-		$configuration{'runtime'}{'target'} = $target;
+		$gconf{'runtime'} = \%run_data; 
+		$gconf{'runtime'}{'target'} = $target;
 	}
 	else
 	{
@@ -379,13 +378,13 @@ sub prepare_run
 	dircopy("$internaldir/generation/jchronoss/tools/jsLoc/*", "$buildir/") or die("Unable to copy JsLoc: $!");
 
 	#build JCHRONOSS
-	print " * Building JCHRONOSS (-j$configuration{j})\n";
+	print " * Building JCHRONOSS (-j$gconf{j})\n";
 	clean_path("$buildir/tmp/build", 0);
 	{
 		local $CWD = "$buildir/tmp/build"; # equivalent to chdir()
 		my $color;
-		($color = "-DENABLE_COLOR=yes") if(exists $configuration{"color"});
-		`cmake $internaldir/generation/jchronoss -DCMAKE_INSTALL_PREFIX=$buildir/tmp $color && make -j$configuration{'j'} install`;
+		($color = "-DENABLE_COLOR=yes") if(exists $gconf{"color"});
+		`cmake $internaldir/generation/jchronoss -DCMAKE_INSTALL_PREFIX=$buildir/tmp $color && make -j$gconf{'j'} install`;
 	}
 	clean_path("$buildir/tmp/traces", 1);
 }
@@ -427,7 +426,8 @@ sub finalize_run
 	}
 
 	print " * End Date : ".localtime()."\n";
-	fcopy("$buildir/output.log", "$buildir/last_results/") if(!exists $configuration{'log'} || $configuration{'log'});
+	fcopy("$buildir/output.log", "$buildir/last_results/") if(!exists $gconf{'log'} || $gconf{'log'});
+	fcopy("$buildir/env.log", "$buildir/last_results/") or die ("Unable to save the environment logfile !");
 
 	anonymize_archive("$buildir/last_results");
 	
@@ -441,9 +441,11 @@ sub finalize_run
 sub configure_run
 {
 	print "\n >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> BUILD STEP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
+	engine_init(\%gconf);
+
 	clean_path("$buildir/test_suite", 1);
 	print " * Building the list of tests:\n";
-	foreach my $directory (@{ $configuration{'select'}})
+	foreach my $directory (@{ $gconf{'select'}})
 	{
 		my $current_path = "$srcdir/$directory";
 		my @current_list = `find $current_path -name "pcvs.setup"`; chomp @current_list;
@@ -491,62 +493,10 @@ sub configure_run
 			
 			#load the YAML desc file
 			print "    - Generate $name\n";
-			my $cur_file = LoadFile("$current_bpath/pcvs.yml");
-
-			#ready to write list_of_tests
-			open(my $build_file, ">", "$current_bpath/list_of_tests.xml");
-			my $writer = XML::Writer->new(OUTPUT => $build_file, NEWLINES => 1);
-			$writer->startTag("jobSuite", "package" => grep {s/\//\./g} $name);
-		
-			# parse each test
-			foreach my $test(keys %{ $cur_file })
-			{
-				next if($test =~ m/^pcvst_.*$/);
-
-				$writer->startTag("job");
-				$writer->dataElement("name", "$test");
-
-				my $command;
-				if(exists $cur_file->{$test}{'type'} and lc($cur_file->{$test}{'type'}) eq "build")
-				{
-					if(exists $cur_file->{$test}{'target'}) # makefile
-					{
-						(my $makepath = $cur_file->{$test}{'files'}) =~ s,/[^/]*$,,;
-						(my $makefile = $cur_file->{$test}{'files'}) =~ s/^$makepath\///;
-						$command = "make -f $makefile -C $makepath $cur_file->{$test}{'target'}";
-					}
-					else
-					{
-						$command = "echo Hello, World && return 1";
-					}
-					$writer->startTag("constraints");
-					$writer->dataElement("constraint", "compilation");
-					$writer->endTag("constraints");
-				}
-				else
-				{
-					$command="mpirun -np 4 $current_bpath/$cur_file->{$test}{'herit'}{'bin'} $cur_file->{$test}{'args'}";
-				}
-
-				if(exists $cur_file->{$test}{'herit'}{'deps'})
-				{
-					$writer->startTag("deps");
-					$writer->dataElement("dep", $cur_file->{$test}{'herit'}{'deps'}[0]);
-					$writer->endTag("deps");
-				}
-
-
-				$writer->dataElement("command", $command);
-				#$writer->dataElement("rc", "$cur_file->{$test}{'returns'}");
-				$writer->endTag("job");
-			}
-			
-			#close the file
-			$writer->endTag("jobSuite");
-			$writer->end();
-			close($build_file);
+			engine_unfold_file($current_bpath, $name, "$current_bpath/pcvs.yml");
 		}
 	}
+	engine_fini();
 }
 
 sub run
@@ -568,19 +518,19 @@ sub run
 	my $user_testfiles ="";
 	my $test_files ="";
 
-	$nb_resources = $configuration{'cluster'}{'max_nodes'};
-	$nb_workers = $configuration{'validation'}{'nb_workers'};;
-	$autokill = ("--autokill=$configuration{'validation'}{'autokill'}") if ($configuration{'validation'}{'autokill'} > 0);
-	$run_w = ("--launcher=$internaldir/launcher/$configuration{'validation'}{'run_wrapper'}.sh") if ($configuration{'validation'}{'run_wrapper'});
-	$compil_w = ("--compil-launcher=$internaldir/launcher/$configuration{'validation'}{'compil_wrapper'}.sh") if ($configuration{'validation'}{'compil_wrapper'});
-	$compil_w = ("--compil-launcher=$internaldir/launcher/$configuration{'validation'}{'run_wrapper'}_compil.sh") if ($configuration{'validation'}{'run_wrapper'});
-	$verbosity = "--verbosity=$configuration{'verbose'}";
-	$policy = "--policy=$configuration{'validation'}{'sched_policy'}";
-	$maxjobt = "--maxt-job=$configuration{'validation'}{'job_meantime'}";
-	$max_workert = "--maxt-slave=$configuration{'validation'}{'worker_maxtime'}";
-	$min_workert = "--mint-slave=$configuration{'validation'}{'worker_mintime'}";
-	$rc_on_fail = "--expect-success" if ($configuration{'validation'}{'expect-success'});
-	$user_testfiles = join(" ", @{$configuration{'user-testfiles'}}) if (exists $configuration{'user-testfiles'});
+	$nb_resources = $gconf{'cluster'}{'max_nodes'};
+	$nb_workers = $gconf{'validation'}{'nb_workers'};;
+	$autokill = ("--autokill=$gconf{'validation'}{'autokill'}") if ($gconf{'validation'}{'autokill'} > 0);
+	$run_w = ("--launcher=$internaldir/launcher/$gconf{'validation'}{'run_wrapper'}.sh") if ($gconf{'validation'}{'run_wrapper'});
+	$compil_w = ("--compil-launcher=$internaldir/launcher/$gconf{'validation'}{'compil_wrapper'}.sh") if ($gconf{'validation'}{'compil_wrapper'});
+	$compil_w = ("--compil-launcher=$internaldir/launcher/$gconf{'validation'}{'run_wrapper'}_compil.sh") if ($gconf{'validation'}{'run_wrapper'});
+	$verbosity = "--verbosity=$gconf{'verbose'}";
+	$policy = "--policy=$gconf{'validation'}{'sched_policy'}";
+	$maxjobt = "--maxt-job=$gconf{'validation'}{'job_meantime'}";
+	$max_workert = "--maxt-slave=$gconf{'validation'}{'worker_maxtime'}";
+	$min_workert = "--mint-slave=$gconf{'validation'}{'worker_mintime'}";
+	$rc_on_fail = "--expect-success" if ($gconf{'validation'}{'expect-success'});
+	$user_testfiles = join(" ", @{$gconf{'user-testfiles'}}) if (exists $gconf{'user-testfiles'});
 
 	my @list = `find $buildir/test_suite/ -name 'list_of_tests.xml'`; chomp @list;
 	$test_files = join(" ", @list);
@@ -605,15 +555,15 @@ $SIG{INT} = "trap_signal";
 $rundir = $CWD;
 
 ##### DEFAULT VALUES
-$configuration{"j"} = 1;
-$configuration{'regen'} = 1;
-$configuration{'src'} = $srcdir;
-$configuration{'build'} = $srcdir."/build";
-$configuration{'verbose'} = 0;
+$gconf{"j"} = 1;
+$gconf{'regen'} = 1;
+$gconf{'src'} = $srcdir;
+$gconf{'build'} = $srcdir."/build";
+$gconf{'verbose'} = 0;
 
 
 GetOptions (
-	\%configuration,
+	\%gconf,
 	"config-target=s",
 	"list-configs|lco",
 	"build=s",
@@ -635,34 +585,34 @@ GetOptions (
 	"help"
 )  or die("Abort due to error(s) while parsing arguments (see --help)!\n");
 
-$_ = $configuration{'build'};
+$_ = $gconf{'build'};
 if(/^[^\/].*$/) #check if relative path to prepend it with $CWD
 {
-	$configuration{'build'}	= "$CWD/".$configuration{'build'};
+	$gconf{'build'}	= "$CWD/".$gconf{'build'};
 }
-$buildir = $configuration{'build'};
+$buildir = $gconf{'build'};
 
 #check special cases (no validation run)
-print_help() if ($configuration{help});
-if ($configuration{'list-compilers'})
+print_help() if ($gconf{help});
+if ($gconf{'list-compilers'})
 {
 	print "Compilers: ".join(", ", list_compilers())."\n";
 	exit(0);
 }
 
-if ($configuration{'list-runtimes'})
+if ($gconf{'list-runtimes'})
 {
 	print "Runtimes: ".join(", ", list_runtimes())."\n";
 	exit(0);
 }
 
-if ($configuration{'list-configs'})
+if ($gconf{'list-configs'})
 {
 	print "Environments: ".join(", ", list_configs())."\n";
 	exit(0);
 }
 
-if ($configuration{'list-directories'})
+if ($gconf{'list-directories'})
 {
 	print "Available root directories: ".join(", ", list_avail_directories())."\n";
 	exit(0);
@@ -672,11 +622,11 @@ if ($configuration{'list-directories'})
 my $validation_start = time();
 
 build_current_configuration();
-(display_available_vars() and exit 0) if(exists $configuration{'list-vars'});
+(display_available_vars() and exit 0) if(exists $gconf{'list-vars'});
 
 #create build directory and create a tee file if logging is enabled
 clean_path($buildir, 0);
-tee(STDOUT, '>', "$buildir/output.log") if (!exists $configuration{'log'} || $configuration{'log'});
+tee(STDOUT, '>', "$buildir/output.log") if (!exists $gconf{'log'} || $gconf{'log'});
 dump_run_configuration();
 
 my $banner = `cat $internaldir/resources/banners/test_suite_banner`;
@@ -686,7 +636,7 @@ print_summary();
 dump_environment();
 
 prepare_run();
-configure_run() if($configuration{'regen'});
+configure_run() if($gconf{'regen'});
 run();
 finalize_run();
 
