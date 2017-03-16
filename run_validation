@@ -103,12 +103,10 @@ sub print_summary
 sub dump_environment
 {
 	open(my $fh, ">", "$buildir/env.log");
-	system("module > /dev/null 2>&1");
-	if($? eq 0)
-	{
-		print $fh "\n#####################\n# LOADED MODULES \n#####################\n";
-		print $fh `module list`;
-	}
+	print $fh "\n#####################\n# GENERAL INFOS \n#####################\n";
+	print $fh "Uptime: ".`uptime`;
+	print $fh "\n#####################\n# LOADED MODULES \n#####################\n";
+	print $fh `module list 2> /dev/null`;
 	print $fh "\n#####################\n# ENVIRONMENT VARS \n#####################\n";
 	print $fh `env`;
 	close($fh);
@@ -151,7 +149,7 @@ sub anonymize_archive
 			system("perl -p -i -e 's,$old,$new,g' ".join(" ", @matching_list));
 		}
 	}
-	
+
 }
 
 sub retrieve_user_configuration
@@ -168,7 +166,7 @@ sub retrieve_user_configuration
 			$gconf{'config-target'} = $name;
 			return "$prefix/$name.json";
 		}
-		
+
 		$name =~ s/[0-9]*//g;
 		if(grep(/^$name$/, @avail_names))
 		{
@@ -201,7 +199,7 @@ sub validate_run_configuration
 	$current_field = $gconf{'runtime-target'};
 	(!$current_field or (-f "$internaldir/configuration/runtimes/$current_field.json")) or die("\'runtime/target = $current_field\' is INVALID from configuration: $!");
 
-	$current_field = $gconf{'validation'}{'nb_workers'};
+	$current_field = $gconf{'validation'}{'workers'};
 	($current_field ge 0) or die("\'validation/nb_workers = $current_field\' is INVALID from configuration: Value must be positive");
 
 	$current_field = $gconf{'cluster'}{'max_nodes'};
@@ -221,7 +219,7 @@ sub validate_run_configuration
 	{
 		push @{$gconf{'select'}}, list_avail_directories() if(!$gconf{'select'});
 	}
-	
+
 	foreach my $el(@{$gconf{'select'}})
 	{
 		die("\'SRCDIR/$el\' does not exist ! (see --user-testfiles instead)") if(! -d "$srcdir/$el");
@@ -283,7 +281,7 @@ sub dump_run_configuration
 	open($output_file, '>', "$buildir/config.json") || die("Unable to write JSON configuration file !");
 	print $output_file encode_json(\%gconf);
 	close($output_file);
-	
+
 	# build ENV
 	open($output_file, '>', "$buildir/config.env") || die("Unable to write Shell-compliant configuration file !");
 	iterate_sub_configuration($output_file, \%gconf, "pcvs");
@@ -430,7 +428,7 @@ sub finalize_run
 	fcopy("$buildir/env.log", "$buildir/last_results/") or die ("Unable to save the environment logfile !");
 
 	anonymize_archive("$buildir/last_results");
-	
+
 	print " * Creating the archive (located at $buildir/last_results.tar.gz)\n";
 	{
 		local $CWD = $buildir;
@@ -471,7 +469,7 @@ sub configure_run
 				print $ofh  $override_file;
 				close($ofh);
 			}
-			
+
 		}
 
 		#as pcvs.setup can create some YAML file in work dir, we look for these files in both 
@@ -483,14 +481,14 @@ sub configure_run
 			$yaml_elem =~ s/\/pcvs.yml.in$//;
 			(my $name = $yaml_elem) =~ s/($buildir\/test_suite|$srcdir)\///g;
 			my $current_bpath = "$buildir/test_suite/$name";
-			
+
 			#clean if pcvs.setup didn't do it:
 			clean_path($current_bpath, 1) if (!$cleaned_by_setup);
 
 			#copy .in file and replace @...@ by real paths (files are in $buildir)
 			fcopy("$yaml_elem/pcvs.yml.in", "$current_bpath/pcvs.yml.in") if(! -f "$current_bpath/pcvs.yml.in" );
 			system("cat $current_bpath/pcvs.yml.in | sed -e 's,\@SRCPATH\@,$current_path,g' -e 's,\@BUILDPATH\@,$current_bpath,g' > $current_bpath/pcvs.yml");
-			
+
 			#load the YAML desc file
 			print "    - Generate $name\n";
 			engine_unfold_file($current_bpath, $name, "$current_bpath/pcvs.yml");
@@ -519,7 +517,7 @@ sub run
 	my $test_files ="";
 
 	$nb_resources = $gconf{'cluster'}{'max_nodes'};
-	$nb_workers = $gconf{'validation'}{'nb_workers'};;
+	$nb_workers = $gconf{'validation'}{'workers'};;
 	$autokill = ("--autokill=$gconf{'validation'}{'autokill'}") if ($gconf{'validation'}{'autokill'} > 0);
 	$run_w = ("--launcher=$internaldir/launcher/$gconf{'validation'}{'run_wrapper'}.sh") if ($gconf{'validation'}{'run_wrapper'});
 	$compil_w = ("--compil-launcher=$internaldir/launcher/$gconf{'validation'}{'compil_wrapper'}.sh") if ($gconf{'validation'}{'compil_wrapper'});

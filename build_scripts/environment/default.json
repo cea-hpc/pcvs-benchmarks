@@ -4,28 +4,27 @@
 	, "runtime-target"         : "default"
 	
 	, "tests" : {
-		"nnode"           : 1
-		, "nproc"         : [1, 2, 4, 8, 16]
-		, "ntask"         : [1, 2, 4, 8, 16]
-		, "ncore"         : [1, 2, 4]
-		, "nomp"          : [1, 2, 4, 8]
-		, "thread_engine" : ["pthread", "ethread", "ethread_mxn"]
-		, "networks"      : ["infiniband", "tcp", "shmem", "portals"]
-		, "autokill"      : [300]
+		  "n_node" : ["1:4:*2"]
+		, "n_proc" : ["1:16:*2"]
+		, "n_mpi"  : ["1:32:*2", "1:1000:^3"]
+		, "n_omp"  : ["1:8:*2"]
+		, "n_core" : ["1-8"]
+		, "sched"  : ["pthread", "ethread", "ethread_mxn"]
+		, "net"    : ["infiniband", "tcp", "shmem", "portals"]
 	}
 
 	, "cluster" : {
-		"max_nodes"            : 1
+		  "max_nodes"          : 1
 		, "max_cores_per_node" : 4
-		, "cluster_args"       : ""
+		, "args"       : ""
 	}
 
 	, "validation" : {
 		"support_model"   : "supported"
-		, "whitelist_files" : ""
-		, "blacklist_files" : ""
+		, "wfiles" : ""
+		, "bfiles" : ""
 		, "tee"             : 1
-		,"nb_workers"       : 10
+		,"workers"       : 10
 		, "sched_policy"   : 0
 		, "run_wrapper"    : ""
 		, "compil_wrapper" : ""
