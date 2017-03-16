@@ -15,6 +15,12 @@ use vars qw(@ISA @EXPORT @EXPORT_OK);
 my $sysconf;
 my %testconf;
 
+# utility to remove duplicate from an array
+sub uniq {
+  my %seen;
+  return grep { !$seen{$_}++ } @_;
+}
+
 sub get_if_exists
 {
 	my ($p) = @_;
@@ -90,6 +96,9 @@ sub engine_init
 					push @list_values, $el;
 				}
 			}
+			#remove duplicate and sort the array (no sensible overhead, small arrays here...)
+			# it makes things weird for non-number arrays but we don't care
+			@list_values = uniq(sort { $a <=> $b } @list_values);
 			$testconf{$field} = \@list_values;
 		}
 	}
