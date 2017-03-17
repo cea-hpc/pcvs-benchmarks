@@ -439,10 +439,13 @@ sub finalize_run
 sub configure_run
 {
 	print "\n >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> BUILD STEP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
+	my $istart=time();
 	engine_init(\%gconf);
+	print " * Combinatory System initialized in ".(time()-$istart)." second(s)\n";
 
 	clean_path("$buildir/test_suite", 1);
 	print " * Building the list of tests:\n";
+	$istart=time();
 	foreach my $directory (@{ $gconf{'select'}})
 	{
 		my $current_path = "$srcdir/$directory";
@@ -494,6 +497,7 @@ sub configure_run
 			engine_unfold_file($current_bpath, $name, "$current_bpath/pcvs.yml");
 		}
 	}
+	print " * Validation tree built in ".(time()-$istart)." second(s)\n";
 	engine_fini();
 }
 
