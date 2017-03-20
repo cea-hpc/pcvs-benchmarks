@@ -26,19 +26,15 @@ BEGIN {
 use lib "$srcdir/build_scripts/modules";
 
 # dep inclusions
-use File::Tee "tee"; # get the output sync'd w/ a file
-#use PCVS::Vars;
-#use PCVS::Configuration;
-use File::Path;
-use File::chdir;
-use Sys::Hostname;
-use File::Copy::Recursive qw(fcopy dircopy pathempty);
-use Getopt::Long;    # parsing options
-use Sys::Hostname;   # get current Hostname
-use PCVS::TEngine;
 use PCVS::Helper;
 use PCVS::Configuration;
+use PCVS::TEngine;
 use Data::Dumper; #to help printing hashes (can be removed)
+use File::Tee "tee"; # get the output sync'd w/ a file
+use File::chdir;
+use File::Copy::Recursive qw(fcopy dircopy pathempty);
+use Getopt::Long;    # parsing options
+use Sys::Hostname;
 
 ###########################################################################
 #### FUNCTIONS
@@ -349,7 +345,7 @@ my $validation_start = time();
 
 configuration_init(%gconf);
 %gconf = configuration_build();
-configuration_display_vars() if(exists $gconf{'list-vars'});
+if(exists $gconf{'list-vars'}) { configuration_display_vars();  exit(0); }
 
 tee(STDOUT, '>', "$buildir/output.log") if (!exists $gconf{'log'} || $gconf{'log'});
 
@@ -362,5 +358,5 @@ run_configure() if($gconf{'regen'});
 run_exec();
 run_finalize();
 
-my ($d, $h, $m, $s) = convert_time(time()-$validation_start);
+my ($d, $h, $m, $s) = helper_convert_time(time()-$validation_start);
 print "\n==> Validation completed in $d day(s), $h hour(s), $m minute(s) and $s second(s))\n";

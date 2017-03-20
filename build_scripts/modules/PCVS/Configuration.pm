@@ -6,6 +6,7 @@ use Sys::Hostname;
 use File::chdir;
 use PCVS::Helper;
 use JSON; #parse JSON string into hash object
+use Data::Dumper;
 
 our @ISA = 'Exporter';
 our @EXPORT = qw(configuration_init configuration_build configuration_display_vars);
@@ -14,6 +15,18 @@ our @EXPORT_OK = qw();
 our %gconf;
 our ($buildir, $internaldir, $srcdir, $rundir);
 
+sub load_json
+{
+	my ($json_path) = @_;
+
+	die("Error with $json_path: $!") if(! -f $json_path);
+
+	local $/ = undef;
+	open(my $stream, '<', $json_path) or die "Error with $json_path: $!";
+
+	return %{ decode_json(<$stream>) };
+}
+
 sub configuration_init
 {
 	(%gconf) = @_;
@@ -21,25 +34,25 @@ sub configuration_init
 	$buildir = $gconf{'build'};
 	$srcdir = $gconf{src};
 	$internaldir = "$srcdir/build_scripts";
-	
 }
 
 sub configuration_build
 {
 	my $default_config = "$internaldir/environment/default.json";
-	my %default_data = dump_and_parse_json ("$default_config");
+	my %default_data = load_json ("$default_config");
 
 	#update the current configuration hash with default value (no overlap w/ options)
 	foreach my $key (keys %default_data){
 		$gconf{$key}  = $default_data{$key} if(!exists $gconf{$key});
 	}
 
-	my $user_config = retrieve_user_configuration();
+	my $user_config = configuration_load();
 
 	#if the user config file exists
 	if(defined $user_config)
 	{
-		my %user_data = dump_and_parse_json($user_config);
+		delete $gconf{"config-target"};
+		my %user_data = load_json($user_config);
 
 		#update default config with overriden values
 		foreach my $key(keys %user_data)
@@ -57,64 +70,40 @@ sub configuration_build
 		}
 	}
 
-	my $target = $gconf{'compiler-target'};
-	if($target)
+	# parse compiler-target and runtime-target
+	foreach my $el(('compiler', 'runtime'))
 	{
-		delete $gconf{'compiler-target'};
-		my $cc_config = "$internaldir/configuration/compilers/$target.json";
-		die("Unable to find $target as Compiler target (compiler-target)") if(! -f $cc_config);
-		my %cc_data = dump_and_parse_json($cc_config);
-		$gconf{'compiler'} = \%cc_data;
-		$gconf{'compiler'}{'target'} = $target;
-	}
-	else
-	{
-		die("You must specify a Compilation target (compiler/target)");
+		print $el."\n";
+		my $pattern=$gconf{"$el-target"};
+		if(defined $pattern)
+		{
+			delete $gconf{"$el-target"};
+			my $filepath = "$internaldir/configuration/${el}s/$pattern.json";
+			die("Unable to find $pattern as Compiler target (compiler-target)") if(! -f $filepath);
+			my %data = load_json($filepath);
+			$gconf{$el} = \%data;
+			$gconf{$el}{'target'} = $pattern;
+		}
+		else
+		{
+			die("You must specify a '$el' target ($el-target)");
+		}
 	}
 
-	$target = $gconf{'runtime-target'};
-	if($target)
-	{	
-		delete $gconf{'runtime-target'};
-		my $run_config = "$internaldir/configuration/runtimes/$target.json";
-		die("Unable to find $target as Runtime target (runtime-target)") if(! -f $run_config);
-		my %run_data = dump_and_parse_json($run_config);
-		$gconf{'runtime'} = \%run_data; 
-		$gconf{'runtime'}{'target'} = $target;
-	}
-	else
-	{
-		die("You must specify a Runtime target (runtime/target)");
-	}
-
-	validate_run_configuration();
-	dump_run_configuration();
+	configuration_validate();
+	configuration_save();
 	return %gconf;
 }
 
-sub dump_and_parse_json
+sub configuration_passthrough
 {
-	my ($json_path) = @_;
-
-	die("Error with $json_path: $!") if(! -f $json_path);
-
-	local $/ = undef;
-	open(my $stream, '<', $json_path) or die "Error with $json_path: $!";
-
-	return %{ decode_json(<$stream>) };
-}
-
-sub iterate_sub_configuration
-{
-	my $output_file = shift;
-	my $hashref = shift;
-	my $key = shift;
+	my ($output_file, $hashref, $key) = @_;
 
 	foreach my $k (keys %{$hashref})
 	{
 		if(ref(${$hashref}{$k}) eq "HASH")
 		{
-			iterate_sub_configuration($output_file, ${$hashref}{$k}, "${key}_${k}");
+			configuration_passthrough($output_file, ${$hashref}{$k}, "${key}_${k}");
 		}
 		elsif(ref ${$hashref}{$k} eq "ARRAY")
 		{
@@ -127,37 +116,36 @@ sub iterate_sub_configuration
 	}
 }
 
-sub dump_run_configuration
+sub configuration_save
 {
 	# build JSON
 	my $output_file;
+
 	open($output_file, '>', "$buildir/config.json") || die("Unable to write JSON configuration file !");
 	print $output_file encode_json(\%gconf);
 	close($output_file);
 
 	# build ENV
 	open($output_file, '>', "$buildir/config.env") || die("Unable to write Shell-compliant configuration file !");
-	iterate_sub_configuration($output_file, \%gconf, "pcvs");
+	configuration_passthrough($output_file, \%gconf, "pcvs");
 	close($output_file);
 }
 
 sub configuration_display_vars
 {
-	print "Available Variables for the current run :\n";
 	delete $gconf{'list-vars'};
-	iterate_sub_configuration(*STDOUT, \%gconf, "pcvs");
-	exit 0;
+	configuration_passthrough(*STDOUT, \%gconf, "pcvs");
 }
 
 
-sub retrieve_user_configuration
+sub configuration_load
 {
 	my $prefix = "$internaldir/environment";
 	my $name = lc(hostname);
 	my $user_name = $gconf{'config-target'};
 	my @avail_names = helper_lister("$internaldir/environment", "json");
 
-	if(not defined $user_name)
+	if(! defined $user_name)
 	{
 		if (grep(/^$name$/, @avail_names))
 		{
@@ -166,6 +154,7 @@ sub retrieve_user_configuration
 		}
 
 		$name =~ s/[0-9]*//g;
+
 		if(grep(/^$name$/, @avail_names))
 		{
 			$gconf{'config-target'} = $name;
@@ -181,7 +170,8 @@ sub retrieve_user_configuration
 	return undef;
 }
 
-sub validate_run_configuration
+#really painful to write, and still not complete
+sub configuration_validate
 {
 	my $current_field;
 
