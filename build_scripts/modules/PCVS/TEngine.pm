@@ -1,4 +1,4 @@
-package PCVS::TEEngine;
+package PCVS::TEngine;
 use strict;
 use warnings;
 use 5.010;
@@ -44,6 +44,7 @@ sub engine_init
 	($sysconf) = @_;
 
 	#very important : load runtime module validator.
+	print Dumper($sysconf);
 	die("Unable to find a valid Module !") if(!exists $sysconf->{'runtime'}{'validate_module'});
 	my $loaded_module = "PCVS::Validate::$sysconf->{'runtime'}{'validate_module'}";
 	load($loaded_module);
