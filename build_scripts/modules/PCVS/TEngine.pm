@@ -18,6 +18,7 @@ use vars qw(@ISA @EXPORT @EXPORT_OK);
 
 my $sysconf;
 my @iter_namelist = ("n_node", "n_proc", "n_mpi", "n_omp", "n_core", "net", "sched");
+my %iter_name_map = ("n_node" => "N", "n_proc" => "P", "n_mpi" => "np", "n_omp" => "omp", "n_core" => "c", "net" => "", "sched" => ""); # just used to build test name
 my @iter_prefix;
 my @iter_combinations;
 
@@ -158,7 +159,7 @@ sub engine_build_testname
 	foreach (0..$#c)
 	{
 		#$name .= "_".$iter_namelist[$_].$c[$_];
-		$name .= "_".$c[$_];
+		$name .= "_".$iter_name_map{$iter_namelist[$_]}.$c[$_];
 	}
 	return $name;
 }
@@ -186,7 +187,7 @@ sub engine_convert_to_cmd
 			$post_args .= $value;
 		}
 	}
-	return ($pre_env, $post_args);
+	return ($pre_env || "", $post_args || "");
 }
 
 sub engine_gen_test
@@ -212,50 +213,46 @@ sub engine_gen_test
 sub engine_unfold_test_expr
 {
 	#params
-	my  ($xml, $tname,  $fstream, $bpath) = @_;
+	my  ($xml, $tname,  $tvalue, $bpath) = @_;
 	#global var for a test_expr
 	my ($name, $command, $time, $delta, $constraint, @deps) = ();
 	#other vars
-	my $ttype = $fstream->{$tname}{'type'};
+	my $ttype = lc($tvalue->{'type'} || "run");
 	
-	if(defined $ttype and lc($ttype) eq "build")
+	#common params, whatever the TE type
+	$time    = $tvalue->{'limit'} || $tvalue->{'herit'}{'limit'} || undef;
+	$delta   = $tvalue->{'tolerance'} || $tvalue->{'herit'}{'tolerance'} or undef;
+	@deps    = @{$tvalue->{'deps'} || $tvalue->{'herit'}{'deps'} || [] };
+	
+	if($ttype =~ m/^(build|complete)$/)
 	{
 		$constraint = "compilation";
-		if(exists $fstream->{$tname}{'target'}) # if makefile
+		if(exists $tvalue->{'target'}) # if makefile
 		{
-			(my $makepath = $fstream->{$tname}{'files'}) =~ s,/[^/]*$,,;
-			(my $makefile = $fstream->{$tname}{'files'}) =~ s/^$makepath\///;
-			$command = "make -f $makefile -C $makepath $fstream->{$tname}{'target'}";
+			(my $makepath = $tvalue->{'files'}) =~ s,/[^/]*$,,;
+			(my $makefile = $tvalue->{'files'}) =~ s/^$makepath\///;
+			$command = "make -f $makefile -C $makepath $tvalue->{'target'}";
 		}
 		else
 		{
 			$command = "echo 'Not implemented yet !' && return 1";
 		}
 		engine_gen_test($xml, $tname, $command, $time, $delta, $constraint, @deps);
-		return;
 	}
-	elsif(defined $ttype and lc($ttype) eq "complete")
-	{
-		die("Complete jobs not implemented yet !");
-		engine_gen_test($xml, $tname, $command, $time, $delta, $constraint, @deps);
-	}
-	else
+	
+	if($ttype =~ m/^(run|complete)$/)
 	{
 		my $launcher = $sysconf->{'runtime'}{'mpi_cmd'} || "";
 		my $extra_args = $sysconf->{'runtime'}{'extra_args'} || "";
-		my $bin = "$bpath/".($fstream->{$tname}{'bin'} || $fstream->{$tname}{'herit'}{'bin'} || $tname);
-		my $args = $fstream->{$tname}{'args'} || $fstream->{$tname}{'herit'}{'args'} || "";
-		foreach my $cel(@iter_combinations)
+		my $bin = "$bpath/".($tvalue->{'bin'} || $tvalue->{'herit'}{'bin'} || $tname);
+		my $args = $tvalue->{'args'} || $tvalue->{'herit'}{'args'} || "";
+		foreach(@iter_combinations)
 		{
-			$name    = "$tname".engine_build_testname(@{$cel});
-			my ($pre_env, $post_args) = engine_convert_to_cmd(@{$cel});
+			$name    = "$tname".engine_build_testname(@{$_});
+			my ($pre_env, $post_args) = engine_convert_to_cmd(@{$_});
 			$command = "$pre_env $launcher $post_args $extra_args $bin $args";
-			$time    = $fstream->{$tname}{'limit'} || $fstream->{$tname}{'herit'}{'limit'} || undef;
-			$delta   = $fstream->{$tname}{'tolerance'} || $fstream->{$tname}{'herit'}{'tolerance'} or undef;
 			$constraint = undef;
-			@deps = @{$fstream->{$tname}{'herit'}{'deps'}};
-			engine_gen_test($xml, $tname, $command, $time, $delta, $constraint, @deps);
-			return;
+			engine_gen_test($xml, $name, $command, $time, $delta, $constraint, @deps);
 		}
 	}
 }
@@ -276,7 +273,7 @@ sub engine_unfold_file
 	{
 		# skip test template
 		next if($test =~ m/^pcvst_.*$/);
-		engine_unfold_test_expr($xmlwriter, $test, $filestream, $bpath);
+		engine_unfold_test_expr($xmlwriter, $test, $filestream->{$test}, $bpath);
 	}
 
 	#close the file

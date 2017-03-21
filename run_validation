@@ -125,7 +125,7 @@ sub run_prepare
 	{
 		local $CWD = "$buildir/tmp/build"; # equivalent to chdir()
 		my $color;
-		($color = "-DENABLE_COLOR=yes") if(exists $gconf{"color"});
+		($color = "-DENABLE_COLOR=".($gconf{"color"} == 1 ? "ON" : "OFF")) if (exists $gconf{"color"});
 		`cmake $internaldir/generation/jchronoss -DCMAKE_INSTALL_PREFIX=$buildir/tmp $color && make -j$gconf{'j'} install`;
 	}
 	helper_clean_path("$buildir/tmp/traces", 1);
@@ -310,7 +310,7 @@ GetOptions (
 	"list-vars",
 	"user-testfiles=s@",
 	"regen!",
-	"color|c",
+	"color|c!",
 	"clean",
 	"expect-success",
 	"verbose:i",
