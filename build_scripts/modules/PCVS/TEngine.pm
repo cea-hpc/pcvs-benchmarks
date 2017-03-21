@@ -5,7 +5,7 @@ use warnings;
 
 use Exporter;
 use Algorithm::Loops qw(NestedLoops); # time saver
-use Module::Load "autoload"; #dynamic module loading
+use Module::Load qw(load autoload); #dynamic module loading
 use Data::Dumper; #used for debug
 use XML::Writer; #XML parser
 use YAML qw(LoadFile); # YAML parser
