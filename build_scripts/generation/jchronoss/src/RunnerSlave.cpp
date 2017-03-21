@@ -349,7 +349,7 @@ void RunnerSlave::launchWorkerThreadStart(Job* job)
 	else{
 		instruction = job->getCommand();
 		replace( instruction , "\"", "\\\"");
-		instruction = " /usr/bin/time -qf%e sh -c \"" + instruction + "\" 2>&1";
+		instruction = " /usr/bin/time -f%e sh -c \"" + instruction + "\" 2>&1";
 		start = getCurrentDate();
 		// read + close on exec flag
 		fd = popen(instruction.c_str(), "r");
