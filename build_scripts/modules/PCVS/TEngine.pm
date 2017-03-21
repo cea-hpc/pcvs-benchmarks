@@ -17,7 +17,9 @@ use vars qw(@ISA @EXPORT @EXPORT_OK);
 @EXPORT_OK = qw();
 
 my $sysconf;
-my @combinations;
+my @iter_namelist = ("n_node", "n_proc", "n_mpi", "n_omp", "n_core", "net", "sched");
+my @iter_prefix;
+my @iter_combinations;
 
 # utility to remove duplicate from an array
 sub uniq {
@@ -49,29 +51,37 @@ sub engine_init
 	my $loaded_module = "PCVS::Validate::$sysconf->{'runtime'}{'validate_module'}";
 	load($loaded_module);
 
-	my @system_fields = ("n_node", "n_proc", "n_mpi", "n_omp", "n_core", "net", "sched");
-	my @system_objs;
-	my @comb_arrays;
-
 	#first, remove iterators not used by the configuration
-	foreach my $field(@system_fields)
+	my @tmp;
+	foreach my $iter(@iter_namelist)
 	{
-		my @current_obj = get_if_exists($field);
-		next if(scalar @current_obj eq 0 or ! exists $sysconf->{"runtime"}{$field}{'prefix'} or !$sysconf->{"runtime"}{$field}{'prefix'});
-		
-		push @system_objs, $field;
-	}
+		my @current_obj = get_if_exists($iter);
 
+		#if iterator does not exist or not defined by the runtime, the iterator is skipped
+		next if(scalar @current_obj eq 0 or ! exists $sysconf->{"runtime"}{$iter}{'prefix'} or !$sysconf->{"runtime"}{$iter}{'prefix'});
+
+		push @tmp, $iter;
+	}
+	@iter_namelist = @tmp; 
+
+	#compute prefix along with each iterator
+	@iter_prefix = map { $sysconf->{runtime}{$_}{prefix} } @iter_namelist;
+
+	#create an hashmap to associate the iterator with the 
 	#once we cleaned up, let the runtime remember the iterator sequence
-	$loaded_module->runtime_init($sysconf, @system_objs);
+	$loaded_module->runtime_init($sysconf, @iter_namelist);
+
+
+	#list of iterator sequences
+	my @itseq_list;
 
 	#... and iterate over the iterators to build possible sequences for each
-	foreach my $field(@system_objs)
+	foreach my $iter_name(@iter_namelist)
 	{
-		my @current_obj = get_if_exists($field);
+		my @iter_list = get_if_exists($iter_name);
 		# final list of values
 		my @list_values;
-		foreach my $el(@current_obj )
+		foreach my $el(@iter_list )
 		{
 			# if matching a:b:[+*^]c pattern
 			if($el =~ /^([0-9]+):([0-9]+):([+*^])?([0-9]+)*$/)
@@ -98,7 +108,7 @@ sub engine_init
 					if   ($op eq "+") {$min+=$step;}
 					elsif($op eq "*") {$min*=$step;}
 					elsif($op eq "^") {$prev+=1; $min=$prev**$step;}
-					else {die("$field: Unknown operator '$_'");}
+					else {die("$iter_name: Unknown operator '$_'");}
 				}
 			}
 			#else if matching numeric or a-b pattern
@@ -111,10 +121,10 @@ sub engine_init
 					push @list_values, $min;
 				} continue {$min++;}
 			}
-			# else if a numeric field and not fallen in previous conditions --> abort
-			elsif($field =~ /^n_/)
+			# else if a numeric iter and not fallen in previous conditions --> abort
+			elsif($iter_name =~ /^n_/)
 			{
-				die("$field only takes numeric, 'a:b:c' or 'a-b' interval values !!");
+				die("$iter_name only takes numeric, 'a:b:c' or 'a-b' interval values !!");
 			}
 			else
 			{
@@ -123,7 +133,7 @@ sub engine_init
 		}
 		#remove duplicate and sort the array (no sensible overhead, small arrays here...)
 		# may be optimized to avoid distinctions between numerical and non-numerical arrays
-		if($field =~ /^n_/)
+		if($iter_name =~ /^n_/)
 		{
 			@list_values = uniq(sort { $a <=> $b } @list_values );
 		}
@@ -132,58 +142,120 @@ sub engine_init
 			@list_values = uniq(sort @list_values);
 		}
 
-		push @comb_arrays, \@list_values;
+		push @itseq_list, \@list_values;
 	}
 	my $n = 0;
-	NestedLoops(\@comb_arrays, sub { $n++; push @combinations, [ @_ ] if($loaded_module->runtime_valid(@_));} );
-	print " * Creating a set of ".scalar @combinations." combinations per test (over $n)\n";
+	NestedLoops(\@itseq_list, sub { $n++; push @iter_combinations, [ @_ ] if($loaded_module->runtime_valid(@_));} );
+	print " * Creating a set of ".scalar @iter_combinations." combinations per test (over $n defined)\n";
+
+	$loaded_module->runtime_fini();
 }
 
-sub engine_unfold_test
+sub engine_build_testname
 {
-	my  ($xml, $ht,  $fstream, $bpath) = @_;
-
-	my $command;
-	if(exists $fstream->{$ht}{'type'} and lc($fstream->{$ht}{'type'}) eq "build")
+	my @c = @_;
+	my $name;
+	foreach (0..$#c)
 	{
-		$xml->startTag("job");
-		$xml->dataElement("name", "$ht");
-		if(exists $fstream->{$ht}{'target'}) # makefile
+		#$name .= "_".$iter_namelist[$_].$c[$_];
+		$name .= "_".$c[$_];
+	}
+	return $name;
+}
+
+sub engine_convert_to_cmd
+{
+	my @c = @_;
+	my ($pre_env, $post_args) = ();
+	foreach (0..$#c)
+	{
+		my $param_name = $iter_namelist[$_];
+		my $prefix_name = $iter_prefix[$_];
+		my $trad_name = $sysconf->{'runtime'}{$param_name}{"$c[$_]_opt"};
+		my $value = $prefix_name;
+		
+		$value .= (defined $trad_name) ? $trad_name : $c[$_];
+		$value .= " ";
+
+		if(lc($sysconf->{'runtime'}{$param_name}{'usage'}) eq "env")
 		{
-			(my $makepath = $fstream->{$ht}{'files'}) =~ s,/[^/]*$,,;
-			(my $makefile = $fstream->{$ht}{'files'}) =~ s/^$makepath\///;
-			$command = "make -f $makefile -C $makepath $fstream->{$ht}{'target'}";
+			$pre_env .= $value;
 		}
 		else
 		{
-			$command = "echo Hello, World && return 1";
+			$post_args .= $value;
 		}
-		$xml->dataElement("command", $command);
-		$xml->startTag("constraints");
-		$xml->dataElement("constraint", "compilation");
-		$xml->endTag("constraints");
-		$xml->endTag("job");
+	}
+	return ($pre_env, $post_args);
+}
+
+sub engine_gen_test
+{
+	my ($xml, $name, $command, $time, $delta, $constraint, @deps) = @_;
+	$xml->startTag("job");
+	$xml->dataElement("name", "$name");
+	$xml->dataElement("command", $command);
+	$xml->dataElement("time", $time) if (defined $time);
+	$xml->dataElement("delta", $delta) if(defined $delta);
+
+	$xml->startTag("constraints");
+	$xml->dataElement("constraint", $constraint) if(defined $constraint);
+	$xml->endTag("constraints");
+	
+	$xml->startTag("deps");
+	$xml->dataElement("dep", $_) foreach(@deps);
+	$xml->endTag("deps");
+	
+	$xml->endTag("job");
+}
+
+sub engine_unfold_test_expr
+{
+	#params
+	my  ($xml, $tname,  $fstream, $bpath) = @_;
+	#global var for a test_expr
+	my ($name, $command, $time, $delta, $constraint, @deps) = ();
+	#other vars
+	my $ttype = $fstream->{$tname}{'type'};
+	
+	if(defined $ttype and lc($ttype) eq "build")
+	{
+		$constraint = "compilation";
+		if(exists $fstream->{$tname}{'target'}) # if makefile
+		{
+			(my $makepath = $fstream->{$tname}{'files'}) =~ s,/[^/]*$,,;
+			(my $makefile = $fstream->{$tname}{'files'}) =~ s/^$makepath\///;
+			$command = "make -f $makefile -C $makepath $fstream->{$tname}{'target'}";
+		}
+		else
+		{
+			$command = "echo 'Not implemented yet !' && return 1";
+		}
+		engine_gen_test($xml, $tname, $command, $time, $delta, $constraint, @deps);
+		return;
+	}
+	elsif(defined $ttype and lc($ttype) eq "complete")
+	{
+		die("Complete jobs not implemented yet !");
+		engine_gen_test($xml, $tname, $command, $time, $delta, $constraint, @deps);
 	}
 	else
 	{
-		foreach my $cel(@combinations)
+		my $launcher = $sysconf->{'runtime'}{'mpi_cmd'} || "";
+		my $extra_args = $sysconf->{'runtime'}{'extra_args'} || "";
+		my $bin = "$bpath/".($fstream->{$tname}{'bin'} || $fstream->{$tname}{'herit'}{'bin'} || $tname);
+		my $args = $fstream->{$tname}{'args'} || $fstream->{$tname}{'herit'}{'args'} || "";
+		foreach my $cel(@iter_combinations)
 		{
-			$xml->startTag("job");
-			$xml->dataElement("name", "$ht".join("_", @{ $cel }));
-			$command="LAUNCHER ".(Dumper($cel))."  $bpath/$fstream->{$ht}{'herit'}{'bin'} $fstream->{$ht}{'args'}";
-
-
-			if(exists $fstream->{$ht}{'herit'}{'deps'})
-			{
-				$xml->startTag("deps");
-				$xml->dataElement("dep", $fstream->{$ht}{'herit'}{'deps'}[0]);
-				$xml->endTag("deps");
-			}
-
-
-			$xml->dataElement("command", $command);
-			#$xml->dataElement("rc", "$fstream->{$ht}{'returns'}");
-			$xml->endTag("job");
+			$name    = "$tname".engine_build_testname(@{$cel});
+			my ($pre_env, $post_args) = engine_convert_to_cmd(@{$cel});
+			$command = "$pre_env $launcher $post_args $extra_args $bin $args";
+			$time    = $fstream->{$tname}{'limit'} || $fstream->{$tname}{'herit'}{'limit'} || undef;
+			$delta   = $fstream->{$tname}{'tolerance'} || $fstream->{$tname}{'herit'}{'tolerance'} or undef;
+			$constraint = undef;
+			@deps = @{$fstream->{$tname}{'herit'}{'deps'}};
+			engine_gen_test($xml, $tname, $command, $time, $delta, $constraint, @deps);
+			return;
 		}
 	}
 }
@@ -204,7 +276,7 @@ sub engine_unfold_file
 	{
 		# skip test template
 		next if($test =~ m/^pcvst_.*$/);
-		engine_unfold_test($xmlwriter, $test, $filestream, $bpath);
+		engine_unfold_test_expr($xmlwriter, $test, $filestream, $bpath);
 	}
 
 	#close the file

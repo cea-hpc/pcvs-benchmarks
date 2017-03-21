@@ -73,7 +73,6 @@ sub configuration_build
 	# parse compiler-target and runtime-target
 	foreach my $el(('compiler', 'runtime'))
 	{
-		print $el."\n";
 		my $pattern=$gconf{"$el-target"};
 		if(defined $pattern)
 		{
@@ -121,12 +120,12 @@ sub configuration_save
 	# build JSON
 	my $output_file;
 
-	open($output_file, '>', "$buildir/config.json") || die("Unable to write JSON configuration file !");
+	open($output_file, '>', "$buildir/config.json") or die("Unable to write JSON configuration file !");
 	print $output_file encode_json(\%gconf);
 	close($output_file);
 
 	# build ENV
-	open($output_file, '>', "$buildir/config.env") || die("Unable to write Shell-compliant configuration file !");
+	open($output_file, '>', "$buildir/config.env") or die("Unable to write Shell-compliant configuration file !");
 	configuration_passthrough($output_file, \%gconf, "pcvs");
 	close($output_file);
 }
@@ -176,31 +175,31 @@ sub configuration_validate
 	my $current_field;
 
 	$current_field = $gconf{'validation'}{'run_wrapper'};
-	(!$current_field or (-f "$internaldir/launchers/$current_field.sh")) or die("\'validation/run_wrapper = $current_field\' is INVALID from configuration: $!");
+	(!$current_field || (-f "$internaldir/launchers/$current_field.sh")) or die("\'validation/run_wrapper = $current_field\' is INVALID from configuration: $!");
 
 	$current_field = $gconf{'validation'}{'compil_wrapper'};
-	(!$current_field or (-f "$internaldir/launchers/$current_field.sh")) or die("\'validation/compil_wrapper = $current_field\' is INVALID from configuration: $!");
+	(!$current_field || (-f "$internaldir/launchers/$current_field.sh")) or die("\'validation/compil_wrapper = $current_field\' is INVALID from configuration: $!");
 
 	$current_field = $gconf{'compiler-target'};
-	(!$current_field or (-f "$internaldir/configuration/compilers/$current_field.json")) or die("\'compiler/target = $current_field\' is INVALID from configuration: $!");
+	(!$current_field || (-f "$internaldir/configuration/compilers/$current_field.json")) or die("\'compiler/target = $current_field\' is INVALID from configuration: $!");
 
 	$current_field = $gconf{'runtime-target'};
-	(!$current_field or (-f "$internaldir/configuration/runtimes/$current_field.json")) or die("\'runtime/target = $current_field\' is INVALID from configuration: $!");
+	(!$current_field || (-f "$internaldir/configuration/runtimes/$current_field.json")) or die("\'runtime/target = $current_field\' is INVALID from configuration: $!");
 
 	$current_field = $gconf{'validation'}{'workers'};
-	($current_field ge 0) or die("\'validation/nb_workers = $current_field\' is INVALID from configuration: Value must be positive");
+	($current_field >= 0) or die("\'validation/nb_workers = $current_field\' is INVALID from configuration: Value must be positive");
 
 	$current_field = $gconf{'cluster'}{'max_nodes'};
-	($current_field ge 0) or die("\'cluster/max_nodes = $current_field\' is INVALID from configuration: Value must be strictly positive");
+	($current_field >= 0) or die("\'cluster/max_nodes = $current_field\' is INVALID from configuration: Value must be strictly positive");
 
 	$current_field = $gconf{'validation'}{'worker_mintime'};
-	($current_field ge 0) or die("\'validation/worker_mintime = $current_field\' is INVALID from configuration: Value must be positive");
+	($current_field >= 0) or die("\'validation/worker_mintime = $current_field\' is INVALID from configuration: Value must be positive");
 
 	$current_field = $gconf{'validation'}{'worker_maxtime'};
-	($current_field ge 0) or die("\'validation/worker_mintime = $current_field\' is INVALID from configuration: Value must be positive and higher than validation/worker_mintime");
+	($current_field >= 0) or die("\'validation/worker_mintime = $current_field\' is INVALID from configuration: Value must be positive and higher than validation/worker_mintime");
 
 	$current_field = $gconf{'validation'}{'sched_policy'};
-	($current_field ge 0 and $current_field le 2) or die("\'validation/sched_policy = $current_field\' is INVALID from configuration: Value must be in range 0..2");
+	($current_field >= 0 && $current_field <= 2) or die("\'validation/sched_policy = $current_field\' is INVALID from configuration: Value must be in range 0..2");
 
 
 	if(!$gconf{'select'})

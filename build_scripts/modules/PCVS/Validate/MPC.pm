@@ -7,32 +7,32 @@ use Data::Dumper;
 use vars qw(@ISA @EXPORT);
 
 @ISA = 'Exporter';
-@EXPORT = qw(runtime_valid);
+@EXPORT = qw();
 
 my $gconf;
-my %syshash;
+my @iter_list;
 my $max_cores;
 my $max_nodes;
 sub runtime_init
 {
-	(my $self, $gconf, my @sysfields) = @_;
-	$max_cores = $gconf->{'cluster'}{'max_cores_per_node'};
-	$max_nodes = $gconf->{'cluster'}{'max_nodes'};
+	(my $self, $gconf, @iter_list) = @_;
+	$max_cores = $gconf->{cluster}{max_cores_per_node};
+	$max_nodes = $gconf->{cluster}{max_nodes};
+}
 
-	%syshash = map { $sysfields[$_] => $_ } 0..$#sysfields;
+sub runtime_fini
+{
 }
 
 sub get_ifdef
 {
-	my ($arg, @arr)= @_;
-	if(exists $syshash{$arg})
+	my ($arg, @c)= @_;
+	foreach (0..$#c)
 	{
-		return $arr[ $syshash{$arg} ];
+		return $c[$_] if($iter_list[$_] eq $arg);
 	}
-	else
-	{
-		return undef;
-	}
+
+	return undef;
 }
 
 sub runtime_valid
@@ -66,5 +66,6 @@ sub runtime_valid
 		  #" m=".(defined $sched ? $sched : "X")."\n";	
 	return 1;
 }
+
 1;
 

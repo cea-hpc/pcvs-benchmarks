@@ -10,26 +10,27 @@ use vars qw(@ISA @EXPORT);
 @EXPORT = qw(runtime_valid);
 
 my $gconf;
-my %syshash;
+my @iter_list;
 my $max_cores;
 my $max_nodes;
 sub runtime_init
 {
-	(my $self, $gconf, my @sysfields) = @_;
-	%syshash = map { $sysfields[$_] => $_ } 0..$#sysfields;
+	(my $self, $gconf, @iter_list) = @_;
+}
+
+sub runtime_fini
+{
 }
 
 sub get_ifdef
 {
-	my ($arg, @arr)= @_;
-	if(exists $syshash{$arg})
+	my ($arg, @c)= @_;
+	foreach (0..$#c)
 	{
-		return $arr[ $syshash{$arg} ];
+		return $c[$_] if($iter_list[$_] eq $arg);
 	}
-	else
-	{
-		return undef;
-	}
+
+	return undef;
 }
 
 sub runtime_valid

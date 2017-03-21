@@ -249,24 +249,10 @@ sub run_configure
 sub run_exec
 {	
 	print "\n >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> RUN STEP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
-	my $nb_resources = "";
-	my $nb_workers = "";
-	my $compil_w ="";
-	my $run_w = "";
-	my $autokill = "";
-	my $wlist = "";
-	my $blist = "";
-	my $verbosity = "";
-	my $policy = "";
-	my $maxjobt = "";
-	my $max_workert = "";
-	my $min_workert = "";
-	my $rc_on_fail = "";
-	my $user_testfiles ="";
-	my $test_files ="";
+	my ($nb_resources, $nb_workers, $compil_w, $run_w, $autokill, $wlist, $blist, $verbosity, $policy, $maxjobt, $max_workert, $min_workert, $rc_on_fail, $user_testfiles, $test_files) = ();
 
-	$nb_resources = $gconf{'cluster'}{'max_nodes'};
-	$nb_workers = $gconf{'validation'}{'workers'};;
+	$nb_resources = $gconf{'cluster'}{'max_nodes'} || 1;
+	$nb_workers = $gconf{'validation'}{'workers'}  || 1;;
 	$autokill = ("--autokill=$gconf{'validation'}{'autokill'}") if ($gconf{'validation'}{'autokill'} > 0);
 	$run_w = ("--launcher=$internaldir/launcher/$gconf{'validation'}{'run_wrapper'}.sh") if ($gconf{'validation'}{'run_wrapper'});
 	$compil_w = ("--compil-launcher=$internaldir/launcher/$gconf{'validation'}{'compil_wrapper'}.sh") if ($gconf{'validation'}{'compil_wrapper'});
