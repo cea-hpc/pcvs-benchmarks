@@ -69,10 +69,11 @@ sub configuration_build
 			}
 		}
 	}
-
+	
 	# parse compiler-target and runtime-target
 	foreach my $el(('compiler', 'runtime'))
 	{
+		$gconf{"${el}-target"} = $gconf{'target'} if(exists $gconf{target});
 		my $pattern=$gconf{"$el-target"};
 		if(defined $pattern)
 		{
