@@ -59,19 +59,19 @@ sub helper_do_not_run_validation
 	}
 	if ($conf->{'list-compilers'})
 	{
-		print "Compilers: ".join(", ", helper_lister("$internaldir/configuration/compilers", "json"))."\n";
+		print "Compilers: ".join(", ", helper_lister("$internaldir/configuration/compilers", "yml"))."\n";
 		$ret = 1;
 	}
 
 	if ($conf->{'list-runtimes'})
 	{
-		print "Runtimes: ".join(", ", helper_lister("$internaldir/configuration/runtimes", "json"))."\n";
+		print "Runtimes: ".join(", ", helper_lister("$internaldir/configuration/runtimes", "yml"))."\n";
 		$ret = 1;
 	}
 
 	if ($conf->{'list-configs'})
 	{
-		print "Environments: ".join(", ", helper_lister("$internaldir/environment", "json"))."\n";
+		print "Environments: ".join(", ", helper_lister("$internaldir/environment", "yml"))."\n";
 		$ret = 1;
 	}
 

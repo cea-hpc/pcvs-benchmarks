@@ -44,7 +44,7 @@ sub print_summary
 {
 	my $config_target = "\'default\'";
 	$config_target .= " & \'$gconf{'config-target'}\'" if(exists $gconf{'config-target'});
-	print "\n >>>>>>>>>>>>>>>>>>>>> GLOBAL INFOS (see \$buildir/config.json) <<<<<<<<<<<<<<<<<<\n";
+	print "\n >>>>>>>>>>>>>>>>>>>>> GLOBAL INFOS (see \$buildir/config.yml) <<<<<<<<<<<<<<<<<<\n";
 	print "      - Run Start date   : ".localtime()."\n";
 	print "      - Host name        : ".hostname."\n";
 	print "      - Source directory : $gconf{'src'}\n";
@@ -151,7 +151,7 @@ sub run_finalize
 	fcopy("$buildir/webview_gen_all.sh", "$buildir/last_results/") or die("Unable to copy webview_gen_all.sh !");
 	dircopy("$buildir/jsLoc", "$buildir/last_results/jsLoc") or die("Unable to save JsLoc in the archive !");
 	fcopy("$buildir/jsLoc_gen_all.sh", "$buildir/last_results/jsLoc_gen_all.sh") or die("Unable to save JsLoc_gen_all.sh in the archive !");
-	fcopy("$buildir/config.json", "$buildir/last_results/") or die ("Unable to save the configuration file !");
+	fcopy("$buildir/config.yml", "$buildir/last_results/") or die ("Unable to save the configuration file !");
 	fcopy("$buildir/config.env", "$buildir/last_results/") or die ("Unable to save the environment file !");
 	dircopy("$buildir/tmp/traces", "$buildir/last_results/") or die ("Unable to copy trace files !");
 

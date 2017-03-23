@@ -5,7 +5,7 @@ use Exporter;
 use Sys::Hostname;
 use File::chdir;
 use PCVS::Helper;
-use JSON; #parse JSON string into hash object
+use YAML qw(LoadFile DumpFile); # YAML parser
 use Data::Dumper;
 
 our @ISA = 'Exporter';
@@ -15,16 +15,14 @@ our @EXPORT_OK = qw();
 our %gconf;
 our ($buildir, $internaldir, $srcdir, $rundir);
 
-sub load_json
+sub load_yml
 {
-	my ($json_path) = @_;
+	my ($yml_path) = @_;
 
-	die("Error with $json_path: $!") if(! -f $json_path);
-
-	local $/ = undef;
-	open(my $stream, '<', $json_path) or die "Error with $json_path: $!";
-
-	return %{ decode_json(<$stream>) };
+	die("Error with $yml_path: $!") if(! -f $yml_path);
+	my $s = LoadFile($yml_path) ;
+	print Dumper($s);
+	return %{ $s };
 }
 
 sub configuration_init
@@ -38,8 +36,7 @@ sub configuration_init
 
 sub configuration_build
 {
-	my $default_config = "$internaldir/environment/default.json";
-	my %default_data = load_json ("$default_config");
+	my %default_data = load_yml ("$internaldir/environment/default.yml");
 
 	#update the current configuration hash with default value (no overlap w/ options)
 	foreach my $key (keys %default_data){
@@ -52,7 +49,7 @@ sub configuration_build
 	if(defined $user_config)
 	{
 		delete $gconf{"config-target"};
-		my %user_data = load_json($user_config);
+		my %user_data = load_yml($user_config);
 
 		#update default config with overriden values
 		foreach my $key(keys %user_data)
@@ -78,9 +75,9 @@ sub configuration_build
 		if(defined $pattern)
 		{
 			delete $gconf{"$el-target"};
-			my $filepath = "$internaldir/configuration/${el}s/$pattern.json";
-			die("Unable to find $pattern as Compiler target (compiler-target)") if(! -f $filepath);
-			my %data = load_json($filepath);
+			my $filepath = "$internaldir/configuration/${el}s/$pattern.yml";
+			die("Unable to find $pattern as $el target ($el-target)") if(! -f $filepath);
+			my %data = load_yml($filepath);
 			$gconf{$el} = \%data;
 			$gconf{$el}{'target'} = $pattern;
 		}
@@ -118,15 +115,10 @@ sub configuration_passthrough
 
 sub configuration_save
 {
-	# build JSON
-	my $output_file;
-
-	open($output_file, '>', "$buildir/config.json") or die("Unable to write JSON configuration file !");
-	print $output_file encode_json(\%gconf);
-	close($output_file);
+	DumpFile("$buildir/config.yml", \%gconf) or die ("Unable to write YAML configuration file !");
 
 	# build ENV
-	open($output_file, '>', "$buildir/config.env") or die("Unable to write Shell-compliant configuration file !");
+	open(my $output_file, '>', "$buildir/config.env") or die("Unable to write Shell-compliant configuration file !");
 	configuration_passthrough($output_file, \%gconf, "pcvs");
 	close($output_file);
 }
@@ -143,14 +135,14 @@ sub configuration_load
 	my $prefix = "$internaldir/environment";
 	my $name = lc(hostname);
 	my $user_name = $gconf{'config-target'};
-	my @avail_names = helper_lister("$internaldir/environment", "json");
+	my @avail_names = helper_lister("$internaldir/environment", "yml");
 
 	if(! defined $user_name)
 	{
 		if (grep(/^$name$/, @avail_names))
 		{
 			$gconf{'config-target'} = $name;
-			return "$prefix/$name.json";
+			return "$prefix/$name.yml";
 		}
 
 		$name =~ s/[0-9]*//g;
@@ -158,13 +150,13 @@ sub configuration_load
 		if(grep(/^$name$/, @avail_names))
 		{
 			$gconf{'config-target'} = $name;
-			return "$prefix/$name.json";
+			return "$prefix/$name.yml";
 		}
 	}
 	else
 	{
 		die("Bad configuration value : $gconf{'config-target'} !") if (!grep(/^$user_name$/, @avail_names));
-		return "$prefix/$user_name.json";
+		return "$prefix/$user_name.yml";
 	}
 
 	return undef;
@@ -182,10 +174,10 @@ sub configuration_validate
 	(!$current_field || (-f "$internaldir/launchers/$current_field.sh")) or die("\'validation/compil_wrapper = $current_field\' is INVALID from configuration: $!");
 
 	$current_field = $gconf{'compiler-target'};
-	(!$current_field || (-f "$internaldir/configuration/compilers/$current_field.json")) or die("\'compiler/target = $current_field\' is INVALID from configuration: $!");
+	(!$current_field || (-f "$internaldir/configuration/compilers/$current_field.yml")) or die("\'compiler/target = $current_field\' is INVALID from configuration: $!");
 
 	$current_field = $gconf{'runtime-target'};
-	(!$current_field || (-f "$internaldir/configuration/runtimes/$current_field.json")) or die("\'runtime/target = $current_field\' is INVALID from configuration: $!");
+	(!$current_field || (-f "$internaldir/configuration/runtimes/$current_field.yml")) or die("\'runtime/target = $current_field\' is INVALID from configuration: $!");
 
 	$current_field = $gconf{'validation'}{'workers'};
 	($current_field >= 0) or die("\'validation/nb_workers = $current_field\' is INVALID from configuration: Value must be positive");

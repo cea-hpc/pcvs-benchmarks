@@ -48,8 +48,8 @@ sub engine_init
 	($sysconf) = @_;
 
 	#very important : load runtime module validator.
-	die("Unable to find a valid Module !") if(!exists $sysconf->{'runtime'}{'validate_module'});
-	my $loaded_module = "PCVS::Validate::$sysconf->{'runtime'}{'validate_module'}";
+	die("Unable to find a valid Module !") if(!exists $sysconf->{'runtime'}{'module'});
+	my $loaded_module = "PCVS::Validate::$sysconf->{'runtime'}{'module'}";
 	load($loaded_module);
 
 	#first, remove iterators not used by the configuration
@@ -59,14 +59,14 @@ sub engine_init
 		my @current_obj = get_if_exists($iter);
 
 		#if iterator does not exist or not defined by the runtime, the iterator is skipped
-		next if(scalar @current_obj eq 0 or ! exists $sysconf->{"runtime"}{$iter}{'prefix'} or !$sysconf->{"runtime"}{$iter}{'prefix'});
+		next if(scalar @current_obj eq 0 or ! exists $sysconf->{"runtime"}{$iter}{'key'} or !$sysconf->{"runtime"}{$iter}{'key'});
 
 		push @tmp, $iter;
 	}
 	@iter_namelist = @tmp; 
 
 	#compute prefix along with each iterator
-	@iter_prefix = map { $sysconf->{runtime}{$_}{prefix} } @iter_namelist;
+	@iter_prefix = map { $sysconf->{runtime}{$_}{key} } @iter_namelist;
 
 	#create an hashmap to associate the iterator with the 
 	#once we cleaned up, let the runtime remember the iterator sequence
@@ -172,13 +172,13 @@ sub engine_convert_to_cmd
 	{
 		my $param_name = $iter_namelist[$_];
 		my $prefix_name = $iter_prefix[$_];
-		my $trad_name = $sysconf->{'runtime'}{$param_name}{"$c[$_]_opt"};
+		my $trad_name = $sysconf->{'runtime'}{$param_name}{"$c[$_]_val"};
 		my $value = $prefix_name;
 		
 		$value .= (defined $trad_name) ? $trad_name : $c[$_];
 		$value .= " ";
 
-		if(lc($sysconf->{'runtime'}{$param_name}{'usage'}) eq "env")
+		if(lc($sysconf->{'runtime'}{$param_name}{'usage'}) eq "environment")
 		{
 			$pre_env .= $value;
 		}
@@ -242,8 +242,8 @@ sub engine_unfold_test_expr
 	
 	if($ttype =~ m/^(run|complete)$/)
 	{
-		my $launcher = $sysconf->{'runtime'}{'mpi_cmd'} || "";
-		my $extra_args = $sysconf->{'runtime'}{'extra_args'} || "";
+		my $launcher = $sysconf->{'runtime'}{'cmd'} || "";
+		my $extra_args = $sysconf->{'runtime'}{'args'} || "";
 		my $bin = "$bpath/".($tvalue->{'bin'} || $tvalue->{'herit'}{'bin'} || $tname);
 		my $args = $tvalue->{'args'} || $tvalue->{'herit'}{'args'} || "";
 		foreach(@iter_combinations)
