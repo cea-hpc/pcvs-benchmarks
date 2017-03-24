@@ -210,6 +210,23 @@ sub engine_gen_test
 	$xml->endTag("job");
 }
 
+sub engine_get_value_ifdef
+{
+	my ($node, $key) = @_;
+
+	# Look for local field
+	my $value = $node->{$key};
+	my $parent = $node->{'herit'};
+
+
+	return $value if(defined $value);
+	#check recursively if parent has it
+	return engine_get_value_ifdef($parent, $key) if( defined $parent);
+
+	#default value
+	return undef;
+}
+
 sub engine_unfold_test_expr
 {
 	#params
@@ -217,21 +234,26 @@ sub engine_unfold_test_expr
 	#global var for a test_expr
 	my ($name, $command, $time, $delta, $constraint, @deps) = ();
 	#other vars
-	my $ttype = lc($tvalue->{'type'} || "run");
+	my $ttype = lc(engine_get_value_ifdef($tvalue, 'type') || "run");
 	
 	#common params, whatever the TE type
-	$time    = $tvalue->{'limit'} || $tvalue->{'herit'}{'limit'} || undef;
-	$delta   = $tvalue->{'tolerance'} || $tvalue->{'herit'}{'tolerance'} or undef;
-	@deps    = @{$tvalue->{'deps'} || $tvalue->{'herit'}{'deps'} || [] };
+	print Dumper($tvalue);
+	$time    = engine_get_value_ifdef($tvalue, 'limit') || undef;
+	$delta   = engine_get_value_ifdef($tvalue, 'tolerance' ) || undef;
+	@deps    = @{ engine_get_value_ifdef($tvalue, 'deps') || [] };
 	
 	if($ttype =~ m/^(build|complete)$/)
 	{
 		$constraint = "compilation";
-		if(exists $tvalue->{'target'}) # if makefile
+		my $target = engine_get_value_ifdef($tvalue, 'target');
+		if(defined $target) # if makefile
 		{
-			(my $makepath = $tvalue->{'files'}) =~ s,/[^/]*$,,;
-			(my $makefile = $tvalue->{'files'}) =~ s/^$makepath\///;
-			$command = "make -f $makefile -C $makepath $tvalue->{'target'}";
+			my $files = engine_get_value_ifdef($tvalue, 'files') ;
+			die("'files' field not found for $tname !") if(! defined $files);
+
+			(my $makepath = $files) =~ s,/[^/]*$,,;
+			(my $makefile = $files) =~ s/^$makepath\///;
+			$command = "make -f $makefile -C $makepath $target";
 		}
 		else
 		{
@@ -244,8 +266,8 @@ sub engine_unfold_test_expr
 	{
 		my $launcher = $sysconf->{'runtime'}{'cmd'} || "";
 		my $extra_args = $sysconf->{'runtime'}{'args'} || "";
-		my $bin = "$bpath/".($tvalue->{'bin'} || $tvalue->{'herit'}{'bin'} || $tname);
-		my $args = $tvalue->{'args'} || $tvalue->{'herit'}{'args'} || "";
+		my $bin = "$bpath/".(engine_get_value_ifdef($tvalue, 'bin') || $tname);
+		my $args = engine_get_value_ifdef($tvalue, 'args') || "";
 		foreach(@iter_combinations)
 		{
 			$name    = "$tname".engine_build_testname(@{$_});

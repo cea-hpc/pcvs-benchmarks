@@ -21,7 +21,6 @@ sub load_yml
 
 	die("Error with $yml_path: $!") if(! -f $yml_path);
 	my $s = LoadFile($yml_path) ;
-	print Dumper($s);
 	return %{ $s };
 }
 
