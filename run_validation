@@ -190,6 +190,14 @@ sub run_configure
 	print " * Combinatory System initialized in ".(time()-$istart)." second(s)\n";
 
 	helper_clean_path("$buildir/test_suite", 1);
+	my $grp_stream;
+	{
+		# Loading group info into a string, lately printed in each pcvs.yml.in
+		local $/ = undef;
+		open (my $f, "<", "$internaldir/configuration/groups/groups1.yml") or die ("Could not open groups file !");
+		$grp_stream = <$f>;
+		close $f;
+	}
 	print " * Building the list of tests:\n";
 	$istart=time();
 	foreach my $directory (@{ $gconf{'select'}})
@@ -215,6 +223,7 @@ sub run_configure
 			if($override_file ne "")
 			{
 				open(my $ofh, ">", "$current_bpath/pcvs.yml.in");
+				print $ofh $grp_stream;
 				print $ofh  $override_file;
 				close($ofh);
 			}
@@ -235,7 +244,15 @@ sub run_configure
 			helper_clean_path($current_bpath, 1) if (!$cleaned_by_setup);
 
 			#copy .in file and replace @...@ by real paths (files are in $buildir)
-			fcopy("$yaml_elem/pcvs.yml.in", "$current_bpath/pcvs.yml.in") if(! -f "$current_bpath/pcvs.yml.in" );
+			if(! -f "$current_bpath/pcvs.yml.in")
+			{
+				open (my $w, ">", "$current_bpath/pcvs.yml.in");
+				print $w $grp_stream; # we have to append this
+				print $w `cat $yaml_elem/pcvs.yml.in`;
+				close $w;
+			}
+			
+			#lazy macro processing. Maybe we could do it before copying it
 			system("cat $current_bpath/pcvs.yml.in | sed -e 's,\@SRCPATH\@,$current_path,g' -e 's,\@BUILDPATH\@,$current_bpath,g' > $current_bpath/pcvs.yml");
 
 			#load the YAML desc file

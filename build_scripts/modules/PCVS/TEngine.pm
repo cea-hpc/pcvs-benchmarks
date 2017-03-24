@@ -17,9 +17,8 @@ use vars qw(@ISA @EXPORT @EXPORT_OK);
 @EXPORT_OK = qw();
 
 my $sysconf;
-my @iter_namelist = ("n_node", "n_proc", "n_mpi", "n_omp", "n_core", "net", "sched");
-my %iter_name_map = ("n_node" => "N", "n_proc" => "P", "n_mpi" => "np", "n_omp" => "omp", "n_core" => "c", "net" => "", "sched" => ""); # just used to build test name
-my @iter_prefix;
+my @iter_namelist = (); # list of iterator names
+my @iter_prefix;        # list of iterator prefix
 my @iter_combinations;
 
 # utility to remove duplicate from an array
@@ -33,9 +32,9 @@ sub get_if_exists
 {
 	my ($p) = @_;
 
-	if(exists $sysconf->{'tests'}{$p})
+	if(exists $sysconf->{'iterators'}{$p})
 	{
-		return @{ $sysconf->{'tests'}{$p} };
+		return @{ $sysconf->{'iterators'}{$p} };
 	}
 	else
 	{
@@ -54,17 +53,13 @@ sub engine_init
 
 	#first, remove iterators not used by the configuration
 	my @tmp;
-	foreach my $iter(@iter_namelist)
+	foreach (keys $sysconf->{'iterators'})
 	{
-		my @current_obj = get_if_exists($iter);
-
 		#if iterator does not exist or not defined by the runtime, the iterator is skipped
-		next if(scalar @current_obj eq 0 or ! exists $sysconf->{"runtime"}{$iter}{'key'} or !$sysconf->{"runtime"}{$iter}{'key'});
-
-		push @tmp, $iter;
+		next if(! exists $sysconf->{"runtime"}{$_}{'key'} or !$sysconf->{"runtime"}{$_}{'key'});
+		push @iter_namelist, $_;
 	}
-	@iter_namelist = @tmp; 
-
+	
 	#compute prefix along with each iterator
 	@iter_prefix = map { $sysconf->{runtime}{$_}{key} } @iter_namelist;
 
@@ -159,7 +154,7 @@ sub engine_build_testname
 	foreach (0..$#c)
 	{
 		#$name .= "_".$iter_namelist[$_].$c[$_];
-		$name .= "_".$iter_name_map{$iter_namelist[$_]}.$c[$_];
+		$name .= "_".$sysconf->{'naming'}{$iter_namelist[$_]}.$c[$_];
 	}
 	return $name;
 }
@@ -237,7 +232,6 @@ sub engine_unfold_test_expr
 	my $ttype = lc(engine_get_value_ifdef($tvalue, 'type') || "run");
 	
 	#common params, whatever the TE type
-	print Dumper($tvalue);
 	$time    = engine_get_value_ifdef($tvalue, 'limit') || undef;
 	$delta   = engine_get_value_ifdef($tvalue, 'tolerance' ) || undef;
 	@deps    = @{ engine_get_value_ifdef($tvalue, 'deps') || [] };

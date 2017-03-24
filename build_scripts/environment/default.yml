@@ -1,8 +1,11 @@
+#define which compiler config will be loaded (/build_scripts/configuration/compilers/*.yml)
 compiler-target: "default"
 
+#define which runtime config will be loaded (/build_scripts/configuration/runtimes/*.yml)
 runtime-target: "default"
 
-tests:
+# list of iterators for this run. A missing line will deactivate an iterator
+iterators:
     n_node : ["1:2:*2"]
     n_proc : ["1:4:*2"]
     n_mpi  : ["1:8:*2"]
@@ -11,13 +14,25 @@ tests:
     sched  : ["pthread", "ethread_mxn"]
     net    : ["ib", "tcp", "shmem"]
 
+# just the naming convention (in test names) for the above iterators. The key will
+# be prepended to the iterator value for each test.
+naming:
+    n_node : "N"
+    n_proc : "P"
+    n_mpi  : "np"
+    n_omp  : "o"
+    n_core : "c"
+    sched  : ""
+    net    : ""
 
+# cluster parameters for the current run. Combinations will be affected by these parameters
 cluster:
     max_nodes          : 1
     max_cores_per_node : 4
     args               : ""
 
-
+# generic options to affect the validation. To keep it simple, most of these parameters
+# can only be altered through this configuration (no command-line options overriding)
 validation:
     support_model  : "supported"
     tee            : 1

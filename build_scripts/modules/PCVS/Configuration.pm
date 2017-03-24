@@ -54,7 +54,7 @@ sub configuration_build
 		foreach my $key(keys %user_data)
 		{
 			exists $gconf{$key} or die("\'$key\' object does not exist. Please edit your configuration file !");
-			#iterate over subkeys to update (JSON data is a two-level tree, should be extended to n-level tree).
+			#iterate over subkeys to update (YAML data is a two-level tree, should be replaced by recursion).
 			if(ref($gconf{$key} eq 'HASH'))
 			{
 				foreach my $subkey (keys $user_data{$key})
@@ -69,15 +69,22 @@ sub configuration_build
 	# parse compiler-target and runtime-target
 	foreach my $el(('compiler', 'runtime'))
 	{
+		#the '--target' option always have priority (should be improved)
 		$gconf{"${el}-target"} = $gconf{'target'} if(exists $gconf{target});
 		my $pattern=$gconf{"$el-target"};
 		if(defined $pattern)
 		{
+			#remove 'compiler|runtime-target"
 			delete $gconf{"$el-target"};
+
+			#load the file
 			my $filepath = "$internaldir/configuration/${el}s/$pattern.yml";
 			die("Unable to find $pattern as $el target ($el-target)") if(! -f $filepath);
 			my %data = load_yml($filepath);
+
+			#dump the content under $el hash object
 			$gconf{$el} = \%data;
+			#save the target name into the newly created object
 			$gconf{$el}{'target'} = $pattern;
 		}
 		else
