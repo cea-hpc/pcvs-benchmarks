@@ -147,6 +147,30 @@ sub engine_init
 	$loaded_module->runtime_fini();
 }
 
+sub engine_intersect_iterators
+{
+	my ($testexpr) = @_;
+	my @union;
+
+	$testexpr = {"iter" => [ "n_node", "n_mpi"], "herit" => { "iter" => ["-n_node", "n_proc"], "herit" => {"iter" => ["n_core"]}} };
+	
+	my $cur = $testexpr;
+	while(defined $cur and (exists $cur->{'iter'} || exists $cur->{'herit'}))
+	{
+		push @union, @{ $cur->{'iter'}} if(exists $cur->{'iter'});
+
+		$cur = $cur->{herit} || undef;
+	}
+	print Dumper(\@union);
+
+	@iter_namelist;
+
+
+	print Dumper($testexpr);
+
+
+}
+
 sub engine_build_testname
 {
 	my @c = @_;
@@ -187,10 +211,11 @@ sub engine_convert_to_cmd
 
 sub engine_gen_test
 {
-	my ($xml, $name, $command, $time, $delta, $constraint, @deps) = @_;
+	my ($xml, $name, $command, $rc, $time, $delta, $constraint, @deps) = @_;
 	$xml->startTag("job");
 	$xml->dataElement("name", "$name");
 	$xml->dataElement("command", $command);
+	$xml->dataElement("rc", $rc);
 	$xml->dataElement("time", $time) if (defined $time);
 	$xml->dataElement("delta", $delta) if(defined $delta);
 
@@ -227,13 +252,16 @@ sub engine_unfold_test_expr
 	#params
 	my  ($xml, $tname,  $tvalue, $bpath) = @_;
 	#global var for a test_expr
-	my ($name, $command, $time, $delta, $constraint, @deps) = ();
+	my ($name, $command, $rc, $time, $delta, $constraint, @deps) = ();
 	#other vars
 	my $ttype = lc(engine_get_value_ifdef($tvalue, 'type') || "run");
+
+	engine_intersect_iterators();
 	
 	#common params, whatever the TE type
 	$time    = engine_get_value_ifdef($tvalue, 'limit') || undef;
 	$delta   = engine_get_value_ifdef($tvalue, 'tolerance' ) || undef;
+	$rc   = engine_get_value_ifdef($tvalue, 'returns' ) || 0;
 	@deps    = @{ engine_get_value_ifdef($tvalue, 'deps') || [] };
 	
 	if($ttype =~ m/^(build|complete)$/)
@@ -253,7 +281,7 @@ sub engine_unfold_test_expr
 		{
 			$command = "echo 'Not implemented yet !' && return 1";
 		}
-		engine_gen_test($xml, $tname, $command, $time, $delta, $constraint, @deps);
+		engine_gen_test($xml, $tname, $command, $rc, $time, $delta, $constraint, @deps);
 	}
 	
 	if($ttype =~ m/^(run|complete)$/)
@@ -262,13 +290,14 @@ sub engine_unfold_test_expr
 		my $extra_args = $sysconf->{'runtime'}{'args'} || "";
 		my $bin = "$bpath/".(engine_get_value_ifdef($tvalue, 'bin') || $tname);
 		my $args = engine_get_value_ifdef($tvalue, 'args') || "";
+		$constraint = undef;
+
 		foreach(@iter_combinations)
 		{
 			$name    = "$tname".engine_build_testname(@{$_});
 			my ($pre_env, $post_args) = engine_convert_to_cmd(@{$_});
 			$command = "$pre_env $launcher $post_args $extra_args $bin $args";
-			$constraint = undef;
-			engine_gen_test($xml, $name, $command, $time, $delta, $constraint, @deps);
+			engine_gen_test($xml, $name, $command, $rc, $time, $delta, $constraint, @deps);
 		}
 	}
 }

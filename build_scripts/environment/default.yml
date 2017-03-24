@@ -4,6 +4,9 @@ compiler-target: "default"
 #define which runtime config will be loaded (/build_scripts/configuration/runtimes/*.yml)
 runtime-target: "default"
 
+#define the default group to include into combinatory system
+group-target: "default"
+
 # list of iterators for this run. A missing line will deactivate an iterator
 iterators:
     n_node : ["1:2:*2"]
@@ -34,13 +37,23 @@ cluster:
 # generic options to affect the validation. To keep it simple, most of these parameters
 # can only be altered through this configuration (no command-line options overriding)
 validation:
+    # returns non-zero code if at least one test failed
+    expect-success : 0            
     support_model  : "supported"
-    tee            : 1
-    workers        : 10
-    sched_policy   : 0
-    run_wrapper    : ""
-    compil_wrapper : ""
-    worker_mintime : 0
-    worker_maxtime : 3000
-    job_meantime   : 50
-    expect_success : 0
+    # validation stdout will be logged into build/output.log
+    tee            : 1            
+    # number of concurrent JCHRONOSS workers
+    workers        : 10           
+    # Scheduling policy  (JCHRONOSS)
+    sched_policy   : 0            
+    # allocation wrapper (JCHRONOSS)
+    run_wrapper    : ""           
+    # compilation-specific allocation wrapper (JCHRONOSS)
+    compil_wrapper : ""           
+    # should not make an resource allocation if expected time does not reach this value
+    worker_mintime : 0            
+    # set a timer to avoid job manager autokill if a resource allocatio reaches this value
+    worker_maxtime : 3000         
+    # if time not specified per test, use this one by default
+    job_meantime   : 50           
+

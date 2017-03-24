@@ -4,12 +4,23 @@
 # WITH ONE OF THE FOLLOWING LABEL:
 # ################################################
 
-mpi_group: &mpig
-  iter: ["-n_omp"]
+grp_mpi:     &GRPMPI
+        iter: [ "-n_omp"]
 
+grp_omp:     &GRPOMP
+        iter: [ "-n_node", "-n_proc", "-n_mpi" ]
 
-omp_group: &ompg
-  iter: [ "-n_mpi", "-n_node", "-n_proc"]
+grp_hybrid:  &GRPHYB
+
+grp_app:     &GRPAPP
+
+grp_accl:    &GRPACCL
+
+grp_serial:  &GRPSERIAL
+        n_node: [1]
+        n_proc: [1]
+        n_mpi: [1]
+        n_omp: [1]
 
 ##################################################
 # END OF GROUP DEFINITION

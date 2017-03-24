@@ -80,6 +80,12 @@ sub helper_do_not_run_validation
 		print "Available root directories: ".join(", ", helper_list_avail_dirs())."\n";
 		$ret = 1;
 	}
+	
+	if ($conf->{'list-groups'})
+	{
+		print "Group definitions: ".join(", ", helper_lister("$internaldir/configuration/groups", "yml"))."\n";
+		$ret = 1;
+	}
 
 	return $ret;
 

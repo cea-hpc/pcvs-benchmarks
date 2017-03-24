@@ -52,6 +52,7 @@ sub print_summary
 	print "      - Loaded Config.   : $config_target\n";
 	print "      - Loaded Runtime   : \'$gconf{'runtime'}{'target'}\'\n";
 	print "      - Loaded Compiler  : \'$gconf{'compiler'}{'target'}\'\n";
+	print "      - Loaded Group File: \'$gconf{'group-target'}\'\n";
 	print "      - Test directories : ".join(", ", @{ $gconf{'select'} } )."\n";
 }
 
@@ -120,13 +121,13 @@ sub run_prepare
 	dircopy("$internaldir/generation/jchronoss/tools/jsLoc/*", "$buildir/") or die("Unable to copy JsLoc: $!");
 
 	#build JCHRONOSS
-	print " * Building JCHRONOSS (-j$gconf{j})\n";
+	print " * Building JCHRONOSS (-j$gconf{parallel})\n";
 	helper_clean_path("$buildir/tmp/build", 0);
 	{
 		local $CWD = "$buildir/tmp/build"; # equivalent to chdir()
 		my $color = "";
 		($color = "-DENABLE_COLOR=".($gconf{"color"} == 1 ? "ON" : "OFF")) if (exists $gconf{"color"});
-		`cmake $internaldir/generation/jchronoss -DCMAKE_INSTALL_PREFIX=$buildir/tmp $color && make -j$gconf{'j'} install`;
+		`cmake $internaldir/generation/jchronoss -DCMAKE_INSTALL_PREFIX=$buildir/tmp $color && make -j$gconf{'parallel'} install`;
 	}
 	helper_clean_path("$buildir/tmp/traces", 1);
 
@@ -194,7 +195,7 @@ sub run_configure
 	{
 		# Loading group info into a string, lately printed in each pcvs.yml.in
 		local $/ = undef;
-		open (my $f, "<", "$internaldir/configuration/groups/groups1.yml") or die ("Could not open groups file !");
+		open (my $f, "<", "$internaldir/configuration/groups/$gconf{'group-target'}.yml") or die ("Could not open groups file $gconf{'group-target'} !");
 		$grp_stream = <$f>;
 		close $f;
 	}
@@ -311,30 +312,32 @@ sub run_exec
 $SIG{INT} = "trap_signal";
 
 ##### DEFAULT VALUES
-$gconf{"j"} = 1;
+$gconf{'parallel'} = 1;
 $gconf{'regen'} = 1;
+$gconf{'color'} = 0;
+$gconf{'verbose'} = 0;
 $gconf{'src'} = $srcdir;
 $gconf{'build'} = $srcdir."/build";
-$gconf{'verbose'} = 0;
 
 GetOptions (
 	\%gconf,
 	"config-target=s",
-	"list-configs|lco",
+	"list-configs",
 	"build=s",
 	"select=s@",
-	"list-directories",
 	"compiler-target=s",
 	"runtime-target=s",
+	"group-target=s",
 	"target=s",
-	"j:i" ,
+	"parallel:i" ,
 	"log!",
-	"list-runtimes|lr",
-	"list-compilers|lc",
+	"list-directories",
+	"list-runtimes",
+	"list-compilers",
+	"list-groups",
 	"list-vars",
 	"regen!",
 	"color|c!",
-	"clean",
 	"expect-success",
 	"verbose:i",
 	"help"

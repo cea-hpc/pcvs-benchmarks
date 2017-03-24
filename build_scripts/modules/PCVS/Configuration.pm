@@ -104,17 +104,18 @@ sub configuration_passthrough
 
 	foreach my $k (keys %{$hashref})
 	{
+		(my $k_compliant = $k) =~ s/[-\/\*]/_/;
 		if(ref(${$hashref}{$k}) eq "HASH")
 		{
-			configuration_passthrough($output_file, ${$hashref}{$k}, "${key}_${k}");
+			configuration_passthrough($output_file, ${$hashref}{$k}, "${key}_${k_compliant}");
 		}
 		elsif(ref ${$hashref}{$k} eq "ARRAY")
 		{
-			print $output_file "export ${key}_${k}_list=\"".join(" ", @{${$hashref}{$k}})."\"\n";
+			print $output_file "export ${key}_${k_compliant}_list=\"".join(" ", @{${$hashref}{$k}})."\"\n";
 		}
 		else
 		{
-			print $output_file "export ${key}_${k}=\"${$hashref}{$k}\"\n";
+			print $output_file "export ${key}_${k_compliant}=\"${$hashref}{$k}\"\n";
 		}
 	}
 }

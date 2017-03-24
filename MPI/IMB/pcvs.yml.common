@@ -2,7 +2,6 @@ compile_IMB-MPI1: &MPI1
   type: "build"
   files: "@BUILDPATH@/Makefile"
   target: "IMB-MPI1"
-  returns: 0
 
 compile_IMB-EXT : &EXT
   type: "build"
@@ -27,19 +26,24 @@ compile_IMB-RMA : &RMA
 pcvst_IMB-MPI1: &TMPI1
   deps: [ "compile_IMB-MPI1" ]
   bin: "IMB-MPI1"
+  #herit: *GRPMPI
 
 pcvst_IMB-EXT: &TEXT
   deps: [ "compile_IMB-EXT" ]
   bin: "IMB-EXT"
+  #herit: *GRPMPI
 
 pcvst_IMB-IO: &TIO
   deps: [ "compile_IMB-IO" ]
   bin: "IMB-IO"
+  #herit: *GRPMPI
 
 pcvst_IMB-NBC: &TNBC
   deps: [ "compile_IMB-NBC" ]
   bin: "IMB-NBC"
+  #herit: *GRPMPI
 
 pcvst_IMB-RMA: &TRMA
   deps: [ "compile_IMB-RMA" ]
   bin: "IMB-RMA"
+  herit: *GRPMPI
