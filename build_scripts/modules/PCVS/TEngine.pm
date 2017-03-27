@@ -19,6 +19,7 @@ use vars qw(@ISA @EXPORT @EXPORT_OK);
 my $sysconf;
 my $loaded_mod;
 my %sys_iterlist = ();
+my %sys_limits = ();
 my @sys_iterlist_names = (); # list of iterator names
 my $debug_file;
 
@@ -129,7 +130,8 @@ sub engine_init
 	#... and get back system definition for each iterator
 	foreach my $iter_name(@sys_iterlist_names)
 	{
-		my @sys_list = @{ $sysconf->{'iterators'}{$iter_name} || [] };
+		my @sys_list = engine_unfold_iterator($iter_name,@{ $sysconf->{'iterators'}{$iter_name}});
+		$sys_limits{$iter_name} = [$sys_list[0], $sys_list[$#sys_list]];
 		push @{ $sys_iterlist{$iter_name}}, @sys_list;
 	}
 }
@@ -188,22 +190,24 @@ sub engine_TE_combinations
 		$nparent++;
 	}
 
-	engine_debug("\nFinal iterator values:\n");
+	engine_debug("\nFinal iterator value override:\n");
 	
 	my (@tmp, @local_combinatory, $n) = ();
 	#now, we set user-undefined iterators with system ones. If an iterator is empty ('[]'), it will be removed
-	foreach(@sys_iterlist_names)
+	foreach my $name(@sys_iterlist_names)
 	{
 		#set to default if undefined
-		$local_iterlist{$_} = $sys_iterlist{$_} if(!exists $local_iterlist{$_});
+		$local_iterlist{$name} = $sys_iterlist{$name} if(!exists $local_iterlist{$name});
+		
+		#"unfold" the iterator to get generated list: parse each element and build the value list
+		my @seq = engine_unfold_iterator($name, @{$local_iterlist{$name}});
+		(@seq = grep {$_ > $sys_limits{$name}[0] and $_ < $sys_limits{$name}[1] } @seq) if ($name =~ /^n_/); 
 		
 		#remove this iterator if empty
-		(delete $local_iterlist{$_} and next ) if(!@{ $local_iterlist{$_}});
+		(delete $local_iterlist{$name} and next ) if(!@seq);
 
-		#"unfold" the iterator to get generated list: parse each element and build the value list
-		my @seq = engine_unfold_iterator($_, @{$local_iterlist{$_}});
 
-		engine_debug("\t$_:\t [".join(", ", @seq)."]\n");
+		engine_debug("\t$name:\t [".join(", ", @seq)."]\n");
 		
 		#save this value list into the "array of iterators" (used w/ NestedLoops)
 		push @tmp, \@seq;
@@ -355,7 +359,17 @@ sub engine_unfold_file
 
 	#ready to write list_of_tests
 	open(my $xml_file, ">", "$bpath/list_of_tests.xml");
-	open($debug_file, ">", "$filepath.log") or die ("Debug file !") if $sysconf->{'engine-debug'};
+
+	if($sysconf->{'engine-debug'})
+	{
+		open($debug_file, ">", "$filepath.log") or die ("Debug file !");
+		print $debug_file "##################\nSystem combinations:\n";
+		foreach(keys %sys_iterlist)
+		{
+			print $debug_file "\t$_:\t[".join(", ", @{ $sys_iterlist{$_} })."]\n";
+		}
+
+	}
 
 	my $xmlwriter = XML::Writer->new(OUTPUT => $xml_file, NEWLINES => 0);
 	$xmlwriter->startTag("jobSuite", "package" => grep {s/\//\./g} $ftree);
