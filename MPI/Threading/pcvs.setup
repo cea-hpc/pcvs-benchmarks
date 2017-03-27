@@ -1,3 +1,18 @@
 #!/bin/sh
 
-echo "It Works !"
+pcvs_src_current=$pcvs_src/$1
+#pcvs_build_current=$pcvs_testbuild/$1
+
+for t in `find $pcvs_src_current -maxdepth 1 -type f -name "*.c"`
+do
+	#remove extension
+	file=`basename $t`
+	bin=`echo "$file" | perl -pe "s/\..*$//"`
+
+	#generate YAML entry
+	echo "$bin:"
+	echo "    type: 'complete'"
+	echo "    herit: *GRPMPI"
+	echo "    files: \"@SRCPATH@/$file\""
+	echo "    bin: $bin"
+done
