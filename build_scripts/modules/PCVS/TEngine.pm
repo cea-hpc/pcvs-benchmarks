@@ -335,6 +335,10 @@ sub engine_unfold_test_expr
 	{
 		my $launcher = $sysconf->{'runtime'}{'cmd'} || "";
 		my $extra_args = $sysconf->{'runtime'}{'args'} || "";
+			
+		#special case : complete -> auto-create the dependency between compilation and exec
+		push @deps, $tname if($ttype =~ /^complete$/);
+
 		$constraint = undef;
 
 		#do the job...
@@ -381,7 +385,7 @@ sub engine_unfold_file
 	foreach my $test(keys %{ $filestream })
 	{
 		# skip test template
-		next if($test =~ m/^pcvst_.*$/);
+		next if($test =~ m/^pcvs.*$/);
 		engine_unfold_test_expr($xmlwriter, $test, $filestream->{$test}, $bpath);
 	}
 
