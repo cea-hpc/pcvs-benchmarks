@@ -93,15 +93,38 @@ sub helper_do_not_run_validation
 sub helper_detect_compiler
 {
 	my @list_files = @_;
+
 	#only check the first one (lazy)
-	if($list_files[0] =~ /^(.*\.)*\.([a-zA-Z0-9]+)$/)
+	if($list_files[0] =~ /([^\.]*)$/)
 	{
-		my $ext = $2;
-		print "detect $ext for $list_files[0]\n";
+		my $ext = $1;
+		#Still no switch-case implementation in core Perl...
+		if($ext =~ /^(c|c90|c99|c11)$/) # C
+		{
+			return "c";
+		}
+		elsif($ext =~ /^(C|cxx|cpp|c\+\+)$/) # C++
+		{
+			return "cxx";
+		}
+		elsif($ext =~ /^f([0-9]*)$/) # fortran
+		{
+			if(!defined $1 or $1 =~ /f77/)
+			{
+				return "f77";
+			}
+			elsif($1 =~ /90/)
+			{
+				return "f90";
+			}
+			elsif($1 =~ /^(08|2008)$/)
+			{
+				return "f08";
+			}
+		}
 	}
 
-
-	return "c";
+	return undef;
 
 }
 
