@@ -7,7 +7,7 @@ use File::Copy::Recursive qw(pathempty);
 use File::Path;
 
 our @ISA = 'Exporter';
-our @EXPORT = qw(helper_init helper_do_not_run_validation helper_list_avail_dirs helper_lister helper_clean_path helper_convert_time);
+our @EXPORT = qw(helper_init helper_do_not_run_validation helper_list_avail_dirs helper_lister helper_clean_path helper_convert_time helper_detect_compiler);
 our @EXPORT_OK = qw();
 
 our $conf;
@@ -88,6 +88,20 @@ sub helper_do_not_run_validation
 	}
 
 	return $ret;
+}
+
+sub helper_detect_compiler
+{
+	my @list_files = @_;
+	#only check the first one (lazy)
+	if($list_files[0] =~ /^(.*\.)*\.([a-zA-Z0-9]+)$/)
+	{
+		my $ext = $2;
+		print "detect $ext for $list_files[0]\n";
+	}
+
+
+	return "c";
 
 }
 

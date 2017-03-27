@@ -1,3 +1,14 @@
 #!/bin/sh
 
-echo "It Works !"
+pcvs_src_current=$pcvs_src/$1
+pcvs_build_current=$pcvs_testbuild/$1
+
+for t in `ls $pcvs_src_current`
+do
+	#remove extension
+	bin=`echo "$t" | perl -pe "s/\..*$//"`
+	echo "$bin:"
+	echo "    type: 'complete'"
+	echo "    files: \"@SRCPATH@/$t\""
+	echo "    bin: $bin"
+done

@@ -8,6 +8,7 @@ use Algorithm::Loops qw(NestedLoops); # time saver
 use Module::Load qw(load autoload); #dynamic module loading
 use Data::Dumper; #used for debug
 use XML::Writer; #XML parser
+use PCVS::Helper;
 use YAML qw(LoadFile); # YAML parser
 $YAML::numify = 1;
 use vars qw(@ISA @EXPORT @EXPORT_OK);
@@ -211,10 +212,8 @@ sub engine_TE_combinations
 		
 		#save this value list into the "array of iterators" (used w/ NestedLoops)
 		push @tmp, \@seq;
+		push @local_iterlist_names, $name;
 	}
-
-	#memorize the new list of iterators, only valid for the current TE
-	@local_iterlist_names = keys %local_iterlist;
 
 	#build all the combinations
 	NestedLoops(\@tmp, sub { $n++; push @local_combinatory, [ @_ ] if($loaded_mod->runtime_valid(\@local_iterlist_names, @_));} );
@@ -296,7 +295,7 @@ sub engine_unfold_test_expr
 	#params
 	my  ($xml, $tname,  $tvalue, $bpath) = @_;
 	#global var for a test_expr
-	my ($name, $command, $rc, $time, $delta, $constraint, @deps) = ();
+	my ($name, $bin, $command, $args, $rc, $time, $delta, $constraint, @deps) = ();
 	#other vars
 	my $ttype = lc(engine_get_value_ifdef($tvalue, 'type') || "run");
 
@@ -305,23 +304,29 @@ sub engine_unfold_test_expr
 	$delta   = engine_get_value_ifdef($tvalue, 'tolerance' ) || undef;
 	$rc   = engine_get_value_ifdef($tvalue, 'returns' ) || 0;
 	@deps    = @{ engine_get_value_ifdef($tvalue, 'deps') || [] };
+	$args = engine_get_value_ifdef($tvalue, 'args') || "";
+	$bin = "$bpath/".(engine_get_value_ifdef($tvalue, 'bin') || $tname);
 
 	if($ttype =~ m/^(build|complete)$/)
 	{
 		$constraint = "compilation";
 		my $target = engine_get_value_ifdef($tvalue, 'target');
+		my $files = engine_get_value_ifdef($tvalue, 'files') || $tname;
+		my $cflags = $sysconf->{compiler}{cflags} || "";
 		if(defined $target) # if makefile
 		{
-			my $files = engine_get_value_ifdef($tvalue, 'files') ;
 			die("'files' field not found for $tname !") if(! defined $files);
 
 			(my $makepath = $files) =~ s,/[^/]*$,,;
 			(my $makefile = $files) =~ s/^$makepath\///;
-			$command = "make -f $makefile -C $makepath $target";
+			$command = "make $args -f $makefile -C $makepath $target";
 		}
 		else
 		{
-			$command = "echo 'Not implemented yet !' && return 1";
+			my $comp_name = helper_detect_compiler($files);
+			die("Unable to find a valid compiler for $tname !") if (!$comp_name);
+
+			$command = "$sysconf->{compiler}{$comp_name} $cflags $args -o $bin $files";
 		}
 		engine_gen_test($xml, $tname, $command, $rc, $time, $delta, $constraint, @deps);
 	}
@@ -330,8 +335,6 @@ sub engine_unfold_test_expr
 	{
 		my $launcher = $sysconf->{'runtime'}{'cmd'} || "";
 		my $extra_args = $sysconf->{'runtime'}{'args'} || "";
-		my $bin = "$bpath/".(engine_get_value_ifdef($tvalue, 'bin') || $tname);
-		my $args = engine_get_value_ifdef($tvalue, 'args') || "";
 		$constraint = undef;
 
 		#do the job...
