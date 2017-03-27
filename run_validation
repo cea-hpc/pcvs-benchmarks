@@ -280,9 +280,9 @@ sub run_exec
 	$nb_workers = $gconf{'validation'}{'workers'}  || 1;
 
 	$autokill    = prefix_if_exists("--autokill=", $gconf{'validation'}{'autokill'});
-	$run_w       = prefix_if_exists("--launcher=$internaldir/launcher/", $gconf{'validation'}{'run_wrapper'});
-	$compil_w    = prefix_if_exists("--compil-launcher=$internaldir/launcher/", $gconf{'validation'}{'compil_wrapper'});
-	$compil_w    = prefix_if_exists("--compil-launcher=$internaldir/launcher/", $gconf{'validation'}{'run_wrapper'});
+	$run_w       = prefix_if_exists("--launcher=$internaldir/launchers/", $gconf{'validation'}{'run_wrapper'});
+	$compil_w    = prefix_if_exists("--compil-launcher=$internaldir/launchers/", $gconf{'validation'}{'compil_wrapper'});
+	$compil_w    = prefix_if_exists("--compil-launcher=$internaldir/launchers/", $gconf{'validation'}{'run_wrapper'});
 	$verbosity   = prefix_if_exists("--verbosity=", $gconf{'verbose'});
 	$policy      = prefix_if_exists("--policy=", $gconf{'validation'}{'sched_policy'});
 	$maxjobt     = prefix_if_exists("--maxt-job=", $gconf{'validation'}{'job_meantime'});

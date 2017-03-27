@@ -175,10 +175,10 @@ sub configuration_validate
 	my $current_field;
 
 	$current_field = $gconf{'validation'}{'run_wrapper'};
-	(!$current_field || (-f "$internaldir/launchers/$current_field.sh")) or die("\'validation/run_wrapper = $current_field\' is INVALID from configuration: $!");
+	(!$current_field || (-f "$internaldir/launchers/$current_field")) or die("\'validation/run_wrapper = $current_field\' is INVALID from configuration: $!");
 
 	$current_field = $gconf{'validation'}{'compil_wrapper'};
-	(!$current_field || (-f "$internaldir/launchers/$current_field.sh")) or die("\'validation/compil_wrapper = $current_field\' is INVALID from configuration: $!");
+	(!$current_field || (-f "$internaldir/launchers/$current_field")) or die("\'validation/compil_wrapper = $current_field\' is INVALID from configuration: $!");
 
 	$current_field = $gconf{'compiler-target'};
 	(!$current_field || (-f "$internaldir/configuration/compilers/$current_field.yml")) or die("\'compiler/target = $current_field\' is INVALID from configuration: $!");
