@@ -240,6 +240,7 @@ sub run_configure
 			$yaml_elem =~ s/\/pcvs.yml.in$//;
 			(my $name = $yaml_elem) =~ s/($buildir\/test_suite|$srcdir)\///g;
 			my $current_bpath = "$buildir/test_suite/$name";
+			my $current_path = "$srcdir/$name";
 
 			#clean if pcvs.setup didn't do it:
 			helper_clean_path($current_bpath, 1) if (!$cleaned_by_setup);
