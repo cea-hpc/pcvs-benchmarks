@@ -4,19 +4,22 @@
 # WITH ONE OF THE FOLLOWING LABEL:
 # ################################################
 
-grp_mpi:     &GRPMPI
-        iter: [ "-n_omp"]
+pcvst_grp_mpi:     &GRPMPI
+        n_omp: []
+        n_mpi: [2, 4, 8]
 
-grp_omp:     &GRPOMP
-        iter: [ "-n_node", "-n_proc", "-n_mpi" ]
+pcvst_grp_omp:     &GRPOMP
+        n_node: []
+        n_proc: []
+        n_mpi: []
 
-grp_hybrid:  &GRPHYB
+pcvst_grp_hybrid:  &GRPHYB
 
-grp_app:     &GRPAPP
+pcvst_grp_app:     &GRPAPP
 
-grp_accl:    &GRPACCL
+pcvst_grp_accl:    &GRPACCL
 
-grp_serial:  &GRPSERIAL
+pcvst_grp_serial:  &GRPSERIAL
         n_node: [1]
         n_proc: [1]
         n_mpi: [1]

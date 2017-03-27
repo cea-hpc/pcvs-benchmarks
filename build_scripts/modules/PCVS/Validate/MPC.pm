@@ -10,12 +10,12 @@ use vars qw(@ISA @EXPORT);
 @EXPORT = qw();
 
 my $gconf;
-my @iter_list;
 my $max_cores;
 my $max_nodes;
+
 sub runtime_init
 {
-	(my $self, $gconf, @iter_list) = @_;
+	(my $self, $gconf) = @_;
 	$max_cores = $gconf->{cluster}{max_cores_per_node};
 	$max_nodes = $gconf->{cluster}{max_nodes};
 }
@@ -26,10 +26,10 @@ sub runtime_fini
 
 sub get_ifdef
 {
-	my ($arg, @c)= @_;
+	my ($arg, $k, @c)= @_;
 	foreach (0..$#c)
 	{
-		return $c[$_] if($iter_list[$_] eq $arg);
+		return $c[$_] if($k->[$_] eq $arg);
 	}
 
 	return undef;
@@ -37,16 +37,16 @@ sub get_ifdef
 
 sub runtime_valid
 {
-	my ($self, @args) = @_;
+	my ($self, $keys, @args) = @_;
 	my ($node, $proc, $mpi, $omp, $core, $net, $sched) = ();
 
-	$node  = get_ifdef('n_node',@args);
-	$proc  = get_ifdef('n_proc',@args);
-	$mpi   = get_ifdef('n_mpi' ,@args); 
-	$omp   = get_ifdef('n_omp' ,@args);
-	$core  = get_ifdef('n_core',@args);
-	$net   = get_ifdef('net' ,@args); 
-	$sched = get_ifdef('sched',@args);
+	$node  = get_ifdef('n_node',$keys,@args);
+	$proc  = get_ifdef('n_proc',$keys,@args);
+	$mpi   = get_ifdef('n_mpi' ,$keys,@args); 
+	$omp   = get_ifdef('n_omp' ,$keys,@args);
+	$core  = get_ifdef('n_core',$keys,@args);
+	$net   = get_ifdef('net' ,$keys,@args); 
+	$sched = get_ifdef('sched',$keys,@args);
 
 	# please be sure to check if the iterator exist because the system emits
 	# an undef when the iterator won't be unfolded for the current configuration
