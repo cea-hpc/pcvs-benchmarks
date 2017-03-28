@@ -1,0 +1,29 @@
+build_hpio:
+        type: "build"
+        target: "all"
+        files : "@BUILDPATH@/Makefile"
+
+
+pcvst_hpio_test: &HPIOT
+        type: "run"
+        herit: *GRPMPI
+        deps: [ "build_hpio" ]
+        bin: "hpio"
+        n_proc: [1]
+        n_mpi: [4]
+
+test_cont_cont:
+        herit: *HPIOT
+        args: "-n 1000 -m 11 -b 111 -s 111 -v 2"
+
+test_noncont_cont:
+        herit: *HPIOT
+        args: "-n 0100 -m 11 -b 111 -s 111 -v 2"
+
+test_cont_noncont:
+        herit: *HPIOT
+        args: "-n 0010 -m 11 -b 100 -s 111 -v 2"
+
+test_noncont_noncont:
+        herit: *HPIOT
+        args: "-n 0001 -m 11 -b 100 -s 111 -v 2"

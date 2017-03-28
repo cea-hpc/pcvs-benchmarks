@@ -1,7 +1,7 @@
 # Please change mpi_dir to point to your MPI installation
 mpi_dir = 
-cc	= mpc_cc
-CFLAGS	= -Wall -Wstrict-prototypes -g
+cc	= $(PCVS_CC)
+CFLAGS	= -Wall -Wstrict-prototypes -g $(PCVS_CFLAGS)
 
 EXECUTABLE = hpio hpio-small
 

@@ -314,7 +314,7 @@ sub engine_unfold_test_expr
 
 			(my $makepath = $files) =~ s,/[^/]*$,,;
 			(my $makefile = $files) =~ s/^$makepath\///;
-			$command = "make $args -f $makefile -C $makepath $target CC=\"$sysconf->{compiler}{c}\" CXX=\"$sysconf->{compiler}{cxx}\" FC=\"$sysconf->{compiler}{f77}\" CFLAGS=\"$sysconf->{compiler}{cflags}\"";
+			$command = "make $args -f $makefile -C $makepath $target PCVS_CC=\"$sysconf->{compiler}{c}\" PCVS_CXX=\"$sysconf->{compiler}{cxx}\" PCVS_FC=\"$sysconf->{compiler}{f77}\" PCVS_CFLAGS=\"$sysconf->{compiler}{cflags}\"";
 		}
 		else
 		{
