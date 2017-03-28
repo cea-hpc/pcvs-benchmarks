@@ -5,7 +5,7 @@ use Exporter;
 use Sys::Hostname;
 use File::chdir;
 use PCVS::Helper;
-use YAML qw(LoadFile DumpFile); # YAML parser
+use YAML qw(LoadFile DumpFile);
 use Data::Dumper;
 
 our @ISA = 'Exporter';

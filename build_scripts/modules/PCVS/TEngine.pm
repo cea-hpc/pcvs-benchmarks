@@ -9,7 +9,7 @@ use Module::Load qw(load autoload); #dynamic module loading
 use Data::Dumper; #used for debug
 use XML::Writer; #XML parser
 use PCVS::Helper;
-use YAML qw(LoadFile); # YAML parser
+use YAML qw(LoadFile DumpFile); # YAML parser
 #$YAML::numify = 1;
 use vars qw(@ISA @EXPORT @EXPORT_OK);
 
@@ -308,13 +308,14 @@ sub engine_unfold_test_expr
 		my $files = engine_get_value_ifdef($tvalue, 'files') || $tname;
 		my $cflags = $sysconf->{compiler}{cflags} || "";
 		$args = engine_get_value_ifdef($tvalue, 'cargs') || "";
+		$args .= " $sysconf->{compiler}{openmp}" if(engine_get_value_ifdef($tvalue, 'openmp') and $sysconf->{compiler}{openmp});
 		if(defined $target) # if makefile
 		{
 			die("'files' field not found for $tname !") if(! defined $files);
 
 			(my $makepath = $files) =~ s,/[^/]*$,,;
 			(my $makefile = $files) =~ s/^$makepath\///;
-			$command = "make $args -f $makefile -C $makepath $target PCVS_CC=\"$sysconf->{compiler}{c}\" PCVS_CXX=\"$sysconf->{compiler}{cxx}\" PCVS_FC=\"$sysconf->{compiler}{f77}\" PCVS_CFLAGS=\"$sysconf->{compiler}{cflags}\"";
+			$command = "make -f $makefile -C $makepath $target PCVS_CC=\"$sysconf->{compiler}{c}\" PCVS_CXX=\"$sysconf->{compiler}{cxx}\" PCVS_FC=\"$sysconf->{compiler}{f77}\" PCVS_CFLAGS=\"$cflags $args\"";
 		}
 		else
 		{

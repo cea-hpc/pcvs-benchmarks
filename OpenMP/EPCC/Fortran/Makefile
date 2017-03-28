@@ -1,7 +1,7 @@
-FC = f90
-FFLAGS =  -fast -xarch=v9b -openmp
-LDFLAGS = -fast -xarch=v9b -xopenmp -lm
-CPP = /opt/local/bin/cpp
+FC = $(PCVS_FC)
+FFLAGS = $(PCVS_CFLAGS)
+LDFLAGS =  -lm $(PCVS_CFLAGS)
+CPP = cpp
 OMPFLAG = -DOMPVER2
 CLOCKFLAG = -DOMPCLOCK
 LIBS = 

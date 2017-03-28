@@ -1,0 +1,43 @@
+build_epcc:
+        type: "build"
+        openmp: false
+        cargs: "-DOMPVER2 -DOMPVER3"
+        files: "@BUILDPATH@/Makefile"
+        target: ""
+
+pcvst_bench_run: &runt
+        deps: [ "build_epcc" ]
+        herit: *GRPOMP
+        type: "run"
+
+arraybench_1:
+        herit: *runt
+arraybench_3:
+        herit: *runt
+arraybench_9:
+        herit: *runt
+arraybench_27:
+        herit: *runt
+arraybench_81:
+        herit: *runt
+arraybench_243:
+        herit: *runt
+arraybench_729:
+        herit: *runt
+arraybench_2187:
+        herit: *runt
+arraybench_6561:
+        herit: *runt
+arraybench_19683:
+        herit: *runt
+arraybench_59049:
+        herit: *runt
+
+schedbench:
+        herit: *runt
+
+taskbench:
+        herit: *runt
+
+syncbench:
+        herit: *runt
