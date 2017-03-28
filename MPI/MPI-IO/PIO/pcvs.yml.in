@@ -1,0 +1,19 @@
+pcvst_pio: &PIOT
+        type: "complete"
+        target: ""
+        herit: *GRPMPI
+        n_proc: [1]
+        n_mpi: [4]
+
+pio_noncontig:
+        herit: *PIOT
+        files: "@BUILDPATH@/noncontig/Makefile"
+        bin: "noncontig/noncontig"
+        args: "-fname @BUILDPATH@/out.dat -veclen 16384 -elmtcount 1 -sfact 8  -all -loops 8 -ssize 128 -displs 8 -veccount 512"
+
+pio_tile:
+        herit: *PIOT
+        files: "@BUILDPATH@/mpi-tile-io/Makefile"
+        bin: "mpi-tile-io/mpi-tile-io"
+        args: "--nr_tiles_x 2 --nr_tiles_y 2 --sz_tile_x 256 --sz_tile_y 256 --sz_element 10000 --filename @BUILDPATH@/out.dat --collective --write_file"
+

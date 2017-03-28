@@ -299,7 +299,6 @@ sub engine_unfold_test_expr
 	$delta   = engine_get_value_ifdef($tvalue, 'tolerance' ) || undef;
 	$rc   = engine_get_value_ifdef($tvalue, 'returns' ) || 0;
 	@deps    = @{ engine_get_value_ifdef($tvalue, 'deps') || [] };
-	$args = engine_get_value_ifdef($tvalue, 'args') || "";
 	$bin = "$bpath/".(engine_get_value_ifdef($tvalue, 'bin') || $tname);
 
 	if($ttype =~ m/^(build|complete)$/)
@@ -308,6 +307,7 @@ sub engine_unfold_test_expr
 		my $target = engine_get_value_ifdef($tvalue, 'target');
 		my $files = engine_get_value_ifdef($tvalue, 'files') || $tname;
 		my $cflags = $sysconf->{compiler}{cflags} || "";
+		$args = engine_get_value_ifdef($tvalue, 'cargs') || "";
 		if(defined $target) # if makefile
 		{
 			die("'files' field not found for $tname !") if(! defined $files);
@@ -328,6 +328,7 @@ sub engine_unfold_test_expr
 
 	if($ttype =~ m/^(run|complete)$/)
 	{
+		my $args = engine_get_value_ifdef($tvalue, 'args') || "";
 		my $launcher = $sysconf->{'runtime'}{'cmd'} || "";
 		my $extra_args = $sysconf->{'runtime'}{'args'} || "";
 			

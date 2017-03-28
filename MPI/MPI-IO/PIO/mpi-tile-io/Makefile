@@ -1,5 +1,5 @@
-CC=mpc_cc
-CFLAGS=-Wall -g -DHAVE_GETOPT_LONG
+CC=$(PCVS_CC)
+CFLAGS=-Wall -g -DHAVE_GETOPT_LONG $(PCVS_CFLAGS)
 
 all: mpi-tile-io
 
