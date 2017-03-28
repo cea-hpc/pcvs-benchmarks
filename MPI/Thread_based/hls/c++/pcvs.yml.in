@@ -1,0 +1,13 @@
+pcvst_hls: &hls
+        type: "complete"
+        cargs: "-fhls"
+        n_proc: [1]
+
+hls_node:
+        herit: *hls
+        files: "@SRCPATH@/hls_node.cpp"
+
+hls_single:
+        herit: *hls
+        files: "@SRCPATH@/hls_single.cpp"
+
