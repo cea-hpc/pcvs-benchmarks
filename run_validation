@@ -242,13 +242,13 @@ sub run_configure
 			my $current_bpath = "$buildir/test_suite/$name";
 			my $current_path = "$srcdir/$name";
 
-			#clean if pcvs.setup didn't do it:
-			helper_clean_path($current_bpath, 1) if (!$cleaned_by_setup);
+			#clean if pcvs.setup didn't exist (first pass):
+			helper_clean_path($current_bpath, 1) if (! -f "$current_path/pcvs.setup");
 
 			#copy .in file and replace @...@ by real paths (files are in $buildir)
 			if(! -f "$current_bpath/pcvs.yml.in")
 			{
-				open (my $w, ">", "$current_bpath/pcvs.yml.in");
+				open (my $w, ">", "$current_bpath/pcvs.yml.in") or die("Unable to open $current_bpath/pcvs.yml.in: $!");
 				print $w $grp_stream; # we have to append this
 				print $w `cat $yaml_elem/pcvs.yml.in`;
 				close $w;

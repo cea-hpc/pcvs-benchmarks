@@ -1,23 +1,14 @@
 #!/bin/sh
 
+pcvs_src_current="$pcvs_src/$1"
+pcvs_build_current="$pcvs_testbuild/$1"
+
+
 gen_makefile()
 {
 echo "
 
-TARGETS= ptr_chain_struct_remote ptr_chain_struct_remote_opt ptr_chain_struct_remote_tu ptr_chain_struct_remote_tu_opt
 
-all : \$(TARGETS)
-
-CC=\${TS_CC}
-
-libp.so : ${PCVS_CSOURCE_DIR}/b.c
-	\$(CC) -g  $^ -fpic -shared -o ./executables/\$@
-
-ptr_chain_struct_remote : ${PCVS_CSOURCE_DIR}/a.c libp.so 
-	\$(CC) -g -O0 ${PCVS_CSOURCE_DIR}/a.c -fdump-tree-gimple -o ./executables/\$@ -L$PWD/executables/ -lp  -Wl,-rpath=$PWD/executables/
-
-ptr_chain_struct_remote_opt :  ${PCVS_CSOURCE_DIR}/a.c libp.so 
-	\$(CC) -g -O3 ${PCVS_CSOURCE_DIR}/a.c -fdump-tree-gimple -o ./executables/\$@ -L$PWD/executables/ -lp  -Wl,-rpath=$PWD/executables/
 
 ptr_chain_struct_remote_tu : ${PCVS_CSOURCE_DIR}/a.c ${PCVS_CSOURCE_DIR}/b.c 
 	\$(CC) -g -O0 ${PCVS_CSOURCE_DIR}/a.c ${PCVS_CSOURCE_DIR}/b.c -fdump-tree-gimple -o ./executables/\$@ -L$PWD/executables/
@@ -27,14 +18,52 @@ ptr_chain_struct_remote_tu_opt :  ${PCVS_CSOURCE_DIR}/a.c ${PCVS_CSOURCE_DIR}/b.
 "
 }
 
-MPC_AUTO_KILL_TIMEOUT=5
+gen_makefile()
+{
+echo "
 
-gen_makefile > ${PCVS_CWORK_DIR}/Makefile
-makefile_configuration "compile_GCC_ptr_chain_struct_remote" "-C ${PCVS_CWORK_DIR}/"
+TARGETS= ptr_chain_struct_remote ptr_chain_struct_remote_opt ptr_chain_struct_remote_tu ptr_chain_struct_remote_tu_opt
 
-LIST_TESTS_NAME=" ptr_chain_struct_remote ptr_chain_struct_remote_opt ptr_chain_struct_remote_tu ptr_chain_struct_remote_tu_opt"
+all : \$(TARGETS)
 
-for exe in ${LIST_TESTS_NAME}
-do
-	helper_configuration_loop "test_${exe}" "${PCVS_CWORK_DIR}/executables/${exe}" "compile_GCC_ptr_chain_struct_remote"
-done
+CC=\${PCVS_CC}
+FLAGS=\$(PCVS_CFLAGS)
+LIBFLAGS="-L$pcvs_build_current -lp  -Wl,-rpath=$pcvs_build_current"
+
+libp.so : ${pcvs_src_current}/b.c
+	\$(CC) -g  $^ -fpic -shared -o $pcvs_build_current/\$@ \$(FLAGS)
+
+ptr_chain_struct_remote: $pcvs_src_current/a.c  libp.so
+	\$(CC) -g -O0 $^ -o $pcvs_build_current/\$@ \$(FLAGS) \$(LIBFLAGS)
+
+ptr_chain_struct_remote_opt : $pcvs_src_current/a.c  libp.so
+	\$(CC) -g -O3 $^ -o $pcvs_build_current/\$@ \$(FLAGS) \$(LIBFLAGS)
+
+ptr_chain_struct_remote_tu : $pcvs_src_current/a.c  libp.so
+	\$(CC) -g -O0 $^ -o $pcvs_build_current/\$@ \$(FLAGS) \$(LIBFLAGS)
+
+ptr_chain_struct_remote_tu_opt : $pcvs_src_current/a.c  libp.so
+	\$(CC) -g -O3 $^ -o $pcvs_build_current/\$@ \$(FLAGS) \$(LIBFLAGS)
+
+.PHONY: ptr_chain_struct_remote ptr_chain_struct_remote_opt ptr_chain_struct_remote_tu ptr_chain_struct_remote_tu_opt
+"
+}
+
+gen_makefile > $pcvs_build_current/Makefile
+echo '
+pcvst_t: &t
+     files: @BUILDPATH@/Makefile
+     type: "complete"
+     herit: *GRPMPI
+     n_proc: [1]
+
+non_optim:
+     herit: *t
+     target: "ptr_chain_struct_remote"
+     bin: "ptr_chain_struct_remote"
+
+optim_O3:
+     herit: *t
+     target: "ptr_chain_struct_remote_opt"
+     bin: "ptr_chain_struct_remote_opt"
+'

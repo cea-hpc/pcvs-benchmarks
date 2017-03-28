@@ -1,5 +1,8 @@
 #!/bin/sh
 
+pcvs_src_current="$pcvs_src/$1"
+pcvs_build_current="$pcvs_testbuild/$1"
+
 gen_makefile()
 {
 echo "
@@ -8,24 +11,34 @@ TARGETS= ptr_chain_struct_local ptr_chain_struct_local_opt
 
 all : \$(TARGETS)
 
-CC=\${TS_CC}
+CC=\${PCVS_CC}
+FLAGS=\$(PCVS_CFLAGS)
 
-ptr_chain_struct_local : ${PCVS_CSOURCE_DIR}/a.c
-	\$(CC) -g -O0 $^ -fdump-tree-gimple -o ./executables/\$@
+ptr_chain_struct_local: $pcvs_src_current/a.c
+	\$(CC) -g -O0 $^ -o $pcvs_build_current/\$@ \$(FLAGS)
 
-ptr_chain_struct_local_opt :  ${PCVS_CSOURCE_DIR}/a.c 
-	\$(CC) -g -O3 $^ -fdump-tree-gimple -o ./executables/\$@
+ptr_chain_struct_local_opt : $pcvs_src_current/a.c
+	\$(CC) -g -O3 $^ -o $pcvs_build_current/\$@ \$(FLAGS)
+
+.PHONY: ptr_chain_struct_local ptr_chain_struct_local_opt
 "
 }
 
-MPC_AUTO_KILL_TIMEOUT=5
+gen_makefile > $pcvs_build_current/Makefile
+echo '
+pcvst_t: &t
+     files: @BUILDPATH@/Makefile
+     type: "complete"
+     herit: *GRPMPI
+     n_proc: [1]
 
-gen_makefile > ${PCVS_CWORK_DIR}/Makefile
-makefile_configuration "compile_GCC_ptr_chain_struct_local" "-C ${PCVS_CWORK_DIR}/"
+non_optim:
+     herit: *t
+     target: "ptr_chain_struct_local"
+     bin: "ptr_chain_struct_local"
 
-LIST_TESTS_NAME="ptr_chain_struct_local ptr_chain_struct_local_opt"
-
-for exe in ${LIST_TESTS_NAME}
-do
-	helper_configuration_loop "test_${exe}" "${PCVS_CWORK_DIR}/executables/${exe}" "compile_GCC_ptr_chain_struct_local"
-done
+optim_O3:
+     herit: *t
+     target: "ptr_chain_struct_local_opt"
+     bin: "ptr_chain_struct_local_opt"
+'

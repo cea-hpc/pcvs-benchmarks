@@ -1,5 +1,8 @@
 #!/bin/sh
 
+pcvs_src_current="$pcvs_src/$1"
+pcvs_build_current="$pcvs_testbuild/$1"
+
 gen_makefile()
 {
 echo "
@@ -8,24 +11,34 @@ TARGETS= hdf5_pattern hdf5_pattern_opt
 
 all : \$(TARGETS)
 
-CC=\${TS_CC}
+CC=\${PCVS_CC}
+FLAGS=\$(PCVS_CFLAGS)
 
-hdf5_pattern : ${PCVS_CSOURCE_DIR}/an.c ${PCVS_CSOURCE_DIR}/bn.c
-	\$(CC) -g -O0 $^ -fdump-tree-gimple -o ./executables/\$@
+hdf5_pattern: $pcvs_src_current/an.c  $pcvs_src_current/bn.c
+	\$(CC) -g -O0 $^ -o $pcvs_build_current/\$@ \$(FLAGS)
 
-hdf5_pattern_opt :  ${PCVS_CSOURCE_DIR}/an.c ${PCVS_CSOURCE_DIR}/bn.c
-	\$(CC) -g -O3 $^ -fdump-tree-gimple -o ./executables/\$@
+hdf5_pattern_opt : $pcvs_src_current/an.c  $pcvs_src_current/bn.c
+	\$(CC) -g -O3 $^ -o $pcvs_build_current/\$@ \$(FLAGS)
+
+.PHONY: hdf5_pattern hdf5_pattern_opt
 "
 }
 
-MPC_AUTO_KILL_TIMEOUT=5
+gen_makefile > $pcvs_build_current/Makefile
+echo '
+pcvst_t: &t
+     files: @BUILDPATH@/Makefile
+     type: "complete"
+     herit: *GRPMPI
+     n_proc: [1]
 
-gen_makefile > ${PCVS_CWORK_DIR}/Makefile
-makefile_configuration "compile_GCC_hdf5_pattern" "-C ${PCVS_CWORK_DIR}/"
+non_optim:
+     herit: *t
+     target: "hdf5_pattern"
+     bin: "hdf5_pattern"
 
-LIST_TESTS_NAME="hdf5_pattern hdf5_pattern_opt"
-
-for exe in ${LIST_TESTS_NAME}
-do
-	helper_configuration_loop "test_${exe}" "${PCVS_CWORK_DIR}/executables/${exe}" "compile_GCC_hdf5_pattern"
-done
+optim_O3:
+     herit: *t
+     target: "hdf5_pattern_opt"
+     bin: "hdf5_pattern_opt"
+'

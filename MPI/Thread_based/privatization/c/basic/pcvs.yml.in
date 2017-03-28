@@ -1,0 +1,13 @@
+pcvst_t: &t
+        herit: *GRPMPI
+        type: "complete"
+        n_proc: [1]
+
+mpi_privatize:
+        herit: *t
+        files: "@SRCPATH@/privatization.c"
+
+simple_privatization:
+        herit: *t
+        files: "@SRCPATH@/privatize.c"
+

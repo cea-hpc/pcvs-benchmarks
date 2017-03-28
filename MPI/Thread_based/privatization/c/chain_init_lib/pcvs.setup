@@ -1,5 +1,10 @@
 #!/bin/sh
 
+#!/bin/sh
+
+pcvs_src_current="$pcvs_src/$1"
+pcvs_build_current="$pcvs_testbuild/$1"
+
 gen_makefile()
 {
 echo "
@@ -8,27 +13,38 @@ TARGETS= priv_chain_lib priv_chain_lib_opt
 
 all : \$(TARGETS)
 
-CC=\${TS_CC}
+CC=\${PCVS_CC}
+FLAGS=\$(PCVS_CFLAGS)
+LIBFLAGS="-L$pcvs_build_current -lp  -Wl,-rpath=$pcvs_build_current"
 
-libp.so : ${PCVS_CSOURCE_DIR}/b.c ${PCVS_CSOURCE_DIR}/c.c
-	\$(CC) -g  $^ -fpic -shared -o ./executables/\$@
+libp.so : ${pcvs_src_current}/b.c ${pcvs_src_current}/c.c
+	\$(CC) -g  $^ -fpic -shared -o $pcvs_build_current/\$@ \$(FLAGS)
 
-priv_chain_lib : ${PCVS_CSOURCE_DIR}/a.c libp.so 
-	\$(CC) -g -O0 ${PCVS_CSOURCE_DIR}/a.c -fdump-tree-gimple -o ./executables/\$@ -L$PWD/executables/ -lp  -Wl,-rpath=$PWD/executables/
+priv_chain_lib: $pcvs_src_current/a.c  libp.so
+	\$(CC) -g -O0 $^ -o $pcvs_build_current/\$@ \$(FLAGS) \$(LIBFLAGS)
 
-priv_chain_lib_opt :  ${PCVS_CSOURCE_DIR}/a.c libp.so 
-	\$(CC) -g -O3 ${PCVS_CSOURCE_DIR}/a.c -fdump-tree-gimple -o ./executables/\$@ -L$PWD/executables/ -lp  -Wl,-rpath=$PWD/executables/
+priv_chain_lib_opt : $pcvs_src_current/a.c  libp.so
+	\$(CC) -g -O3 $^ -o $pcvs_build_current/\$@ \$(FLAGS) \$(LIBFLAGS)
+
+.PHONY: priv_chain_lib priv_chain_lib_opt
 "
 }
 
-MPC_AUTO_KILL_TIMEOUT=5
+gen_makefile > $pcvs_build_current/Makefile
+echo '
+pcvst_t: &t
+     files: @BUILDPATH@/Makefile
+     type: "complete"
+     herit: *GRPMPI
+     n_proc: [1]
 
-gen_makefile > ${PCVS_CWORK_DIR}/Makefile
-makefile_configuration "compile_GCC_priv_chain_lib" "-C ${PCVS_CWORK_DIR}/"
+non_optim:
+     herit: *t
+     target: "priv_chain_lib"
+     bin: "priv_chain_lib"
 
-LIST_TESTS_NAME="priv_chain_lib priv_chain_lib_opt"
-
-for exe in ${LIST_TESTS_NAME}
-do
-	helper_configuration_loop "test_${exe}" "${PCVS_CWORK_DIR}/executables/${exe}" "compile_GCC_priv_chain_lib"
-done
+optim_O3:
+     herit: *t
+     target: "priv_chain_lib_opt"
+     bin: "priv_chain_lib_opt"
+'

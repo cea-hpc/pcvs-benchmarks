@@ -1,5 +1,8 @@
 #!/bin/sh
 
+pcvs_src_current="$pcvs_src/$1"
+pcvs_build_current="$pcvs_testbuild/$1"
+
 gen_makefile()
 {
 echo "
@@ -8,24 +11,34 @@ TARGETS= priv_canon priv_canon_opt
 
 all : \$(TARGETS)
 
-CC=\${TS_CC}
+CC=\${PCVS_CC}
+FLAGS=\$(PCVS_CFLAGS)
 
-priv_canon : ${PCVS_CSOURCE_DIR}/a.c ${PCVS_CSOURCE_DIR}/b.c
-	\$(CC) -g -O0 $^ -fdump-tree-gimple -o ./executables/\$@
+priv_canon: $pcvs_src_current/a.c  $pcvs_src_current/b.c
+	\$(CC) -g -O0 $^ -o $pcvs_build_current/\$@ \$(FLAGS)
 
-priv_canon_opt :  ${PCVS_CSOURCE_DIR}/a.c ${PCVS_CSOURCE_DIR}/b.c
-	\$(CC) -g -O3 $^ -fdump-tree-gimple -o ./executables/\$@
+priv_canon_opt : $pcvs_src_current/a.c  $pcvs_src_current/b.c
+	\$(CC) -g -O3 $^ -o $pcvs_build_current/\$@ \$(FLAGS)
+
+.PHONY: priv_canon priv_canon_opt
 "
 }
 
-MPC_AUTO_KILL_TIMEOUT=5
+gen_makefile > $pcvs_build_current/Makefile
+echo '
+pcvst_t: &t
+     files: @BUILDPATH@/Makefile
+     type: "complete"
+     herit: *GRPMPI
+     n_proc: [1]
 
-gen_makefile > ${PCVS_CWORK_DIR}/Makefile
-makefile_configuration "compile_GCC_priv_canon" "-C ${PCVS_CWORK_DIR}/"
+non_optim:
+     herit: *t
+     target: "priv_canon"
+     bin: "priv_canon"
 
-LIST_TESTS_NAME="priv_canon priv_canon_opt"
-
-for exe in ${LIST_TESTS_NAME}
-do
-	helper_configuration_loop "test_${exe}" "${PCVS_CWORK_DIR}/executables/${exe}" "compile_GCC_priv_canon"
-done
+optim_O3:
+     herit: *t
+     target: "priv_canon_opt"
+     bin: "priv_canon_opt"
+'
