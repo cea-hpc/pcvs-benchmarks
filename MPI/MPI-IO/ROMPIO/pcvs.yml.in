@@ -1,0 +1,12 @@
+build_rompio:
+        target: ""
+        files: "@BUILDPATH@/src/Makefile"
+        type: "build"
+
+run_rompio:
+        herit: *GRPMPI
+        deps: [ "build_rompio" ]
+        n_proc: [1, 2]
+        n_mpi: [4]
+        bin: "src/rompio.x86_64.x"
+        args: "-fname @BUILDPATH@/out.dat  -size 1024 8192 65536 -cwrite -cread  -nw 50 -strided"
