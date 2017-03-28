@@ -47,7 +47,7 @@ sub configuration_build
 	#if the user config file exists
 	if(defined $user_config)
 	{
-		delete $gconf{"config-target"};
+		#delete $gconf{"config-target"};
 		my %user_data = load_yml($user_config);
 
 		#update default config with overriden values
@@ -55,13 +55,17 @@ sub configuration_build
 		{
 			exists $gconf{$key} or die("\'$key\' object does not exist. Please edit your configuration file !");
 			#iterate over subkeys to update (YAML data is a two-level tree, should be replaced by recursion).
-			if(ref($gconf{$key} eq 'HASH'))
+			if(ref($gconf{$key}) eq 'HASH')
 			{
 				foreach my $subkey (keys $user_data{$key})
 				{
 					exists $gconf{$key}{$subkey} or die("\'$key/$subkey\' object does not exist. Please edit your configuration file !");
 					$gconf{$key}{$subkey} = $user_data{$key}{$subkey};
 				}
+			}
+			else
+			{
+				$gconf{$key} = $user_data{$key};
 			}
 		}
 	}

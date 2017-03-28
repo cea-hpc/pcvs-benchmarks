@@ -127,7 +127,7 @@ sub run_prepare
 		local $CWD = "$buildir/tmp/build"; # equivalent to chdir()
 		my $color = "";
 		($color = "-DENABLE_COLOR=".($gconf{"color"} == 1 ? "ON" : "OFF")) if (exists $gconf{"color"});
-		`cmake $internaldir/generation/jchronoss -DCMAKE_INSTALL_PREFIX=$buildir/tmp $color && make -j$gconf{'parallel'} install`;
+		`cmake $internaldir/generation/jchronoss -DENABLE_OPENMP=OFF -DCMAKE_INSTALL_PREFIX=$buildir/tmp $color && make -j$gconf{'parallel'} install`;
 	}
 	helper_clean_path("$buildir/tmp/traces", 1);
 

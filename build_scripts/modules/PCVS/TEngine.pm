@@ -10,7 +10,7 @@ use Data::Dumper; #used for debug
 use XML::Writer; #XML parser
 use PCVS::Helper;
 use YAML qw(LoadFile); # YAML parser
-$YAML::numify = 1;
+#$YAML::numify = 1;
 use vars qw(@ISA @EXPORT @EXPORT_OK);
 
 @ISA = 'Exporter';
@@ -80,11 +80,6 @@ sub engine_unfold_iterator
 			{
 				push @list_values, $min;
 			} continue {$min++;}
-		}
-		# else if a numeric iter and not fallen in previous conditions --> abort
-		elsif($iter_name =~ /^n_/)
-		{
-			die("$iter_name only takes numeric, 'a:b:c' or 'a-b' interval values !!");
 		}
 		else
 		{
@@ -202,7 +197,7 @@ sub engine_TE_combinations
 		
 		#"unfold" the iterator to get generated list: parse each element and build the value list
 		my @seq = engine_unfold_iterator($name, @{$local_iterlist{$name}});
-		(@seq = grep {$_ > $sys_limits{$name}[0] and $_ < $sys_limits{$name}[1] } @seq) if ($name =~ /^n_/); 
+		(@seq = grep {$_ >= $sys_limits{$name}[0] and $_ <= $sys_limits{$name}[1] } @seq) if ($name =~ /^n_/); 
 		
 		#remove this iterator if empty
 		(delete $local_iterlist{$name} and next ) if(!@seq);
@@ -319,7 +314,7 @@ sub engine_unfold_test_expr
 
 			(my $makepath = $files) =~ s,/[^/]*$,,;
 			(my $makefile = $files) =~ s/^$makepath\///;
-			$command = "make $args -f $makefile -C $makepath $target";
+			$command = "make $args -f $makefile -C $makepath $target CC=\"$sysconf->{compiler}{c}\" CXX=\"$sysconf->{compiler}{cxx}\" FC=\"$sysconf->{compiler}{f77}\" CFLAGS=\"$sysconf->{compiler}{cflags}\"";
 		}
 		else
 		{
