@@ -1,0 +1,12 @@
+HACC_IO:
+        type  : "build"
+        target: "all"
+        files : "@SRCPATH@/Makefile"
+
+run_HACC_IO:
+        bin: "HACC_IO"
+        deps: [ "HACC_IO" ]
+        args: "30000000 @BUILDPATH@/out.dat"
+        herit: *GRPMPI
+        n_proc: [1, 2]
+        n_mpi : [4]
