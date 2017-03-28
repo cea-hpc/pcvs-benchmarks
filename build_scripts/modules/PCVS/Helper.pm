@@ -107,17 +107,17 @@ sub helper_detect_compiler
 		{
 			return "cxx";
 		}
-		elsif($ext =~ /^f([0-9]*)$/) # fortran
+		elsif($ext =~ /^(f|F)([0-9]*)$/) # fortran
 		{
-			if(!defined $1 or $1 =~ /f77/)
+			if(!$2 or $2 =~ /f77/)
 			{
 				return "f77";
 			}
-			elsif($1 =~ /90/)
+			elsif($2 =~ /90/)
 			{
 				return "f90";
 			}
-			elsif($1 =~ /^(08|2008)$/)
+			elsif($2 =~ /^(08|2008)$/)
 			{
 				return "f08";
 			}

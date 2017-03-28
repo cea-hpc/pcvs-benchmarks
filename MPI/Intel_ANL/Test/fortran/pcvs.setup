@@ -1,0 +1,30 @@
+#!/bin/sh
+
+pcvs_src_current="$pcvs_src/$1"
+pcvs_build_current="$pcvs_testbuild/$1"
+
+LIST_OF_TESTS=`cat $pcvs_src_current/../testlist* | egrep "^fortran/" | sort | uniq`
+
+for f in $LIST_OF_TESTS
+do
+	files=""
+	name="`echo $f | egrep -o "(error|functional)/.*$" | sed -e "s,/,_,g"`"
+	cargs="-I@SRCPATH@/../../include"
+	files="@SRCPATH@/../$f/node.F @SRCPATH@/../../lib/libmpitestf.F"
+
+	###################################
+	###### SPECIAL CASES
+	###################################
+	if test -f $pcvs_src_current/../$f/reduce.F; then
+		files="$files @SRCPATH@/../$f/reduce.F"
+	fi
+	
+	echo "
+$name:
+    type: 'complete'
+    herit: *GRPMPI
+    files: '$files'
+    cargs: '$cargs'
+    #bin: '$bin'
+	"
+done
