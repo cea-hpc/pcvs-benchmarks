@@ -1,9 +1,37 @@
-cluster: 
-     max_nodes         : 24
-     max_cores_per_node: 8
-     args: "-A ocre@standard -p nehalem -K"
+iterators:
+    n_node : [1]
+    n_proc : [1]
+    n_mpi  : [1]
+    n_omp  : [1]
+    n_core : [1]
+    sched  : []
+    net    : []
 
+# cluster parameters for the current run. Combinations will be affected by these parameters
+cluster:
+    max_nodes          : 24
+    max_cores_per_node : 8
+    args               : "-A ocre@standard -p nehalem -K"
 
+# generic options to affect the validation. To keep it simple, most of these parameters
+# can only be altered through this configuration (no command-line options overriding)
 validation:
-     sched_policy: 2
-     workers: 4
+    # returns non-zero code if at least one test failed
+    expect-success : 0            
+    # validation stdout will be logged into build/output.log
+    tee            : 1            
+    # number of concurrent JCHRONOSS workers
+    workers        : 10           
+    # Scheduling policy  (JCHRONOSS)
+    sched_policy   : 0
+    # allocation wrapper (JCHRONOSS)
+    run_wrapper    : "slurm"           
+    # compilation-specific allocation wrapper (JCHRONOSS)
+    compil_wrapper : "slurm_compil"           
+    # should not make an resource allocation if expected time does not reach this value
+    worker_mintime : 0            
+    # set a timer to avoid job manager autokill if a resource allocatio reaches this value
+    worker_maxtime : 30000
+    # if time not specified per test, use this one by default
+    job_meantime   : 50           
+

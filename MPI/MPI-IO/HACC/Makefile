@@ -4,8 +4,8 @@ HAPP_CPP_HDRS = RestartIO_GLEAN.h
 # 	---------------------------
 # 	Compiler Flags
 # 	---------------------------
-MPICC =	mpicc
-MPICXX = mpicxx
+MPICC =	$(CC)
+MPICXX = $(CXX)
 
 #Compiler Flags
 MPI_CFLAGS = -g -O3 -DGLEAN_PRINT_PERROR -I./

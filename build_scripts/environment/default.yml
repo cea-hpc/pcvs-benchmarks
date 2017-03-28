@@ -9,13 +9,13 @@ group-target: "default"
 
 # list of iterators for this run. A missing line will deactivate an iterator
 iterators:
-    n_node : ["1:2:*2"]
-    n_proc : ["1:4:*2"]
-    n_mpi  : ["1:8:*2"]
-    n_omp  : ["1:8:*2"]
-    n_core : ["1:4:*2"]
-    sched  : ["pthread", "ethread_mxn"]
-    net    : ["tcp", "shmem"]
+    #n_node : [1]
+    #n_proc : [1]
+    #n_mpi  : [1]
+    #n_omp  : [1]
+    #n_core : [1]
+    #sched  : []
+    #net    : []
 
 # just the naming convention (in test names) for the above iterators. The key will
 # be prepended to the iterator value for each test.
@@ -39,7 +39,6 @@ cluster:
 validation:
     # returns non-zero code if at least one test failed
     expect-success : 0            
-    support_model  : "supported"
     # validation stdout will be logged into build/output.log
     tee            : 1            
     # number of concurrent JCHRONOSS workers
