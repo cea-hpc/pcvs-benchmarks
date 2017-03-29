@@ -330,6 +330,7 @@ sub engine_unfold_test_expr
 		{
 			my $comp_name = helper_detect_compiler($files);
 			die("Unable to find a valid compiler for $tname !") if (!$comp_name);
+			die("No compiler found for $comp_name !") if(!exists $sysconf->{compiler}{$comp_name});
 
 			$command = "$sysconf->{compiler}{$comp_name} $cflags $args -o $bin $files";
 		}

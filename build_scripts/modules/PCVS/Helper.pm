@@ -117,6 +117,14 @@ sub helper_detect_compiler
 			{
 				return "f90";
 			}
+			elsif($2 =~ /95/)
+			{
+				return "f95";
+			}
+			elsif($2 =~ /03|2003/)
+			{
+				return "f03";
+			}
 			elsif($2 =~ /^(08|2008)$/)
 			{
 				return "f08";
