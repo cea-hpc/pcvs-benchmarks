@@ -197,7 +197,15 @@ sub engine_TE_combinations
 		
 		#"unfold" the iterator to get generated list: parse each element and build the value list
 		my @seq = engine_unfold_iterator($name, @{$local_iterlist{$name}});
-		(@seq = grep {$_ >= $sys_limits{$name}[0] and $_ <= $sys_limits{$name}[1] } @seq) if ($name =~ /^n_/); 
+		if ($name =~ /^n_/)
+		{
+			@seq = grep {$_ >= $sys_limits{$name}[0] and $_ <= $sys_limits{$name}[1] } @seq;
+		}
+		else
+		{
+			# ~~ means 'contains' (only >= perl 5.10 !)
+			@seq = grep { $_ ~~ @{$sys_iterlist{$name}} } @seq;
+		}
 		
 		#remove this iterator if empty
 		(delete $local_iterlist{$name} and next ) if(!@seq);
