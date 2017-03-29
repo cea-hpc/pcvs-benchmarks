@@ -127,7 +127,10 @@ sub run_prepare
 		local $CWD = "$buildir/tmp/build"; # equivalent to chdir()
 		my $color = "";
 		($color = "-DENABLE_COLOR=".($gconf{"color"} == 1 ? "ON" : "OFF")) if (exists $gconf{"color"});
-		`cmake $internaldir/generation/jchronoss -DENABLE_OPENMP=OFF -DCMAKE_INSTALL_PREFIX=$buildir/tmp $color && make -j$gconf{'parallel'} install`;
+		system("cmake $internaldir/generation/jchronoss -DENABLE_OPENMP=OFF -DCMAKE_INSTALL_PREFIX=$buildir/tmp $color && make -j$gconf{'parallel'} install");
+		die("Error during JCHRONOSS compilation !") if($? ne 0);
+
+
 	}
 	helper_clean_path("$buildir/tmp/traces", 1);
 
@@ -233,7 +236,7 @@ sub run_configure
 
 		#as pcvs.setup can create some YAML file in work dir, we look for these files in both 
 		# source and work directories
-		@current_list = `find $current_path $buildir/test_suite/$directory -name "pcvs.yml.in"`; chomp @current_list;
+		@current_list = `find $current_path $buildir/test_suite/$directory -name "pcvs.yml.in" 2>/dev/null`; chomp @current_list;
 		foreach my $yaml_elem(@current_list)
 		{
 			# find the test subtree
