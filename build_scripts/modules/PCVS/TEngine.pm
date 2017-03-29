@@ -194,7 +194,7 @@ sub engine_TE_combinations
 		$nparent++;
 	}
 
-	engine_debug("\nFinal iterator value override:\n");
+	engine_debug("\nFinal iterator values:\n");
 	
 	my (@tmp, @local_combinatory, $n) = ();
 	#now, we set user-undefined iterators with system ones. If an iterator is empty ('[]'), it will be removed

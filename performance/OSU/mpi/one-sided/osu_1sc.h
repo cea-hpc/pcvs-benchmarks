@@ -37,10 +37,10 @@
 
 #define CHECK(stmt)                                              \
 do {                                                             \
-   int errno = (stmt);                                           \
-   if (0 != errno) {                                             \
+   int lerrno = (stmt);                                           \
+   if (0 != lerrno) {                                             \
        fprintf(stderr, "[%s:%d] function call failed with %d \n",\
-        __FILE__, __LINE__, errno);                              \
+        __FILE__, __LINE__, lerrno);                              \
        exit(EXIT_FAILURE);                                       \
    }                                                             \
    assert(0 == errno);                                           \
