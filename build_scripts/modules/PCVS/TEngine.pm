@@ -290,7 +290,7 @@ sub engine_unfold_test_expr
 	#params
 	my  ($xml, $tname,  $tvalue, $bpath) = @_;
 	#global var for a test_expr
-	my ($name, $bin, $command, $args, $rc, $time, $delta, $constraint, @deps) = ();
+	my ($name, $bin, $command, $args, $rc, $time, $delta, $constraint, $timeout, @deps) = ();
 	#other vars
 	my $ttype = lc(engine_get_value_ifdef($tvalue, 'type') || "run");
 
@@ -300,6 +300,7 @@ sub engine_unfold_test_expr
 	$rc   = engine_get_value_ifdef($tvalue, 'returns' ) || 0;
 	@deps    = @{ engine_get_value_ifdef($tvalue, 'deps') || [] };
 	$bin = "$bpath/".(engine_get_value_ifdef($tvalue, 'bin') || $tname);
+	$timeout = engine_get_value_ifdef($tvalue, "timeout") || $sysconf->{validation}{timeout} || undef;
 
 	if($ttype =~ m/^(build|complete)$/)
 	{
@@ -308,7 +309,7 @@ sub engine_unfold_test_expr
 		my $files = engine_get_value_ifdef($tvalue, 'files') || $tname;
 		my $cflags = $sysconf->{compiler}{cflags} || "";
 		$args = engine_get_value_ifdef($tvalue, 'cargs') || "";
-		$args .= " $sysconf->{compiler}{openmp}" if(engine_get_value_ifdef($tvalue, 'openmp') and $sysconf->{compiler}{openmp});
+		$args .= " $sysconf->{compiler}{openmp}" if(engine_get_value_ifdef($tvalue, 'openmp') eq 'true' and $sysconf->{compiler}{openmp});
 		if(defined $target) # if makefile
 		{
 			die("'files' field not found for $tname !") if(! defined $files);
@@ -332,6 +333,7 @@ sub engine_unfold_test_expr
 		my $args = engine_get_value_ifdef($tvalue, 'args') || "";
 		my $launcher = $sysconf->{'runtime'}{'cmd'} || "";
 		my $extra_args = $sysconf->{'runtime'}{'args'} || "";
+		$timeout = "$sysconf->{runtime}{'timeout-prefix'}$timeout" if($timeout and exists $sysconf->{runtime}{'timeout-prefix'} and $sysconf->{runtime}{'timeout-prefix'} ne "");
 			
 		#special case : complete -> auto-create the dependency between compilation and exec
 		push @deps, $tname if($ttype =~ /^complete$/);
@@ -348,7 +350,7 @@ sub engine_unfold_test_expr
 			$name    = "$tname".engine_build_testname($it_keys, @{ $it_comb->[$_]} );
 			#parse arguments and options depending on runtime
 			my ($pre_env, $post_args) = engine_convert_to_cmd($it_keys, @{ $it_comb->[$_] });
-			$command = "$pre_env $launcher $post_args $extra_args $bin $args";
+			$command = "$pre_env $launcher $post_args $timeout $extra_args $bin $args";
 			#push the test into XML file
 			engine_gen_test($xml, $name, $command, $rc, $time, $delta, $constraint, @deps);
 		}
