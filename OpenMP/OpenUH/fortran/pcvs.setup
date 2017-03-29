@@ -1,0 +1,34 @@
+#!/bin/sh
+
+pcvs_src_current=$pcvs_src/$1
+pcvs_build_current=$pcvs_testbuild/$1
+
+echo '
+pcvst_tc: &tc
+    herit: *GRPOMP
+    type: "complete"
+    openmp: true
+'
+
+OLDIR=`pwd`
+#very bad, but we don't have any other transparent solutions
+cd $pcvs_src_current/..
+
+while read f_file 
+do
+	# skip empty lines and lines starting with comment '#'
+	echo "$f_file" | egrep -q "^ *(#.*)*$"
+	if test "$?" = "0"; then
+		continue;
+	fi
+	perl ./template_parser_fortran.pl --test --crosstest $pcvs_src_current/${f_file}.f $pcvs_build_current/${f_file}.f
+
+echo "
+$f_file:
+    herit: *tc
+    files: '@BUILDPATH@/${f_file}.f'
+    cargs: '-I@SRCPATH@/..'
+"
+done < $pcvs_src_current/../testlist-f.txt
+
+cd $OLDIR

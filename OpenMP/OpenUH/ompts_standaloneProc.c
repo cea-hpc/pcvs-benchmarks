@@ -9,7 +9,7 @@ int main()
 
 
 	/* Open a new Logfile or overwrite the existing one. */
-	logFile = fopen(logFileName,"w+");
+	logFile = stdout; //fopen(logFileName,"w+");
 
 	printf("######## OpenMP Validation Suite V %s ######\n", OMPTS_VERSION );
 	printf("## Repetitions: %3d                       ####\n",REPETITIONS);

@@ -23,7 +23,7 @@
 !      WRITE (*,*) "Enter logFilename:" 
 !      READ  (*,*) logfilename
 
-      OPEN (1, FILE = logfilename)
+      OPEN (1, FILE = "/dev/stdout") !logfilename)
  
       WRITE (*,*) "######## OpenMP Validation Suite V 3.0a ######"
       WRITE (*,*) "## Repetitions:", N 
