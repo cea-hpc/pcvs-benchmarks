@@ -54,7 +54,8 @@ typedef enum eJobStatus {
 	NOT_RUN = 2,      ///< job haven't be scheduled yet
 	NOT_RUNNABLE = 3, ///< job isn't runnable (= a job dep is failed)
 	INVALID_DEPS = 4, ///< job isn't schedulable (a dep haven't been found
-	MUCH_TRIES = 5    ///< job have been scheduled too much times without be executed
+	MUCH_TRIES = 5,   ///< job have been scheduled too much times without be executed
+	DISABLED = 6      ///< job have been disabled (filter does not accept it)
 } JobStatus;
 
 /// a job class represents the most little entity from a test suite
@@ -68,9 +69,9 @@ typedef enum eJobStatus {
 class Job {
 private:
 	/************** MEMBERS **************/
-	std::string fullName;                      ///< job name
-	std::string command;                       ///< command to execute
 	std::string shortName;                     ///< package attached to the job (java-like)
+	std::string command;                       ///< command to execute
+	std::string fullName;                      ///< job name
 	size_t nbDeps;                             ///< number of dependences
 	size_t nbTries;                            ///< number failed launches (not failed job)
 	size_t nbResources;                        ///< number of resources required by the job
@@ -103,6 +104,7 @@ public:
 	 * the job id is defined by static variable id incrementation.
 	 *
 	 * \param[in] name job name
+	 * \param[in] group job family
 	 * \param[in] command the command attached to the job.
 	 * \param[in] nbRes number or resources required by the job
 	 * \param[in] rc the expected return code for the job.
@@ -111,7 +113,7 @@ public:
 	 * \param[in] constraints the list of constraints
 	 * \param[in] file the referent file where job have been extracted
 	 */
-	Job ( std::string name, std::string command, std::vector< std::string* > deps, std::vector< JobConstraint* > constraints, std::string file, size_t nbRes = 1, int rc = 0, double time = 0.0, double delta = 0.0);
+	Job ( std::string name, std::string group, std::string command, std::vector< std::string* > deps, std::vector< JobConstraint* > constraints, std::string file, size_t nbRes = 1, int rc = 0, double time = 0.0, double delta = 0.0);
 	/// add a constraint to the current job
 	/**
 	 * add a constraint on the job.static size_t id; 

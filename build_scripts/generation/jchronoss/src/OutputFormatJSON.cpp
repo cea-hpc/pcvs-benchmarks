@@ -140,6 +140,7 @@ void OutputFormatJSON::appendError(std::string group, std::string name, std::str
 	this->group = group;
 	Json::Value test;
 	test["name"]    = name;
+	test["group"]   = group;
 	test["status"]  = "error";
 	test["time"]    = time;
 	test["command"] = command;
@@ -154,6 +155,7 @@ void OutputFormatJSON::appendFailure(std::string group, std::string name, std::s
 	this->group = group;
 	Json::Value test;
 	test["name"]    = name;
+	test["group"]   = group;
 	test["status"]  = "failure";
 	test["time"]    = time;
 	test["command"] = command;
@@ -167,7 +169,23 @@ void OutputFormatJSON::appendSkipped(std::string group, std::string name, std::s
 	this->group = group;
 	Json::Value test;
 	test["name"]    = name;
+	test["group"]   = group;
 	test["status"]  = "skipped";
+	test["time"]    = time;
+	test["command"] = command;
+	if(config->job().getLogLevel() == LOG_ALL || config->job().getLogLevel() == LOG_ONLY_FAILED)
+		test["log"] = data;
+
+	writer["testsuite"].append(test);
+}
+
+void OutputFormatJSON::appendDisabled(std::string group, std::string name, std::string command, std::string data, double time)
+{
+	this->group = group;
+	Json::Value test;
+	test["name"]    = name;
+	test["group"]   = group;
+	test["status"]  = "disabled";
 	test["time"]    = time;
 	test["command"] = command;
 	if(config->job().getLogLevel() == LOG_ALL || config->job().getLogLevel() == LOG_ONLY_FAILED)
@@ -181,6 +199,7 @@ void OutputFormatJSON::appendSuccess(std::string group, std::string name, std::s
 	this->group = group;
 	Json::Value test;
 	test["name"]    = name;
+	test["group"]   = group;
 	test["status"]  = "success";
 	test["time"]    = time;
 	test["command"] = command;
@@ -256,6 +275,7 @@ void OutputFormatJSON::appendSummary(Summary sumRun, double time)
 	writer["summary"]["nbErrors"] = (Json::UInt64)sumRun.nbErrors;
 	writer["summary"]["nbFailed"] = (Json::UInt64)sumRun.nbFailed;
 	writer["summary"]["nbSkipped"] = (Json::UInt64)sumRun.nbSkipped;
+	writer["summary"]["nbDisabled"] = (Json::UInt64)sumRun.nbDisabled;
 	writer["summary"]["nbTotalSlaves"] = (Json::UInt64)sumRun.nbTotalSlaves;
 	writer["summary"]["elapsed"] = (float)time;
 }

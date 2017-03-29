@@ -65,6 +65,7 @@ JobManager::JobManager(Configuration* config) {
 	sumRun.nbErrors = 0;
 	sumRun.nbFailed = 0;
 	sumRun.nbSkipped = 0;
+	sumRun.nbDisabled = 0;
 	sumRun.nbTotalSlaves = 0;
 	sumRun.startRun = 0;
 	sumRun.endRun = 0;
@@ -318,8 +319,13 @@ void JobManager::pullJobsFromFiles () {
 		for(list<Job*>::iterator it = tabJobs[i]->begin(); it != tabJobs[i]->end();){
 			//if((*it)->getExpectedTime() == -1)
 				//(*it)->setExpectedTime(config->job().getMaxJobTime());
-			addJob(*it);
-			cpt++;
+			if((*it)->getStatus() != NOT_RUN)
+				addExecutedJob(*it);
+			else
+			{
+				addJob(*it);
+				cpt++;
+			}
 			it = tabJobs[i]->erase(it);
 		}
 		safeFree(tabJobs[i]);
@@ -344,7 +350,7 @@ void JobManager::pushInOneFile(FileManager* file){
 	string curPathName, outputFileName, command, data, name, group;
 	size_t pos = 0;
 	FileManager* output = NULL;
-	size_t nbFailures = 0, nbSuccess = 0, nbErrors = 0, nbSkipped = 0;
+	size_t nbFailures = 0, nbSuccess = 0, nbErrors = 0, nbSkipped = 0, nbDisabled = 0;
 	double totalTime = 0.0, time = 0.0;
 	bool not_empty = false;
 
@@ -395,6 +401,8 @@ void JobManager::pushInOneFile(FileManager* file){
 					(*ito)->appendSkipped(group, name, command, data, time); if(ito == outputs.begin())++nbSkipped; break;
 				case INVALID_DEPS:
 					(*ito)->appendError(group, name, command, data, time); if(ito == outputs.begin())++nbErrors; break;
+				case DISABLED: 
+					(*ito)->appendDisabled(group, name, command, data, time); if(ito == outputs.begin()) ++nbDisabled; break;
 				default:
 					break;
 			}
@@ -427,6 +435,7 @@ void JobManager::pushInOneFile(FileManager* file){
 	sumRun.nbFailed += nbFailures;
 	sumRun.nbErrors += nbErrors;
 	sumRun.nbSkipped += nbSkipped;
+	sumRun.nbDisabled += nbDisabled;
 }
 
 void JobManager::pushJobsIntoFiles() {
@@ -460,12 +469,12 @@ void JobManager::pushJobsIntoFiles() {
 Job* JobManager::resolveADep ( std::string pattern ) {
 	for(size_t i = 0; i < nbLists; i++){
 		for(list<Job*>::iterator it = jobsList[i].begin(); it != jobsList[i].end(); it++){
-			if ((*it)->getName() == pattern)
+			if ((*it)->getName() == pattern || (*it)->getShortName() == pattern)
 				return (*it);
 		}
 	}
 	for(list<Job*>::iterator it = executedJobsList.begin(); it != executedJobsList.end(); it++){
-		if ((*it)->getName() == pattern)
+		if ((*it)->getName() == pattern || (*it)->getShortName() == pattern)
 			return (*it);
 	}
 	return NULL;
@@ -478,7 +487,7 @@ void JobManager::resolveAJobDeps ( Job* current ) {
 	assert(current != NULL);
 	for(int i=0; i < current->getNbDeps(); i++){
 		depName = current->getDepsNames().at(i);
-		if(*depName == current->getName()){
+		if(*depName == current->getName() || *depName == current->getShortName()){
 #ifdef ENABLE_OPENMP
 #pragma omp critical
 			{
@@ -681,6 +690,7 @@ void JobManager::loadBackup(){
 			}
 			addJob(new Job(
 						jobsGraphList[index]["name"].asString(),
+						jobsGraphList[index]["group"].asString(),
 						jobsGraphList[index]["command"].asString(),
 						depVec,
 						consVec,
@@ -712,6 +722,7 @@ void JobManager::loadBackup(){
 
 			Job * cur = new Job(
 					jobsGraphList[index]["name"].asString(),
+					jobsGraphList[index]["group"].asString(),
 					jobsGraphList[index]["command"].asString(),
 					depVec,
 					consVec,
@@ -734,6 +745,7 @@ void JobManager::loadBackup(){
 	sumRun.nbErrors = graph["summary"]["nbErrors"].asUInt();
 	sumRun.nbSuccess = graph["summary"]["nbSuccess"].asUInt();
 	sumRun.nbFailed = graph["summary"]["nbFailed"].asUInt();
+	sumRun.nbDisabled = graph["summary"]["nbDisabled"].asUInt();
 	sumRun.nbSkipped = graph["summary"]["nbSkipped"].asUInt();
 	sumRun.nbTotalSlaves = graph["summary"]["nbTotalSlaves"].asUInt();
 	sumRun.elapsed = (double)graph["summary"]["elapsed"].asFloat();
@@ -752,6 +764,7 @@ void JobManager::displaySummary() const {
 		<<  COLOR_NRUN "|" COLOR_FAIL"    --> Errors    : " << sumRun.nbErrors << endl
 		<<  COLOR_NRUN "|" COLOR_URUN"    --> Skips     : " << sumRun.nbSkipped << endl
 		<<  COLOR_NRUN "|" COLOR_PASS"    --> Successes : " << sumRun.nbSuccess << endl
+		<<  COLOR_NRUN "|" COLOR_DEBG"    --> Disabled  : " << sumRun.nbDisabled << endl
 		<<  COLOR_NRUN "|" COLOR_NRUN" * Elapsed time   : " << convertDate(elapsed+sumRun.elapsed) << endl
 		<<  COLOR_NRUN "|" COLOR_NRUN" * Slave launchs  : " << sumRun.nbTotalSlaves << endl
 		//<< "" << << endl

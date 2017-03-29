@@ -125,15 +125,12 @@ Job* XMLJobParser::parseJob(xmlNodePtr location) {
 	size_t nbResources = 1;
 	int rc = 0;
 	double time = -1.0, delta = -1.0;
-	bool directly_selected = false;
 	vector<string*> vDeps;
 	vector<JobConstraint*> vConstraints;
 	
 	checkNodeExists(location, (char*)"job");
 
-	if(!jobsGroup.empty())
-		name = jobsGroup+".";
-	name += findChildNodeContent(location,(char*)"name");
+	name = findChildNodeContent(location,(char*)"name");
 	
 	command = findChildNodeContent(location,(char*)"command");
 	if ((chain = findChildNodeContent(location, (char*)"resources").c_str()) != "")
@@ -153,10 +150,16 @@ Job* XMLJobParser::parseJob(xmlNodePtr location) {
 			//directly_selected=true;
 	//}
 
-	if(!filter->accept(name) && !directly_selected)
-		return NULL;
+	Job * obj =  new Job(name, jobsGroup, command, vDeps, vConstraints, nameFile, nbResources, rc, time, delta);
 	
-	return new Job(name, command, vDeps, vConstraints, nameFile, nbResources, rc, time, delta);
+	if(!filter->accept(name))
+	{
+		obj->updateStatus(DISABLED);
+		obj->addResult(-1, 0.0, 0.0, "Job disabled (Filter does not accept it)");
+	}
+	
+
+	return obj;
 }
 
 std::list<Job*>* XMLJobParser::parseJobsSuite(size_t *property) {

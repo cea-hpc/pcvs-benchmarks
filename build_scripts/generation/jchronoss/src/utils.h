@@ -83,6 +83,7 @@ typedef struct Summary_s {
 	size_t nbErrors;      ///< number of errors during scheduling
 	size_t nbFailed;      ///< number of failed jobs
 	size_t nbSkipped;     ///< number of not-scheduled jobs
+	size_t nbDisabled;    ///< number of disabled jobs
 	size_t nbTotalSlaves; ///< total number of run slaves
 	time_t startRun;      ///< Start time (init runnerMaster)
 	time_t endRun;        ///< end time (just before summary print)

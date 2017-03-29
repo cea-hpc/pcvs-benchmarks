@@ -46,12 +46,11 @@ size_t Job::id = 0;
 
 Job::Job() : status(NOT_RUN) {}
 
-Job::Job ( std::string name, std::string command, std::vector< std::string* > deps, std::vector< JobConstraint* > constraints, std::string file, size_t nbRes, int rc, double time, double delta ) :
-	fullName(name), command(command), nbDeps(deps.size()), nbTries(0), nbResources(nbRes), expectedReturnCode(rc), timer(time), delta(delta), vDepsNamesTab(deps), vConstraints(constraints), status(NOT_RUN), result(NULL), referentFilename(file)
+Job::Job ( std::string name, std::string group, std::string command, std::vector< std::string* > deps, std::vector< JobConstraint* > constraints, std::string file, size_t nbRes, int rc, double time, double delta ) :
+	shortName(name), command(command), nbDeps(deps.size()), nbTries(0), nbResources(nbRes), expectedReturnCode(rc), timer(time), delta(delta), vDepsNamesTab(deps), vConstraints(constraints), status(NOT_RUN), result(NULL), referentFilename(file)
 {
 	myId = ++id;
-	size_t ind = fullName.find_last_of(".");
-	shortName = (ind < fullName.size()) ? fullName.substr(ind+1) : fullName;
+	fullName = group.empty() ? name : group+"."+name;
 
 }
 

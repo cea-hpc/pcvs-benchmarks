@@ -62,6 +62,7 @@ class OutputFormatYAML : public OutputFormat
 	virtual std::string getExt();
 	virtual void appendError(std::string group, std::string name, std::string command, std::string data, double time);
 	virtual void appendFailure(std::string group, std::string name, std::string command, std::string data, double time);
+	virtual void appendDisabled(std::string group, std::string name, std::string command, std::string data, double time);
 	virtual void appendSkipped(std::string group, std::string name, std::string command, std::string data, double time);
 	virtual void appendSuccess(std::string group, std::string name, std::string command, std::string data, double time);
 	virtual void appendHeader(size_t err, size_t fail, size_t skip, size_t succ, double time);

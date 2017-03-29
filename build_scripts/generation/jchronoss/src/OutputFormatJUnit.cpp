@@ -64,6 +64,18 @@ bool OutputFormatJUnit::isEmpty()
 	return stringify().size() == 0;
 }
 
+void OutputFormatJUnit::appendDisabled(std::string group, std::string name, std::string command, std::string data, double time)
+{
+	this->group = group;
+	flux 	<< "\t<testcase classname=\"" << group <<"\" name=\""<< name << "\" time=\"" << time << "\" >\n"
+		<< "\t\t<disabled message=\"" << command << "\" type=\"ValidityError\"/>\n";
+
+	if(config->job().getLogLevel() == LOG_ALL || config->job().getLogLevel() == LOG_ONLY_FAILED)
+		flux << "\t\t<system-out>" << data << "\n\t\t</system-out>\n";
+
+	flux	<< "\t</testcase>\n"; 
+}
+
 void OutputFormatJUnit::appendError(std::string group, std::string name, std::string command, std::string data, double time)
 {
 	this->group = group;

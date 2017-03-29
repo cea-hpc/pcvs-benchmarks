@@ -85,6 +85,15 @@ public:
 	 */
 	virtual void appendError(std::string group, std::string name, std::string command, std::string data, double time) = 0;
 	/**
+	 * abstract function : build an 'disabled' result from given parameters
+	 * \param[in] group the package name
+	 * \param[in] name job name
+	 * \param[in] command job command
+	 * \param[in] data the output produced by the job execution
+	 * \param[in] time the elapsed time
+	 */
+	virtual void appendDisabled(std::string group, std::string name, std::string command, std::string data, double time) = 0;
+	/**
 	 * abstract function : build an 'failure' result from given parameters
 	 * \param[in] group the package name
 	 * \param[in] name job name

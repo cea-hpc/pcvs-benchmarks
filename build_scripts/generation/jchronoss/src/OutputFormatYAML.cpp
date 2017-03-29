@@ -66,6 +66,17 @@ bool OutputFormatYAML::isEmpty()
 {
 	return stringify().size() == 0;
 }
+
+void OutputFormatYAML::appendDisabled(std::string group, std::string name, std::string command, std::string data, double time)
+{
+	this->group = group;
+	flux	<< "\t- " << name << ":" << endl
+		<< "\t\t- status  : Disabled" << endl
+		<< "\t\t- command : \"" << command << "\"" << endl
+		<< "\t\t- time    : " << time << endl;
+	/* we choose to not include logs in this format */
+	UNUSED(data);
+}
 void OutputFormatYAML::appendError(std::string group, std::string name, std::string command, std::string data, double time)
 {
 	this->group = group;

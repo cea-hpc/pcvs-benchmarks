@@ -308,7 +308,7 @@ sub engine_unfold_test_expr
 	$rc   = engine_get_value_ifdef($tvalue, 'returns' ) || 0;
 	@deps    = @{ engine_get_value_ifdef($tvalue, 'deps') || [] };
 	$bin = "$bpath/".(engine_get_value_ifdef($tvalue, 'bin') || $tname);
-	$timeout = engine_get_value_ifdef($tvalue, "timeout") || $sysconf->{validation}{timeout} || undef;
+	$timeout = engine_get_value_ifdef($tvalue, "timeout") || $sysconf->{validation}{timeout} || "";
 
 	if($ttype =~ m/^(build|complete)$/)
 	{
