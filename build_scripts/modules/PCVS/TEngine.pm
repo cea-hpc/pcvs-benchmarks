@@ -39,7 +39,7 @@ sub engine_debug
 sub engine_unfold_iterator
 {
 	my ($iter_name, @iter_list) = @_;
-	my (@list_values);
+	my (@list_values) = ();
 
 	foreach my $el(@iter_list )
 	{
@@ -81,13 +81,21 @@ sub engine_unfold_iterator
 				push @list_values, $min;
 			} continue {$min++;}
 		}
+		#system conf is loaded with a boundary
+		elsif($el =~ /^(<|<=|>|>=) *([0-9]+)$/)
+		{
+			my $op = $1;
+			my $bound = $2;
+			my @ev = grep { eval "$_ $op $bound" } @{ $sys_iterlist{$iter_name}};
+			push @list_values, @ev;
+		}
 		else
 		{
 			push @list_values, $el;
 		}
 	}
 
-	return [] if( scalar @list_values == 0);
+	return () if( scalar @list_values == 0);
 	#remove duplicate and sort the array (no sensible overhead, small arrays here...)
 	# may be optimized to avoid distinctions between numerical and non-numerical arrays
 	if($iter_name =~ /^n_/)
@@ -197,24 +205,37 @@ sub engine_TE_combinations
 		
 		#"unfold" the iterator to get generated list: parse each element and build the value list
 		my @seq = engine_unfold_iterator($name, @{$local_iterlist{$name}});
+		
+		#remove this iterator if empty (disabled iterator)
+		if(@seq == 0)
+		{
+			delete $local_iterlist{$name};
+			next;
+		}
+		my @filter_seq;
+		#find intersection betweeen user and system iterator values
 		if ($name =~ /^n_/)
 		{
-			@seq = grep {$_ >= $sys_limits{$name}[0] and $_ <= $sys_limits{$name}[1] } @seq;
+			@filter_seq = grep {$_ >= $sys_limits{$name}[0] and $_ <= $sys_limits{$name}[1] } @seq;
 		}
 		else
 		{
 			# ~~ means 'contains' (only >= perl 5.10 !)
-			@seq = grep { $_ ~~ @{$sys_iterlist{$name}} } @seq;
+			@filter_seq = grep { $_ ~~ @{$sys_iterlist{$name}} } @seq;
 		}
 		
-		#remove this iterator if empty
-		(delete $local_iterlist{$name} and next ) if(!@seq);
+		#if the array is empty here, it means that the intersection between system and user configuration
+		#provides no possible combinations ==> do not unfold this TE anymore
+		if(@filter_seq eq 0)
+		{
+			engine_debug("===> $name raise: No intersection between system and [".join(", ", @seq)."] configuration.\n");
+			return (undef, undef);
+		}
 
-
-		engine_debug("\t$name:\t [".join(", ", @seq)."]\n");
+		engine_debug("\t$name:\t [".join(", ", @filter_seq)."]\n");
 		
 		#save this value list into the "array of iterators" (used w/ NestedLoops)
-		push @tmp, \@seq;
+		push @tmp, \@filter_seq;
 		push @local_iterlist_names, $name;
 	}
 
@@ -317,7 +338,8 @@ sub engine_unfold_test_expr
 		my $files = engine_get_value_ifdef($tvalue, 'files') || $tname;
 		my $cflags = $sysconf->{compiler}{cflags} || "";
 		$args = engine_get_value_ifdef($tvalue, 'cargs') || "";
-		$args .= " $sysconf->{compiler}{openmp}" if(engine_get_value_ifdef($tvalue, 'openmp') eq 'true' and $sysconf->{compiler}{openmp});
+		my $arg_tmp = engine_get_value_ifdef($tvalue, 'openmp') || "false"; 
+		$args .= " $sysconf->{compiler}{openmp}" if($arg_tmp eq 'true' and $sysconf->{compiler}{openmp});
 		if(defined $target) # if makefile
 		{
 			die("'files' field not found for $tname !") if(! defined $files);
@@ -351,6 +373,9 @@ sub engine_unfold_test_expr
 
 		#do the job...
 		my ($it_keys, $it_comb) = engine_TE_combinations($tname, $tvalue);
+		#no possible combinations found --> skip the TE
+		#TODO: also remove the previously added compilation
+		return if (!defined $it_comb);
 
 		# for each selected combinations
 		foreach(0..(scalar @{$it_comb} -1 ))
