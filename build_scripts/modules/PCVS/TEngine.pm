@@ -9,6 +9,7 @@ use Module::Load qw(load autoload); #dynamic module loading
 use Data::Dumper; #used for debug
 use XML::Writer; #XML parser
 use PCVS::Helper;
+use POSIX; # for maths
 use YAML qw(LoadFile DumpFile); # YAML parser
 #$YAML::numify = 1;
 use vars qw(@ISA @EXPORT @EXPORT_OK);
@@ -51,24 +52,17 @@ sub engine_unfold_iterator
 			$max  = $2;
 			$op = (defined $3) ? $3 : "+";
 			$step = (defined $4) ? $4 : "1";
-
+			
 			if($op eq "^")
 			{
-				$min = int($min ** (1/$step));
-				$prev = $min;
+				$min = ceil($min ** (1/$step));
+				#troubles with computer precision here...
+				$max = floor($max ** (1.0/$step));
+				push @list_values, map {$_ ** $step } $min..$max;
 			}
-
-			while($min <= $max)
+			else
 			{
-				push @list_values, $min;
-			} 
-			continue 
-			{
-				#switch-case does not natively exist w/ Perl
-				if   ($op eq "+") {$min+=$step;}
-				elsif($op eq "*") {$min*=$step;}
-				elsif($op eq "^") {$prev+=1; $min=$prev**$step;}
-				else {die("$iter_name: Unknown operator '$_'");}
+				while($min <= $max) { push @list_values, $min; $min=eval("$min $op $step"); }
 			}
 		}
 		#else if matching numeric or a-b pattern

@@ -7,7 +7,7 @@ use File::Copy::Recursive qw(pathempty);
 use File::Path;
 
 our @ISA = 'Exporter';
-our @EXPORT = qw(helper_init helper_do_not_run_validation helper_list_avail_dirs helper_lister helper_clean_path helper_convert_time helper_detect_compiler);
+our @EXPORT = qw(helper_init helper_do_not_run_validation helper_list_avail_dirs helper_lister helper_clean_path helper_convert_time helper_detect_compiler helper_ceil helper_floor);
 our @EXPORT_OK = qw();
 
 our $conf;
@@ -34,6 +34,17 @@ sub helper_clean_path
 	(pathempty($path)) if ($with_clean); 
 }
 
+sub helper_floor
+{
+	my ($val) = @_;
+	return ($val == int($val)) ? $val : int($val);
+}
+
+sub helper_ceil
+{
+	my ($val) = @_;
+	return ($val == int($val)) ? $val : int($val)+1;
+}
 
 sub  helper_lister
 {
