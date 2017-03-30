@@ -329,12 +329,36 @@ sub engine_get_value_ifdef
 	return undef;
 }
 
+sub engine_check_foldable
+{
+	my ($tname, $ttype, $omp, $tbb) = @_;
+	
+	if(!($ttype =~ /^(build|run|complete)$/))
+	{
+		print ("       Skipping $tname: bad type '$ttype'\n");
+		return 0;
+	}
+	
+	if(!$sysconf->{compiler}{openmp} and $omp eq "true")
+	{
+		print ("       Skipping $tname: OpenMP not enabled for $sysconf->{compiler}{target}\n");
+		return 0;
+	}
+	
+	if(!$sysconf->{compiler}{tbb} and $tbb eq "true")
+	{
+		print ("       Skipping $tname:  TBB not supported for $sysconf->{compiler}{target}\n");
+		return 0;
+	}
+	return 1;
+}
+
 sub engine_unfold_test_expr
 {
 	#params
 	my  ($xml, $tname,  $tvalue, $bpath) = @_;
 	#global var for a test_expr
-	my ($name, $bin, $command, $args, $rc, $time, $delta, $constraint, $timeout, @deps) = ();
+	my ($name, $bin, $command, $args, $arg_omp, $arg_tbb, $rc, $time, $delta, $constraint, $timeout, @deps) = ();
 	#other vars
 	my $ttype = lc(engine_get_value_ifdef($tvalue, 'type') || "run");
 
@@ -345,6 +369,10 @@ sub engine_unfold_test_expr
 	@deps    = @{ engine_get_value_ifdef($tvalue, 'deps') || [] };
 	$bin = "$bpath/".(engine_get_value_ifdef($tvalue, 'bin') || $tname);
 	$timeout = engine_get_value_ifdef($tvalue, "timeout") || $sysconf->{validation}{timeout} || "";
+	$arg_omp = engine_get_value_ifdef($tvalue, 'openmp') || "false"; 
+	$arg_tbb = engine_get_value_ifdef($tvalue, 'tbb') || "false"; 
+	
+	return if (!engine_check_foldable($tname, $ttype, $arg_omp, $arg_tbb));
 
 	if($ttype =~ m/^(build|complete)$/)
 	{
@@ -353,8 +381,10 @@ sub engine_unfold_test_expr
 		my $files = engine_get_value_ifdef($tvalue, 'files') || $tname;
 		my $cflags = $sysconf->{compiler}{cflags} || "";
 		$args = engine_get_value_ifdef($tvalue, 'cargs') || "";
-		my $arg_tmp = engine_get_value_ifdef($tvalue, 'openmp') || "false"; 
-		$args .= " $sysconf->{compiler}{openmp}" if($arg_tmp eq 'true' and $sysconf->{compiler}{openmp});
+
+		$args .= " $sysconf->{compiler}{openmp}" if($arg_omp eq 'true');
+		$args .= " $sysconf->{compiler}{tbb}" if($arg_tbb eq 'true');
+		
 		if(defined $target) # if makefile
 		{
 			die("'files' field not found for $tname !") if(! defined $files);
