@@ -169,73 +169,88 @@ sub engine_TE_combinations
 		foreach(@sys_iterlist_names)
 		{
 			# current level does not define the iterator
-			next if (!defined $cur->{$_});
+			next if (!exists $cur->{$_});
 
-			# if the iterator is encountered for the first time
-			if(!exists $local_iterlist{$_})
+			#if exists but set to undef -> disabled iterator
+			if(!defined $cur->{$_})
 			{
-				engine_debug("\t($nparent-degree) '$_' set [".join(", ", @{ $cur->{$_} })."]\n");
-				$local_iterlist{$_} = $cur->{$_};
+				engine_debug("\t($nparent-degree) '$_' disabled\n");
+				$local_iterlist{$_} = undef;
 			}
-			#if the iterator is already registered and the current one is empty -> special case
-			elsif(scalar @{$cur->{$_}} == 0 and scalar @{$local_iterlist{$_}})
+			# exists and is defined
+			else
 			{
-				engine_debug("\t($nparent-degree) '$_' set: empty list !\n");
-				die("Found an empty parent for '$_' of $tn ($nparent-degree). Please refer to the documentation for this special case");
+				die("Iterators should be array constructs (err with $tn)") if(ref($cur->{$_} ne "ARRAY"));
+				die("What did you want to do by providing empty array ? Please refer to the doc !") if(!@{$cur->{$_}});
+				if(!exists $local_iterlist{$_})
+				{
+					
+					engine_debug("\t($nparent-degree) '$_' set: [".join(", ", @{ $cur->{$_} })."]\n");
+					$local_iterlist{$_} = $cur->{$_};
+				}
+				elsif(!defined $local_iterlist{$_})
+				{
+					engine_debug("\t($nparent-degree) '$_' previously disabled by parent !\n");
+					die("Found a 'enabled/disabled' iterator '$_' of $tn ($nparent-degree). Please refer to the documentation for this special case");
+				}
+				else
+				{
+					engine_debug("\t($nparent-degree) '$_' ignored: [".join(", ", @{ $cur->{$_}})."]\n");
+				}
 			}
-			else # just override it
-			{
-				engine_debug("\t($nparent-degree) '$_' ignored: [".join(", ", @{ $cur->{$_}})."]\n");
-			}
-			
 		}
 		
 		$cur = $cur->{herit} || undef;
 		$nparent++;
 	}
 
-	engine_debug("\nFinal iterator values:\n");
+	engine_debug("\nFinal values:\n");
 	
 	my (@tmp, @local_combinatory, $n) = ();
 	#now, we set user-undefined iterators with system ones. If an iterator is empty ('[]'), it will be removed
 	foreach my $name(@sys_iterlist_names)
 	{
-		#set to default if undefined
-		$local_iterlist{$name} = $sys_iterlist{$name} if(!exists $local_iterlist{$name});
+		#set to default if it does not exist
+		($local_iterlist{$name} = $sys_iterlist{$name}) if(!exists $local_iterlist{$name});
 		
-		#"unfold" the iterator to get generated list: parse each element and build the value list
-		my @seq = engine_unfold_iterator($name, @{$local_iterlist{$name}});
-		
-		#remove this iterator if empty (disabled iterator)
-		if(@seq == 0)
+		# skip this iterator if has been disabled
+		if(!defined $local_iterlist{$name})
 		{
 			delete $local_iterlist{$name};
 			next;
 		}
-		my @filter_seq;
-		#find intersection betweeen user and system iterator values
+
+		#from this point, the iterator has to exist.
+		#If, at any moment, the iterator becomes empty, we have to skip this TE because
+		#there are no intersection between what the user wants and the system requires
+
+		#construct the iterator list --> coonvert sequence and generators into a value list
+		my @val_sequence = engine_unfold_iterator($name, @{$local_iterlist{$name}});
+		
+		#find intersection betweeen user and system iterator values.
+		#Be aware that engine_unfold_iterator() already restricts the list with the 'greater/lower' construct
 		if ($name =~ /^n_/)
 		{
-			@filter_seq = grep {$_ >= $sys_limits{$name}[0] and $_ <= $sys_limits{$name}[1] } @seq;
+			@val_sequence = grep {$_ >= $sys_limits{$name}[0] and $_ <= $sys_limits{$name}[1] } @val_sequence;
 		}
 		else
 		{
 			# ~~ means 'contains' (only >= perl 5.10 !)
-			@filter_seq = grep { $_ ~~ @{$sys_iterlist{$name}} } @seq;
+			@val_sequence = grep { $_ ~~ @{$sys_iterlist{$name}} } @val_sequence;
 		}
 		
 		#if the array is empty here, it means that the intersection between system and user configuration
 		#provides no possible combinations ==> do not unfold this TE anymore
-		if(@filter_seq eq 0)
+		if(@val_sequence eq 0)
 		{
-			engine_debug("===> $name raise: No intersection between system and [".join(", ", @seq)."] configuration.\n");
+			engine_debug("===> $name raise: No intersection between system and [".join(", ", @{$local_iterlist{$name}})."] configuration.\n");
 			return (undef, undef);
 		}
 
-		engine_debug("\t$name:\t [".join(", ", @filter_seq)."]\n");
+		engine_debug("\t$name:\t [".join(", ", @val_sequence)."]\n");
 		
 		#save this value list into the "array of iterators" (used w/ NestedLoops)
-		push @tmp, \@filter_seq;
+		push @tmp, \@val_sequence;
 		push @local_iterlist_names, $name;
 	}
 

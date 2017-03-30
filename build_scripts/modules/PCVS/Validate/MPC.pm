@@ -52,6 +52,7 @@ sub runtime_valid
 	# an undef when the iterator won't be unfolded for the current configuration
 	return 0 if(defined $node and defined $max_nodes and $node > $max_nodes); 
 	return 0 if(defined $node and defined $proc      and $node > $proc); 
+	return 0 if(defined $proc and !defined $mpi);
 	return 0 if(defined $proc and defined $mpi       and $proc > $mpi); 
 	return 0 if(defined $proc and defined $mpi       and $proc > $mpi); 
 	return 0 if(defined $proc and defined $core and defined $node and $core > ($max_cores * $node) / $proc and $core ne 1);
