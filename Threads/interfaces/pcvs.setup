@@ -1,37 +1,28 @@
 #!/bin/sh
 
-MPC_AUTO_KILL_TIMEOUT=100
+pcvs_src_current=$pcvs_src/$1
+pcvs_build_current=$pcvs_testbuild/$1
 
-for directory in `find ${PCVS_CSOURCE_DIR}/ -maxdepth 1 -mindepth 1 -type d`
+for f in `find $pcvs_src_current -mindepth 2 -maxdepth 2 -type f -name "*.c"`
 do
-  for test_path in ${directory}/*.c
-  do
-    test_name=$(basename ${test_path} | sed -r -e 's/\.[a-zA-Z0-9+]+$//g')
+	src_file=`basename ${f}`
+	dir_file=`dirname ${f} | sed -e "s,$pcvs_src_current/,,g"`
 
-	# Do not compile testfrm.c and threads-scenarii.c because they are directly included to test files...
-	if test "$test_name" = "threads_scenarii" ; then
-		continue
-	fi
-	if test "$test_name" = "testfrmw"; then
-		continue
+	name="`echo "$src_file" | perl -pe "s/\.[a-zA-Z0-9]+$//g"`"
+	
+	if test "$name" = "threads_scenarii" -o "$name" = "testfrmw"; then
+		continue;
 	fi
 
-	full_test_name=$(basename $directory)_${test_name}
-    test_exec="${MPC_TEST_EXE_PATH}/${full_test_name}"
-
-    #generate compile command. We also include the 'include' directory in the compilation line
-    helper_gen_compile_command "${test_exec}" "${test_path}" "-I/${PCVS_CSOURCE_DIR}/../include"
-
-    #insert the rule
-    common_insert_test "compile_${full_test_name}" "0" "$command"
-
-    #loop on all configurations and generate the execution line
-    for thread in ethread_mxn ethread_mxn_ng; do
-      opts="--clean --autokill=${MPC_AUTO_KILL_TIMEOUT} -n=1 --share-node -p=1 -net=none -m=${thread}"
-      command="${MPCRUN} ${opts} ${MPCRUN_ARGS} ${test_exec} ${COMMAND_OPTIONS}"
-
-      common_insert_test "test_${full_test_name}_${thread}" "${EXPECTED_EXIT_CODE}" "$command" "compile_${full_test_name}"
-    done
-
-  done
+	mkdir -p $pcvs_testbuild/$1/$dir_file;
+	echo "${dir_file}_${name}:"
+	echo "    type: 'complete'"
+	echo "    files: '@SRCPATH@/$dir_file/$src_file'"
+	echo "    cargs: '-I@SRCPATH@/include'"
+	echo "    bin: '$dir_file/$name'"
+	echo "    n_proc: ~"
+	echo "    n_mpi: ~"
+	echo "    n_omp: ~"
+	echo "    net: ~"
+	echo ""
 done
