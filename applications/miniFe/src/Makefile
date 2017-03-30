@@ -16,7 +16,7 @@ MINIFE_MATRIX_TYPE = -DMINIFE_CSR_MATRIX
 
 # BG/Q
 #CFLAGS = -DIBM_HPM -qlist -qsource  -g -O3 -qsmp=omp
-CFLAGS = -qlist -qsource  -g -O3 -qsmp=omp
+CFLAGS = -O3 $(PCVS_CFLAGS)
 CXXFLAGS = $(CFLAGS)
 
 # To enable memory high water mark reporting uncomment the
@@ -32,8 +32,8 @@ LIBS=
 # GNU CC=mpicc
 
 # BG/Q
-CXX=mpixlcxx_r
-CC=mpixlc_r
+CXX=$(PCVS_CXX)
+CC=$(PCVS_CC)
 
 
 include make_targets
