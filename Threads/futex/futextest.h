@@ -39,6 +39,7 @@
 #include <linux/futex.h>
 #include <getopt.h>
 #include <unistd.h>
+#include <libgen.h>
 
 typedef volatile u_int32_t futex_t;
 #define FUTEX_INITIALIZER 0
