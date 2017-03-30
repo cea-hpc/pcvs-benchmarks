@@ -45,7 +45,7 @@ sub  helper_lister
 sub  helper_list_avail_dirs
 {
 	opendir(my $dirlist, "$srcdir");
-	return grep { -d "$srcdir/$_" and /^(accelerators|applications|MPI|OpenMP|performance|reproducers|Threads|Hybrid)/} readdir($dirlist);
+	return grep { -d "$srcdir/$_" and /^(applications|MPI|OpenMP|performance|reproducers|Threads|Hybrid)/} readdir($dirlist);
 }
 
 sub helper_do_not_run_validation

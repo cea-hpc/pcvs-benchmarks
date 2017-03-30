@@ -9,11 +9,11 @@ LULESH_EXEC = lulesh2.0
 #MPI_LIB = /opt/local/lib
 
 #SERCXX = g++ -DUSE_MPI=0
-SERCXX = mpc_cxx -DUSE_MPI=0
+SERCXX = $(PCVS_CXX) -DUSE_MPI=0
 #SERCXX = icc -DUSE_MPI=0
 
 #MPICXX = mpig++ -DUSE_MPI=1
-MPICXX = mpc_cxx -DUSE_MPI=1
+MPICXX = $(PCVS_CXX) -DUSE_MPI=1
 #MPICXX = mpic++ -DUSE_MPI=1
 
 CXX = $(MPICXX)
@@ -28,7 +28,7 @@ SOURCES2.0 = \
 OBJECTS2.0 = $(SOURCES2.0:.cc=.o)
 
 #Default build suggestions with OpenMP for g++
-CXXFLAGS = -O3 -fopenmp -I. -Wall
+CXXFLAGS = -O3 -fopenmp -I. -Wall $(PCVS_CFLAGS)
 #CXXFLAGS = -openmp -I. -Wall
 #CXXFLAGS = -I. -Wall
 #CXXFLAGS = -O3 -I. -Wall
