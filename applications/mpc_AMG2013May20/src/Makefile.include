@@ -9,7 +9,7 @@
 # set the compiler here
 #ctv CC = mpicc
 #CC = mpiicc
-CC = mpc_cc -D__need_clockid_t
+CC = $(PCVS_CC) -D__need_clockid_t
 
 
 # set compile flags here
@@ -26,7 +26,7 @@ CC = mpc_cc -D__need_clockid_t
 #ctv INCLUDE_CFLAGS = -g -DTIMER_USE_MPI -DHYPRE_USING_OPENMP -fopenmp
 #ctv INCLUDE_CFLAGS = -g -DTIMER_USE_MPI -DHYPRE_USING_OPENMP -mp
 #INCLUDE_CFLAGS = -fastsse -DTIMER_USE_MPI -DHYPRE_USING_OPENMP -mp -DHYPRE_LONG_LONG
-INCLUDE_CFLAGS = -O3 -DTIMER_USE_MPI -DHYPRE_USING_OPENMP -DHYPRE_LONG_LONG
+INCLUDE_CFLAGS = -O3 -DTIMER_USE_MPI -DHYPRE_USING_OPENMP -DHYPRE_LONG_LONG $(PCVS_CFLAGS)
 
 
 # set link flags here
