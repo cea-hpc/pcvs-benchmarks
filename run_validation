@@ -207,8 +207,8 @@ sub run_configure
 	foreach my $directory (@{ $gconf{'select'}})
 	{
 		my $current_path = "$srcdir/$directory";
+		helper_clean_path("$buildir/test_suite/$directory", 1);
 		my @current_list = `find $current_path -name "pcvs.setup"`; chomp @current_list;
-		my $cleaned_by_setup = 0;
 
 		# apply pcvs.setup
 		foreach my $setup_elem(@current_list)
@@ -218,15 +218,13 @@ sub run_configure
 			(my $name = $setup_elem) =~ s/$srcdir\///g;
 			my $current_bpath = "$buildir/test_suite/$name";
 
-			#cleaning
-			helper_clean_path($current_bpath, 1);
-			$cleaned_by_setup = 1;
-
-			print "    - Setup $name\n";
+			helper_clean_path("$current_bpath", 0);
+			
 			my $override_file = `. $buildir/config.env && $setup_elem/pcvs.setup $name`;
+			print "    - Setup $name\n";
 			if($override_file ne "")
 			{
-				open(my $ofh, ">", "$current_bpath/pcvs.yml.in");
+				open(my $ofh, ">", "$current_bpath/pcvs.yml.in") or die ("Error in $current_bpath: $!");
 				print $ofh $grp_stream;
 				print $ofh  $override_file;
 				close($ofh);
@@ -245,9 +243,8 @@ sub run_configure
 			my $current_bpath = "$buildir/test_suite/$name";
 			my $current_path = "$srcdir/$name";
 
-			#clean if pcvs.setup didn't exist (first pass):
-			helper_clean_path($current_bpath, 1) if (! -f "$current_path/pcvs.setup");
-
+			helper_clean_path("$current_bpath", 0);
+			
 			#copy .in file and replace @...@ by real paths (files are in $buildir)
 			if(! -f "$current_bpath/pcvs.yml.in")
 			{

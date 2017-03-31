@@ -30,8 +30,8 @@ sub helper_convert_time {
 sub helper_clean_path
 {
 	my ($path,$with_clean) = @_;
-	mkpath($path) if (! -d $path);
-	(pathempty($path)) if ($with_clean); 
+	(mkpath($path) or die("mkpath(): $!")) if (! -d $path);
+	(pathempty($path) or die ("pathempty(): $!")) if ($with_clean); 
 }
 
 sub helper_floor
