@@ -15,6 +15,13 @@ our @EXPORT_OK = qw();
 our %gconf;
 our ($buildir, $internaldir, $srcdir, $rundir);
 
+###########################################################################
+# Load a YAML and return the content as an HASH
+# Args:
+#  - $yml_path: the path to YAML file
+#
+# Returns:
+# the HASH mapping the file
 sub load_yml
 {
 	my ($yml_path) = @_;
@@ -24,17 +31,29 @@ sub load_yml
 	return %{ $s };
 }
 
+###########################################################################
+# Initialize the current configuration loader
+# Args:
+#  - @_: Loaded configuration from command-line
 sub configuration_init
 {
 	(%gconf) = @_;
 	$rundir = $CWD;
+	#shortcuts
 	$buildir = $gconf{'build'};
 	$srcdir = $gconf{src};
 	$internaldir = "$srcdir/build_scripts";
 }
 
+###########################################################################
+# Construct the global configuration by mergind default, user and command-line configurations
+# Args: No Args
+#
+# Returns:
+# The update HASH
 sub configuration_build
 {
+	# load the default file (default values)
 	my %default_data = load_yml ("$internaldir/environment/default.yml");
 
 	#update the current configuration hash with default value (no overlap w/ options)
@@ -42,6 +61,7 @@ sub configuration_build
 		$gconf{$key}  = $default_data{$key} if(!exists $gconf{$key});
 	}
 
+	#find and load the user configuration file
 	my $user_config = configuration_load();
 
 	#if the user config file exists
@@ -97,26 +117,40 @@ sub configuration_build
 		}
 	}
 
+	# check if the HASH is valid (not complete)
 	configuration_validate();
+	# dump results into $buildir
 	configuration_save();
 	return %gconf;
 }
 
+###########################################################################
+# Iterate over configuration HASH object to create env vars
+# Args:
+#  - $output_file: where content will be written
+#  - $hashref : current node value
+#  - $key : current node key
 sub configuration_passthrough
 {
 	my ($output_file, $hashref, $key) = @_;
 
+	#for each subkey of the current node
 	foreach my $k (keys %{$hashref})
 	{
+		#translate '/', '-' or '*' to '_'
 		(my $k_compliant = $k) =~ s/[-\/\*]/_/;
+
+		# if the subvalue is an hash -> recursive call
 		if(ref(${$hashref}{$k}) eq "HASH")
 		{
 			configuration_passthrough($output_file, ${$hashref}{$k}, "${key}_${k_compliant}");
 		}
+		# if an array, build a var suffixed "_list"
 		elsif(ref ${$hashref}{$k} eq "ARRAY")
 		{
 			print $output_file "export ${key}_${k_compliant}_list=\"".join(" ", @{${$hashref}{$k}})."\"\n";
 		}
+		# else dump the value
 		else
 		{
 			print $output_file "export ${key}_${k_compliant}=\"${$hashref}{$k}\"\n";
@@ -124,6 +158,9 @@ sub configuration_passthrough
 	}
 }
 
+###########################################################################
+# Save current configuration in YAML and ENV formats
+# Args: No Args
 sub configuration_save
 {
 	DumpFile("$buildir/config.yml", \%gconf) or die ("Unable to write YAML configuration file !");
@@ -134,13 +171,18 @@ sub configuration_save
 	close($output_file);
 }
 
+###########################################################################
+# List available environ vars availables with the current configuration
+# Args: No Args
 sub configuration_display_vars
 {
 	delete $gconf{'list-vars'};
 	configuration_passthrough(*STDOUT, \%gconf, "pcvs");
 }
 
-
+###########################################################################
+# Look for proper user configuration file to load
+# Args: No Args
 sub configuration_load
 {
 	my $prefix = "$internaldir/environment";
@@ -148,8 +190,10 @@ sub configuration_load
 	my $user_name = $gconf{'config-target'};
 	my @avail_names = helper_lister("$internaldir/environment", "yml");
 
+	# if no user file exists (not provided)
 	if(! defined $user_name)
 	{
+		# we try to autodetect a file named with `hostname`.yml
 		if (grep(/^$name$/, @avail_names))
 		{
 			$gconf{'config-target'} = $name;
@@ -158,14 +202,17 @@ sub configuration_load
 
 		$name =~ s/[0-9]*//g;
 
+		# if still not, we try to remove any number in the hostname
 		if(grep(/^$name$/, @avail_names))
 		{
 			$gconf{'config-target'} = $name;
 			return "$prefix/$name.yml";
 		}
 	}
+	#if the user provides a command-line option to set a configuration file
 	else
 	{
+		# if the user provides a file name, but we didn't found it in $internaldir/configuration/environment/
 		die("Bad configuration value : $gconf{'config-target'} !") if (!grep(/^$user_name$/, @avail_names));
 		return "$prefix/$user_name.yml";
 	}
@@ -173,7 +220,10 @@ sub configuration_load
 	return undef;
 }
 
-#really painful to write, and still not complete
+###########################################################################
+# (Partial) attempt to validate the global validation.
+# Some fields are checked, some others aren't. This step should be done thanks to 
+# an dedicated Perl module (like JSON::Validate) but without embedding to much deps.
 sub configuration_validate
 {
 	my $current_field;
@@ -205,28 +255,16 @@ sub configuration_validate
 	$current_field = $gconf{'validation'}{'sched_policy'};
 	($current_field >= 0 && $current_field <= 2) or die("\'validation/sched_policy = $current_field\' is INVALID from configuration: Value must be in range 0..2");
 
-
+	# if the user does not specify a 'select' option, consider using default directories
 	if(!$gconf{'select'})
 	{
 		push @{$gconf{'select'}}, helper_list_avail_dirs() if(!$gconf{'select'});
 	}
 
+	# just check user-defined paths exists
 	foreach my $el(@{$gconf{'select'}})
 	{
 		die("\'SRCDIR/$el\' does not exist ! (see --user-testfiles instead)") if(! -d "$srcdir/$el");
-	}
-
-	if($gconf{'user-testfiles'})
-	{
-		foreach my $el(@{$gconf{'user-testfiles'}})
-		{
-			if(! ($el =~ /^\/.*$/))
-			{
-				$el = $rundir."/".$el;
-			}
-
-			die("Unable to find \'$el\' !") if(! -f $el);
-		}
 	}
 }
 
