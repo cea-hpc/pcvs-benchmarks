@@ -16,6 +16,7 @@ my $max_nodes;
 sub runtime_init
 {
 	(my $self, $gconf) = @_;
+	#to be faster...
 	$max_cores = $gconf->{cluster}{max_cores_per_node};
 	$max_nodes = $gconf->{cluster}{max_nodes};
 }
@@ -24,6 +25,15 @@ sub runtime_fini
 {
 }
 
+###########################################################################
+# Retrieve an element of the combination with the associated key, if exists 
+# Args:
+#  - $arg: the key to find
+#  - $k: the array of keys, currenly accepted by the configuration
+#  - @c: the combination array
+#
+# Returns:
+# the value associated to the key or undef
 sub get_ifdef
 {
 	my ($arg, $k, @c)= @_;
@@ -35,6 +45,18 @@ sub get_ifdef
 	return undef;
 }
 
+###########################################################################
+# Function called for each generated combination to evaluated whether the combination if valid.
+# In this function, it is important to check if the key exist it the configuration
+# before using it. This is because we set an iterator to 'undef' when the configuration
+# disabled it
+# Args:
+#  - $self: the object reference
+#  - $keys: the array of keys handled by the configuration
+#  - @args: the combination
+#
+# Returns:
+# 1 if combination is valid, 0 otherwise
 sub runtime_valid
 {
 	my ($self, $keys, @args) = @_;
@@ -51,13 +73,6 @@ sub runtime_valid
 	# please be sure to check if the iterator exist because the system emits
 	# an undef when the iterator won't be unfolded for the current configuration
 	
-	#print "Keep N=".(defined $node ? $node : "X").
-		  #" p=".(defined $proc ? $proc : "X").
-		  #" t=".(defined $mpi ? $mpi : "X").
-		  #" o=".(defined $omp ? $omp : "X").
-		  #" c=".(defined $core ? $core : "X"). 
-		  #" n=".(defined $net ? $net : "X").
-		  #" m=".(defined $sched ? $sched : "X")."\n";	
 	return 1;
 }
 
