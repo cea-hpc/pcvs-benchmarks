@@ -7,7 +7,7 @@ use File::Copy::Recursive qw(pathempty);
 use File::Path;
 
 our @ISA = 'Exporter';
-our @EXPORT = qw(helper_init helper_do_not_run_validation helper_list_avail_dirs helper_lister helper_clean_path helper_convert_time helper_detect_compiler helper_ceil helper_floor);
+our @EXPORT = qw(helper_init helper_do_not_run_validation helper_list_avail_dirs helper_lister helper_clean_path helper_convert_time helper_detect_compiler helper_ceil helper_floor helper_prefix_if_exists helper_convert_absolute);
 our @EXPORT_OK = qw();
 
 our $conf;
@@ -22,6 +22,19 @@ sub helper_init
 	
 }
 
+sub helper_convert_absolute
+{
+	my($path, $prefix) = @_;
+
+	#convert relative  -> absolute path
+	if($path =~ /^[^\/].*$/)
+	{
+		$path = $prefix.$path;
+	}
+
+	return $path;
+}
+
 sub helper_convert_time {
 	my $t = shift;
 	return int($t / 86400), (gmtime($t))[2, 1, 0];
@@ -32,6 +45,12 @@ sub helper_clean_path
 	my ($path,$with_clean) = @_;
 	(mkpath($path) or die("mkpath(): $!")) if (! -d $path);
 	(pathempty($path) or die ("pathempty(): $!")) if ($with_clean); 
+}
+
+sub helper_prefix_if_exists
+{
+	my ($prefix, $value) = @_;
+	return ($value  ? $prefix.$value : "");
 }
 
 sub helper_floor

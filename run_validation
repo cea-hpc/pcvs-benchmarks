@@ -1,13 +1,14 @@
 #!/usr/bin/perl
 
+#should not remote this :)
 use strict;
 use warnings;
-#use diagnostics;
-use 5.012;
+
+use 5.010;
 use English qw( -no_match_vars );
 
 ###########################################################################
-#### major vars
+#### main vars
 ###########################################################################
 my %gconf;
 my $srcdir;
@@ -18,6 +19,7 @@ my $buildir;
 #### COMPILATION TIME
 ###########################################################################
 BEGIN {
+	# this is used to dynamically set Perl module path.
 	$srcdir = `readlink -e \`dirname $0\``; chomp $srcdir;
 	$internaldir = $srcdir."/build_scripts";
 }
@@ -26,20 +28,22 @@ BEGIN {
 use lib "$srcdir/build_scripts/modules";
 
 # dep inclusions
-use PCVS::Helper;
-use PCVS::Configuration;
-use PCVS::TEngine;
-use Data::Dumper; #to help printing hashes (can be removed)
-use File::Tee "tee"; # get the output sync'd w/ a file
-use File::chdir;
-use File::Path qw(mkpath);
-use File::Copy::Recursive qw(fcopy dircopy pathempty);
-use Getopt::Long;    # parsing options
-use Sys::Hostname;
+use PCVS::Helper;           # PCVS Helper (path cleaning...)
+use PCVS::Configuration;    # PCVS Configuration handler (loading...)
+use PCVS::TEngine;          # PCVS TE engine
+use File::Tee "tee";        # get the output sync'd w/ a file
+use File::chdir;            # Change directory (to build JCHRONOSS)
+use File::Path qw(mkpath);  # Path modifiers
+use File::Copy::Recursive qw(fcopy dircopy pathempty); #Copy routines
+use Getopt::Long;           # Parsing options
+use Sys::Hostname;          # Hostname getter
+use Data::Dumper;           # Help printing data structures (could be removed)
 
 ###########################################################################
 #### FUNCTIONS
 ###########################################################################
+# Just print PVS header at validation start
+# Args: No Args
 sub print_summary
 {
 	my $config_target = "\'default\'";
@@ -56,6 +60,10 @@ sub print_summary
 	print "      - Test directories : ".join(", ", @{ $gconf{'select'} } )."\n";
 }
 
+###########################################################################
+# Dump data from current environment and log it to $buildir/env.log
+# You can add here anything you want to be included
+# Args: No Args
 sub env_logging
 {
 	open(my $fh, ">", "$buildir/env.log");
@@ -68,6 +76,9 @@ sub env_logging
 	close($fh);
 }
 
+###########################################################################
+# Catch Ctrl-C and transmit it to child processes
+# Args: No Args
 sub trap_signal
 {
 	print "Stopped by receiving a signal.\n";
@@ -79,6 +90,16 @@ sub trap_signal
 	exit(127);
 }
 
+###########################################################################
+# clean up sensible paths contained in an path. This is done just before
+# creating the tarball. This function replaces : 
+# - $srcdir    -> $PCVS_SOURCE_DIR
+# - $buildir   -> $PCVS_BUILD_DIR
+# - $HOME      -> $PCVS_USER_HOME
+# - $USER      -> $PCVS_USER_LOGIN
+# - $HOSTNAME  -> $PCVS_HOST_NAME
+# Args:
+#    - $path : the path to clean up
 sub anonymize_archive
 {
 	my ($path) = @_;
@@ -109,6 +130,9 @@ sub anonymize_archive
 }
 
 
+###########################################################################
+# Prepare the validation to be processed. Main point here is to compile JCHRONOSS
+# Args: No Args
 sub run_prepare
 {
 	print "\n >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> PRE-RUN STEP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
@@ -137,6 +161,9 @@ sub run_prepare
 	env_logging();
 }
 
+###########################################################################
+# After the validation, prepare the tarball by copying needed data from build_scripts to $buildir
+# Args: No Args
 sub run_finalize
 {
 
@@ -148,7 +175,7 @@ sub run_finalize
 	#generate tarball
 	unlink("$buildir/last_results.tar.gz");
 
-	#copy the generated webview
+	#copy needed data into the future archive
 	helper_clean_path("$buildir/last_results", 1);
 	dircopy("$internaldir/resources/banners", "$buildir/last_results/banners");
 	dircopy("$buildir/webview", "$buildir/last_results/webview") or die("Unable to save the webview in the archive !");
@@ -159,13 +186,14 @@ sub run_finalize
 	fcopy("$buildir/config.env", "$buildir/last_results/") or die ("Unable to save the environment file !");
 	dircopy("$buildir/tmp/traces", "$buildir/last_results/") or die ("Unable to copy trace files !");
 
+	# find XML output files
 	helper_clean_path("$buildir/last_results/test_suite", 1);
 	{
 		local $CWD = "$buildir/last_results/test_suite/";
 		my @list_files = `find $buildir/test_suite/ -iname 'output*.xml' 2> /dev/null`; chomp @list_files;
 		foreach my $res_file(@list_files)
 		{
-			(my $new_path = $res_file) =~ s@$buildir@$buildir/last_results@;
+			(my $new_path = $res_file) =~ s,@$buildir,$buildir/last_results,;
 			my $path = `dirname $new_path`; chomp $path;
 
 			mkpath($path) if (! -d $path);
@@ -186,6 +214,9 @@ sub run_finalize
 	}
 }
 
+###########################################################################
+# Load test configurations and build associated XML files
+# Args: No Args
 sub run_configure
 {
 	print "\n >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> BUILD STEP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
@@ -194,23 +225,28 @@ sub run_configure
 	print " * Combinatory System initialized in ".(time()-$istart)." second(s)\n";
 
 	helper_clean_path("$buildir/test_suite", 1);
+	
+	# Loads group info into a string, lately printed in each pcvs.yml.in
 	my $grp_stream;
 	{
-		# Loading group info into a string, lately printed in each pcvs.yml.in
 		local $/ = undef;
 		open (my $f, "<", "$internaldir/configuration/groups/$gconf{'group-target'}.yml") or die ("Could not open groups file $gconf{'group-target'} !");
 		$grp_stream = <$f>;
 		close $f;
 	}
+
 	print " * Building the list of tests:\n";
 	$istart=time();
+	
+	#for each desired subdirectory
 	foreach my $directory (@{ $gconf{'select'}})
 	{
 		my $current_path = "$srcdir/$directory";
+		#Clean the complete directory (the simplest..)
 		helper_clean_path("$buildir/test_suite/$directory", 1);
 		my @current_list = `find $current_path -name "pcvs.setup"`; chomp @current_list;
 
-		# apply pcvs.setup
+		# Iterates over each pcvs.setup file
 		foreach my $setup_elem(@current_list)
 		{
 			#find the associated subtree
@@ -218,10 +254,12 @@ sub run_configure
 			(my $name = $setup_elem) =~ s/$srcdir\///g;
 			my $current_bpath = "$buildir/test_suite/$name";
 
+			# create the tree if it does not exist yet (no cleanups)
 			helper_clean_path("$current_bpath", 0);
 			
 			my $override_file = `. $buildir/config.env && $setup_elem/pcvs.setup $name`;
 			print "    - Setup $name\n";
+			# if pcvs.setup produces a content, echo it to build pcvs.yml.in and prepends it 'group' content
 			if($override_file ne "")
 			{
 				open(my $ofh, ">", "$current_bpath/pcvs.yml.in") or die ("Error in $current_bpath: $!");
@@ -232,8 +270,7 @@ sub run_configure
 
 		}
 
-		#as pcvs.setup can create some YAML file in work dir, we look for these files in both 
-		# source and work directories
+		# as pcvs.setup can create some YAML file in work dir, we look for these files in both source and work directories
 		@current_list = `find $current_path $buildir/test_suite/$directory -name "pcvs.yml.in" 2>/dev/null`; chomp @current_list;
 		foreach my $yaml_elem(@current_list)
 		{
@@ -243,9 +280,10 @@ sub run_configure
 			my $current_bpath = "$buildir/test_suite/$name";
 			my $current_path = "$srcdir/$name";
 
+			# create the tree if it does not exist yet (no cleanups)
 			helper_clean_path("$current_bpath", 0);
-			
-			#copy .in file and replace @...@ by real paths (files are in $buildir)
+		
+			# if pcvs.setup does not already create a file, copy the .in file 
 			if(! -f "$current_bpath/pcvs.yml.in")
 			{
 				open (my $w, ">", "$current_bpath/pcvs.yml.in") or die("Unable to open $current_bpath/pcvs.yml.in: $!");
@@ -254,10 +292,10 @@ sub run_configure
 				close $w;
 			}
 			
-			#lazy macro processing. Maybe we could do it before copying it
+			# Replace @...@ by real paths (files are in $buildir). Lazy macro processing. Maybe we could do it before copying it
 			system("cat $current_bpath/pcvs.yml.in | sed -e 's,\@SRCPATH\@,$current_path,g' -e 's,\@BUILDPATH\@,$current_bpath,g' > $current_bpath/pcvs.yml");
 
-			#load the YAML desc file
+			#Where things are going to be done (TE un-rolling)
 			print "    - Generate $name\n";
 			engine_unfold_file($current_bpath, $name, "$current_bpath/pcvs.yml");
 		}
@@ -266,12 +304,9 @@ sub run_configure
 	engine_fini();
 }
 
-sub prefix_if_exists
-{
-	my ($prefix, $value) = @_;
-	return ($value  ? $prefix.$value : "");
-}
-
+###########################################################################
+# Run JCHRONOSS with the list of registered XML files
+# Args: No Args
 sub run_exec
 {	
 	print "\n >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> RUN STEP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
@@ -280,15 +315,15 @@ sub run_exec
 	$nb_resources = $gconf{'cluster'}{'max_nodes'} || 1;
 	$nb_workers = $gconf{'validation'}{'workers'}  || 1;
 
-	$autokill    = prefix_if_exists("--autokill=", $gconf{'validation'}{'autokill'});
-	$run_w       = prefix_if_exists("--launcher=$internaldir/launchers/", $gconf{'validation'}{'run_wrapper'});
-	$compil_w    = prefix_if_exists("--compil-launcher=$internaldir/launchers/", $gconf{'validation'}{'compil_wrapper'});
-	$compil_w    = prefix_if_exists("--compil-launcher=$internaldir/launchers/", $gconf{'validation'}{'run_wrapper'});
-	$verbosity   = prefix_if_exists("--verbosity=", $gconf{'verbose'});
-	$policy      = prefix_if_exists("--policy=", $gconf{'validation'}{'sched_policy'});
-	$maxjobt     = prefix_if_exists("--maxt-job=", $gconf{'validation'}{'job_meantime'});
-	$max_workert = prefix_if_exists("--maxt-slave=", $gconf{'validation'}{'worker_maxtime'});
-	$min_workert = prefix_if_exists("--mint-slave=", $gconf{'validation'}{'worker_mintime'});
+	$autokill    = helper_prefix_if_exists("--autokill=", $gconf{'validation'}{'autokill'});
+	$run_w       = helper_prefix_if_exists("--launcher=$internaldir/launchers/", $gconf{'validation'}{'run_wrapper'});
+	$compil_w    = helper_prefix_if_exists("--compil-launcher=$internaldir/launchers/", $gconf{'validation'}{'compil_wrapper'});
+	$compil_w    = helper_prefix_if_exists("--compil-launcher=$internaldir/launchers/", $gconf{'validation'}{'run_wrapper'});
+	$verbosity   = helper_prefix_if_exists("--verbosity=", $gconf{'verbose'});
+	$policy      = helper_prefix_if_exists("--policy=", $gconf{'validation'}{'sched_policy'});
+	$maxjobt     = helper_prefix_if_exists("--maxt-job=", $gconf{'validation'}{'job_meantime'});
+	$max_workert = helper_prefix_if_exists("--maxt-slave=", $gconf{'validation'}{'worker_maxtime'});
+	$min_workert = helper_prefix_if_exists("--mint-slave=", $gconf{'validation'}{'worker_mintime'});
 	$rc_on_fail  = ($gconf{'validation'}{'expect-success'}) ? "--expect-success" : "";
 
 	my @list = `find $buildir/test_suite/ -name 'list_of_tests.xml'`; chomp @list;
@@ -320,6 +355,7 @@ $gconf{'verbose'} = 0;
 $gconf{'src'} = $srcdir;
 $gconf{'build'} = $srcdir."/build";
 
+# Read the command-line configuration
 GetOptions (
 	\%gconf,
 	"config-target=s",
@@ -345,32 +381,39 @@ GetOptions (
 	"help"
 )  or die("Abort due to error(s) while parsing arguments (see --help)!\n");
 
-$_ = $gconf{'build'};
-if(/^[^\/].*$/) #check if relative path to prepend it with $CWD
-{
-	$gconf{'build'}	= "$CWD/".$gconf{'build'};
-}
+# set $buildir depending on environment
+$gconf{'build'} = helper_convert_absolute($gconf{'build'}, $CWD);
 $gconf{testbuild} = "$gconf{build}/test_suite";
 $buildir = $gconf{'build'};
 
+# init the helper
 helper_init(\%gconf);
+
+# if options just ask for listing, do it and stop
 exit(0) if helper_do_not_run_validation();
+
+# create $buildir tree if not exist (without cleaning it)
 helper_clean_path($buildir, 0);
 
 my $validation_start = time();
 
+# Parse configuration files (default and user)
 configuration_init(%gconf);
 %gconf = configuration_build();
+
+# If just listing available vars, do it and stop (cannot be done earlier
+# because the configuration needs to be loaded for it
 if(exists $gconf{'list-vars'}) { configuration_display_vars();  exit(0); }
 
+# if user wants to log the output (by default)
 tee(STDOUT, '>', "$buildir/output.log") if (!exists $gconf{'log'} || $gconf{'log'});
 
 print `cat $internaldir/resources/banners/test_suite_banner`;
-
 print_summary();
 
+# ready to go !
 run_prepare();
-run_configure() if($gconf{'regen'});
+run_configure() if($gconf{'regen'}); # this can be skipped to avoid overhead with slow FS
 run_exec();
 run_finalize();
 
