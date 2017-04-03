@@ -7,7 +7,7 @@ use File::Copy::Recursive qw(pathempty);
 use File::Path;
 
 our @ISA = 'Exporter';
-our @EXPORT = qw(helper_init helper_do_not_run_validation helper_list_avail_dirs helper_lister helper_clean_path helper_convert_time helper_detect_compiler helper_ceil helper_floor helper_prefix_if_exists helper_convert_absolute);
+our @EXPORT = qw(helper_init helper_do_not_run_validation helper_list_avail_dirs helper_lister helper_clean_path helper_convert_time helper_detect_compiler helper_prefix_if_exists helper_convert_absolute helper_uniq);
 our @EXPORT_OK = qw();
 
 our $conf;
@@ -52,6 +52,17 @@ sub helper_convert_absolute
 }
 
 ###########################################################################
+# Make an array with unique values
+# Args: 
+#  - @_: the array
+#
+# Returns: the array without duplicates
+sub helper_uniq {
+	my %seen;
+	return grep { !$seen{$_}++ } @_;
+}
+
+###########################################################################
 # Convert time in seconds in an array follwing DHMS format
 # Args
 #  - $t: time, in seconds
@@ -86,32 +97,6 @@ sub helper_prefix_if_exists
 {
 	my ($prefix, $value) = @_;
 	return ($value  ? $prefix.$value : "");
-}
-
-###########################################################################
-# Round the value to the last integer (avoiding to load Math module)
-# Args:
-#  - $val: the value to round
-#
-# Returns:
-# Rounded value
-sub helper_floor
-{
-	my ($val) = @_;
-	return ($val == int($val)) ? $val : int($val);
-}
-
-###########################################################################
-# Round the value to the next integer (avoiding to load Math module)
-# Args:
-#  - $val: the value to round
-#
-# Returns:
-# Rounded value
-sub helper_ceil
-{
-	my ($val) = @_;
-	return ($val == int($val)) ? $val : int($val)+1;
 }
 
 ###########################################################################
