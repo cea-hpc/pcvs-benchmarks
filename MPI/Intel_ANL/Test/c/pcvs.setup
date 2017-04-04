@@ -19,12 +19,15 @@ do
 		files="$files @SRCPATH@/../$f/reduce.c"
 	fi
 
-	echo "
-$name:
-    type: 'complete'
-    herit: *GRPMPI
-    files: '$files'
-    cargs: '$cargs'
-    #bin: '$bin'
-	"
+	#this case restricts number of MPI processes
+	if test -n "`echo $f | egrep -o "/topo/"`"; then
+		alter_mpi="n_mpi: [ 6, 8 ]"
+	fi
+
+	echo "$name:"
+	echo "    type: 'complete'"
+	echo "    herit: *GRPMPI"
+	echo "    files: '$files'"
+	echo "    cargs: '$cargs'"
+	echo "    $alter_mpi"
 done
