@@ -28,10 +28,15 @@ cmacro_escape:
         herit: *macro
         cargs: -DC_ARG="\"str\" != NULL"
 
-cmacro_escape_multicmd:
+cmacro_escape_multicmd1:
         deps: [ "nomacro" ]
         herit: *macro
         cargs: -DC_ARG="\"str\" != NULL && \"Hello\"[0] == 'H' "
+
+cmacro_escape_multicmd2:
+        deps: [ "nomacro" ]
+        herit: *macro
+        cargs: -DC_ARG=" (printf(\"%s\", \"buffer\"), \"Hello\"[0] == 'H') "
 
 
 #these tests inject macro as a C string (printed with fprintf(stderr, "%s"))
@@ -42,20 +47,32 @@ smacro_simple:
         #create the C string --> 1
         cargs: -DS_ARG=\"1\"
 
-smacro_spaces:
+smacro_spaces1:
         deps: [ "nomacro" ]
         herit: *macro
-        #create the C string --> 1 & ; & 2
-        cargs: -DS_ARG="\"1 & ; & 2\""
+        cargs: -DS_ARG="\"Hello, World ! \""
 
-smacro_escape:
+smacro_spaces2:
         deps: [ "nomacro" ]
         herit: *macro
-        # create the C string --> "str" != ; NULL
-        cargs: -DS_ARG="\"\\\"str\\\" != NULL\""
+        cargs: -DS_ARG="\"Hello; /* World ! */\""
 
-smacro_double_escape:
+smacro_escape1:
         deps: [ "nomacro" ]
         herit: *macro
-        #create the C string --> \"str\" != ; NULL
-        cargs: -DS_ARG="\"\\\\\\\"str\\\\\\\" != ; NULL\""
+        cargs: -DS_ARG="\"\\\"str\\\" is a quoted string\""
+
+smacro_escape2:
+        deps: [ "nomacro" ]
+        herit: *macro
+        cargs: -DS_ARG="\"\\\"str1 && str2\\\"'s an quoted string; with weird patterns\""
+
+smacro_double_escape1:
+        deps: [ "nomacro" ]
+        herit: *macro
+        cargs: -DS_ARG="\"\\\\\\\"str\\\\\\\" is an escaped string\""
+
+smacro_double_escape2:
+        deps: [ "nomacro" ]
+        herit: *macro
+        cargs: -DS_ARG="\"\\\\\\\"str1; -> str2\\\\\\\" is an escaped string; with weird patterns !!\""
