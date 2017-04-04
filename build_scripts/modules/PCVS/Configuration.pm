@@ -264,7 +264,7 @@ sub configuration_validate
 		if(defined $current_field)
 		{
 			`type $current_field 2> /dev/null`;
-			die("\'runtime/c not found in PATH ! ($current_field)") if ($? != 0);
+			die("\'runtime/c not found in PATH ! ($current_field)") if (($? >> 8) != 0);
 		}
 	}
 

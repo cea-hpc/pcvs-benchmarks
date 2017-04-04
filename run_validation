@@ -278,6 +278,8 @@ sub run_configure
 			
 			print "    - Setup $name\n";
 			my $override_file = `. $buildir/config.env && $setup_elem/pcvs.setup $name`;
+			die("$name Setup failed !") if (($? >> 8) != 0);
+
 			# if pcvs.setup produces a content, echo it to build pcvs.yml.in and prepends it 'group' content
 			if($override_file ne "")
 			{
@@ -352,8 +354,8 @@ sub run_exec
 
 	#print($command."\n");
 	system($command);
-	my $ret = $?;
-	if($ret ne 0 and $rc_on_fail)
+	my $ret = $? >> 8;
+	if($ret != 0 and $rc_on_fail)
 	{
 		print "Aborting Validation due to failed results (expect-success requirement)\n";
 		exit $ret;
