@@ -276,7 +276,8 @@ sub engine_TE_combinations
 	foreach my $name(@sys_iterlist_names)
 	{
 		#If the TE does not define one of them, set it to default
-		($local_iterlist{$name} = $sys_iterlist{$name}) if(!exists $local_iterlist{$name});
+		# If system configuration disables an iterator, disable it here too
+		($local_iterlist{$name} = $sys_iterlist{$name}) if(!exists $local_iterlist{$name} || !defined $sys_iterlist{$name});
 		
 		# If, after that, the iterator is not defined (and so disabled), do not consider this iterator
 		if(!defined $local_iterlist{$name})
@@ -324,6 +325,7 @@ sub engine_TE_combinations
 	# The next call will create an another array with combinations.
 	# For example, if @tmp contains  : [ [1, 2, 3, 4], [A, B] ],
 	# @local_combinatory will contain: [ [1, A], [1, B], [2, A], [2, B], [3, A], [3, B], [4, A], [4, B]]
+	$n = 0;
 	NestedLoops(\@tmp, sub { $n++; push @local_combinatory, [ @_ ] if($loaded_mod->runtime_valid(\@local_iterlist_names, @_));} );
 	engine_debug("===> ".scalar @local_combinatory." combinations kept (over $n)\n");
 	
