@@ -251,6 +251,9 @@ sub configuration_validate
 
 	$current_field = $gconf{'validation'}{'worker_maxtime'};
 	($current_field >= 0) or die("\'validation/worker_mintime = $current_field\' is INVALID from configuration: Value must be positive and higher than validation/worker_mintime");
+	
+	$current_field = $gconf{'iterators'};
+	(defined $current_field && keys %{$current_field} > 0) or die("Your configuration does not define at least one iterator !");
 
 	$current_field = $gconf{'validation'}{'sched_policy'};
 	($current_field >= 0 && $current_field <= 2) or die("\'validation/sched_policy = $current_field\' is INVALID from configuration: Value must be in range 0..2");
