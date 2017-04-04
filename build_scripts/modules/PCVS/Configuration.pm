@@ -153,7 +153,7 @@ sub configuration_passthrough
 		# else dump the value
 		else
 		{
-			print $output_file "export ${key}_${k_compliant}=\"${$hashref}{$k}\"\n";
+			print $output_file "export ${key}_${k_compliant}=\"".((defined ${$hashref}{$k}) ? ${$hashref}{$k} : "undefined")."\"\n";
 		}
 	}
 }

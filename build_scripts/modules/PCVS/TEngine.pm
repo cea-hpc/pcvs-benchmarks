@@ -62,11 +62,19 @@ sub engine_init
 	#... and get back system definition for each iterator
 	foreach my $iter_name(@sys_iterlist_names)
 	{
-		# build the sequence for the iterator
-		my @sys_list = engine_unfold_iterator($iter_name,@{ $sysconf->{'iterators'}{$iter_name}});
-		# register iterator limits (for boundary checking)
-		$sys_limits{$iter_name} = [$sys_list[0], $sys_list[$#sys_list]];
-		push @{ $sys_iterlist{$iter_name}}, @sys_list;
+		if(defined $sysconf->{'iterators'}{$iter_name})
+		{
+			# build the sequence for the iterator
+			my @sys_list = engine_unfold_iterator($iter_name,@{ $sysconf->{'iterators'}{$iter_name}});
+			# register iterator limits (for boundary checking)
+			$sys_limits{$iter_name} = [$sys_list[0], $sys_list[$#sys_list]];
+			push @{ $sys_iterlist{$iter_name}}, @sys_list;
+		}
+		else
+		{
+			#iterator explicitly disabled by user configuration
+			$sys_iterlist{$iter_name} = undef;
+		}
 	}
 }
 
@@ -581,7 +589,8 @@ sub engine_unfold_file
 		print $debug_file "##################\nSystem combinations:\n";
 		foreach(keys %sys_iterlist)
 		{
-			print $debug_file "\t$_:\t[".join(", ", @{ $sys_iterlist{$_} })."]\n";
+			print $debug_file "\t$_:\t"; 
+			print $debug_file ((defined $sys_iterlist{$_}) ? "[".join(", ", @{ $sys_iterlist{$_} })."]" : "disabled")."\n";
 		}
 
 	}

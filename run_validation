@@ -276,8 +276,8 @@ sub run_configure
 			# create the tree if it does not exist yet (no cleanups)
 			helper_clean_path("$current_bpath", 0);
 			
-			my $override_file = `. $buildir/config.env && $setup_elem/pcvs.setup $name`;
 			print "    - Setup $name\n";
+			my $override_file = `. $buildir/config.env && $setup_elem/pcvs.setup $name`;
 			# if pcvs.setup produces a content, echo it to build pcvs.yml.in and prepends it 'group' content
 			if($override_file ne "")
 			{
