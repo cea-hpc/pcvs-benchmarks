@@ -202,7 +202,8 @@ string& replace(std::string& str, std::string from, std::string to)
 	size_t start = 0;
 	while((start = str.find(from, start)) != std::string::npos)
 	{
-		if(start > 0 && str[start-1] != '\\')
+		//if(start > 0 && str[start-1] != '\\')
+		if(start > 0)
 		{
 			str.replace(start, from.size(), to);
 			start += to.size(); // to avoid replacing patterns if to is a substring of "from"

@@ -348,6 +348,7 @@ void RunnerSlave::launchWorkerThreadStart(Job* job)
 	}
 	else{
 		instruction = job->getCommand();
+		replace( instruction , "\\", "\\\\");
 		replace( instruction , "\"", "\\\"");
 		instruction = " /usr/bin/time -f%e sh -c \"" + instruction + "\" 2>&1";
 		start = getCurrentDate();
