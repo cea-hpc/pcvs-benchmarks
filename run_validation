@@ -73,6 +73,25 @@ sub env_logging
 	print $fh `module list 2> /dev/null`;
 	print $fh "\n#####################\n# ENVIRONMENT VARS \n#####################\n";
 	print $fh `env`;
+	print $fh "\n#####################\n# COMPILERS \n#####################\n";
+	foreach(('c', 'cxx', 'f77', 'f90', 'f95', 'f03', 'f08'))
+	{
+		my $cur = $gconf{compiler}{$_};
+		if(defined $cur)
+		{
+			print $fh "$_ found at ".`which $cur`;
+		}
+	}
+	print $fh "Extra flags: '$gconf{compiler}{cflags}'\n";
+	print $fh "OpenMP support: '$gconf{compiler}{openmp}'\n";
+	print $fh "TBB support: '$gconf{compiler}{tbb}'\n";
+
+	print $fh "\n#####################\n# RUNTIME \n#####################\n";
+	if(defined $gconf{runtime}{cmd})
+	{
+		print $fh "Runtime launcher found at ".`which $gconf{runtime}{cmd}`;
+	}
+	print $fh "Perl module to validate: $gconf{runtime}{module}\n";
 	close($fh);
 }
 

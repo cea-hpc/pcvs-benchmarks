@@ -255,6 +255,16 @@ sub configuration_validate
 	$current_field = $gconf{'validation'}{'sched_policy'};
 	($current_field >= 0 && $current_field <= 2) or die("\'validation/sched_policy = $current_field\' is INVALID from configuration: Value must be in range 0..2");
 
+	foreach(('c', 'cxx', 'f77', 'f90', 'f95', 'f03', 'f08'))
+	{
+		$current_field = $gconf{'compiler'}{$_};
+		if(defined $current_field)
+		{
+			`type $current_field 2> /dev/null`;
+			die("\'runtime/c not found in PATH ! ($current_field)") if ($? != 0);
+		}
+	}
+
 	# if the user does not specify a 'select' option, consider using default directories
 	if(!$gconf{'select'})
 	{
