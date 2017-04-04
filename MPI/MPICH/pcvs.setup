@@ -1,3 +1,61 @@
-#!/bin/sh
+#! /usr/bin/perl
 
-echo "It Works !"
+use strict;
+use warnings;
+
+my ($subdir) = @ARGV;
+my $pcvs_src_current=qq($ENV{pcvs_src}/$subdir);
+my $pcvs_build_current=qq($ENV{pcvs_testbuild}/$subdir);
+
+
+`mkdir -p $pcvs_build_current/build && cd $pcvs_build_current/build && $pcvs_src_current/configure --disable-maintainer_mode --enable-strictmpi CC="$ENV{pcvs_compiler_c}" CXX="$ENV{pcvs_compiler_cxx}" F77="$ENV{pcvs_compiler_f77}" CFLAGS="$ENV{pcvs_compiler_cflags}" 2> /dev/null`;
+die("Error during MPICH configure") if(($? >> 8) != 0);
+
+#check for testlist both in source and build direcvtories
+my @list_testfiles = `find $pcvs_build_current/build $pcvs_src_current -name 'testlist'`; chomp @list_testfiles;
+
+# for each found file
+foreach my $file(@list_testfiles)
+{
+	my $filepath = $file;
+	$filepath =~ s,$pcvs_build_current/build/,,;
+	$filepath =~ s,$pcvs_src_current/,,;
+	$filepath =~ s,testlist$,,g;
+
+	open(my $fh, "<", $file);
+	while(<$fh>)
+	{
+		my ($program, $nmpi) = ();
+		chomp $_; #remove trailing newlines
+		s/#.*//g; #remove comments
+		s/^ *//g; #remove leading spaces
+		s/ *$//g;  # remove trailing spaces
+
+		#copy paste from runtests.in to handle pre-requirements
+		#if (/^\s*\!([^:]*):(.*)/) {
+			#`cd $pcvs_build_current/build/$filepath/$1 && make $2`;
+			#next;
+		#}
+
+		my @list_args = split(/ +/, $_);
+
+		$program = $list_args[0];
+
+		if(@list_args > 1)
+		{
+			$program = $list_args[0];
+			$nmpi = $list_args[1];
+			#should we parse extra options ? maybe copy pasting from runtests.in
+			print STDOUT "$program:\n";
+			print STDOUT "    type: 'complete'\n";
+			print STDOUT "    files: '\@BUILDPATH\@/build/$filepath/Makefile'\n";
+			print STDOUT "    target: '$program'\n";
+			print STDOUT "    herit: *GRPMPI\n";
+			print STDOUT "    n_mpi: [ $nmpi ]\n";
+		}
+		elsif(-d "$pcvs_build_current/build/$filepath/$list_args[0]" or -d "$pcvs_src_current/$filepath/$list_args[0]")
+		{
+			next;
+		}
+	}
+}
