@@ -1,0 +1,39 @@
+pcvst_macro: &macro
+        herit: *GRPSERIAL
+        type: 'complete'
+        files: '@SRCPATH@/macro.c'
+
+cmacro_simple:
+        herit: *macro
+        cargs: '-DC_ARG=1'
+
+cmacro_spaces:
+        herit: *macro
+        cargs: '-DC_ARG="1 && 2"'
+
+cmacro_escape:
+        herit: *macro
+        cargs: '-DC_ARG="\"str\" != NULL"'
+
+
+# buggy patterns like ';' are on purpose
+
+smacro_simple:
+        herit: *macro
+        #create the C string --> 1
+        cargs: '-DS_ARG=\"1\"'
+
+smacro_spaces:
+        herit: *macro
+        #create the C string --> 1 & ; & 2
+        cargs: '-DS_ARG="\"1 & ; & 2\""'
+
+smacro_escape:
+        herit: *macro
+        # create the C string --> "str" != ; NULL
+        cargs: '-DS_ARG="\"\\\"str\\\" != NULL\""'
+
+smacro_double_escape:
+        herit: *macro
+        #create the C string --> \"str\" != ; NULL
+        cargs: '-DS_ARG="\"\\\\\\\"str\\\\\\\" != ; NULL\""'
