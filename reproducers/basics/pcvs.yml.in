@@ -1,39 +1,61 @@
 pcvst_macro: &macro
         herit: *GRPSERIAL
-        type: 'complete'
+        type: 'build'
         files: '@SRCPATH@/macro.c'
 
-cmacro_simple:
+nomacro:
         herit: *macro
-        cargs: '-DC_ARG=1'
+        cargs: ''
+
+# These tests inject macro which has to be a valid condition (replace an if() condition)
+cmacro_simple:
+        deps: [ "nomacro" ]
+        herit: *macro
+        cargs: -DC_ARG=1
 
 cmacro_spaces:
+        deps: [ "nomacro" ]
         herit: *macro
-        cargs: '-DC_ARG="1 && 2"'
+        cargs: -DC_ARG="1 > 0"
+
+cmacro_spaces_multicmd:
+        deps: [ "nomacro" ]
+        herit: *macro
+        cargs: -DC_ARG="1 > 0 && 4 > 0"
 
 cmacro_escape:
+        deps: [ "nomacro" ]
         herit: *macro
-        cargs: '-DC_ARG="\"str\" != NULL"'
+        cargs: -DC_ARG="\"str\" != NULL"
+
+cmacro_escape_multicmd:
+        deps: [ "nomacro" ]
+        herit: *macro
+        cargs: -DC_ARG="\"str\" != NULL && \"Hello\"[0] == 'H' "
 
 
+#these tests inject macro as a C string (printed with fprintf(stderr, "%s"))
 # buggy patterns like ';' are on purpose
-
 smacro_simple:
+        deps: [ "nomacro" ]
         herit: *macro
         #create the C string --> 1
-        cargs: '-DS_ARG=\"1\"'
+        cargs: -DS_ARG=\"1\"
 
 smacro_spaces:
+        deps: [ "nomacro" ]
         herit: *macro
         #create the C string --> 1 & ; & 2
-        cargs: '-DS_ARG="\"1 & ; & 2\""'
+        cargs: -DS_ARG="\"1 & ; & 2\""
 
 smacro_escape:
+        deps: [ "nomacro" ]
         herit: *macro
         # create the C string --> "str" != ; NULL
-        cargs: '-DS_ARG="\"\\\"str\\\" != NULL\""'
+        cargs: -DS_ARG="\"\\\"str\\\" != NULL\""
 
 smacro_double_escape:
+        deps: [ "nomacro" ]
         herit: *macro
         #create the C string --> \"str\" != ; NULL
-        cargs: '-DS_ARG="\"\\\\\\\"str\\\\\\\" != ; NULL\""'
+        cargs: -DS_ARG="\"\\\\\\\"str\\\\\\\" != ; NULL\""

@@ -87,7 +87,7 @@ sub env_logging
 	print $fh "TBB support: '$gconf{compiler}{tbb}'\n";
 
 	print $fh "\n#####################\n# RUNTIME \n#####################\n";
-	if(defined $gconf{runtime}{cmd})
+	if(exists $gconf{runtime}{cmd} and $gconf{runtime}{cmd} ne '')
 	{
 		print $fh "Runtime launcher found at ".`which $gconf{runtime}{cmd}`;
 	}
@@ -212,7 +212,7 @@ sub run_finalize
 		my @list_files = `find $buildir/test_suite/ -iname 'output*.xml' 2> /dev/null`; chomp @list_files;
 		foreach my $res_file(@list_files)
 		{
-			(my $new_path = $res_file) =~ s,@$buildir,$buildir/last_results,;
+			(my $new_path = $res_file) =~ s,$buildir,$buildir/last_results,;
 			my $path = `dirname $new_path`; chomp $path;
 
 			mkpath($path) if (! -d $path);
