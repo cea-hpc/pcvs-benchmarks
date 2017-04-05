@@ -1,0 +1,105 @@
+MCB was released as:
+LLNL–CODE-507091
+Oct. 20, 2011
+
+
+Obtaining MCB and running an initial test
+-----------------------------------------
+
+1) Get a tar ball containing build scripts, run scripts, and this README by sending an E-mail to proxy-apps@llnl.gov. Untar the file. It will make a sub-directory named mcb in the current directory. cd into the mcb sub-directory.
+
+NOTE: There is a sub-directory named boost_headers. MCB needs the headers from the Boost distribution, but does not require any compiled code from Boost. This sub-directory is provided to avoid the need to download the rather large Boost distribution.
+
+
+2) Modify the Makefile for the target platform if you want to change any compiler, etc. flags. Sample Makefiles are provided for linux_x86_64 and BlueGene/Q systems at LLNL. You can use a copy of one of them as the starting point for your own Makefile. If you use a compiler directly (e.g. gcc), you will need to set MPI_INCLUDE and LDFLAGS. If use an MPI wrapper script (e.g. mpicc), you will still need to set MPI_INCLUDE, but you may not need any LDFLAGS.
+
+
+3) There are sample build scripts for linux_x86_64 and BlueGene/Q systems at LLNL. They rely on the Makefiles mentioned in (2). Use one of them or use one as a template for your own build script. Execute the build script.
+
+./build-linux-x86_64.sh
+
+
+4) To run your first MCB test, cd into the run-decks sub-directory. Make a copy of M_mcb_coral_x86_test.csh and modify it to work with your batch system. Use the appropriate command to submit the revised batch script. You can also modify the script to run interactively, if your system supports that.
+
+You may need to modify CORES_PER_NODE, THREADS_PER_CORE, NUM_NODES, and PROCS_PER_NODE. PROCS_PER_NODE should evenly divide CORES_PER_NODE. 
+
+MCB prints a figure-of-merit (FOM) at the end of each run. Larger is better.
+The FOM will increase linearly with the number of cores if there is negligible parallel overhead on your cluster.
+
+
+5) The next step is to validate that MCB is running correctly. MCB has a builtin test problem that solves the radiation flow from a source in one corner of the grid. The opacities are high enough that the solution is well described by a diffusion equation. MCB prints a line starting "MC max error" with the maximum difference between the run and the exact solution at the end of a run a couple of lines before the Figure-of-merit. 
+
+M_mcb_coral_BGQ_val.csh is a Moab script to run the validation problem. The maximum error with 400 zones in x and y and a total of 10240000 particles on 64 nodes (1024 cores) of BlueGeneQ is 0.0147. The error should scale like 1/sqrt(numParticles). The sample script uses three different numbers of particles to demonstrate this scaling.
+
+There is a discretization error (due to the grid resolution) in evaluating the analytic solution. Validation tests are normally run with roughly 10 million particles and 1000 cores. If the validation test is run with far more than 10 million particles, the number of zones in x and y should be increased to keep the discretization error small compared to the Monte Carlo fluctuations. Once you have verified that compiler flags etc. are set to produce correct results, you can run the performance tests with more cores.
+
+
+Running a weak scaling study
+-----------------------------------------
+
+The run-decks sub-directory contains Moab scripts named M_mcb_coral_x86_1ht_lo.csh, M_mcb_coral_BGQ_1ht_lo.csh, and M_mcb_coral_BGQ_4ht_lo.csh that can be used to run a weak scaling study. The goal of the study is to run a problem with a fixed spatial extent using different numbers of cores and different mixes of MPI tasks and OpenMP threads with fixed work per core (weak scaling).
+
+The work is proportional to the number of particles, so the number of Monte Carlo particles per CORE (not per hardware thread) is held fixed. The "4ht" script for a Blue Gene/Q system uses 4 hardware threads per core, but the same number of particles per core as the "1ht" script. 
+
+The fixed spatial extent is divided into MPI domains which are roughly square. If there are 4096 MPI domains, the problem will be split into 64-by-64 domains. If there are 8192 MPI domains, the problem will be split into 64-by-128 domains.
+
+The number of particles per zone is held fixed, so nZonesXGlobal and nZonesYGlobal increase as the number of cores increases.
+
+The scripts must by modified to work with the batch system on your machine. In particular, NUM_NODES must be set the number of nodes the batch system allocated to the job. The scripts are designed to examine the performance variations as MPI tasks are traded for OpenMP threads. PROCS_PER_NODE should evenly divide CORES_PER_NODE to make sure the same number of cores is used in each case.
+
+
+Running the CORAL benchmark problem
+-----------------------------------------
+
+The run-decks sub-directory contains a Moab script named M_mcb_coral_2xseq.csh  which runs the CORAL MCB benchmark problem. This script uses twice as many total particles as the Sequoia reference run (M_mcb_seq_base.csh). The goal is to obtain a FOM that is 6 times the Sequoia reference FOM of roughly 3.5e10 (check the CORAL web site for the most recent value) when this problem is run on 1/24 of the CORAL system.
+
+The script runs the problem with various numbers of MPI processes and OpenMP threads to evaluate the performance tradeoff between using cores as processes and threads. LLNL prefers systems in which the throughput varies relatively slowly as MPI processes are interchanged with OpenMP threads.
+
+LLNL requires that the number of MPI processes per node be no greater than the number of GB of memory per node when running tests for CORAL. The MCB Mini-app uses well under 1 GB when running these tests, but MPI processes in codes simulating many physics processes use 1 GB or more. The intent is thus to run the MCB Mini-app with a number of MPI processes similar to the number that would be used by a real code. Remaining cores or hardware threads can be used as OpenMP threads.
+
+The highest FOM over all thread/process combinations is used to compute the "MCB score". The results submitted for the benchmark run should specify the total number of particles, the number of nodes, the total number of MPI processes, and the number of OpenMP threads per process.
+
+
+
+Instrumented runs of MCB
+-----------------------------------------
+
+The mcb directory includes a sub-directory containing examples of 
+how to build MCB with performance instrumentation. 
+As of May 3, 2013 the only example is for Blue Gene/Q systems.
+
+
+
+Optimizing MCB
+-----------------------------------------
+
+The advance() function in src/ImplicitMonteCarlo/IMC.cc and the functions it calls do most of the work in MCB. This would be a good starting point if you are interested in making modifications to the source code. Inserting compiler directives is acceptable as long as they are supported in a production compiler. Source code modifications are acceptable in some cases and not in others. The key point to remember here is that MCB is a surrogate for a Monte Carlo package in a large multi-physics code. Mesh properties and data structures in a multi-physics code are often compromises between the needs of the various physics packages. It is not acceptable to remove templates or manually inline functions in MCB. The programming style needs to remain consistent with the style that would be used in a million production code.
+
+Compiler optimizations can have a significant impact on the performance of MCB. MCB is written in C++ and makes fairly heavy use of templates. As with any program written in this style, inlining produces significant speedups. 
+
+Source code modifications or the use of aggressive optimization may lead to incorrect answers. The validation test should be rerun after changes of this sort are made.
+
+MCB uses a Monte Carlo method so it has many if tests. Branch prediction may not be effective because branches are taken based on random numbers.
+
+The frequent if tests make it difficult to obtain SIMD vectorization in MCB. Monte Carlo methods obtained useful speedup on Cray Y/MP systems by computing vectors of distance to boundary, distance to next scattering, etc. Once vectors had been prepared, a non-vectorized loop ran through a series of if tests to determine the next event for each particle. SIMDization of MCB could be attempted as an "extra credit project", but would probably require frequent interaction with the MCB developers.
+
+
+
+----------------------------------------------------------------------------
+
+
+This distribution was prepared by:
+
+Steve Langer
+AX Division
+Lawrence Livermore National Laboratory (LLNL)
+langer1 @ llnl.gov
+Nov. 10, 2012
+Apr. 27, 2013
+May 13, 2013
+
+
+MCB was written by Nick Gentile and Brian Miller of LLNL.
+
+
+This software is generally available and may be shared with others inside your organization. LLNL would like to know who is using this software so that we can get feedback from users. If someone from another organization is interested in using MCB, please ask them to send an E_mail to proxy-app@llnl.gov. 

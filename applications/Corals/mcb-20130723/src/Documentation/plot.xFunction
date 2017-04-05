@@ -1,0 +1,19 @@
+
+set key top left
+
+set style data lines
+
+set xrange [ 0 to 1.0 ]
+set yrange [-0.017 to 0.017]
+
+#set log y
+
+plot "xFunction.dat.3" using 1:2 title "3 terms"
+replot "xFunction.dat.5" using 1:2 lt 3 title "5 terms"
+replot "xFunction.dat.10" using 1:2 lt 5 title "10 terms"
+replot "xFunction.dat.100" using 1:2 lt 4 title "100 terms"
+
+x0 = 0.5
+replot (x-x0)**3.0 * (x+x0)**3.0 with points lt -1 title "function"
+
+pause -1

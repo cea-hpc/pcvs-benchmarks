@@ -1,0 +1,148 @@
+BOOST_PREFIX=/g/g10/bmiller/${SYS_TYPE}
+BOOST_INCLUDE = -I${BOOST_PREFIX}/include
+BOOST_LIB = -L${BOOST_PREFIX}/lib -Wl,-rpath ${BOOST_PREFIX}/lib
+
+
+INCLUDES = -I. -I.. -I./Meshes -I./ImplicitMonteCarlo \
+	 -I./AbsorptionOpacity -I./ScatteringOpacity \
+	 -I./Sources -I./Material -I./EOS \
+	 -I./BoundaryConditions -I./Meshes \
+	 -I./UtilityFunctions -I./RandomNumberGenerators -I./RandomWalker \
+	 -I./StandAloneMains -I./TypeInformation -I./DomainDecomposition \
+	 ${MPI_INCLUDE} ${BOOST_INCLUDE}
+
+-include ../compiler.defs
+
+#############################################################################################
+CFILES_NB =\
+	Nonblocking_Sync.cc \
+	Nonblocking_Gather.cc \
+	Buffered_MPI_Send.cc \
+	Nonblocking_tests.cc
+
+OFILES_NB := ${subst .cc,.o,${CFILES_NB}}
+
+CFILES_NBST =\
+	Nonblocking_Sync.cc \
+	Buffered_MPI_Send.cc \
+	Nonblocking_Sync_test.cc
+
+OFILES_NBST := ${subst .cc,.o,${CFILES_NBST}}
+
+CFILES_PGI =\
+	printGlobalInfo.cc \
+	printGlobalInfo_test.cc 
+
+OFILES_PGI := ${subst .cc,.o,${CFILES_PGI}}
+
+CFILES_BB = barrierBug.cc
+OFILES_BB := ${subst .cc,.o,${CFILES_BB}}
+
+all: Nonblocking_tests relatives_test printGlobalInfo_test Nonblocking_Sync_test
+
+Nonblocking_Sync_test: $(OFILES_NBST)
+	$(CXX) $(INCLUDES) $(CXXFLAGS) -o $@ $(OFILES_NBST) $(LIBPATH) $(LIBS)
+
+Nonblocking_tests: $(OFILES_NB)
+	$(CXX) $(INCLUDES) $(CXXFLAGS) -o $@ $(OFILES_NB) $(LIBPATH) $(LIBS)
+
+relatives_test: relatives_test.cc
+	$(CXX) $(INCLUDES) $(CXXFLAGS) -o $@ relatives_test.cc $(LIBPATH)  $(LIBS)
+
+printGlobalInfo_test: $(OFILES_PGI)
+	$(CXX) $(INCLUDES) $(CXXFLAGS) -o $@ $(OFILES_PGI) $(LIBPATH) $(LIBS)
+
+barrierBug: $(OFILES_BB)
+	$(CXX) $(INCLUDES) $(CXXFLAGS) -o $@ $^ $(LIBPATH) $(LIBS)
+
+barrierBug.o: barrierBug.cc	
+	$(CXX)   $(INCLUDES) $(CXXFLAGS) -c $<
+
+%.o : %.cc
+	${CXX} $(CXXFLAGS) $(INCLUDES) -c $< -o $@
+
+clean:
+	rm -rf *~ core* $(OFILES_NB) $(OFILES_NBST) $(OFILES_PGI) $(OFILES_ULL) $(OFILES_BB) Nonblocking_Sync_test relatives_test.o relatives_test *.ii *.ti ii_files ti_files Nonblocking_tests printGlobalInfo_test barrierBug *.dot 
+
+distclean: clean
+
+realclean: clean
+
+depend:
+	makedepend $(INCLUDES) $(CXXDEFINES) -f Makefile.Nonblocking_tests $(CFILES_NB) $(CFILES_NBST) $(CFILES_PGI)  relatives_test.cc
+
+# DO NOT DELETE
+
+Nonblocking_Sync.o: Nonblocking_Sync.hh
+Nonblocking_Sync.o: /usr/local/tools/mvapich-gnu/include/mpi.h
+Nonblocking_Sync.o: /usr/local/tools/mvapich-gnu/include/mpidefs.h
+Nonblocking_Sync.o: /usr/local/tools/mvapich-gnu/include/mpi_fortdefs.h
+Nonblocking_Sync.o: /usr/local/tools/mvapich-gnu/include/mpio.h
+Nonblocking_Sync.o: /usr/local/tools/mvapich-gnu/include/mpi_errno.h
+Nonblocking_Sync.o: Buffered_MPI_Send.hh relatives.hh ASSERT.hh
+Nonblocking_Gather.o: /usr/local/tools/mvapich-gnu/include/mpi.h
+Nonblocking_Gather.o: /usr/local/tools/mvapich-gnu/include/mpidefs.h
+Nonblocking_Gather.o: /usr/local/tools/mvapich-gnu/include/mpi_fortdefs.h
+Nonblocking_Gather.o: /usr/local/tools/mvapich-gnu/include/mpio.h
+Nonblocking_Gather.o: /usr/local/tools/mvapich-gnu/include/mpi_errno.h
+Nonblocking_Gather.o: Nonblocking_Gather.hh Buffered_MPI_Send.hh relatives.hh
+Nonblocking_Gather.o: ASSERT.hh
+Buffered_MPI_Send.o: /usr/include/string.h /usr/include/features.h
+Buffered_MPI_Send.o: /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h
+Buffered_MPI_Send.o: /usr/include/gnu/stubs.h /usr/include/gnu/stubs-64.h
+Buffered_MPI_Send.o: ASSERT.hh Buffered_MPI_Send.hh
+Buffered_MPI_Send.o: /usr/local/tools/mvapich-gnu/include/mpi.h
+Buffered_MPI_Send.o: /usr/local/tools/mvapich-gnu/include/mpidefs.h
+Buffered_MPI_Send.o: /usr/local/tools/mvapich-gnu/include/mpi_fortdefs.h
+Buffered_MPI_Send.o: /usr/local/tools/mvapich-gnu/include/mpio.h
+Buffered_MPI_Send.o: /usr/local/tools/mvapich-gnu/include/mpi_errno.h
+Nonblocking_tests.o: /usr/local/tools/mvapich-gnu/include/mpi.h
+Nonblocking_tests.o: /usr/local/tools/mvapich-gnu/include/mpidefs.h
+Nonblocking_tests.o: /usr/local/tools/mvapich-gnu/include/mpi_fortdefs.h
+Nonblocking_tests.o: /usr/local/tools/mvapich-gnu/include/mpio.h
+Nonblocking_tests.o: /usr/local/tools/mvapich-gnu/include/mpi_errno.h
+Nonblocking_tests.o: Nonblocking_Gather.hh Buffered_MPI_Send.hh
+Nonblocking_tests.o: Nonblocking_Sync.hh ASSERT.hh
+Nonblocking_Sync.o: Nonblocking_Sync.hh
+Nonblocking_Sync.o: /usr/local/tools/mvapich-gnu/include/mpi.h
+Nonblocking_Sync.o: /usr/local/tools/mvapich-gnu/include/mpidefs.h
+Nonblocking_Sync.o: /usr/local/tools/mvapich-gnu/include/mpi_fortdefs.h
+Nonblocking_Sync.o: /usr/local/tools/mvapich-gnu/include/mpio.h
+Nonblocking_Sync.o: /usr/local/tools/mvapich-gnu/include/mpi_errno.h
+Nonblocking_Sync.o: Buffered_MPI_Send.hh relatives.hh ASSERT.hh
+Buffered_MPI_Send.o: /usr/include/string.h /usr/include/features.h
+Buffered_MPI_Send.o: /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h
+Buffered_MPI_Send.o: /usr/include/gnu/stubs.h /usr/include/gnu/stubs-64.h
+Buffered_MPI_Send.o: ASSERT.hh Buffered_MPI_Send.hh
+Buffered_MPI_Send.o: /usr/local/tools/mvapich-gnu/include/mpi.h
+Buffered_MPI_Send.o: /usr/local/tools/mvapich-gnu/include/mpidefs.h
+Buffered_MPI_Send.o: /usr/local/tools/mvapich-gnu/include/mpi_fortdefs.h
+Buffered_MPI_Send.o: /usr/local/tools/mvapich-gnu/include/mpio.h
+Buffered_MPI_Send.o: /usr/local/tools/mvapich-gnu/include/mpi_errno.h
+Nonblocking_Sync_test.o: /usr/local/tools/mvapich-gnu/include/mpi.h
+Nonblocking_Sync_test.o: /usr/local/tools/mvapich-gnu/include/mpidefs.h
+Nonblocking_Sync_test.o: /usr/local/tools/mvapich-gnu/include/mpi_fortdefs.h
+Nonblocking_Sync_test.o: /usr/local/tools/mvapich-gnu/include/mpio.h
+Nonblocking_Sync_test.o: /usr/local/tools/mvapich-gnu/include/mpi_errno.h
+Nonblocking_Sync_test.o: Nonblocking_Sync.hh Buffered_MPI_Send.hh ASSERT.hh
+Nonblocking_Sync_test.o: /usr/include/unistd.h /usr/include/features.h
+Nonblocking_Sync_test.o: /usr/include/sys/cdefs.h
+Nonblocking_Sync_test.o: /usr/include/bits/wordsize.h
+Nonblocking_Sync_test.o: /usr/include/gnu/stubs.h /usr/include/gnu/stubs-64.h
+Nonblocking_Sync_test.o: /usr/include/bits/posix_opt.h
+Nonblocking_Sync_test.o: /usr/include/bits/types.h
+Nonblocking_Sync_test.o: /usr/include/bits/typesizes.h
+Nonblocking_Sync_test.o: /usr/include/bits/confname.h /usr/include/getopt.h
+printGlobalInfo.o: printGlobalInfo.hh
+printGlobalInfo.o: /usr/local/tools/mvapich-gnu/include/mpi.h
+printGlobalInfo.o: /usr/local/tools/mvapich-gnu/include/mpidefs.h
+printGlobalInfo.o: /usr/local/tools/mvapich-gnu/include/mpi_fortdefs.h
+printGlobalInfo.o: /usr/local/tools/mvapich-gnu/include/mpio.h
+printGlobalInfo.o: /usr/local/tools/mvapich-gnu/include/mpi_errno.h ASSERT.hh
+printGlobalInfo_test.o: printGlobalInfo.hh
+printGlobalInfo_test.o: /usr/local/tools/mvapich-gnu/include/mpi.h
+printGlobalInfo_test.o: /usr/local/tools/mvapich-gnu/include/mpidefs.h
+printGlobalInfo_test.o: /usr/local/tools/mvapich-gnu/include/mpi_fortdefs.h
+printGlobalInfo_test.o: /usr/local/tools/mvapich-gnu/include/mpio.h
+printGlobalInfo_test.o: /usr/local/tools/mvapich-gnu/include/mpi_errno.h
+relatives_test.o: relatives.hh ASSERT.hh

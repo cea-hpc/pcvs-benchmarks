@@ -1,0 +1,33 @@
+The top level Makefile needs to have BOOST_PREFIX defined.  We use several 
+boost headers but no compiled boost objects so a simple boost install
+is all that is required.  Get boost from www.boost.org.  The getting started
+document describes the build/install process.
+
+There is a section in the Makefile called "User Defined Makefile Variables".
+Fill in the blanks in that section.  The file Makefile.sample contains some 
+example values for these variables for compilers in use at LLNL.
+
+Typical way to run the resulting executable (MCBenchmark.exe) would be:
+
+> setenv OMP_NUM_THREADS 4
+> srun -N4 -n16 --ntasks-per-node=4 --cpus-per-task=4 ./MCBenchmark.exe 
+>                           --nMpiTasksX=4 --nMpiTasksY=4 --weakScaling
+
+
+This is run on a machine with 16 cores per node.  srun asks for 4 of these 
+nodes (-N4) and for 16 MPI tasks (-n16).  The executable needs to know the 
+desired MPI domain decomposition specified by nMpiTasksX and nMpiTasksY 
+and subject to nMpmiTasksX * nMpiTasksY == total number of MPI tasks, in 
+this case 16.
+
+
+
+The Disclaimer and Commercialization restrictions are defined in 
+the Notice1.pdf file in the top level directory.  
+This file must remain in the distribution.
+
+A description of the benchmark and command line arguments are 
+described in Documentation/MCB_Summary.pdf.
+
+Any questions regarding the benchmark may be directed to the authors:
+Nick Gentile gentile1@llnl.gov and Brian Miller miller125@llnl.gov

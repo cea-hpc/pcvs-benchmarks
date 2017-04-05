@@ -1,0 +1,73 @@
+MCB accepts several command line arguments. Most of them 
+aren't used in the test problems included in the run-decks 
+sub-directory of this distribution. If you wish to 
+experiment with additional flags, please examine the 
+source code in src/StandAloneMains/MCBenchmark.cc. 
+
+
+Test problems for the DOE/ASC Coral procurement
+April 30, 2013
+
+The MCB test problems for the CORAL procurement have an inner 
+rectangle where the opacity is lower than in the surrounding 
+region. The probability of crossing from one domain into 
+another is higher in the low opacity region. MPI messages
+must be passed when particles move between domains. This 
+introduces a modest communication load imbalance into the problem. 
+There might be performance benefits to using a custom 
+mapping between MPI rank and location on the interconnect.
+
+The mcb/run-decks sub-directory contains a number of shell 
+scripts with sample MCB command lines. They are intended 
+for use with the Moab job scheduler. The file names are of 
+the form:
+
+M_mcb_coral_***.csh
+
+If the name ends with "_lo", the test problem uses 20,000
+particles per core. If the name ends with "_hi", the test 
+problem uses 100,000 particles per core. If the figure-of-merit 
+is nearly the sme for _lo and _hi runs, it means that thread 
+coordination overhead is low.
+
+Sample scripts are provided for x86_64 Linux and IBM Blue 
+Gene/Q systems at LLNL. If your cluster does not use srun or 
+has a different type of processor, make a copy of one of 
+the scripts and modify it to match your cluster. 
+
+The run scripts specify CORES_PER_NODE, the number of cores 
+per node, and THREADS_PER_CORE, the number of hardware 
+threads per node that should be used. It is OK to use 
+fewer thant the available number of hardware threads. 
+Tests that run more operating system threads than the 
+available number of hardware threads are not interesting 
+from a performance point of view.
+
+The scripts are designed for nodes with 16 cores. They run with 
+1, 2, 4, 8, and 16 MPI processes and 16*ht, 8*ht, 4*ht, 2*ht, and 1*ht
+OpenMP threads per process, where 'ht' is the number of hardware
+threads per core. The total number of particles, the spatial 
+extent of the problem, and the number of zones are all constant 
+for the different tests in a script. That means a test gives a 
+pretty good indication of the performance benefits of trading 
+between MPI processes and OpenMP threads. Experience so far 
+suggests that MPI processes are somewhat more efficient than 
+threads on current systems. 
+
+LLNL is interested in the use of threads, in part, because 
+our applications often have a large fixed amount of memory 
+per process for data tables. Using several threads per 
+process reduces the per-process memory overhead and allows 
+us to fit more total zones per node than if we used a pure
+MPI approach.
+
+Running these MCB tests on a new cluster should be fairly simple. 
+Modify the srun commands to use the command appropriate for your 
+cluster. Modify CORES_PER_NODE to match your nodes. Set 
+THREADS_PER_CORE to the number of hardware threads per core on
+your system (or set it to a smaller number). The last step is to 
+create one job launch command for each choice of PROCS_PER_NODE 
+that evenly divides the number of cores per node.
+
+If you are not familiar with tcsh syntax, you are welcome to 
+translate the Moab scripts into bash.
