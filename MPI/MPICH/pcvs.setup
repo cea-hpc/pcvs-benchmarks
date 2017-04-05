@@ -7,22 +7,22 @@ my ($subdir) = @ARGV;
 my $pcvs_src_current=qq($ENV{pcvs_src}/$subdir);
 my $pcvs_build_current=qq($ENV{pcvs_testbuild}/$subdir);
 
-
-`mkdir -p $pcvs_build_current/build && cd $pcvs_build_current/build && $pcvs_src_current/configure --disable-maintainer_mode --enable-strictmpi CC="$ENV{pcvs_compiler_c}" CXX="$ENV{pcvs_compiler_cxx}" F77="$ENV{pcvs_compiler_f77}" CFLAGS="$ENV{pcvs_compiler_cflags}" 2> /dev/null`;
-die("Error during MPICH configure") if(($? >> 8) != 0);
-
-#check for testlist both in source and build direcvtories
-my @list_testfiles = `find $pcvs_build_current/build $pcvs_src_current -name 'testlist'`; chomp @list_testfiles;
-
-# for each found file
-foreach my $file(@list_testfiles)
+sub process_file
 {
-	my $filepath = $file;
-	$filepath =~ s,$pcvs_build_current/build/,,;
-	$filepath =~ s,$pcvs_src_current/,,;
-	$filepath =~ s,testlist$,,g;
+	my ($file) = @_;
+	
+	#-s means file with non-zero size: pick source testlist if the build one does not exist
+	$file = "$pcvs_build_current/build/$file" if(!-s $file and -s "$pcvs_build_current/build/$file" );
 
-	open(my $fh, "<", $file);
+	#file not found here
+	return if(!-s $file);
+
+	my $tree = $file;
+	$tree =~ s,$pcvs_build_current/build/,,;
+	$tree =~ s,$pcvs_src_current/,,;
+	$tree =~ s,testlist$,,g;
+	
+	open(my $fh, "<", $file) || warn("Abnormal: '$file' defined but not found !");
 	while(<$fh>)
 	{
 		my ($program, $nmpi) = ();
@@ -31,31 +31,55 @@ foreach my $file(@list_testfiles)
 		s/^ *//g; #remove leading spaces
 		s/ *$//g;  # remove trailing spaces
 
-		#copy paste from runtests.in to handle pre-requirements
-		#if (/^\s*\!([^:]*):(.*)/) {
-			#`cd $pcvs_build_current/build/$filepath/$1 && make $2`;
-			#next;
-		#}
-
 		my @list_args = split(/ +/, $_);
 
 		$program = $list_args[0];
 
+		next if (!defined $program); # skip empty lines
+
+		# if the line is a test
 		if(@list_args > 1)
 		{
 			$program = $list_args[0];
 			$nmpi = $list_args[1];
+			(my $tree_prefix = $tree) =~ s,/+,_,g;
 			#should we parse extra options ? maybe copy pasting from runtests.in
-			print STDOUT "$program:\n";
+			print STDOUT "${tree_prefix}${program}:\n";
 			print STDOUT "    type: 'complete'\n";
-			print STDOUT "    files: '\@BUILDPATH\@/build/$filepath/Makefile'\n";
+			print STDOUT "    files: '\@BUILDPATH\@/build/$tree/Makefile'\n";
 			print STDOUT "    target: '$program'\n";
 			print STDOUT "    herit: *GRPMPI\n";
+			print STDOUT "    bin: 'build/$tree/$program'\n";
 			print STDOUT "    n_mpi: [ $nmpi ]\n";
 		}
-		elsif(-d "$pcvs_build_current/build/$filepath/$list_args[0]" or -d "$pcvs_src_current/$filepath/$list_args[0]")
+		# else if a directory
+		elsif(-d "$pcvs_src_current/$tree/$program")
 		{
-			next;
+			process_file("$pcvs_src_current/$tree/$program/testlist");
+		}
+		else
+		{
+			die("Unexpected line '$_' in $file !");
 		}
 	}
+
+}
+
+# Run MPICH configure during setup...
+`mkdir -p $pcvs_build_current/build && cd $pcvs_build_current/build && $pcvs_src_current/configure --disable-maintainer_mode --enable-strictmpi --enable-threads=multiple CC="$ENV{pcvs_compiler_c}" CXX="$ENV{pcvs_compiler_cxx}" F77="$ENV{pcvs_compiler_f77}" CFLAGS="$ENV{pcvs_compiler_cflags}" 2> /dev/null`;
+#check for errors
+die("Error during MPICH configure") if(($? >> 8) != 0);
+
+##### FROM HERE, We mimics RunList() and ProcessDir() MPICH functions from runtests.in
+
+# Open main testlist -> list directories to build
+open(my $main_fh, "<", "$pcvs_build_current/build/testlist") || die ("Unable to find root testlist for MPICH !");
+while(<$main_fh>)
+{
+	chomp;
+	s/#.*//g; #remove comments
+	s/^ *//g; #remove leading spaces
+	s/ *$//g;  # remove trailing spaces
+	next if ($_ eq "");
+	process_file("$_/testlist");
 }

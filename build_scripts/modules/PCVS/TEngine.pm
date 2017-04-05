@@ -543,7 +543,9 @@ sub engine_unfold_test_expr
 		my $args = engine_get_value_ifdef($tvalue, 'args') || "";
 		my $launcher = $sysconf->{'runtime'}{'cmd'} || "";
 		my $extra_args = $sysconf->{'runtime'}{'args'} || "";
-		$timeout = "$sysconf->{runtime}{'timeout-prefix'}$timeout" if($timeout and exists $sysconf->{runtime}{'timeout-prefix'} and $sysconf->{runtime}{'timeout-prefix'} ne "");
+		
+		#disable timeout if not defined or not supported by runtime
+		$timeout = ($timeout and exists $sysconf->{runtime}{'timeout-prefix'} and $sysconf->{runtime}{'timeout-prefix'} ne "") ? "$sysconf->{runtime}{'timeout-prefix'}$timeout" : "";
 			
 		#special case : if type is 'complete' -> autocreate the dependency between compilation and exec
 		push @deps, $tname if($ttype =~ /^complete$/);

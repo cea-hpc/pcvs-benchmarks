@@ -171,7 +171,7 @@ sub run_prepare
 		my $color = "";
 		($color = "-DENABLE_COLOR=".($gconf{"color"} == 1 ? "ON" : "OFF")) if (exists $gconf{"color"});
 		system("cmake $internaldir/generation/jchronoss -DENABLE_OPENMP=OFF -DCMAKE_INSTALL_PREFIX=$buildir/tmp $color && make -j$gconf{'parallel'} install");
-		die("Error during JCHRONOSS compilation !") if($? ne 0);
+		die("Error during JCHRONOSS compilation !") if(($? >> 8) != 0);
 
 
 	}
