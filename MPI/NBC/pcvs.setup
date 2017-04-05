@@ -1,0 +1,16 @@
+#!/bin/sh
+
+pcvs_src_current=$pcvs_src/$1
+pcvs_build_current=$pcvs_testbuild/$1
+
+
+for f in `ls -1 $pcvs_src_current`
+do
+	name=`echo "$f" | sed -e "s,\..*$,,"`
+	printf "$name:\n"
+	printf "    herit: *GRPMPI\n"
+	printf "    type: 'complete'\n"
+	printf "    files: '@SRCPATH@/$f'\n"
+	printf "    n_mpi: [ '>=2 ']\n"
+	printf "\n"
+done
