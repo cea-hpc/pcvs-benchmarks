@@ -1,2 +1,39 @@
 #!/bin/sh
 
+pcvs_src_current=$pcvs_src/$1
+pcvs_build_current=$pcvs_testbuild/$1
+
+cp -r $pcvs_src_current/* $pcvs_build_current/
+mkdir -p $pcvs_build_current/bin #didn't understand why is this not automatically created.
+
+# config/suite.def
+# This file is used to build several benchmarks with a single command. 
+# Typing "make suite" in the main directory will build all the benchmarks
+# specified in this file. 
+# Each line of this file contains a benchmark name and the class.
+# The name is one of "cg", "is", "dc", "ep", mg", "ft", "sp",
+#  "bt", "lu", and "ua". 
+# The class is one of "S", "W", "A" through "E" 
+# (except that no classes C,D,E for DC and no class E for IS and UA).
+# No blank lines. 
+# The following example builds sample sizes of all benchmarks. 
+function build_benchs
+{
+	for bench in ft mg sp lu bt is ep cg ua dc
+	do
+		for class in S W A B
+		do
+			printf "$bench\t$class\n"
+		done
+	done
+}
+
+build_benchs > $pcvs_build_current/config/suite.def
+cp -r $pcvs_build_current/pcvs.makedefs $pcvs_build_current/config/make.def
+
+echo "build_NAS:"
+echo "    type: 'complete'"
+echo "    target: 'suite'"
+echo "    files: '@BUILDPATH@/Makefile'"
+echo "    openmp: true"
+echo ""
