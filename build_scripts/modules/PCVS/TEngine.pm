@@ -445,7 +445,7 @@ sub engine_get_value_ifdef
 # 1 if TE would be executed, 0 otherwise
 sub engine_check_foldable
 {
-	my ($tname, $ttype, $omp, $tbb) = @_;
+	my ($tname, $ttype, $omp, $tbb, $accl) = @_;
 	
 	if(!($ttype =~ /^(build|run|complete)$/))
 	{
@@ -464,6 +464,12 @@ sub engine_check_foldable
 		print ("       Skipping $tname:  TBB not supported for $sysconf->{compiler}{target}\n");
 		return 0;
 	}
+	
+	if(!$sysconf->{compiler}{accl} and $accl eq "true")
+	{
+		print ("       Skipping $tname:  Accelerators not supported for $sysconf->{compiler}{target}\n");
+		return 0;
+	}
 	return 1;
 }
 
@@ -479,7 +485,7 @@ sub engine_unfold_test_expr
 	#params
 	my  ($xml, $tname,  $tvalue, $bpath) = @_;
 	#global var for a test_expr
-	my ($name, $bin, $command, $args, $arg_omp, $arg_tbb, $rc, $time, $delta, $constraint, $timeout, @deps) = ();
+	my ($name, $bin, $command, $args, $arg_omp, $arg_tbb, $arg_accl, $rc, $time, $delta, $constraint, $timeout, @deps) = ();
 	#other vars
 	my $ttype = lc(engine_get_value_ifdef($tvalue, 'type') || "run");
 
@@ -492,9 +498,10 @@ sub engine_unfold_test_expr
 	$timeout = engine_get_value_ifdef($tvalue, "timeout") || $sysconf->{validation}{timeout} || "";
 	$arg_omp = engine_get_value_ifdef($tvalue, 'openmp') || "false"; 
 	$arg_tbb = engine_get_value_ifdef($tvalue, 'tbb') || "false"; 
+	$arg_accl= engine_get_value_ifdef($tvalue, 'accl') || "false"; 
 
 	#check if the TE is usable within the current configuration
-	return if (!engine_check_foldable($tname, $ttype, $arg_omp, $arg_tbb));
+	return if (!engine_check_foldable($tname, $ttype, $arg_omp, $arg_tbb, $arg_accl));
 
 	# if the current should be compiled
 	if($ttype =~ m/^(build|complete)$/)
@@ -510,6 +517,7 @@ sub engine_unfold_test_expr
 
 		$args .= " $sysconf->{compiler}{openmp}" if($arg_omp eq 'true');
 		$args .= " $sysconf->{compiler}{tbb}" if($arg_tbb eq 'true');
+		$args .= " $sysconf->{compiler}{accl}" if($arg_accl eq 'true');
 
 		# if it should be a makefile
 		if(defined $target)
@@ -518,7 +526,7 @@ sub engine_unfold_test_expr
 
 			(my $makepath = $files) =~ s,/[^/]*$,,;
 			(my $makefile = $files) =~ s/^$makepath\///;
-			$command = "make -f $makefile -C $makepath $target PCVS_CC=\"$sysconf->{compiler}{c}\" PCVS_CXX=\"$sysconf->{compiler}{cxx}\" PCVS_FC=\"$sysconf->{compiler}{f77}\" PCVS_CFLAGS=\"$cflags $args\"";
+			$command = "make -f $makefile -C $makepath $target PCVS_CC=\"$sysconf->{compiler}{c}\" PCVS_CXX=\"$sysconf->{compiler}{cxx}\" PCVS_CU=\"$sysconf->{compiler}{cu}\" PCVS_FC=\"$sysconf->{compiler}{f77}\" PCVS_CFLAGS=\"$cflags $args\"";
 		}
 		#else, simple compilation
 		else

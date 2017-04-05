@@ -194,17 +194,17 @@ sub helper_detect_compiler
 		{
 			return "c";
 		}
-		elsif($ext =~ /^(C|cxx|cpp|c\+\+)$/) # C++
+		elsif($ext =~ /^(C|cxx|cpp|c\+\+)$/i) # C++
 		{
 			return "cxx";
 		}
-		elsif($ext =~ /^(f|F)([0-9]*)$/) # fortran
+		elsif($ext =~ /^f([0-9]*)$/i) # fortran
 		{
-			if(!$2 or $2 =~ /f77/)
+			if(!$2 or $2 =~ /77/i)
 			{
 				return "f77";
 			}
-			elsif($2 =~ /90/)
+			elsif($2 =~ /90/i)
 			{
 				return "f90";
 			}
@@ -212,14 +212,18 @@ sub helper_detect_compiler
 			{
 				return "f95";
 			}
-			elsif($2 =~ /03|2003/)
+			elsif($2 =~ /(20)*03/i)
 			{
 				return "f03";
 			}
-			elsif($2 =~ /^(08|2008)$/)
+			elsif($2 =~ /^(20)*08$/i)
 			{
 				return "f08";
 			}
+		}
+		elsif($ext =~ /^cu$/i)
+		{
+			return "cu";
 		}
 	}
 
