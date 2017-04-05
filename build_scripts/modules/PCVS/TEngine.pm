@@ -229,8 +229,16 @@ sub engine_TE_combinations
 			#if the iterator exists but set to undef, it means the iterator is disabled
 			if(!defined $cur->{$_})
 			{
-				engine_debug("\t($nparent-degree) '$_' disabled\n");
-				$local_iterlist{$_} = undef;
+				if(defined $local_iterlist{$_})
+				{
+					engine_debug("\t($nparent-degree) '$_' previously disabled by parent !\n");
+					die("Found a 'enabled/disabled' iterator '$_' of $tn ($nparent-degree). Please refer to the documentation for this special case");
+				}
+				else
+				{
+					engine_debug("\t($nparent-degree) '$_' disabled\n");
+					$local_iterlist{$_} = undef;
+				}
 			}
 
 			# ELSE, the iterator is defined at this level
@@ -247,12 +255,6 @@ sub engine_TE_combinations
 					
 					engine_debug("\t($nparent-degree) '$_' set: [".join(", ", @{ $cur->{$_} })."]\n");
 					$local_iterlist{$_} = $cur->{$_};
-				}
-				#else if we already stored a 'disabled' iterator
-				elsif(!defined $local_iterlist{$_})
-				{
-					engine_debug("\t($nparent-degree) '$_' previously disabled by parent !\n");
-					die("Found a 'enabled/disabled' iterator '$_' of $tn ($nparent-degree). Please refer to the documentation for this special case");
 				}
 				#ELSE, just ignore and log this entry for debug
 				else
