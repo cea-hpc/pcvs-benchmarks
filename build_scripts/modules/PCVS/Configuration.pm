@@ -53,13 +53,14 @@ sub configuration_init
 # The update HASH
 sub configuration_build
 {
+	# save command-line overrides
+	my %cmdline_override = %gconf;
+	
 	# load the default file (default values)
 	my %default_data = load_yml ("$internaldir/environment/default.yml");
 
 	#update the current configuration hash with default value (no overlap w/ options)
-	foreach my $key (keys %default_data){
-		$gconf{$key}  = $default_data{$key} if(!exists $gconf{$key});
-	}
+	%gconf = %default_data;
 
 	#find and load the user configuration file
 	my $user_config = configuration_load();
@@ -89,12 +90,22 @@ sub configuration_build
 			}
 		}
 	}
-	
+
+	#override w/ command-line
+	foreach(keys %cmdline_override)
+	{
+		$gconf{$_} = $cmdline_override{$_};
+	}
+
 	# parse compiler-target and runtime-target
 	foreach my $el(('compiler', 'runtime'))
 	{
+		print "Loading $el-target = ".$gconf{"${el}-target"}." \n";
 		#the '--target' option always have priority (should be improved)
 		$gconf{"${el}-target"} = $gconf{'target'} if(exists $gconf{target});
+		
+		print "Loading $el-target = ".$gconf{"${el}-target"}." \n";
+		
 		my $pattern=$gconf{"$el-target"};
 		if(defined $pattern)
 		{

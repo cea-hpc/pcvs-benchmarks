@@ -1,0 +1,28 @@
+#!/usr/bin/perl
+my ($prefix) = @ARGV;
+my $pcvs_src_current="$ENV{pcvs_src}/$prefix";
+my $pcvs_build_current="$ENV{pcvs_testbuild}/$prefix";
+
+my $fixed_args="-std=c++11 -DUSE_PTHREAD -DTEST_USES_TBB=1";
+
+
+opendir(my $dh, $pcvs_src_current);
+while(readdir $dh)
+{
+	$_ =~ /^([a-zA-Z0-9_]+)\.([a-z]+)$/i;
+
+	#if not a cpp file, ignore it !
+	next if(!defined $2 or $2 ne "cpp" );
+
+	my $test_name = $1;
+	
+	printf "$test_name:\n";
+	printf "    tbb: true\n";
+	printf "    type: 'complete'\n";
+	printf "    herit: *GRPSERIAL\n";
+	printf "    files: '\@SRCPATH\@/$_'\n";
+	printf "    cargs: '$fixed_args'\n";
+	printf "    net: ~\n";
+
+	printf "\n";
+}
