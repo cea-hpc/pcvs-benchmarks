@@ -38,14 +38,14 @@ gcc: clomp.c
 	mpigcc -DWITH_MPI --openmp -O3 clomp.c -o clomp_mpi -lm
 	@echo "=> Compile of clomp_mpi completed."
 
-.PHONY: mpc
-mpc: clomp.c
-	@echo "=> Starting compile of clomp with mpc"
-	${CC} -fopenmp ${PRIVATIZATION} -O3 clomp.c -o clomp -lm
+.PHONY: pcvs
+pcvs: clomp.c
+	@echo "=> Starting compile of clomp with $(PCVS_CC)"
+	${PCVS_CC} ${PCVS_CFLAGS} -O3 clomp.c -o clomp -lm
 	@echo "=> Compile of clomp completed."
 	@echo " "
 	@echo "=> Starting compile of clomp_mpi"
-	${CC} -DWITH_MPI ${PRIVATIZATION} -fopenmp -O3 clomp.c -o clomp_mpi -lm
+	${PCVS_CC} -DWITH_MPI ${PCVS_CFLAGS} -O3 clomp.c -o clomp_mpi -lm
 	@echo "=> Compile of clomp_mpi completed."
 
 clean: 

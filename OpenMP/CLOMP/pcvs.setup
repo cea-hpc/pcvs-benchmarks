@@ -1,81 +1,49 @@
 #!/bin/sh
-# Example script for running CORAL RFP runs on a 16GB node of BGQ
-# Each BGQ node has 16 cores and 64 hardware threads possible
-# Requires CLOMP 1.2 or later for expected results with these inputs
-# Written by John Gyllenhaal at LLNL 23Dec2013
 
-# Show what we are doing
-REQUIRE_OPENMP=true
+pcvs_src_current=$pcvs_src/$1
+pcvs_build_current=$pcvs_testbuild/$1
 
-# Srun is used to launch both serial and MPI programs on BGQ backend
-# Run on one dedicated node (-N1) and -n 1 indicates just one process
-LAUNCHER="mpcrun -l=salloc_hydra -N=1 -n=1 -c=12"
-MPI_LAUNCHER="mpcrun -l=salloc_hydra -N=1 -c=12"
+clomp="clomp"
+clompi="clomp_mpi"
 
-# Set N to proposed number of threads per MPI task
-# On BGQ, 4 threads per core yields best performance, so N = 64
-# This is the maximum number of threads possible per node
-export N=12
+cp -r $pcvs_src_current/* $pcvs_build_current/
 
-# BGQ' OpenMP runs best with these environment variables set
-export BG_SMP_FAST_WAKEUP=YES
-export OMP_WAIT_POLICY=ACTIVE
+echo "build_clomp:"
+echo "    type: 'build'"
+echo "    target: 'pcvs'"
+echo "    openmp: true"
+echo "    files: '@BUILDPATH@/Makefile'"
 
-makefile_configuration "compile_CLOMP" "mpc"
+echo "pcvst_clomp: &clomp"
+echo "    deps: [ 'build_clomp' ]"
+echo "    type: 'run'"
+echo "    net: [ 'tcp' ]"
+echo ""
 
-test_exe="${PCVS_CSOURCE_DIR}/clomp"
-test_exe_mpi="${PCVS_CSOURCE_DIR}/clomp_mpi"
+# args are:
+# numThreads: Number of OpenMP threads to use (-1 for system default)
+# allocThreads: #threads when allocating data (-1 for numThreads)
+# numParts: Number of independent pieces of work (loop iterations)
+# zonesPerPart: Number of zones in the first part (3 flops/zone/part)
+# zoneSize: Bytes in zone, only first ~32 used (512 nominal, >= 32 valid)
+# flopScale: Scales flops/zone to increase memory reuse (1 nominal, >=1 Valid)
+# timeScale: Scales target time per test (10-100 nominal, 1-10000 Valid)
 
-#gen options
-opts="--clean --autokill=${MPC_AUTO_KILL_TIMEOUT} -p=1 -net=tcp -m=pthread"
+for part in 400 6400 640000; do
+	clomp_fixed_args="-1 -1 $part 10 32 1 100"
+	echo "omp_part$part:"
+	echo "    herit: *clomp"
+	echo "    n_proc: [1]"
+	echo "    n_mpi: [1]"
+	echo "    net: ~"
+	echo "    bin: '$clomp'"
+	echo "    args: '$clomp_fixed_args'"
 
-# Strong scaling of 10240 zone input with each thread allocating touched memory
-common_insert_test "test_clomp_1" "${EXPECTED_EXIT_CODE}" "${LAUNCHER} ${opts} ${MPCRUN_ARGS} ${test_exe} 4 -1 1024 10 32 1 100 2>&1 | tee ${PCVS_CSOURCE_DIR}/01_clomp_strong_10240_ideal_4.out" "compile_CLOMP"
-common_insert_test "test_clomp_2" "${EXPECTED_EXIT_CODE}" "${LAUNCHER} ${opts} ${MPCRUN_ARGS} ${test_exe} 12 -1 1024 10 32 1 100 2>&1 | tee ${PCVS_CSOURCE_DIR}/02_clomp_strong_10240_ideal_12.out" "compile_CLOMP"
-common_insert_test "test_clomp_3" "${EXPECTED_EXIT_CODE}" "${LAUNCHER} ${opts} ${MPCRUN_ARGS} ${test_exe} ${N} -1 1024 10 32 1 100 2>&1 | tee ${PCVS_CSOURCE_DIR}/03_clomp_strong_10240_ideal_${N}.out" "compile_CLOMP"
+	echo "mixed_part${part}:"
+	echo "    herit: *clomp"
+	echo "    bin: '$clompi'"
+	echo "    args: '$clomp_fixed_args'"
+	echo ""
+done
 
-# Weak scaling with 400 zones per thread input with each thread allocating touched memory
-common_insert_test "test_clomp_4" "${EXPECTED_EXIT_CODE}" "${LAUNCHER} ${opts} ${MPCRUN_ARGS} ${test_exe} 4 -1 4 400 32 1 100 2>&1 | tee ${PCVS_CSOURCE_DIR}/04_clomp_weak_400_ideal_4.out" "compile_CLOMP"
-common_insert_test "test_clomp_5" "${EXPECTED_EXIT_CODE}" "${LAUNCHER} ${opts} ${MPCRUN_ARGS} ${test_exe} 12 -1 16 400 32 1 100 2>&1 | tee ${PCVS_CSOURCE_DIR}/05_clomp_weak_400_ideal_12.out" "compile_CLOMP"
-common_insert_test "test_clomp_6" "${EXPECTED_EXIT_CODE}" "${LAUNCHER} ${opts} ${MPCRUN_ARGS} ${test_exe} ${N} -1 $N 400 32 1 100 2>&1 | tee ${PCVS_CSOURCE_DIR}/06_clomp_weak_400_ideal_${N}.out" "compile_CLOMP"
 
-# Weak scaling with 6400 zones per thread input with each thread allocating touched memory
-common_insert_test "test_clomp_7" "${EXPECTED_EXIT_CODE}" "${LAUNCHER} ${opts} ${MPCRUN_ARGS} ${test_exe} 4 -1 4 6400 32 1 100 2>&1 | tee ${PCVS_CSOURCE_DIR}/07_clomp_weak_6400_ideal_4.out" "compile_CLOMP"
-common_insert_test "test_clomp_8" "${EXPECTED_EXIT_CODE}" "${LAUNCHER} ${opts} ${MPCRUN_ARGS} ${test_exe} 12 -1 16 6400 32 1 100 2>&1 | tee ${PCVS_CSOURCE_DIR}/08_clomp_weak_6400_ideal_12.out" "compile_CLOMP"
-common_insert_test "test_clomp_9" "${EXPECTED_EXIT_CODE}" "${LAUNCHER} ${opts} ${MPCRUN_ARGS} ${test_exe} ${N} -1 $N 6400 32 1 100 2>&1 | tee ${PCVS_CSOURCE_DIR}/09_clomp_weak_6400_ideal_${N}.out" "compile_CLOMP"
-
-# Memory bandwidth test with 'ideal' memory layout, each thread allocates touched memory
-common_insert_test "test_clomp_10" "${EXPECTED_EXIT_CODE}" "${LAUNCHER} ${opts} ${MPCRUN_ARGS} ${test_exe} ${N} -1 $N 64000 32 1 100 2>&1 | tee ${PCVS_CSOURCE_DIR}/10_clomp_weak_64000_ideal_${N}.out" "compile_CLOMP"
-common_insert_test "test_clomp_11" "${EXPECTED_EXIT_CODE}" "${LAUNCHER} ${opts} ${MPCRUN_ARGS} ${test_exe} ${N} -1 $N 640000 32 1 100 2>&1 | tee ${PCVS_CSOURCE_DIR}/11_clomp_weak_640000_ideal_${N}.out" "compile_CLOMP"
-
-# Memory bandwidth test with real but bad for NUMA memory layout, main thread allocates memory
-common_insert_test "test_clomp_12" "${EXPECTED_EXIT_CODE}" "${LAUNCHER} ${opts} ${MPCRUN_ARGS} ${test_exe} ${N} 1 $N 400 32 1 100 2>&1 | tee ${PCVS_CSOURCE_DIR}/12_clomp_weak_400_numa_${N}.out" "compile_CLOMP"
-common_insert_test "test_clomp_13" "${EXPECTED_EXIT_CODE}" "${LAUNCHER} ${opts} ${MPCRUN_ARGS} ${test_exe} ${N} 1 $N 6400 32 1 100 2>&1 | tee ${PCVS_CSOURCE_DIR}/13_clomp_weak_6400_numa_${N}.out" "compile_CLOMP"
-common_insert_test "test_clomp_14" "${EXPECTED_EXIT_CODE}" "${LAUNCHER} ${opts} ${MPCRUN_ARGS} ${test_exe} ${N} 1 $N 64000 32 1 100 2>&1 | tee ${PCVS_CSOURCE_DIR}/14_clomp_weak_64000_numa_${N}.out" "compile_CLOMP"
-common_insert_test "test_clomp_15" "${EXPECTED_EXIT_CODE}" "${LAUNCHER} ${opts} ${MPCRUN_ARGS} ${test_exe} ${N} 1 $N 640000 32 1 100 2>&1 | tee ${PCVS_CSOURCE_DIR}/15_clomp_weak_640000_numa_${N}.out" "compile_CLOMP"
-
-# Mixed MPI/OpenMP tests, fill node with MPI tasks until all threads on node are used
-# CLOMP (compiled with -DWITH_MPI) uses slowest MPI task times, since everyone will
-# wait for that MPI task.  Main thread allocates all memory per MPI task.
-# This represents the way many of our MPI/OpenMP run.
-#
-# On BGQ 64 threads, 16MPI *4 threads, or 4MPI * 16 threads
-# -n 16 specifies MPI tasks on the 1 node (due to -N 1 in MPI_LAUNCHER)
-#gen options
-
-M=`expr ${N} / 4`
-opts="--clean --autokill=${MPC_AUTO_KILL_TIMEOUT} -N=1 -n=${M} -p=1 -net=tcp -m=${thread}"
-#echo "Running ${M} MPI tasks with 4 threads each on one node"
-common_insert_test "test_clomp_mpi_1" "${EXPECTED_EXIT_CODE}" "${MPI_LAUNCHER} ${opts} ${MPCRUN_ARGS} ${test_exe} 4 1 4 400 32 1 100 2>&1 | tee ${PCVS_CSOURCE_DIR}/16_clomp_mpi_weak_400_packed_${M}_4.out" "compile_CLOMP"
-common_insert_test "test_clomp_mpi_2" "${EXPECTED_EXIT_CODE}" "${MPI_LAUNCHER} ${opts} ${MPCRUN_ARGS} ${test_exe} 4 1 4 6400 32 1 100 2>&1 | tee ${PCVS_CSOURCE_DIR}/17_clomp_mpi_weak_6400_packed_${M}_4.out" "compile_CLOMP"
-
-M=`expr ${N} / 12`
-opts="--clean --autokill=${MPC_AUTO_KILL_TIMEOUT} -N=1 -n=${M} -p=1 -net=tcp -m=${thread}"
-#echo "Running ${M} MPI tasks with 12 threads each on one node"
-common_insert_test "test_clomp_mpi_3" "${EXPECTED_EXIT_CODE}" "${MPI_LAUNCHER} ${opts} ${MPCRUN_ARGS} ${test_exe} 12 1 12 400 32 1 100 2>&1 | tee ${PCVS_CSOURCE_DIR}/18_clomp_mpi_weak_400_packed_${M}_12.out" "compile_CLOMP"
-common_insert_test "test_clomp_mpi_4" "${EXPECTED_EXIT_CODE}" "${MPI_LAUNCHER} ${opts} ${MPCRUN_ARGS} ${test_exe} 12 1 12 6400 32 1 100 2>&1 | tee ${PCVS_CSOURCE_DIR}/19_clomp_mpi_weak_6400_packed_${M}_12.out" "compile_CLOMP"
-
-#echo "Summarizing Data into run_clomp.summary"
-common_insert_test "gen_results_clomp" "${EXPECTED_EXIT_CODE}" "tail -n 7 ${PCVS_CSOURCE_DIR}/[0-1]?_clomp_*.out | sed -e 's/<\|>/=/g' > ${PCVS_CSOURCE_DIR}/run_clomp.summary" "test_clomp_mpi_4"
-common_insert_test "display_results_clomp" "${EXPECTED_EXIT_CODE}" "cat ${PCVS_CSOURCE_DIR}/run_clomp.summary" "gen_results_clomp"
-#echo "Done with run_clomp"
