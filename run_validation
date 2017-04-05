@@ -239,9 +239,11 @@ sub run_finalize
 sub run_configure
 {
 	print "\n >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> BUILD STEP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
-	my $istart=time();
 	engine_init(\%gconf);
-	print " * Combinatory System initialized in ".(time()-$istart)." second(s)\n";
+
+	#we put this here, because engine_init unrolls system iterator values.
+	#we can't move engine_init() earlier, beacuse of --noregen option
+	configuration_save();
 
 	helper_clean_path("$buildir/test_suite", 1);
 	
@@ -255,7 +257,7 @@ sub run_configure
 	}
 
 	print " * Building the list of tests:\n";
-	$istart=time();
+	my $istart=time();
 	
 	#for each desired subdirectory
 	foreach my $directory (@{ $gconf{'select'}})

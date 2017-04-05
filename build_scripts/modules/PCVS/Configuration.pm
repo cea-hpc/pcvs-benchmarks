@@ -9,7 +9,7 @@ use YAML qw(LoadFile DumpFile);
 use Data::Dumper;
 
 our @ISA = 'Exporter';
-our @EXPORT = qw(configuration_init configuration_build configuration_display_vars);
+our @EXPORT = qw(configuration_init configuration_build configuration_display_vars configuration_save);
 our @EXPORT_OK = qw();
 
 our %gconf;
@@ -128,8 +128,6 @@ sub configuration_build
 
 	# check if the HASH is valid (not complete)
 	configuration_validate();
-	# dump results into $buildir
-	configuration_save();
 	return %gconf;
 }
 

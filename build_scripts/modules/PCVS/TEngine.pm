@@ -69,6 +69,7 @@ sub engine_init
 			# register iterator limits (for boundary checking)
 			$sys_limits{$iter_name} = [$sys_list[0], $sys_list[$#sys_list]];
 			push @{ $sys_iterlist{$iter_name}}, @sys_list;
+			@{ $sysconf->{iterators}{$iter_name}} = @sys_list;
 		}
 		else
 		{
