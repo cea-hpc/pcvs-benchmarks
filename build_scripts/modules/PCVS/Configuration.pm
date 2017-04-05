@@ -63,8 +63,8 @@ sub configuration_build
 	%gconf = %default_data;
 
 	#find and load the user configuration file
-	my $user_config = configuration_load();
-
+	my $user_config = configuration_load($cmdline_override{"config-target"});
+	
 	#if the user config file exists
 	if(defined $user_config)
 	{
@@ -74,13 +74,13 @@ sub configuration_build
 		#update default config with overriden values
 		foreach my $key(keys %user_data)
 		{
-			exists $gconf{$key} or die("\'$key\' object does not exist. Please edit your configuration file !");
+			#exists $gconf{$key} or die("\'$key\' object does not exist. Please edit your configuration file !");
 			#iterate over subkeys to update (YAML data is a two-level tree, should be replaced by recursion).
 			if(ref($gconf{$key}) eq 'HASH')
 			{
 				foreach my $subkey (keys $user_data{$key})
 				{
-					exists $gconf{$key}{$subkey} or die("\'$key/$subkey\' object does not exist. Please edit your configuration file !");
+					#exists $gconf{$key}{$subkey} or die("\'$key/$subkey\' object does not exist. Please edit your configuration file !");
 					$gconf{$key}{$subkey} = $user_data{$key}{$subkey};
 				}
 			}
@@ -91,6 +91,7 @@ sub configuration_build
 		}
 	}
 
+	#print Dumper(\%gconf);
 	#override w/ command-line
 	foreach(keys %cmdline_override)
 	{
@@ -100,11 +101,8 @@ sub configuration_build
 	# parse compiler-target and runtime-target
 	foreach my $el(('compiler', 'runtime'))
 	{
-		print "Loading $el-target = ".$gconf{"${el}-target"}." \n";
 		#the '--target' option always have priority (should be improved)
 		$gconf{"${el}-target"} = $gconf{'target'} if(exists $gconf{target});
-		
-		print "Loading $el-target = ".$gconf{"${el}-target"}." \n";
 		
 		my $pattern=$gconf{"$el-target"};
 		if(defined $pattern)
@@ -198,7 +196,7 @@ sub configuration_load
 {
 	my $prefix = "$internaldir/environment";
 	my $name = lc(hostname);
-	my $user_name = $gconf{'config-target'};
+	my ($user_name) = @_;
 	my @avail_names = helper_lister("$internaldir/environment", "yml");
 
 	# if no user file exists (not provided)
