@@ -3,26 +3,47 @@ my ($prefix) = @ARGV;
 my $pcvs_src_current="$ENV{pcvs_src}/$prefix";
 my $pcvs_build_current="$ENV{pcvs_testbuild}/$prefix";
 
-my $fixed_args="-std=c++11 -DUSE_PTHREAD -DTEST_USES_TBB=1";
+`cp -r $pcvs_src_current/* $pcvs_build_current`;
 
+#build a fake test to be sure libtbb_debug is available (needed to compile test)
+print STDOUT "dummy_test:\n";
+print STDOUT "    type: 'complete'\n";
+print STDOUT "    files: '\@BUILDPATH\@/dummy_test.cpp'\n";
+print STDOUT "    cargs: '-ltbb_debug'\n"; # we need debug lib 
+print STDOUT "    herit: *GRPSERIAL\n";
 
-opendir(my $dh, $pcvs_src_current);
-while(readdir $dh)
+#actually build the tests
+print STDOUT "build_testsuite:\n";
+print STDOUT "    deps: [ 'dummy_test' ]\n";
+print STDOUT "    type: 'build'\n";
+print STDOUT "    target: 'test compiler=pcvs run_cmd=\"echo building ||\"'\n";
+print STDOUT "    files: '\@BUILDPATH\@/Makefile'\n";
+
+#this command generates a lot of 'make' errors, but we don't care, we just want the list of tests to run
+`make -C $pcvs_build_current test compiler=pcvs run_cmd="$pcvs_build_current/pcvs.wrapper \@PCVS_RUN\@" 2> /dev/null`;
+
+#pre-compute binary prefix (un-guessable...)
+my $bdir = `make -C $pcvs_build_current compiler=pcvs info | grep "tbb_build_prefix" | cut -f2 -d'='`; chomp $bdir;
+
+#look for tests to generate
+open(my $fh, "<", "$pcvs_build_current/pcvs.testlist") or die ("Unable to open pcvs.testlist within tbb");
+while(<$fh>)
 {
-	$_ =~ /^([a-zA-Z0-9_]+)\.([a-z]+)$/i;
-
-	#if not a cpp file, ignore it !
-	next if(!defined $2 or $2 ne "cpp" );
-
-	my $test_name = $1;
+	chomp;
+	my @line=split(/ +/, $_);
 	
-	printf "$test_name:\n";
-	printf "    tbb: true\n";
-	printf "    type: 'complete'\n";
-	printf "    herit: *GRPSERIAL\n";
-	printf "    files: '\@SRCPATH\@/$_'\n";
-	printf "    cargs: '$fixed_args'\n";
-	printf "    net: ~\n";
+	die("Error w/ parsing") if($line[0] ne "\@PCVS_RUN\@");
+	my $bin = $line[1];
+	(my $name = $bin) =~ s,^./|\.exe$,,g;
 
-	printf "\n";
+	print STDOUT "$name:\n";
+	print STDOUT "    tbb: true\n";
+	print STDOUT "    type: 'run'\n";
+	print STDOUT "    deps: [ 'build_testsuite' ]\n";
+	print STDOUT "    n_proc: ~\n";
+	print STDOUT "    net: ~\n";
+	print STDOUT "    n_mpi: [ '<=4' ]\n";
+	print STDOUT "    bin: 'build/${bdir}_debug/$bin'\n";
+	print STDOUT "    args: '".join(" ", @line[2..$#line])."'\n" if(@line > 2);
+	print STDOUT "\n";
 }
