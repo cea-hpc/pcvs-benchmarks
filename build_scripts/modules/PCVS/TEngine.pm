@@ -143,7 +143,7 @@ sub engine_unfold_iterator
 		}
 		
 		# ELSE if value is matching 5. 
-		elsif($el =~ /^(<|<=|>|>=) *([0-9]+)$/)
+		elsif($el =~ /^ *(<|<=|>|>=) *([0-9]+) *$/)
 		{
 			my $op = $1;
 			my $bound = $2;
