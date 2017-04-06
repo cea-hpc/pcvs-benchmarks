@@ -341,7 +341,7 @@ sub run_exec
 	$autokill    = helper_prefix_if_exists("--autokill=", $gconf{'validation'}{'autokill'});
 	$run_w       = helper_prefix_if_exists("--launcher=$internaldir/launchers/", $gconf{'validation'}{'run_wrapper'});
 	$compil_w    = helper_prefix_if_exists("--compil-launcher=$internaldir/launchers/", $gconf{'validation'}{'compil_wrapper'});
-	$compil_w    = helper_prefix_if_exists("--compil-launcher=$internaldir/launchers/", $gconf{'validation'}{'run_wrapper'});
+	$compil_w    = helper_prefix_if_exists("--compil-launcher=$internaldir/launchers/", $gconf{'validation'}{'run_wrapper'}) if(!defined $compil_w);
 	$verbosity   = helper_prefix_if_exists("--verbosity=", $gconf{'verbose'});
 	$policy      = helper_prefix_if_exists("--policy=", $gconf{'validation'}{'sched_policy'});
 	$maxjobt     = helper_prefix_if_exists("--maxt-job=", $gconf{'validation'}{'job_meantime'});
