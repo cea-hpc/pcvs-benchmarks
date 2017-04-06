@@ -1,0 +1,129 @@
+!=======================================================================
+!                       Version 1.0: 03/99, MRZ
+!-----------------------------------------------------------------------
+! MPI Interface File
+!   This defines the interface to the MPI class.
+!
+!-----------------------------------------------------------------------
+! v1.0: Original implementation
+!=======================================================================
+
+
+! public interfaces
+  public MPIAllReduceT, MPIBarrierT, MPICommRank, MPICommSize, &
+         MPIFinalize, MPIGather, MPIInit, &
+         getMPIRankT, getMPISizeT
+
+!=======================================================================
+! MPIAllReduceT(buffer, op, comm)
+!
+!   Performs an MPI reduction on all nodes in the communicator.
+!-----------------------------------------------------------------------
+!   buffer   data buffer (integer or double precision)
+!               input:  data to be reduced
+!              output:  reduced data
+!   op       reduction operation
+!              "prod"...product reduction
+!               "sum"...sum reduction
+!               "min"...minimization reduction
+!               "max"...maximization reduction
+!   comm     MPI communicator
+!=======================================================================
+  interface MPIAllReduceT
+    module procedure mpi_MPIAllReduceT_r, &
+                     mpi_MPIAllReduceT_r_, &
+                     mpi_MPIAllReduceT_i, &
+                     mpi_MPIAllReduceT_i_
+  end interface
+
+!=======================================================================
+! MPIBarrier(comm)
+!
+!   Performs an MPI barrier on all nodes in the communicator
+!-----------------------------------------------------------------------
+!   comm   MPI communicator
+!=======================================================================
+  interface MPIBarrierT
+    module procedure mpi_MPIBarrierT
+  end interface
+
+!=======================================================================
+! MPICommRank(comm, rank)
+!
+!   Returns the rank of the calling process in the communicator
+!-----------------------------------------------------------------------
+!   comm   MPI communicator
+!   rank   processor rank
+!=======================================================================
+  interface MPICommRank
+    module procedure mpi_MPICommRank
+  end interface
+
+!=======================================================================
+! MPICommSize(comm, size)
+!
+!   Returns the size of the group associated with the communicator
+!-----------------------------------------------------------------------
+!   comm     MPI communicator
+!   size     group size
+!=======================================================================
+  interface MPICommSize
+    module procedure mpi_MPICommSize
+  end interface
+
+!=======================================================================
+! MPIFinalize()
+!
+!   Performs an MPI finalize operation
+!=======================================================================
+  interface MPIFinalize
+    module procedure mpi_MPIFinalize
+  end interface
+
+!=======================================================================
+! MPIGather(sendBuf, recBuf, root, comm)
+!
+!   Performs an MPI gather operation
+!-----------------------------------------------------------------------
+!   sendBuf  send buffer (double precision)
+!   recvBuf  receive buffer (double precision)
+!   root     node to which gather is performed
+!   comm     MPI communicator
+!=======================================================================
+  interface MPIGather
+    module procedure mpi_MPIGather_r_, &
+                     mpi_MPIGather_r__
+  end interface
+
+!=======================================================================
+! MPIInit()
+!
+!   Performs an MPI initialization
+!=======================================================================
+  interface MPIInit
+    module procedure mpi_MPIInit
+  end interface
+
+!=======================================================================
+! getMPIRank(comm)
+!
+!   Returns the rank of the calling process in the communicator
+!-----------------------------------------------------------------------
+!   comm        MPI communicator
+!   getMPIRank  processor rank
+!=======================================================================
+  interface getMPIRankT
+    module procedure mpi_getMPIRankT
+  end interface
+
+!=======================================================================
+! getMPISize(comm)
+!
+!   Returns the size of the group associated with the communicator
+!-----------------------------------------------------------------------
+!   comm        MPI communicator
+!   getMPISize  group size
+!=======================================================================
+  interface getMPISizeT
+    module procedure mpi_getMPISizeT
+  end interface

@@ -1,0 +1,49 @@
+#################################################################################
+# Sample test deck for the Compact Mesh Generator
+#
+# sms(i,j,k) - this specifices how many blocks will be created in a 1x1x1 block
+# so for example sms(3,4,5) would have 3 i blocks, numbered from 0-2, 4 j blocks
+# numbered from 0-3, and 5 k blocks numbered from 0-4.
+#
+# blk(on/off,irange,jrange,krange) - This is what actually activates the blocks.
+# the sms statment above essentially defines your ranges, but you actually have
+# to specify which blocks will be on.  They are all specified with block based
+# numbering, that is if you want all irange block on from the sms stated above
+# your irange would be 0:2
+#
+# numzones(i,j,k) or numzones((i,),(j,),(k,)) - numzones can be stated in two different
+# ways.  The first puts the same number of izones on ever single i segment, so again 
+# referencing above, if we put numzones(10,11,12), then we would have 10 zones at each
+# i index for a total of 30 zones in i.  If you want to explicitly name the number of
+# zones on each i index then you give them as a list such as numzones((2,3,4),...)
+# you would do the same for j and k.  Presently you cannot mix numzones, so you cant
+# specify each individual i then only specify one j and one k.
+#
+# tag(name,type,(irange,jrange,krange)) - tags are given a chacter name, a type (node,face,zone)
+# and a range.  The ranges are always specified in vertex based indicies to make tag parsing
+# easier.  So if you wanted to specify a nodetag on the outer +i face of the whole sms you would
+# state tag("nodetag",node,(3:3,0:4,0:5)). Vertex based indicies will be sms indicies +1
+#
+# material(name, (irange,jrange,krange) - these are specified the same way as tags, but 
+# the type (zone) is implied since it is a material.
+#
+#################################################################################
+
+sms(4,4,4)
+#Always specify blocks in block base numbering
+blk(on,0:3,0:3,0:3)
+
+# tag boundary faces
+tag("xMinFaces",face,(0:0,0:4,0:4))
+tag("xMaxFaces",face,(4:4,0:4,0:4))
+tag("yMinFaces",face,(0:4,0:0,0:4))
+tag("yMaxFaces",face,(0:4,4:4,0:4))
+tag("zMinFaces",face,(0:4,0:4,0:0))
+tag("zMaxFaces",face,(0:4,0:4,4:4))
+
+# define number of zones in each axis
+numzones(12,12,12)
+
+#Hex subdivisions
+sub(10%,0:0, 0:1,0:0,(7,0,0,0)) #7 hex
+seed(10)

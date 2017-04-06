@@ -1,0 +1,60 @@
+topsrcdir = ../..
+
+include $(topsrcdir)/make.defs
+
+INCPATH += -I.
+
+all: libcmgp.$(LIB_EXT)
+
+LIB_SOURCES := meshAndInputData.c CMGDomainQuery.c \
+CMGIO.c CMGGenerator.c CMGMeshQuery.c CMGGlobalMeshQuery.c CMGTagQuery.c \
+CMGMeshTopology.c dataTypes.c fortranUtilities.c subdivision.c 
+
+ifeq ($(CLASS),aix)
+LIB_SOURCES += lex.yy_aix.c cmgparse.tab_aix.c
+else
+LIB_SOURCES += lex.yy.c cmgparse.tab.c
+endif
+
+LIB_OBJECTS :=$(LIB_SOURCES:.c=.o)
+
+
+
+ifeq ($(CLASS),aix)
+
+ifeq ($(STATIC_LINK),on)
+libcmgp.$(LIB_EXT): $(LIB_OBJECTS)
+	$(LD) $(LDFLAGS) $@ $^
+else
+libcmgp.$(LIB_EXT): $(LIB_OBJECTS)
+	$(LD) $(LDFLAGS) -o $@ $^ $(CLIBPATH) -lxlopt $(MPI_LIB_PATH) $(MPI_LIBS) $(TAU_LIBS) $(PYTHON_LIB)
+endif
+
+else  # non-aix platform
+
+#lex.yy.c: cmgparse.lex cmgparse.tab.c
+#	flex cmgparse.lex
+
+#cmgparse.tab.c: cmgparse.y
+#	bison -d cmgparse.y
+
+ifeq ($(STATIC_LINK),on)
+libcmgp.$(LIB_EXT): $(LIB_OBJECTS)
+	$(LD) $(LDFLAGS) $@ $^
+else
+ifeq ($(USE_TAU),on)
+libcmgp.$(LIB_EXT): $(LIB_OBJECTS)
+	$(LD) $(LDFLAGS) -o $@ $^ $(TAU_MPI_FLIB) $(TAU_SHAREDLIB) $(TAU_MPI_LIB) $(TAU_CXXLIBS_INTEL)
+else
+libcmgp.$(LIB_EXT): $(LIB_OBJECTS)
+	$(LD) $(LDFLAGS) -o $@ $^
+endif
+endif
+
+endif
+
+clean:
+	rm -f *.o libcmgp.* *.pdb *.inst.*
+
+veryclean: clean   # don't remove generated files for now
+# rm -f cmgparse.tab.c cmgparse.tab.h lex.yy.c

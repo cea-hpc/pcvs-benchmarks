@@ -1,0 +1,257 @@
+CWD             = $(shell pwd)
+
+USE_FAKE_CMG    = off
+OPT             = on
+DEBUG           = off
+USE_HPM         = off
+USE_GPROF       = off
+USE_TAU         = off
+USE_TAU_PDT     = off
+USE_OPENMP      = on
+STATIC_LINK     = on
+CFLAGS_CMG      = -qsmp=omp
+
+ifeq ($(USE_FAKE_CMG),on)
+  CFLAGS_CMG    += -DCMG_FAKE 
+else
+  LIBS 		+=
+endif
+
+#HOST   = $(shell hostname)
+HOST   = BGQ
+
+ifneq (,$(findstring reddish,$(HOST)))
+	MACH = redstorm
+	CLASS = catamount
+endif
+ifneq (,$(findstring redstorm,$(HOST)))
+	MACH = redstorm
+	CLASS = catamount
+endif
+ifneq (,$(findstring up,$(HOST)))
+	MACH = up
+	CLASS = aix
+endif
+ifneq (,$(findstring berg,$(HOST)))
+	MACH = berg
+	CLASS = aix
+endif
+ifneq (,$(findstring alc,$(HOST)))
+	MACH = alc
+	CLASS = linux
+endif
+ifneq (,$(findstring rzalastor,$(HOST)))
+	MACH = alastor
+        CLASS = linux
+endif
+ifneq (,$(findstring hera,$(HOST)))
+	MACH = alastor_gnu
+endif
+ifneq (,$(findstring atlas,$(HOST)))
+	MACH = alastor_gnu
+endif
+
+ifneq (,$(findstring thunder,$(HOST)))
+	MACH = thunder
+	CLASS = linux
+endif
+
+ifneq (,$(findstring bgl,$(HOST)))
+	MACH = bgl
+	CLASS = bgl
+endif
+
+ifneq (,$(findstring dawn,$(HOST)))
+	MACH = bgp
+	CLASS = bgp
+endif
+
+ifneq (,$(findstring BGQ,$(HOST)))
+	MACH = bgq
+	CLASS = bgq
+endif
+
+ifneq (,$(findstring vertex,$(HOST)))
+	MACH = vertex
+	CLASS = peloton
+endif
+
+ifneq (,$(findstring zeus,$(HOST)))
+	MACH = alastor
+	CLASS = alastor
+endif
+
+#ifeq ($(DEBUG),on)
+#CPPFLAGS = -DCMGDEBUG
+#endif
+
+
+# START of platform specific stuff
+
+#------------------------------------------------ BGQ ----------------------------------------------------------
+ifeq ($(MACH),bgq)
+
+ifeq ($(USE_TAU),on)
+include /usr/global/tools/tau/training/tau_latest/bgq/lib/Makefile.tau-bgqtimers-papi-mpi-pdt-openmp-opari
+
+LIBS            = $(TAU_MPI_FLIBS) $(TAU_LIBS) $(TAU_MPI_LIBS)
+CPPFLAGS       += $(TAU_DEFS) $(TAU_INCLUDE)
+INCPATH         = $(TAU_INCLUDE)
+endif
+
+# IBM - bgq machine
+# determine which driver ppcfloor link is currently pointing to 
+PPCFLOOR_DRIVER_NAME = $(shell ls -lt /bgsys/drivers/ppcfloor | sed "s|.*-> ||g" | sed "s|\/ppc.*||g" | sed "s|.*\/||g"  )
+
+ifeq ($(DRIVER_NAME),)
+   DRIVER_NAME=${PPCFLOOR_DRIVER_NAME}
+endif
+
+PPCFLOOR_DRIVER_NAME=V1R2M0
+DRIVER_NAME=V1R2M0
+
+PPCFLOOR = /bgsys/drivers/${DRIVER_NAME}/ppc
+CFLAGS_CMG     += -DMPICH_IGNORE_CXX_SEEK -Dmpi -DBGQ
+
+ifeq ($(USE_GPROF),on)
+GPROF_FLAGS    += -pg -g
+endif
+
+ifeq ($(USE_OPENMP),on)
+OPENMP_FLAGS    = -qsmp=omp -qnosave
+OPENMP_LDFLAGS  = -qsmp
+OMP_CFLAGS      = -DUSE_OPENMP 
+FLIBS           =  -L/opt/ibmcmp/xlf/bg/14.1/bglib64 -lxlf90 -lxlopt -lmass
+else
+OPENMP_FLAGS    = 
+OPENMP_LDFLAGS  =
+OMP_CFLAGS      = -qignprag=omp 
+FLIBS           = -L/opt/ibmcmp/xlf/bg/14.1/bglib64 -lxlf90 -lxlopt -lmass 
+endif
+
+CPPFLAGS +=  -DMPICH_IGNORE_CXX_SEEK -DMPICH_SKIP_MPICXX -DUSE_MPI  -DBGQ  -DMPI 
+
+CPPFFLAGS = -WF,-DMPICH_IGNORE_CXX_SEEK -WF,-DMPICH_SKIP_MPICXX   -WF,-DMPI 
+
+# MPI Definitions
+
+ifeq ($(USE_TAU),on)
+CC		= /usr/global/tools/tau/training/tau-2.18.2/bgp/bin/tau_cc.sh -tau_makefile=/usr/global/tools/tau/training/tau-2.18.2/bgp/lib/Makefile.tau-mpi-pdt -tau_options="-optVerbose -optTauSelectFile=$(topsrcdir)/select.dat"
+F90             = /usr/global/tools/tau/training/tau-2.18.2/bgp/bin/tau_f90.sh -tau_makefile=/usr/global/tools/tau/training/tau-2.18.2/bgp/lib/Makefile.tau-mpi-pdt -tau_options="-optVerbose -optTauSelectFile=$(topsrcdir)/select.dat"
+CXX		= /usr/global/tools/tau/training/tau-2.18.2/bgp/bin/tau_cxx.sh -tau_makefile=/usr/global/tools/tau/training/tau-2.18.2/bgp/lib/Makefile.tau-mpi-pdt -tau_options="-optVerbose -optTauSelectFile=$(topsrcdir)/select.dat"
+
+else
+
+CC		= mpixlc_r
+F90             = mpixlf90_r
+CXX		= mpixlcxx_r
+endif
+
+FPP             = 
+AR              =  ar -rv
+
+ifeq ($(STATIC_LINK),on)
+LD              = $(AR)
+
+F90FLAGS_OPT    = -qsuffix=cpp=F90 -qfree=f90 -qsuffix=f=f90 -O2 -qmaxmem=256000 -qsimd=noauto -g -qpic=large 
+F90FLAGS_HIOPT  = -qsuffix=cpp=F90 -qfree=f90 -qsuffix=f=f90 -O3 -qhot=novector -qsimd=auto -g -qpic=large 
+
+CXXFLAGS_OPT	= -O2 -qmaxmem=256000 -g  -w -DNDEBUG $(OMP_CFLAGS) -qpic=large 
+
+CFLAGS_OPT	= -qlanglvl=extended -O2 -qmaxmem=256000 -g -w -DNDEBUG $(OMP_CFLAGS) -qpic=large 
+
+F90FLAGS_DEBUG  = -qsuffix=cpp=F90 -qfree=f90 -qsuffix=f=f90 -g  $(OMP_CFLAGS) -qpic=large 
+CXXFLAGS_DEBUG	= -g -w  $(OMP_CFLAGS) -qpic=large 
+CFLAGS_DEBUG	= -qlanglvl=extended -g -w $(OMP_CFLAGS) -qpic=large 
+
+LIB_EXT         = a
+
+LDFLAGS         = 
+else
+LD              = $(CXX)
+
+F90FLAGS_OPT    = -qsuffix=cpp=F90 -qfree=f90 -qsuffix=f=f90 -O2 -qmaxmem=256000 -g -qpic=large 
+F90FLAGS_HIOPT  = -qsuffix=cpp=F90 -qfree=f90 -qsuffix=f=f90 -O3 -qhot=novector -qsimd=auto -g -qpic=large 
+
+CXXFLAGS_OPT	= -O2 -qmaxmem=256000 -g -w -DNDEBUG $(OMP_CFLAGS) -qpic=large 
+
+CFLAGS_OPT	= -qlanglvl=extended -O2 -qmaxmem=256000 -g -w -DNDEBUG  $(OMP_CFLAGS) -qpic=large 
+
+F90FLAGS_DEBUG  = -qsuffix=cpp=F90 -qfree=f90 -qsuffix=f=f90 -g $(OMP_CFLAGS) -qpic=large 
+CXXFLAGS_DEBUG	= -g -w   $(OMP_CFLAGS) -qpic=large 
+CFLAGS_DEBUG	= -qlanglvl=extended -g -w $(OMP_CFLAGS) -qpic=large 
+
+LIB_EXT         = so
+
+LDFLAGS         = -qmkshrobj -qnostaticlink -qpic=large
+LDFLAGS        += -g $(GPROF_FLAGS) $(OPENMP_LDFLAGS)
+endif
+
+
+LINK            = $(CXX)
+LINKFLAGS	= $(LDFLAGS)
+
+PYTHON_LIB	= PYTHON_LIB      = -L/bgsys/tools/Python-2.6/lib64/python2.6/config -lpython2.6
+
+ifeq ($(STATIC_LINK),on)
+PLATFORM_LIBPATH_EXTRAS =  /opt/ibmcmp/xlf/bg/14.1/bglib64/libxlf90.a /opt/ibmcmp/xlf/bg/14.1/bglib64/libxlfmath.a
+PLATFORM_Infrastructure_EXTRAS =
+PLATFORM_TetonUtils_EXTRAS = 
+PLATFORM_TetonTest_EXTRAS = ../Teton/libTetonUtils.a ../Teton/libInfrastructure.a ../cmg2Kull/sources/libc2k.a ../CMG_CLEAN/src/libcmgp.a  
+
+endif
+
+%.o: %.F90
+	$(F90) $(F90FLAGS) -c $< -o $@
+endif
+
+
+# END of platform specific stuff
+
+#------------------------------------------------ END ----------------------------------------------------------
+
+
+CXXFLAGS = $(CFLAGS_CMG) $(INCPATH)
+CFLAGS = $(CFLAGS_CMG) $(INCPATH)
+F90FLAGS = $(INCPATH)
+F90HIOPT = $(INCPATH)
+
+F90FLAGS += $(OPENMP_FLAGS)
+
+ifeq ($(OPT),on)
+  CXXFLAGS += $(CXXFLAGS_OPT) 
+  CFLAGS += $(CFLAGS_OPT) 
+  F90FLAGS += $(F90FLAGS_OPT) 
+  F90HIOPT += $(F90FLAGS_HIOPT)
+endif
+
+ifeq ($(DEBUG),on)
+  CXXFLAGS += $(CXXFLAGS_DEBUG) 
+  CFLAGS += $(CFLAGS_DEBUG) 
+  F90FLAGS += $(F90FLAGS_DEBUG) 
+  F90HIOPT += $(F90FLAGS_DEBUG)
+endif
+
+F90FLAGS +=  $(CPPFFLAGS)
+F90HIOPT +=  $(CPPFFLAGS)
+
+ifeq ($(USE_TAU_PDT),on)
+%.o : %.cc
+	$(CXXPARSE) $< -o $(basename $@).pdb $(INCPATH) $(CPPFLAGS)
+	$(TAUINSTR) $(basename $@).pdb $< -o $(basename $@).inst.cc -g TAU_USER -f $(topsrcdir)/select.dat
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -o $@ -c $(basename $@).inst.cc
+
+%.o : %.c
+	$(CPARSE) $< -o $(basename $@).pdb $(INCPATH) $(CPPFLAGS)
+	$(TAUINSTR) $(basename $@).pdb $< -o $(basename $@).inst.c -g TAU_USER -f $(topsrcdir)/select.dat
+	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $(basename $@).inst.c
+
+else
+%.o : %.cc
+	$(CXX) -c $(CXXFLAGS) $(CPPFLAGS) $< -o $@
+
+endif
+%.d: %.cc
+	mpixlcxx -c $(CFLAGS_CMG) $(CPPFLAGS) $(INCPATH) $< -MM -MF $@
+
+

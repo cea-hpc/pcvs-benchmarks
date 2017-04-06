@@ -1,0 +1,133 @@
+CWD             = $(shell pwd)
+
+USE_FAKE_CMG    = off
+OPT             = on
+DEBUG           = off
+USE_HPM         = off
+USE_GPROF       = off
+USE_TAU         = off
+USE_TAU_PDT     = off
+USE_OPENMP      = on
+STATIC_LINK     = off
+CFLAGS_CMG      = 
+
+ifeq ($(USE_FAKE_CMG),on)
+  CFLAGS_CMG    += -DCMG_FAKE 
+else
+  LIBS 		+=
+endif
+
+HOST   = $(shell hostname)
+
+ifneq (,$(findstring merl,$(HOST)))
+	MACH = rzmerl
+	CLASS = linux
+endif
+
+ifneq (,$(findstring seq,$(HOST)))
+	MACH = bgq
+	CLASS = bgq
+endif
+
+
+# START of platform specific stuff
+
+
+#------------------------------------------------ RZMERL ----------------------------------------------------------
+CFLAGS_CMG     += 
+
+OPENMP_FLAGS    = $(PCVS_CFLAGS)
+FLIBS           =
+
+CPPFLAGS += -DLINUX -DLinux -DUSE_MPI -DMPICH_SKIP_MPICXX $(GPROF_FLAGS) $(PCVS_CFLAGS)
+CPPFFLAGS = -DLINUX -DLinux -Dmpi -DMPI -DUSE_MPI -DMPICH_SKIP_MPICXX $(OPENMP_FLAGS) $(GPROF_FLAGS)
+
+# MPI Definitions
+#MPI_INC_PATH    = -I/usr/local/tools/mvapich-intel/include
+
+#MPI_LIB_PATH    = -L/usr/local/tools/mvapich-intel/lib 
+#MPI_LIBS        = -lfmpich -lmpichfarg -lmpich  -libverbs -lpthread -libumad 
+
+FLIBS          += -lm -lc 
+LIBS 	       += $(MPI_LIBS) 
+#LIBPATH 	= -L/usr/local/tools/ic-13.0.079/lib
+#INCPATH 	= $(MPI_INC_PATH)
+
+CXX		= $(PCVS_CXX)
+CC		= $(PCVS_CC)
+F90             = $(PCVS_FC)
+FPP             = $(PCVS_FC) -cpp -E
+
+F90FLAGS_OPT    =  -g -O3  -fPIC $(OPENMP_FLAGS)
+CXXFLAGS_OPT	=  -g -O3 -fPIC  $(OPENMP_FLAGS)
+CFLAGS_OPT	=  -g -O3  -fPIC  $(OPENMP_FLAGS)
+
+
+LD              = $(CXX)
+LIB_EXT         = so
+LDFLAGS         =  -shared -fPIC $(UMT_FORTRAN_LIB)
+
+LINK            = $(CXX)
+LINKFLAGS       = $(CXXFLAGS)
+
+#
+# These PLATFORM_*_EXTRAS flags are to add additional paths/libs for building 
+# libInfrastructure.so, libTetonUtils.so and _TetonTest.so
+#
+# If linker generally needs lib paths..
+#PLATFORM_LIBPATH_EXTRAS = -L/usr/local/tools/icc-11.1.073/lib/intel64/
+PLATFORM_LIBPATH_EXTRAS = 
+
+# Extra lib paths / libs for libInfrastructure.[a,so]
+PLATFORM_Infrastructure_EXTRAS = $(OPENMP_FLAGS) $(MPI_LIB_PATH) $(MPI_LIBS)
+
+# Extra lib paths / libs for libTetonUtils.[a,so]
+PLATFORM_TetonUtils_EXTRAS = 
+
+# Extra lib paths / libs for SuOlsonTest
+PLATFORM_EXE_EXTRAS = $(OPENMP_FLAGS) -L../CMG_CLEAN/src -Wl,-rpath,$(CWD)/../CMG_CLEAN/src \
+	-L../cmg2Kull/sources -Wl,-rpath,$(CWD)/../cmg2Kull/sources\
+	-L../Teton -Wl,-rpath,$(CWD)/../Teton $(MPI_LIB_PATH) $(MPI_LIBS) -ldl 
+
+# Extra lib paths / libs for _TetonTest.so
+PLATFORM_TetonTest_EXTRAS = $(OPENMP_FLAGS) $(MPI_LIB_PATH) -L$(CWD)/../CMG_CLEAN/src -Wl,-rpath,$(CWD)/../CMG_CLEAN/src \
+	-L$(CWD)/../cmg2Kull/sources -Wl,-rpath,$(CWD)/../cmg2Kull/sources \
+	-L$(CWD)/../Teton -Wl,-rpath,$(CWD)/../Teton \
+	-L$(CWD)/../Install/lib -Wl,-rpath,$(CWD)/../Install/lib \
+	-lm -lpthread -lutil -ldl $(FLIBS)
+
+%.o: %.F90
+	$(FPP) $(CPPFFLAGS) $(INCPATH) $< > $*.f90
+	$(F90) $(F90FLAGS) -c $*.f90 -o $@
+
+
+# END of platform specific stuff
+
+#------------------------------------------------ END ----------------------------------------------------------
+
+
+CXXFLAGS = $(CFLAGS_CMG) $(INCPATH)
+CFLAGS = $(CFLAGS_CMG) $(INCPATH)
+F90FLAGS = $(INCPATH)
+
+ifeq ($(OPT),on)
+  CXXFLAGS += $(CXXFLAGS_OPT) 
+  CFLAGS += $(CFLAGS_OPT) 
+  F90FLAGS += $(F90FLAGS_OPT) 
+endif
+
+ifeq ($(DEBUG),on)
+  CXXFLAGS += $(CXXFLAGS_DEBUG) 
+  CFLAGS += $(CFLAGS_DEBUG) 
+  F90FLAGS += $(F90FLAGS_DEBUG) 
+endif
+
+F90FLAGS +=  $(CPPFFLAGS)
+
+%.o : %.cc
+	$(CXX) -c $(CXXFLAGS) $(CPPFLAGS) $< -o $@
+
+%.d: %.cc
+	$(CXX) -c $(CFLAGS_CMG) $(CPPFLAGS) $(INCPATH) $< -MM -MF $@
+
+

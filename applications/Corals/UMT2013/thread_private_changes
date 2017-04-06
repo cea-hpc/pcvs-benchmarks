@@ -1,0 +1,31 @@
+
+   Please note that for thread_safety, THREE  changes have been made (on 3 Feb 2014) 
+   to the source that was distributed during 2013, as follows:
+   Change #1
+   In Teton/transport/Teton/mods/ZoneData_mod.F90
+   replace
+     type(ZoneData), pointer, public :: Z
+   with
+     type(ZoneData), pointer, public :: Z
+     !$OMP threadprivate(Z)
+
+   Change #2
+   In Teton/transport/Teton/mods/Quadrature_mod.F90
+   replace
+     type(Exit),       pointer, public :: ExitBdy
+   with
+     type(Exit),       pointer, public :: ExitBdy
+     !$OMP threadprivate (ExitBdy)
+
+   Change #3
+   In Teton/transport/Teton/mods/Boundary_mod.F90
+   replace
+     type(Bdy),       pointer, public :: ExitBdy
+   with
+     type(Bdy),       pointer, public :: ExitBdy
+     !$OMP threadprivate (Bdy)
+
+
+   Your downloaded tarfile should have these changes.
+
+

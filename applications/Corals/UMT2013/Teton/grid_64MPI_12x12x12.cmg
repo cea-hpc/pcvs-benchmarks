@@ -1,0 +1,20 @@
+#processor block decomposition
+sms(4,4,4)
+#Always specify blocks in block base numbering
+blk(on,0:3,0:3,0:3)
+
+# tag boundary faces
+tag("xMinFaces",face,(0:0,0:4,0:4))
+tag("xMaxFaces",face,(4:4,0:4,0:4))
+tag("yMinFaces",face,(0:4,0:0,0:4))
+tag("yMaxFaces",face,(0:4,4:4,0:4))
+tag("zMinFaces",face,(0:4,0:4,0:0))
+tag("zMaxFaces",face,(0:4,0:4,4:4))
+
+# define number of zones in each axis
+numzones(12,12,12)
+
+#Hex subdivisions
+sub(10%,0:3, 0:3,0:3,(7,0,0,0)) #7 hex
+seed(10)
+

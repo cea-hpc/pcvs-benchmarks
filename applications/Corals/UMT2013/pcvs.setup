@@ -1,0 +1,100 @@
+#!/bin/sh
+
+pcvs_src_current=$pcvs_src/$1
+pcvs_build_current=$pcvs_testbuild/$1
+
+#Copy Sources in BUILD env
+cp -r $pcvs_src_current/* $pcvs_build_current
+
+UMT_FORTAN_LIB=`$pcvs_compiler_f77 -show | sed "s/ /\n/g" | grep "lmpi" | xargs echo`
+
+echo "# FORTRAN LIBS : $UMT_FORTAN_LIB"
+
+#
+# EMIT TE
+#
+
+echo "make_umt:"
+echo "    type: 'build'"
+echo "    openmp: true"
+echo "    target: 'UMT_FORTRAN_LIB=\"$UMT_FORTAN_LIB\"'"
+echo "    files: '@BUILDPATH@/Makefile'"
+echo ""
+
+echo "make_suolson:"
+echo "    type: 'build'"
+echo "    deps: ['make_umt']"
+echo "    openmp: true"
+echo "    target: 'SuOlsonTest UMT_FORTRAN_LIB=\"$UMT_FORTAN_LIB\"'"
+echo "    files: '@BUILDPATH@/Teton/Makefile'"
+echo ""
+
+#
+# THE TEMPLATE
+#
+
+
+echo "pcvst_: &suolson"
+echo "    deps: [ 'make_suolson' ]"
+echo "    chdir: './Teton'"
+echo "    bin: './Teton/SuOlsonTest'"
+echo ""
+
+#
+# THE CONFIGS
+#
+
+echo "run_suolson2:"
+echo "    herit: *suolson"
+echo "    n_mpi: [ 2 ]"
+echo "    args: \"problem2.cmg\""
+echo ""
+
+echo "run_suolson27:"
+echo "    herit: *suolson"
+echo "    n_mpi: [ 27 ]"
+echo "    args: \"problem27.cmg\""
+echo ""
+
+echo "run_suolson32GRIDMPI:"
+echo "    herit: *suolson"
+echo "    n_mpi: [ 32 ]"
+echo "    args: \"grid_32MPI_12x12x12.cmg\""
+echo ""
+
+echo "run_suolson64:"
+echo "    herit: *suolson"
+echo "    n_mpi: [ 64 ]"
+echo "    args: \"problem64.cmg\""
+echo ""
+
+
+echo "run_suolson64MPI:"
+echo "    herit: *suolson"
+echo "    n_mpi: [ 64 ]"
+echo "    args: \"64MPI_12x12x12.out\""
+echo ""
+
+
+echo "run_suolson64GRIDMPI:"
+echo "    herit: *suolson"
+echo "    n_mpi: [ 64 ]"
+echo "    args: \"grid_64MPI_12x12x12.cmg\""
+echo ""
+
+
+echo "run_suolson512GRIDMPI:"
+echo "    herit: *suolson"
+echo "    n_mpi: [ 512 ]"
+echo "    args: \"grid512MPI_12x12x12.cmg\""
+echo ""
+
+echo "run_suolson2048GRIDMPI:"
+echo "    herit: *suolson"
+echo "    n_mpi: [ 2048 ]"
+echo "    args: \"grid_2048_12x12x12.cmg\""
+echo ""
+
+
+
+exit 0

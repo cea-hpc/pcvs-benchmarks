@@ -1,0 +1,42 @@
+#!/bin/bash
+
+#MSUB -S bash
+#MSUB -l nodes=4:ppn=16
+#MSUB -l walltime=02:00:00
+#MSUB -q pbatch
+#MSUB -m be
+#MSUB -V
+#MSUB -A coral
+#MSUB    -j oe
+#MSUB    -o /nfs/tmp2/ghosh4/ADC/final/UMT2_SW_Review/Teton/4nodes_16rpn_1omp.out
+
+Px=4 
+Py=4 
+Pz=4 
+Order=16
+Groups=16
+quadType=2
+Xzones=12
+Yzones=12
+Zzones=12
+Polar=8
+Azim=4
+Ranks=$((${Px}*${Py}*${Pz}))
+#UMTHOME=${HOME}/umt2013/UMT2_bgq
+#EXE=$UMTHOME/Install/bin/pyMPI
+#LDPATH=$UMTHOME/Teton:$UMTHOME/cmg2Kull/sources:$UMTHOME/CMG_CLEAN/src:$UMTHOME/python
+#export PYTHONPATH=$UMTHOME/python
+#
+# Input: SuOlsonTest $gridFileName $Groups $quadType $Order $Polar $Azim
+# Allowed values: 1 <= quadType <= 2; 1 <= Polar <= 18; 1 <= Azim <= 22 
+#
+#=======================================================================================
+#=======================================================================================
+
+gridFileName=grid_512MPI_12x12x12.cmg
+for T in    1 
+do
+export OMP_NUM_THREADS=$T     
+srun   -n 512    -N 32   ./SuOlsonTest $gridFileName $Groups $quadType $Order $Polar $Azim
+done
+

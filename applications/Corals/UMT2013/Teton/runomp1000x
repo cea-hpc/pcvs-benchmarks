@@ -1,0 +1,30 @@
+#!/bin/bash
+
+#MSUB -S bash
+#MSUB -l nodes=1:ppn=16
+#MSUB -l walltime=04:00:00
+#MSUB -q pbatch
+#MSUB -m be
+#MSUB -V
+##MSUB -A coral
+#MSUB    -j oe
+#MSUB    -o /g/g20/ghosh4/UMT2013_neely/UMT2013/Teton/1000times.out
+
+
+export MPICC=/usr/local/tools/mvapich-intel/bin/mpicc
+#export LD_PRELOAD=/usr/local/tools/mvapich-intel/lib/shared/libmpich.so
+#export LD_LIBRARY_PATH=/usr/local/tools/mvapich-intel/lib/shared/:$LD_LIBRARY_PATH
+# 4x4
+#export OMP_NUM_THREADS=4
+#srun -N 1  -n 4  ./SuOlsonTest problem4.cmg 16 2 16 8 4
+
+P=0
+while [ $P -lt 1000 ]; do 
+for T in 16 
+do
+    export OMP_NUM_THREADS=$T
+    let P=P+1
+    echo P is $P
+    srun -N 1  -n 1  ./SuOlsonTest problem1.cmg 16 2 16 8 4
+done
+done
