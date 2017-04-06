@@ -1,0 +1,67 @@
+#!/bin/sh
+
+pcvs_src_current=$pcvs_src/$1
+pcvs_build_current=$pcvs_testbuild/$1
+
+#Copy Sources in BUILD env
+cp -r $pcvs_src_current/* $pcvs_build_current
+
+#CHECK COMPILER TYPE Nekbone has fortran options depending on Target compiler
+
+COMP_TYPE="gfortran"
+
+$pcvs_compiler_f77 -show | grep "ifort" > /dev/null
+
+if test "x$?" = "x0"; then
+	echo "#ifort DETECTED"
+	COMP_TYPE="ifort"
+fi
+
+$pcvs_compiler_f77 -show | grep "gfortran" > /dev/null
+
+if test "x$?" != "x0"; then
+	if test "$COMP_TYPE" = "gfortran"; then
+		echo "#USING GFORTRAN but it is something else !"
+		echo "WARNING : Nekbone is only integrated for gfortran and ifort compilation may fail" > 2
+	fi	
+else
+	echo "#gfortran DETECTED"
+fi
+
+case COMP_TYPE in
+	*)
+		#SAME AS GFORTRAN
+		NKFLAGS="-fcray-pointer -fdefault-real-8 -x f77-cpp-input"	
+	;;
+	"gfortran")
+		NKFLAGS="-fcray-pointer -fdefault-real-8 -x f77-cpp-input"
+	;;
+	"ifort")
+		NKFLAGS="-r8 -fpconstant -fpp"
+	;;
+esac
+
+echo "#NKFLAGS = $NKFLAGS"
+
+#
+# EMIT TE
+#
+
+
+echo "make_nek:"
+echo "    type: 'build'"
+echo "    target: 'NKFLAGS=\"$NKFLAGS\"'"
+echo "    files: '@BUILDPATH@/Makefile'"
+echo ""
+
+echo "run_nek:"
+echo "    deps: [ 'make_nek' ]"
+echo "    chdir: './test/example1'"
+echo "    bin: './test/example1/nekbone'"
+echo ""
+
+
+
+
+
+exit 0
