@@ -1,1 +1,64 @@
 #!/bin/sh
+
+pcvs_src_current=$pcvs_src/$1
+pcvs_build_current=$pcvs_testbuild/$1
+
+cp -r $pcvs_src_current/* $pcvs_build_current/
+cp -r $pcvs_build_current/pcvs.makedefs $pcvs_build_current/config/make.def
+mkdir -p $pcvs_build_current/bin #didn't understand why is this not automatically created.
+
+echo "build_MPINAS:"
+echo "    type: 'complete'"
+echo "    target: 'suite'"
+echo "    files: '@BUILDPATH@/Makefile'"
+echo ""
+
+echo "pcvst_mpinas: &nas"
+echo "    type: 'run'"
+echo "    herit: *GRPMPI"
+echo "    deps: [ 'build_MPINAS' ]"
+
+# config/suite.def
+# This file is used to build several benchmarks with a single command. 
+# Typing "make suite" in the main directory will build all the benchmarks
+# specified in this file. 
+# Each line of this file contains a benchmark name, class, and number
+# of nodes. The name is one of "cg", "is", "ep", mg", "ft", "sp", "bt", 
+# "lu", and "dt". 
+# The class is one of "S", "W", "A", "B", "C", "D", and "E"
+# (except that no classes C, D and E for DT, and no class E for IS).
+# The number of nodes must be a legal number for a particular
+# benchmark. The utility which parses this file is primitive, so
+# formatting is inflexible. Separate name/class/number by tabs. 
+# Comments start with "#" as the first character on a line. 
+# No blank lines. 
+# The following example builds 1 processor sample sizes of all benchmarks. 
+function build_benchs
+{
+	for bench in ft mg sp lu bt is ep cg dt
+	do
+		for class in S W A
+		do
+			for mpi in $pcvs_iterators_n_mpi_list
+			do
+				printf "$bench\t$class\t$mpi\n" >> $pcvs_build_current/config/suite.def
+
+				echo "$bench-$class.$mpi:"
+				echo "    herit: *nas"
+				echo "    bin: 'bin/${bench}.${class}.$mpi'"
+				echo "    n_mpi: [ $mpi ]"
+
+				#if test "x$class" = "xB"; then
+				#echo "    n_omp: [ '>=8' ]"
+				#fi
+
+				echo ""
+			done
+		done
+	done
+}
+
+#if n_mpi iterator is explicitly disabled
+test "x$pcvs_iterators_n_mpi_list" = "xundefined" && exit 0
+
+build_benchs
