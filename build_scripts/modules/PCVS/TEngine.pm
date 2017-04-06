@@ -391,7 +391,10 @@ sub engine_convert_to_cmd
 #   - @deps: list of dependencies for this test (can be undef)
 sub engine_gen_test
 {
-	my ($xml, $name, $command, $rc, $time, $delta, $constraint, @deps) = @_;
+	my ($xml, $name, $chdir, $command, $rc, $time, $delta, $constraint, @deps) = @_;
+
+	$command= "cd $chdir && $command" if (defined $chdir);
+
 	$xml->startTag("job");
 	$xml->dataElement("name", "$name");
 	$xml->dataElement("command", $command);
@@ -454,7 +457,7 @@ sub engine_check_foldable
 		print ("       Skipping $tname: bad type '$ttype'\n");
 		return 0;
 	}
-	
+
 	if(!$sysconf->{compiler}{openmp} and $omp eq "true")
 	{
 		print ("       Skipping $tname: OpenMP not enabled for $sysconf->{compiler}{target}\n");
@@ -487,7 +490,7 @@ sub engine_unfold_test_expr
 	#params
 	my  ($xml, $tname,  $tvalue, $bpath) = @_;
 	#global var for a test_expr
-	my ($name, $bin, $command, $args, $arg_omp, $arg_tbb, $arg_accl, $rc, $time, $delta, $constraint, $timeout, @deps) = ();
+	my ($name, $bin, $command, $args, $arg_omp, $arg_tbb, $arg_accl, $rc, $time, $delta, $constraint, $timeout, $chdir, @deps) = ();
 	#other vars
 	my $ttype = lc(engine_get_value_ifdef($tvalue, 'type') || "run");
 
@@ -497,11 +500,13 @@ sub engine_unfold_test_expr
 	$rc   = engine_get_value_ifdef($tvalue, 'returns' ) || 0;
 	@deps    = @{ engine_get_value_ifdef($tvalue, 'deps') || [] };
 	$bin = "$bpath/".(engine_get_value_ifdef($tvalue, 'bin') || $tname);
+	$chdir = engine_get_value_ifdef($tvalue, 'chdir') || undef; 
 	$timeout = engine_get_value_ifdef($tvalue, "timeout") || $sysconf->{validation}{timeout} || "";
 	$arg_omp = engine_get_value_ifdef($tvalue, 'openmp') || "false"; 
 	$arg_tbb = engine_get_value_ifdef($tvalue, 'tbb') || "false"; 
 	$arg_accl= engine_get_value_ifdef($tvalue, 'accl') || "false"; 
 
+	$chdir = "$bpath/$chdir" if (defined $chdir);
 	#check if the TE is usable within the current configuration
 	return if (!engine_check_foldable($tname, $ttype, $arg_omp, $arg_tbb, $arg_accl));
 
@@ -542,7 +547,7 @@ sub engine_unfold_test_expr
 			$command = "$sysconf->{compiler}{$comp_name} $cflags $args -o $bin $files";
 		}
 		#generate the XML entry
-		engine_gen_test($xml, $tname, $command, $rc, $time, $delta, $constraint, @deps);
+		engine_gen_test($xml, $tname, undef, $command, $rc, $time, $delta, $constraint, @deps);
 	}
 
 	# if the current should be run
@@ -576,7 +581,7 @@ sub engine_unfold_test_expr
 			my ($pre_env, $post_args) = engine_convert_to_cmd($it_keys, @{ $it_comb->[$_] });
 			$command = "$pre_env $launcher $post_args $timeout $extra_args $bin $args";
 			#push the test into XML file
-			engine_gen_test($xml, $name, $command, $rc, $time, $delta, $constraint, @deps);
+			engine_gen_test($xml, $name, $chdir, $command, $rc, $time, $delta, $constraint, @deps);
 		}
 	}
 }
