@@ -124,7 +124,7 @@ sub  helper_lister
 sub  helper_list_avail_dirs
 {
 	opendir(my $dirlist, "$srcdir");
-	return grep { -d "$srcdir/$_" and /^(applications|MPI|OpenMP|performance|reproducers|Threads|Hybrid)/} readdir($dirlist);
+	return grep { -d "$srcdir/$_" and /^(applications|MPI|OpenMP|performance|reproducers|Threads|Hybrid|serial)/} readdir($dirlist);
 }
 
 ###########################################################################
@@ -133,12 +133,7 @@ sub  helper_list_avail_dirs
 sub helper_do_not_run_validation
 {
 	my $ret = 0;
-	if ($conf->{help})
-	{
-		print "Usage: ./run_validation.pl [-h] [--select=/dirs]\n";
-		print "TBW\n";
-		$ret = 1;
-	}
+	
 	if ($conf->{'list-compilers'})
 	{
 		print "Compilers: ".join(", ", helper_lister("$internaldir/configuration/compilers", "yml"))."\n";

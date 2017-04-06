@@ -6,6 +6,7 @@ use warnings;
 
 use 5.010;
 use English qw( -no_match_vars );
+use Pod::Usage;
 
 ###########################################################################
 #### main vars
@@ -164,13 +165,13 @@ sub run_prepare
 	dircopy("$internaldir/generation/jchronoss/tools/jsLoc/*", "$buildir/") or die("Unable to copy JsLoc: $!");
 
 	#build JCHRONOSS
-	print " * Building JCHRONOSS (-j$gconf{parallel})\n";
+	print " * Building JCHRONOSS\n";
 	helper_clean_path("$buildir/tmp/build", 0);
 	{
 		local $CWD = "$buildir/tmp/build"; # equivalent to chdir()
 		my $color = "";
 		($color = "-DENABLE_COLOR=".($gconf{"color"} == 1 ? "ON" : "OFF")) if (exists $gconf{"color"});
-		system("cmake $internaldir/generation/jchronoss -DENABLE_OPENMP=OFF -DCMAKE_INSTALL_PREFIX=$buildir/tmp $color && make -j$gconf{'parallel'} install");
+		system("cmake $internaldir/generation/jchronoss -DENABLE_OPENMP=OFF -DCMAKE_INSTALL_PREFIX=$buildir/tmp $color && make install");
 		die("Error during JCHRONOSS compilation !") if(($? >> 8) != 0);
 
 
@@ -371,7 +372,6 @@ sub run_exec
 $SIG{INT} = "trap_signal";
 
 ##### DEFAULT VALUES
-$gconf{'parallel'} = 1;
 $gconf{'regen'} = 1;
 $gconf{'color'} = 0;
 $gconf{'verbose'} = 0;
@@ -389,7 +389,6 @@ GetOptions (
 	"runtime-target=s",
 	"group-target=s",
 	"target=s",
-	"parallel:i" ,
 	"log!",
 	"list-directories",
 	"list-runtimes",
@@ -401,13 +400,20 @@ GetOptions (
 	"expect-success",
 	"verbose:i",
 	"engine-debug",
+	"h",
+	"man",
 	"help"
+
 )  or die("Abort due to error(s) while parsing arguments (see --help)!\n");
 
 # set $buildir depending on environment
 $gconf{'build'} = helper_convert_absolute($gconf{'build'}, $CWD);
 $gconf{testbuild} = "$gconf{build}/test_suite";
 $buildir = $gconf{'build'};
+
+pod2usage({-exitval => 0, -verbose => 0}) if($gconf{h});
+pod2usage({-exitval => 0, -verbose => 1}) if($gconf{help});
+pod2usage({-exitval => 0, -verbose => 2}) if($gconf{'man'});
 
 # init the helper
 helper_init(\%gconf);
@@ -442,3 +448,117 @@ run_finalize();
 
 my ($d, $h, $m, $s) = helper_convert_time(time()-$validation_start);
 print "\n==> Validation completed in $d day(s), $h hour(s), $m minute(s) and $s second(s))\n";
+
+
+=pod #Documentation start
+
+=encoding utf-8
+
+=head1 NAME
+
+run_validation - Parallel Computing Validation Suite launcher
+
+=head1 SYNOPSIS
+
+run_validation [ --help ] [options] [--select=<directory>] 
+
+Main Options (see --help or --man for further details):
+
+    --select            Pick directories to build
+    --config-target     Select configuration file to load.
+    --runtime-target    Select runtime file to load.
+    --compiler-target   Select compiler file to load.
+    --help              Print argument-oriented help.
+    --man               Print complete script documentation.
+
+=head1 DESCRIPTION
+
+=head1 OPTIONS
+
+=head2 Selection Arguments
+
+=over 4
+
+=item --select
+
+=item --config-target
+
+=item --group-target
+
+=item --compiler-target
+
+=item --runtime-target
+
+=item --target
+
+=back
+
+=head2 Global Arguments
+
+=over 4
+
+=item --build
+
+=item --expect-success
+
+=item --[no]log
+
+=item --[no]regen
+
+=item --[no]color, -[no]c
+
+=item --verbose
+
+=item --engine-debug
+
+=item -h
+
+Print condensed help menu (SYNOPSIS).
+
+=item -help
+
+Print each argument and a short description about them.
+
+=item -man
+
+Print the complete documentation 
+
+=back
+
+=head2 Listing Arguments
+
+=over 4
+
+=item --list-directories
+
+=item --list-runtimes
+
+=item --list-configs
+
+=item --list-compilers
+
+=item --list-groups
+
+=item --list-vars
+
+=back
+
+=head1 AUTHOR
+
+See the F<AUTHORS> file for contributors to PCVS.
+
+=head1 BUGS
+
+In case of troubles or questions with this software or the attached documentation, please address your request to the maintainers. You can found the complete list in the F<AUTHORS> file.
+
+=head1 COPYRIGHT
+
+Copyright (c) 2016,
+
+Commissariat à l'Énergie Atomique et aux Énergies Alternatives (CEA)
+
+This library is free software; you may redistribute it and/or modify it under the terms of the GNU General Public License (GPL) Version 2 or any later version.
+
+
+
+=cut #Documentation end
