@@ -479,17 +479,43 @@ Main Options (see --help or --man for further details):
 
 =over 4
 
-=item --select
+=item --compiler-target B<name>
 
-=item --config-target
+Specify which compiler has to be used for the validation. The target defines C, C++ and Fortran compilers as well as third-party flag support like OpenMP, TBB or Accelerators, for the current compiler. The targeted environment has to be previously loaded before running PCVS. The given B<name> is the name of compiler file, without path nor extension. You can visualize current list of available compilers with I<--list-compilers>.
 
-=item --group-target
+To add you own custom compiler file to make it available with PCVS, please add your file in build_scripts/configuration/compilers/*name*.yml.
 
-=item --compiler-target
+=item --runtime-target B<name>
 
-=item --runtime-target
+Specify which runtime has to be used for the validation. The targeted runtime has to be previously loaded into the environment before running PCVS. The runtime defines which PCVS parameters can be forwarded (nproc, nmpi, networks...) or not. From this configuration file, you can directly alter the validation process. The given B<name> is the name of runtime file, without path nor extension. You can visualize current list of available runtimes with I<--list-runtimes>.
 
-=item --target
+To add you own custom runtime file to make it available with PCVS, please add your file in build_scripts/configuration/runtimes/*name*.yml.
+
+=item --target B<name>
+
+This option overrides I<--compiler-target> and I<--runtime-target> with B<name>. This option shortcuts command line if both compiler and runtime uses same configuration file names.
+
+=item --select B<dir[,dir[,dir...]]>
+
+Specify which subdirectories will be built. B<dir> is directory name is given without any path prefix. For example, to build MPI subdirectory, you should provide:
+
+	--select MPI
+
+This option is cumulative other repetitions. It means that each occurrence is added to previous ones. Then, your don't have to retrieve the I<--select> option for adding a directory. You can directly add a new token. The following will launches the validation over MPI, OpenMP and Hybrid:
+
+	--select MPI,OpenMP --select Hybrid
+
+=item --config-target B<name>
+
+Specify which configuration file (ie. environment) the validation has to rely to run. Configuration file depicts information at machine-level, by specifying which iterators will be used depending on availables resources, parallelism level for scheduling jobs as fast as possible, etc... The B<name> argument is the file name, without the path nor extension. You can list available configuration files (and valid names) with I<--list-configs> option.
+
+To add you own custom configuration file to make it available for us, please add your file in build_scripts/environment/*name*.yml
+
+=item --group-target B<name>
+
+Specify how test groups will be analyzed by the PCVS parser. Groups are templates gathering global properties, then herited by jobs. These groups can gather at one place homogenous configuration for a specific axis of validation. For example, most used groups are GRPMPI and GRPOMP. GRPMPI defines OpenMP property to null, meaning that OpenMP configuration is not relevant for tests belonging to MPI group. This drastically reduces number of tests. The argument B<name> is the file name, without the path nor exension. You can list available group configuration files with I<--list-groups> option.
+
+To add you own custom group file, please add your file in build_scripts/configuration/groups/*name*.yml. Be sure to define at least all existing groups (GRPMPI, GRPOMP, GRPSERIAL) to avoid undefined behaviours during the process.
 
 =back
 
@@ -497,19 +523,50 @@ Main Options (see --help or --man for further details):
 
 =over 4
 
-=item --build
+=item --build B<path>
+
+Use this option to change where the validation build system will go (binaries, artefacts). You should provide absolute path even if it should not be a problem to provide a relative one.
+
 
 =item --expect-success
 
+This option makes run_validation returning non-zero exit code if at least one job failed. Note that this option roughly aborts the script. These won't be any created archive ! 
+
 =item --[no]log
+
+Enable/disable output logging. Everything written on stdout is logged into $build/output.log. You can replay the complete output by cat or less on this file. If you use 'less' and you want to display color (instead of Esacping sequences), be sure to invoke 'less' with '-R' option.
 
 =item --[no]regen
 
+Enable/Disable tests generation. This option can be used when you run multiples times the validation with same parameters (configuration files & command-line arguments). This allow you to skip test generation phase, already done by previous invocations.
+
 =item --[no]color, -[no]c
+
+Enabing/disabling color support mode for JCHRONOSS.
 
 =item --verbose
 
+Select the verbosity level for the validation (especially the job runner, JCHRONOSS). Possible values are!
+
+=over 2
+
+=item B<0>
+
+Default value, nothing is printed but a summary of executed test (name, time and status)
+
+=item B<1>
+
+Print level-0 content and the complete output for failed tests.
+
+=item B<2>
+
+Print everything, every time (whatever test status)
+
+=back
+
 =item --engine-debug
+
+Option which produces debug contents, only interesting when integrating new benchmarks. You can see how YAML file has been parsed and detect why your set of executed tests is what it is. Debug files will be stored in build path, near the original .yaml file.
 
 =item -h
 
@@ -531,15 +588,27 @@ Print the complete documentation
 
 =item --list-directories
 
+List available directories to be configured with the validation system. Listed values wan then be used with I<--select> option.
+
 =item --list-runtimes
+
+List available runtime configuration files, located in build_scripts/configuration/runtimes. Values can then be used with I<--runtime-target> option.
 
 =item --list-configs
 
+List available environment configuration files, located in build_scripts/environment. Values can then be used with I<--config-target> option.
+
 =item --list-compilers
+
+List available compiler configuration files, located in build_scripts/configuration/compilers. Values can then be used with I<--compiler-target> option.
 
 =item --list-groups
 
+List available group configuration files, located in build_scripts/configuration/groups. Values can then be used with I<--group-target> option.
+
 =item --list-vars
+
+List available Shell variables which can be used in pcvs.setup files. These variables depicts validation state, merging all configuration files and exposing which parameters validation relies on. To be sure to obtain all values, you can combine this option with I<--config-target>, I<--runtime-target> and I<--compiler-target> options. (Almost) no variables are mandatory, so be sure variables exist before using them.
 
 =back
 
