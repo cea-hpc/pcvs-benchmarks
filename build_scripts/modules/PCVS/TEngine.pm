@@ -115,16 +115,15 @@ sub engine_unfold_iterator
 			#special case, if we compute nth-power
 			if($op eq "^")
 			{
-				# we have troubles here with rounding. Becasue of computing
-				# the nth root is based on the power of (1/nth), we create an approximation
-				# In some case, this can lead to skip the final value.
-				# For example cubic_root(64) = 4. but floor() returns 3 because (64 ** (1/3)) returns 63.99999...
-				# This should be fixed. For now, we recommend to increase by one the final value to avoid this case (bad)
-				$min = ceil($min ** (1/$step));
-				$max = floor($max ** (1.0/$step));
+				my $minroot = ceil($min ** (1.0/$step));
+				my $maxroot = floor($max ** (1.0/$step));
+
+				# look for missed value due to bad precision
+				while(($minroot-1) ** $step >= $min ) {$minroot--;}
+				while(($maxroot+1) ** $step <= $max ) {$maxroot++;}
 
 				# push all nth-power for each integer between root(min) and root(max)
-				push @list_values, map {$_ ** $step } $min..$max;
+				push @list_values, map {$_ ** $step } $minroot..$maxroot;
 			}
 			else
 			{
