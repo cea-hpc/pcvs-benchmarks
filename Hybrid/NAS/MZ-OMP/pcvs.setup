@@ -7,16 +7,17 @@ cp -r $pcvs_src_current/* $pcvs_build_current/
 cp -r $pcvs_build_current/pcvs.makedefs $pcvs_build_current/config/make.def
 mkdir -p $pcvs_build_current/bin #didn't understand why is this not automatically created.
 
-echo "build_SerialNAS-MZ:"
+echo "build_OMPNAS-MZ:"
 echo "    type: 'complete'"
 echo "    target: 'suite'"
 echo "    files: '@BUILDPATH@/Makefile'"
+echo "    openmp: true"
 echo ""
 
-echo "pcvst_serialnas-mz: &nas"
+echo "pcvst_ompnas-mz: &nas"
 echo "    type: 'run'"
-echo "    herit: *GRPSERIAL"
-echo "    deps: [ 'build_SerialNAS-MZ' ]"
+echo "    herit: *GRPOMP"
+echo "    deps: [ 'build_OMPNAS-MZ' ]"
 
 # config/suite.def
 # This file is used to build several benchmarks with a single command. 
@@ -41,6 +42,10 @@ function build_benchs
 			echo "    herit: *nas"
 			echo "    bin: 'bin/${bench}.${class}.x'"
 			
+			if test "x$class" = "xB"; then
+				echo "    n_omp: [ '>=8' ]"
+			fi
+
 			echo ""
 		done
 	done
