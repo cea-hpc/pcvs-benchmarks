@@ -282,6 +282,7 @@ sub configuration_validate
 	}
 
 	# just check user-defined paths exists
+	@{$gconf{'select'}} = split(/,/, join(",", @{$gconf{'select'}}));
 	foreach my $el(@{$gconf{'select'}})
 	{
 		die("\'SRCDIR/$el\' does not exist ! (see --user-testfiles instead)") if(! -d "$srcdir/$el");
