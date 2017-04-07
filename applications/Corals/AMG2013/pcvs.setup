@@ -1,0 +1,38 @@
+#!/bin/sh
+
+pcvs_src_current=$pcvs_src/$1
+pcvs_build_current=$pcvs_testbuild/$1
+
+#Copy Sources in BUILD env
+cp -r $pcvs_src_current/* $pcvs_build_current
+
+#
+# EMIT TE
+#
+
+echo "make_amg:"
+echo "    type: 'build'"
+echo "    openmp: true"
+echo "    target: ''"
+echo "    files: '@BUILDPATH@/Makefile'"
+echo ""
+
+for s in 1 2 3
+do
+	for i in 1 2 4
+	do
+		NPROC=`echo "$i*$i*$i" | bc`
+		SIZ=`echo "$i*40" | bc`
+		echo "run_amg${i}_${s}:"
+		echo "    deps: [ 'make_amg' ]"
+		echo "    n_mpi: [$NPROC]"
+		echo "    chdir: './test/'"
+		echo "    bin: './test/amg2013'"
+		echo "    args: '-P $i $i $i -n $SIZ $SIZ $SIZ -solver $s'"
+		echo ""
+	
+	done
+done
+
+
+exit 0
