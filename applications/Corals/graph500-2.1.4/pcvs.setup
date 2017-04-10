@@ -1,0 +1,87 @@
+#!/bin/sh
+
+pcvs_src_current=$pcvs_src/$1
+pcvs_build_current=$pcvs_testbuild/$1
+
+cp -r $pcvs_src_current/* $pcvs_build_current
+
+#
+# OPENMP
+#
+
+echo "#OPENMP"
+
+echo "make_graph500omp:"
+echo "    type: 'build'"
+echo "    target: 'omp-csr/omp-csr'"
+echo "    openmp : true"
+echo "    files: '@BUILDPATH@/Makefile'"
+echo ""
+
+echo "run_graph500omp:"
+echo "    type: 'run'"
+echo "    deps: [ 'make_graph500omp' ]"
+echo "    herit : *GRPOMP"
+echo "    bin: 'omp-csr/omp-csr'"
+echo "    args:  ""\"-s 16 -e 16\""
+echo ""
+
+#
+# SEQUENTIAL
+#
+
+echo "#SEQUENTIAL"
+
+echo "make_graphseqcsr:"
+echo "    type: 'build'"
+echo "    target: 'seq-csr/seq-csr'"
+echo "    files: '@BUILDPATH@/Makefile'"
+echo ""
+
+echo "run_graphseqcsr:"
+echo "    type: 'run'"
+echo "    deps: [ 'make_graphseqcsr' ]"
+echo "    herit : *GRPSERIAL"
+echo "    bin: 'seq-csr/seq-csr'"
+echo "    args:  ""\"-s 16 -e 16\""
+echo ""
+
+echo "make_graphseqlist:"
+echo "    type: 'build'"
+echo "    target: 'seq-list/seq-list'"
+echo "    files: '@BUILDPATH@/Makefile'"
+echo ""
+
+echo "run_graphseqcsr:"
+echo "    type: 'run'"
+echo "    deps: [ 'make_graphseqlist' ]"
+echo "    herit : *GRPSERIAL"
+echo "    bin: 'seq-list/seq-list'"
+echo "    args:  ""\"-s 16 -e 16\""
+echo ""
+
+#
+# MPI
+#
+
+echo "make_graphmpi:"
+echo "    type: 'build'"
+echo "    target: 'mpi/graph500_mpi_one_sided'"
+echo "    files: '@BUILDPATH@/Makefile'"
+echo ""
+
+#graph500_mpi_custom  -> Removed as produces bad run on all MPI
+for GT in graph500_mpi_one_sided graph500_mpi_replicated graph500_mpi_replicated_csc graph500_mpi_simple
+do
+	echo "#MPI -- ${GT}"
+	echo "run_${GT}:"
+	echo "    type: 'run'"
+	echo "    deps: [ 'make_graphmpi' ]"
+	echo "    herit : *GRPMPI"
+	echo "    bin: 'mpi/${GT}'"
+	echo "    args:  ""\"10 15\""
+done
+
+
+
+
