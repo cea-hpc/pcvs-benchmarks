@@ -562,7 +562,7 @@ sub engine_unfold_test_expr
 			die("No compiler found for $comp_name !") if(!exists $sysconf->{compiler}{$comp_name});
 
 			#build the command
-			$command = "$sysconf->{compiler}{$comp_name} $cflags $args -o $bin $files";
+			$command = "$sysconf->{compiler}{$comp_name} -o $bin $files $cflags $args" ;
 		}
 		#generate the XML entry
 		engine_gen_test($xml, $tname, undef, $command, $rc, $time, $delta, $constraint, @deps);
