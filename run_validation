@@ -284,7 +284,7 @@ sub run_configure
 		my $current_path = "$srcdir/$directory";
 		#Clean the complete directory (the simplest..)
 		helper_clean_path("$buildir/test_suite/$directory", 1);
-		my @current_list = `find $current_path -name "pcvs.setup"`; chomp @current_list;
+		my @current_list = `find -L $current_path -name "pcvs.setup"`; chomp @current_list;
 
 		# Iterates over each pcvs.setup file
 		foreach my $setup_elem(@current_list)
@@ -313,7 +313,7 @@ sub run_configure
 		}
 
 		# as pcvs.setup can create some YAML file in work dir, we look for these files in both source and work directories
-		@current_list = `find $current_path $buildir/test_suite/$directory -name "pcvs.yml.in" 2>/dev/null`; chomp @current_list;
+		@current_list = `find -L $current_path $buildir/test_suite/$directory -name "pcvs.yml.in" 2>/dev/null`; chomp @current_list;
 		foreach my $yaml_elem(@current_list)
 		{
 			# find the test subtree

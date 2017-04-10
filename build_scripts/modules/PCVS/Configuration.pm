@@ -303,7 +303,7 @@ sub configuration_validate
 	@{$gconf{'select'}} = split(/,/, join(",", @{$gconf{'select'}}));
 	foreach my $el(@{$gconf{'select'}})
 	{
-		die("\'SRCDIR/$el\' does not exist ! (see --user-testfiles instead)") if(! -d "$srcdir/$el");
+		die("\'SRCDIR/$el\' does not exist !") if(! -d "$srcdir/$el");
 	}
 }
 
