@@ -4,15 +4,11 @@ pcvs_src_current=$pcvs_src/$1
 pcvs_build_current=$pcvs_testbuild/$1
 
 cp -r $pcvs_src_current/* $pcvs_build_current
-echo "make_lulesh:"
-echo "    type: 'build'"
+echo "lulesh:"
+echo "    type: 'complete'"
 echo "    target: ''"
 echo "    openmp : true"
 echo "    files: '@BUILDPATH@/Makefile'"
-echo ""
-
-echo "run_lulesh:"
-echo "    deps: [ 'make_lulesh' ]"
 echo "    bin: 'lulesh2.0'"
 echo "    n_node: [1, 2, 4]"
 echo "    n_proc: [1:8:*2]" # 'power of 2' values

@@ -47,16 +47,12 @@ echo "#NKFLAGS = $NKFLAGS"
 # EMIT TE
 #
 
-echo "make_nek:"
-echo "    type: 'build'"
+echo "nek:"
+echo "    type: 'complete'"
 #Crashes in all configurations (MPI / MPC)
 #echo "    openmp: true"
 echo "    target: 'NKFLAGS=\"$NKFLAGS\"'"
 echo "    files: '@BUILDPATH@/Makefile'"
-echo ""
-
-echo "run_nek:"
-echo "    deps: [ 'make_nek' ]"
 echo "    chdir: './test/example1'"
 echo "    bin: './test/example1/nekbone'"
 echo ""
