@@ -25,11 +25,24 @@ use File::Copy::Recursive qw(pathempty);
 use File::Path;
 
 our @ISA = 'Exporter';
-our @EXPORT = qw(helper_init helper_do_not_run_validation helper_list_avail_dirs helper_lister helper_clean_path helper_convert_time helper_detect_compiler helper_prefix_if_exists helper_convert_absolute helper_uniq);
+our @EXPORT = qw(helper_init helper_do_not_run_validation helper_list_avail_dirs helper_lister helper_clean_path helper_convert_time helper_detect_compiler helper_prefix_if_exists helper_convert_absolute helper_uniq helper_error);
 our @EXPORT_OK = qw();
 
 our $conf;
 our ($buildir, $internaldir, $srcdir);
+
+###########################################################################
+# Helper error: Print an error message and then exit 42
+# Args:
+#  - @str, the string list to print to STDERR
+# This function never returns
+sub helper_error
+{
+	my (@str) = @_;
+	my $s = "Error: ".join("\nError: ", @str);
+	print STDERR "$s\n";
+	exit 42;
+}
 
 
 ###########################################################################

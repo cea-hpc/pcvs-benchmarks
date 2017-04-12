@@ -231,6 +231,7 @@ sub engine_TE_combinations
 	my %local_iterlist;       # HASH storing the iterator list for each encountered iterator names
 	my @local_iterlist_names; # list of iterator names
 	my $nparent = 0;          # parent-level (used for debug)
+	my $ret = 0;
 	
 	engine_debug("\n######################\n");
 	engine_debug("Processing $tn:\n");
@@ -249,8 +250,8 @@ sub engine_TE_combinations
 			{
 				if(defined $local_iterlist{$_})
 				{
-					engine_debug("\t($nparent-degree) '$_' previously disabled by parent !\n");
-					die("Found a 'enabled/disabled' iterator '$_' of $tn ($nparent-degree). Please refer to the documentation for this special case");
+					engine_debug("\t($nparent-degree) '$_' disabled and set by a child: not permitted (ERROR).\n");
+					$ret++;
 				}
 				else
 				{
@@ -263,9 +264,15 @@ sub engine_TE_combinations
 			else
 			{
 				#check the node provides an array
-				die("Iterators should be array constructs (err with $tn)") if(ref($cur->{$_} ne "ARRAY"));
+				if(ref($cur->{$_}) ne "ARRAY"){
+					engine_debug("\t($nparent-degree) '$_' is not an array construct (ERROR).\n"); 
+					$ret++;
+				}
 				# check the node does not contain an empty array
-				die("What did you want to do by providing empty array ? Please refer to the doc !") if(!@{$cur->{$_}});
+				if(!@{$cur->{$_}})
+				{
+					engine_debug("\t($nparent-degree)  '$_' is an empty array. Is this really what you wanted to do ? (WARNING)\n");
+				} 
 
 				#if we don't stored a list for this entry yet
 				if(!exists $local_iterlist{$_})
@@ -287,8 +294,10 @@ sub engine_TE_combinations
 		$nparent++;
 	}
 
-	# from this point, we have all iterator list, but not unfolded. We have to convert them into value sequence and remove bad values
+	#handling raised errors
+	return ($ret, undef, undef) if($ret > 0);
 
+	# from this point, we have all iterator list, but not unfolded. We have to convert them into value sequence and remove bad values
 	engine_debug("\nFinal values:\n");
 	
 	my (@tmp, @local_combinatory, $n) = ();
@@ -330,7 +339,8 @@ sub engine_TE_combinations
 		if(@val_sequence eq 0)
 		{
 			engine_debug("===> $name raise: No intersection between system and [".join(", ", @{$local_iterlist{$name}})."] configuration.\n");
-			return (undef, undef);
+			#it's not an error
+			return ($ret, undef, undef);
 		}
 
 		engine_debug("\t$name:\t [".join(", ", @val_sequence)."]\n");
@@ -352,7 +362,7 @@ sub engine_TE_combinations
 	#return two things:
 	# the list of iterator names (the keys) mapping each combination value to the associated iterator
 	# the array of combinations (array of arrays)
-	return (\@local_iterlist_names, \@local_combinatory);
+	return ($ret, \@local_iterlist_names, \@local_combinatory);
 
 }
 
@@ -511,6 +521,7 @@ sub engine_unfold_test_expr
 	my ($name, $bin, $command, $args, $arg_omp, $arg_tbb, $arg_accl, $rc, $time, $delta, $constraint, $timeout, $chdir, @deps) = ();
 	#other vars
 	my $ttype = lc(engine_get_value_ifdef($tvalue, 'type') || "run");
+	my $ret = 0;
 
 	#common params, whatever the TE type
 	$time    = engine_get_value_ifdef($tvalue, 'limit') || undef;
@@ -526,7 +537,7 @@ sub engine_unfold_test_expr
 
 	$chdir = "$bpath/$chdir" if (defined $chdir);
 	#check if the TE is usable within the current configuration
-	return if (!engine_check_foldable($tname, $ttype, $arg_omp, $arg_tbb, $arg_accl));
+	return $ret if (!engine_check_foldable($tname, $ttype, $arg_omp, $arg_tbb, $arg_accl));
 
 	# if the current should be compiled
 	if($ttype =~ m/^(build|complete)$/)
@@ -547,8 +558,6 @@ sub engine_unfold_test_expr
 		# if it should be a makefile
 		if(defined $target)
 		{
-			die("'files' field not found for $tname ! (Makefile)") if(! defined $files);
-
 			(my $makepath = $files) =~ s,/[^/]*$,,;
 			(my $makefile = $files) =~ s/^$makepath\///;
 			$command = "make -f $makefile -C $makepath $target PCVS_CC=\"$sysconf->{compiler}{c}\" PCVS_CXX=\"$sysconf->{compiler}{cxx}\" PCVS_CU=\"$sysconf->{compiler}{cu}\" PCVS_FC=\"$sysconf->{compiler}{f77}\" PCVS_CFLAGS=\"$cflags $args\"";
@@ -558,8 +567,8 @@ sub engine_unfold_test_expr
 		{
 			#look for input source file and try to detect the good compiler
 			my $comp_name = helper_detect_compiler($files);
-			die("Unable to find a valid compiler for $tname !") if (!$comp_name);
-			die("No compiler found for $comp_name !") if(!exists $sysconf->{compiler}{$comp_name});
+			helper_error("Unable to find a valid compiler for $tname. (Perhaps something wrong with helper_detect_compiler() ?)") if (!$comp_name);
+			helper_error("No compiler set for $comp_name source type.") if(!exists $sysconf->{compiler}{$comp_name});
 
 			#build the command
 			$command = "$sysconf->{compiler}{$comp_name} -o $bin $files $cflags $args" ;
@@ -584,11 +593,13 @@ sub engine_unfold_test_expr
 		push @deps, $tname if($ttype =~ /^complete$/);
 
 		#do the job...
-		my ($it_keys, $it_comb) = engine_TE_combinations($tname, $tvalue);
+		my ($ret2, $it_keys, $it_comb) = engine_TE_combinations($tname, $tvalue);
 
+		$ret +=$ret2;
+		
 		#no possible combinations found --> skip the TE
 		#TODO: also remove the previously added compilation
-		return if (!defined $it_comb);
+		return $ret if (!defined $it_comb);
 
 		# for each selected combinations
 		foreach(0..(scalar @{$it_comb} -1 ))
@@ -602,6 +613,8 @@ sub engine_unfold_test_expr
 			engine_gen_test($xml, $name, $chdir, $command, $rc, $time, $delta, $constraint, @deps);
 		}
 	}
+
+	return $ret;
 }
 
 ###########################################################################
@@ -610,19 +623,19 @@ sub engine_unfold_test_expr
 #    - $bpath: current build path, where XML file will be built
 #    - $ftree: package name for the current XML file (=directory tree) 
 #    - $filepath: path to the YAML file
+#
+#Returns number of 'failed to parse' TEs in this file
 sub engine_unfold_file
 {
 
 	my ($bpath, $ftree, $filepath) = @_;
-	my $filestream = LoadFile("$filepath");
-
-	#ready to write list_of_tests
-	open(my $xml_file, ">", "$bpath/list_of_tests.xml");
-
+	my $ret = 0;
+	my $filestream;
+	
 	#if engine-debug mode
 	if($sysconf->{'engine-debug'})
 	{
-		open($debug_file, ">", "$filepath.log") or die ("Debug file !");
+		open($debug_file, ">", "$filepath.log") or helper_error("Unable to open debug file: $!");
 		print $debug_file "##################\nSystem combinations:\n";
 		foreach(keys %sys_iterlist)
 		{
@@ -631,6 +644,15 @@ sub engine_unfold_file
 		}
 
 	}
+	
+	eval { $filestream = LoadFile("$filepath") } or do {
+		engine_debug("Error: Bad YAML format !"); 
+		return 1;
+	};
+	
+	#ready to write list_of_tests
+	open(my $xml_file, ">", "$bpath/list_of_tests.xml");
+
 
 	my $xmlwriter = XML::Writer->new(OUTPUT => $xml_file, NEWLINES => 0);
 	$xmlwriter->startTag("jobSuite", "package" => grep {s/\//\./g} $ftree);
@@ -640,7 +662,8 @@ sub engine_unfold_file
 	{
 		# skip test template
 		next if($test =~ m/^pcvs.*$/);
-		engine_unfold_test_expr($xmlwriter, $test, $filestream->{$test}, $bpath);
+		my $ret2 = engine_unfold_test_expr($xmlwriter, $test, $filestream->{$test}, $bpath);
+		$ret+=$ret2;
 	}
 
 	#close the file
@@ -648,6 +671,7 @@ sub engine_unfold_file
 	$xmlwriter->end();
 	close($xml_file);
 	close($debug_file) if($debug_file);
+	return $ret;
 }
 
 ###########################################################################

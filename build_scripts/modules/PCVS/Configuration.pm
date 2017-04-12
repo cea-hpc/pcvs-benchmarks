@@ -44,8 +44,11 @@ sub load_yml
 {
 	my ($yml_path) = @_;
 
-	die("Error with $yml_path: $!") if(! -f $yml_path);
-	my $s = LoadFile($yml_path) ;
+	helper_error("'$yml_path' not seen as a file: $!") if(! -f $yml_path);
+	my $s;
+	eval { $s = LoadFile($yml_path) ; } or do {
+		helper_error("Unable to load configuration file $yml_path !");
+	};
 	return %{ $s };
 }
 
@@ -92,13 +95,11 @@ sub configuration_build
 		#update default config with overriden values
 		foreach my $key(keys %user_data)
 		{
-			#exists $gconf{$key} or die("\'$key\' object does not exist. Please edit your configuration file !");
 			#iterate over subkeys to update (YAML data is a two-level tree, should be replaced by recursion).
 			if(ref($gconf{$key}) eq 'HASH')
 			{
 				foreach my $subkey (keys $user_data{$key})
 				{
-					#exists $gconf{$key}{$subkey} or die("\'$key/$subkey\' object does not exist. Please edit your configuration file !");
 					$gconf{$key}{$subkey} = $user_data{$key}{$subkey};
 				}
 			}
@@ -130,7 +131,7 @@ sub configuration_build
 
 			#load the file
 			my $filepath = "$internaldir/configuration/${el}s/$pattern.yml";
-			die("Unable to find $pattern as $el target ($el-target)") if(! -f $filepath);
+			helper_error("'$pattern' is not valid  (check --list-${el}s)") if(! -f $filepath);
 			my %data = load_yml($filepath);
 
 			#dump the content under $el hash object
@@ -140,7 +141,7 @@ sub configuration_build
 		}
 		else
 		{
-			die("You must specify a '$el' target ($el-target)");
+			helper_error("A $el-target should be defined");
 		}
 	}
 
@@ -188,10 +189,10 @@ sub configuration_passthrough
 # Args: No Args
 sub configuration_save
 {
-	DumpFile("$buildir/config.yml", \%gconf) or die ("Unable to write YAML configuration file !");
+	DumpFile("$buildir/config.yml", \%gconf) or helper_error("Unable to write YAML configuration file into build !");
 
 	# build ENV
-	open(my $output_file, '>', "$buildir/config.env") or die("Unable to write Shell-compliant configuration file !");
+	open(my $output_file, '>', "$buildir/config.env") or helper_error("Unable to write Shell configuration file into build !");
 	configuration_passthrough($output_file, \%gconf, "pcvs");
 	close($output_file);
 }
@@ -238,7 +239,7 @@ sub configuration_load
 	else
 	{
 		# if the user provides a file name, but we didn't found it in $internaldir/configuration/environment/
-		die("Bad configuration value : $gconf{'config-target'} !") if (!grep(/^$user_name$/, @avail_names));
+		helper_error("$gconf{'config-target'} is not valid (check --list-configs)") if (!grep(/^$user_name$/, @avail_names));
 		return "$prefix/$user_name.yml";
 	}
 
@@ -289,7 +290,7 @@ sub configuration_validate
 		if(defined $current_field)
 		{
 			`type $current_field 2> /dev/null`;
-			die("\'runtime/c not found in PATH ! ($current_field)") if (($? >> 8) != 0);
+			helper_error("'$current_field' not found in PATH (defined by runtime/$_") if (($? >> 8) != 0);
 		}
 	}
 
@@ -303,7 +304,7 @@ sub configuration_validate
 	@{$gconf{'select'}} = split(/,/, join(",", @{$gconf{'select'}}));
 	foreach my $el(@{$gconf{'select'}})
 	{
-		die("\'SRCDIR/$el\' does not exist !") if(! -d "$srcdir/$el");
+		helper_error("\'/$el\' seems invalid directory") if(! -d "$srcdir/$el");
 	}
 }
 

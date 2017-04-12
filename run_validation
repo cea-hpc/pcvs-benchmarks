@@ -176,11 +176,11 @@ sub run_prepare
 	print "\n >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> PRE-RUN STEP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
 	#copy the webview in target dir
 	print ' * Building the Webview (reachable at $buildir/webview//index.html)'."\n";
-	dircopy("$internaldir/generation/jchronoss/tools/webview/*", "$buildir/") or die("Unable to copy the webview: $!");
+	dircopy("$internaldir/generation/jchronoss/tools/webview/*", "$buildir/") or helper_error("Unable to copy the webview: $!");
 	my $var = `$buildir/webview_gen_all.sh --skeleton`;
 	#copy jsloc
 	print " * Saving JsLoc into build directory.\n";
-	dircopy("$internaldir/generation/jchronoss/tools/jsLoc/*", "$buildir/") or die("Unable to copy JsLoc: $!");
+	dircopy("$internaldir/generation/jchronoss/tools/jsLoc/*", "$buildir/") or helper_error("Unable to copy JsLoc: $!");
 
 	#build JCHRONOSS
 	print " * Building JCHRONOSS\n";
@@ -190,7 +190,7 @@ sub run_prepare
 		my $color = "";
 		($color = "-DENABLE_COLOR=".($gconf{"color"} == 1 ? "ON" : "OFF")) if (exists $gconf{"color"});
 		system("cmake $internaldir/generation/jchronoss -DENABLE_OPENMP=OFF -DCMAKE_INSTALL_PREFIX=$buildir/tmp $color && make install");
-		die("Error during JCHRONOSS compilation !") if(($? >> 8) != 0);
+		helper_error("JCHRONOSS does not want to compile.") if(($? >> 8) != 0);
 
 
 	}
@@ -216,13 +216,13 @@ sub run_finalize
 	#copy needed data into the future archive
 	helper_clean_path("$buildir/last_results", 1);
 	dircopy("$internaldir/resources/banners", "$buildir/last_results/banners");
-	dircopy("$buildir/webview", "$buildir/last_results/webview") or die("Unable to save the webview in the archive !");
-	fcopy("$buildir/webview_gen_all.sh", "$buildir/last_results/") or die("Unable to copy webview_gen_all.sh !");
-	dircopy("$buildir/jsLoc", "$buildir/last_results/jsLoc") or die("Unable to save JsLoc in the archive !");
-	fcopy("$buildir/jsLoc_gen_all.sh", "$buildir/last_results/jsLoc_gen_all.sh") or die("Unable to save JsLoc_gen_all.sh in the archive !");
-	fcopy("$buildir/config.yml", "$buildir/last_results/") or die ("Unable to save the configuration file !");
-	fcopy("$buildir/config.env", "$buildir/last_results/") or die ("Unable to save the environment file !");
-	dircopy("$buildir/tmp/traces", "$buildir/last_results/") or die ("Unable to copy trace files !");
+	dircopy("$buildir/webview", "$buildir/last_results/webview") or helper_error("Unable to save the webview in the archive.");
+	fcopy("$buildir/webview_gen_all.sh", "$buildir/last_results/") or helper_error("Unable to copy webview_gen_all.sh.");
+	dircopy("$buildir/jsLoc", "$buildir/last_results/jsLoc") or helper_error("Unable to save JsLoc in the archive.");
+	fcopy("$buildir/jsLoc_gen_all.sh", "$buildir/last_results/jsLoc_gen_all.sh") or helper_error("Unable to save JsLoc_gen_all.sh in the archive.");
+	fcopy("$buildir/config.yml", "$buildir/last_results/") or helper_error("Unable to save the configuration file.");
+	fcopy("$buildir/config.env", "$buildir/last_results/") or helper_error("Unable to save the environment file.");
+	dircopy("$buildir/tmp/traces", "$buildir/last_results/") or helper_error("Unable to copy trace files.");
 
 	# find XML output files
 	helper_clean_path("$buildir/last_results/test_suite", 1);
@@ -241,7 +241,7 @@ sub run_finalize
 
 	print " * End Date : ".localtime()."\n";
 	fcopy("$buildir/output.log", "$buildir/last_results/") if(!exists $gconf{'log'} || $gconf{'log'});
-	fcopy("$buildir/env.log", "$buildir/last_results/") or die ("Unable to save the environment logfile !");
+	fcopy("$buildir/env.log", "$buildir/last_results/") or helper_error("Unable to save the environment log file.");
 
 	anonymize_archive("$buildir/last_results");
 
@@ -270,13 +270,14 @@ sub run_configure
 	my $grp_stream;
 	{
 		local $/ = undef;
-		open (my $f, "<", "$internaldir/configuration/groups/$gconf{'group-target'}.yml") or die ("Could not open groups file $gconf{'group-target'} !");
+		open (my $f, "<", "$internaldir/configuration/groups/$gconf{'group-target'}.yml") or helper_errro("Unable to open group file: $gconf{'group-target'}.");
 		$grp_stream = <$f>;
 		close $f;
 	}
 
 	print " * Building the list of tests:\n";
 	my $istart=time();
+	my $ret = 0;
 	
 	#for each desired subdirectory
 	foreach my $directory (@{ $gconf{'select'}})
@@ -297,14 +298,19 @@ sub run_configure
 			# create the tree if it does not exist yet (no cleanups)
 			helper_clean_path("$current_bpath", 0);
 			
-			print "    - Setup $name\n";
+			print "    - Setup $name";
 			my $override_file = `. $buildir/config.env && $setup_elem/pcvs.setup $name`;
-			die("$name Setup failed !") if (($? >> 8) != 0);
+			if (($? >> 8) != 0)
+			{
+				print " (Returned an error !)";
+				$ret++;
+			}
+			print "\n";
 
 			# if pcvs.setup produces a content, echo it to build pcvs.yml.in and prepends it 'group' content
 			if($override_file ne "")
 			{
-				open(my $ofh, ">", "$current_bpath/pcvs.yml.in") or die ("Error in $current_bpath: $!");
+				open(my $ofh, ">", "$current_bpath/pcvs.yml.in") or helper_error("Opening $current_bpath/pcvs.yml.in: $!");
 				print $ofh $grp_stream;
 				print $ofh  $override_file;
 				close($ofh);
@@ -321,6 +327,7 @@ sub run_configure
 			(my $name = $yaml_elem) =~ s/($buildir\/test_suite|$srcdir)\///g;
 			my $current_bpath = "$buildir/test_suite/$name";
 			my $current_path = "$srcdir/$name";
+			my $ret2 = 0;
 
 			# create the tree if it does not exist yet (no cleanups)
 			helper_clean_path("$current_bpath", 0);
@@ -328,7 +335,7 @@ sub run_configure
 			# if pcvs.setup does not already create a file, copy the .in file 
 			if(! -f "$current_bpath/pcvs.yml.in")
 			{
-				open (my $w, ">", "$current_bpath/pcvs.yml.in") or die("Unable to open $current_bpath/pcvs.yml.in: $!");
+				open (my $w, ">", "$current_bpath/pcvs.yml.in") or helper_error("Opening $current_bpath/pcvs.yml.in: $!");
 				print $w $grp_stream; # we have to append this
 				print $w `cat $yaml_elem/pcvs.yml.in`;
 				close $w;
@@ -338,11 +345,20 @@ sub run_configure
 			system("cat $current_bpath/pcvs.yml.in | sed -e 's,\@SRCPATH\@,$current_path,g' -e 's,\@BUILDPATH\@,$current_bpath,g' > $current_bpath/pcvs.yml");
 
 			#Where things are going to be done (TE un-rolling)
-			print "    - Generate $name\n";
-			engine_unfold_file($current_bpath, $name, "$current_bpath/pcvs.yml");
+			print "    - Generate $name ";
+			$ret2 = engine_unfold_file($current_bpath, $name, "$current_bpath/pcvs.yml");
+			print ( ($ret2 <= 0) ? "\n" : "(Aborted: $ret2 error(s) !)\n"  );
+
+			$ret+=$ret2;
+
 		}
 	}
 	print " * Validation tree built in ".(time()-$istart)." second(s)\n";
+	if($ret > 0)
+	{
+		helper_error("Aborting the validation due to $ret error(s) found during configuration.",
+			     "Please see the output log and pcvs.yml.log files to fix them.");
+	}
 	engine_fini();
 }
 
@@ -422,7 +438,7 @@ GetOptions (
 	"man",
 	"help"
 
-)  or die("Abort due to error(s) while parsing arguments (see --help)!\n");
+)  or helper_error(" Issue(s) while parsing arguments (see --help|--man).\n");
 
 # set $buildir depending on environment
 $gconf{'build'} = helper_convert_absolute($gconf{'build'}, $CWD);
