@@ -10,23 +10,24 @@
 # piece of information cannot be forwarded to built test, please let us know.
 #
 # A Test Expression defines rules to build one or more tests from it. This way, you can
-# basically specify a binary name (ex simple_TE), ready to be validated through the 
-# system for any system-configured combination. If the system is configured to iterate
-# over nnode [1,2] and nproc [2, 4], the simplest test Expression (just a name) will generate 4 test 
-# combinations: (1, 2), (1, 4), (2, 2) and (2, 4). To decribe a Test Expression, we rely
-# on YAML description, where the root value for each element depicts the Test Expression name.
-# The effective test name will be generated depending on the number of iterators applied
-# to it. In the example above, we could have the following tests:
+# basically specify a binary name (ex simple_TE), ready to be validated through the system
+# for any system-configured combination. If the system is configured to iterate over 
+# n_node [1,2] and n_proc [2, 4], the simplest Test Expression (just a name) will generate 
+# 4 test combinations: (1, 2), (1, 4), (2, 2) and (2, 4). To describe a Test Expression, 
+# we rely on YAML description, where the root value for each element depicts the Test Expression
+# name. The effective test name will be generated depending on the number of iterators 
+# applied to it. In the example above, we could have the following tests:
 #     - (1, 2) --> simple_TE_node1_proc2
 #     - (1, 4) --> simple_TE_node1_proc4
 #     - (2, 2) --> simple_TE_node2_proc2
 #     - (2, 4) --> simple_TE_node2_proc4
-# A Test Expression (TE) provides a way of factorize information, to build a more 
+#
+# A Test Expression (TE) provides a way to gather information, to build a more 
 # powerful and robust validation with less effort.
 #
 # Any Test Expression needs at least a name. By default, the system will try to find a 
-# source file with the same name and will be build a binary named "$name.bin". However,
-# we discourage to use targets this way, extending test building time significantly.
+# source file with the same name and will build a binary named "$name.bin". However,
+# we discourage using targets this way, extending test building time significantly.
 #
 # You can use some macros to refer absolute path:
 #   - @SRCPATH@ : points to the current source directory (where this file is located)
@@ -50,7 +51,7 @@ simple_compilation_and_run:
         args: "-iter 100"
         # change dir before running the command (prefixed w/ build path)
         chdir: 'examples/'
-        # reference time to result, in seconds (can be float)
+        # reference time to result, in seconds (can be floating-point values)
         time: 100.00
         # max allowed gap above which a TE is considered failed (if T > time + tolerance)
         tolerance: 2.5
@@ -59,7 +60,7 @@ simple_compilation_and_run:
         # expected returned code by tests (0 by default)
         returns: 0
 
-# TE describing binary building step only.
+# TE describing building step only.
 simple_compilation:
         # in this case, the test type is "build". No binary execution.
         type: "build"
@@ -67,16 +68,24 @@ simple_compilation:
         files: '@SRCPATH@/file_to_compile.c'
         # binary name (prependend as explained above)
         bin: 'simple_compilation.bin'
+        # args is forwarded to compilation line (to 'PCVS_CFLAGS' in case of Makefile)
         cargs: "-g -O0"
+        #set if the TE needs OpenMP support and check for Runtime support (TE skipped if not)
+        openmp: (true|false)
+        #set if the TE needs Intel(R) TBB support and check for Runtime support (TE skipped if not)
+        tbb: (true|false)
+        #set if the TE needs Accelerator support and check for Runtime support (TE skipped if not)
+        accl: (true|false)
 
-# TE describing binary building step only
+
+# TE describing building step only
 # "bin" field is not used here. As targets are handled by the Makefile
 simple_makefile_compilation:
         # in this case, the test type is "build". No binary execution.
         type: "build"
         # path to files to compiles
         files: '@SRCPATH@/makefile_to_use'
-        # this argument presence triggers the compilation into Makefile Expression.
+        # The fact that this attribute exists triggers the compilation into Makefile Expression.
         # This means that "files" value refers to Makefile path and the compilation
         # will be run like: 'make -C `dirname $files` -f `basename $files` $target.
         # If this field is not defined, the standard compilation through ${CC} prevails
@@ -95,50 +104,75 @@ simple_run:
 #########################################################################################
 # Combination alteration
 #########################################################################################
-# We will describe how to avoid a test combination to be generated from a TE if
-# the user consider a specific combination as invalid (for example, the test require a square
-# number of processors, etc...).
+# We will describe how to write Combination attributes for a test Expression.
+# These attributes are only used if the TE is one of {'complete', 'run'} type.
+# First, a quick introduction to 'sequence values'. You can provide whatever you want as an
+# array item. By convention, iterators starting with /^n_/ will be considered to be numeric
+# but no specific introspection will be done. When the array is analyzed, some specific
+# syntaxes exist helping you to formulate the list of values for the iterator. We will show
+# here these syntax. You can simply add them in an array like a single value (A, B and C
+# are supposed integers) :
+# - [ "A-B" ] : Serialize value from A to B (i.e. with a step equal to 1)
+# - [ "A:B:+C" ] : Create a sequence starting from A(included) to B (included) with a step of +C
+# - [ "A:B:*C" ] : Create a sequence (math meaning) following U(n) = U(n-1)*C, U(0) = A, max(n) = B
+# - [ "A:B:^C" ] : List 'the power of C' values existing between A(included) and B(included)  
+# - [ ">A" ] : Filter the system iterator list by keeping values strictly higher than A 
+#              ('>=' can be used to include A, equivalent to '>(A-1)')
+# - [ "<A" ] : Filter the system iterator list by keeping values strictly lower than A
+#              ('<=' can be used to include A, equivalent to '<(A+1)')
+
+# here, we tag this iterator as irrelevant for this TE. this iterator will be removed
+# from combinatory system. Due to YAML syntax, '~' is roughly equivalent to 'null' and create
+# an 'undef' node into the YAML tree. An empty array is NOT equivalent to it. An empty array
+# means that the iterator is valid but NO combinations will be ever be valid for it. This leads
+# the system to invalidate the TE. In case of 'complete' TE type, the 'build' is kept.
 simple_test:
         n_mpi: ~
         n_mpi: null
 
+# these three iterator definitions are equivalent and generate integer list between 1 and 9
 simple_test:
         n_mpi: [1, 2, 3, 4, 5, 6, 7, 8, 9]
         n_mpi: ["1-9"]
         n_mpi: ["1:9:+1"]
 
+# these two iterator definitions are equivalent and generate even values between 2 and 12
 simple_test:
         n_mpi: [2, 4, 6, 8, 10, 12]
         n_mpi: [ "2:12:+2" ]
 
+# Equivalent: Generate 'power of two' values between 1 and 16
 simple_test:
         n_mpi: [1, 2, 4, 8, 16]
         n_mpi: ["1:16:*2"]
 
+# Equivalent: Generate 'square' values between 1 and 50
 simple_test:
         n_mpi: [1, 4, 9, 16, 25, 36, 49]
         n_mpi: [ "1:50:^2"]
 
-
+#equivalent: Generate 'cubic' values between 156 and 216
 simple_test:
-        n_mpi: [1, 8, 27, 64, 125, 216]
-        n_mpi: [ "1:216:^3"]
+        n_mpi: [27, 64, 125, 216]
+        n_mpi: [ "15:216:^3"]
 
-#suppose sysconf->{n_mpi} = [ "2-10" ]
+#For this example, we suppose system iterator list equals to n_mpi = [ "2-10" ]
+#These three iterator definitions are equivalent and keep a list of values between 1 and 7 (included)
+#Note that you can have as many space as you want between the operator and the number
 simple_test: 
         n_mpi: [1, 4, 5, 6, 7]
         n_mpi: [1, ">=4", '<=7']
-        n_mpi: [1, "> 3", '< 8']
+        n_mpi: [1, " >3", '< 8']
 
 
 
 #########################################################################################
 # Dependencies
 #########################################################################################
-# TE marked with "build" type won't be unfolded by following the combinatory system. Indeed,
+# TE tagged with the "build" type won't be unrolled by the combinatory system. Indeed,
 # number of nodes or processors does not affect the compilation step. However, the TE based
-# on "compile-and-run" will build the binary once per test. This is wasteful if your wish is
-# running multiple times the same binary with varying parameters. That's why we handle
+# on "compile-and-run" will build the binary once per test. This is wasteful if your wish is to
+# run multiple times the same binary with varying parameters. That's why we handle
 # dependencies.
 
 # "build" type TE
@@ -150,7 +184,7 @@ compile_make:
         cargs: "VERBOSE=1"
 
 # This TE will provide a new field: "deps", an array containing a list of names 
-# This dependcy does not only allow to build the binary once, but also ensure that deps 
+# This dependency does not only allow to build the binary once, but also ensure that deps 
 # will be successfully run before executing tests from this TE. 
 run_target:
         # ... We assume you know how to fill this TE with what we showed earlier.
@@ -159,17 +193,18 @@ run_target:
         tolerance: 5
         args: "--run-args"
         iter: ["nnode", "nproc", "ncore"]
-        nnode: [1, 2]
-        nproc: [4, 8]
+        n_node: [1, 2]
+        n_proc: [4, 8]
         returns: 0
 
 #########################################################################################
 # Templating
 #########################################################################################
-# This final section describe a way to make TE writing more dense, avoiding redundant text,
+# This final section describes a way to make TE writing denser, avoiding redundant text,
 # easing validation updates. Template TE won't be executed at all, and exist just to be 
 # included into other TEs.
-# IMPORTANT: To be recognized, a template TE, should have its name starting by "pcvst_",
+#
+# IMPORTANT: To be recognized, a TE template should have its name starting by "pcvst_",
 # this is mandatory to avoid adding an extra field inside the TE (making the process heavier).
 #
 # This feature is still experimental and only allow one level of templating. We don't support
@@ -184,20 +219,17 @@ pcvst_random_name: &model
         tolerance: 2
 
 no_stress_test:
-        # the field "herited" attach the template TE to the current TE definition.
+        # the field "herit" attach the template to the current TE definition.
         herit : *model
         args: '-iter 100 -cache off'
 
 very_stressful_test:
-        herited : *model
+        herit : *model
         args: '-iter 10000 -cache on'
 
-# In case you don't have any extra fields compared to the template, the two following
+# In case you don't have any extra field, compared to the template, the two following
 # definitions are equivalent.
 basic_test: 
-        herited: *wildcard
-
-test1:
-
+        herit: *wildcard
 
 basic_test2: *wildcard
