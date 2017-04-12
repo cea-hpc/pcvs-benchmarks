@@ -45,35 +45,20 @@ emit_mcb_test()
 	echo ""
 }
 
+for i in $pcvs_iterators_n_mpi_list
+do
+	SQR=`perl -e "print int(sqrt($i))"`
+	MUL=`perl -e "print int($SQR**2)"`
 
-#Is there BC ?
-if test -e /usr/bin/bc; then
-	echo "#HAS BC"
-	#LETS WALK COMBINATIONS
-	for i in $pcvs_iterators_n_mpi_list
-	do
-		SQR=`echo "sqrt($i)" | bc`
-		MUL=`echo "$SQR*$SQR" | bc`
-
-		if test "x$MUL" = "x$i"; then
-			#YES ! This is a square
-			echo "#SQR"
-			emit_mcb_test $i $SQR $SQR
-		else
-			#NO we did not find a square
-			echo "#NOT SQR"
-			emit_mcb_test $i 1 $i
-		fi
-	done
-
-else
-
-	#LETS WALK COMBINATIONS
-	for i in $pcvs_iterators_n_mpi_list
-	do
+	if test "x$MUL" = "x$i"; then
+		#YES ! This is a square
+		echo "#SQR"
+		emit_mcb_test $i $SQR $SQR
+	else
+		#NO we did not find a square
+		echo "#NOT SQR"
 		emit_mcb_test $i 1 $i
-	done
-
-fi
+	fi
+done
 
 exit 0

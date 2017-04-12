@@ -21,8 +21,8 @@ for s in 1 2 3
 do
 	for i in 1 2 4
 	do
-		NPROC=`echo "$i*$i*$i" | bc`
-		SIZ=`echo "$i*40" | bc`
+		NPROC=`perl -e "print ($i**3)"`
+		SIZ=`perl -e "print ($i*40)"`
 		echo "run_amg${i}_${s}:"
 		echo "    deps: [ 'make_amg' ]"
 		echo "    n_mpi: [$NPROC]"
