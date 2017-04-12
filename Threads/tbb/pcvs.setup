@@ -21,12 +21,16 @@ print STDOUT "    files: '\@BUILDPATH\@/Makefile'\n";
 
 #this command generates a lot of 'make' errors, but we don't care, we just want the list of tests to run
 `make -C $pcvs_build_current test compiler=pcvs run_cmd="$pcvs_build_current/pcvs.wrapper \@PCVS_RUN\@" 2> /dev/null`;
+exit 1 if (($? >> 8) != 0);
 
 #pre-compute binary prefix (un-guessable...)
-my $bdir = `make -C $pcvs_build_current compiler=pcvs info | grep "tbb_build_prefix" | cut -f2 -d'='`; chomp $bdir;
+my $bdir = `make -C $pcvs_build_current compiler=pcvs info | grep "tbb_build_prefix" | cut -f2 -d'='`; 
+exit 1 if (($? >> 8) != 0);
+
+chomp $bdir;
 
 #look for tests to generate
-open(my $fh, "<", "$pcvs_build_current/pcvs.testlist") or die ("Unable to open pcvs.testlist within tbb");
+open(my $fh, "<", "$pcvs_build_current/pcvs.testlist") or exit 1;
 while(<$fh>)
 {
 	chomp;
@@ -47,3 +51,5 @@ while(<$fh>)
 	print STDOUT "    args: '".join(" ", @line[2..$#line])."'\n" if(@line > 2);
 	print STDOUT "\n";
 }
+
+exit 0;

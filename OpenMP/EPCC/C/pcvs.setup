@@ -4,5 +4,7 @@ pcvs_src_current="$pcvs_src/$1"
 pcvs_build_current="$pcvs_testbuild/$1"
 
 cp -r $pcvs_src_current/* $pcvs_build_current
-cat $pcvs_src_current/pcvs.yml.in
+cat $pcvs_src_current/pcvs.yml.in || exit 1
+
+exit 0
 

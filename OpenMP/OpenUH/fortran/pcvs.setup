@@ -21,7 +21,7 @@ do
 	if test "$?" = "0"; then
 		continue;
 	fi
-	perl ./template_parser_fortran.pl --test --crosstest $pcvs_src_current/${f_file}.f $pcvs_build_current/${f_file}.f
+	perl ./template_parser_fortran.pl --test --crosstest $pcvs_src_current/${f_file}.f $pcvs_build_current/${f_file}.f || exit 1
 
 echo "
 $f_file:
@@ -32,3 +32,5 @@ $f_file:
 done < $pcvs_src_current/../testlist-f.txt
 
 cd $OLDIR
+
+exit 0

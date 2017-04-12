@@ -3,8 +3,8 @@
 pcvs_src_current=$pcvs_src/$1
 pcvs_build_current=$pcvs_testbuild/$1
 
-cp -r $pcvs_src_current/* $pcvs_build_current/
-cp -r $pcvs_build_current/pcvs.makedefs $pcvs_build_current/config/make.def
+cp -r $pcvs_src_current/* $pcvs_build_current/ || exit 1
+cp -r $pcvs_build_current/pcvs.makedefs $pcvs_build_current/config/make.def || exit 1
 mkdir -p $pcvs_build_current/bin #didn't understand why is this not automatically created.
 
 echo "build_MPINAS-MZ:"
@@ -62,3 +62,5 @@ function build_benchs
 test "x$pcvs_iterators_n_mpi_list" = "xundefined" && exit 0
 
 build_benchs
+
+exit 0

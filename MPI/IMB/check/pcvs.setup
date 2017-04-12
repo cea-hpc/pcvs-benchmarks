@@ -9,10 +9,10 @@ pcvs_build_current="$pcvs_testbuild/$1"
 cp -r $pcvs_src_current/../src/* $pcvs_build_current
 
 # Generate Makefile in build/
-pcvs_gen_makefile "-DCHECK" > $pcvs_build_current/Makefile
+pcvs_gen_makefile "-DCHECK" > $pcvs_build_current/Makefile || exit 1
 
 # Push "build" rules
-cat $pcvs_src_current/../pcvs.yml.common
+cat $pcvs_src_current/../pcvs.yml.common || exit 1
 
 # Push "run" rules from ../IMB_LIST_OF_TESTS
 while read l
@@ -32,3 +32,4 @@ $name:
   args: "$name"
 EOF
 done < $pcvs_src_current/../IMB_LIST_OF_TESTS
+exit 0

@@ -7,8 +7,8 @@ pcvs_build_current=$pcvs_testbuild/$1
 cp -r $pcvs_src_current/* $pcvs_build_current
 HERE=$PWD
 cd  $pcvs_build_current
-tar xzf ./boost_headers.tgz
-cp ./Makefile-linux-pcvs ./src/Makefile
+tar xzf ./boost_headers.tgz || exit 1
+cp ./Makefile-linux-pcvs ./src/Makefile || exit 1
 cd $HERE
 
 echo "make_mcb:"

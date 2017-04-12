@@ -21,7 +21,7 @@ do
 	if test "$?" = "0"; then
 		continue;
 	fi
-	perl ./template_parser_c.pl --test --crosstest $pcvs_src_current/${c_file}.c $pcvs_build_current/${c_file}.c
+	perl ./template_parser_c.pl --test --crosstest $pcvs_src_current/${c_file}.c $pcvs_build_current/${c_file}.c || exit 1
 echo "
 $c_file:
     herit: *tc
@@ -31,3 +31,4 @@ $c_file:
 done < $pcvs_src_current/../testlist-c.txt
 
 cd $OLDIR
+exit 0
