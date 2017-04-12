@@ -278,6 +278,7 @@ sub run_configure
 	print " * Building the list of tests:\n";
 	my $istart=time();
 	my $ret = 0;
+	my @errs = ();
 	
 	#for each desired subdirectory
 	foreach my $directory (@{ $gconf{'select'}})
@@ -303,6 +304,7 @@ sub run_configure
 			if (($? >> 8) != 0)
 			{
 				print " (Returned an error !)";
+				push @errs, "$name (Setup)";
 				$ret++;
 			}
 			print "\n";
@@ -345,9 +347,14 @@ sub run_configure
 			system("cat $current_bpath/pcvs.yml.in | sed -e 's,\@SRCPATH\@,$current_path,g' -e 's,\@BUILDPATH\@,$current_bpath,g' > $current_bpath/pcvs.yml");
 
 			#Where things are going to be done (TE un-rolling)
-			print "    - Generate $name ";
+			print "    - Generate $name";
 			$ret2 = engine_unfold_file($current_bpath, $name, "$current_bpath/pcvs.yml");
-			print ( ($ret2 <= 0) ? "\n" : "(Aborted: $ret2 error(s) !)\n"  );
+			if($ret2 > 0)
+			{
+				print " ($ret2 error(s) !)";
+				push @errs, $name;
+			}
+			print "\n"; 
 
 			$ret+=$ret2;
 
@@ -357,7 +364,9 @@ sub run_configure
 	if($ret > 0)
 	{
 		helper_error("Aborting the validation due to $ret error(s) found during configuration.",
-			     "Please see the output log and pcvs.yml.log files to fix them.");
+			     "Found in the following directory:",
+			     @errs,
+			     "Please see the output log and associated pcvs.yml.log files to fix it/them.");
 	}
 	engine_fini();
 }

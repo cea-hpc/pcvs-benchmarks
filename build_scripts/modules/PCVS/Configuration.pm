@@ -290,7 +290,7 @@ sub configuration_validate
 		if(defined $current_field)
 		{
 			`type $current_field 2> /dev/null`;
-			helper_error("'$current_field' not found in PATH (defined by runtime/$_") if (($? >> 8) != 0);
+			helper_error("'$current_field' not found in PATH (defined by runtime/$_)") if (($? >> 8) != 0);
 		}
 	}
 
