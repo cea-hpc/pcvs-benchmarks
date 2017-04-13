@@ -184,9 +184,12 @@ sub run_prepare
 
 	#build JCHRONOSS
 	print " * Building JCHRONOSS\n";
-	helper_clean_path("$buildir/tmp/build", 0);
+	#create jchronoss build directory (but not clean it to save time)
+	helper_clean_path("$buildir/tmp/jchronoss_build", 0);
+	#create jchronoss exec-build directory (*.in* files) and clean it !)
+	helper_clean_path("$buildir/tmp/exec_build", 1);
 	{
-		local $CWD = "$buildir/tmp/build"; # equivalent to chdir()
+		local $CWD = "$buildir/tmp/jchronoss_build"; # equivalent to chdir()
 		my $color = "";
 		($color = "-DENABLE_COLOR=".($gconf{"color"} == 1 ? "ON" : "OFF")) if (exists $gconf{"color"});
 		system("cmake $internaldir/generation/jchronoss -DENABLE_OPENMP=OFF -DCMAKE_INSTALL_PREFIX=$buildir/tmp $color && make install");
@@ -385,7 +388,6 @@ sub run_exec
 	$autokill    = helper_prefix_if_exists("--autokill=", $gconf{'validation'}{'autokill'});
 	$run_w       = helper_prefix_if_exists("--launcher=$internaldir/launchers/", $gconf{'validation'}{'run_wrapper'});
 	$compil_w    = helper_prefix_if_exists("--compil-launcher=$internaldir/launchers/", $gconf{'validation'}{'compil_wrapper'});
-	$compil_w    = helper_prefix_if_exists("--compil-launcher=$internaldir/launchers/", $gconf{'validation'}{'run_wrapper'}) if(!defined $compil_w);
 	$verbosity   = helper_prefix_if_exists("--verbosity=", $gconf{'verbose'});
 	$policy      = helper_prefix_if_exists("--policy=", $gconf{'validation'}{'sched_policy'});
 	$maxjobt     = helper_prefix_if_exists("--maxt-job=", $gconf{'validation'}{'job_meantime'});
@@ -396,7 +398,7 @@ sub run_exec
 	my @list = `find $buildir/test_suite/ -name 'list_of_tests.xml'`; chomp @list;
 	$test_files = join(" ", @list);
 
-	my $command = "$buildir/tmp/bin/jchronoss --long-names --nb-resources=$nb_resources --nb-slaves=$nb_workers --build=$buildir/tmp $run_w $compil_w $autokill $verbosity $policy $max_workert $min_workert $rc_on_fail $maxjobt $test_files";
+	my $command = "$buildir/tmp/bin/jchronoss --long-names --nb-resources=$nb_resources --nb-slaves=$nb_workers --build=$buildir/tmp/exec_build $run_w $compil_w $autokill $verbosity $policy $max_workert $min_workert $rc_on_fail $maxjobt $test_files";
 
 	#print($command."\n");
 	system($command);
