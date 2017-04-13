@@ -17,97 +17,56 @@
 # terms.                                                               #
 #                                                                      #
 # Authors:                                                             #
-#   - Julien Adam <adamj@paratools.com>                                   #
+#   - Julien Adam <adamj@paratools.com>                                #
 #   - VALAT Sebastien sebastien.valat@cea.fr                           #
 #                                                                      #
 ########################################################################
 
-#################### SOURCES FILES ######################
-. ${PCVS_INTERNALS_DIR}/scripts/common_functions.sh
+function read_value()
+{
+	echo "$1" | sed -e "s@^$2@@g"
+}
 
-################## LOAD CONFIG FILE #####################
-. ${PCVS_INTERNALS_DIR}/scripts/load_config.sh
+function die()
+{
+	printf "Error: $@\n";
+	exit 42;
+}
 
-######################## VARS ###########################
-SALLOC_NB_NODES="1"
-SALLOC_NB_CORES_PER_TASK="1"
-SALLOC_NB_TASKS="1"
-SALLOC_NB_TASKS_PER_NODE="1"
-SALLOC_TIMEOUT=""
-
-#################### PARSE MPCRUN ARGS ##################
-#capture interesting arguements of mpcrun line
-MPCRUN_ARG_NB_PROCESS="1"
-MPCRUN_ARG_NB_TASKS="1"
-MPCRUN_ARG_NB_NODE=""
 for arg in $*
 do
 	case ${arg} in
-#		-p=*)
-#			MPCRUN_ARG_NB_PROCESS=$(common_read_param_value "${arg}" -p)
-#			;;
-#		-n=*)
-#			MPCRUN_ARG_NB_TASKS=$(common_read_param_value "${arg}" -n)
-#			;;
 		--nb-resources=*)
-			MPCRUN_ARG_NB_NODE=$(common_read_param_value "${arg}" --nb-resources)
+			PCVS_RESOURCES=`read_value "$arg" '--nb-resources='`;
+			;;
+	        *jchronoss)
+			PCVS_BUILDPATH="`read_value "$arg" ''`";
+			PCVS_BUILDPATH="`dirname $PCVS_BUILDPATH`/../../"
+
 			;;
 		--autokill=*)
-			SALLOC_TIMEOUT="$(( $(common_read_param_value "$arg" --autokill) / 60 ))"
-            		if [ "$SALLOC_TIMEOUT" = "0" ] ; then
-                		SALLOC_TIMEOUT=1
+			PCVS_TIMEOUT="`read_value "$arg" '--autokill='`";
+			PCVS_TIMEOUT="`perl -e "print int($PCVS_TIMEOUT / 60)"`";
+
+            		if [ "$PCVSC_TIMEOUT" = "0" ] ; then
+                		PCVS_TIMEOUT=1
             		fi
-			SALLOC_TIMEOUT="-t $SALLOC_TIMEOUT"
+			PCVS_TIMEOUT="-t $PCVS_TIMEOUT"
 			;;
 	esac
 done
 
-################# COMPUTE SALLOC ARGS ###################
-#compute number of nodes
+test ! -f $PCVS_BUILDPATH/config.env && die "No configuration file found in build path: $PCVS_BUILDPATH";
+. $PCVS_BUILDPATH/config.env
 
-if [ -z "${MPCRUN_ARG_NB_NODE}" ]; then
-	#Don't get hint, so compute with number of process
-	#if less process than number of nodes, use one process per node
-	#otherwise, use max number of node
-	common_get_first_if_smaller ${MPCRUN_ARG_NB_PROCESS} ${CLUSTER_MAX_NODE_PER_TEST}
-	SALLOC_NB_NODES=$value
-elif [ ${MPCRUN_ARG_NB_NODE} -gt ${CLUSTER_MAX_NODES} ]; then
-	common_print_error "Not enough nodes for this test, you have CLUSTER_MAX_NODES = ${CLUSTER_MAX_NODES}, but request ${MPCRUN_ARG_NB_NODE}"
-	exit 1
-else
-	#use the user hint
-	SALLOC_NB_NODES=${MPCRUN_ARG_NB_NODE}
-fi
-
-#Number of salloc task is number of mpc process
-SALLOC_NB_TASKS=${SALLOC_NB_NODES}
-
-#Compute temporary number of taks per node
-#if [ ${SALLOC_NB_TASKS} -lt ${SALLOC_NB_NODES} ]; then
-#	common_print_error "You try to launch a test with more nodes (${SALLOC_NB_NODES]} than processes (${SALLOC_NB_TASKS})."
-#	exit 1
-#fi
-SALLOC_NB_TASKS_PER_NODE=$(( ${SALLOC_NB_TASKS} / ${SALLOC_NB_NODES} ))
-
-#We multiply to handle the case when SALLOC_NB_TASKS is not divisible by SALLOC_NB_NODES
-if [ $(( $SALLOC_NB_TASKS_PER_NODE * $SALLOC_NB_NODES )) -ne $SALLOC_NB_TASKS ]; then
-	SALLOC_NB_TASKS_PER_NODE=$(( $SALLOC_NB_TASKS_PER_NODE + 1 ))
-fi
-
-#each test use a complete node, so compute to use maximum number of core per node
-SALLOC_NB_CORES_PER_TASK=$(( ${CLUSTER_MAX_CORES_PER_NODE} / ${SALLOC_NB_TASKS_PER_NODE} ))
-if [ ${SALLOC_NB_CORES_PER_TASK} -eq 0 ]; then
-	SALLOC_NB_CORES_PER_TASK=1
-fi
-
-if [ -z "${LAUNCHER_COMMAND}" ] ; then
-	LAUNCHER_COMMAND="salloc"
-fi
+#add your checks here...
+test $PCVS_RESOURCES -gt $pcvs_cluster_max_nodes && die "Too much resources allocated (more than offered).";
+test -z $pcvs_cluster_launcher && pcvs_cluster_launcher="salloc";
 
 ################### GENERATE COMMAND ####################
-salloc_args="-N ${SALLOC_NB_NODES} -n ${SALLOC_NB_TASKS} -c ${SALLOC_NB_CORES_PER_TASK} ${SALLOC_TIMEOUT} ${LAUNCHER_EXTRA_ARGS}"
-final_user_command="$(echo "$@")"
-command="${LAUNCHER_COMMAND} ${salloc_args} ${SLURM_SALLOC_OPTS} ${final_user_command}"
+pcvs_cluster_args="$pcvs_cluster_args -N $PCVS_RESOURCES -n $PCVS_RESOURCES -c $pcvs_cluster_max_cores_per_node $PCVS_TIMEOUT"
+final_user_command="`echo "$@"`"
+command="${pcvs_cluster_launcher} ${pcvs_cluster_args} ${final_user_command}"
 
 ################## EXECUTE THE COMMAND ##################
 echo "Launched from slurm wrapper"
