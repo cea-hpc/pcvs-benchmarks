@@ -139,6 +139,7 @@ libInfrastructure.$(LIB_EXT):$(INFRASTRUCTURE_OBJECTS)
 libTetonUtils.$(LIB_EXT):$(UTILS_OBJECTS)
 	$(LD) $(LDFLAGS) -o $@ $^ $(LIBPATH) $(PLATFORM_TetonUtils_EXTRAS)
 
+LINKFLAGS += -lgfortran
 
 # SuOlsonTest target only for internal testing purposes
 SuOlsonTest:SuOlsonTest.o transport part communication libInfrastructure.$(LIB_EXT) libTetonUtils.$(LIB_EXT) 
