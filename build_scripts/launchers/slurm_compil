@@ -64,7 +64,7 @@ test $PCVS_RESOURCES -gt $pcvs_cluster_max_cores_per_node && PCVS_RESOURCES=$pcv
 test -z $pcvs_cluster_launcher && pcvs_cluster_launcher="srun";
 
 ################### GENERATE COMMAND ####################
-pcvs_cluster_args="$pcvs_cluster_args -N 1 -n $PCVS_RESOURCES -c $pcvs_cluster_max_cores_per_node $PCVS_TIMEOUT"
+pcvs_cluster_args="$pcvs_cluster_args -N 1 -n $PCVS_RESOURCES -c 1 $PCVS_TIMEOUT"
 final_user_command="`echo "$@"`"
 command="${pcvs_cluster_launcher} ${pcvs_cluster_args} ${final_user_command}"
 
