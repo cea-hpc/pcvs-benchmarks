@@ -60,11 +60,11 @@ test ! -f $PCVS_BUILDPATH/config.env && die "No configuration file found in buil
 . $PCVS_BUILDPATH/config.env
 
 #add your checks here...
-test $PCVS_RESOURCES -gt $pcvs_cluster_max_nodes && die "Too much resources allocated (more than offered).";
+test $PCVS_RESOURCES -gt $pcvs_cluster_max_cores_per_node && PCVS_RESOURCES=$pcvs_cluster_max_cores_per_node
 test -z $pcvs_cluster_launcher && pcvs_cluster_launcher="srun";
 
 ################### GENERATE COMMAND ####################
-pcvs_cluster_args="$pcvs_cluster_args -N $PCVS_RESOURCES -n $PCVS_RESOURCES -c $pcvs_cluster_max_cores_per_node $PCVS_TIMEOUT"
+pcvs_cluster_args="$pcvs_cluster_args -N 1 -n $PCVS_RESOURCES -c $pcvs_cluster_max_cores_per_node $PCVS_TIMEOUT"
 final_user_command="`echo "$@"`"
 command="${pcvs_cluster_launcher} ${pcvs_cluster_args} ${final_user_command}"
 

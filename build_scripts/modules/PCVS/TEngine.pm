@@ -373,11 +373,14 @@ sub engine_TE_combinations
 #   - @c : the combination
 #
 # Returns:
-# Two elements: The string containing env vars to load and the string containing runtime-formated arguments list
+# Three elements: 
+#   - The string containing env vars to load
+#   - The number of resources addressed to this test case
+#   - The string containing runtime-formated arguments list
 sub engine_convert_to_cmd
 {
 	my ($keys, @c) = @_;
-	my ($pre_env, $post_args) = ();
+	my ($pre_env, $nb_res, $post_args) = ();
 	# for each combination element
 	foreach (0..$#c)
 	{
@@ -402,8 +405,10 @@ sub engine_convert_to_cmd
 		{
 			$post_args .= $value;
 		}
+
+		$nb_res = $c[$_] if($param_name eq $sysconf->{validation}{resource_level});
 	}
-	return ($pre_env || "", $post_args || "");
+	return ($pre_env || "", $nb_res || undef, $post_args || "");
 }
 
 ###########################################################################
@@ -411,6 +416,7 @@ sub engine_convert_to_cmd
 # Args:
 #   - $xml : the open FD to XML file (through XML::Writer)
 #   - $name : test naem
+#   - $nb_res: number of resources (=nodes) for this job
 #   - $command: test command
 #   - $rc: test expected return code
 #   - $time: expected time
@@ -419,7 +425,7 @@ sub engine_convert_to_cmd
 #   - @deps: list of dependencies for this test (can be undef)
 sub engine_gen_test
 {
-	my ($xml, $name, $chdir, $command, $rc, $time, $delta, $constraint, @deps) = @_;
+	my ($xml, $name, $nb_res, $chdir, $command, $rc, $time, $delta, $constraint, @deps) = @_;
 
 	$command= "cd $chdir && $command" if (defined $chdir);
 
@@ -429,6 +435,8 @@ sub engine_gen_test
 	$xml->dataElement("rc", $rc);
 	$xml->dataElement("time", $time) if (defined $time);
 	$xml->dataElement("delta", $delta) if(defined $delta);
+	$xml->dataElement("resources", $nb_res) if(defined $nb_res);
+	
 
 	$xml->startTag("constraints");
 	$xml->dataElement("constraint", $constraint) if(defined $constraint);
@@ -574,7 +582,7 @@ sub engine_unfold_test_expr
 			$command = "$sysconf->{compiler}{$comp_name} -o $bin $files $cflags $args" ;
 		}
 		#generate the XML entry
-		engine_gen_test($xml, $tname, undef, $command, $rc, $time, $delta, $constraint, @deps);
+		engine_gen_test($xml, $tname, undef, undef, $command, $rc, $time, $delta, $constraint, @deps);
 	}
 
 	# if the current should be run
@@ -607,10 +615,10 @@ sub engine_unfold_test_expr
 			# build the test name
 			$name    = "$tname".engine_build_testname($it_keys, @{ $it_comb->[$_]} );
 			#parse arguments and options depending on runtime
-			my ($pre_env, $post_args) = engine_convert_to_cmd($it_keys, @{ $it_comb->[$_] });
+			my ($pre_env, $nb_res, $post_args) = engine_convert_to_cmd($it_keys, @{ $it_comb->[$_] });
 			$command = "$pre_env $launcher $post_args $timeout $extra_args $bin $args";
 			#push the test into XML file
-			engine_gen_test($xml, $name, $chdir, $command, $rc, $time, $delta, $constraint, @deps);
+			engine_gen_test($xml, $name, $nb_res, $chdir, $command, $rc, $time, $delta, $constraint, @deps);
 		}
 	}
 
