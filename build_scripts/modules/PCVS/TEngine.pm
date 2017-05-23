@@ -369,6 +369,7 @@ sub engine_TE_combinations
 ###########################################################################
 # Convert the combination sequence into a valid LINUX command
 # Args: 
+#   - $name: test name
 #   - $keys: list or iterator names for the combination
 #   - @c : the combination
 #
@@ -379,7 +380,7 @@ sub engine_TE_combinations
 #   - The string containing runtime-formated arguments list
 sub engine_convert_to_cmd
 {
-	my ($keys, @c) = @_;
+	my ($name, $keys, @c) = @_;
 	my ($pre_env, $nb_res, $post_args) = ();
 	# for each combination element
 	foreach (0..$#c)
@@ -408,6 +409,8 @@ sub engine_convert_to_cmd
 
 		$nb_res = $c[$_] if($param_name eq $sysconf->{validation}{resource_level});
 	}
+	#special case: we export a var allowing the test case to identify itself
+	$pre_env = "PCVS_TESTCASE=\"$name\" ".$pre_env;
 	return ($pre_env || "", $nb_res || undef, $post_args || "");
 }
 
@@ -615,7 +618,7 @@ sub engine_unfold_test_expr
 			# build the test name
 			$name    = "$tname".engine_build_testname($it_keys, @{ $it_comb->[$_]} );
 			#parse arguments and options depending on runtime
-			my ($pre_env, $nb_res, $post_args) = engine_convert_to_cmd($it_keys, @{ $it_comb->[$_] });
+			my ($pre_env, $nb_res, $post_args) = engine_convert_to_cmd($name, $it_keys, @{ $it_comb->[$_] });
 			$command = "$pre_env $launcher $post_args $timeout $extra_args $bin $args";
 			#push the test into XML file
 			engine_gen_test($xml, $name, $nb_res, $chdir, $command, $rc, $time, $delta, $constraint, @deps);
