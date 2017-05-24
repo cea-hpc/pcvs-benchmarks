@@ -68,7 +68,8 @@ create_graph_from_edgelist (struct packed_edge *IJ_in, int64_t nedge)
     }
   }
 
-  for (int64_t kg = 0; kg <= maxvtx; ++kg)
+  int64_t kg;
+  for (kg = 0; kg <= maxvtx; ++kg)
     if (deg[kg] > maxdeg)
       maxdeg = deg[kg];
 
