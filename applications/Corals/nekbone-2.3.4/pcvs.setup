@@ -28,11 +28,10 @@ else
 	echo "#gfortran DETECTED"
 fi
 
-case COMP_TYPE in
-	*)
-		#SAME AS GFORTRAN
-		NKFLAGS="-fcray-pointer -fdefault-real-8 -x f77-cpp-input"	
-	;;
+#Default
+NKFLAGS="-fcray-pointer -fdefault-real-8 -x f77-cpp-input"	
+
+case "$COMP_TYPE" in
 	"gfortran")
 		NKFLAGS="-fcray-pointer -fdefault-real-8 -x f77-cpp-input"
 	;;
