@@ -22,13 +22,13 @@ do
 	for i in 2 4
 	do
 		NPROC=`perl -e "print ($i**3)"`
-		SIZ=`perl -e "print ($i*40)"`
+		SIZ=100
 		echo "run_amg${i}_${s}:"
 		echo "    deps: [ 'make_amg' ]"
 		echo "    n_mpi: [$NPROC]"
 		echo "    chdir: './test/'"
 		echo "    bin: './test/amg2013'"
-		echo "    args: '-P $i $i $i -n $SIZ $SIZ $SIZ -solver $s'"
+		echo "    args: '-P $i $i $i -r $SIZ $SIZ $SIZ -solver $s'"
 		echo ""
 	
 	done
