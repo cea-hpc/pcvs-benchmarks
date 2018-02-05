@@ -66,7 +66,7 @@ sub engine_init
 	load($loaded_mod);
 
 	#first, remove iterators not used by the configuration.
-	foreach (keys $sysconf->{'iterators'})
+	foreach (keys %{ $sysconf->{'iterators'} })
 	{
 		#if iterator does not exist or not defined by the runtime, the iterator is skipped
 		next if(! exists $sysconf->{"runtime"}{$_}{'key'} or !$sysconf->{"runtime"}{$_}{'key'});

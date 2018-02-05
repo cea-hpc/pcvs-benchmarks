@@ -98,7 +98,7 @@ sub configuration_build
 			#iterate over subkeys to update (YAML data is a two-level tree, should be replaced by recursion).
 			if(ref($gconf{$key}) eq 'HASH')
 			{
-				foreach my $subkey (keys $user_data{$key})
+				foreach my $subkey (keys %{ $user_data{$key}} )
 				{
 					$gconf{$key}{$subkey} = $user_data{$key}{$subkey};
 				}
