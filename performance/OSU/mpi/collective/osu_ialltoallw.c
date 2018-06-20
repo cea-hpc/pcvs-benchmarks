@@ -1,6 +1,6 @@
-#define BENCHMARK "OSU MPI%s Non-blocking All-to-Allv Personalized Exchange Latency Test"
+#define BENCHMARK "OSU MPI%s Non-blocking All-to-Allw Personalized Exchange Latency Test"
 /*
- * Copyright (C) 2002-2016 the Network-Based Computing Laboratory
+ * Copyright (C) 2002-2018 the Network-Based Computing Laboratory
  * (NBCL), The Ohio State University. 
  *
  * Contact: Dr. D. K. Panda (panda@cse.ohio-state.edu)
@@ -9,11 +9,10 @@
  * copyright file COPYRIGHT in the top level OMB directory.
  */
 
-#include "osu_coll.h"
+#include <osu_util.h>
 
 int main(int argc, char *argv[])
 {
-    setbuf(stdout, NULL);
     int i = 0, rank, size;
     int numprocs;
     double latency = 0.0, t_start = 0.0, t_stop = 0.0;
@@ -32,36 +31,39 @@ int main(int argc, char *argv[])
     int disp = 0;
     set_header(HEADER);
     set_benchmark_name("osu_ialltoallw");
-    enable_accel_support();
+
+    options.bench = COLLECTIVE;
+    options.subtype = LAT;
+
     po_ret = process_options(argc, argv);
 
-    if (po_okay == po_ret && none != options.accel) {
+    if (PO_OKAY == po_ret && NONE != options.accel) {
         if (init_accel()) {
             fprintf(stderr, "Error initializing device\n");
             exit(EXIT_FAILURE);
         }
     }
 
-    MPI_Init(&argc, &argv);
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    MPI_Comm_size(MPI_COMM_WORLD, &numprocs);
+    MPI_CHECK(MPI_Init(&argc, &argv));
+    MPI_CHECK(MPI_Comm_rank(MPI_COMM_WORLD, &rank));
+    MPI_CHECK(MPI_Comm_size(MPI_COMM_WORLD, &numprocs));
     MPI_Request request;
     MPI_Status status;
 
     switch (po_ret) {
-        case po_bad_usage:
+        case PO_BAD_USAGE:
             print_bad_usage_message(rank);
-            MPI_Finalize();
+            MPI_CHECK(MPI_Finalize());
             exit(EXIT_FAILURE);
-        case po_help_message:
+        case PO_HELP_MESSAGE:
             print_help_message(rank);
-            MPI_Finalize();
+            MPI_CHECK(MPI_Finalize());
             exit(EXIT_SUCCESS);
-        case po_version_message:
+        case PO_VERSION_MESSAGE:
             print_version_message(rank);
-            MPI_Finalize();
+            MPI_CHECK(MPI_Finalize());
             exit(EXIT_SUCCESS);
-        case po_okay:
+        case PO_OKAY:
             break;
     }
 
@@ -70,53 +72,58 @@ int main(int argc, char *argv[])
             fprintf(stderr, "This test requires at least two processes\n");
         }
 
-        MPI_Finalize();
+        MPI_CHECK(MPI_Finalize());
         exit(EXIT_FAILURE);
     }
 
     if (options.max_message_size * numprocs > options.max_mem_limit) {
+        if (rank == 0) {
+            fprintf(stderr, "Warning! Increase the Max Memory Limit to be able to run up to %ld bytes.\n"
+                            "Continuing with max message size of %ld bytes\n",
+                            options.max_message_size, options.max_mem_limit / numprocs);
+        }
         options.max_message_size = options.max_mem_limit / numprocs;
     }
      
-    if (allocate_buffer((void**)&recvcounts, numprocs*sizeof(int), none)) {
+    if (allocate_memory_coll((void**)&recvcounts, numprocs*sizeof(int), NONE)) {
         fprintf(stderr, "Could Not Allocate Memory [rank %d]\n", rank);
-        MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
+        MPI_CHECK(MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE));
     }
-    if (allocate_buffer((void**)&sendcounts, numprocs*sizeof(int), none)) {
+    if (allocate_memory_coll((void**)&sendcounts, numprocs*sizeof(int), NONE)) {
         fprintf(stderr, "Could Not Allocate Memory [rank %d]\n", rank);
-        MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
-    }
-
-    if (allocate_buffer((void**)&rdispls, numprocs*sizeof(int), none)) {
-        fprintf(stderr, "Could Not Allocate Memory [rank %d]\n", rank);
-        MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
-    }
-    if (allocate_buffer((void**)&sdispls, numprocs*sizeof(int), none)) {
-        fprintf(stderr, "Could Not Allocate Memory [rank %d]\n", rank);
-        MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
+        MPI_CHECK(MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE));
     }
 
-    if (allocate_buffer((void**)&stypes, numprocs*sizeof(MPI_Datatype), none)) {
+    if (allocate_memory_coll((void**)&rdispls, numprocs*sizeof(int), NONE)) {
         fprintf(stderr, "Could Not Allocate Memory [rank %d]\n", rank);
-        MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
+        MPI_CHECK(MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE));
+    }
+    if (allocate_memory_coll((void**)&sdispls, numprocs*sizeof(int), NONE)) {
+        fprintf(stderr, "Could Not Allocate Memory [rank %d]\n", rank);
+        MPI_CHECK(MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE));
     }
 
-    if (allocate_buffer((void**)&rtypes, numprocs*sizeof(MPI_Datatype), none)) {
+    if (allocate_memory_coll((void**)&stypes, numprocs*sizeof(MPI_Datatype), NONE)) {
         fprintf(stderr, "Could Not Allocate Memory [rank %d]\n", rank);
-        MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
+        MPI_CHECK(MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE));
+    }
+
+    if (allocate_memory_coll((void**)&rtypes, numprocs*sizeof(MPI_Datatype), NONE)) {
+        fprintf(stderr, "Could Not Allocate Memory [rank %d]\n", rank);
+        MPI_CHECK(MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE));
     }
 
     bufsize = options.max_message_size * numprocs;
-    if (allocate_buffer((void**)&sendbuf, bufsize, options.accel)) {
+    if (allocate_memory_coll((void**)&sendbuf, bufsize, options.accel)) {
         fprintf(stderr, "Could Not Allocate Memory [rank %d]\n", rank);
-        MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
+        MPI_CHECK(MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE));
     }
     set_buffer(sendbuf, options.accel, 1, bufsize);
 
-    if (allocate_buffer((void**)&recvbuf, bufsize,
+    if (allocate_memory_coll((void**)&recvbuf, bufsize,
                 options.accel)) {
         fprintf(stderr, "Could Not Allocate Memory [rank %d]\n", rank);
-        MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
+        MPI_CHECK(MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE));
     }
     set_buffer(recvbuf, options.accel, 0, bufsize);
 
@@ -124,11 +131,11 @@ int main(int argc, char *argv[])
 
     for(size=options.min_message_size; size <=options.max_message_size; size *= 2) {
         if(size > LARGE_MESSAGE_SIZE) {
-            options.skip = SKIP_LARGE;
+            options.skip = options.skip_large;
             options.iterations = options.iterations_large;
         }
         else {
-            options.skip = SKIP;
+            options.skip = options.skip_large;
         }
         
         disp =0;
@@ -141,26 +148,26 @@ int main(int argc, char *argv[])
             stypes[i] = MPI_CHAR;
             rtypes[i] = MPI_CHAR;
         }
-        MPI_Barrier(MPI_COMM_WORLD);
+        MPI_CHECK(MPI_Barrier(MPI_COMM_WORLD));
  
         timer = 0.0;     
           
         for(i=0; i < options.iterations + options.skip ; i++) {
             t_start = MPI_Wtime();
-            MPI_Ialltoallw(sendbuf, sendcounts, sdispls, stypes, 
-                          recvbuf, recvcounts, rdispls, rtypes, 
-                          MPI_COMM_WORLD, &request);
-            MPI_Wait(&request,&status);
+            MPI_CHECK(MPI_Ialltoallw(sendbuf, sendcounts, sdispls, stypes,
+                          recvbuf, recvcounts, rdispls, rtypes,
+                          MPI_COMM_WORLD, &request));
+            MPI_CHECK(MPI_Wait(&request,&status));
             
             t_stop = MPI_Wtime();
             
             if(i>=options.skip){
                 timer += t_stop-t_start;
             } 
-            MPI_Barrier(MPI_COMM_WORLD);
+            MPI_CHECK(MPI_Barrier(MPI_COMM_WORLD));
         }  
         
-        MPI_Barrier(MPI_COMM_WORLD);
+        MPI_CHECK(MPI_Barrier(MPI_COMM_WORLD));
 
         latency = (timer * 1e6) / options.iterations;
         
@@ -178,7 +185,7 @@ int main(int argc, char *argv[])
 
         }
 
-        MPI_Barrier(MPI_COMM_WORLD);
+        MPI_CHECK(MPI_Barrier(MPI_COMM_WORLD));
 
         timer = 0.0; tcomp_total = 0; tcomp = 0;        
         init_total = 0.0; wait_total = 0.0;
@@ -188,9 +195,9 @@ int main(int argc, char *argv[])
             t_start = MPI_Wtime();
 
             init_time = MPI_Wtime();
-            MPI_Ialltoallw(sendbuf, sendcounts, sdispls, stypes,
-                          recvbuf, recvcounts, rdispls, rtypes, 
-                          MPI_COMM_WORLD, &request);
+            MPI_CHECK(MPI_Ialltoallw(sendbuf, sendcounts, sdispls, stypes,
+                          recvbuf, recvcounts, rdispls, rtypes,
+                          MPI_COMM_WORLD, &request));
             init_time = MPI_Wtime() - init_time;
 
             tcomp = MPI_Wtime();             
@@ -198,7 +205,7 @@ int main(int argc, char *argv[])
             tcomp = MPI_Wtime() - tcomp;
 
             wait_time = MPI_Wtime();
-            MPI_Wait(&request,&status);
+            MPI_CHECK(MPI_Wait(&request,&status));
             wait_time = MPI_Wtime() - wait_time;
 
             t_stop = MPI_Wtime();
@@ -210,7 +217,7 @@ int main(int argc, char *argv[])
                 init_total += init_time;
                 wait_total += wait_time;
             }
-            MPI_Barrier(MPI_COMM_WORLD);
+            MPI_CHECK(MPI_Barrier(MPI_COMM_WORLD));
         }  
        
         MPI_Barrier (MPI_COMM_WORLD);
@@ -221,16 +228,16 @@ int main(int argc, char *argv[])
                                   wait_total, init_total);
     }  
 
-    free_buffer(rdispls, none);
-    free_buffer(sdispls, none);
-    free_buffer(recvcounts, none);
-    free_buffer(sendcounts, none);
+    free_buffer(rdispls, NONE);
+    free_buffer(sdispls, NONE);
+    free_buffer(recvcounts, NONE);
+    free_buffer(sendcounts, NONE);
     free_buffer(sendbuf, options.accel);
     free_buffer(recvbuf, options.accel);
 
-    MPI_Finalize();
+    MPI_CHECK(MPI_Finalize());
 
-    if (none != options.accel) {
+    if (NONE != options.accel) {
         if (cleanup_accel()) {
             fprintf(stderr, "Error cleaning up device\n");
             exit(EXIT_FAILURE);

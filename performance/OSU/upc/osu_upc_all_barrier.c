@@ -1,6 +1,6 @@
 #define BENCHMARK "OSU UPC Barrier Latency Test"
 /*
- * Copyright (C) 2002-2016 the Network-Based Computing Laboratory
+ * Copyright (C) 2002-2018 the Network-Based Computing Laboratory
  * (NBCL), The Ohio State University. 
  *
  * Contact: Dr. D. K. Panda (panda@cse.ohio-state.edu)
@@ -9,23 +9,10 @@
  * copyright file COPYRIGHT in the top level OMB directory.
  */
 
-#include <stdio.h>
-#include <sys/time.h>
-#include <stdint.h>
-#include "osu_coll.h"
-#include "osu_common.h"
-#include <stdlib.h>
-
 #include <upc.h>
 #include <upc_collective.h>
+#include <../util/osu_util.h>
 
-#ifdef PACKAGE_VERSION
-#   define HEADER "# " BENCHMARK " v" PACKAGE_VERSION "\n"
-#else
-#   define HEADER "# " BENCHMARK "\n"
-#endif
-
-#define SYNC_MODE (UPC_IN_ALLSYNC | UPC_OUT_ALLSYNC)
 
 shared double avg_time, max_time, min_time;
 shared double latency[THREADS];
@@ -33,13 +20,36 @@ shared double latency[THREADS];
 int main(int argc, char *argv[])
 {
     int i = 0;
-    int skip;
-    int64_t t_start = 0, t_stop = 0, timer=0;
+    int skip, size = 0, iterations;
+    double t_start = 0, t_stop = 0, timer=0;
     int full = 0;
+    int po_ret;
 
-    if (process_args(argc, argv, MYTHREAD, NULL, &full, HEADER)) {
-        return 0;
+    options.bench = UPC;
+
+    po_ret = process_options(argc, argv);
+
+    full = options.show_full;
+    skip = options.skip_large;
+    iterations = options.iterations;
+    options.show_size = 0;
+
+    switch (po_ret) {
+        case PO_BAD_USAGE:
+            print_usage_pgas(MYTHREAD, argv[0], size != 0);
+            exit(EXIT_FAILURE);
+        case PO_HELP_MESSAGE:
+            print_usage_pgas(MYTHREAD, argv[0], size != 0);
+            exit(EXIT_SUCCESS);
+        case PO_VERSION_MESSAGE:
+            if (MYTHREAD == 0) {
+                print_version_pgas(HEADER);
+            }
+            exit(EXIT_SUCCESS);
+        case PO_OKAY:
+            break;
     }
+
     
     if(THREADS < 2) {
         if(MYTHREAD == 0) {
@@ -47,10 +57,11 @@ int main(int argc, char *argv[])
         }
         return -1;
     }
-    print_header(HEADER, MYTHREAD, full);
+
+
+    print_header_pgas(HEADER, MYTHREAD, full);
     upc_barrier;
 
-    skip = SKIP;    
     timer=0;        
     for(i=0; i < iterations + skip ; i++) {        
         t_start = TIME();
@@ -70,7 +81,7 @@ int main(int argc, char *argv[])
     if(!MYTHREAD)
         avg_time = avg_time/THREADS;
     
-    print_data(MYTHREAD, full, 0, avg_time, min_time, max_time, iterations);
+    print_data_pgas(MYTHREAD, full, 0, avg_time, min_time, max_time, iterations);
     upc_barrier;
     return EXIT_SUCCESS;
 }

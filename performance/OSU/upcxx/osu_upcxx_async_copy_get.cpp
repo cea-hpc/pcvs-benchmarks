@@ -1,6 +1,6 @@
 #define BENCHMARK "OSU UPC++ Async Copy (Get) Test"
 /*
- * Copyright (C) 2002-2015 the Network-Based Computing Laboratory
+ * Copyright (C) 2002-2018 the Network-Based Computing Laboratory
  * (NBCL), The Ohio State University.
  *
  * Contact: Dr. D. K. Panda (panda@cse.ohio-state.edu)
@@ -10,18 +10,11 @@
  */
 
 #include <upcxx.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <osu_common.h>
+#include <osu_util.h>
 
 using namespace upcxx;
 
 #define VERIFY 0
-#define MAX_MSG_SIZE         (1<<22)
-#define SKIP_LARGE  10
-#define LOOP_LARGE  100
-#define LARGE_MESSAGE_SIZE  8192
 
 int skip = 1000;
 int loop = 10000;
@@ -33,7 +26,7 @@ main (int argc, char **argv)
 
     int iters=0;
     double t_start, t_end;
-    int peerid = (myrank()+1)%ranks();
+    int peerid = (myrank() + ranks()/2) % ranks();
     int iamsender = 0;
     int i;
 
@@ -54,7 +47,7 @@ main (int argc, char **argv)
      * allocate memory to each global pointer.
      */
     data_ptrs[myrank()] = allocate<char>(myrank(), sizeof(char)
-            * MAX_MSG_SIZE);
+            * MAX_MESSAGE_SIZE);
 
     /*
      * put a barrier since allocate is non-blocking in upc++
@@ -80,7 +73,7 @@ main (int argc, char **argv)
         fflush(stdout);
     }
 
-    for (int size = 1; size <= MAX_MSG_SIZE; size*=2) {
+    for (int size = 1; size <= MAX_MESSAGE_SIZE; size*=2) {
         if (iamsender) {
             for (i = 0; i < size; i++) {
                 char *lptr = (char *)local;
@@ -96,8 +89,8 @@ main (int argc, char **argv)
         barrier();
 
         if (size > LARGE_MESSAGE_SIZE) {
-            loop = LOOP_LARGE;
-            skip = SKIP_LARGE;
+            loop = UPC_LOOP_LARGE;
+            skip = UPC_SKIP_LARGE;
         }
 
         if (iamsender) {
@@ -132,7 +125,7 @@ main (int argc, char **argv)
              * my local and my remote ptr should have same data
              */
             char *lptr = (char *)local;
-            for (int i = 0; i < MIN(20, MAX_MSG_SIZE); i++) {
+            for (int i = 0; i < MIN(20, MAX_MESSAGE_SIZE); i++) {
                 printf("sender_rank():%d --- lptr[%d]=%c , rptr[%d]=%c \n",
                         myrank(), i, lptr[i], i, (char)remote[i]);
 

@@ -1,6 +1,6 @@
 #define BENCHMARK "OSU MPI%s Latency Test"
 /*
- * Copyright (C) 2002-2016 the Network-Based Computing Laboratory
+ * Copyright (C) 2002-2018 the Network-Based Computing Laboratory
  * (NBCL), The Ohio State University. 
  *
  * Contact: Dr. D. K. Panda (panda@cse.ohio-state.edu)
@@ -8,7 +8,7 @@
  * For detailed copyright and licensing information, please refer to the
  * copyright file COPYRIGHT in the top level OMB directory.
  */
-#include <osu_pt2pt.h>
+#include <osu_util.h>
 
 int
 main (int argc, char *argv[])
@@ -18,48 +18,62 @@ main (int argc, char *argv[])
     MPI_Status reqstat;
     char *s_buf, *r_buf;
     double t_start = 0.0, t_end = 0.0;
-    int po_ret = process_options(argc, argv, LAT);
+    int po_ret = 0;
+    options.bench = PT2PT;
+    options.subtype = LAT;
 
-    if (po_okay == po_ret && none != options.accel) {
+    set_header(HEADER);
+    set_benchmark_name("osu_latency");
+
+    po_ret = process_options(argc, argv);
+
+    if (PO_OKAY == po_ret && NONE != options.accel) {
         if (init_accel()) {
-           fprintf(stderr, "Error initializing device\n");
+            fprintf(stderr, "Error initializing device\n");
             exit(EXIT_FAILURE);
         }
     }
 
-    set_header(HEADER);
-
-    MPI_Init(&argc, &argv);
-    MPI_Comm_size(MPI_COMM_WORLD, &numprocs);
-    MPI_Comm_rank(MPI_COMM_WORLD, &myid);
+    MPI_CHECK(MPI_Init(&argc, &argv));
+    MPI_CHECK(MPI_Comm_size(MPI_COMM_WORLD, &numprocs));
+    MPI_CHECK(MPI_Comm_rank(MPI_COMM_WORLD, &myid));
 
     if (0 == myid) {
         switch (po_ret) {
-            case po_cuda_not_avail:
+            case PO_CUDA_NOT_AVAIL:
                 fprintf(stderr, "CUDA support not enabled.  Please recompile "
                         "benchmark with CUDA support.\n");
                 break;
-            case po_openacc_not_avail:
+            case PO_OPENACC_NOT_AVAIL:
                 fprintf(stderr, "OPENACC support not enabled.  Please "
                         "recompile benchmark with OPENACC support.\n");
                 break;
-            case po_bad_usage:
-            case po_help_message:
-                usage("osu_latency");
+            case PO_BAD_USAGE:
+                print_bad_usage_message(myid);
+                break;
+            case PO_HELP_MESSAGE:
+                print_help_message(myid);
+                break;
+            case PO_VERSION_MESSAGE:
+                print_version_message(myid);
+                MPI_CHECK(MPI_Finalize());
+                exit(EXIT_SUCCESS);
+            case PO_OKAY:
                 break;
         }
     }
 
     switch (po_ret) {
-        case po_cuda_not_avail:
-        case po_openacc_not_avail:
-        case po_bad_usage:
-            MPI_Finalize();
+        case PO_CUDA_NOT_AVAIL:
+        case PO_OPENACC_NOT_AVAIL:
+        case PO_BAD_USAGE:
+            MPI_CHECK(MPI_Finalize());
             exit(EXIT_FAILURE);
-        case po_help_message:
-            MPI_Finalize();
+        case PO_HELP_MESSAGE:
+        case PO_VERSION_MESSAGE:
+            MPI_CHECK(MPI_Finalize());
             exit(EXIT_SUCCESS);
-        case po_okay:
+        case PO_OKAY:
             break;
     }
 
@@ -68,13 +82,13 @@ main (int argc, char *argv[])
             fprintf(stderr, "This test requires exactly two processes\n");
         }
 
-        MPI_Finalize();
+        MPI_CHECK(MPI_Finalize());
         exit(EXIT_FAILURE);
     }
 
-    if (allocate_memory(&s_buf, &r_buf, myid)) {
+    if (allocate_memory_pt2pt(&s_buf, &r_buf, myid)) {
         /* Error allocating memory */
-        MPI_Finalize();
+        MPI_CHECK(MPI_Finalize());
         exit(EXIT_FAILURE);
     }
 
@@ -82,36 +96,39 @@ main (int argc, char *argv[])
 
     
     /* Latency test */
-    for(size = 0; size <= MAX_MSG_SIZE; size = (size ? size * 2 : 1)) {
-        touch_data(s_buf, r_buf, myid, size);
+    for(size = options.min_message_size; size <= options.max_message_size; size = (size ? size * 2 : 1)) {
+        set_buffer(s_buf, options.accel, 'a', size);
+        set_buffer(r_buf, options.accel, 'b', size);
 
         if(size > LARGE_MESSAGE_SIZE) {
-            options.loop = options.loop_large;
+            options.iterations = options.iterations_large;
             options.skip = options.skip_large;
         }
 
-        MPI_Barrier(MPI_COMM_WORLD);
+        MPI_CHECK(MPI_Barrier(MPI_COMM_WORLD));
 
         if(myid == 0) {
-            for(i = 0; i < options.loop + options.skip; i++) {
-                if(i == options.skip) t_start = MPI_Wtime();
+            for(i = 0; i < options.iterations + options.skip; i++) {
+                if(i == options.skip) {
+                    t_start = MPI_Wtime();
+                }
 
-                MPI_Send(s_buf, size, MPI_CHAR, 1, 1, MPI_COMM_WORLD);
-                MPI_Recv(r_buf, size, MPI_CHAR, 1, 1, MPI_COMM_WORLD, &reqstat);
+                MPI_CHECK(MPI_Send(s_buf, size, MPI_CHAR, 1, 1, MPI_COMM_WORLD));
+                MPI_CHECK(MPI_Recv(r_buf, size, MPI_CHAR, 1, 1, MPI_COMM_WORLD, &reqstat));
             }
 
             t_end = MPI_Wtime();
         }
 
         else if(myid == 1) {
-            for(i = 0; i < options.loop + options.skip; i++) {
-                MPI_Recv(r_buf, size, MPI_CHAR, 0, 1, MPI_COMM_WORLD, &reqstat);
-                MPI_Send(s_buf, size, MPI_CHAR, 0, 1, MPI_COMM_WORLD);
+            for(i = 0; i < options.iterations + options.skip; i++) {
+                MPI_CHECK(MPI_Recv(r_buf, size, MPI_CHAR, 0, 1, MPI_COMM_WORLD, &reqstat));
+                MPI_CHECK(MPI_Send(s_buf, size, MPI_CHAR, 0, 1, MPI_COMM_WORLD));
             }
         }
 
         if(myid == 0) {
-            double latency = (t_end - t_start) * 1e6 / (2.0 * options.loop);
+            double latency = (t_end - t_start) * 1e6 / (2.0 * options.iterations);
 
             fprintf(stdout, "%-*d%*.*f\n", 10, size, FIELD_WIDTH,
                     FLOAT_PRECISION, latency);
@@ -120,9 +137,9 @@ main (int argc, char *argv[])
     }
 
     free_memory(s_buf, r_buf, myid);
-    MPI_Finalize();
+    MPI_CHECK(MPI_Finalize());
 
-    if (none != options.accel) {
+    if (NONE != options.accel) {
         if (cleanup_accel()) {
             fprintf(stderr, "Error cleaning up device\n");
             exit(EXIT_FAILURE);

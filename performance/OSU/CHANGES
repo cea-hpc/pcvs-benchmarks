@@ -1,3 +1,50 @@
+OSU Micro Benchmarks v5.4.2 (04/30/18)
+* New Features & Enhancements
+    - Add "-W --window-size" option to osu_bw and osu_bibw
+
+* Bug Fixes
+    - Fix issues with out of tree builds
+        - Thanks to Adam Moody @LLNL for reporting the issue
+    - Fix PGI and XLC builds by using the correct generated cpp files
+    - Fix crash with osu_mbw_mr for large messages
+    - Fix minor error in Makefile
+    - Fix compilation warnings
+
+OSU Micro Benchmarks v5.4.1 (02/19/18)
+* New Features & Enhancements
+    - Enhanced help messages and runtime parameters
+
+* Bug Fixes
+    - Fix compile and runtime issues in PGAS benchmarks (OpenSHMEM, UPC, and
+      UPC++) exposed by PGI compiler
+    - Added warning message to display memory limitation when running benchmarks
+      with very large messages
+    - Fix memory leaks for device buffers
+    - Fix issues with type overflows
+    - Fix an issue with pWork symmetric heap allocation in oshm_reduce benchmark
+        - Thanks to Naveen Ravichandrasekaran@Cray for the report
+
+OSU Micro Benchmarks v5.4.0 (10/30/17)
+* New Features & Enhancements
+    - Introduce new OpenSHMEM Non-blocking Benchmarks
+        * osu_oshm_get_mr_nb
+        * osu_oshm_get_nb  
+        * osu_oshm_put_mr_nb
+        * osu_oshm_put_nb
+        * osu_oshm_put_overlap
+    - Automatically build OpenSHMEM 1.3 benchmarks when library support
+      is detected
+    - Add ability to specify min and max message size for point-to-point 
+      and one-sided benchmarks
+    - Enhanced error handling for MPI benchmarks
+    - Code clean-ups and unification of utility functions across benchmarks
+    - Enhanced help messages and runtime parameters
+
+* Bug Fixes
+    - Fix compile-time warnings 
+    - Fix peer calculation formula in UPC/UPC++ benchmarks
+    - Fix correct number of warmup iterations in osu_barrier benchmark
+
 OSU Micro Benchmarks v5.3.2 (09/08/16)
 * New Features & Enhancements
     - Allow specifying very large message sizes (>2GB) for collective benchmarks

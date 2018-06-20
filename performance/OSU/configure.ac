@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.59])
-AC_INIT([OSU-Micro-Benchmarks], [5.3.2], [mvapich-discuss@cse.ohio-state.edu])
+AC_INIT([OSU-Micro-Benchmarks], [5.4.1], [mvapich-discuss@cse.ohio-state.edu])
 AC_CONFIG_SRCDIR([mpi/pt2pt/osu_latency.c])
 
 AM_INIT_AUTOMAKE([foreign])
@@ -81,6 +81,7 @@ AS_IF([test "x$enable_embedded" = xyes], [
        AS_IF([test x"$enable_oshm" = xyes], [oshm_library=true])
        AS_IF([test x"$enable_upc" = xyes], [upc_compiler=true])
        AS_IF([test x"$enable_upcxx" = xyes], [upcxx_compiler=true])
+       AS_IF([test x"$enable_oshm_13" = xyes], [oshm_13_library=true])
       ], [
        AC_CHECK_FUNC([MPI_Init], [mpi_library=true])
        AC_CHECK_FUNC([MPI_Accumulate], [mpi2_library=true])
@@ -89,6 +90,7 @@ AS_IF([test "x$enable_embedded" = xyes], [
        AC_CHECK_FUNC([upc_memput], [upc_compiler=true])
        AC_CHECK_DECL([upcxx_alltoall], [upcxx_compiler=true], [],
                      [#include <upcxx.h>])
+       AC_CHECK_FUNC([shmem_finalize], [oshm_13_library=true])
       ])
 
 AM_CONDITIONAL([EMBEDDED_BUILD], [test x"$enable_embedded" = xyes])
@@ -120,6 +122,9 @@ AS_IF([test "x$build_cuda_kernels" = xyes], [
        AC_DEFINE([_ENABLE_CUDA_KERNEL_], [1], [Enable CUDA Kernel])
        ])
 
+AS_IF([test "x$oshm_13_library" = xtrue], [
+       AC_DEFINE([OSHM_1_3], [1], [Enable OpenSHMEM 1.3 features])
+       ])
 AM_CONDITIONAL([MPI2_LIBRARY], [test x$mpi2_library = xtrue])
 AM_CONDITIONAL([MPI3_LIBRARY], [test x$mpi3_library = xtrue])
 AM_CONDITIONAL([CUDA], [test x$build_cuda = xyes])

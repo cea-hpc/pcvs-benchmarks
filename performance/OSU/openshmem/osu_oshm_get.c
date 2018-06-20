@@ -1,6 +1,6 @@
 #define BENCHMARK "OSU OpenSHMEM Get Test"
 /*
- * Copyright (C) 2002-2016 the Network-Based Computing Laboratory
+ * Copyright (C) 2002-2018 the Network-Based Computing Laboratory
  * (NBCL), The Ohio State University. 
  *
  * Contact: Dr. D. K. Panda (panda@cse.ohio-state.edu)
@@ -9,16 +9,8 @@
  * copyright file COPYRIGHT in the top level OMB directory.
  */
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
 #include <shmem.h>
-#include "osu_common.h"
-
-#define MESSAGE_ALIGNMENT 64
-#define MAX_MSG_SIZE (1<<20)
-#define MYBUFSIZE (MAX_MSG_SIZE + MESSAGE_ALIGNMENT)
+#include <osu_util.h>
 
 char s_buf_original[MYBUFSIZE];
 char r_buf_original[MYBUFSIZE];
@@ -29,27 +21,6 @@ int skip_large = 10;
 int loop_large = 100;
 int large_message_size = 8192;
 
-#ifdef PACKAGE_VERSION
-#   define HEADER "# " BENCHMARK " v" PACKAGE_VERSION "\n"
-#else
-#   define HEADER "# " BENCHMARK "\n"
-#endif
-
-#ifndef FIELD_WIDTH
-#   define FIELD_WIDTH 20
-#endif
-
-#ifndef FLOAT_PRECISION
-#   define FLOAT_PRECISION 2
-#endif
-
-static void usage(int myid)
-{
-    if(myid == 0) {
-        fprintf(stderr, "Invalid arguments. Usage: <prog_name> <heap|global>\n");
-    }
-}
-
 int main(int argc, char *argv[])
 {
     int myid, numprocs, i;
@@ -57,13 +28,20 @@ int main(int argc, char *argv[])
     char *s_buf, *r_buf;
     char *s_buf_heap, *r_buf_heap;
     int align_size;
-    int64_t t_start = 0, t_end = 0;
+    double t_start = 0, t_end = 0;
     int use_heap = 0;   //default uses global
-
-    start_pes(0);
-    myid = _my_pe();
-    numprocs = _num_pes();
-
+ 
+#ifdef OSHM_1_3     
+	shmem_init();
+	myid = shmem_my_pe();  
+    numprocs = shmem_n_pes();
+#else
+	start_pes(0);
+	myid = _my_pe();
+	numprocs = _num_pes();
+#endif
+    
+    
     if(numprocs != 2) {
         if(myid == 0) {
             fprintf(stderr, "This test requires exactly two processes\n");
@@ -73,7 +51,7 @@ int main(int argc, char *argv[])
     }
 
     if(argc != 2) {
-        usage(myid);
+        usage_oshm_pt2pt(myid);
 
         return EXIT_FAILURE;
     }
@@ -83,7 +61,7 @@ int main(int argc, char *argv[])
     } else if(0 == strncmp(argv[1], "global", strlen("global"))){
         use_heap = 0;
     } else {
-        usage(myid);
+        usage_oshm_pt2pt(myid);
         return EXIT_FAILURE;
     }
 
@@ -92,10 +70,13 @@ int main(int argc, char *argv[])
     /**************Allocating Memory*********************/
 
     if(use_heap){
-
-        s_buf_heap = (char *)shmalloc(MYBUFSIZE);
+#ifdef OSHM_1_3
+        s_buf_heap = (char *)shmem_malloc(MYBUFSIZE);
+        r_buf_heap = (char *)shmem_malloc(MYBUFSIZE);
+#else
+		s_buf_heap = (char *)shmalloc(MYBUFSIZE);
         r_buf_heap = (char *)shmalloc(MYBUFSIZE);
-
+#endif
         s_buf =
             (char *) (((unsigned long) s_buf_heap + (align_size - 1)) /
                       align_size * align_size);
@@ -122,7 +103,7 @@ int main(int argc, char *argv[])
         fflush(stdout);
     }
 
-    for(size = 1; size <= MAX_MSG_SIZE; size = (size ? size * 2 : 1)) {
+    for(size = 1; size <= MAX_MSG_SIZE_PT2PT; size = (size ? size * 2 : 1)) {
         
         /* touch the data */
         for(i = 0; i < size; i++) {
@@ -161,11 +142,21 @@ int main(int argc, char *argv[])
     shmem_barrier_all();
 
     if(use_heap){
-        shfree(s_buf_heap);
+#ifdef OSHM_1_3
+        shmem_free(s_buf_heap);
+        shmem_free(r_buf_heap);
+#else
+	    shfree(s_buf_heap);
         shfree(r_buf_heap);
+#endif
     }
 
     shmem_barrier_all();
+
+#ifdef OSHM_1_3	
+    shmem_finalize();
+#endif
+
     return EXIT_SUCCESS;
 }
 

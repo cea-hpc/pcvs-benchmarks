@@ -50,7 +50,10 @@ sub runtime_valid
 
 	# please be sure to check if the iterator exist because the system emits
 	# an undef when the iterator won't be unfolded for the current configuration
-	
+	$mpi = 1 if(!defined($mpi));
+	$omp = 1 if(!defined($omp));
+	$node = 1 if(!defined($node));
+	return 0 if((($mpi)/$node + $omp) >= $max_cores);
 	#print "Keep N=".(defined $node ? $node : "X").
 		  #" p=".(defined $proc ? $proc : "X").
 		  #" t=".(defined $mpi ? $mpi : "X").

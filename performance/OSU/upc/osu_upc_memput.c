@@ -1,6 +1,6 @@
 #define BENCHMARK "OSU UPC MEMPUT Test"
 /*
- * Copyright (C) 2002-2016 the Network-Based Computing Laboratory
+ * Copyright (C) 2002-2018 the Network-Based Computing Laboratory
  * (NBCL), The Ohio State University. 
  *
  * Contact: Dr. D. K. Panda (panda@cse.ohio-state.edu)
@@ -10,47 +10,16 @@
  */
 
 #include <upc.h>
-#include <stdio.h>
-#include <string.h>
-#include <sys/time.h>
-
-#define MAX_MSG_SIZE         (1<<22)
-#define SKIP_LARGE  10
-#define LOOP_LARGE  100
-#define LARGE_MESSAGE_SIZE  8192
+#include <../util/osu_util.h>
 
 int skip = 1000;
 int loop = 10000;
-
-#ifdef PACKAGE_VERSION
-#   define HEADER "# " BENCHMARK " v" PACKAGE_VERSION "\n"
-#else
-#   define HEADER "# " BENCHMARK "\n"
-#endif
-
-#ifndef FIELD_WIDTH
-#   define FIELD_WIDTH 20
-#endif
-
-#ifndef FLOAT_PRECISION
-#   define FLOAT_PRECISION 2
-#endif
-
-
-void wtime(double *t)
-{
-  static int sec = -1;
-  struct timeval tv;
-  gettimeofday(&tv, (void *)0);
-  if (sec < 0) sec = tv.tv_sec;
-  *t = (tv.tv_sec - sec)*1.0e+6 + tv.tv_usec;
-}
 
 int main(int argc, char **argv) 
 {
     int iters=0;
     double t_start, t_end;
-    int peerid = (MYTHREAD+1)%THREADS; 
+    int peerid = (MYTHREAD + THREADS/2) % THREADS; 
     int iamsender = 0;
     int i;
 
@@ -64,9 +33,9 @@ int main(int argc, char **argv)
     if ( MYTHREAD < THREADS/2 )
         iamsender = 1;
 
-    shared char *data = upc_all_alloc(THREADS, MAX_MSG_SIZE*2);
+    shared char *data = upc_all_alloc(THREADS, MAX_MESSAGE_SIZE*2);
     shared [] char *remote = (shared [] char *)(data + peerid);
-    char *local = ((char *)(data+MYTHREAD)) + MAX_MSG_SIZE;
+    char *local = ((char *)(data+MYTHREAD)) + MAX_MESSAGE_SIZE;
 
     if ( !MYTHREAD ) {
         fprintf(stdout, HEADER);
@@ -75,7 +44,7 @@ int main(int argc, char **argv)
         fflush(stdout);
     }
 
-    for (int size = 1; size <= MAX_MSG_SIZE; size*=2) {
+    for (int size = 1; size <= MAX_MESSAGE_SIZE; size*=2) {
 
         if ( iamsender )
             for(i = 0; i < size; i++) {
@@ -89,8 +58,8 @@ int main(int argc, char **argv)
         upc_barrier;
 
         if(size > LARGE_MESSAGE_SIZE) {
-            loop = LOOP_LARGE;
-            skip = SKIP_LARGE;
+            loop = UPC_LOOP_LARGE;
+            skip = UPC_SKIP_LARGE;
         }
 
         if( iamsender )

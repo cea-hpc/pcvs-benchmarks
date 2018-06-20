@@ -1,6 +1,6 @@
 #define BENCHMARK "OSU UPC++ AlltoAll Latency Test"
 /*
- * Copyright (C) 2002-2015 the Network-Based Computing Laboratory
+ * Copyright (C) 2002-2018 the Network-Based Computing Laboratory
  * (NBCL), The Ohio State University.
  *
  * Contact: Dr. D. K. Panda (panda@cse.ohio-state.edu)
@@ -9,11 +9,8 @@
  * copyright file COPYRIGHT in the top level OMB directory.
  */
 
-#include <stdio.h>
 #include <upcxx.h>
-#include <stdlib.h>
-#include <osu_common.h>
-#include <osu_coll.h>
+#include <osu_util.h>
 
 #define root 0
 #define VERIFY 0
@@ -32,13 +29,35 @@ main (int argc, char **argv)
     global_ptr<double> time_dst;
 
     double avg_time, max_time, min_time;
-    int i = 0, size;
+    int i = 0, size = 1, iterations, po_ret;
     int skip;
-    int64_t t_start = 0, t_stop = 0, timer=0;
+    double t_start = 0, t_stop = 0, timer=0;
     int max_msg_size = 1<<20, full = 0;
 
-    if (process_args(argc, argv, myrank(), &max_msg_size, &full, HEADER)) {
-        return 0;
+    options.bench = UPCXX;
+
+    po_ret = process_options(argc, argv);
+
+    full = options.show_full;
+    skip = options.skip_large;
+    iterations = options.iterations;
+    max_msg_size = options.max_message_size;
+    options.show_size = 1;
+
+    switch (po_ret) {
+        case PO_BAD_USAGE:
+            print_usage_pgas(MYTHREAD, argv[0], size != 0);
+            exit(EXIT_FAILURE);
+        case PO_HELP_MESSAGE:
+            print_usage_pgas(MYTHREAD, argv[0], size != 0);
+            exit(EXIT_SUCCESS);
+        case PO_VERSION_MESSAGE:
+            if (MYTHREAD == 0) {
+                print_version_pgas(HEADER);
+            }
+            exit(EXIT_SUCCESS);
+        case PO_OKAY:
+            break;
     }
 
     if (ranks() < 2) {
@@ -65,14 +84,14 @@ main (int argc, char **argv)
      */
     barrier();
 
-    print_header(HEADER, myrank(), full);
+    print_header_pgas(HEADER, myrank(), full);
 
     for (size=1; size <=max_msg_size; size *= 2) {
         if (size > LARGE_MESSAGE_SIZE) {
-            skip = SKIP_LARGE;
-            iterations = iterations_large;
+            skip = options.skip_large;
+            iterations = options.iterations_large;
         } else {
-            skip = SKIP;
+            skip = options.skip;
         }
 
         timer=0;
@@ -115,7 +134,7 @@ main (int argc, char **argv)
 
         barrier ();
 
-        print_data(myrank(), full, size*sizeof(char), avg_time, min_time,
+        print_data_pgas(myrank(), full, size*sizeof(char), avg_time, min_time,
                 max_time, iterations);
     }
 

@@ -1,6 +1,6 @@
 #define BENCHMARK "OSU OpenSHMEM Barrier Latency Test"
 /*
- * Copyright (C) 2002-2016 the Network-Based Computing Laboratory
+ * Copyright (C) 2002-2018 the Network-Based Computing Laboratory
  * (NBCL), The Ohio State University. 
  *
  * Contact: Dr. D. K. Panda (panda@cse.ohio-state.edu)
@@ -9,13 +9,8 @@
  * copyright file COPYRIGHT in the top level OMB directory.
  */
 
-#include <stdio.h>
-#include <sys/time.h>
-#include <stdint.h>
 #include <shmem.h>
-#include <stdlib.h>
-#include "osu_common.h"
-#include "osu_coll.h"
+#include <osu_util.h>
 
 long pSyncBarrier1[_SHMEM_BARRIER_SYNC_SIZE];
 long pSyncBarrier2[_SHMEM_BARRIER_SYNC_SIZE];
@@ -28,23 +23,47 @@ double pWrk2[_SHMEM_REDUCE_MIN_WRKDATA_SIZE];
 int main(int argc, char *argv[])
 {
     int i = 0, rank;
-    int skip, numprocs;
+    int skip, numprocs, iterations;
     static double avg_time = 0.0, max_time = 0.0, min_time = 0.0;
     static double latency = 0.0;
-    int64_t t_start = 0, t_stop = 0, timer=0;
-    int full = 0, t;
+    double t_start = 0, t_stop = 0, timer=0;
+    int t;
+    int po_ret;
+    int * size = NULL;
+
+    options.bench = OSHM;
 
     for ( t = 0; t < _SHMEM_REDUCE_SYNC_SIZE; t += 1) pSyncRed1[t] = _SHMEM_SYNC_VALUE;
     for ( t = 0; t < _SHMEM_REDUCE_SYNC_SIZE; t += 1) pSyncRed2[t] = _SHMEM_SYNC_VALUE;
     for ( t = 0; t < _SHMEM_BARRIER_SYNC_SIZE; t += 1) pSyncBarrier1[t] = _SHMEM_SYNC_VALUE;
     for ( t = 0; t < _SHMEM_BARRIER_SYNC_SIZE; t += 1) pSyncBarrier2[t] = _SHMEM_SYNC_VALUE;
 
+#ifdef OSHM_1_3
+    shmem_init();
+    rank = shmem_my_pe(); 
+    numprocs = shmem_n_pes();
+#else
     start_pes(0);
     rank = _my_pe();
     numprocs = _num_pes();
+#endif
 
-    if (process_args(argc, argv, rank, NULL, &full, HEADER)) {
-        return EXIT_SUCCESS;
+    po_ret = process_options(argc, argv);
+
+    switch (po_ret) {
+        case PO_BAD_USAGE:
+            print_usage_pgas(rank, argv[0], size != NULL);
+            exit(EXIT_FAILURE);
+        case PO_HELP_MESSAGE:
+            print_usage_pgas(rank, argv[0], size != NULL);
+            exit(EXIT_SUCCESS);
+        case PO_VERSION_MESSAGE:
+            if (rank == 0) {
+                print_version_pgas(HEADER);
+            }
+            exit(EXIT_SUCCESS);
+        case PO_OKAY:
+            break;
     }
 
     if(numprocs < 2) {
@@ -54,11 +73,12 @@ int main(int argc, char *argv[])
         return EXIT_FAILURE;
     }
 
-    print_header(HEADER, rank, full);
+    options.show_size = 0;
+    print_header_pgas(HEADER, rank, options.show_full);
 
-    skip = SKIP_LARGE;
-    iterations = iterations_large;
-    timer=0;        
+    skip = options.skip_large;
+    iterations = options.iterations_large;
+    timer = 0;
 
     for(i=0; i < iterations + skip ; i++) {
         t_start = TIME();
@@ -81,7 +101,11 @@ int main(int argc, char *argv[])
     shmem_double_sum_to_all(&avg_time, &latency, 1, 0, 0, numprocs, pWrk1, pSyncRed1);
 
     avg_time = avg_time/numprocs;
-    print_data(rank, full, 0, avg_time, min_time, max_time, iterations);
+    print_data_pgas(rank, options.show_full, 0, avg_time, min_time, max_time, iterations);
+
+#ifdef OSHM_1_3
+    shmem_finalize();
+#endif
 
     return EXIT_SUCCESS;
 }

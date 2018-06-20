@@ -18,23 +18,19 @@ This package also distributes UPC put, get, and collective benchmarks.
 These are located in the upc subdirectory and can be compiled by the
 following:
 
-        upcc upc/osu_upc_memput.c -o upc/osu_upc_memput
-        upcc upc/osu_upc_memget.c -o upc/osu_upc_memget
-
-        upcc upc/osu_upc_all_barrier.c upc/osu_coll.c upc/osu_common.c     \
-            -o upc/osu_upc_all_barrier
-        upcc upc/osu_upc_all_broadcast.c upc/osu_coll.c upc/osu_common.c   \
-            -o upc/osu_upc_all_broadcast
-        upcc upc/osu_upc_all_exchange.c upc/osu_coll.c upc/osu_common.c    \
-            -o upc/osu_upc_all_exchange
-        upcc upc/osu_upc_all_gather_all.c upc/osu_coll.c upc/osu_common.c  \
-            -o upc/osu_upc_all_gather_all
-        upcc upc/osu_upc_all_gather.c upc/osu_coll.c upc/osu_common.c      \
-            -o upc/osu_upc_all_gather
-        upcc upc/osu_upc_all_reduce.c upc/osu_coll.c upc/osu_common.c      \
-            -o upc/osu_upc_all_reduce.c
-        upcc upc/osu_upc_all_scatter.c upc/osu_coll.c upc/osu_common.c     \
-            -o upc/osu_upc_all_scatter
+        for bench in osu_upc_memput              \
+                     osu_upc_memget              \
+                     osu_upc_all_scatter         \
+                     osu_upc_all_reduce          \
+                     osu_upc_all_gather          \
+                     osu_upc_all_gather_all      \
+                     osu_upc_all_exchange        \
+                     osu_upc_all_broadcast       \
+                     osu_upc_all_barrier
+        do
+            echo "Compiling $bench..."
+            upcc $bench.c ../util/osu_util.c -o $bench
+        done
 
 The MPI Multiple Bandwidth / Message Rate (osu_mbw_mr), OpenSHMEM Put Message
 Rate (osu_oshm_put_mr), and OpenSHMEM Atomics (osu_oshm_atomics) tests are
@@ -116,19 +112,19 @@ osu_multi_lat - Multi-pair Latency Test
 
 Collective MPI Benchmarks
 -------------------------
-osu_allgather     - MPI_Allgather Latency Test(*)
-osu_allgatherv    - MPI_Allgatherv Latency Test
-osu_allreduce     - MPI_Allreduce Latency Test
-osu_alltoall      - MPI_Alltoall Latency Test
-osu_alltoallv     - MPI_Alltoallv Latency Test
-osu_barrier       - MPI_Barrier Latency Test
-osu_bcast         - MPI_Bcast Latency Test
-osu_gather        - MPI_Gather Latency Test(*)
-osu_gatherv       - MPI_Gatherv Latency Test
-osu_reduce        - MPI_Reduce Latency Test
-osu_reduce_scater - MPI_Reduce_scatter Latency Test
-osu_scatter       - MPI_Scatter Latency Test(*)
-osu_scatterv      - MPI_Scatterv Latency Test
+osu_allgather      - MPI_Allgather Latency Test(*)
+osu_allgatherv     - MPI_Allgatherv Latency Test
+osu_allreduce      - MPI_Allreduce Latency Test
+osu_alltoall       - MPI_Alltoall Latency Test
+osu_alltoallv      - MPI_Alltoallv Latency Test
+osu_barrier        - MPI_Barrier Latency Test
+osu_bcast          - MPI_Bcast Latency Test
+osu_gather         - MPI_Gather Latency Test(*)
+osu_gatherv        - MPI_Gatherv Latency Test
+osu_reduce         - MPI_Reduce Latency Test
+osu_reduce_scatter - MPI_Reduce_scatter Latency Test
+osu_scatter        - MPI_Scatter Latency Test(*)
+osu_scatterv       - MPI_Scatterv Latency Test
 
 Collective Latency Tests
     * The latest OMB version includes benchmarks for various MPI blocking
@@ -162,21 +158,21 @@ Support for CUDA Managed Memory
 The following benchmarks have been extended to evaluate performance of MPI communication
 from and to buffers allocated using CUDA Managed Memory.
 
-    * osu_bibw - Bidirectional Bandwidth Test
-    * osu_bw - Bandwidth Test
-    * osu_latency - Latency Test
-    * osu_allgather - MPI_Allgather Latency Test
-    * osu_allgatherv - MPI_Allgatherv Latency Test
-    * osu_allreduce - MPI_Allreduce Latency Test
-    * osu_alltoall - MPI_Alltoall Latency Test
-    * osu_alltoallv - MPI_Alltoallv Latency Test
-    * osu_bcast - MPI_Bcast Latency Test
-    * osu_gather - MPI_Gather Latency Test
-    * osu_gatherv - MPI_Gatherv Latency Test
-    * osu_reduce - MPI_Reduce Latency Test
-    * osu_reduce_scatter - MPI_Reduce_scatter Latency Test
-    * osu_scatter - MPI_Scatter Latency Test
-    * osu_scatterv - MPI_Scatterv Latency Test
+    * osu_bibw              - Bidirectional Bandwidth Test
+    * osu_bw                - Bandwidth Test
+    * osu_latency           - Latency Test
+    * osu_allgather         - MPI_Allgather Latency Test
+    * osu_allgatherv        - MPI_Allgatherv Latency Test
+    * osu_allreduce         - MPI_Allreduce Latency Test
+    * osu_alltoall          - MPI_Alltoall Latency Test
+    * osu_alltoallv         - MPI_Alltoallv Latency Test
+    * osu_bcast             - MPI_Bcast Latency Test
+    * osu_gather            - MPI_Gather Latency Test
+    * osu_gatherv           - MPI_Gatherv Latency Test
+    * osu_reduce            - MPI_Reduce Latency Test
+    * osu_reduce_scatter    - MPI_Reduce_scatter Latency Test
+    * osu_scatter           - MPI_Scatter Latency Test
+    * osu_scatterv          - MPI_Scatterv Latency Test
 
 In addition to support for communications to and from GPU memories allocated
 using CUDA or OpenACC, we now provide additional capability of performing
@@ -538,9 +534,25 @@ osu_oshm_put.c - Latency Test for OpenSHMEM Put Routine
     * without timing to ignore any start-up overheads.  Both PEs call shmem
     * barrier all after the test for each message size.
 
+osu_oshm_put_nb.c - Latency Test for OpenSHMEM Non-blocking Put Routine
+    * This benchmark measures the non-blocking latency of a shmem putmem_nbi 
+    * operation for different data sizes. The user is required to select 
+    * whether the communication buffers should be allocated in global 
+    * memory or heap memory, through a parameter. The test requires exactly 
+    * two PEs. PE 0 issues shmem putmem_nbi to write data at PE 1 and then calls 
+    * shmem quiet. This is repeated for a fixed number of iterations, depending 
+    * on the data size. The average latency per iteration is reported. 
+    * A few warm-up iterations are run without timing to ignore any start-up 
+    * overheads. Both PEs call shmem barrier all after the test for each message size.
+
 osu_oshm_get.c - Latency Test for OpenSHMEM Get Routine
     * This benchmark is similar to the one above except that PE 0 does a shmem
     * getmem operation to read data from PE 1 in each iteration. The average
+    * latency per iteration is reported.
+
+osu_oshm_get_nb.c - Latency Test for OpenSHMEM Non-blocking Get Routine
+    * This benchmark is similar to the one above except that PE 0 does a shmem
+    * getmem_nbi operation to read data from PE 1 in each iteration. The average
     * latency per iteration is reported.
 
 osu_oshm_put_mr.c - Message Rate Test for OpenSHMEM Put Routine
@@ -554,15 +566,50 @@ osu_oshm_put_mr.c - Message Rate Test for OpenSHMEM Put Routine
     * the put operations is measured and operation rate per second is reported.
     * All PEs call shmem barrier all after the test for each message size.
 
+osu_oshm_put_mr_nb.c - Message Rate Test for Non-blocking OpenSHMEM Put Routine
+    * This benchmark measures the aggregate uni-directional operation rate of
+    * OpenSHMEM Non-blocking Put between pairs of PEs, for different data sizes. 
+    * The user should select for communication buffers to be in global memory 
+    * and heap memory as with the earlier benchmarks. This test requires number 
+    * of PEs to be even. The PEs are paired with PE 0 pairing with PE n/2 and so on,
+    * where n is the total number of PEs. The first PE in each pair issues
+    * back-to-back shmem putmem_nbi operations to its peer PE until the window
+    * size. A call to shmem_quite is placed after the window loop to ensure
+    * completion of the issued operations. The total time for the non-blocking 
+    * put operations is measured and operation rate per second is reported.
+    * All PEs call shmem barrier all after the test for each message size.
+
+osu_oshm_get_mr_nb.c - Message Rate Test for Non-blocking OpenSHMEM Get Routine
+    * This benchmark measures the aggregate uni-directional operation rate of
+    * OpenSHMEM Non-blocking Get between pairs of PEs, for different data sizes. 
+    * The user should select for communication buffers to be in global memory 
+    * and heap memory as with the earlier benchmarks. This test requires number 
+    * of PEs to be even. The PEs are paired with PE 0 pairing with PE n/2 and so on,
+    * where n is the total number of PEs. The first PE in each pair issues
+    * back-to-back shmem getmem_nbi operations to its peer PE until the window
+    * size. A call to shmem_quite is placed after the window loop to ensure
+    * completion of the issued operations. The total time for the non-blocking 
+    * put operations is measured and operation rate per second is reported.
+    * All PEs call shmem barrier all after the test for each message size.
+
+osu_oshm_put_overlap.c - Non-blocking Message Rate Overlap Test
+    * This benchmark measures the aggregate uni-directional operations rate
+    * overlap for OpenSHMEM Put between paris of PEs, for different data sizes.
+    * The user should select for communication buffers to be in global memory
+    * and heap memory as with the earlier benchmarks. This test requires number
+    * of PEs. The benchmarks prints statistics for different phases of
+    * communication, computation and overlap in the end.
+
 osu_oshm_atomics.c - Latency and Operation Rate Test for OpenSHMEM Atomics Routines
     * This benchmark measures the performance of atomic fetch-and-operate and
-    * atomic operate routines sup- ported in OpenSHMEM for the integer
-    * datatype. The buffers can be selected to be in heap memory or global
+    * atomic operate routines supported in OpenSHMEM for the integer
+    * and long datatypes. The buffers can be selected to be in heap memory or global
     * memory. The PEs are paired like in the case of Put Operation Rate
     * benchmark and the first PE in each pair issues back-to-back atomic
     * operations of a type to its peer PE. The average latency per atomic
     * operation and the aggregate operation rate are reported.  This is
-    * repeated for each of fadd, finc, add, inc, cswap and swap routines.
+    * repeated for each of fadd, finc, add, inc, cswap, swap, set, and fetch 
+    * routines.
 
 Collective OpenSHMEM Benchmarks
 -------------------------------
@@ -711,39 +758,39 @@ be able to support MPI communication from buffers in GPU Device memory.
 The following benchmarks have been extended to evaluate performance of
 MPI communication using buffers on NVIDIA GPU devices.
 
-    osu_bibw          - Bidirectional Bandwidth Test
-    osu_bw            - Bandwidth Test
-    osu_latency       - Latency Test
-    osu_put_latency   - Latency Test for Put
-    osu_get_latency   - Latency Test for Get
-    osu_put_bw        - Bandwidth Test for Put
-    osu_get_bw        - Bandwidth Test for Get
-    osu_put_bibw      - Bidirectional Bandwidth Test for Put
-    osu_acc_latency   - Latency Test for Accumulate
-    osu_cas_latency   - Latency Test for Compare and Swap
-    osu_fop_latency   - Latency Test for Fetch and Op
-    osu_allgather     - MPI_Allgather Latency Test
-    osu_allgatherv    - MPI_Allgatherv Latency Test
-    osu_allreduce     - MPI_Allreduce Latency Test
-    osu_alltoall      - MPI_Alltoall Latency Test
-    osu_alltoallv     - MPI_Alltoallv Latency Test
-    osu_bcast         - MPI_Bcast Latency Test
-    osu_gather        - MPI_Gather Latency Test
-    osu_gatherv       - MPI_Gatherv Latency Test
-    osu_reduce        - MPI_Reduce Latency Test
-    osu_reduce_scater - MPI_Reduce_scatter Latency Test
-    osu_scatter       - MPI_Scatter Latency Test
-    osu_scatterv      - MPI_Scatterv Latency Test
-    osu_iallgather    - MPI_Iallgather Latency Test
-    osu_iallgatherv   - MPI_Iallgatherv Latency Test
-    osu_ialltoall     - MPI_Ialltoall Latency Test
-    osu_ialltoallv    - MPI_Ialltoallv Latency Test
-    osu_ialltoallw    - MPI_Ialltoallw Latency Test
-    osu_ibcast        - MPI_Ibcast Latency Test
-    osu_igather       - MPI_Igather Latency Test
-    osu_igatherv      - MPI_Igatherv Latency Test
-    osu_iscatter      - MPI_Iscatter Latency Test
-    osu_iscatterv     - MPI_Iscatterv Latency Test
+    osu_bibw           - Bidirectional Bandwidth Test
+    osu_bw             - Bandwidth Test
+    osu_latency        - Latency Test
+    osu_put_latency    - Latency Test for Put
+    osu_get_latency    - Latency Test for Get
+    osu_put_bw         - Bandwidth Test for Put
+    osu_get_bw         - Bandwidth Test for Get
+    osu_put_bibw       - Bidirectional Bandwidth Test for Put
+    osu_acc_latency    - Latency Test for Accumulate
+    osu_cas_latency    - Latency Test for Compare and Swap
+    osu_fop_latency    - Latency Test for Fetch and Op
+    osu_allgather      - MPI_Allgather Latency Test
+    osu_allgatherv     - MPI_Allgatherv Latency Test
+    osu_allreduce      - MPI_Allreduce Latency Test
+    osu_alltoall       - MPI_Alltoall Latency Test
+    osu_alltoallv      - MPI_Alltoallv Latency Test
+    osu_bcast          - MPI_Bcast Latency Test
+    osu_gather         - MPI_Gather Latency Test
+    osu_gatherv        - MPI_Gatherv Latency Test
+    osu_reduce         - MPI_Reduce Latency Test
+    osu_reduce_scatter - MPI_Reduce_scatter Latency Test
+    osu_scatter        - MPI_Scatter Latency Test
+    osu_scatterv       - MPI_Scatterv Latency Test
+    osu_iallgather     - MPI_Iallgather Latency Test
+    osu_iallgatherv    - MPI_Iallgatherv Latency Test
+    osu_ialltoall      - MPI_Ialltoall Latency Test
+    osu_ialltoallv     - MPI_Ialltoallv Latency Test
+    osu_ialltoallw     - MPI_Ialltoallw Latency Test
+    osu_ibcast         - MPI_Ibcast Latency Test
+    osu_igather        - MPI_Igather Latency Test
+    osu_igatherv       - MPI_Igatherv Latency Test
+    osu_iscatter       - MPI_Iscatter Latency Test
+    osu_iscatterv      - MPI_Iscatterv Latency Test
 
 If both CUDA and OpenACC support is enabled you can switch between the modes
 using the -d [cuda|openacc] option to the benchmarks.  Whether a process
@@ -758,7 +805,7 @@ controlled at run-time.  Use the -h option for more help.
     memory for each mpi rank
 
     options:
-      -d TYPE   accelerator device buffers can be of TYPE `cuda' or `openac'
+      -d TYPE   accelerator device buffers can be of TYPE `cuda' or `openacc'
       -h        print this help message
 
 Each of the pt2pt benchmarks takes two input parameters. The first parameter

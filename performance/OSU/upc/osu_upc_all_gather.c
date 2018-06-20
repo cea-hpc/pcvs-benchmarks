@@ -1,6 +1,6 @@
 #define BENCHMARK "OSU UPC Gather Latency Test"
 /*
- * Copyright (C) 2002-2016 the Network-Based Computing Laboratory
+ * Copyright (C) 2002-2018 the Network-Based Computing Laboratory
  * (NBCL), The Ohio State University. 
  *
  * Contact: Dr. D. K. Panda (panda@cse.ohio-state.edu)
@@ -9,22 +9,9 @@
  * copyright file COPYRIGHT in the top level OMB directory.
  */
 
-#include <stdio.h>
-#include <sys/time.h>
-#include <stdint.h>
 #include <upc.h>
 #include <upc_collective.h>
-#include "osu_common.h"
-#include "osu_coll.h"
-#include <stdlib.h>
-
-#ifdef PACKAGE_VERSION
-#   define HEADER "# " BENCHMARK " v" PACKAGE_VERSION "\n"
-#else
-#   define HEADER "# " BENCHMARK "\n"
-#endif
-
-#define SYNC_MODE (UPC_IN_ALLSYNC | UPC_OUT_ALLSYNC)
+#include <../util/osu_util.h>
 
 shared char *src, *dst; 
 
@@ -33,13 +20,35 @@ shared double latency[THREADS];
 
 int main(int argc, char *argv[])
 {
-    int i = 0, size;
+    int i = 0, size = 0, iterations, po_ret;
     int skip;
-    int64_t t_start = 0, t_stop = 0, timer=0;
+    double t_start = 0, t_stop = 0, timer=0;
     int max_msg_size = 1<<20, full = 0;
 
-    if (process_args(argc, argv, MYTHREAD, &max_msg_size, &full, HEADER)) {
-        return 0;
+    options.bench = UPC;
+
+    po_ret = process_options(argc, argv);
+
+    max_msg_size = options.max_message_size;
+    full = options.show_full;
+    skip = options.skip;
+    iterations = options.iterations;
+    options.show_size = 1;
+
+    switch (po_ret) {
+        case PO_BAD_USAGE:
+            print_usage_pgas(MYTHREAD, argv[0], size != 0);
+            exit(EXIT_FAILURE);
+        case PO_HELP_MESSAGE:
+            print_usage_pgas(MYTHREAD, argv[0], size != 0);
+            exit(EXIT_SUCCESS);
+        case PO_VERSION_MESSAGE:
+            if (MYTHREAD == 0) {
+                print_version_pgas(HEADER);
+            }
+            exit(EXIT_SUCCESS);
+        case PO_OKAY:
+            break;
     }
     
     if(THREADS < 2) {
@@ -48,7 +57,7 @@ int main(int argc, char *argv[])
         }
         return -1;
     }
-    print_header(HEADER, MYTHREAD, full);
+    print_header_pgas(HEADER, MYTHREAD, full);
 
     src = upc_all_alloc(THREADS, max_msg_size*sizeof(char));
     dst = upc_all_alloc(1, THREADS*max_msg_size*sizeof(char));
@@ -61,11 +70,11 @@ int main(int argc, char *argv[])
     
     for(size=1; size <=max_msg_size; size *= 2) {
         if(size > LARGE_MESSAGE_SIZE) {
-            skip = SKIP_LARGE;
-            iterations = iterations_large;
+            skip = options.skip_large;
+            iterations = options.iterations_large;
         }
         else {
-            skip = SKIP;
+            skip = options.skip;
         }
 
         timer=0;        
@@ -88,7 +97,7 @@ int main(int argc, char *argv[])
         if(!MYTHREAD)
             avg_time = avg_time/THREADS;
 
-        print_data(MYTHREAD, full, size*sizeof(char), avg_time, min_time, max_time, iterations);
+        print_data_pgas(MYTHREAD, full, size*sizeof(char), avg_time, min_time, max_time, iterations);
     }
 
     return EXIT_SUCCESS;

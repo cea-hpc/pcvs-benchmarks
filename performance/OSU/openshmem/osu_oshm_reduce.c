@@ -1,6 +1,6 @@
 #define BENCHMARK "OSU OpenSHMEM Reduce Latency Test"
 /*
- * Copyright (C) 2002-2016 the Network-Based Computing Laboratory
+ * Copyright (C) 2002-2018 the Network-Based Computing Laboratory
  * (NBCL), The Ohio State University.
  *
  * Contact: Dr. D. K. Panda (panda@cse.ohio-state.edu)
@@ -38,13 +38,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-#include <stdio.h>
-#include <sys/time.h>
-#include <stdint.h>
 #include <shmem.h>
-#include "osu_common.h"
-#include "osu_coll.h"
-#include <stdlib.h>
+#include <osu_util.h>
 
 long pSyncRed1[_SHMEM_REDUCE_SYNC_SIZE];
 long pSyncRed2[_SHMEM_REDUCE_SYNC_SIZE];
@@ -54,24 +49,47 @@ double pWrk2[_SHMEM_REDUCE_MIN_WRKDATA_SIZE];
 
 int main(int argc, char *argv[])
 {
-    int i, numprocs, rank, size;
+    int i, numprocs, rank, size = 0, iterations;
     unsigned long align_size = sysconf(_SC_PAGESIZE);
     int skip;
     static double latency = 0.0;
-    int64_t t_start = 0, t_stop = 0, timer=0;
+    double t_start = 0, t_stop = 0, timer=0;
     static double avg_time = 0.0, max_time = 0.0, min_time = 0.0;
     float *sendbuf, *recvbuf;
     int max_msg_size = 1048576, full = 0, t;
+    int po_ret;
+
+    options.bench = OSHM;
 
     for ( t = 0; t < _SHMEM_REDUCE_SYNC_SIZE; t += 1) pSyncRed1[t] = _SHMEM_SYNC_VALUE;
     for ( t = 0; t < _SHMEM_REDUCE_SYNC_SIZE; t += 1) pSyncRed2[t] = _SHMEM_SYNC_VALUE;
 
-    start_pes(0);
+#ifdef OSHM_1_3 
+    shmem_init();
+    rank = shmem_my_pe();
+    numprocs = shmem_n_pes();
+#else
+	start_pes(0);
     rank = _my_pe();
     numprocs = _num_pes();
+#endif
 
-    if (process_args(argc, argv, rank, &max_msg_size, &full, HEADER)) {
-        return EXIT_SUCCESS;
+    po_ret = process_options(argc, argv);
+
+    switch (po_ret) {
+        case PO_BAD_USAGE:
+            print_usage_pgas(rank, argv[0], size != 0);
+            exit(EXIT_FAILURE);
+        case PO_HELP_MESSAGE:
+            print_usage_pgas(rank, argv[0], size != 0);
+            exit(EXIT_SUCCESS);
+        case PO_VERSION_MESSAGE:
+            if (rank == 0) {
+                print_version_pgas(HEADER);
+            }
+            exit(EXIT_SUCCESS);
+        case PO_OKAY:
+            break;
     }
 
     if(numprocs < 2) {
@@ -82,19 +100,36 @@ int main(int argc, char *argv[])
     }
 
     int nreduce = max_msg_size/sizeof(float);
-    float *pWrkF1 = (float *)shmalloc(MAX(nreduce/2+1, _SHMEM_REDUCE_MIN_WRKDATA_SIZE));
-    float *pWrkF2 = (float *)shmalloc(MAX(nreduce/2+1, _SHMEM_REDUCE_MIN_WRKDATA_SIZE));
 
-    print_header(HEADER, rank, full);
+#ifdef OSHM_1_3 
+    float *pWrkF1 = (float *)shmem_malloc(sizeof (float) * MAX(nreduce/2+1, _SHMEM_REDUCE_MIN_WRKDATA_SIZE));
+    float *pWrkF2 = (float *)shmem_malloc(sizeof (float) * MAX(nreduce/2+1, _SHMEM_REDUCE_MIN_WRKDATA_SIZE));
+#else
+	float *pWrkF1 = (float *)shmalloc(sizeof (float) * MAX(nreduce/2+1, _SHMEM_REDUCE_MIN_WRKDATA_SIZE));
+    float *pWrkF2 = (float *)shmalloc(sizeof (float) * MAX(nreduce/2+1, _SHMEM_REDUCE_MIN_WRKDATA_SIZE));
+#endif
+    
+    max_msg_size = options.max_message_size;
+    full = options.show_full;
+    print_header_pgas(HEADER, rank, full);
 
-    recvbuf = (float *)shmemalign(align_size, max_msg_size);
-    if (NULL == recvbuf) {
+#ifdef OSHM_1_3    
+	recvbuf = (float *)shmem_align(align_size, max_msg_size);
+#else
+	recvbuf = (float *)shmemalign(align_size, max_msg_size);
+#endif
+    
+	if (NULL == recvbuf) {
         fprintf(stderr, "shmemalign failed.\n");
         exit(1);
     }
-
-    sendbuf = (float *)shmemalign(align_size, max_msg_size);
-    if (NULL == sendbuf) {
+#ifdef OSHM_1_3     
+	sendbuf = (float *)shmem_align(align_size, max_msg_size);
+#else
+	sendbuf = (float *)shmemalign(align_size, max_msg_size);
+#endif
+    
+	if (NULL == sendbuf) {
         fprintf(stderr, "shmemalign failed.\n");
         exit(1);
     }
@@ -105,10 +140,11 @@ int main(int argc, char *argv[])
     for(size=1; size*sizeof(float)<= max_msg_size; size *= 2) {
 
         if(size > LARGE_MESSAGE_SIZE) {
-            skip = SKIP_LARGE;
-            iterations = iterations_large;
+            skip = options.skip_large;
+            iterations = options.iterations_large;
         } else {
-            skip = SKIP;
+            skip = options.skip;
+            iterations = options.iterations;
         }
 
         shmem_barrier_all();
@@ -136,18 +172,25 @@ int main(int argc, char *argv[])
         shmem_double_sum_to_all(&avg_time, &latency, 1, 0, 0, numprocs, pWrk1, pSyncRed1);
         avg_time = avg_time/numprocs;
 
-        print_data(rank, full, sizeof(float)*size, avg_time, min_time, max_time, iterations);
+        print_data_pgas(rank, full, sizeof(float)*size, avg_time, min_time, max_time, iterations);
         shmem_barrier_all();
     }
                            
     shmem_barrier_all();
-                           
+#ifdef OSHM_1_3                           
+    shmem_free(pWrkF1);
+    shmem_free(pWrkF2);
+    shmem_free(recvbuf);
+    shmem_free(sendbuf);
+	
+	shmem_finalize (); 
+#else    
     shfree(pWrkF1);
     shfree(pWrkF2);
-
     shfree(recvbuf);
     shfree(sendbuf);
-                           
+#endif
+
     return EXIT_SUCCESS;
 }
 

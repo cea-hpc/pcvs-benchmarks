@@ -10,58 +10,65 @@ cd $pcvs_build_current
 #run configure...
 $pcvs_src_current/configure CC="$pcvs_compiler_c" CXX="$pcvs_compiler_cxx" CFLAGS="$pcvs_compilers_cflags" --prefix=$pcvs_build_current > $pcvs_build_current/configure_out.log 2>&1 || exit 1
 
+mkdir -p $pcvs_build_current/util
+cp $pcvs_src_current/util/*.h $pcvs_build_current/util/
+
+echo "compile_osu_mpi:"
+echo "    type: 'build'"
+echo "    files: '@BUILDPATH@/mpi/$group/Makefile'"
+echo "    target: 'all'"
+
 #add new tests here...
 for t in                      \
-startup/osu_hello             \
-startup/osu_init              \
-pt2pt/osu_bw                  \
-pt2pt/osu_bibw                \
-pt2pt/osu_latency_mt          \
-pt2pt/osu_mbw_mr              \
-pt2pt/osu_latency             \
-pt2pt/osu_multi_lat           \
-collective/osu_iscatter       \
-collective/osu_iallgatherv    \
-collective/osu_alltoallv      \
-collective/osu_gatherv        \
-collective/osu_igather        \
-collective/osu_gather         \
-collective/osu_ialltoall      \
-collective/osu_reduce         \
-collective/osu_scatterv       \
-collective/osu_iallgather     \
-collective/osu_barrier        \
-collective/osu_scatter        \
-collective/osu_ialltoallw     \
-collective/osu_igatherv       \
-collective/osu_iscatterv      \
-collective/osu_alltoall       \
-collective/osu_ibcast         \
-collective/osu_ibarrier       \
-collective/osu_bcast          \
-collective/osu_allgatherv     \
-collective/osu_reduce_scatter \
-collective/osu_ialltoallv     \
-collective/osu_allreduce      \
-collective/osu_allgather      \
-one-sided/osu_put_bibw        \
-one-sided/osu_get_bw          \
-one-sided/osu_acc_latency     \
-one-sided/osu_get_acc_latency \
-one-sided/osu_put_bw          \
-one-sided/osu_fop_latency     \
-one-sided/osu_get_latency     \
-one-sided/osu_put_latency     \
-one-sided/osu_cas_latency     \
+startup/osu_hello               \
+startup/osu_init                \
+pt2pt/osu_bibw                  \
+pt2pt/osu_bw                    \
+pt2pt/osu_latency_mt            \
+pt2pt/osu_mbw_mr                \
+pt2pt/osu_multi_lat             \
+pt2pt/osu_latency               \
+collective/osu_reduce_scatter   \
+collective/osu_barrier          \
+collective/osu_iscatterv        \
+collective/osu_bcast            \
+collective/osu_igather          \
+collective/osu_iallgatherv      \
+collective/osu_ialltoall        \
+collective/osu_gatherv          \
+collective/osu_allgatherv       \
+collective/osu_alltoall         \
+collective/osu_gather           \
+collective/osu_scatter          \
+collective/osu_allgather        \
+collective/osu_alltoallv        \
+collective/osu_igatherv         \
+collective/osu_scatterv         \
+collective/osu_iscatter         \
+collective/osu_reduce           \
+collective/osu_ialltoallv       \
+collective/osu_allreduce        \
+collective/osu_ialltoallw       \
+collective/osu_iallgather       \
+collective/osu_ibarrier         \
+collective/osu_ibcast           \
+one-sided/osu_put_bw            \
+one-sided/osu_acc_latency       \
+one-sided/osu_put_bibw          \
+one-sided/osu_get_acc_latency   \
+one-sided/osu_cas_latency       \
+one-sided/osu_get_latency       \
+one-sided/osu_get_bw            \
+one-sided/osu_put_latency       \
+one-sided/osu_fop_latency       \
 ; do
 group=`echo "$t" | cut -f1 -d'/'`
 bin=`echo "$t" | cut -f2 -d'/'`
 echo "${group}_${bin}:"
-echo "    files: '@BUILDPATH@/mpi/$group/Makefile'"
-echo "    target: '$bin'"
-echo "    type: 'complete'"
+echo "    type: 'run'"
 echo "    herit: *GRPMPI"
 echo "    bin: 'mpi/$group/$bin'"
+echo "    deps: [ \"compile_osu_mpi\" ]"
 
 #please set special cases here...
 case $t in

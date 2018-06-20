@@ -1,6 +1,6 @@
 #define BENCHMARK "OSU OpenSHMEM Put Message Rate Test"
 /*
- * Copyright (C) 2002-2016 the Network-Based Computing Laboratory
+ * Copyright (C) 2002-2018 the Network-Based Computing Laboratory
  * (NBCL), The Ohio State University. 
  *
  * Contact: Dr. D. K. Panda (panda@cse.ohio-state.edu)
@@ -9,36 +9,10 @@
  * copyright file COPYRIGHT in the top level OMB directory.
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
 #include <shmem.h>
-#include "osu_common.h"
+#include <osu_util.h>
 
-#define ITERS_SMALL     (500)          
-#define ITERS_LARGE     (50)
-#define LARGE_THRESHOLD (8192)
-#define MAX_MSG_SZ (1<<22)
-
-#define MESSAGE_ALIGNMENT (1<<12)
-#define MYBUFSIZE (MAX_MSG_SZ * ITERS_LARGE + MESSAGE_ALIGNMENT)
-
-char global_msg_buffer[MYBUFSIZE];
-
-#ifdef PACKAGE_VERSION
-#   define HEADER "# " BENCHMARK " v" PACKAGE_VERSION "\n"
-#else
-#   define HEADER "# " BENCHMARK "\n"
-#endif
-
-#ifndef FIELD_WIDTH
-#   define FIELD_WIDTH 20
-#endif
-
-#ifndef FLOAT_PRECISION
-#   define FLOAT_PRECISION 2
-#endif
+char global_msg_buffer[MYBUFSIZE_MR];
 
 #ifndef MEMORY_SELECTION
 #   define MEMORY_SELECTION 1
@@ -56,27 +30,20 @@ init_openshmem (void)
 {
     struct pe_vars v;
 
-    start_pes(0);
-    v.me = _my_pe();
+#ifdef OSHM_1_3
+    shmem_init ();
+    v.me = shmem_my_pe();
+	v.npes = shmem_n_pes();
+#else
+	start_pes(0);	
+	v.me = _my_pe();
     v.npes = _num_pes();
+#endif
+    
     v.pairs = v.npes / 2;
     v.nxtpe = v.me < v.pairs ? v.me + v.pairs : v.me - v.pairs;
 
     return v;
-}
-
-static void
-print_usage (int myid)
-{
-    if (myid == 0) {
-        if (MEMORY_SELECTION) {
-            fprintf(stderr, "Usage: osu_oshm_put_mr <heap|global>\n");
-        }
-
-        else {
-            fprintf(stderr, "Usage: osu_oshm_put_mr\n");
-        }
-    }
 }
 
 void
@@ -90,13 +57,13 @@ check_usage (int me, int npes, int argc, char * argv [])
              */
             if (strncmp(argv[1], "heap", 10)
                 && strncmp(argv[1], "global", 10)) {
-                print_usage(me);
+                usage_oshm_pt2pt(me);
                 exit(EXIT_FAILURE);
             }
         }
 
         else {
-            print_usage(me);
+            usage_oshm_pt2pt(me);
             exit(EXIT_FAILURE);
         }
     }
@@ -129,7 +96,11 @@ allocate_memory (int me, long align_size, int use_heap)
         return global_msg_buffer;
     }
 
-    msg_buffer = (char *)shmalloc(MAX_MSG_SZ * ITERS_LARGE + align_size);
+#ifdef OSHM_1_3
+	msg_buffer = (char *)shmem_malloc(MAX_MESSAGE_SIZE * OSHM_LOOP_LARGE_MR + align_size);
+#else
+	msg_buffer = (char *)shmalloc(MAX_MESSAGE_SIZE * OSHM_LOOP_LARGE_MR + align_size);
+#endif
 
     if (NULL == msg_buffer) {
         fprintf(stderr, "Failed to shmalloc (pe: %d)\n", me);
@@ -148,13 +119,13 @@ align_memory (unsigned long address, int const align_size)
 double
 message_rate (struct pe_vars v, char * buffer, int size, int iterations)
 {
-    int64_t begin, end; 
+    double begin, end; 
     int i, offset;
 
     /*
      * Touch memory
      */
-    memset(buffer, size, MAX_MSG_SZ * ITERS_LARGE);
+    memset(buffer, size, MAX_MESSAGE_SIZE * OSHM_LOOP_LARGE_MR);
 
     shmem_barrier_all();
 
@@ -198,8 +169,8 @@ benchmark (struct pe_vars v, char * msg_buffer)
      * Warmup
      */
     if (v.me < v.pairs) {
-        for (i = 0; i < (ITERS_LARGE * MAX_MSG_SZ); i += MAX_MSG_SZ) {
-            shmem_putmem(&msg_buffer[i], &msg_buffer[i], MAX_MSG_SZ, v.nxtpe);
+        for (i = 0; i < (OSHM_LOOP_LARGE_MR * MAX_MESSAGE_SIZE); i += MAX_MESSAGE_SIZE) {
+            shmem_putmem(&msg_buffer[i], &msg_buffer[i], MAX_MESSAGE_SIZE, v.nxtpe);
         }
     }
     
@@ -208,8 +179,8 @@ benchmark (struct pe_vars v, char * msg_buffer)
     /*
      * Benchmark
      */
-    for (size = 1; size <= MAX_MSG_SZ; size <<= 1) {
-        i = size < LARGE_THRESHOLD ? ITERS_SMALL : ITERS_LARGE;
+    for (size = 1; size <= MAX_MESSAGE_SIZE; size <<= 1) {
+        i = size < LARGE_MESSAGE_SIZE ? OSHM_LOOP_SMALL_MR : OSHM_LOOP_LARGE_MR;
 
         mr = message_rate(v, msg_buffer, size, i);
         shmem_double_sum_to_all(&mr_sum, &mr, 1, 0, 0, v.npes, pwrk, psync);
@@ -239,7 +210,7 @@ main (int argc, char *argv[])
     alignment = use_heap ? sysconf(_SC_PAGESIZE) : 4096;
     msg_buffer = allocate_memory(v.me, alignment, use_heap);
     aligned_buffer = align_memory((unsigned long)msg_buffer, alignment);
-    memset(aligned_buffer, 0, MAX_MSG_SZ * ITERS_LARGE);
+    memset(aligned_buffer, 0, MAX_MESSAGE_SIZE * OSHM_LOOP_LARGE_MR);
 
     /*
      * Time Put Message Rate
@@ -250,8 +221,16 @@ main (int argc, char *argv[])
      * Finalize
      */
     if (use_heap) {
-        shfree(msg_buffer);
+#ifdef OSHM_1_3
+        shmem_free(msg_buffer);
+#else
+		shfree(msg_buffer);
+#endif
     }
-    
+
+#ifdef OSHM_1_3  
+    shmem_finalize (); 
+#endif
+
     return EXIT_SUCCESS;
 }
