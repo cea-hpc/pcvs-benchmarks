@@ -405,9 +405,16 @@ sub engine_convert_to_cmd
 			$pre_env .= $value;
 		}
 		#else, by default, it is an command line argument
-		else
+		elsif(lc($sysconf->{'runtime'}{$param_name}{'usage'}) eq "argument")
 		{
 			$post_args .= $value;
+		}
+		else
+		{
+			#when an iterator is handled by the runtime BUT does not need any
+			#argument or environment changes, the iterator is left blank and the
+			#command unfolding will fall here...
+			# TL;DR -> leave this else() empty.
 		}
 
 		$nb_res = $c[$_] if($param_name eq $sysconf->{validation}{resource_level});
