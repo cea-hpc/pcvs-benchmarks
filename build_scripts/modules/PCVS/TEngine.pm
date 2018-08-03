@@ -410,7 +410,7 @@ sub engine_convert_to_cmd
 		$nb_res = $c[$_] if($param_name eq $sysconf->{validation}{resource_level});
 	}
 	#special case: we export a var allowing the test case to identify itself
-	$pre_env = "PCVS_TESTCASE=\"$name\" ".$pre_env;
+	$pre_env = "PCVS_TESTCASE=\"$name\" ".($pre_env || "");
 	return ($pre_env || "", $nb_res || undef, $post_args || "");
 }
 
