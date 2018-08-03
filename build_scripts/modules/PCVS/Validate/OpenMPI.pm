@@ -53,7 +53,8 @@ sub runtime_valid
 	$mpi = 1 if(!defined($mpi));
 	$omp = 1 if(!defined($omp));
 	$node = 1 if(!defined($node));
-	return 0 if((($mpi)/$node + $omp) >= $max_cores);
+	# '-1' because a core can be used as MPI & OMP threads
+	return 0 if((($mpi)/$node + $omp -1) > $max_cores);
 	#print "Keep N=".(defined $node ? $node : "X").
 		  #" p=".(defined $proc ? $proc : "X").
 		  #" t=".(defined $mpi ? $mpi : "X").
