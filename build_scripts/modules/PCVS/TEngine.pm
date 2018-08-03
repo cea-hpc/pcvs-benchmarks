@@ -68,8 +68,11 @@ sub engine_init
 	#first, remove iterators not used by the configuration.
 	foreach (keys %{ $sysconf->{'iterators'} })
 	{
-		#if iterator does not exist or not defined by the runtime, the iterator is skipped
-		next if(! exists $sysconf->{"runtime"}{$_}{'key'} or !$sysconf->{"runtime"}{$_}{'key'});
+		#if iterator does not exist or not defined by the runtime, the iterator is skipped.
+		# please note the iterator has to be completely removed from the configuration file to be skipped
+		# if key/val are just left blank, it means the iterator should be considered but no arguments are
+		# provided to the command line nor environment (consider nodes for OpenMPI for example)
+		next if(! exists $sysconf->{"runtime"}{$_}{'key'});
 		push @sys_iterlist_names, $_;
 	}
 
