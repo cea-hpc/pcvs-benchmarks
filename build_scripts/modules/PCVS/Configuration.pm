@@ -239,7 +239,7 @@ sub configuration_load
 	else
 	{
 		# if the user provides a file name, but we didn't found it in $internaldir/configuration/environment/
-		helper_error("$gconf{'config-target'} is not valid (check --list-configs)") if (!grep(/^$user_name$/, @avail_names));
+		helper_error("$user_name is not valid (check --list-configs)") if (!grep(/^$user_name$/, @avail_names));
 		return "$prefix/$user_name.yml";
 	}
 
