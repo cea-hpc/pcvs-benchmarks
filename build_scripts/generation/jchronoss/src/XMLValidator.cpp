@@ -3,7 +3,7 @@
 /*                         Copyright or (C) or Copr.                        */
 /*       Commissariat a l'Energie Atomique et aux Energies Alternatives     */
 /*                                                                          */
-/* Version : 2.0                                                            */
+/* Version : 1.2                                                            */
 /* Date    : Tue Jul 22 13:28:10 CEST 2014                                  */
 /* Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      */
 /* Author  : Julien Adam <julien.adam@cea.fr>                               */
@@ -69,6 +69,7 @@ const string XMLValidator::xsdJobsvalidation = " \
         <xs:element name=\"resources\" type=\"xs:string\"/>\
         <xs:element name=\"dep\" type=\"xs:string\"/>\
         <xs:element name=\"constraint\" type=\"xs:string\"/>\
+        <xs:element name=\"extras\" type=\"xs:string\"/>\
         <xs:element name=\"deps\">\
                 <xs:complexType>\
                         <xs:sequence>\
@@ -94,6 +95,7 @@ const string XMLValidator::xsdJobsvalidation = " \
                                 <xs:element ref=\"resources\" minOccurs=\"0\" maxOccurs=\"1\"/>\
                                 <xs:element ref=\"deps\" minOccurs=\"0\" maxOccurs=\"1\"/>\
                                 <xs:element ref=\"constraints\" minOccurs=\"0\" maxOccurs=\"1\"/>\
+                                <xs:element ref=\"extras\" minOccurs=\"0\" maxOccurs=\"1\"/>\
                         </xs:all>\
                 </xs:complexType>\
         </xs:element>\

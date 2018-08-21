@@ -29,6 +29,7 @@ use Module::Load qw(load autoload);   # Dynamic module loading
 use XML::Writer;                      # XML parser (output)
 use YAML qw(LoadFile DumpFile);       # YAML parser (input)
 use POSIX;                            # Used for rounding (maths)
+use JSON;
 use Data::Dumper;                     # Used for debug, printing data structures
 use vars qw(@ISA @EXPORT @EXPORT_OK);
 
@@ -435,10 +436,11 @@ sub engine_convert_to_cmd
 #   - $time: expected time
 #   - $delta: tolerance time limit
 #   - $constraint: Is a compilation test ?
+#   - $tinfos: extra user infos for this test case
 #   - @deps: list of dependencies for this test (can be undef)
 sub engine_gen_test
 {
-	my ($xml, $name, $nb_res, $chdir, $command, $rc, $time, $delta, $constraint, @deps) = @_;
+	my ($xml, $name, $nb_res, $chdir, $command, $rc, $time, $delta, $constraint, $tinfos, @deps) = @_;
 
 	$command= "cd $chdir && $command" if (defined $chdir);
 
@@ -458,6 +460,7 @@ sub engine_gen_test
 	$xml->startTag("deps");
 	$xml->dataElement("dep", $_) foreach(@deps);
 	$xml->endTag("deps");
+	$xml->dataElement("extras", $tinfos);
 
 	$xml->endTag("job");
 }
@@ -539,10 +542,11 @@ sub engine_unfold_test_expr
 	#params
 	my  ($xml, $tname,  $tvalue, $bpath) = @_;
 	#global var for a test_expr
-	my ($name, $bin, $command, $args, $arg_omp, $arg_tbb, $arg_accl, $rc, $time, $delta, $constraint, $timeout, $chdir, @deps) = ();
+	my ($name, $bin, $command, $args, $arg_omp, $arg_tbb, $arg_accl, $rc, $time, $delta, $constraint, $timeout, $chdir, $tinfos, @deps) = ();
 	#other vars
 	my $ttype = lc(engine_get_value_ifdef($tvalue, 'type') || "run");
 	my $ret = 0;
+	my $rawinfos;
 
 	#common params, whatever the TE type
 	$time    = engine_get_value_ifdef($tvalue, 'limit') || undef;
@@ -554,7 +558,10 @@ sub engine_unfold_test_expr
 	$timeout = engine_get_value_ifdef($tvalue, "timeout") || $sysconf->{validation}{timeout} || "";
 	$arg_omp = engine_get_value_ifdef($tvalue, 'openmp') || "false"; 
 	$arg_tbb = engine_get_value_ifdef($tvalue, 'tbb') || "false"; 
-	$arg_accl= engine_get_value_ifdef($tvalue, 'accl') || "false"; 
+	$arg_accl= engine_get_value_ifdef($tvalue, 'accl') || "false";
+	$rawinfos = engine_get_value_ifdef($tvalue, "info") || "";
+
+ 	$tinfos = encode_json($rawinfos);
 
 	$chdir = "$bpath/$chdir" if (defined $chdir);
 	#check if the TE is usable within the current configuration
@@ -595,7 +602,7 @@ sub engine_unfold_test_expr
 			$command = "$sysconf->{compiler}{$comp_name} -o $bin $files $cflags $args" ;
 		}
 		#generate the XML entry
-		engine_gen_test($xml, $tname, undef, undef, $command, $rc, $time, $delta, $constraint, @deps);
+		engine_gen_test($xml, $tname, undef, undef, $command, $rc, $time, $delta, $constraint, $tinfos, @deps);
 	}
 
 	# if the current should be run
@@ -631,7 +638,7 @@ sub engine_unfold_test_expr
 			my ($pre_env, $nb_res, $post_args) = engine_convert_to_cmd($name, $it_keys, @{ $it_comb->[$_] });
 			$command = "$pre_env $launcher $post_args $timeout $extra_args $bin $args";
 			#push the test into XML file
-			engine_gen_test($xml, $name, $nb_res, $chdir, $command, $rc, $time, $delta, $constraint, @deps);
+			engine_gen_test($xml, $name, $nb_res, $chdir, $command, $rc, $time, $delta, $constraint, $tinfos, @deps);
 		}
 	}
 
