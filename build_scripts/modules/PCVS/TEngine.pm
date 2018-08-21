@@ -673,10 +673,11 @@ sub engine_unfold_file
 	
 	#ready to write list_of_tests
 	open(my $xml_file, ">", "$bpath/list_of_tests.xml");
-
+	
+	$ftree =~ s/\//\./g;
 
 	my $xmlwriter = XML::Writer->new(OUTPUT => $xml_file, NEWLINES => 0);
-	$xmlwriter->startTag("jobSuite", "package" => grep {s/\//\./g} $ftree);
+	$xmlwriter->startTag("jobSuite", "package" => $ftree);
 
 	# parse each test
 	foreach my $test(keys %{ $filestream })

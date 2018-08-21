@@ -48,6 +48,23 @@ sub runtime_valid
 	$net   = get_ifdef('net' ,$keys,@args); 
 	$sched = get_ifdef('sched',$keys,@args);
 
+	# some auto-detections, because MPC is resilient
+	# Order matters
+	$node = 1 if (!defined $node);
+	if(!defined $mpi)
+	{ EXIT_MPI:{
+		($mpi = $proc and last EXIT_MPI) if(defined $proc);
+		($mpi = $node and last EXIT_MPI) if(defined $node);
+		$mpi = 1;
+	}}
+	if(!defined $proc)
+	{ EXIT_PROC:{
+		($proc = $mpi and last EXIT_PROC) if(defined $mpi);
+		($proc = $node and last EXIT_PROC) if(defined $node);
+		$proc = 1;
+	}}
+
+
 	# please be sure to check if the iterator exist because the system emits
 	# an undef when the iterator won't be unfolded for the current configuration
 	return 0 if(defined $node and defined $max_nodes and $node > $max_nodes); 
