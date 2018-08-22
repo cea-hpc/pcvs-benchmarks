@@ -3,7 +3,7 @@
 /*                         Copyright or (C) or Copr.                        */
 /*       Commissariat a l'Energie Atomique et aux Energies Alternatives     */
 /*                                                                          */
-/* Version : 2.0                                                            */
+/* Version : 1.2                                                            */
 /* Date    : Tue Jul 22 13:28:10 CEST 2014                                  */
 /* Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      */
 /* Author  : Julien Adam <julien.adam@cea.fr>                               */
@@ -85,7 +85,9 @@ private:
 	JobResult* result;                         ///< a pointer on result, set after launch
 	std::string referentFilename;              ///< the file where job have been extracted as a string name
 	size_t myId;                               ///< job id (used by slave for print the job id in the current worker)
-	
+	std::string extras;                        ///< user test infos
+	std::string postCommand;                   ///< post-command allowed to check test success in addition to return code
+
 	/************** STATICS **************/
 	static size_t id;                          ///< static incremental id at each new created job
 	
@@ -112,8 +114,10 @@ public:
 	 * \param[in] deps the deps names tab to resolve deps later
 	 * \param[in] constraints the list of constraints
 	 * \param[in] file the referent file where job have been extracted
+	 * \param[in] e user-defined extras for this test
+	 * \param[in] pc possible post command to validate the test (in addition to return code)
 	 */
-	Job ( std::string name, std::string group, std::string command, std::vector< std::string* > deps, std::vector< JobConstraint* > constraints, std::string file, size_t nbRes = 1, int rc = 0, double time = 0.0, double delta = 0.0);
+	Job ( std::string name, std::string group, std::string command, std::vector< std::string* > deps, std::vector< JobConstraint* > constraints, std::string file, std::string e, std::string pc, size_t nbRes = 1, int rc = 0, double time = 0.0, double delta = 0.0);
 	/// add a constraint to the current job
 	/**
 	 * add a constraint on the job.static size_t id; 
@@ -260,6 +264,17 @@ public:
 	 * \see HTMLEncoding()
 	 */
 	std::string getCommand() const;
+	/// get the post command
+	/**
+	 *
+	 * \return a string containing command to validate the job
+	 */
+	std::string getPostCommand() const;
+	/// get the user-defined infos for this job
+	/**
+	 * \return a string containing user infos
+	 */
+	std::string getExtras() const;
 	/// get file where job have been extracted
 	/**
 	 * \return the file name

@@ -3,7 +3,7 @@
 /*                         Copyright or (C) or Copr.                        */
 /*       Commissariat a l'Energie Atomique et aux Energies Alternatives     */
 /*                                                                          */
-/* Version : 2.0                                                            */
+/* Version : 1.2                                                            */
 /* Date    : Tue Jul 22 13:28:10 CEST 2014                                  */
 /* Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      */
 /* Author  : Julien Adam <julien.adam@cea.fr>                               */
@@ -252,6 +252,8 @@ void OutputFormatJSON::appendPendingJob(Job* job, const char * tagname)
 	
 	test["command"] = job->getCommand() ;
 	test["file"] = job->getReferentFilename() ;
+	test["postCommand"] = job->getPostCommand();
+	test["extras"] = job->getExtras();
 	test["returncode"] = (Json::Int)job->getExpectedReturn() ;
 	test["time"] = job->getExpectedTime() ;
 	test["delta"] = job->getDelta() ;

@@ -3,7 +3,7 @@
 /*                         Copyright or (C) or Copr.                        */
 /*       Commissariat a l'Energie Atomique et aux Energies Alternatives     */
 /*                                                                          */
-/* Version : 2.0                                                            */
+/* Version : 1.2                                                            */
 /* Date    : Tue Jul 22 13:28:10 CEST 2014                                  */
 /* Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      */
 /* Author  : Julien Adam <julien.adam@cea.fr>                               */
@@ -111,6 +111,8 @@ void Worker::pushJobsInputFile(int nbRemain)
 			<< "\t<resources>"<< (*it)->getNbResources()<<"</resources>\n"
 			<< "\t<rc>" << (*it)->getExpectedReturn() << "</rc>\n"
 			<< "\t<time>" << (*it)->getExpectedTime() << "</time>\n"
+			<< "\t<postCommand>" << (*it)->getPostCommand() << "</postCommand>\n"
+			<< "\t<extras>" << (*it)->getExtras() << "</extras>\n"
 			<< "\t<delta>" << (*it)->getDelta() << "</delta>\n"
 			<< "\t<command>" << command << "</command>\n"
 			<< "</job>\n";

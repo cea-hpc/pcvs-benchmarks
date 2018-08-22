@@ -3,7 +3,7 @@
 /*                         Copyright or (C) or Copr.                        */
 /*       Commissariat a l'Energie Atomique et aux Energies Alternatives     */
 /*                                                                          */
-/* Version : 2.0                                                            */
+/* Version : 1.2                                                            */
 /* Date    : Tue Jul 22 13:28:10 CEST 2014                                  */
 /* Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      */
 /* Author  : Julien Adam <julien.adam@cea.fr>                               */
@@ -106,7 +106,7 @@ bool FileManager::isCreated(const std::string* file){
 	if(file == NULL) return true;
 	//check if file exists, trying to open it
 	ifstream p((*file).c_str());
-	return p;
+	return p.is_open();
 }
 
 bool FileManager::isCreated(std::string* file){

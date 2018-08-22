@@ -3,7 +3,7 @@
 /*                         Copyright or (C) or Copr.                        */
 /*       Commissariat a l'Energie Atomique et aux Energies Alternatives     */
 /*                                                                          */
-/* Version : 2.0                                                            */
+/* Version : 1.2                                                            */
 /* Date    : Tue Jul 22 13:28:10 CEST 2014                                  */
 /* Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      */
 /* Author  : Julien Adam <julien.adam@cea.fr>                               */
@@ -46,8 +46,8 @@ size_t Job::id = 0;
 
 Job::Job() : status(NOT_RUN) {}
 
-Job::Job ( std::string name, std::string group, std::string command, std::vector< std::string* > deps, std::vector< JobConstraint* > constraints, std::string file, size_t nbRes, int rc, double time, double delta ) :
-	shortName(name), command(command), nbDeps(deps.size()), nbTries(0), nbResources(nbRes), expectedReturnCode(rc), timer(time), delta(delta), vDepsNamesTab(deps), vConstraints(constraints), status(NOT_RUN), result(NULL), referentFilename(file)
+Job::Job ( std::string name, std::string group, std::string command, std::vector< std::string* > deps, std::vector< JobConstraint* > constraints, std::string file, std::string e, std::string pc, size_t nbRes, int rc, double time, double delta ) :
+	shortName(name), command(command), nbDeps(deps.size()), nbTries(0), nbResources(nbRes), expectedReturnCode(rc), timer(time), delta(delta), vDepsNamesTab(deps), vConstraints(constraints), status(NOT_RUN), result(NULL), referentFilename(file), extras(e), postCommand(pc)
 {
 	myId = ++id;
 	fullName = group.empty() ? name : group+"."+name;
@@ -172,6 +172,17 @@ std::string Job::getCommand() const
 {
 	return command;
 }
+
+std::string Job::getPostCommand() const
+{
+	return postCommand;
+}
+
+std::string Job::getExtras() const
+{
+	return extras;
+}
+
 int Job::getExpectedReturn() const
 {
 	return expectedReturnCode;

@@ -3,7 +3,7 @@
 /*                         Copyright or (C) or Copr.                        */
 /*       Commissariat a l'Energie Atomique et aux Energies Alternatives     */
 /*                                                                          */
-/* Version : 2.0                                                            */
+/* Version : 1.2                                                            */
 /* Date    : Tue Jul 22 13:28:10 CEST 2014                                  */
 /* Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      */
 /* Author  : Julien Adam <julien.adam@cea.fr>                               */
@@ -121,7 +121,7 @@ void XMLJobParser::parseConstraints ( std::vector< JobConstraint* >& list, xmlNo
 }
 
 Job* XMLJobParser::parseJob(xmlNodePtr location) {
-	string name = "", command, chain;
+	string name = "", command, postCommand, extras, chain;
 	size_t nbResources = 1;
 	int rc = 0;
 	double time = -1.0, delta = -1.0;
@@ -133,6 +133,8 @@ Job* XMLJobParser::parseJob(xmlNodePtr location) {
 	name = findChildNodeContent(location,(char*)"name");
 	
 	command = findChildNodeContent(location,(char*)"command");
+	postCommand = findChildNodeContent(location,(char*)"postCommand");
+	extras = findChildNodeContent(location,(char*)"extras");
 	if ((chain = findChildNodeContent(location, (char*)"resources").c_str()) != "")
 		nbResources = atoi(chain.c_str());
 	if ((chain = findChildNodeContent(location, (char*)"rc").c_str()) != "")
@@ -150,7 +152,7 @@ Job* XMLJobParser::parseJob(xmlNodePtr location) {
 			//directly_selected=true;
 	//}
 
-	Job * obj =  new Job(name, jobsGroup, command, vDeps, vConstraints, nameFile, nbResources, rc, time, delta);
+	Job * obj =  new Job(name, jobsGroup, command, vDeps, vConstraints, nameFile, extras, postCommand, nbResources, rc, time, delta);
 	
 	if(!filter->accept(name))
 	{

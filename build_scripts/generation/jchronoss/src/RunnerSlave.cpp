@@ -3,7 +3,7 @@
 /*                         Copyright or (C) or Copr.                        */
 /*       Commissariat a l'Energie Atomique et aux Energies Alternatives     */
 /*                                                                          */
-/* Version : 2.0                                                            */
+/* Version : 1.2                                                            */
 /* Date    : Tue Jul 22 13:28:10 CEST 2014                                  */
 /* Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      */
 /* Author  : Julien Adam <julien.adam@cea.fr>                               */
@@ -337,17 +337,21 @@ void RunnerSlave::launchWorkerThreadStart(Job* job)
 	string instruction, curName, time_str, content;
 	if(config->job().isFake()){
 		rnd = ((rand()%(MAX_RANDOM-MIN_RANDOM)+MIN_RANDOM))*VAR_COEFF;
-		ts.tv_sec = (int)rnd/NB_MS_IN_SEC;
+		ts.tv_sec = (int)(rnd/NB_MS_IN_SEC);
 		ts.tv_nsec = ((long)rnd-(ts.tv_sec*NB_MS_IN_SEC))*NB_NS_IN_MS;
 		start = getCurrentDate();
 		nanosleep(&ts, NULL);
-		time = ts.tv_sec + (ts.tv_nsec / (double)(NB_MS_IN_SEC * NB_NS_IN_MS));
+		time = (double)ts.tv_sec + ((double)ts.tv_nsec / (double)(NB_MS_IN_SEC * NB_NS_IN_MS));
 		finalRC = job->getExpectedReturn();
 		flow.fillSpecificMessage("Fake execution");
 		content = flow.getContent(NULL);
 	}
 	else{
-		instruction = job->getCommand();
+		instruction = "( " + job->getCommand() +")";
+		if(!job->getPostCommand().empty())
+			instruction += " 2>&1 | " + job->getPostCommand();
+		if(!job->getExtras().empty())
+			instruction += " '" + job->getExtras() + "'";
 		replace( instruction , "\\", "\\\\");
 		replace( instruction , "\"", "\\\"");
 		instruction = " /usr/bin/time -f%e sh -c \"" + instruction + "\" 2>&1";
@@ -380,6 +384,7 @@ void RunnerSlave::launchWorkerThreadStart(Job* job)
 
 	if((config->job().getVerbosity() == VERBOSE_ONLY_ERROR &&  finalRC != job->getExpectedReturn()) || config->job().getVerbosity() >= VERBOSE_ALL){
 		cout << "COMMAND = " << job->getCommand() << endl;
+		cout << "VALIDATION = " << job->getPostCommand() + " '"+job->getExtras() + "'" << endl;
 		cout << flow.getContent() << endl;
 	}
 }

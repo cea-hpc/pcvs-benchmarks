@@ -3,7 +3,7 @@
 /*                         Copyright or (C) or Copr.                        */
 /*       Commissariat a l'Energie Atomique et aux Energies Alternatives     */
 /*                                                                          */
-/* Version : 2.0                                                            */
+/* Version : 1.2                                                            */
 /* Date    : Tue Jul 22 13:28:10 CEST 2014                                  */
 /* Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      */
 /* Author  : Julien Adam <julien.adam@cea.fr>                               */
@@ -42,6 +42,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
+#include <fstream>
 #include <netdb.h>
 #include "RunnerMaster.h"
 #include "OutputFormatJSON.h"
@@ -206,6 +207,13 @@ void RunnerMaster::startServer(){
 		config->system().setServerName(hostname);
 	        config->system().setBackendPort(port);
 		config->system().setFrontendPort(fport);
+
+		/* dump the configuration in the build dir (Jenkins detection) */
+		std::ofstream serv_log;
+		std::string path = (*config->system().getBuildDirectory())+"/.jchrns_frontend";
+		serv_log.open(path.c_str());
+		serv_log << "ws://" << hostname << ":" << fport << "/";
+		serv_log.close();
 	}
 }
 #endif
