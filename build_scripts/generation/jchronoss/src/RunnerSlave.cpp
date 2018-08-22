@@ -347,14 +347,24 @@ void RunnerSlave::launchWorkerThreadStart(Job* job)
 		content = flow.getContent(NULL);
 	}
 	else{
-		instruction = "( " + job->getCommand() +")";
-		if(!job->getPostCommand().empty())
-			instruction += " 2>&1 | " + job->getPostCommand();
-		if(!job->getExtras().empty())
-			instruction += " '" + job->getExtras() + "'";
+		instruction = job->getCommand();
 		replace( instruction , "\\", "\\\\");
 		replace( instruction , "\"", "\\\"");
 		instruction = " /usr/bin/time -f%e sh -c \"" + instruction + "\" 2>&1";
+		
+		string post_instruction = job->getPostCommand();
+		string extras = job->getExtras();
+		if(!post_instruction.empty())
+		{
+			replace( post_instruction , "\\", "\\\\");
+			replace( post_instruction , "\"", "\\\"");
+			replace( extras, "\\", "\\\\");
+			replace( extras, "\"", "\\\"");
+			post_instruction = " | " + post_instruction + " \"" + extras + "\"";
+			instruction += post_instruction;
+		}
+
+
 		start = getCurrentDate();
 		// read + close on exec flag
 		fd = popen(instruction.c_str(), "r");
@@ -385,6 +395,7 @@ void RunnerSlave::launchWorkerThreadStart(Job* job)
 	if((config->job().getVerbosity() == VERBOSE_ONLY_ERROR &&  finalRC != job->getExpectedReturn()) || config->job().getVerbosity() >= VERBOSE_ALL){
 		cout << "COMMAND = " << job->getCommand() << endl;
 		cout << "VALIDATION = " << job->getPostCommand() + " '"+job->getExtras() + "'" << endl;
+		//cout << "DEBUG = " << instruction << endl;
 		cout << flow.getContent() << endl;
 	}
 }
