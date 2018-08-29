@@ -1,0 +1,10 @@
+#!/bin/sh
+exit 0
+
+if test -n "$PCVS_CATCH_RUNTEST"; then
+	echo "gcc $@" >> $PCVS_CATCH_RUNTEST
+else
+	echo "Not able to forward to real GCC yet."
+	exit 42
+fi
+	

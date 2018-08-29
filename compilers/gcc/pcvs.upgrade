@@ -1,0 +1,144 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+my %filetable;
+my $pwd;
+my $srcdir;
+my $internaldir;
+
+BEGIN {
+	# this is used to dynamically set Perl module path.
+	$srcdir = `readlink -e \`dirname $0\``; chomp $srcdir;
+	$srcdir .= "/../..";
+	$internaldir = $srcdir."/build_scripts";
+}
+
+#third-party libs loading
+use lib "$srcdir/build_scripts/modules";
+
+use File::Basename;
+use Data::Dumper;
+use JSON;
+use YAML qw(DumpFile);
+
+sub retrieve_file_specs {
+	my ($file) = @_;
+	open my $fh, "<", $file;
+	my %annotations;
+	while(<$fh>)
+	{
+		if("$. $_" =~ /([0-9]+)[ \t]+.*{[ \t]+dg-([-a-z]+)[ \t]+(.*)[ \t]+}[^}]*(\n|$)/ )
+		{
+			my @line = ($1, $2, $3);
+			#create an array of line infos (array of arrays)
+			if($line[1] =~ /^options$/)
+			{
+				push @{$annotations{"extraopts"}}, $line[2];
+			}
+			elsif($line[1] =~ /^error$/)
+			{
+				push @{$annotations{"regex-err"}}, $line[2];
+			}
+			elsif($line[1] =~ /^warning$/)
+			{
+				push @{$annotations{"regex-warn"}}, $line[2];
+			}
+			elsif($line[1] =~ /^bogus$/)
+			{
+			}
+			elsif($line[1] =~ /^build$/)
+			{
+			}
+			elsif($line[1] =~ /^excess-errors$/)
+			{
+			}
+			elsif($line[1] =~ /^output$/)
+			{
+			}
+			elsif($line[1] =~ /^final$/)
+			{
+			}
+		}
+	}
+	#push the 2D array as a value in the hashtable
+	$filetable{$file} = \%annotations;
+}
+
+sub build_hash_table {
+	my ($filename, $tool) = @_;
+	my $out_dirname = dirname($filename);
+	my %file_content;
+	open my $fh, "<", $filename;
+	while(<$fh>)
+	{
+		my ($type, $src, $out, @args )  = split / /, $_;
+		my $src_name = basename($src);
+		my ($name, $cargs);
+		chomp @args;
+		if(!defined $filetable{$src})
+		{
+			# do greps and store it
+			retrieve_file_specs($src);
+		}
+		if($type =~ /^executable$/)
+		{
+			$type = 'complete';
+		}
+		else
+		{
+			push @args, "-E" if ($type =~ /^preprocess$/);
+			push @args, "-S" if ($type =~ /^assembly$/);
+			push @args, "-c" if ($type =~ /^object$/);
+			$type = 'compile';
+
+		}
+
+		# can't be that more compact ?
+		$name = $src_name;
+		$name =~s/\.[^\.]+$//;
+		$name = "test_${name}_$.";
+	
+		$cargs = join(" ", @args);
+
+		$file_content{$name} = {
+			type  => "$type",
+			files => "\@SRCPATH\@/$src",
+			cargs => "$cargs",
+			bin => "$out",
+			valscript => "\@SRCPATH\@/compilers/gcc/tools/gcc-valscript.pl"
+		};
+		$file_content{$name}{info} = $filetable{$src} if($filetable{$src});
+	}
+
+	DumpFile("$out_dirname/$tool.pcvs.yml.in", \%file_content) if (%file_content);
+}
+
+BEGIN {
+	die qw/You cannot invoke this script that way !/ if(__FILE__ =~ /-e/);
+	$pwd = dirname(__FILE__);
+	$pwd = $ENV{PWD}."/".$pwd if($pwd =~ /^[^\/]/);
+}
+
+sub check_tool
+{
+	my ($tool_name) = @_;
+	my $tpath = qx/which $tool_name/;
+	die qw('$tool_name' not found or not executable) unless ($tpath);
+}
+
+check_tool "runtest";
+
+#$ENV{PATH} = $pwd."/tools/bin:".$ENV{PATH};
+my $tmpdir = `mktemp -d`; chomp $tmpdir;
+
+my @tools=('gcc', 'g++', 'gfortran');
+foreach(@tools)
+{
+	$ENV{PCVS_CATCH_RUNTEST} = "$pwd/list_of_$_.raw";
+	system("runtest --tool=$_ --objdir $tmpdir --outdir $tmpdir");
+	build_hash_table($ENV{PCVS_CATCH_RUNTEST}, $_);
+}
+
+system("rm -rf $tmpdir");

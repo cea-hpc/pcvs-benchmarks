@@ -273,7 +273,7 @@ sub run_configure
 	my $grp_stream;
 	{
 		local $/ = undef;
-		open (my $f, "<", "$internaldir/configuration/groups/$gconf{'group-target'}.yml") or helper_errro("Unable to open group file: $gconf{'group-target'}.");
+		open (my $f, "<", "$internaldir/configuration/groups/$gconf{'group-target'}.yml") or helper_error("Unable to open group file: $gconf{'group-target'}.");
 		$grp_stream = <$f>;
 		close $f;
 	}
