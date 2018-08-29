@@ -284,7 +284,7 @@ proc gcc-dg-test-1 { target_compile prog do_what extra_tool_flags } {
 
     verbose "$target_compile $prog $output_file $compile_type $options" 4
     global env
-    set pcvs_file $env(PCVS_CATCH_RUNTEST)
+    set pcvs_file "[ file dirname $prog ]/$env(PCVS_CATCH_RUNTEST)"
     set pcvsh [open "$pcvs_file" "a+"]
     puts $pcvsh "$compile_type $prog $output_file $extra_tool_flags"
     close $pcvsh

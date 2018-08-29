@@ -9,8 +9,10 @@ my $srcdir;
 my $internaldir;
 
 BEGIN {
+	die qw/You cannot invoke this script that way !/ if(__FILE__ =~ /-e/);
 	# this is used to dynamically set Perl module path.
 	$srcdir = `readlink -e \`dirname $0\``; chomp $srcdir;
+	$pwd = $srcdir;
 	$srcdir .= "/../..";
 	$internaldir = $srcdir."/build_scripts";
 }
@@ -67,10 +69,10 @@ sub retrieve_file_specs {
 }
 
 sub build_hash_table {
-	my ($filename, $tool) = @_;
+	my ($filename) = @_;
 	my $out_dirname = dirname($filename);
 	my %file_content;
-	open my $fh, "<", $filename;
+	open(my $fh, "<", $filename) or die "issue: $!";
 	while(<$fh>)
 	{
 		my ($type, $src, $out, @args )  = split / /, $_;
@@ -112,13 +114,7 @@ sub build_hash_table {
 		$file_content{$name}{info} = $filetable{$src} if($filetable{$src});
 	}
 
-	DumpFile("$out_dirname/$tool.pcvs.yml.in", \%file_content) if (%file_content);
-}
-
-BEGIN {
-	die qw/You cannot invoke this script that way !/ if(__FILE__ =~ /-e/);
-	$pwd = dirname(__FILE__);
-	$pwd = $ENV{PWD}."/".$pwd if($pwd =~ /^[^\/]/);
+	DumpFile("$out_dirname/pcvs.yml.in", \%file_content) if (%file_content);
 }
 
 sub check_tool
@@ -136,9 +132,14 @@ my $tmpdir = `mktemp -d`; chomp $tmpdir;
 my @tools=('gcc', 'g++', 'gfortran');
 foreach(@tools)
 {
-	$ENV{PCVS_CATCH_RUNTEST} = "$pwd/list_of_$_.raw";
+	$ENV{PCVS_CATCH_RUNTEST} = "pcvs.raw";
 	system("runtest --tool=$_ --objdir $tmpdir --outdir $tmpdir");
-	build_hash_table($ENV{PCVS_CATCH_RUNTEST}, $_);
+}
+
+foreach(`find $pwd -type f -iname 'pcvs.raw'`)
+{
+	chomp;
+	build_hash_table($_);
 }
 
 system("rm -rf $tmpdir");
