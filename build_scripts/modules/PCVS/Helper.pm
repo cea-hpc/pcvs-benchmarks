@@ -216,11 +216,16 @@ sub helper_detect_compiler
 	{
 		my $ext = $1;
 		#Still no switch-case implementation in core Perl...
-		if($ext =~ /^(c|c90|c99|c11)$/) # C
+		if($ext =~ /^(h|H|i|I|s|S)$/) # base lang-agnostic
+		{
+			#maybe the appropriate command could be used instead
+			return "c"; #compiled with C support
+		}
+		elsif($ext =~ /^(c|c90|c99|c11)$/) # C
 		{
 			return "c";
 		}
-		elsif($ext =~ /^(C|cxx|cpp|c\+\+)$/i) # C++
+		elsif($ext =~ /^(C|cc|cxx|cpp|c\+\+)$/i) # C++
 		{
 			return "cxx";
 		}

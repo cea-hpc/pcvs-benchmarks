@@ -86,14 +86,14 @@ sub build_hash_table {
 		}
 		if($type =~ /^executable$/)
 		{
-			$type = 'complete';
+			$type = "complete";
 		}
 		else
 		{
 			push @args, "-E" if ($type =~ /^preprocess$/);
 			push @args, "-S" if ($type =~ /^assembly$/);
 			push @args, "-c" if ($type =~ /^object$/);
-			$type = 'compile';
+			$type = "build";
 
 		}
 
@@ -108,13 +108,23 @@ sub build_hash_table {
 			type  => "$type",
 			files => "\@SRCPATH\@/$src",
 			cargs => "$cargs",
-			bin => "$out",
+			bin => "\"$out\"",
+			herit => 'GRPSERIAL_UNRESOLVED',
 			valscript => "\@SRCPATH\@/compilers/gcc/tools/gcc-valscript.pl"
 		};
 		$file_content{$name}{info} = $filetable{$src} if($filetable{$src});
 	}
 
 	DumpFile("$out_dirname/pcvs.yml.in", \%file_content) if (%file_content);
+	# We have to remove the first line w/ '---' starting the document
+	# because PCVS will later prepend content and these dashes will ignore this addition
+	# This is dirty and a complete parsing should be an option when trying to improve 
+	# it with more contents. For 'efficiency', we prefer to `cat` content instead of parsing 
+	# the file once more.
+	`sed -i 1d $out_dirname/pcvs.yml.in`;
+	# this is also a bad trick but if we put the asterisk in the $file_content above,
+	# the parser will surround the entry with quotes, making the inheritance buggy.
+	`sed -ie 's/GRPSERIAL_UNRESOLVED/\*GRPSERIAL/g' $out_dirname/pcvs.yml.in`
 }
 
 sub check_tool
@@ -129,16 +139,19 @@ check_tool "runtest";
 #$ENV{PATH} = $pwd."/tools/bin:".$ENV{PATH};
 my $tmpdir = `mktemp -d`; chomp $tmpdir;
 
-my @tools=('gcc', 'g++', 'gfortran');
+#my @tools=('gcc', 'g++', 'gfortran');
+my @tools=('gcc');
+$ENV{PCVS_CATCH_RUNTEST} = "pcvs.raw";
 foreach(@tools)
 {
-	$ENV{PCVS_CATCH_RUNTEST} = "pcvs.raw";
-	system("runtest --tool=$_ --objdir $tmpdir --outdir $tmpdir");
+	print "Building for $_ tool\n";
+	system("runtest --tool=$_ --objdir $tmpdir --outdir $tmpdir > /dev/null 2>&1");
 }
 
 foreach(`find $pwd -type f -iname 'pcvs.raw'`)
 {
 	chomp;
+	print "Generation for $_\n";
 	build_hash_table($_);
 }
 
