@@ -129,6 +129,20 @@ sub trap_signal
 }
 
 ###########################################################################
+# create the list of patterns which can be used in a TE to refer pre-defined paths
+#
+sub build_global_patterns
+{
+	open(my $fh, '>', "$buildir/global_patterns.sed") or die "Unable to create the SED pattern file in $buildir !";
+	print $fh "
+s,\@ROOTPATH\@,$srcdir,g;
+s,\@BROOTPATH\@,$buildir,g;
+	";
+}
+
+
+
+###########################################################################
 # clean up sensible paths contained in an path. This is done just before
 # creating the tarball. This function replaces : 
 # - $srcdir    -> $PCVS_SOURCE_DIR
@@ -200,6 +214,7 @@ sub run_prepare
 	helper_clean_path("$buildir/tmp/traces", 1);
 
 	env_logging();
+	build_global_patterns();
 }
 
 ###########################################################################
@@ -347,7 +362,7 @@ sub run_configure
 			}
 			
 			# Replace @...@ by real paths (files are in $buildir). Lazy macro processing. Maybe we could do it before copying it
-			system("cat $current_bpath/pcvs.yml.in | sed -e 's,\@SRCPATH\@,$current_path,g' -e 's,\@BUILDPATH\@,$current_bpath,g' > $current_bpath/pcvs.yml");
+			system("cat $current_bpath/pcvs.yml.in | sed -f $buildir/global_patterns.sed -e 's,\@SRCPATH\@,$current_path,g' -e 's,\@BUILDPATH\@,$current_bpath,g' > $current_bpath/pcvs.yml");
 
 			#Where things are going to be done (TE un-rolling)
 			print "    - Generate $name";

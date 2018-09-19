@@ -110,7 +110,7 @@ sub build_hash_table {
 			cargs => "$cargs",
 			bin => "\"$out\"",
 			herit => 'GRPSERIAL_UNRESOLVED',
-			valscript => "\@SRCPATH\@/compilers/gcc/tools/gcc-valscript.pl"
+			valscript => "\@ROOTPATH\@/compilers/gcc/tools/gcc-valscript.pl"
 		};
 		$file_content{$name}{info} = $filetable{$src} if($filetable{$src});
 	}
@@ -139,8 +139,7 @@ check_tool "runtest";
 #$ENV{PATH} = $pwd."/tools/bin:".$ENV{PATH};
 my $tmpdir = `mktemp -d`; chomp $tmpdir;
 
-#my @tools=('gcc', 'g++', 'gfortran');
-my @tools=('gcc');
+my @tools=('gcc', 'g++', 'gfortran');
 $ENV{PCVS_CATCH_RUNTEST} = "pcvs.raw";
 foreach(@tools)
 {

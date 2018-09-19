@@ -563,7 +563,7 @@ sub engine_unfold_test_expr
 	$rawinfos = engine_get_value_ifdef($tvalue, "info") || undef;
 	$pcmd = engine_get_value_ifdef($tvalue, "valscript") || undef;
 
- 	$tinfos = encode_json($rawinfos) if (defined $rawinfos);
+ 	$tinfos = encode_json($rawinfos) if ($rawinfos);
  	engine_debug("Warning: Validation script $pcmd is not executable !") if(defined $pcmd and ! -X $pcmd);
 
 	$chdir = "$bpath/$chdir" if (defined $chdir);

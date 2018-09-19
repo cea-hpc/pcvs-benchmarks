@@ -93,34 +93,16 @@ Worker::~Worker()
 
 void Worker::pushJobsInputFile(int nbRemain)
 {
-	string command;
-	ostringstream flux;
 	size_t id = 1;
-	CHECK(inputFile->open());
+	XMLJobWriter writer(inputFile, nbRemain+jobsList.size());
 	
-	flux << "<jobSuite nbRemain=\"" << (nbRemain+jobsList.size()) << "\" >\n";
 	
 	for(list<Job*>::iterator it = jobsList.begin(); it != jobsList.end() ; it++){
 		(*it)->setId(id++);
-		command = (*it)->getCommand();
-		HTMLEncoding(command);
-		flux << "<job>\n"
-			<< "\t<name>" << (*it)->getName() << "</name>\n"
-			<< "\t<deps></deps>\n"
-			<< "\t<constraints></constraints>\n"
-			<< "\t<resources>"<< (*it)->getNbResources()<<"</resources>\n"
-			<< "\t<rc>" << (*it)->getExpectedReturn() << "</rc>\n"
-			<< "\t<time>" << (*it)->getExpectedTime() << "</time>\n"
-			<< "\t<postCommand>" << (*it)->getPostCommand() << "</postCommand>\n"
-			<< "\t<extras>" << (*it)->getExtras() << "</extras>\n"
-			<< "\t<delta>" << (*it)->getDelta() << "</delta>\n"
-			<< "\t<command>" << command << "</command>\n"
-			<< "</job>\n";
+		writer.writeJob(*it);
 	}
-	flux << "</jobSuite>";
 	
-	(*inputFile) << flux.str();
-	CHECK(inputFile->close());
+	writer.flush();
 }
 
 void Worker::pullJobsOutputFile()

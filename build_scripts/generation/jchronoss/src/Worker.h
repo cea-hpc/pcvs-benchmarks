@@ -44,6 +44,7 @@
 #define WORKER_H
 #include "FileManager.h"
 #include "Job.h"
+#include "XMLJobWriter.h"
 
 /// represents a group of jobs to launch
 /**
