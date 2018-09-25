@@ -41,11 +41,17 @@ sub retrieve_file_specs {
 			}
 			elsif($line[1] =~ /^error$/)
 			{
-				push @{$annotations{"regex-err"}}, $line[2];
+				$line[2] =~ s/^"(.*)"(.*)$/$1/;
+				my $pattern = "[0-9]+: (fatal )?error:[^\n]*($line[2])";
+				my $linenum = $line[0];
+				push @{$annotations{"regex-err"}}, "(^|\n)([^\n]+(:$linenum:)[^\n]*($pattern)[^\n]*\n?)+";
 			}
 			elsif($line[1] =~ /^warning$/)
 			{
-				push @{$annotations{"regex-warn"}}, $line[2];
+				$line[2] =~ s/^"(.*)"(.*)$/$1/;
+				my $pattern = "[0-9]+: warning:[^\n]*($line[2])";
+				my $linenum = $line[0];
+				push @{$annotations{"regex-warn"}}, "(^|\n)([^\n]+(:$linenum:)[^\n]*($pattern)[^\n]*\n?)+";
 			}
 			elsif($line[1] =~ /^bogus$/)
 			{
@@ -106,7 +112,7 @@ sub build_hash_table {
 
 		$file_content{$name} = {
 			type  => "$type",
-			files => "\@SRCPATH\@/$src",
+			files => "\@ROOTPATH\@/compilers/gcc/$src",
 			cargs => "$cargs",
 			bin => "\"$out\"",
 			herit => 'GRPSERIAL_UNRESOLVED',
