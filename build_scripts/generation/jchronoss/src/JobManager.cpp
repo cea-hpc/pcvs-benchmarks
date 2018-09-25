@@ -71,6 +71,9 @@ JobManager::JobManager(Configuration* config) {
 	sumRun.endRun = 0;
 	sumRun.elapsed = 0.0;
 
+	// May be useless
+	for(size_t i = 0; i < MAX_JOB_HT; i++)
+		hashTable[i].clear();
 }
 
 
@@ -82,6 +85,8 @@ JobManager::~JobManager() {
 	}
 
 	safeTabFree(jobsList);
+	for(size_t i = 0; i < MAX_JOB_HT; i++)
+		hashTable[i].clear();
 }
 
 void JobManager::addExecutedJob ( Job * current ) {
@@ -119,14 +124,16 @@ void JobManager::addExecutedJob ( Job * current ) {
 
 		safe_send(backend_sock, &sz, sizeof(sz));
 		safe_send(backend_sock, format.stringify().c_str(), sz );
-		
-		
 	}
 #endif
 }
 
 void JobManager::addJob ( Job * current ) {
 	assert(current != NULL);
+	size_t key = Job::getHash(current->getName()) % MAX_JOB_HT;
+	HashedJob job(key, current);
+
+	hashTable[key].push_back(job);
 	jobsList[current->getNbResources() - 1].push_back(current);
 }
 int JobManager::getHigherValidList(size_t nbResources) const {
@@ -467,16 +474,16 @@ void JobManager::pushJobsIntoFiles() {
 }
 
 Job* JobManager::resolveADep ( std::string pattern ) {
-	for(size_t i = 0; i < nbLists; i++){
-		for(list<Job*>::iterator it = jobsList[i].begin(); it != jobsList[i].end(); it++){
-			if ((*it)->getName() == pattern || (*it)->getShortName() == pattern)
-				return (*it);
+
+	size_t key = Job::getHash(pattern) % MAX_JOB_HT;
+	for(list<HashedJob>::iterator it = hashTable[key].begin(); it != hashTable[key].end(); it++)
+	{
+		if (it->getName() == pattern || it->getShortName() == pattern)
+		{
+			return it->getPointer();
 		}
 	}
-	for(list<Job*>::iterator it = executedJobsList.begin(); it != executedJobsList.end(); it++){
-		if ((*it)->getName() == pattern || (*it)->getShortName() == pattern)
-			return (*it);
-	}
+
 	return NULL;
 }
 

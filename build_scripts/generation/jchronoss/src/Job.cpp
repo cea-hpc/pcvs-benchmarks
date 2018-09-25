@@ -249,3 +249,14 @@ bool Job::isDepInvalid(bool before) const
 	return false;
 }
 
+size_t Job::getHash(std::string str)
+{
+	size_t s = str.size();
+	size_t res = 4;
+	for(size_t i = 0; i < s; i++)
+	{
+		res = res*31 + str[i];
+	}
+	return res;
+}
+

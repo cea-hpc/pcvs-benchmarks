@@ -87,6 +87,7 @@
 #define DEFAULT_MAGIK_NUMBER 42U             ///< define magik number to ensure data coherency
 #define DEFAULT_OUTPUT_FILENAME "/output-"   ///< define default prefix filename for output xml file
 #define RANDOM_PORT_NUMBER   0               ///< define default port number generation
+#define MAX_JOB_HT 128
 #define DEFAULT_ONLINE_MODE false
 #define CHECKPOINT_PREFIX "jns_chkpt"
 #define CHECKPOINT_EXT    ".json"

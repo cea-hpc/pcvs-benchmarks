@@ -319,7 +319,21 @@ public:
 	 * \returns <b>False</b> otherwise.
 	 */
 	bool isPassed(int rc, double time) const;
+	static size_t getHash(std::string);
 
+};
+
+class HashedJob
+{
+private:
+	size_t jobKey;
+	Job* jobPointer;
+public:
+	HashedJob(size_t k, Job* pointer) : jobKey(k), jobPointer(pointer) {}
+	size_t getKey() { return jobKey; }
+	std::string getName() { return jobPointer->getName(); }
+	std::string getShortName() { return jobPointer->getShortName(); }
+	Job* getPointer() { assert(jobPointer); return jobPointer; }
 };
 
 #endif // JOB_H

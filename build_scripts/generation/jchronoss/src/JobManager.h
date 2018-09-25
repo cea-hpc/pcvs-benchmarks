@@ -49,6 +49,7 @@
 #include "FilterBox.h"
 #include "XMLJobParser.h"
 #include "OutputFormat.h"
+#include <functional>
 
 /// Main class gathering all jobs for the current validation
 /**
@@ -68,6 +69,7 @@ private:
 	std::vector<OutputFormat*> outputs; ///< Output standard format required by the user
 	Configuration* config;              ///< current global configuration
 	std::list<Job*>::iterator jobCpt;   ///< log server utility (used by the slave) */
+	std::list<HashedJob> hashTable[MAX_JOB_HT];
 
 	/************* FUNCTIONS *************/
 	/**** NON-CONST ****/

@@ -204,9 +204,10 @@ sub run_prepare
 	helper_clean_path("$buildir/tmp/exec_build", 1);
 	{
 		local $CWD = "$buildir/tmp/jchronoss_build"; # equivalent to chdir()
-		my $color = "";
+		my ($color,$omp) = ();
 		($color = "-DENABLE_COLOR=".($gconf{"color"} == 1 ? "ON" : "OFF")) if (exists $gconf{"color"});
-		system("cmake $internaldir/generation/jchronoss -DENABLE_OPENMP=OFF -DCMAKE_INSTALL_PREFIX=$buildir/tmp $color && make install");
+		($omp = "-DENABLE_OPENMP=".($gconf{"speed"} == 1 ? "ON" : "OFF")) if (exists $gconf{"speed"});
+		system("cmake $internaldir/generation/jchronoss -DCMAKE_INSTALL_PREFIX=$buildir/tmp $color $omp && make install");
 		helper_error("JCHRONOSS does not want to compile.") if(($? >> 8) != 0);
 
 
@@ -460,6 +461,7 @@ GetOptions (
 	"color|c!",
 	"expect-success",
 	"verbose:i",
+	"speed!",
 	"engine-debug",
 	"engine-sim",
 	"h",
