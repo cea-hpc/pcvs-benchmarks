@@ -130,7 +130,7 @@ sub build_hash_table {
 	`sed -i 1d $out_dirname/pcvs.yml.in`;
 	# this is also a bad trick but if we put the asterisk in the $file_content above,
 	# the parser will surround the entry with quotes, making the inheritance buggy.
-	`sed -ie 's/GRPSERIAL_UNRESOLVED/\*GRPSERIAL/g' $out_dirname/pcvs.yml.in`
+	`sed -i -e 's/GRPSERIAL_UNRESOLVED/\*GRPSERIAL/g' $out_dirname/pcvs.yml.in`
 }
 
 sub check_tool
