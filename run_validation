@@ -206,7 +206,7 @@ sub run_prepare
 		local $CWD = "$buildir/tmp/jchronoss_build"; # equivalent to chdir()
 		my ($color,$omp) = ();
 		($color = "-DENABLE_COLOR=".($gconf{"color"} == 1 ? "ON" : "OFF")) if (exists $gconf{"color"});
-		($omp = "-DENABLE_OPENMP=".($gconf{"speed"} == 1 ? "ON" : "OFF")) if (exists $gconf{"speed"});
+		$omp = "-DENABLE_OPENMP=".((exists $gconf{"speed"} and $gconf{"speed"} == 1) ? "ON" : "OFF");
 		system("cmake $internaldir/generation/jchronoss -DCMAKE_INSTALL_PREFIX=$buildir/tmp $color $omp && make install");
 		helper_error("JCHRONOSS does not want to compile.") if(($? >> 8) != 0);
 
