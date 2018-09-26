@@ -3,7 +3,15 @@
 use strict;
 use warnings;
 
+my $srcdir;
+BEGIN { 
+	$srcdir = $0; chomp $srcdir;
+	$srcdir =~ s/(.*\/)+[^\/]*$/$1/;
+}
+
+use lib "$srcdir/../../../build_scripts/modules";
 use JSON;
+
 use Data::Dumper;
 
 my $ret = 42;
