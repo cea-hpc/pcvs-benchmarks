@@ -1,0 +1,6953 @@
+test_Wparentheses-1_174:
+  bin: '"Wparentheses-1.s"'
+  cargs: ' -fopenacc -Wparentheses -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/Wparentheses-1.c'
+  herit: *GRPSERIAL
+  info: &1
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:17:)[^
+        ]*([0-9]+: warning:[^
+        ]*(ambiguous))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:25:)[^
+        ]*([0-9]+: warning:[^
+        ]*(ambiguous))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:32:)[^
+        ]*([0-9]+: warning:[^
+        ]*(ambiguous))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:39:)[^
+        ]*([0-9]+: warning:[^
+        ]*(ambiguous))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:47:)[^
+        ]*([0-9]+: warning:[^
+        ]*(ambiguous))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:54:)[^
+        ]*([0-9]+: warning:[^
+        ]*(ambiguous))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:157:)[^
+        ]*([0-9]+: warning:[^
+        ]*(ambiguous))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_Wparentheses-1_97:
+  bin: '"Wparentheses-1.s"'
+  cargs: ' -std=c++98 -fopenacc -Wparentheses -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/Wparentheses-1.c'
+  herit: *GRPSERIAL
+  info: *1
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_Wparentheses-1_98:
+  bin: '"Wparentheses-1.s"'
+  cargs: ' -std=c++11 -fopenacc -Wparentheses -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/Wparentheses-1.c'
+  herit: *GRPSERIAL
+  info: *1
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_Wparentheses-1_99:
+  bin: '"Wparentheses-1.s"'
+  cargs: ' -std=c++14 -fopenacc -Wparentheses -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/Wparentheses-1.c'
+  herit: *GRPSERIAL
+  info: *1
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_acc-icf_100:
+  bin: '"acc-icf.s"'
+  cargs: ' -std=c++98 -fopenacc -fopenacc -O2 -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/acc-icf.c'
+  herit: *GRPSERIAL
+  info: &2 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_acc-icf_101:
+  bin: '"acc-icf.s"'
+  cargs: ' -std=c++11 -fopenacc -fopenacc -O2 -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/acc-icf.c'
+  herit: *GRPSERIAL
+  info: *2
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_acc-icf_102:
+  bin: '"acc-icf.s"'
+  cargs: ' -std=c++14 -fopenacc -fopenacc -O2 -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/acc-icf.c'
+  herit: *GRPSERIAL
+  info: *2
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_acc-icf_49:
+  bin: '"acc-icf.s"'
+  cargs: ' -fopenacc -fopenacc -O2 -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/acc-icf.c'
+  herit: *GRPSERIAL
+  info: *2
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_asyncwait-1_103:
+  bin: '"asyncwait-1.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/asyncwait-1.c'
+  herit: *GRPSERIAL
+  info: &3
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:6:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '\\)' before numeric constant))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:12:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected (primary-|)expression before))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:18:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected (primary-|)expression before))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:24:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected (primary-|)expression before))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:30:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '\\)' before numeric constant))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:36:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected (primary-|)expression before))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:42:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '\\)' before end of line))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:48:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected (primary-|)expression before))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:55:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected integer expression before" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:56:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('async' expression must be integral" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:63:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected integer expression before" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:64:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('async' expression must be integral" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:70:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected (primary-|)expression before))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:82:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '\\)' before numeric constant))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:88:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected (primary-|)expression before))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:94:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected (primary-|)expression before))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:100:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected (primary-|)expression before))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:106:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '\\)' before numeric constant))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:112:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected (primary-|)expression before))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:118:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '\\\)' before end of line))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:119:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected integer expression before '\\\)'" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:125:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected (primary-|)expression before))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:131:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(must be integral))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:137:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(must be integral))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:143:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(must be integral))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:149:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected (integer |)expression (list |)before))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:161:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '\\)' before numeric constant))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:163:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected (primary-|)expression before))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:165:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected (primary-|)expression before))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:167:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected (primary-|)expression before))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:169:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '\\)' before numeric constant))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:171:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected (primary-|)expression before))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:173:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '\\\)' before end of line))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:174:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected integer expression before '\\\)'" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:176:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected (primary-|)expression before))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:178:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expression must be integral))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:180:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expression must be integral))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:182:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expression must be integral))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:184:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '#pragma acc' clause before numeric constant))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:186:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '#pragma acc' clause before 'N'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:188:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '\\)' before numeric constant))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:190:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '\\)' before numeric constant))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:192:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected (primary-|)expression before))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:194:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected (primary-|)expression before))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:196:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected (primary-|)expression before))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:198:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '\\)' before numeric constant))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:200:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected (primary-|)expression before))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:202:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '\\)' before end of line))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:204:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected (primary-|)expression before ))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:207:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected integer expression before" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:208:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expression must be integral" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:211:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected integer expression before" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:212:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expression must be integral" "))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_asyncwait-1_104:
+  bin: '"asyncwait-1.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/asyncwait-1.c'
+  herit: *GRPSERIAL
+  info: *3
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_asyncwait-1_105:
+  bin: '"asyncwait-1.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/asyncwait-1.c'
+  herit: *GRPSERIAL
+  info: *3
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_asyncwait-1_213:
+  bin: '"asyncwait-1.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/asyncwait-1.c'
+  herit: *GRPSERIAL
+  info: *3
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_cache-1_106:
+  bin: '"cache-1.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/cache-1.c'
+  herit: *GRPSERIAL
+  info: &4 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_cache-1_107:
+  bin: '"cache-1.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/cache-1.c'
+  herit: *GRPSERIAL
+  info: *4
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_cache-1_108:
+  bin: '"cache-1.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/cache-1.c'
+  herit: *GRPSERIAL
+  info: *4
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_cache-1_66:
+  bin: '"cache-1.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/cache-1.c'
+  herit: *GRPSERIAL
+  info: *4
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_cache-2_109:
+  bin: '"cache-2.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/cache-2.c'
+  herit: *GRPSERIAL
+  info: &5
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:26:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '\\\(' before end of line))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:27:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '\\\(' before 'a'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:29:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '\\\['))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:30:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected (identifier|unqualified-id) before end of line))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:31:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected (identifier|unqualified-id) before '\\\)' token))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:32:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected (identifier|unqualified-id) before '(,|\\\))' token))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:33:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '\\\)' before end of line))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:34:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected (identifier|unqualified-id) before '(,|\\\))' token" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:35:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected end of line before 'copyin'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:36:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected (identifier|unqualified-id) before '\\\)' token))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:37:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '\\\)' before 'b'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:38:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '\\\)' before 'b'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:40:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '\\\)' before end of line))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:41:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected end of line before '\\(' token))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:42:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected end of line before 'ii'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:43:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '\\)' before 'ii'))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_cache-2_110:
+  bin: '"cache-2.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/cache-2.c'
+  herit: *GRPSERIAL
+  info: *5
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_cache-2_111:
+  bin: '"cache-2.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/cache-2.c'
+  herit: *GRPSERIAL
+  info: *5
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_cache-2_57:
+  bin: '"cache-2.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/cache-2.c'
+  herit: *GRPSERIAL
+  info: *5
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_clauses-fail_112:
+  bin: '"clauses-fail.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/clauses-fail.c'
+  herit: *GRPSERIAL
+  info: &6
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:8:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '#pragma acc' clause before 'one'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:11:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '#pragma acc' clause before 'eins'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:14:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '#pragma acc' clause before 'two'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:18:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '#pragma acc' clause before 'deux'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:29:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected ... before ... token))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_clauses-fail_113:
+  bin: '"clauses-fail.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/clauses-fail.c'
+  herit: *GRPSERIAL
+  info: *6
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_clauses-fail_114:
+  bin: '"clauses-fail.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/clauses-fail.c'
+  herit: *GRPSERIAL
+  info: *6
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_clauses-fail_31:
+  bin: '"clauses-fail.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/clauses-fail.c'
+  herit: *GRPSERIAL
+  info: *6
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_collapse-1_97:
+  bin: '"collapse-1.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/collapse-1.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:12:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(not enough perfectly nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:43:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(not enough perfectly nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:64:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(collapsed loops not perfectly nested before))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:80:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(collapsed loops not perfectly nested before))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_combined-directives-2_115:
+  bin: '"combined-directives-2.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/combined-directives-2.c'
+  herit: *GRPSERIAL
+  info: &7
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:9:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('a' does not have pointer or array type))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_combined-directives-2_116:
+  bin: '"combined-directives-2.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/combined-directives-2.c'
+  herit: *GRPSERIAL
+  info: *7
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_combined-directives-2_117:
+  bin: '"combined-directives-2.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/combined-directives-2.c'
+  herit: *GRPSERIAL
+  info: *7
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_combined-directives-2_14:
+  bin: '"combined-directives-2.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/combined-directives-2.c'
+  herit: *GRPSERIAL
+  info: *7
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_combined-directives_116:
+  bin: '"combined-directives.s"'
+  cargs: ' -fopenacc -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/combined-directives.c'
+  herit: *GRPSERIAL
+  info: &8 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_combined-directives_118:
+  bin: '"combined-directives.s"'
+  cargs: ' -std=c++98 -fopenacc -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/combined-directives.c'
+  herit: *GRPSERIAL
+  info: *8
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_combined-directives_119:
+  bin: '"combined-directives.s"'
+  cargs: ' -std=c++11 -fopenacc -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/combined-directives.c'
+  herit: *GRPSERIAL
+  info: *8
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_combined-directives_120:
+  bin: '"combined-directives.s"'
+  cargs: ' -std=c++14 -fopenacc -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/combined-directives.c'
+  herit: *GRPSERIAL
+  info: *8
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_combined-reduction_121:
+  bin: '"combined-reduction.s"'
+  cargs: ' -std=gnu++98 -fopenacc -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/combined-reduction.c'
+  herit: *GRPSERIAL
+  info: &9
+    extraopts:
+      - '"-fopenacc -fdump-tree-gimple"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_combined-reduction_122:
+  bin: '"combined-reduction.s"'
+  cargs: ' -std=gnu++11 -fopenacc -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/combined-reduction.c'
+  herit: *GRPSERIAL
+  info: *9
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_combined-reduction_123:
+  bin: '"combined-reduction.s"'
+  cargs: ' -std=gnu++14 -fopenacc -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/combined-reduction.c'
+  herit: *GRPSERIAL
+  info: *9
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_combined-reduction_29:
+  bin: '"combined-reduction.s"'
+  cargs: ' -fopenacc -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/combined-reduction.c'
+  herit: *GRPSERIAL
+  info: *9
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_data-1_124:
+  bin: '"data-1.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/data-1.c'
+  herit: *GRPSERIAL
+  info: &10 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_data-1_125:
+  bin: '"data-1.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/data-1.c'
+  herit: *GRPSERIAL
+  info: *10
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_data-1_126:
+  bin: '"data-1.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/data-1.c'
+  herit: *GRPSERIAL
+  info: *10
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_data-1_6:
+  bin: '"data-1.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/data-1.c'
+  herit: *GRPSERIAL
+  info: *10
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_data-2_127:
+  bin: '"data-2.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/data-2.c'
+  herit: *GRPSERIAL
+  info: &11
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:8:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '#pragma acc' clause before '\\\(' token))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:9:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '\\\)' before '\\\(' token))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:13:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected 'data' after))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:14:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected 'data' after))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:15:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(has no data movement clause))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:16:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(no data movement clause))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:17:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected 'data' after))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:18:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected 'data' after))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:19:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected 'data' after))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:20:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected 'data' after))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:23:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(has no data movement clause" "))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_data-2_128:
+  bin: '"data-2.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/data-2.c'
+  herit: *GRPSERIAL
+  info: *11
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_data-2_129:
+  bin: '"data-2.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/data-2.c'
+  herit: *GRPSERIAL
+  info: *11
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_data-2_23:
+  bin: '"data-2.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/data-2.c'
+  herit: *GRPSERIAL
+  info: *11
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_data-clause-duplicate-1_13:
+  bin: '"data-clause-duplicate-1.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/data-clause-duplicate-1.c'
+  herit: *GRPSERIAL
+  info: &12
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:5:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('fp' appears more than once in data clauses))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('fp' appears more than once in data clauses))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:9:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('fp' appears more than once in data clauses))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:11:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('fp' appears more than once in data clauses))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_data-clause-duplicate-1_130:
+  bin: '"data-clause-duplicate-1.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/data-clause-duplicate-1.c'
+  herit: *GRPSERIAL
+  info: *12
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_data-clause-duplicate-1_131:
+  bin: '"data-clause-duplicate-1.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/data-clause-duplicate-1.c'
+  herit: *GRPSERIAL
+  info: *12
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_data-clause-duplicate-1_132:
+  bin: '"data-clause-duplicate-1.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/data-clause-duplicate-1.c'
+  herit: *GRPSERIAL
+  info: *12
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_data-default-1_133:
+  bin: '"data-default-1.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/data-default-1.c'
+  herit: *GRPSERIAL
+  info: &13
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:11:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(not specified in enclosing))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:12:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(not specified in enclosing))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:17:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(not specified in enclosing))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:18:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(not specified in enclosing))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_data-default-1_134:
+  bin: '"data-default-1.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/data-default-1.c'
+  herit: *GRPSERIAL
+  info: *13
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_data-default-1_135:
+  bin: '"data-default-1.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/data-default-1.c'
+  herit: *GRPSERIAL
+  info: *13
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_data-default-1_37:
+  bin: '"data-default-1.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/data-default-1.c'
+  herit: *GRPSERIAL
+  info: *13
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_declare-1_136:
+  bin: '"declare-1.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/declare-1.c'
+  herit: *GRPSERIAL
+  info: &14 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_declare-1_137:
+  bin: '"declare-1.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/declare-1.c'
+  herit: *GRPSERIAL
+  info: *14
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_declare-1_138:
+  bin: '"declare-1.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/declare-1.c'
+  herit: *GRPSERIAL
+  info: *14
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_declare-1_83:
+  bin: '"declare-1.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/declare-1.c'
+  herit: *GRPSERIAL
+  info: *14
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_declare-2_139:
+  bin: '"declare-2.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/declare-2.c'
+  herit: *GRPSERIAL
+  info: &15
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:4:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(no valid clauses))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:6:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(undeclared))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(no valid clauses" "second error))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:10:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(array section))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:13:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(more than once))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:17:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(more than once))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:20:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(at file scope))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:23:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(at file scope))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:26:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(at file scope))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:29:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(at file scope))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:32:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(at file scope))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:35:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(at file scope))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:38:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(at file scope))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:42:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(more than once))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:46:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(more than once))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:49:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(more than once))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:55:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(global variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:58:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid use of))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:61:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid use of))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:64:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid use of))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:67:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid use of))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:70:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid use of))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:73:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid use of))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:76:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid use of))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:78:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid use of))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_declare-2_140:
+  bin: '"declare-2.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/declare-2.c'
+  herit: *GRPSERIAL
+  info: *15
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_declare-2_141:
+  bin: '"declare-2.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/declare-2.c'
+  herit: *GRPSERIAL
+  info: *15
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_declare-2_79:
+  bin: '"declare-2.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/declare-2.c'
+  herit: *GRPSERIAL
+  info: *15
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_deviceptr-1_100:
+  bin: '"deviceptr-1.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/deviceptr-1.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:6:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('u' undeclared))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:8:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '\\\)' before '\\\[' token))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:11:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('fun1' is not a variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:14:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('fun1' is not a variable" "not a variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:15:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '\\\)' before '\\\[' token" "array))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:19:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('i' is not a pointer variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:22:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('i' is not a pointer variable" "not a pointer variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:23:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '\\\)' before '\\\[' token" "array))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:27:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('fa' is not a pointer variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:30:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('fa' is not a pointer variable" "not a pointer variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:31:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '\\\)' before '\\\[' token" "array))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:37:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '\\\)' before '\\\[' token))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:47:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('u' undeclared" "u undeclared))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:48:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('fun2' is not a variable" "fun2 not a variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:49:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('i' is not a pointer variable" "i not a pointer variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:50:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('fp' appears more than once in data clauses" "fp more than once))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:58:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('fp' appears more than once in data clauses))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:60:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('fp' appears more than once in data clauses))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:62:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('fp' appears more than once in data clauses))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:67:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(array type has incomplete element type" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:75:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('s1' is not a pointer variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:98:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(is not a pointer variable))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_deviceptr-2_142:
+  bin: '"deviceptr-2.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/deviceptr-2.c'
+  herit: *GRPSERIAL
+  info: &16 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_deviceptr-2_143:
+  bin: '"deviceptr-2.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/deviceptr-2.c'
+  herit: *GRPSERIAL
+  info: *16
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_deviceptr-2_144:
+  bin: '"deviceptr-2.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/deviceptr-2.c'
+  herit: *GRPSERIAL
+  info: *16
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_deviceptr-2_23:
+  bin: '"deviceptr-2.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/deviceptr-2.c'
+  herit: *GRPSERIAL
+  info: *16
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_deviceptr-3_11:
+  bin: '"deviceptr-3.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/deviceptr-3.c'
+  herit: *GRPSERIAL
+  info: &17 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_deviceptr-3_145:
+  bin: '"deviceptr-3.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/deviceptr-3.c'
+  herit: *GRPSERIAL
+  info: *17
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_deviceptr-3_146:
+  bin: '"deviceptr-3.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/deviceptr-3.c'
+  herit: *GRPSERIAL
+  info: *17
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_deviceptr-3_147:
+  bin: '"deviceptr-3.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/deviceptr-3.c'
+  herit: *GRPSERIAL
+  info: *17
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_executeables-1_148:
+  bin: '"executeables-1.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/executeables-1.c'
+  herit: *GRPSERIAL
+  info: &18
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:11:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may only be used in compound statements))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:15:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may only be used in compound statements))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:21:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may only be used in compound statements))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:27:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may only be used in compound statements))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:31:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may only be used in compound statements))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:35:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may only be used in compound statements))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:41:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may only be used in compound statements))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:46:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may only be used in compound statements))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:50:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may only be used in compound statements))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:56:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may only be used in compound statements))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:61:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may only be used in compound statements))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:65:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may only be used in compound statements))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:71:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may only be used in compound statements))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_executeables-1_149:
+  bin: '"executeables-1.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/executeables-1.c'
+  herit: *GRPSERIAL
+  info: *18
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_executeables-1_150:
+  bin: '"executeables-1.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/executeables-1.c'
+  herit: *GRPSERIAL
+  info: *18
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_executeables-1_74:
+  bin: '"executeables-1.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/executeables-1.c'
+  herit: *GRPSERIAL
+  info: *18
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_host_data-1_151:
+  bin: '"host_data-1.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/host_data-1.c'
+  herit: *GRPSERIAL
+  info: &19 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_host_data-1_152:
+  bin: '"host_data-1.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/host_data-1.c'
+  herit: *GRPSERIAL
+  info: *19
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_host_data-1_153:
+  bin: '"host_data-1.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/host_data-1.c'
+  herit: *GRPSERIAL
+  info: *19
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_host_data-1_24:
+  bin: '"host_data-1.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/host_data-1.c'
+  herit: *GRPSERIAL
+  info: *19
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_host_data-2_154:
+  bin: '"host_data-2.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/host_data-2.c'
+  herit: *GRPSERIAL
+  info: &20
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:4:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected declaration specifiers before))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:11:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.copy. is not valid for ..pragma acc host_data.))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:16:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.use_device_ptr. variable is neither a pointer nor an array" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:17:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.use_device_ptr. variable is neither a pointer, nor an array nor reference to pointer or array" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:21:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.use_device_ptr. variable is neither a pointer nor an array" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:22:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.use_device_ptr. variable is neither a pointer, nor an array nor reference to pointer or array" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:33:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '\\\)' before '\\\[' token))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:50:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(variable .x. declared in enclosing .host_data. region))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:74:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(variable .x. declared in enclosing .host_data. region))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_host_data-2_155:
+  bin: '"host_data-2.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/host_data-2.c'
+  herit: *GRPSERIAL
+  info: *20
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_host_data-2_156:
+  bin: '"host_data-2.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/host_data-2.c'
+  herit: *GRPSERIAL
+  info: *20
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_host_data-2_78:
+  bin: '"host_data-2.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/host_data-2.c'
+  herit: *GRPSERIAL
+  info: *20
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_if-clause-1_10:
+  bin: '"if-clause-1.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/if-clause-1.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(too many 'if' clauses))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:9:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(used struct type value where scalar is required))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_if-clause-2_11:
+  bin: '"if-clause-2.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/if-clause-2.c'
+  herit: *GRPSERIAL
+  info: &21 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_if-clause-2_157:
+  bin: '"if-clause-2.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/if-clause-2.c'
+  herit: *GRPSERIAL
+  info: *21
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_if-clause-2_158:
+  bin: '"if-clause-2.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/if-clause-2.c'
+  herit: *GRPSERIAL
+  info: *21
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_if-clause-2_159:
+  bin: '"if-clause-2.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/if-clause-2.c'
+  herit: *GRPSERIAL
+  info: *21
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-1_160:
+  bin: '"kernels-1.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-1.c'
+  herit: *GRPSERIAL
+  info: &22 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-1_161:
+  bin: '"kernels-1.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-1.c'
+  herit: *GRPSERIAL
+  info: *22
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-1_162:
+  bin: '"kernels-1.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-1.c'
+  herit: *GRPSERIAL
+  info: *22
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-1_45:
+  bin: '"kernels-1.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-1.c'
+  herit: *GRPSERIAL
+  info: *22
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-2_163:
+  bin: '"kernels-alias-2.s"'
+  cargs: ' -std=c++98 -fopenacc -O2 -fdump-tree-ealias-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-2.c'
+  herit: *GRPSERIAL
+  info: &23 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-2_164:
+  bin: '"kernels-alias-2.s"'
+  cargs: ' -std=c++11 -fopenacc -O2 -fdump-tree-ealias-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-2.c'
+  herit: *GRPSERIAL
+  info: *23
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-2_165:
+  bin: '"kernels-alias-2.s"'
+  cargs: ' -std=c++14 -fopenacc -O2 -fdump-tree-ealias-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-2.c'
+  herit: *GRPSERIAL
+  info: *23
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-2_27:
+  bin: '"kernels-alias-2.s"'
+  cargs: ' -fopenacc -O2 -fdump-tree-ealias-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-2.c'
+  herit: *GRPSERIAL
+  info: *23
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-3_166:
+  bin: '"kernels-alias-3.s"'
+  cargs: ' -std=c++98 -fopenacc -O2 -fdump-tree-ealias-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-3.c'
+  herit: *GRPSERIAL
+  info: &24 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-3_167:
+  bin: '"kernels-alias-3.s"'
+  cargs: ' -std=c++11 -fopenacc -O2 -fdump-tree-ealias-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-3.c'
+  herit: *GRPSERIAL
+  info: *24
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-3_168:
+  bin: '"kernels-alias-3.s"'
+  cargs: ' -std=c++14 -fopenacc -O2 -fdump-tree-ealias-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-3.c'
+  herit: *GRPSERIAL
+  info: *24
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-3_21:
+  bin: '"kernels-alias-3.s"'
+  cargs: ' -fopenacc -O2 -fdump-tree-ealias-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-3.c'
+  herit: *GRPSERIAL
+  info: *24
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-4_169:
+  bin: '"kernels-alias-4.s"'
+  cargs: ' -std=c++98 -fopenacc -O2 -fdump-tree-ealias-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-4.c'
+  herit: *GRPSERIAL
+  info: &25 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-4_170:
+  bin: '"kernels-alias-4.s"'
+  cargs: ' -std=c++11 -fopenacc -O2 -fdump-tree-ealias-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-4.c'
+  herit: *GRPSERIAL
+  info: *25
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-4_171:
+  bin: '"kernels-alias-4.s"'
+  cargs: ' -std=c++14 -fopenacc -O2 -fdump-tree-ealias-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-4.c'
+  herit: *GRPSERIAL
+  info: *25
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-4_23:
+  bin: '"kernels-alias-4.s"'
+  cargs: ' -fopenacc -O2 -fdump-tree-ealias-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-4.c'
+  herit: *GRPSERIAL
+  info: *25
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-5_172:
+  bin: '"kernels-alias-5.s"'
+  cargs: ' -std=c++98 -fopenacc -O2 -fdump-tree-ealias-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-5.c'
+  herit: *GRPSERIAL
+  info: &26 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-5_173:
+  bin: '"kernels-alias-5.s"'
+  cargs: ' -std=c++11 -fopenacc -O2 -fdump-tree-ealias-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-5.c'
+  herit: *GRPSERIAL
+  info: *26
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-5_174:
+  bin: '"kernels-alias-5.s"'
+  cargs: ' -std=c++14 -fopenacc -O2 -fdump-tree-ealias-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-5.c'
+  herit: *GRPSERIAL
+  info: *26
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-5_19:
+  bin: '"kernels-alias-5.s"'
+  cargs: ' -fopenacc -O2 -fdump-tree-ealias-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-5.c'
+  herit: *GRPSERIAL
+  info: *26
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-6_175:
+  bin: '"kernels-alias-6.s"'
+  cargs: ' -std=c++98 -fopenacc -O2 -fdump-tree-ealias-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-6.c'
+  herit: *GRPSERIAL
+  info: &27 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-6_176:
+  bin: '"kernels-alias-6.s"'
+  cargs: ' -std=c++11 -fopenacc -O2 -fdump-tree-ealias-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-6.c'
+  herit: *GRPSERIAL
+  info: *27
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-6_177:
+  bin: '"kernels-alias-6.s"'
+  cargs: ' -std=c++14 -fopenacc -O2 -fdump-tree-ealias-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-6.c'
+  herit: *GRPSERIAL
+  info: *27
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-6_23:
+  bin: '"kernels-alias-6.s"'
+  cargs: ' -fopenacc -O2 -fdump-tree-ealias-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-6.c'
+  herit: *GRPSERIAL
+  info: *27
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-7_178:
+  bin: '"kernels-alias-7.s"'
+  cargs: ' -std=c++98 -fopenacc -O2 -fdump-tree-ealias-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-7.c'
+  herit: *GRPSERIAL
+  info: &28 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-7_179:
+  bin: '"kernels-alias-7.s"'
+  cargs: ' -std=c++11 -fopenacc -O2 -fdump-tree-ealias-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-7.c'
+  herit: *GRPSERIAL
+  info: *28
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-7_180:
+  bin: '"kernels-alias-7.s"'
+  cargs: ' -std=c++14 -fopenacc -O2 -fdump-tree-ealias-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-7.c'
+  herit: *GRPSERIAL
+  info: *28
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-7_25:
+  bin: '"kernels-alias-7.s"'
+  cargs: ' -fopenacc -O2 -fdump-tree-ealias-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-7.c'
+  herit: *GRPSERIAL
+  info: *28
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-8_181:
+  bin: '"kernels-alias-8.s"'
+  cargs: ' -std=c++98 -fopenacc -O2 -fdump-tree-ealias-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-8.c'
+  herit: *GRPSERIAL
+  info: &29 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-8_182:
+  bin: '"kernels-alias-8.s"'
+  cargs: ' -std=c++11 -fopenacc -O2 -fdump-tree-ealias-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-8.c'
+  herit: *GRPSERIAL
+  info: *29
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-8_183:
+  bin: '"kernels-alias-8.s"'
+  cargs: ' -std=c++14 -fopenacc -O2 -fdump-tree-ealias-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-8.c'
+  herit: *GRPSERIAL
+  info: *29
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-8_22:
+  bin: '"kernels-alias-8.s"'
+  cargs: ' -fopenacc -O2 -fdump-tree-ealias-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-8.c'
+  herit: *GRPSERIAL
+  info: *29
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-ipa-pta-2_184:
+  bin: '"kernels-alias-ipa-pta-2.s"'
+  cargs: ' -std=c++98 -fopenacc -O2 -fipa-pta -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-ipa-pta-2.c'
+  herit: *GRPSERIAL
+  info: &30 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-ipa-pta-2_185:
+  bin: '"kernels-alias-ipa-pta-2.s"'
+  cargs: ' -std=c++11 -fopenacc -O2 -fipa-pta -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-ipa-pta-2.c'
+  herit: *GRPSERIAL
+  info: *30
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-ipa-pta-2_186:
+  bin: '"kernels-alias-ipa-pta-2.s"'
+  cargs: ' -std=c++14 -fopenacc -O2 -fipa-pta -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-ipa-pta-2.c'
+  herit: *GRPSERIAL
+  info: *30
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-ipa-pta-2_37:
+  bin: '"kernels-alias-ipa-pta-2.s"'
+  cargs: ' -fopenacc -O2 -fipa-pta -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-ipa-pta-2.c'
+  herit: *GRPSERIAL
+  info: *30
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-ipa-pta-3_187:
+  bin: '"kernels-alias-ipa-pta-3.s"'
+  cargs: ' -std=c++98 -fopenacc -O2 -fipa-pta -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-ipa-pta-3.c'
+  herit: *GRPSERIAL
+  info: &31 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-ipa-pta-3_188:
+  bin: '"kernels-alias-ipa-pta-3.s"'
+  cargs: ' -std=c++11 -fopenacc -O2 -fipa-pta -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-ipa-pta-3.c'
+  herit: *GRPSERIAL
+  info: *31
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-ipa-pta-3_189:
+  bin: '"kernels-alias-ipa-pta-3.s"'
+  cargs: ' -std=c++14 -fopenacc -O2 -fipa-pta -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-ipa-pta-3.c'
+  herit: *GRPSERIAL
+  info: *31
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-ipa-pta-3_35:
+  bin: '"kernels-alias-ipa-pta-3.s"'
+  cargs: ' -fopenacc -O2 -fipa-pta -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-ipa-pta-3.c'
+  herit: *GRPSERIAL
+  info: *31
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-ipa-pta-4_190:
+  bin: '"kernels-alias-ipa-pta-4.s"'
+  cargs: ' -std=c++98 -fopenacc -O2 -fipa-pta -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-ipa-pta-4.c'
+  herit: *GRPSERIAL
+  info: &32 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-ipa-pta-4_191:
+  bin: '"kernels-alias-ipa-pta-4.s"'
+  cargs: ' -std=c++11 -fopenacc -O2 -fipa-pta -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-ipa-pta-4.c'
+  herit: *GRPSERIAL
+  info: *32
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-ipa-pta-4_192:
+  bin: '"kernels-alias-ipa-pta-4.s"'
+  cargs: ' -std=c++14 -fopenacc -O2 -fipa-pta -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-ipa-pta-4.c'
+  herit: *GRPSERIAL
+  info: *32
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-ipa-pta-4_21:
+  bin: '"kernels-alias-ipa-pta-4.s"'
+  cargs: ' -fopenacc -O2 -fipa-pta -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-ipa-pta-4.c'
+  herit: *GRPSERIAL
+  info: *32
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-ipa-pta_193:
+  bin: '"kernels-alias-ipa-pta.s"'
+  cargs: ' -std=c++98 -fopenacc -O2 -fipa-pta -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-ipa-pta.c'
+  herit: *GRPSERIAL
+  info: &33 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-ipa-pta_194:
+  bin: '"kernels-alias-ipa-pta.s"'
+  cargs: ' -std=c++11 -fopenacc -O2 -fipa-pta -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-ipa-pta.c'
+  herit: *GRPSERIAL
+  info: *33
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-ipa-pta_195:
+  bin: '"kernels-alias-ipa-pta.s"'
+  cargs: ' -std=c++14 -fopenacc -O2 -fipa-pta -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-ipa-pta.c'
+  herit: *GRPSERIAL
+  info: *33
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-ipa-pta_23:
+  bin: '"kernels-alias-ipa-pta.s"'
+  cargs: ' -fopenacc -O2 -fipa-pta -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias-ipa-pta.c'
+  herit: *GRPSERIAL
+  info: *33
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias_196:
+  bin: '"kernels-alias.s"'
+  cargs: ' -std=c++98 -fopenacc -O2 -fdump-tree-ealias-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias.c'
+  herit: *GRPSERIAL
+  info: &34 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias_197:
+  bin: '"kernels-alias.s"'
+  cargs: ' -std=c++11 -fopenacc -O2 -fdump-tree-ealias-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias.c'
+  herit: *GRPSERIAL
+  info: *34
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias_198:
+  bin: '"kernels-alias.s"'
+  cargs: ' -std=c++14 -fopenacc -O2 -fdump-tree-ealias-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias.c'
+  herit: *GRPSERIAL
+  info: *34
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias_29:
+  bin: '"kernels-alias.s"'
+  cargs: ' -fopenacc -O2 -fdump-tree-ealias-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-alias.c'
+  herit: *GRPSERIAL
+  info: *34
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-counter-vars-function-scope_199:
+  bin: '"kernels-counter-vars-function-scope.s"'
+  cargs: ' -std=c++98 -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-counter-vars-function-scope.c'
+  herit: *GRPSERIAL
+  info: &35 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-counter-vars-function-scope_200:
+  bin: '"kernels-counter-vars-function-scope.s"'
+  cargs: ' -std=c++11 -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-counter-vars-function-scope.c'
+  herit: *GRPSERIAL
+  info: *35
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-counter-vars-function-scope_201:
+  bin: '"kernels-counter-vars-function-scope.s"'
+  cargs: ' -std=c++14 -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-counter-vars-function-scope.c'
+  herit: *GRPSERIAL
+  info: *35
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-counter-vars-function-scope_53:
+  bin: '"kernels-counter-vars-function-scope.s"'
+  cargs: ' -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-counter-vars-function-scope.c'
+  herit: *GRPSERIAL
+  info: *35
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-default-2_17:
+  bin: '"kernels-default-2.s"'
+  cargs: ' -fopenacc -O2 -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-default-2.c'
+  herit: *GRPSERIAL
+  info: &36 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-default-2_202:
+  bin: '"kernels-default-2.s"'
+  cargs: ' -std=c++98 -fopenacc -O2 -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-default-2.c'
+  herit: *GRPSERIAL
+  info: *36
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-default-2_203:
+  bin: '"kernels-default-2.s"'
+  cargs: ' -std=c++11 -fopenacc -O2 -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-default-2.c'
+  herit: *GRPSERIAL
+  info: *36
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-default-2_204:
+  bin: '"kernels-default-2.s"'
+  cargs: ' -std=c++14 -fopenacc -O2 -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-default-2.c'
+  herit: *GRPSERIAL
+  info: *36
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-default_14:
+  bin: '"kernels-default.s"'
+  cargs: ' -fopenacc -O2 -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-default.c'
+  herit: *GRPSERIAL
+  info: &37 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-default_205:
+  bin: '"kernels-default.s"'
+  cargs: ' -std=c++98 -fopenacc -O2 -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-default.c'
+  herit: *GRPSERIAL
+  info: *37
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-default_206:
+  bin: '"kernels-default.s"'
+  cargs: ' -std=c++11 -fopenacc -O2 -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-default.c'
+  herit: *GRPSERIAL
+  info: *37
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-default_207:
+  bin: '"kernels-default.s"'
+  cargs: ' -std=c++14 -fopenacc -O2 -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-default.c'
+  herit: *GRPSERIAL
+  info: *37
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-double-reduction-n_208:
+  bin: '"kernels-double-reduction-n.s"'
+  cargs: ' -std=c++98 -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-double-reduction-n.c'
+  herit: *GRPSERIAL
+  info: &38 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-double-reduction-n_209:
+  bin: '"kernels-double-reduction-n.s"'
+  cargs: ' -std=c++11 -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-double-reduction-n.c'
+  herit: *GRPSERIAL
+  info: *38
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-double-reduction-n_210:
+  bin: '"kernels-double-reduction-n.s"'
+  cargs: ' -std=c++14 -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-double-reduction-n.c'
+  herit: *GRPSERIAL
+  info: *38
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-double-reduction-n_36:
+  bin: '"kernels-double-reduction-n.s"'
+  cargs: ' -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-double-reduction-n.c'
+  herit: *GRPSERIAL
+  info: *38
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-double-reduction_211:
+  bin: '"kernels-double-reduction.s"'
+  cargs: ' -std=c++98 -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-double-reduction.c'
+  herit: *GRPSERIAL
+  info: &39 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-double-reduction_212:
+  bin: '"kernels-double-reduction.s"'
+  cargs: ' -std=c++11 -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-double-reduction.c'
+  herit: *GRPSERIAL
+  info: *39
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-double-reduction_213:
+  bin: '"kernels-double-reduction.s"'
+  cargs: ' -std=c++14 -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-double-reduction.c'
+  herit: *GRPSERIAL
+  info: *39
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-double-reduction_36:
+  bin: '"kernels-double-reduction.s"'
+  cargs: ' -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-double-reduction.c'
+  herit: *GRPSERIAL
+  info: *39
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop-2_214:
+  bin: '"kernels-loop-2.s"'
+  cargs: ' -std=c++98 -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-loop-2.c'
+  herit: *GRPSERIAL
+  info: &40 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop-2_215:
+  bin: '"kernels-loop-2.s"'
+  cargs: ' -std=c++11 -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-loop-2.c'
+  herit: *GRPSERIAL
+  info: *40
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop-2_216:
+  bin: '"kernels-loop-2.s"'
+  cargs: ' -std=c++14 -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-loop-2.c'
+  herit: *GRPSERIAL
+  info: *40
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop-2_69:
+  bin: '"kernels-loop-2.s"'
+  cargs: ' -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-loop-2.c'
+  herit: *GRPSERIAL
+  info: *40
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop-3_217:
+  bin: '"kernels-loop-3.s"'
+  cargs: ' -std=c++98 -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-loop-3.c'
+  herit: *GRPSERIAL
+  info: &41 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop-3_218:
+  bin: '"kernels-loop-3.s"'
+  cargs: ' -std=c++11 -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-loop-3.c'
+  herit: *GRPSERIAL
+  info: *41
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop-3_219:
+  bin: '"kernels-loop-3.s"'
+  cargs: ' -std=c++14 -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-loop-3.c'
+  herit: *GRPSERIAL
+  info: *41
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop-3_47:
+  bin: '"kernels-loop-3.s"'
+  cargs: ' -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-loop-3.c'
+  herit: *GRPSERIAL
+  info: *41
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop-g_15:
+  bin: '"kernels-loop-g.s"'
+  cargs: ' -fopenacc -O2 -g -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-loop-g.c'
+  herit: *GRPSERIAL
+  info: &42 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop-g_220:
+  bin: '"kernels-loop-g.s"'
+  cargs: ' -std=c++98 -fopenacc -O2 -g -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-loop-g.c'
+  herit: *GRPSERIAL
+  info: *42
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop-g_221:
+  bin: '"kernels-loop-g.s"'
+  cargs: ' -std=c++11 -fopenacc -O2 -g -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-loop-g.c'
+  herit: *GRPSERIAL
+  info: *42
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop-g_222:
+  bin: '"kernels-loop-g.s"'
+  cargs: ' -std=c++14 -fopenacc -O2 -g -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-loop-g.c'
+  herit: *GRPSERIAL
+  info: *42
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop-mod-not-zero_223:
+  bin: '"kernels-loop-mod-not-zero.s"'
+  cargs: ' -std=c++98 -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-loop-mod-not-zero.c'
+  herit: *GRPSERIAL
+  info: &43 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop-mod-not-zero_224:
+  bin: '"kernels-loop-mod-not-zero.s"'
+  cargs: ' -std=c++11 -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-loop-mod-not-zero.c'
+  herit: *GRPSERIAL
+  info: *43
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop-mod-not-zero_225:
+  bin: '"kernels-loop-mod-not-zero.s"'
+  cargs: ' -std=c++14 -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-loop-mod-not-zero.c'
+  herit: *GRPSERIAL
+  info: *43
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop-mod-not-zero_51:
+  bin: '"kernels-loop-mod-not-zero.s"'
+  cargs: ' -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-loop-mod-not-zero.c'
+  herit: *GRPSERIAL
+  info: *43
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop-n_226:
+  bin: '"kernels-loop-n.s"'
+  cargs: ' -std=c++98 -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-loop-n.c'
+  herit: *GRPSERIAL
+  info: &44 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop-n_227:
+  bin: '"kernels-loop-n.s"'
+  cargs: ' -std=c++11 -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-loop-n.c'
+  herit: *GRPSERIAL
+  info: *44
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop-n_228:
+  bin: '"kernels-loop-n.s"'
+  cargs: ' -std=c++14 -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-loop-n.c'
+  herit: *GRPSERIAL
+  info: *44
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop-n_54:
+  bin: '"kernels-loop-n.s"'
+  cargs: ' -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-loop-n.c'
+  herit: *GRPSERIAL
+  info: *44
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop-nest_229:
+  bin: '"kernels-loop-nest.s"'
+  cargs: ' -std=c++98 -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-loop-nest.c'
+  herit: *GRPSERIAL
+  info: &45 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop-nest_230:
+  bin: '"kernels-loop-nest.s"'
+  cargs: ' -std=c++11 -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-loop-nest.c'
+  herit: *GRPSERIAL
+  info: *45
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop-nest_231:
+  bin: '"kernels-loop-nest.s"'
+  cargs: ' -std=c++14 -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-loop-nest.c'
+  herit: *GRPSERIAL
+  info: *45
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop-nest_38:
+  bin: '"kernels-loop-nest.s"'
+  cargs: ' -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-loop-nest.c'
+  herit: *GRPSERIAL
+  info: *45
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop_232:
+  bin: '"kernels-loop.s"'
+  cargs: ' -std=c++98 -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-loop.c'
+  herit: *GRPSERIAL
+  info: &46 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop_233:
+  bin: '"kernels-loop.s"'
+  cargs: ' -std=c++11 -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-loop.c'
+  herit: *GRPSERIAL
+  info: *46
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop_234:
+  bin: '"kernels-loop.s"'
+  cargs: ' -std=c++14 -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-loop.c'
+  herit: *GRPSERIAL
+  info: *46
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop_54:
+  bin: '"kernels-loop.s"'
+  cargs: ' -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-loop.c'
+  herit: *GRPSERIAL
+  info: *46
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-one-counter-var_235:
+  bin: '"kernels-one-counter-var.s"'
+  cargs: ' -std=c++98 -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-one-counter-var.c'
+  herit: *GRPSERIAL
+  info: &47 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-one-counter-var_236:
+  bin: '"kernels-one-counter-var.s"'
+  cargs: ' -std=c++11 -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-one-counter-var.c'
+  herit: *GRPSERIAL
+  info: *47
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-one-counter-var_237:
+  bin: '"kernels-one-counter-var.s"'
+  cargs: ' -std=c++14 -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-one-counter-var.c'
+  herit: *GRPSERIAL
+  info: *47
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-one-counter-var_52:
+  bin: '"kernels-one-counter-var.s"'
+  cargs: ' -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-one-counter-var.c'
+  herit: *GRPSERIAL
+  info: *47
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-reduction_238:
+  bin: '"kernels-reduction.s"'
+  cargs: ' -std=c++98 -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-reduction.c'
+  herit: *GRPSERIAL
+  info: &48 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-reduction_239:
+  bin: '"kernels-reduction.s"'
+  cargs: ' -std=c++11 -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-reduction.c'
+  herit: *GRPSERIAL
+  info: *48
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-reduction_240:
+  bin: '"kernels-reduction.s"'
+  cargs: ' -std=c++14 -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-reduction.c'
+  herit: *GRPSERIAL
+  info: *48
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-reduction_34:
+  bin: '"kernels-reduction.s"'
+  cargs: ' -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/kernels-reduction.c'
+  herit: *GRPSERIAL
+  info: *48
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-1_241:
+  bin: '"loop-1.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/loop-1.c'
+  herit: *GRPSERIAL
+  info: &49
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:9:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(for statement expected))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:16:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected iteration declaration or initialization))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:18:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(break statement used))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:23:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(for statement expected))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:29:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(for statement expected))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:34:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid type for iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:39:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(loop directive must be associated with an OpenACC compute region))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:41:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(break statement used))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:44:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(loop directive must be associated with an OpenACC compute region))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:48:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(loop directive must be associated with an OpenACC compute region))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:56:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(for statement expected))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-1_242:
+  bin: '"loop-1.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/loop-1.c'
+  herit: *GRPSERIAL
+  info: *49
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-1_243:
+  bin: '"loop-1.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/loop-1.c'
+  herit: *GRPSERIAL
+  info: *49
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-1_76:
+  bin: '"loop-1.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/loop-1.c'
+  herit: *GRPSERIAL
+  info: *49
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-2-kernels_189:
+  bin: '"loop-2-kernels.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/loop-2-kernels.c'
+  herit: *GRPSERIAL
+  info: &50
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:34:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(inner loop uses same))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:38:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('seq' overrides))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:57:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(inner loop uses same))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:64:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('seq' overrides))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:83:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(inner loop uses same))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:93:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('seq' overrides))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:106:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('seq' overrides))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:109:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('auto' conflicts))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:112:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('auto' conflicts))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:115:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('auto' conflicts))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:148:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('seq' overrides" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:149:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('seq' overrides" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:164:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('seq' overrides" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:165:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('seq' overrides" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:177:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('seq' overrides" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:178:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('seq' overrides" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:180:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('auto' conflicts" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:181:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('auto' conflicts" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:183:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('auto' conflicts" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:184:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('auto' conflicts" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:186:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('auto' conflicts" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:187:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('auto' conflicts" "))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-2-kernels_244:
+  bin: '"loop-2-kernels.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/loop-2-kernels.c'
+  herit: *GRPSERIAL
+  info: *50
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-2-kernels_245:
+  bin: '"loop-2-kernels.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/loop-2-kernels.c'
+  herit: *GRPSERIAL
+  info: *50
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-2-kernels_246:
+  bin: '"loop-2-kernels.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/loop-2-kernels.c'
+  herit: *GRPSERIAL
+  info: *50
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-2-parallel_162:
+  bin: '"loop-2-parallel.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/loop-2-parallel.c'
+  herit: *GRPSERIAL
+  info: &51
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:28:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(inner loop uses same))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:32:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('seq' overrides))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:45:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(inner loop uses same))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:48:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(incorrectly nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:52:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('seq' overrides))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:67:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(inner loop uses same))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:70:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(incorrectly nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:73:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(incorrectly nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:77:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('seq' overrides))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:90:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('seq' overrides))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:93:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('auto' conflicts))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:96:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('auto' conflicts))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:99:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('auto' conflicts))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:118:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('seq' overrides" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:119:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('seq' overrides" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:126:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('seq' overrides" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:127:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('seq' overrides" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:137:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('seq' overrides" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:138:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('seq' overrides" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:150:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('seq' overrides" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:151:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('seq' overrides" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:153:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('auto' conflicts" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:154:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('auto' conflicts" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:156:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('auto' conflicts" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:157:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('auto' conflicts" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:159:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('auto' conflicts" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:160:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('auto' conflicts" "))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-2-parallel_247:
+  bin: '"loop-2-parallel.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/loop-2-parallel.c'
+  herit: *GRPSERIAL
+  info: *51
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-2-parallel_248:
+  bin: '"loop-2-parallel.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/loop-2-parallel.c'
+  herit: *GRPSERIAL
+  info: *51
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-2-parallel_249:
+  bin: '"loop-2-parallel.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/loop-2-parallel.c'
+  herit: *GRPSERIAL
+  info: *51
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-3_250:
+  bin: '"loop-3.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/loop-3.c'
+  herit: *GRPSERIAL
+  info: &52
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(argument not permitted))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:11:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(argument not permitted))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:15:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(argument not permitted))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:19:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(argument not permitted))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:23:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(argument not permitted))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:27:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(argument not permitted))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:38:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(argument not permitted" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:39:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(argument not permitted" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:41:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(argument not permitted" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:42:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(argument not permitted" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:45:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(argument not permitted" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:46:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(argument not permitted" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:48:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(argument not permitted" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:49:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(argument not permitted" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:52:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(argument not permitted" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:53:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(argument not permitted" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:55:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(argument not permitted" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:56:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(argument not permitted" "))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-3_251:
+  bin: '"loop-3.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/loop-3.c'
+  herit: *GRPSERIAL
+  info: *52
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-3_252:
+  bin: '"loop-3.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/loop-3.c'
+  herit: *GRPSERIAL
+  info: *52
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-3_58:
+  bin: '"loop-3.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/loop-3.c'
+  herit: *GRPSERIAL
+  info: *52
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-auto-1_245:
+  bin: '"loop-auto-1.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/loop-auto-1.c'
+  herit: *GRPSERIAL
+  info: &53
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:13:)[^
+        ]*([0-9]+: warning:[^
+        ]*(insufficient partitioning))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:23:)[^
+        ]*([0-9]+: warning:[^
+        ]*(insufficient partitioning))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:54:)[^
+        ]*([0-9]+: warning:[^
+        ]*(insufficient partitioning))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:84:)[^
+        ]*([0-9]+: warning:[^
+        ]*(insufficient partitioning))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:104:)[^
+        ]*([0-9]+: warning:[^
+        ]*(insufficient partitioning))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:114:)[^
+        ]*([0-9]+: warning:[^
+        ]*(insufficient partitioning))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:145:)[^
+        ]*([0-9]+: warning:[^
+        ]*(insufficient partitioning))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:179:)[^
+        ]*([0-9]+: warning:[^
+        ]*(insufficient partitioning))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:189:)[^
+        ]*([0-9]+: warning:[^
+        ]*(insufficient partitioning))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:207:)[^
+        ]*([0-9]+: warning:[^
+        ]*(insufficient partitioning))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:225:)[^
+        ]*([0-9]+: warning:[^
+        ]*(insufficient partitioning))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:232:)[^
+        ]*([0-9]+: warning:[^
+        ]*(insufficient partitioning))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:243:)[^
+        ]*([0-9]+: warning:[^
+        ]*(insufficient partitioning))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-auto-1_253:
+  bin: '"loop-auto-1.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/loop-auto-1.c'
+  herit: *GRPSERIAL
+  info: *53
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-auto-1_254:
+  bin: '"loop-auto-1.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/loop-auto-1.c'
+  herit: *GRPSERIAL
+  info: *53
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-auto-1_255:
+  bin: '"loop-auto-1.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/loop-auto-1.c'
+  herit: *GRPSERIAL
+  info: *53
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-auto-2_107:
+  bin: '"loop-auto-2.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/loop-auto-2.c'
+  herit: *GRPSERIAL
+  info: &54
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:67:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(uses same))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:91:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(incorrectly nested))[^
+        ]*
+        ?)+
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:75:)[^
+        ]*([0-9]+: warning:[^
+        ]*(insufficient partitioning))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:80:)[^
+        ]*([0-9]+: warning:[^
+        ]*(insufficient partitioning))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:96:)[^
+        ]*([0-9]+: warning:[^
+        ]*(insufficient partitioning))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:101:)[^
+        ]*([0-9]+: warning:[^
+        ]*(insufficient partitioning))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-auto-2_256:
+  bin: '"loop-auto-2.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/loop-auto-2.c'
+  herit: *GRPSERIAL
+  info: *54
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-auto-2_257:
+  bin: '"loop-auto-2.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/loop-auto-2.c'
+  herit: *GRPSERIAL
+  info: *54
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-auto-2_258:
+  bin: '"loop-auto-2.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/loop-auto-2.c'
+  herit: *GRPSERIAL
+  info: *54
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-clauses_259:
+  bin: '"loop-clauses.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/loop-clauses.c'
+  herit: *GRPSERIAL
+  info: &55 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-clauses_260:
+  bin: '"loop-clauses.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/loop-clauses.c'
+  herit: *GRPSERIAL
+  info: *55
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-clauses_261:
+  bin: '"loop-clauses.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/loop-clauses.c'
+  herit: *GRPSERIAL
+  info: *55
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-clauses_82:
+  bin: '"loop-clauses.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/loop-clauses.c'
+  herit: *GRPSERIAL
+  info: *55
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-private-1_13:
+  bin: '"loop-private-1.s"'
+  cargs: ' -fopenacc -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/loop-private-1.c'
+  herit: *GRPSERIAL
+  info: &56 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-private-1_262:
+  bin: '"loop-private-1.s"'
+  cargs: ' -std=c++98 -fopenacc -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/loop-private-1.c'
+  herit: *GRPSERIAL
+  info: *56
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-private-1_263:
+  bin: '"loop-private-1.s"'
+  cargs: ' -std=c++11 -fopenacc -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/loop-private-1.c'
+  herit: *GRPSERIAL
+  info: *56
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-private-1_264:
+  bin: '"loop-private-1.s"'
+  cargs: ' -std=c++14 -fopenacc -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/loop-private-1.c'
+  herit: *GRPSERIAL
+  info: *56
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-shape_265:
+  bin: '"loop-shape.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/loop-shape.c'
+  herit: *GRPSERIAL
+  info: &57
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:148:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(unexpected argument))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:153:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(unexpected argument))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:158:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(unexpected argument))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:163:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '.' before))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:168:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(unexpected argument))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:173:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(unexpected argument))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:178:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:183:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '.' before))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:188:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:193:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '.' before))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:198:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '.' before))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:208:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:213:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '.' before))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:218:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:223:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:228:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:233:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:238:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:243:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:253:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:258:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:263:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:268:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:273:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:278:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:283:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:288:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:293:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:298:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:303:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:308:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:313:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:318:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:248:)[^
+        ]*([0-9]+: warning:[^
+        ]*())[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-shape_266:
+  bin: '"loop-shape.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/loop-shape.c'
+  herit: *GRPSERIAL
+  info: *57
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-shape_267:
+  bin: '"loop-shape.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/loop-shape.c'
+  herit: *GRPSERIAL
+  info: *57
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-shape_323:
+  bin: '"loop-shape.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/loop-shape.c'
+  herit: *GRPSERIAL
+  info: *57
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nesting-1_268:
+  bin: '"nesting-1.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/nesting-1.c'
+  herit: *GRPSERIAL
+  info: &58 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nesting-1_269:
+  bin: '"nesting-1.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/nesting-1.c'
+  herit: *GRPSERIAL
+  info: *58
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nesting-1_270:
+  bin: '"nesting-1.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/nesting-1.c'
+  herit: *GRPSERIAL
+  info: *58
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nesting-1_93:
+  bin: '"nesting-1.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/nesting-1.c'
+  herit: *GRPSERIAL
+  info: *58
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nesting-data-1_271:
+  bin: '"nesting-data-1.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/nesting-data-1.c'
+  herit: *GRPSERIAL
+  info: &59 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nesting-data-1_272:
+  bin: '"nesting-data-1.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/nesting-data-1.c'
+  herit: *GRPSERIAL
+  info: *59
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nesting-data-1_273:
+  bin: '"nesting-data-1.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/nesting-data-1.c'
+  herit: *GRPSERIAL
+  info: *59
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nesting-data-1_61:
+  bin: '"nesting-data-1.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/nesting-data-1.c'
+  herit: *GRPSERIAL
+  info: *59
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nesting-fail-1_274:
+  bin: '"nesting-fail-1.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/nesting-fail-1.c'
+  herit: *GRPSERIAL
+  info: &60
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:14:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.data. construct inside of .parallel. region))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:16:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.update. construct inside of .parallel. region))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:17:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.enter/exit data. construct inside of .parallel. region))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:18:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.enter/exit data. construct inside of .parallel. region))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:33:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.data. construct inside of .kernels. region))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:35:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.update. construct inside of .kernels. region))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:36:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.enter/exit data. construct inside of .kernels. region))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:37:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.enter/exit data. construct inside of .kernels. region))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:47:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(loop directive must be associated with an OpenACC compute region))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:53:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(loop directive must be associated with an OpenACC compute region))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:64:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(OpenACC region inside of OpenACC routine, nested parallelism not supported yet))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:73:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(loop directive must be associated with an OpenACC compute region))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nesting-fail-1_275:
+  bin: '"nesting-fail-1.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/nesting-fail-1.c'
+  herit: *GRPSERIAL
+  info: *60
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nesting-fail-1_276:
+  bin: '"nesting-fail-1.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/nesting-fail-1.c'
+  herit: *GRPSERIAL
+  info: *60
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nesting-fail-1_76:
+  bin: '"nesting-fail-1.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/nesting-fail-1.c'
+  herit: *GRPSERIAL
+  info: *60
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_parallel-1_277:
+  bin: '"parallel-1.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/parallel-1.c'
+  herit: *GRPSERIAL
+  info: &61 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_parallel-1_278:
+  bin: '"parallel-1.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/parallel-1.c'
+  herit: *GRPSERIAL
+  info: *61
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_parallel-1_279:
+  bin: '"parallel-1.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/parallel-1.c'
+  herit: *GRPSERIAL
+  info: *61
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_parallel-1_38:
+  bin: '"parallel-1.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/parallel-1.c'
+  herit: *GRPSERIAL
+  info: *61
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pcopy_10:
+  bin: '"pcopy.s"'
+  cargs: ' -fopenacc -fdump-tree-original -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/pcopy.c'
+  herit: *GRPSERIAL
+  info: &62 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pcopy_280:
+  bin: '"pcopy.s"'
+  cargs: ' -std=c++98 -fopenacc -fdump-tree-original -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/pcopy.c'
+  herit: *GRPSERIAL
+  info: *62
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pcopy_281:
+  bin: '"pcopy.s"'
+  cargs: ' -std=c++11 -fopenacc -fdump-tree-original -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/pcopy.c'
+  herit: *GRPSERIAL
+  info: *62
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pcopy_282:
+  bin: '"pcopy.s"'
+  cargs: ' -std=c++14 -fopenacc -fdump-tree-original -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/pcopy.c'
+  herit: *GRPSERIAL
+  info: *62
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pcopyin_10:
+  bin: '"pcopyin.s"'
+  cargs: ' -fopenacc -fdump-tree-original -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/pcopyin.c'
+  herit: *GRPSERIAL
+  info: &63 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pcopyin_283:
+  bin: '"pcopyin.s"'
+  cargs: ' -std=c++98 -fopenacc -fdump-tree-original -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/pcopyin.c'
+  herit: *GRPSERIAL
+  info: *63
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pcopyin_284:
+  bin: '"pcopyin.s"'
+  cargs: ' -std=c++11 -fopenacc -fdump-tree-original -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/pcopyin.c'
+  herit: *GRPSERIAL
+  info: *63
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pcopyin_285:
+  bin: '"pcopyin.s"'
+  cargs: ' -std=c++14 -fopenacc -fdump-tree-original -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/pcopyin.c'
+  herit: *GRPSERIAL
+  info: *63
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pcopyout_10:
+  bin: '"pcopyout.s"'
+  cargs: ' -fopenacc -fdump-tree-original -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/pcopyout.c'
+  herit: *GRPSERIAL
+  info: &64 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pcopyout_286:
+  bin: '"pcopyout.s"'
+  cargs: ' -std=c++98 -fopenacc -fdump-tree-original -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/pcopyout.c'
+  herit: *GRPSERIAL
+  info: *64
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pcopyout_287:
+  bin: '"pcopyout.s"'
+  cargs: ' -std=c++11 -fopenacc -fdump-tree-original -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/pcopyout.c'
+  herit: *GRPSERIAL
+  info: *64
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pcopyout_288:
+  bin: '"pcopyout.s"'
+  cargs: ' -std=c++14 -fopenacc -fdump-tree-original -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/pcopyout.c'
+  herit: *GRPSERIAL
+  info: *64
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pcreate_10:
+  bin: '"pcreate.s"'
+  cargs: ' -fopenacc -fdump-tree-original -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/pcreate.c'
+  herit: *GRPSERIAL
+  info: &65 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pcreate_289:
+  bin: '"pcreate.s"'
+  cargs: ' -std=c++98 -fopenacc -fdump-tree-original -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/pcreate.c'
+  herit: *GRPSERIAL
+  info: *65
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pcreate_290:
+  bin: '"pcreate.s"'
+  cargs: ' -std=c++11 -fopenacc -fdump-tree-original -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/pcreate.c'
+  herit: *GRPSERIAL
+  info: *65
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pcreate_291:
+  bin: '"pcreate.s"'
+  cargs: ' -std=c++14 -fopenacc -fdump-tree-original -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/pcreate.c'
+  herit: *GRPSERIAL
+  info: *65
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr69916_20:
+  bin: '"pr69916.s"'
+  cargs: ' -fopenacc -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/pr69916.c'
+  herit: *GRPSERIAL
+  info: &66 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr69916_292:
+  bin: '"pr69916.s"'
+  cargs: ' -std=c++98 -fopenacc -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/pr69916.c'
+  herit: *GRPSERIAL
+  info: *66
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr69916_293:
+  bin: '"pr69916.s"'
+  cargs: ' -std=c++11 -fopenacc -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/pr69916.c'
+  herit: *GRPSERIAL
+  info: *66
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr69916_294:
+  bin: '"pr69916.s"'
+  cargs: ' -std=c++14 -fopenacc -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/pr69916.c'
+  herit: *GRPSERIAL
+  info: *66
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr70688_295:
+  bin: '"pr70688.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/pr70688.c'
+  herit: *GRPSERIAL
+  info: &67 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr70688_296:
+  bin: '"pr70688.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/pr70688.c'
+  herit: *GRPSERIAL
+  info: *67
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr70688_297:
+  bin: '"pr70688.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/pr70688.c'
+  herit: *GRPSERIAL
+  info: *67
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr70688_48:
+  bin: '"pr70688.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/pr70688.c'
+  herit: *GRPSERIAL
+  info: *67
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr79428-1_298:
+  bin: '"pr79428-1.s"'
+  cargs: ' -std=gnu++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/pr79428-1.c'
+  herit: *GRPSERIAL
+  info: &68
+    extraopts:
+      - '"-fopenacc"'
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:6:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. must be at file scope|expected))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr79428-1_299:
+  bin: '"pr79428-1.s"'
+  cargs: ' -std=gnu++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/pr79428-1.c'
+  herit: *GRPSERIAL
+  info: *68
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr79428-1_300:
+  bin: '"pr79428-1.s"'
+  cargs: ' -std=gnu++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/pr79428-1.c'
+  herit: *GRPSERIAL
+  info: *68
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr79428-1_6:
+  bin: '"pr79428-1.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/pr79428-1.c'
+  herit: *GRPSERIAL
+  info: *68
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pragma_context_34:
+  bin: '"pragma_context.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/pragma_context.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:4:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected declaration specifiers before '#pragma'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:9:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected declaration specifiers before '#pragma'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:15:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected declaration specifiers before '#pragma'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:25:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('#pragma acc update' may only be used in compound statements))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_present-1_10:
+  bin: '"present-1.s"'
+  cargs: ' -fopenacc -fdump-tree-original -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/present-1.c'
+  herit: *GRPSERIAL
+  info: &69 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_present-1_301:
+  bin: '"present-1.s"'
+  cargs: ' -std=c++98 -fopenacc -fdump-tree-original -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/present-1.c'
+  herit: *GRPSERIAL
+  info: *69
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_present-1_302:
+  bin: '"present-1.s"'
+  cargs: ' -std=c++11 -fopenacc -fdump-tree-original -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/present-1.c'
+  herit: *GRPSERIAL
+  info: *69
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_present-1_303:
+  bin: '"present-1.s"'
+  cargs: ' -std=c++14 -fopenacc -fdump-tree-original -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/present-1.c'
+  herit: *GRPSERIAL
+  info: *69
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reduction-1_304:
+  bin: '"reduction-1.s"'
+  cargs: ' -std=c++98 -fopenacc -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/reduction-1.c'
+  herit: *GRPSERIAL
+  info: &70 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reduction-1_305:
+  bin: '"reduction-1.s"'
+  cargs: ' -std=c++11 -fopenacc -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/reduction-1.c'
+  herit: *GRPSERIAL
+  info: *70
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reduction-1_306:
+  bin: '"reduction-1.s"'
+  cargs: ' -std=c++14 -fopenacc -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/reduction-1.c'
+  herit: *GRPSERIAL
+  info: *70
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reduction-1_72:
+  bin: '"reduction-1.s"'
+  cargs: ' -fopenacc -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/reduction-1.c'
+  herit: *GRPSERIAL
+  info: *70
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reduction-2_307:
+  bin: '"reduction-2.s"'
+  cargs: ' -std=c++98 -fopenacc -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/reduction-2.c'
+  herit: *GRPSERIAL
+  info: &71 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reduction-2_308:
+  bin: '"reduction-2.s"'
+  cargs: ' -std=c++11 -fopenacc -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/reduction-2.c'
+  herit: *GRPSERIAL
+  info: *71
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reduction-2_309:
+  bin: '"reduction-2.s"'
+  cargs: ' -std=c++14 -fopenacc -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/reduction-2.c'
+  herit: *GRPSERIAL
+  info: *71
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reduction-2_54:
+  bin: '"reduction-2.s"'
+  cargs: ' -fopenacc -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/reduction-2.c'
+  herit: *GRPSERIAL
+  info: *71
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reduction-3_310:
+  bin: '"reduction-3.s"'
+  cargs: ' -std=c++98 -fopenacc -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/reduction-3.c'
+  herit: *GRPSERIAL
+  info: &72 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reduction-3_311:
+  bin: '"reduction-3.s"'
+  cargs: ' -std=c++11 -fopenacc -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/reduction-3.c'
+  herit: *GRPSERIAL
+  info: *72
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reduction-3_312:
+  bin: '"reduction-3.s"'
+  cargs: ' -std=c++14 -fopenacc -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/reduction-3.c'
+  herit: *GRPSERIAL
+  info: *72
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reduction-3_54:
+  bin: '"reduction-3.s"'
+  cargs: ' -fopenacc -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/reduction-3.c'
+  herit: *GRPSERIAL
+  info: *72
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reduction-4_313:
+  bin: '"reduction-4.s"'
+  cargs: ' -std=c++98 -fopenacc -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/reduction-4.c'
+  herit: *GRPSERIAL
+  info: &73 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reduction-4_314:
+  bin: '"reduction-4.s"'
+  cargs: ' -std=c++11 -fopenacc -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/reduction-4.c'
+  herit: *GRPSERIAL
+  info: *73
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reduction-4_315:
+  bin: '"reduction-4.s"'
+  cargs: ' -std=c++14 -fopenacc -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/reduction-4.c'
+  herit: *GRPSERIAL
+  info: *73
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reduction-4_42:
+  bin: '"reduction-4.s"'
+  cargs: ' -fopenacc -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/reduction-4.c'
+  herit: *GRPSERIAL
+  info: *73
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reduction-5_16:
+  bin: '"reduction-5.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/reduction-5.c'
+  herit: *GRPSERIAL
+  info: &74
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:10:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid private reduction))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:12:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid private reduction))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reduction-5_316:
+  bin: '"reduction-5.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/reduction-5.c'
+  herit: *GRPSERIAL
+  info: *74
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reduction-5_317:
+  bin: '"reduction-5.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/reduction-5.c'
+  herit: *GRPSERIAL
+  info: *74
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reduction-5_318:
+  bin: '"reduction-5.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/reduction-5.c'
+  herit: *GRPSERIAL
+  info: *74
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reduction-6_319:
+  bin: '"reduction-6.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/reduction-6.c'
+  herit: *GRPSERIAL
+  info: &75 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reduction-6_320:
+  bin: '"reduction-6.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/reduction-6.c'
+  herit: *GRPSERIAL
+  info: *75
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reduction-6_321:
+  bin: '"reduction-6.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/reduction-6.c'
+  herit: *GRPSERIAL
+  info: *75
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reduction-6_58:
+  bin: '"reduction-6.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/reduction-6.c'
+  herit: *GRPSERIAL
+  info: *75
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reduction-promotions_32:
+  bin: '"reduction-promotions.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/reduction-promotions.c'
+  herit: *GRPSERIAL
+  info: &76
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:18:)[^
+        ]*([0-9]+: warning:[^
+        ]*(incompatible data clause with reduction))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:20:)[^
+        ]*([0-9]+: warning:[^
+        ]*(incompatible data clause with reduction))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:22:)[^
+        ]*([0-9]+: warning:[^
+        ]*(incompatible data clause with reduction))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:24:)[^
+        ]*([0-9]+: warning:[^
+        ]*(incompatible data clause with reduction))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:26:)[^
+        ]*([0-9]+: warning:[^
+        ]*(incompatible data clause with reduction))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:28:)[^
+        ]*([0-9]+: warning:[^
+        ]*(incompatible data clause with reduction))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reduction-promotions_322:
+  bin: '"reduction-promotions.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/reduction-promotions.c'
+  herit: *GRPSERIAL
+  info: *76
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reduction-promotions_323:
+  bin: '"reduction-promotions.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/reduction-promotions.c'
+  herit: *GRPSERIAL
+  info: *76
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reduction-promotions_324:
+  bin: '"reduction-promotions.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/reduction-promotions.c'
+  herit: *GRPSERIAL
+  info: *76
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_routine-1_325:
+  bin: '"routine-1.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/routine-1.c'
+  herit: *GRPSERIAL
+  info: &77 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_routine-1_326:
+  bin: '"routine-1.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/routine-1.c'
+  herit: *GRPSERIAL
+  info: *77
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_routine-1_327:
+  bin: '"routine-1.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/routine-1.c'
+  herit: *GRPSERIAL
+  info: *77
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_routine-1_34:
+  bin: '"routine-1.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/routine-1.c'
+  herit: *GRPSERIAL
+  info: *77
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_routine-2_21:
+  bin: '"routine-2.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/routine-2.c'
+  herit: *GRPSERIAL
+  info: &78
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:1:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(multiple loop axes))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:6:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(multiple loop axes))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:11:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(multiple loop axes))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:16:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(multiple loop axes))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:21:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(not been declared))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_routine-2_328:
+  bin: '"routine-2.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/routine-2.c'
+  herit: *GRPSERIAL
+  info: *78
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_routine-2_329:
+  bin: '"routine-2.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/routine-2.c'
+  herit: *GRPSERIAL
+  info: *78
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_routine-2_330:
+  bin: '"routine-2.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/routine-2.c'
+  herit: *GRPSERIAL
+  info: *78
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_routine-3_119:
+  bin: '"routine-3.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/routine-3.c'
+  herit: *GRPSERIAL
+  info: &79
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:68:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(routine call uses same))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:72:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(routine call uses same))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:76:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(routine call uses same))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:85:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(routine call uses same))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:89:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(routine call uses same))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:102:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(routine call uses same))[^
+        ]*
+        ?)+
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:53:)[^
+        ]*([0-9]+: warning:[^
+        ]*(insufficient partitioning))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_routine-3_331:
+  bin: '"routine-3.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/routine-3.c'
+  herit: *GRPSERIAL
+  info: *79
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_routine-3_332:
+  bin: '"routine-3.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/routine-3.c'
+  herit: *GRPSERIAL
+  info: *79
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_routine-3_333:
+  bin: '"routine-3.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/routine-3.c'
+  herit: *GRPSERIAL
+  info: *79
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_routine-4_114:
+  bin: '"routine-4.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/routine-4.c'
+  herit: *GRPSERIAL
+  info: &80
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:14:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(routine call uses))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:15:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(routine call uses))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:16:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(routine call uses))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:25:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(disallowed by containing routine))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:29:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(disallowed by containing routine))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:33:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(disallowed by containing routine))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:40:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(routine call uses))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:41:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(routine call uses))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:51:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(disallowed by containing routine))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:55:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(disallowed by containing routine))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:66:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(routine call uses))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:77:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(disallowed by containing routine))[^
+        ]*
+        ?)+
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:21:)[^
+        ]*([0-9]+: warning:[^
+        ]*(insufficient partitioning))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_routine-4_334:
+  bin: '"routine-4.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/routine-4.c'
+  herit: *GRPSERIAL
+  info: *80
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_routine-4_335:
+  bin: '"routine-4.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/routine-4.c'
+  herit: *GRPSERIAL
+  info: *80
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_routine-4_336:
+  bin: '"routine-4.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/routine-4.c'
+  herit: *GRPSERIAL
+  info: *80
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_routine-5_318:
+  bin: '"routine-5.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/routine-5.c'
+  herit: *GRPSERIAL
+  info: &81
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. must be at file scope))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:12:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. must be at file scope" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:13:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma. is not allowed here" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:21:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. must be at file scope))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:27:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. must be at file scope))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:33:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected (function name|unqualified-id) before end of line))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:34:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected (function name|unqualified-id) before .\\). token))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:35:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected (function name|unqualified-id) before .\\+. token))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:36:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected (function name|unqualified-id) before .\\?. token))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:37:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected (function name|unqualified-id) before .:. token))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:38:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected (function name|unqualified-id) before numeric constant))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:39:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected (function name|unqualified-id) before .4.))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:40:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected (function name|unqualified-id) before string constant))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:43:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected .\\). before .,. token))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:44:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected .\\). before .R2.))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:52:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. not immediately followed by function declaration or definition))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:55:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. not immediately followed by a single function declaration or definition))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:58:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. not immediately followed by function declaration or definition))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:61:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. not immediately followed by function declaration or definition))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:64:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. not immediately followed by a single function declaration or definition))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:67:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. not immediately followed by function declaration or definition))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:70:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. not immediately followed by function declaration or definition))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:73:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. not immediately followed by function declaration or definition))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:74:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. not immediately followed by a single function declaration or definition))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:77:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. not immediately followed by function declaration or definition))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:78:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. not immediately followed by function declaration or definition))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:81:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. not immediately followed by function declaration or definition))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:82:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. not immediately followed by function declaration or definition))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:85:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. not immediately followed by function declaration or definition))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:86:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. not immediately followed by a single function declaration or definition))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:89:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. not immediately followed by function declaration or definition))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:90:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. not immediately followed by function declaration or definition))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:93:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. not immediately followed by function declaration or definition))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:94:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. not immediately followed by function declaration or definition))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:97:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. not immediately followed by function declaration or definition))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:103:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. not immediately followed by function declaration or definition))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:108:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. not immediately followed by function declaration or definition))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:109:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.fn6a. has not been declared))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:110:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.fn6b. has not been declared))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:115:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. not immediately followed by function declaration or definition" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:120:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. not immediately followed by function declaration or definition" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:123:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.g. does not refer to a function" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:127:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.a. does not refer to a function))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:129:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.c. does not refer to a function))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:136:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(static assertion failed" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:142:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(static assertion failed" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:146:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. already applied to .\[void \]*f_static_assert" "TODO))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:153:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. already applied to .\[void \]*ex1))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:159:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. already applied to .\[void \]*ex2))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:161:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. not immediately followed by function declaration or definition))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:163:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.ex3. does not refer to a function))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:170:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. already applied to .\[void \]*fungsi_1))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:171:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. already applied to .\[void \]*fungsi_1))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:172:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. already applied to .\[void \]*fungsi_1))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:176:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. already applied to .\[void \]*fungsi_2.))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:177:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. already applied to .\[void \]*fungsi_2.))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:178:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. already applied to .\[void \]*fungsi_2.))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:182:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. already applied to .\[void \]*fungsi_3.))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:189:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. already applied to .\[void \]*fungsi_4.))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:198:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. already applied to .\[void \]*fungsi_5.))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:204:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. already applied to .\[void \]*fungsi_6.))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:217:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. must be applied before use))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:219:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.#pragma acc routine. must be applied before definition))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:221:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(not been declared))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:226:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(directive for use))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:227:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(directive for use))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:228:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(directive for use))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:245:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(directive for use))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:246:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(directive for use))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:254:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(clause used in))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:256:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(clause used in))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_routine-5_337:
+  bin: '"routine-5.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/routine-5.c'
+  herit: *GRPSERIAL
+  info: *81
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_routine-5_338:
+  bin: '"routine-5.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/routine-5.c'
+  herit: *GRPSERIAL
+  info: *81
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_routine-5_339:
+  bin: '"routine-5.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/routine-5.c'
+  herit: *GRPSERIAL
+  info: *81
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_sb-1_75:
+  bin: '"sb-1.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/sb-1.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:9:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid branch to/from OpenACC structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:11:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid branch to/from OpenACC structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:13:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid branch to/from OpenACC structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:14:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(loop directive must be associated with an OpenACC compute region))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:16:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid branch to/from OpenACC structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:18:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid entry to OpenACC structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:24:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid entry to OpenACC structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:30:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid entry to OpenACC structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:36:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid entry to OpenACC structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:37:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(loop directive must be associated with an OpenACC compute region))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:67:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(loop directive must be associated with an OpenACC compute region))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_sb-2_22:
+  bin: '"sb-2.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/sb-2.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:5:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid entry to OpenACC structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:11:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid entry to OpenACC structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:17:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid entry to OpenACC structured block))[^
+        ]*
+        ?)+
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: warning:[^
+        ]*(statement will never be executed))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:13:)[^
+        ]*([0-9]+: warning:[^
+        ]*(statement will never be executed))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:19:)[^
+        ]*([0-9]+: warning:[^
+        ]*(statement will never be executed))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_sb-3_18:
+  bin: '"sb-3.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/sb-3.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:6:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(loop directive must be associated with an OpenACC compute region))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:9:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid branch to/from OpenACC structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:13:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid branch to/from OpenACC structured block))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_tile-2_21:
+  bin: '"tile-2.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/tile-2.c'
+  herit: *GRPSERIAL
+  info: &82
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(not enough))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:11:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(condition expression))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_tile-2_340:
+  bin: '"tile-2.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/tile-2.c'
+  herit: *GRPSERIAL
+  info: *82
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_tile-2_341:
+  bin: '"tile-2.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/tile-2.c'
+  herit: *GRPSERIAL
+  info: *82
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_tile-2_342:
+  bin: '"tile-2.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/tile-2.c'
+  herit: *GRPSERIAL
+  info: *82
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_tile_336:
+  bin: '"tile.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/tile.c'
+  herit: *GRPSERIAL
+  info: &83
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:21:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:27:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '\\\('))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:31:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:35:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:39:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:43:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('tile' argument needs))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:47:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('tile' argument needs))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:51:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('tile' argument needs))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:56:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('tile' argument needs))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:67:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:72:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:77:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:92:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:95:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:110:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('tile' argument needs))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:113:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:125:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(initializer expression))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:153:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:156:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:171:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('tile' argument needs))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:174:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:184:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(initializer expression))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:215:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:218:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:239:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(increment expression))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:242:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('tile' argument needs))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:245:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:255:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(initializer expression))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:283:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:286:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:301:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('tile' argument needs))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:304:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:315:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(initializer expression))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_tile_343:
+  bin: '"tile.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/tile.c'
+  herit: *GRPSERIAL
+  info: *83
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_tile_344:
+  bin: '"tile.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/tile.c'
+  herit: *GRPSERIAL
+  info: *83
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_tile_345:
+  bin: '"tile.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/tile.c'
+  herit: *GRPSERIAL
+  info: *83
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_uninit-copy-clause_346:
+  bin: '"uninit-copy-clause.s"'
+  cargs: ' -std=c++98 -fopenacc -Wuninitialized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/uninit-copy-clause.c'
+  herit: *GRPSERIAL
+  info: &84 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_uninit-copy-clause_347:
+  bin: '"uninit-copy-clause.s"'
+  cargs: ' -std=c++11 -fopenacc -Wuninitialized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/uninit-copy-clause.c'
+  herit: *GRPSERIAL
+  info: *84
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_uninit-copy-clause_348:
+  bin: '"uninit-copy-clause.s"'
+  cargs: ' -std=c++14 -fopenacc -Wuninitialized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/uninit-copy-clause.c'
+  herit: *GRPSERIAL
+  info: *84
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_uninit-copy-clause_38:
+  bin: '"uninit-copy-clause.s"'
+  cargs: ' -fopenacc -Wuninitialized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/uninit-copy-clause.c'
+  herit: *GRPSERIAL
+  info: *84
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_uninit-dim-clause_19:
+  bin: '"uninit-dim-clause.s"'
+  cargs: ' -fopenacc -Wuninitialized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/uninit-dim-clause.c'
+  herit: *GRPSERIAL
+  info: &85
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:11:)[^
+        ]*([0-9]+: warning:[^
+        ]*(is used uninitialized in this function))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:14:)[^
+        ]*([0-9]+: warning:[^
+        ]*(is used uninitialized in this function))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:17:)[^
+        ]*([0-9]+: warning:[^
+        ]*(is used uninitialized in this function))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_uninit-dim-clause_349:
+  bin: '"uninit-dim-clause.s"'
+  cargs: ' -std=c++98 -fopenacc -Wuninitialized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/uninit-dim-clause.c'
+  herit: *GRPSERIAL
+  info: *85
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_uninit-dim-clause_350:
+  bin: '"uninit-dim-clause.s"'
+  cargs: ' -std=c++11 -fopenacc -Wuninitialized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/uninit-dim-clause.c'
+  herit: *GRPSERIAL
+  info: *85
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_uninit-dim-clause_351:
+  bin: '"uninit-dim-clause.s"'
+  cargs: ' -std=c++14 -fopenacc -Wuninitialized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/uninit-dim-clause.c'
+  herit: *GRPSERIAL
+  info: *85
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_uninit-firstprivate-clause_25:
+  bin: '"uninit-firstprivate-clause.s"'
+  cargs: ' -fopenacc -Wuninitialized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/uninit-firstprivate-clause.c'
+  herit: *GRPSERIAL
+  info: &86
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:21:)[^
+        ]*([0-9]+: warning:[^
+        ]*(is used uninitialized in this function))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_uninit-firstprivate-clause_352:
+  bin: '"uninit-firstprivate-clause.s"'
+  cargs: ' -std=c++98 -fopenacc -Wuninitialized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/uninit-firstprivate-clause.c'
+  herit: *GRPSERIAL
+  info: *86
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_uninit-firstprivate-clause_353:
+  bin: '"uninit-firstprivate-clause.s"'
+  cargs: ' -std=c++11 -fopenacc -Wuninitialized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/uninit-firstprivate-clause.c'
+  herit: *GRPSERIAL
+  info: *86
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_uninit-firstprivate-clause_354:
+  bin: '"uninit-firstprivate-clause.s"'
+  cargs: ' -std=c++14 -fopenacc -Wuninitialized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/uninit-firstprivate-clause.c'
+  herit: *GRPSERIAL
+  info: *86
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_uninit-if-clause_355:
+  bin: '"uninit-if-clause.s"'
+  cargs: ' -std=c++98 -fopenacc -Wuninitialized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/uninit-if-clause.c'
+  herit: *GRPSERIAL
+  info: &87
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:14:)[^
+        ]*([0-9]+: warning:[^
+        ]*(is used uninitialized in this function))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:17:)[^
+        ]*([0-9]+: warning:[^
+        ]*(is used uninitialized in this function" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:20:)[^
+        ]*([0-9]+: warning:[^
+        ]*(is used uninitialized in this function))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:23:)[^
+        ]*([0-9]+: warning:[^
+        ]*(is used uninitialized in this function" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:26:)[^
+        ]*([0-9]+: warning:[^
+        ]*(is used uninitialized in this function))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:29:)[^
+        ]*([0-9]+: warning:[^
+        ]*(is used uninitialized in this function" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:32:)[^
+        ]*([0-9]+: warning:[^
+        ]*(is used uninitialized in this function))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:35:)[^
+        ]*([0-9]+: warning:[^
+        ]*(is used uninitialized in this function" "))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_uninit-if-clause_356:
+  bin: '"uninit-if-clause.s"'
+  cargs: ' -std=c++11 -fopenacc -Wuninitialized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/uninit-if-clause.c'
+  herit: *GRPSERIAL
+  info: *87
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_uninit-if-clause_357:
+  bin: '"uninit-if-clause.s"'
+  cargs: ' -std=c++14 -fopenacc -Wuninitialized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/uninit-if-clause.c'
+  herit: *GRPSERIAL
+  info: *87
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_uninit-if-clause_38:
+  bin: '"uninit-if-clause.s"'
+  cargs: ' -fopenacc -Wuninitialized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/uninit-if-clause.c'
+  herit: *GRPSERIAL
+  info: *87
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_uninit-use-device-clause_14:
+  bin: '"uninit-use-device-clause.s"'
+  cargs: ' -fopenacc -Wuninitialized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/uninit-use-device-clause.c'
+  herit: *GRPSERIAL
+  info: &88
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:11:)[^
+        ]*([0-9]+: warning:[^
+        ]*(is used uninitialized in this function" "))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_uninit-use-device-clause_358:
+  bin: '"uninit-use-device-clause.s"'
+  cargs: ' -std=c++98 -fopenacc -Wuninitialized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/uninit-use-device-clause.c'
+  herit: *GRPSERIAL
+  info: *88
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_uninit-use-device-clause_359:
+  bin: '"uninit-use-device-clause.s"'
+  cargs: ' -std=c++11 -fopenacc -Wuninitialized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/uninit-use-device-clause.c'
+  herit: *GRPSERIAL
+  info: *88
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_uninit-use-device-clause_360:
+  bin: '"uninit-use-device-clause.s"'
+  cargs: ' -std=c++14 -fopenacc -Wuninitialized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/uninit-use-device-clause.c'
+  herit: *GRPSERIAL
+  info: *88
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_update-1_17:
+  bin: '"update-1.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/update-1.c'
+  herit: *GRPSERIAL
+  info: &89
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:4:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('#pragma acc update' must contain at least one 'device' or 'host' or 'self' clause))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:14:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '\\\)' before '\\\(' token))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:15:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '\\\)' before '\\\(' token))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:16:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '\\\)' before '\\\(' token))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_update-1_361:
+  bin: '"update-1.s"'
+  cargs: ' -std=c++98 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/update-1.c'
+  herit: *GRPSERIAL
+  info: *89
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_update-1_362:
+  bin: '"update-1.s"'
+  cargs: ' -std=c++11 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/update-1.c'
+  herit: *GRPSERIAL
+  info: *89
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_update-1_363:
+  bin: '"update-1.s"'
+  cargs: ' -std=c++14 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc/update-1.c'
+  herit: *GRPSERIAL
+  info: *89
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

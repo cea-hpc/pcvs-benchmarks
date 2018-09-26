@@ -1,0 +1,19 @@
+test_alias-decl-42_18:
+  bin: '"alias-decl-42.s"'
+  cargs: '  -std=c++1z -fconcepts -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/regress/alias-decl-42.C'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-std=c++1z -fconcepts"'
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:18:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(too many))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

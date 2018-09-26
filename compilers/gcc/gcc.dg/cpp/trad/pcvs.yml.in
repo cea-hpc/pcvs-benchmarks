@@ -1,0 +1,946 @@
+test_Wunused_37:
+  bin: '"Wunused.i"'
+  cargs: ' -Wunused-macros -traditional-cpp -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/Wunused.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-Wunused-macros -traditional-cpp"'
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:17:)[^
+        ]*([0-9]+: warning:[^
+        ]*(used))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:18:)[^
+        ]*([0-9]+: warning:[^
+        ]*(used))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:19:)[^
+        ]*([0-9]+: warning:[^
+        ]*(used))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test___STDC___7:
+  bin: '"__STDC__.i"'
+  cargs: '  -traditional-cpp -I./gcc.dg/cpp/trad/ -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/__STDC__.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_argcount_21:
+  bin: '"argcount.i"'
+  cargs: '  -traditional-cpp -I./gcc.dg/cpp/trad/ -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/argcount.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:12:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(passed 2" "2 args to 1 param macro))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:13:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(passed 2" "2 args to 1 param macro))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:15:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(passed 1" "1 arg to 0 param macro))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:16:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(passed 2" "2 args to 0 param macro))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:17:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(requires 2" "0 args to 2 param macro))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:18:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(requires 2" "1 args to 2 param macro))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:21:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(passed 3" "3 args to 2 param macro))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_assembler_29:
+  bin: '"assembler.i"'
+  cargs: '  -traditional-cpp -I./gcc.dg/cpp/trad/ -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/assembler.S'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:18:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(diagnostic))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_assert1_46:
+  bin: '"assert1.s"'
+  cargs: ' -Wno-deprecated -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/assert1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-Wno-deprecated"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_assert2_24:
+  bin: '"assert2.i"'
+  cargs: ' -Wno-deprecated -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/assert2.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-Wno-deprecated"'
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:5:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(without predicate" "assert w/o predicate))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:6:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(an identifier" "assert punctuation))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(an identifier" "assert number))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:8:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(missing" "assert w/o answer))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:10:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(without predicate" "test w/o predicate))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:13:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(an identifier" "test punctuation))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:16:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(an identifier" "test number))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:23:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(not valid in" "bad syntax))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_assert3_10:
+  bin: '"assert3.i"'
+  cargs: ' -A abc=def -A abc(ghi) "-Aabc = jkl" -A abc=mno -A -abc=mno -Wno-deprecated -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/assert3.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-A abc=def -A abc\(ghi\) \"-Aabc = jkl\" -A abc=mno -A -abc=mno -Wno-deprecated"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_builtins_54:
+  bin: '"./builtins.exe"'
+  cargs: '  -traditional-cpp -I./gcc.dg/cpp/trad/'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/builtins.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_cmdlne-C2_11:
+  bin: '"cmdlne-C2.i"'
+  cargs: ' -C -traditional-cpp -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/cmdlne-C2.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-C -traditional-cpp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_cmdlne-C_37:
+  bin: '"cmdlne-C.i"'
+  cargs: ' -C -traditional-cpp -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/cmdlne-C.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-C -traditional-cpp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_cmdlne-dD_9:
+  bin: '"cmdlne-dD.i"'
+  cargs: ' -dD -traditional-cpp -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/cmdlne-dD.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-dD -traditional-cpp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_cmdlne-dM_9:
+  bin: '"cmdlne-dM.i"'
+  cargs: ' -dM -traditional-cpp -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/cmdlne-dM.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-dM -traditional-cpp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_comment-2_11:
+  bin: '"comment-2.i"'
+  cargs: ' -traditional-cpp -Wcomments -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/comment-2.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-traditional-cpp -Wcomments"'
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: warning:[^
+        ]*(within comment))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:11:)[^
+        ]*([0-9]+: warning:[^
+        ]*(2: within comment))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_comment-3_6:
+  bin: '"comment-3.i"'
+  cargs: '  -traditional-cpp -I./gcc.dg/cpp/trad/ -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/comment-3.c'
+  herit: *GRPSERIAL
+  info:
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:6:)[^
+        ]*([0-9]+: warning:[^
+        ]*(extra tokens))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_comment_5:
+  bin: '"comment.i"'
+  cargs: '  -traditional-cpp -I./gcc.dg/cpp/trad/ -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/comment.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:5:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(unterminated comment))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_define_2:
+  bin: '"define.i"'
+  cargs: ' -traditional-cpp -DDEFINE1DEFINE -DDEFINE2DEFIN= -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/define.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-traditional-cpp -DDEFINE1DEFINE -DDEFINE2DEFIN="'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_defined_78:
+  bin: '"defined.i"'
+  cargs: '  -traditional-cpp -I./gcc.dg/cpp/trad/ -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/defined.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:19:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(defined))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_directive_23:
+  bin: '"directive.i"'
+  cargs: '  -traditional-cpp -I./gcc.dg/cpp/trad/ -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/directive.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:10:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(bad))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:15:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_escaped-eof_6:
+  bin: '"escaped-eof.i"'
+  cargs: '  -traditional-cpp -I./gcc.dg/cpp/trad/ -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/escaped-eof.c'
+  herit: *GRPSERIAL
+  info:
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:5:)[^
+        ]*([0-9]+: warning:[^
+        ]*(backslash-new" "escaped EOF warning))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_escaped-nl_10:
+  bin: '"escaped-nl.i"'
+  cargs: '  -traditional-cpp -I./gcc.dg/cpp/trad/ -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/escaped-nl.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_funlike-2_23:
+  bin: '"funlike-2.i"'
+  cargs: '  -traditional-cpp -I./gcc.dg/cpp/trad/ -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/funlike-2.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_funlike-3_12:
+  bin: '"funlike-3.i"'
+  cargs: '  -traditional-cpp -I./gcc.dg/cpp/trad/ -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/funlike-3.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:8:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(unterminated" "unterminated macro in directive))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:12:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(unterminated" "unterminated macro))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_funlike-4_26:
+  bin: '"./funlike-4.exe"'
+  cargs: '  -traditional-cpp -I./gcc.dg/cpp/trad/'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/funlike-4.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_funlike-5_10:
+  bin: '"funlike-5.s"'
+  cargs: ' -traditional-cpp -E -dD -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/funlike-5.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-traditional-cpp -E -dD"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_funlike_25:
+  bin: '"funlike.i"'
+  cargs: '  -traditional-cpp -I./gcc.dg/cpp/trad/ -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/funlike.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:24:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(missing binary" "macro-expanded parenthesis))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_hash_14:
+  bin: '"hash.i"'
+  cargs: '  -traditional-cpp -I./gcc.dg/cpp/trad/ -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/hash.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_include_6:
+  bin: '"include.s"'
+  cargs: '  -traditional-cpp -I./gcc.dg/cpp/trad/ -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/include.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_literals-1_28:
+  bin: '"./literals-1.exe"'
+  cargs: '  -traditional-cpp -I./gcc.dg/cpp/trad/'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/literals-1.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_literals-2_8:
+  bin: '"literals-2.i"'
+  cargs: '  -traditional-cpp -I./gcc.dg/cpp/trad/ -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/literals-2.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:6:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(not valid" "bad charconst))[^
+        ]*
+        ?)+
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:5:)[^
+        ]*([0-9]+: warning:[^
+        ]*(missing terminating" "bad charconst))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_maccom1_13:
+  bin: '"maccom1.i"'
+  cargs: ' -CC -traditional-cpp -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/maccom1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-CC -traditional-cpp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_maccom2_14:
+  bin: '"maccom2.i"'
+  cargs: ' -CC -traditional-cpp -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/maccom2.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-CC -traditional-cpp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_maccom3_13:
+  bin: '"maccom3.i"'
+  cargs: ' -CC -traditional-cpp -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/maccom3.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-CC -traditional-cpp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_maccom4_17:
+  bin: '"maccom4.i"'
+  cargs: ' -CC -traditional-cpp -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/maccom4.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-CC -traditional-cpp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_maccom6_20:
+  bin: '"maccom6.i"'
+  cargs: ' -CC -traditional-cpp -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/maccom6.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-CC -traditional-cpp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_macro_11:
+  bin: '"macro.i"'
+  cargs: '  -traditional-cpp -I./gcc.dg/cpp/trad/ -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/macro.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(macro parameter list))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_macroargs_44:
+  bin: '"./macroargs.exe"'
+  cargs: '  -traditional-cpp -I./gcc.dg/cpp/trad/'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/macroargs.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mi1_36:
+  bin: '"mi1.s"'
+  cargs: ' -H -traditional-cpp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/mi1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-H -traditional-cpp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mi2_12:
+  bin: '"mi2.s"'
+  cargs: '  -traditional-cpp -I./gcc.dg/cpp/trad/ -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/mi2.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mi3_20:
+  bin: '"mi3.s"'
+  cargs: '  -traditional-cpp -I./gcc.dg/cpp/trad/ -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/mi3.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mi4_10:
+  bin: '"mi4.i"'
+  cargs: '  -traditional-cpp -I./gcc.dg/cpp/trad/ -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/mi4.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mi5_13:
+  bin: '"mi5.i"'
+  cargs: ' -H -C -traditional-cpp -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/mi5.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-H -C -traditional-cpp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mi6_61:
+  bin: '"mi6.s"'
+  cargs: '  -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/mi6.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '""'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mi7_19:
+  bin: '"mi7.i"'
+  cargs: ' -H -traditional-cpp -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/mi7.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-H -traditional-cpp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_null-drctv_6:
+  bin: '"null-drctv.i"'
+  cargs: '  -traditional-cpp -I./gcc.dg/cpp/trad/ -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/null-drctv.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:6:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(OK))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_paste_18:
+  bin: '"paste.s"'
+  cargs: '  -traditional-cpp -I./gcc.dg/cpp/trad/ -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/paste.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr65238-3_5:
+  bin: '"./pr65238-3.exe"'
+  cargs: ' -traditional-cpp'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/pr65238-3.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-traditional-cpp"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr65238-4_19:
+  bin: '"pr65238-4.i"'
+  cargs: ' -traditional-cpp -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/pr65238-4.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-traditional-cpp"'
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:14:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(unterminated argument list invoking macro .__has_attribute." "" {target "*-*-*))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:15:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(#if with no expression" "" {target "*-*-*))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:16:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(unterminated argument list invoking macro .__has_attribute." "" {target "*-*-*))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:17:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(macro .__has_attribute. passed 2 arguments, but takes just 1" "" {target "*-*-*))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:18:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(missing ... in expression" "" {target "*-*-*))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:19:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(macro .__has_attribute. requires an identifier" "" {target "*-*-*))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_quote_6:
+  bin: '"quote.i"'
+  cargs: '  -traditional-cpp -I./gcc.dg/cpp/trad/ -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/quote.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_recurse-1_10:
+  bin: '"recurse-1.i"'
+  cargs: '  -traditional-cpp -I./gcc.dg/cpp/trad/ -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/recurse-1.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(detected recursion))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:10:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(detected recursion))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_recurse-2_16:
+  bin: '"recurse-2.i"'
+  cargs: '  -traditional-cpp -I./gcc.dg/cpp/trad/ -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/recurse-2.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(detected recursion))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:13:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(detected recursion))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:16:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(detected recursion))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_recurse-3_25:
+  bin: '"recurse-3.i"'
+  cargs: '  -traditional-cpp -I./gcc.dg/cpp/trad/ -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/recurse-3.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_redef1_36:
+  bin: '"redef1.i"'
+  cargs: '  -traditional-cpp -I./gcc.dg/cpp/trad/ -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/redef1.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_redef2_32:
+  bin: '"redef2.i"'
+  cargs: '  -traditional-cpp -I./gcc.dg/cpp/trad/ -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/redef2.c'
+  herit: *GRPSERIAL
+  info:
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:6:)[^
+        ]*([0-9]+: warning:[^
+        ]*(redefined" "foo redefined))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:10:)[^
+        ]*([0-9]+: warning:[^
+        ]*(redefined" "foo redefined 2))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:14:)[^
+        ]*([0-9]+: warning:[^
+        ]*(redefined" "foo redefined))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:17:)[^
+        ]*([0-9]+: warning:[^
+        ]*(redefined" "quux redefined))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:20:)[^
+        ]*([0-9]+: warning:[^
+        ]*(redefined" "bar redefined))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:23:)[^
+        ]*([0-9]+: warning:[^
+        ]*(redefined" "bat redefined))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:26:)[^
+        ]*([0-9]+: warning:[^
+        ]*(redefined" "baz redefined))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:29:)[^
+        ]*([0-9]+: warning:[^
+        ]*(redefined" "f redefined))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:32:)[^
+        ]*([0-9]+: warning:[^
+        ]*(redefined" "g redefined))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_strify_18:
+  bin: '"./strify.exe"'
+  cargs: '  -traditional-cpp -I./gcc.dg/cpp/trad/'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/strify.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_uchar_8:
+  bin: '"uchar.i"'
+  cargs: ' -funsigned-char -fsigned-char -traditional-cpp -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/uchar.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-funsigned-char -fsigned-char -traditional-cpp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_xwin1_13:
+  bin: '"xwin1.i"'
+  cargs: '  -traditional-cpp -I./gcc.dg/cpp/trad/ -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/xwin1.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

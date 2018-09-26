@@ -1,0 +1,1194 @@
+test_20100127_27:
+  bin: '"20100127.s"'
+  cargs: ' -std=gnu++98 -fgnu-tm -O -fdump-tree-tmmark -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/20100127.c'
+  herit: *GRPSERIAL
+  info: &1
+    extraopts:
+      - '"-fgnu-tm -O -fdump-tree-tmmark"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_20100127_28:
+  bin: '"20100127.s"'
+  cargs: ' -std=gnu++11 -fgnu-tm -O -fdump-tree-tmmark -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/20100127.c'
+  herit: *GRPSERIAL
+  info: *1
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_20100127_29:
+  bin: '"20100127.s"'
+  cargs: ' -std=gnu++14 -fgnu-tm -O -fdump-tree-tmmark -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/20100127.c'
+  herit: *GRPSERIAL
+  info: *1
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_20100127_35:
+  bin: '"20100127.s"'
+  cargs: ' -fgnu-tm -O -fdump-tree-tmmark -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/20100127.c'
+  herit: *GRPSERIAL
+  info: *1
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_20111206_30:
+  bin: '"20111206.s"'
+  cargs: ' -std=gnu++98 -fgnu-tm -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/20111206.c'
+  herit: *GRPSERIAL
+  info: &2
+    extraopts:
+      - '"-fgnu-tm -O2"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_20111206_31:
+  bin: '"20111206.s"'
+  cargs: ' -std=gnu++11 -fgnu-tm -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/20111206.c'
+  herit: *GRPSERIAL
+  info: *2
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_20111206_32:
+  bin: '"20111206.s"'
+  cargs: ' -std=gnu++14 -fgnu-tm -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/20111206.c'
+  herit: *GRPSERIAL
+  info: *2
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_20111206_53:
+  bin: '"20111206.s"'
+  cargs: ' -fgnu-tm -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/20111206.c'
+  herit: *GRPSERIAL
+  info: *2
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abort-1_33:
+  bin: '"abort-1.s"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/abort-1.c'
+  herit: *GRPSERIAL
+  info: &3
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:5:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(without transactional))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abort-1_34:
+  bin: '"abort-1.s"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/abort-1.c'
+  herit: *GRPSERIAL
+  info: *3
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abort-1_35:
+  bin: '"abort-1.s"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/abort-1.c'
+  herit: *GRPSERIAL
+  info: *3
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abort-1_6:
+  bin: '"abort-1.s"'
+  cargs: '  -ansi -pedantic-errors -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/abort-1.c'
+  herit: *GRPSERIAL
+  info: *3
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abort-2_11:
+  bin: '"abort-2.s"'
+  cargs: ' -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/abort-2.c'
+  herit: *GRPSERIAL
+  info: &4
+    extraopts:
+      - '"-fgnu-tm"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abort-2_36:
+  bin: '"abort-2.s"'
+  cargs: ' -std=gnu++98 -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/abort-2.c'
+  herit: *GRPSERIAL
+  info: *4
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abort-2_37:
+  bin: '"abort-2.s"'
+  cargs: ' -std=gnu++11 -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/abort-2.c'
+  herit: *GRPSERIAL
+  info: *4
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abort-2_38:
+  bin: '"abort-2.s"'
+  cargs: ' -std=gnu++14 -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/abort-2.c'
+  herit: *GRPSERIAL
+  info: *4
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abort-3_39:
+  bin: '"abort-3.s"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/abort-3.c'
+  herit: *GRPSERIAL
+  info: &5
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:5:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(__transaction_atomic. without trans))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:6:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(_cancel. without trans))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abort-3_40:
+  bin: '"abort-3.s"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/abort-3.c'
+  herit: *GRPSERIAL
+  info: *5
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abort-3_41:
+  bin: '"abort-3.s"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/abort-3.c'
+  herit: *GRPSERIAL
+  info: *5
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abort-3_8:
+  bin: '"abort-3.s"'
+  cargs: '  -ansi -pedantic-errors -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/abort-3.c'
+  herit: *GRPSERIAL
+  info: *5
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_atomic-1_42:
+  bin: '"atomic-1.s"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/atomic-1.c'
+  herit: *GRPSERIAL
+  info: &6
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:6:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(without transactional memory))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_atomic-1_43:
+  bin: '"atomic-1.s"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/atomic-1.c'
+  herit: *GRPSERIAL
+  info: *6
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_atomic-1_44:
+  bin: '"atomic-1.s"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/atomic-1.c'
+  herit: *GRPSERIAL
+  info: *6
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_atomic-1_9:
+  bin: '"atomic-1.s"'
+  cargs: '  -ansi -pedantic-errors -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/atomic-1.c'
+  herit: *GRPSERIAL
+  info: *6
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_atomic-2_10:
+  bin: '"atomic-2.s"'
+  cargs: ' -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/atomic-2.c'
+  herit: *GRPSERIAL
+  info: &7
+    extraopts:
+      - '"-fgnu-tm"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_atomic-2_45:
+  bin: '"atomic-2.s"'
+  cargs: ' -std=gnu++98 -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/atomic-2.c'
+  herit: *GRPSERIAL
+  info: *7
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_atomic-2_46:
+  bin: '"atomic-2.s"'
+  cargs: ' -std=gnu++11 -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/atomic-2.c'
+  herit: *GRPSERIAL
+  info: *7
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_atomic-2_47:
+  bin: '"atomic-2.s"'
+  cargs: ' -std=gnu++14 -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/atomic-2.c'
+  herit: *GRPSERIAL
+  info: *7
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_attrib-1_25:
+  bin: '"attrib-1.s"'
+  cargs: ' -fgnu-tm -ftrack-macro-expansion=0 -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/attrib-1.c'
+  herit: *GRPSERIAL
+  info: &8
+    extraopts:
+      - '"-fgnu-tm -ftrack-macro-expansion=0"'
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:13:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(previously declared))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:23:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(previously declared))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:25:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(previously declared))[^
+        ]*
+        ?)+
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:15:)[^
+        ]*([0-9]+: warning:[^
+        ]*(ignored))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:19:)[^
+        ]*([0-9]+: warning:[^
+        ]*(ignored))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_attrib-1_48:
+  bin: '"attrib-1.s"'
+  cargs: ' -std=gnu++98 -fgnu-tm -ftrack-macro-expansion=0 -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/attrib-1.c'
+  herit: *GRPSERIAL
+  info: *8
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_attrib-1_49:
+  bin: '"attrib-1.s"'
+  cargs: ' -std=gnu++11 -fgnu-tm -ftrack-macro-expansion=0 -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/attrib-1.c'
+  herit: *GRPSERIAL
+  info: *8
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_attrib-1_50:
+  bin: '"attrib-1.s"'
+  cargs: ' -std=gnu++14 -fgnu-tm -ftrack-macro-expansion=0 -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/attrib-1.c'
+  herit: *GRPSERIAL
+  info: *8
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_cancel-1_17:
+  bin: '"cancel-1.s"'
+  cargs: ' -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/cancel-1.c'
+  herit: *GRPSERIAL
+  info: &9
+    extraopts:
+      - '"-fgnu-tm"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_cancel-1_51:
+  bin: '"cancel-1.s"'
+  cargs: ' -std=gnu++98 -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/cancel-1.c'
+  herit: *GRPSERIAL
+  info: *9
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_cancel-1_52:
+  bin: '"cancel-1.s"'
+  cargs: ' -std=gnu++11 -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/cancel-1.c'
+  herit: *GRPSERIAL
+  info: *9
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_cancel-1_53:
+  bin: '"cancel-1.s"'
+  cargs: ' -std=gnu++14 -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/cancel-1.c'
+  herit: *GRPSERIAL
+  info: *9
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_freq_14:
+  bin: '"freq.s"'
+  cargs: ' -fgnu-tm -O -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/freq.c'
+  herit: *GRPSERIAL
+  info: &10
+    extraopts:
+      - '"-fgnu-tm -O"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_freq_54:
+  bin: '"freq.s"'
+  cargs: ' -std=gnu++98 -fgnu-tm -O -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/freq.c'
+  herit: *GRPSERIAL
+  info: *10
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_freq_55:
+  bin: '"freq.s"'
+  cargs: ' -std=gnu++11 -fgnu-tm -O -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/freq.c'
+  herit: *GRPSERIAL
+  info: *10
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_freq_56:
+  bin: '"freq.s"'
+  cargs: ' -std=gnu++14 -fgnu-tm -O -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/freq.c'
+  herit: *GRPSERIAL
+  info: *10
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_inline-asm-2_57:
+  bin: '"inline-asm-2.s"'
+  cargs: ' -std=gnu++98 -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/inline-asm-2.c'
+  herit: *GRPSERIAL
+  info: &11
+    extraopts:
+      - '"-fgnu-tm"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_inline-asm-2_58:
+  bin: '"inline-asm-2.s"'
+  cargs: ' -std=gnu++11 -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/inline-asm-2.c'
+  herit: *GRPSERIAL
+  info: *11
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_inline-asm-2_59:
+  bin: '"inline-asm-2.s"'
+  cargs: ' -std=gnu++14 -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/inline-asm-2.c'
+  herit: *GRPSERIAL
+  info: *11
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_inline-asm-2_8:
+  bin: '"inline-asm-2.s"'
+  cargs: ' -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/inline-asm-2.c'
+  herit: *GRPSERIAL
+  info: *11
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_inline-asm_17:
+  bin: '"inline-asm.s"'
+  cargs: ' -fgnu-tm -O1 -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/inline-asm.c'
+  herit: *GRPSERIAL
+  info: &12
+    extraopts:
+      - '"-fgnu-tm -O1"'
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(asm not allowed))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_inline-asm_60:
+  bin: '"inline-asm.s"'
+  cargs: ' -std=gnu++98 -fgnu-tm -O1 -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/inline-asm.c'
+  herit: *GRPSERIAL
+  info: *12
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_inline-asm_61:
+  bin: '"inline-asm.s"'
+  cargs: ' -std=gnu++11 -fgnu-tm -O1 -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/inline-asm.c'
+  herit: *GRPSERIAL
+  info: *12
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_inline-asm_62:
+  bin: '"inline-asm.s"'
+  cargs: ' -std=gnu++14 -fgnu-tm -O1 -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/inline-asm.c'
+  herit: *GRPSERIAL
+  info: *12
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-1_22:
+  bin: '"ipa-1.s"'
+  cargs: ' -fgnu-tm -O -fdump-ipa-tmipa -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/ipa-1.c'
+  herit: *GRPSERIAL
+  info: &13
+    extraopts:
+      - '"-fgnu-tm -O -fdump-ipa-tmipa"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-1_63:
+  bin: '"ipa-1.s"'
+  cargs: ' -std=gnu++98 -fgnu-tm -O -fdump-ipa-tmipa -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/ipa-1.c'
+  herit: *GRPSERIAL
+  info: *13
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-1_64:
+  bin: '"ipa-1.s"'
+  cargs: ' -std=gnu++11 -fgnu-tm -O -fdump-ipa-tmipa -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/ipa-1.c'
+  herit: *GRPSERIAL
+  info: *13
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-1_65:
+  bin: '"ipa-1.s"'
+  cargs: ' -std=gnu++14 -fgnu-tm -O -fdump-ipa-tmipa -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/ipa-1.c'
+  herit: *GRPSERIAL
+  info: *13
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_malloc_25:
+  bin: '"malloc.s"'
+  cargs: ' -fgnu-tm -fdump-tree-tmmark -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/malloc.c'
+  herit: *GRPSERIAL
+  info: &14
+    extraopts:
+      - '"-fgnu-tm -fdump-tree-tmmark"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_malloc_66:
+  bin: '"malloc.s"'
+  cargs: ' -std=gnu++98 -fgnu-tm -fdump-tree-tmmark -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/malloc.c'
+  herit: *GRPSERIAL
+  info: *14
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_malloc_67:
+  bin: '"malloc.s"'
+  cargs: ' -std=gnu++11 -fgnu-tm -fdump-tree-tmmark -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/malloc.c'
+  herit: *GRPSERIAL
+  info: *14
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_malloc_68:
+  bin: '"malloc.s"'
+  cargs: ' -std=gnu++14 -fgnu-tm -fdump-tree-tmmark -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/malloc.c'
+  herit: *GRPSERIAL
+  info: *14
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_memcpy-1_13:
+  bin: '"memcpy-1.s"'
+  cargs: ' -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/memcpy-1.c'
+  herit: *GRPSERIAL
+  info: &15
+    extraopts:
+      - '"-fgnu-tm"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_memcpy-1_69:
+  bin: '"memcpy-1.s"'
+  cargs: ' -std=gnu++98 -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/memcpy-1.c'
+  herit: *GRPSERIAL
+  info: *15
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_memcpy-1_70:
+  bin: '"memcpy-1.s"'
+  cargs: ' -std=gnu++11 -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/memcpy-1.c'
+  herit: *GRPSERIAL
+  info: *15
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_memcpy-1_71:
+  bin: '"memcpy-1.s"'
+  cargs: ' -std=gnu++14 -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/memcpy-1.c'
+  herit: *GRPSERIAL
+  info: *15
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_omp_23:
+  bin: '"omp.s"'
+  cargs: ' -fgnu-tm -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/omp.c'
+  herit: *GRPSERIAL
+  info: &16
+    extraopts:
+      - '"-fgnu-tm -fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_omp_72:
+  bin: '"omp.s"'
+  cargs: ' -std=gnu++98 -fgnu-tm -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/omp.c'
+  herit: *GRPSERIAL
+  info: *16
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_omp_73:
+  bin: '"omp.s"'
+  cargs: ' -std=gnu++11 -fgnu-tm -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/omp.c'
+  herit: *GRPSERIAL
+  info: *16
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_omp_74:
+  bin: '"omp.s"'
+  cargs: ' -std=gnu++14 -fgnu-tm -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/omp.c'
+  herit: *GRPSERIAL
+  info: *16
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_outer-1_31:
+  bin: '"outer-1.s"'
+  cargs: ' -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/outer-1.c'
+  herit: *GRPSERIAL
+  info: &17
+    extraopts:
+      - '"-fgnu-tm"'
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:9:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:11:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:14:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:28:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_outer-1_75:
+  bin: '"outer-1.s"'
+  cargs: ' -std=gnu++98 -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/outer-1.c'
+  herit: *GRPSERIAL
+  info: *17
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_outer-1_76:
+  bin: '"outer-1.s"'
+  cargs: ' -std=gnu++11 -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/outer-1.c'
+  herit: *GRPSERIAL
+  info: *17
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_outer-1_77:
+  bin: '"outer-1.s"'
+  cargs: ' -std=gnu++14 -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/outer-1.c'
+  herit: *GRPSERIAL
+  info: *17
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr54893_15:
+  bin: '"pr54893.s"'
+  cargs: ' -fgnu-tm -fdump-ipa-tmipa -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/pr54893.c'
+  herit: *GRPSERIAL
+  info: &18
+    extraopts:
+      - '"-fgnu-tm -fdump-ipa-tmipa"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr54893_78:
+  bin: '"pr54893.s"'
+  cargs: ' -std=gnu++98 -fgnu-tm -fdump-ipa-tmipa -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/pr54893.c'
+  herit: *GRPSERIAL
+  info: *18
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr54893_79:
+  bin: '"pr54893.s"'
+  cargs: ' -std=gnu++11 -fgnu-tm -fdump-ipa-tmipa -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/pr54893.c'
+  herit: *GRPSERIAL
+  info: *18
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr54893_80:
+  bin: '"pr54893.s"'
+  cargs: ' -std=gnu++14 -fgnu-tm -fdump-ipa-tmipa -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/pr54893.c'
+  herit: *GRPSERIAL
+  info: *18
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_safe-1_69:
+  bin: '"safe-1.s"'
+  cargs: ' -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/safe-1.c'
+  herit: *GRPSERIAL
+  info: &19
+    extraopts:
+      - '"-fgnu-tm"'
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:29:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(unsafe function call))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:30:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(unsafe function call))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:38:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(unsafe indirect function call))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:39:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(unsafe indirect function call))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:40:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(unsafe indirect function call))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:42:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(asm not allowed))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:43:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(asm not allowed))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:55:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(unsafe function call))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:56:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(unsafe function call))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:60:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(unsafe indirect function call))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:61:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(unsafe indirect function call))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:63:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(unsafe indirect function call))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:65:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(asm not allowed))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:66:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(asm not allowed))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_safe-1_81:
+  bin: '"safe-1.s"'
+  cargs: ' -std=gnu++98 -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/safe-1.c'
+  herit: *GRPSERIAL
+  info: *19
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_safe-1_82:
+  bin: '"safe-1.s"'
+  cargs: ' -std=gnu++11 -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/safe-1.c'
+  herit: *GRPSERIAL
+  info: *19
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_safe-1_83:
+  bin: '"safe-1.s"'
+  cargs: ' -std=gnu++14 -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/safe-1.c'
+  herit: *GRPSERIAL
+  info: *19
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_safe-2_43:
+  bin: '"safe-2.s"'
+  cargs: ' -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/safe-2.c'
+  herit: *GRPSERIAL
+  info: &20
+    extraopts:
+      - '"-fgnu-tm"'
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:9:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:11:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:14:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_safe-2_84:
+  bin: '"safe-2.s"'
+  cargs: ' -std=gnu++98 -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/safe-2.c'
+  herit: *GRPSERIAL
+  info: *20
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_safe-2_85:
+  bin: '"safe-2.s"'
+  cargs: ' -std=gnu++11 -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/safe-2.c'
+  herit: *GRPSERIAL
+  info: *20
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_safe-2_86:
+  bin: '"safe-2.s"'
+  cargs: ' -std=gnu++14 -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/safe-2.c'
+  herit: *GRPSERIAL
+  info: *20
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_safe-3_49:
+  bin: '"safe-3.s"'
+  cargs: ' -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/safe-3.c'
+  herit: *GRPSERIAL
+  info: &21
+    extraopts:
+      - '"-fgnu-tm"'
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:16:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(unsafe function call))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:24:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(unsafe function call))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:33:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(unsafe function call))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:43:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(unsafe function call))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_safe-3_87:
+  bin: '"safe-3.s"'
+  cargs: ' -std=gnu++98 -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/safe-3.c'
+  herit: *GRPSERIAL
+  info: *21
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_safe-3_88:
+  bin: '"safe-3.s"'
+  cargs: ' -std=gnu++11 -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/safe-3.c'
+  herit: *GRPSERIAL
+  info: *21
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_safe-3_89:
+  bin: '"safe-3.s"'
+  cargs: ' -std=gnu++14 -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/safe-3.c'
+  herit: *GRPSERIAL
+  info: *21
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_trxn-expr-2_15:
+  bin: '"trxn-expr-2.s"'
+  cargs: '  -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/trxn-expr-2.c'
+  herit: *GRPSERIAL
+  info: &22
+    extraopts:
+      - '""'
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:9:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:14:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_trxn-expr-2_90:
+  bin: '"trxn-expr-2.s"'
+  cargs: ' -std=gnu++98  -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/trxn-expr-2.c'
+  herit: *GRPSERIAL
+  info: *22
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_trxn-expr-2_91:
+  bin: '"trxn-expr-2.s"'
+  cargs: ' -std=gnu++11  -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/trxn-expr-2.c'
+  herit: *GRPSERIAL
+  info: *22
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_trxn-expr-2_92:
+  bin: '"trxn-expr-2.s"'
+  cargs: ' -std=gnu++14  -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/trxn-expr-2.c'
+  herit: *GRPSERIAL
+  info: *22
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_trxn-expr-3_13:
+  bin: '"trxn-expr-3.s"'
+  cargs: ' -fgnu-tm -O -fdump-tree-tmmark -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/trxn-expr-3.c'
+  herit: *GRPSERIAL
+  info: &23
+    extraopts:
+      - '"-fgnu-tm -O -fdump-tree-tmmark"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_trxn-expr-3_93:
+  bin: '"trxn-expr-3.s"'
+  cargs: ' -std=gnu++98 -fgnu-tm -O -fdump-tree-tmmark -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/trxn-expr-3.c'
+  herit: *GRPSERIAL
+  info: *23
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_trxn-expr-3_94:
+  bin: '"trxn-expr-3.s"'
+  cargs: ' -std=gnu++11 -fgnu-tm -O -fdump-tree-tmmark -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/trxn-expr-3.c'
+  herit: *GRPSERIAL
+  info: *23
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_trxn-expr-3_95:
+  bin: '"trxn-expr-3.s"'
+  cargs: ' -std=gnu++14 -fgnu-tm -O -fdump-tree-tmmark -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/trxn-expr-3.c'
+  herit: *GRPSERIAL
+  info: *23
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_trxn-expr_12:
+  bin: '"trxn-expr.s"'
+  cargs: ' -fgnu-tm -fdump-tree-tmmark -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/trxn-expr.c'
+  herit: *GRPSERIAL
+  info: &24
+    extraopts:
+      - '"-fgnu-tm -fdump-tree-tmmark"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_trxn-expr_96:
+  bin: '"trxn-expr.s"'
+  cargs: ' -std=gnu++98 -fgnu-tm -fdump-tree-tmmark -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/trxn-expr.c'
+  herit: *GRPSERIAL
+  info: *24
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_trxn-expr_97:
+  bin: '"trxn-expr.s"'
+  cargs: ' -std=gnu++11 -fgnu-tm -fdump-tree-tmmark -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/trxn-expr.c'
+  herit: *GRPSERIAL
+  info: *24
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_trxn-expr_98:
+  bin: '"trxn-expr.s"'
+  cargs: ' -std=gnu++14 -fgnu-tm -fdump-tree-tmmark -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/trxn-expr.c'
+  herit: *GRPSERIAL
+  info: *24
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_volatile-1_10:
+  bin: '"volatile-1.s"'
+  cargs: ' -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/volatile-1.c'
+  herit: *GRPSERIAL
+  info: &25
+    extraopts:
+      - -fgnu-tm
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:9:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(volatile" "read through volatile glvalue))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_volatile-1_100:
+  bin: '"volatile-1.s"'
+  cargs: ' -std=gnu++11 -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/volatile-1.c'
+  herit: *GRPSERIAL
+  info: *25
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_volatile-1_101:
+  bin: '"volatile-1.s"'
+  cargs: ' -std=gnu++14 -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/volatile-1.c'
+  herit: *GRPSERIAL
+  info: *25
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_volatile-1_99:
+  bin: '"volatile-1.s"'
+  cargs: ' -std=gnu++98 -fgnu-tm -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/volatile-1.c'
+  herit: *GRPSERIAL
+  info: *25
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_wrap-1_102:
+  bin: '"wrap-1.s"'
+  cargs: ' -std=gnu++98 -fgnu-tm -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/wrap-1.c'
+  herit: *GRPSERIAL
+  info: &26
+    extraopts:
+      - '"-fgnu-tm -fdump-tree-optimized"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_wrap-1_103:
+  bin: '"wrap-1.s"'
+  cargs: ' -std=gnu++11 -fgnu-tm -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/wrap-1.c'
+  herit: *GRPSERIAL
+  info: *26
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_wrap-1_104:
+  bin: '"wrap-1.s"'
+  cargs: ' -std=gnu++14 -fgnu-tm -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/wrap-1.c'
+  herit: *GRPSERIAL
+  info: *26
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_wrap-1_9:
+  bin: '"wrap-1.s"'
+  cargs: ' -fgnu-tm -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tm/wrap-1.c'
+  herit: *GRPSERIAL
+  info: *26
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

@@ -1,0 +1,60 @@
+test_acc_on_device-1_19:
+  bin: '"acc_on_device-1.s"'
+  cargs: -fopenacc -O -fdump-rtl-expand -std=c89 -Wno-implicit-function-declaration -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/goacc/acc_on_device-1.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-processing-1_18:
+  bin: '"loop-processing-1.s"'
+  cargs: ' -fopenacc -O2 -fdump-tree-oaccdevlow -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/goacc/loop-processing-1.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nested-function-1_100:
+  bin: '"nested-function-1.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/goacc/nested-function-1.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nested-function-2_45:
+  bin: '"nested-function-2.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/goacc/nested-function-2.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nvptx-merged-loop_30:
+  bin: '"nvptx-merged-loop.exe"'
+  cargs: '-fopenacc -O2 {-foffload=-fdump-rtl-mach -dumpbase nvptx-merged-loop.c -Wa,--no-verify} -ffat-lto-objects'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/goacc/nvptx-merged-loop.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenacc -O2 -foffload=-fdump-rtl-mach\\ -dumpbase\\ nvptx-merged-loop.c\\ -Wa,--no-verify"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nvptx-sese-1_35:
+  bin: '"nvptx-sese-1.exe"'
+  cargs: '-fopenacc -O2 {-foffload=-fdump-rtl-mach -dumpbase nvptx-sese-1.c -Wa,--no-verify} -ffat-lto-objects'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/goacc/nvptx-sese-1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenacc -O2 -foffload=-fdump-rtl-mach\\ -dumpbase\\ nvptx-sese-1.c\\ -Wa,--no-verify"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr71373_41:
+  bin: '"pr71373.s"'
+  cargs: ' -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/goacc/pr71373.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

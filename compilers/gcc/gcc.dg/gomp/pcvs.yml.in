@@ -1,0 +1,5874 @@
+test__Atomic-1_103:
+  bin: '"_Atomic-1.s"'
+  cargs: ' -fopenmp -Wno-hsa -std=c11 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/_Atomic-1.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test__Atomic-2_76:
+  bin: '"_Atomic-2.s"'
+  cargs: ' -fopenmp -Wno-hsa -std=c11 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/_Atomic-2.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:9:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' iteration variable 'i'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:12:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' iteration variable 'i'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:15:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' iteration variable 'i'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:18:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' iteration variable 'i'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:21:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' iteration variable 'i'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:24:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' iteration variable 'j'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:27:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' iteration variable 'j'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:30:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' iteration variable 'j'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:33:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' iteration variable 'j'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:36:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' iteration variable 'j'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:45:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' iteration variable 'i'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:48:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' iteration variable 'i'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:51:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' iteration variable 'i'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:54:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' iteration variable 'j'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:57:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' iteration variable 'j'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:60:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' iteration variable 'j'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:70:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' 'j' in 'linear' clause))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:73:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' 'j' in 'linear' clause))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test__Atomic-3_65:
+  bin: '"_Atomic-3.s"'
+  cargs: ' -fopenmp -Wno-hsa -std=c11 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/_Atomic-3.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:14:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' 'i' in 'reduction' clause))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:16:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' qualified type in '#pragma omp declare reduction'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:20:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' 'i' in 'reduction' clause))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:22:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' 'k' in 'reduction' clause))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:24:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' \[^\n\r]* in 'reduction' clause))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:31:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' 'p' in 'aligned' clause))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:43:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' expression in '#pragma omp atomic'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:45:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' expression in '#pragma omp atomic'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:47:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' expression in '#pragma omp atomic'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:49:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' expression in '#pragma omp atomic'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:51:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' expression in '#pragma omp atomic'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:53:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' expression in '#pragma omp atomic'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:55:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' expression in '#pragma omp atomic'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:57:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' expression in '#pragma omp atomic'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:60:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' 'x' in 'linear' clause))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test__Atomic-4_18:
+  bin: '"_Atomic-4.s"'
+  cargs: ' -fopenmp -Wno-hsa -std=c11 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/_Atomic-4.c'
+  herit: *GRPSERIAL
+  info:
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:8:)[^
+        ]*([0-9]+: warning:[^
+        ]*(ignoring '#pragma omp declare simd' on function with '_Atomic' qualified non-'uniform' argument))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test__Atomic-5_74:
+  bin: '"_Atomic-5.s"'
+  cargs: ' -fopenmp -Wno-hsa -std=c11 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/_Atomic-5.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:21:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' 'a' in 'map' clause))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:23:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' 'b' in 'map' clause))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:25:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' 'b' in 'map' clause))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:27:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' 'c.a' in 'map' clause))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:30:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' 'c.b' in 'map' clause))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:33:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' 'c' in 'map' clause))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:34:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(must contain at least one" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:36:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' 'c.a' in 'to' clause))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:37:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(must contain at least one" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:39:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' 'c.b' in 'from' clause))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:40:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(must contain at least one" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:42:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' 'c' in 'to' clause))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:43:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(must contain at least one" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:45:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' 'c.c' in 'map' clause))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:48:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' 'p' in 'map' clause))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:50:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' '\[^\n\r]*' in 'map' clause))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:58:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' 'a' in implicit 'map' clause))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:60:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' 'b' in implicit 'map' clause))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:68:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' 'a' in implicit 'firstprivate' clause on 'target' construct))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:70:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' 'a' in 'firstprivate' clause on 'target' construct))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:72:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('_Atomic' 'b' in 'firstprivate' clause on 'target' construct))[^
+        ]*
+        ?)+
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:28:)[^
+        ]*([0-9]+: warning:[^
+        ]*(accessing a member 'a' of an atomic structure 'c'" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:31:)[^
+        ]*([0-9]+: warning:[^
+        ]*(accessing a member 'b' of an atomic structure 'c'" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:38:)[^
+        ]*([0-9]+: warning:[^
+        ]*(accessing a member 'a' of an atomic structure 'c'" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:41:)[^
+        ]*([0-9]+: warning:[^
+        ]*(accessing a member 'b' of an atomic structure 'c'" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:46:)[^
+        ]*([0-9]+: warning:[^
+        ]*(accessing a member 'c' of an atomic structure 'c'" "))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_asm-1_21:
+  bin: '"asm-1.s"'
+  cargs: ' -O2 -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/asm-1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_atomic-5_39:
+  bin: '"atomic-5.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/atomic-5.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:12:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid operator))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:16:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid form))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:18:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(read-only variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:20:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(read-only variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:22:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(read-only variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:24:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(register variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:26:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid operator))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:28:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(lvalue required))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:29:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected end of line))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:32:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected expression))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:34:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected expression))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:37:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_atomic-6_10:
+  bin: '"atomic-6.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/atomic-6.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_barrier-1_17:
+  bin: '"barrier-1.s"'
+  cargs: ' -fopenmp -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/barrier-1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -fdump-tree-gimple"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_barrier-2_26:
+  bin: '"barrier-2.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/barrier-2.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:5:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected end of line))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:18:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(label at end of compound statement))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:19:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may only be used in compound statements))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:25:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(compound statements))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_block-10_40:
+  bin: '"block-10.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/block-10.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:6:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid entry to OpenMP structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:11:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid entry to OpenMP structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:17:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid entry to OpenMP structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:22:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid entry to OpenMP structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:27:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid entry to OpenMP structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:35:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid entry to OpenMP structured block))[^
+        ]*
+        ?)+
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:8:)[^
+        ]*([0-9]+: warning:[^
+        ]*(statement will never be executed))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:13:)[^
+        ]*([0-9]+: warning:[^
+        ]*(statement will never be executed))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:19:)[^
+        ]*([0-9]+: warning:[^
+        ]*(statement will never be executed))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:24:)[^
+        ]*([0-9]+: warning:[^
+        ]*(statement will never be executed))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:29:)[^
+        ]*([0-9]+: warning:[^
+        ]*(statement will never be executed))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:37:)[^
+        ]*([0-9]+: warning:[^
+        ]*(statement will never be executed))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_block-11_19:
+  bin: '"block-11.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/block-11.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_block-1_22:
+  bin: '"block-1.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/block-1.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid branch to/from OpenMP structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:9:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid entry to OpenMP structured block))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_block-2_32:
+  bin: '"block-2.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/block-2.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:9:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(break))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:14:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid branch to/from OpenMP structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:16:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid entry to OpenMP structured block))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_block-3_58:
+  bin: '"block-3.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/block-3.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:12:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid branch to/from OpenMP structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:21:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid branch to/from OpenMP structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:26:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid branch to/from OpenMP structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:30:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid entry to OpenMP structured block))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_block-4_9:
+  bin: '"block-4.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/block-4.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid branch to/from OpenMP structured block))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_block-5_15:
+  bin: '"block-5.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/block-5.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid branch to/from OpenMP structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:13:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid branch to/from OpenMP structured block))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_block-6_9:
+  bin: '"block-6.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/block-6.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid branch to/from OpenMP structured block))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_block-7_20:
+  bin: '"block-7.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/block-7.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:9:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid branch to/from OpenMP structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:10:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid branch to/from OpenMP structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:11:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid branch to/from OpenMP structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:15:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid branch to/from OpenMP structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:16:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid branch to/from OpenMP structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:17:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid branch to/from OpenMP structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:18:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(break))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_block-8_11:
+  bin: '"block-8.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/block-8.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:10:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid branch to/from OpenMP structured block))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_block-9_25:
+  bin: '"block-9.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/block-9.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:6:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid entry to OpenMP structured block))[^
+        ]*
+        ?)+
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:8:)[^
+        ]*([0-9]+: warning:[^
+        ]*(statement will never be executed))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_clause-1_103:
+  bin: '"clause-1.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/clause-1.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:20:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(more than once))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:22:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(more than once))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:24:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(more than once))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:26:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(more than once))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:28:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(more than))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:31:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(more than))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:34:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(more than once))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:37:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(more than once))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:40:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(more than))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:42:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(is not a variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:44:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(is not a variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:46:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(is not a variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:48:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(user defined reduction not found for))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:50:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(user defined reduction not found for))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:57:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(has invalid type for))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:59:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(has invalid type for))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:61:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(must be 'threadprivate'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:63:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(must be 'threadprivate'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:68:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(incomplete type))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:70:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(incomplete type))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:72:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(incomplete type))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:75:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(predetermined 'threadprivate'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:77:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(predetermined 'threadprivate'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:79:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(predetermined 'threadpriv))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:81:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(predetermined 'threadpr))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:84:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(predetermined 'threadprivate))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:86:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(predetermined 'threadprivate))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:89:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(predetermined 'shared'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:91:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(predetermined 'shared'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:95:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(predetermined 'shared'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:98:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(predetermined 'shared'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:100:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(predetermined 'shared'))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_clause-2_23:
+  bin: '"clause-2.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/clause-2.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:17:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(clause before))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:19:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(clause before))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:21:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(clause before))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_collapse-1_92:
+  bin: '"collapse-1.s"'
+  cargs: ' -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/collapse-1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp"'
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:12:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(not enough perfectly nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:41:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(not enough perfectly nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:61:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(collapsed loops not perfectly nested before))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:76:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(collapsed loops not perfectly nested before))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_combined-1_23:
+  bin: '"combined-1.s"'
+  cargs: ' -O1 -fopenmp -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/combined-1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O1 -fopenmp -fdump-tree-optimized"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_complex-1_13:
+  bin: '"complex-1.s"'
+  cargs: ' -fopenmp -O1 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/complex-1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -O1"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_copyin-1_27:
+  bin: '"copyin-1.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/copyin-1.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:19:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(threadprivate))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:21:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(threadprivate))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:23:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(threadprivate))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_critical-1_27:
+  bin: '"critical-1.s"'
+  cargs: ' -fopenmp -fdump-tree-ompexp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/critical-1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -fdump-tree-ompexp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_critical-2_12:
+  bin: '"critical-2.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/critical-2.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:5:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected identifier))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:9:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected .\\).))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:11:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected .\\).))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:12:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected expression))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_critical-3_11:
+  bin: '"critical-3.s"'
+  cargs: ' -fopenmp -fdump-tree-ompexp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/critical-3.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -fdump-tree-ompexp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_critical-4_28:
+  bin: '"critical-4.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/critical-4.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:18:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(with the same name))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:26:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(with the same name))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_declare-simd-1_179:
+  bin: '"declare-simd-1.s"'
+  cargs: -fopenmp -Wno-hsa -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/declare-simd-1.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_declare-simd-2_54:
+  bin: '"declare-simd-2.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/declare-simd-2.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:5:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(not immediately followed by a function declaration or definition))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:8:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(not immediately followed by a single function declaration or definition))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:11:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(not immediately followed by a function declaration or definition))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:14:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(not immediately followed by a function declaration or definition))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:20:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(must be followed by function declaration or definition or another))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:23:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(clause is incompatible with))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:29:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(neither a pointer nor an array))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:32:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(neither a pointer nor an array))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:35:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(neither a pointer nor an array))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:40:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(neither a pointer nor an array))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:43:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(appears more than once))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:45:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(appears more than once))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:47:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(appears more than once))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:49:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(appears more than once))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:51:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(appears more than once))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_declare-simd-3_27:
+  bin: '"declare-simd-3.s"'
+  cargs: -fopenmp -Wno-hsa -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/declare-simd-3.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_declare-simd-4_22:
+  bin: '"declare-simd-4.s"'
+  cargs: ' -fopenmp-simd -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/declare-simd-4.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp-simd"'
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:4:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.linear. clause step .b \\+ 1. is neither constant nor a parameter))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:6:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.linear. clause step .b \\+ 1. is neither constant nor a parameter))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:8:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.linear. clause step .b \\* 2. is neither constant nor a parameter))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:10:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.linear. clause step is a parameter .b. not specified in .uniform. clause))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:12:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.linear. clause step is a parameter .b. not specified in .uniform. clause))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:17:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.linear. clause step .c. is neither constant nor a parameter))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:19:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.linear. clause step .\[^\n\r]*. is neither constant nor a parameter))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:21:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.linear. clause step expression must be integral))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_dump-new-function-2_20:
+  bin: '"dump-new-function-2.s"'
+  cargs: ' -O2 -fopenmp -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/dump-new-function-2.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -fopenmp -fdump-tree-gimple"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_dump-new-function-3_13:
+  bin: '"dump-new-function-3.s"'
+  cargs: ' -O2 -ftree-parallelize-loops=2 -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/dump-new-function-3.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -ftree-parallelize-loops=2 -fdump-tree-gimple"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_dump-new-function_16:
+  bin: '"dump-new-function.s"'
+  cargs: ' -O2 -fopenmp -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/dump-new-function.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -fopenmp -fdump-tree-gimple"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_empty_12:
+  bin: '"empty.s"'
+  cargs: ' -O -fopenmp -fdump-tree-ompexp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/empty.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O -fopenmp -fdump-tree-ompexp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_flush-1_23:
+  bin: '"flush-1.s"'
+  cargs: ' -fopenmp -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/flush-1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -fdump-tree-gimple"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_flush-2_10:
+  bin: '"flush-2.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/flush-2.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:5:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:6:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected identifier))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(undeclared|expected|for each))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:8:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(undeclared|expected))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:9:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(undeclared))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_for-10_16:
+  bin: '"for-10.s"'
+  cargs: ' -fopenmp -fdump-tree-ompexp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/for-10.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -fdump-tree-ompexp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_for-11_73:
+  bin: '"for-11.s"'
+  cargs: ' -std=c99 -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/for-11.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-std=c99 -fopenmp"'
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:33:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(for statement expected))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:41:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(missing controlling predicate))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:44:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(break))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:50:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid controlling predicate))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:57:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid increment expression))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:62:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:67:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid controlling predicate|invalid increment expression))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:71:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid increment expression))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_for-12_12:
+  bin: '"for-12.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/for-12.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_for-13_17:
+  bin: '"for-13.s"'
+  cargs: ' -fopenmp -fdump-tree-ompexp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/for-13.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -fdump-tree-ompexp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_for-14_19:
+  bin: '"for-14.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/for-14.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_for-15_12:
+  bin: '"for-15.s"'
+  cargs: ' -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/for-15.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_for-16_18:
+  bin: '"for-16.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/for-16.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_for-17_67:
+  bin: '"for-17.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/for-17.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_for-18_41:
+  bin: '"for-18.s"'
+  cargs: ' -O -fopenmp -fdump-tree-ompexp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/for-18.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O -fopenmp -fdump-tree-ompexp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_for-19_20:
+  bin: '"for-19.s"'
+  cargs: ' -O -fopenmp -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/for-19.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O -fopenmp -fdump-tree-gimple"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_for-1_51:
+  bin: '"for-1.s"'
+  cargs: ' -fopenmp -fshow-column -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/for-1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -fshow-column"'
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:29:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(3:for statement expected))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:37:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(missing controlling predicate))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:40:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(break))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:45:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(15:invalid controlling predicate))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:49:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(27:invalid increment expression))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_for-20_16:
+  bin: '"for-20.s"'
+  cargs: ' -fopenmp -fdump-tree-ompexp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/for-20.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -fdump-tree-ompexp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_for-21_16:
+  bin: '"for-21.s"'
+  cargs: ' -fopenmp -fdump-tree-ompexp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/for-21.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -fdump-tree-ompexp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_for-22_16:
+  bin: '"for-22.s"'
+  cargs: ' -fopenmp -fdump-tree-ompexp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/for-22.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -fdump-tree-ompexp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_for-23_16:
+  bin: '"for-23.s"'
+  cargs: ' -fopenmp -fdump-tree-ompexp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/for-23.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -fdump-tree-ompexp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_for-24_17:
+  bin: '"for-24.s"'
+  cargs: ' -O2 -fopenmp -fdump-tree-ssa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/for-24.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -fopenmp -fdump-tree-ssa"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_for-2_18:
+  bin: '"for-2.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/for-2.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:10:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(too many))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:16:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(too many))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_for-3_62:
+  bin: '"for-3.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/for-3.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:9:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '\\('))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:12:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '\\('))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:15:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid schedule kind))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:18:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:24:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid schedule kind))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:27:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:30:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:36:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected '\\)'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:42:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected integer expression))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:60:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(does not take))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_for-4_16:
+  bin: '"for-4.s"'
+  cargs: ' -fopenmp -fdump-tree-ompexp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/for-4.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -fdump-tree-ompexp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_for-5_16:
+  bin: '"for-5.s"'
+  cargs: ' -fopenmp -fdump-tree-ompexp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/for-5.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -fdump-tree-ompexp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_for-6_16:
+  bin: '"for-6.s"'
+  cargs: ' -fopenmp -fdump-tree-ompexp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/for-6.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -fdump-tree-ompexp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_for-7_16:
+  bin: '"for-7.s"'
+  cargs: ' -fopenmp -fdump-tree-ompexp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/for-7.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -fdump-tree-ompexp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_for-8_16:
+  bin: '"for-8.s"'
+  cargs: ' -fopenmp -fdump-tree-ompexp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/for-8.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -fdump-tree-ompexp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_for-9_16:
+  bin: '"for-9.s"'
+  cargs: ' -fopenmp -fdump-tree-ompexp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/for-9.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -fdump-tree-ompexp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_linear-1_57:
+  bin: '"linear-1.s"'
+  cargs: ' -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/linear-1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp"'
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:9:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(iteration variable .i. should not be linear))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:17:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.linear. is not valid for .#pragma omp distribute parallel for.))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:25:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(iteration variable .i. should not be linear))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:33:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(iteration variable .i. should not be linear))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:34:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(iteration variable .j. should not be linear" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:42:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(.linear. is not valid for .#pragma omp target teams distribute parallel for.))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:51:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(iteration variable .i. should not be linear))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:52:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(iteration variable .j. should not be linear" "))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-1_283:
+  bin: '"loop-1.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/loop-1.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:20:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(initializer expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:24:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(initializer expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:27:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(initializer expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:30:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(initializer expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:33:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(condition expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:36:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(condition expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:39:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(condition expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:42:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(condition expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:45:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid controlling predicate|condition expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:47:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(increment expression refers to iteration variable" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:51:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid increment expression|increment expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:53:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(increment expression refers to iteration variable" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:57:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(increment expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:60:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(increment expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:63:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(increment expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:66:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(increment expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:72:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(initializer expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:76:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(initializer expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:82:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(initializer expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:86:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(initializer expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:90:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(condition expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:94:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(condition expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:98:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(condition expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:101:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(condition expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:105:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(condition expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:109:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(condition expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:114:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(condition expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:116:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(increment expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:120:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(increment expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:124:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(increment expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:128:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(increment expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:133:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(increment expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:138:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(increment expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:157:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(initializer expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:161:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(initializer expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:164:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(initializer expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:167:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(initializer expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:170:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(condition expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:173:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(condition expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:176:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(condition expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:179:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(condition expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:182:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid controlling predicate|condition expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:184:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(increment expression refers to iteration variable" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:188:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid increment expression|increment expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:190:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(increment expression refers to iteration variable" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:194:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(increment expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:197:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(increment expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:200:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(increment expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:203:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(increment expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:209:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(initializer expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:215:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(initializer expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:219:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(initializer expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:223:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(condition expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:227:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(condition expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:231:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(condition expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:235:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(condition expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:237:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(increment expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:241:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(increment expression refers to iteration variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:247:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(increment expression refers to iteration variable))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_macro-1_10:
+  bin: '"macro-1.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/macro-1.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_macro-2_14:
+  bin: '"macro-2.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/macro-2.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_macro-3_25:
+  bin: '"macro-3.s"'
+  cargs: ' -fopenmp -fdump-tree-omplower -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/macro-3.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -fdump-tree-omplower"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_macro-4_29:
+  bin: '"macro-4.s"'
+  cargs: ' -fopenmp -Wunknown-pragmas -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/macro-4.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -Wunknown-pragmas"'
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:13:)[^
+        ]*([0-9]+: warning:[^
+        ]*(ignoring #pragma omp _Pragma))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:15:)[^
+        ]*([0-9]+: warning:[^
+        ]*(ignoring #pragma omp _Pragma))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:25:)[^
+        ]*([0-9]+: warning:[^
+        ]*(ignoring #pragma omp serial))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:27:)[^
+        ]*([0-9]+: warning:[^
+        ]*(ignoring #pragma omp serial))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_master-1_22:
+  bin: '"master-1.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/master-1.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_master-2_7:
+  bin: '"master-2.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/master-2.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:5:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected expression))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_master-3_12:
+  bin: '"master-3.s"'
+  cargs: ' -fopenmp -fdump-tree-ompexp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/master-3.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -fdump-tree-ompexp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nestedfn-1_53:
+  bin: '"nestedfn-1.s"'
+  cargs: ' -O2 -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/nestedfn-1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nesting-1_239:
+  bin: '"nesting-1.s"'
+  cargs: ' -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/nesting-1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp"'
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:11:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may not be closely nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:14:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may not be closely nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:20:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may not be closely nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:22:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may not be closely nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:24:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may not be closely nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:28:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may not be closely nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:34:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may not be closely nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:43:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may not be closely nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:48:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may not be closely nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:59:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may not be closely nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:66:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may not be closely nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:76:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may not be closely nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:82:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may not be closely nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:87:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may not be closely nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:90:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may not be closely nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:96:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may not be closely nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:98:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may not be closely nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:100:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may not be closely nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:104:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may not be closely nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:107:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may not be closely nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:113:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may not be closely nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:117:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may not be closely nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:121:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may not be closely nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:124:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may not be closely nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:130:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may not be closely nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:132:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may not be closely nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:134:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may not be closely nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:161:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may not be closely nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:164:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may not be closely nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:170:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may not be closely nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:174:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may not be closely nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:183:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may not be closely nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:193:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may not be closely nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:205:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(must be closely nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:234:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may not be nested))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:237:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may not be nested))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_notify-new-function-2_20:
+  bin: '"notify-new-function-2.s"'
+  cargs: ' -O2 -fopenmp -fdump-tree-omplower -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/notify-new-function-2.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -fopenmp -fdump-tree-omplower"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_notify-new-function-3_14:
+  bin: '"notify-new-function-3.s"'
+  cargs: ' -O2 -ftree-parallelize-loops=2 -fdump-tree-ompexpssa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/notify-new-function-3.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -ftree-parallelize-loops=2 -fdump-tree-ompexpssa"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_notify-new-function_17:
+  bin: '"notify-new-function.s"'
+  cargs: ' -O2 -fopenmp -fdump-tree-ompexp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/notify-new-function.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -fopenmp -fdump-tree-ompexp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_num-threads-1_10:
+  bin: '"num-threads-1.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/num-threads-1.c'
+  herit: *GRPSERIAL
+  info:
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:6:)[^
+        ]*([0-9]+: warning:[^
+        ]*(must be positive))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_omp-parallel-if_24:
+  bin: '"omp-parallel-if.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/omp-parallel-if.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:9:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(too many))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:14:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(too many))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_openmp-simd-1_46:
+  bin: '"openmp-simd-1.s"'
+  cargs: ' -fopenmp-simd -fdump-tree-original -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/openmp-simd-1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp-simd -fdump-tree-original"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_openmp-simd-2_42:
+  bin: '"openmp-simd-2.s"'
+  cargs: ' -fopenmp-simd -fdump-tree-original -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/openmp-simd-2.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp-simd -fdump-tree-original"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_openmp-simd-3_14:
+  bin: '"openmp-simd-3.s"'
+  cargs: ' -fopenmp-simd -fdump-tree-original -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/openmp-simd-3.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp-simd -fdump-tree-original"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ordered-1_19:
+  bin: '"ordered-1.s"'
+  cargs: ' -fopenmp -fdump-tree-ompexp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/ordered-1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -fdump-tree-ompexp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ordered-2_7:
+  bin: '"ordered-2.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/ordered-2.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:5:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:6:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(region may not be closely nested inside of))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected expression))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_parallel-1_17:
+  bin: '"parallel-1.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/parallel-1.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_parallel-2_17:
+  bin: '"parallel-2.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/parallel-2.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(enclosing))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:11:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(enclosing))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:13:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(not specified))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_parallel-3_15:
+  bin: '"parallel-3.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/parallel-3.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_parallel-4_11:
+  bin: '"parallel-4.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/parallel-4.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:8:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('nowait'))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr25874_17:
+  bin: '"pr25874.s"'
+  cargs: ' -O -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr25874.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O -fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr25989_16:
+  bin: '"pr25989.s"'
+  cargs: ' -O2 -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr25989.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr25990_261:
+  bin: '"pr25990.s"'
+  cargs: ' -fopenmp -O2 -std=c99 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr25990.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -O2 -std=c99"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr25996_32:
+  bin: '"pr25996.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr25996.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(undeclared|for each function))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:15:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(undeclared))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:23:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(undeclared|invalid controlling predicate))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:31:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(undeclared|invalid increment expression))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr26412_18:
+  bin: '"pr26412.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr26412.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr27328_19:
+  bin: '"pr27328.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr27328.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr27358_8:
+  bin: '"pr27358.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr27358.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:4:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr27388-1_22:
+  bin: '"pr27388-1.s"'
+  cargs: ' -fopenmp -fdump-tree-omplower -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr27388-1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -fdump-tree-omplower"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr27388-2_34:
+  bin: '"pr27388-2.s"'
+  cargs: ' -fopenmp -fdump-tree-omplower -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr27388-2.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -fdump-tree-omplower"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr27388-3_22:
+  bin: '"pr27388-3.s"'
+  cargs: ' -fopenmp -fdump-tree-omplower -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr27388-3.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -fdump-tree-omplower"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr27415_50:
+  bin: '"pr27415.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr27415.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:9:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(should not be firstprivate))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:18:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(should not be firstprivate))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:28:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(should not be reduction))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:37:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(should not be reduction))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr27416_31:
+  bin: '"pr27416.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr27416.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:8:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(is private in outer context))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:17:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(is private in outer context))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:27:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(is private in outer context))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr27499_13:
+  bin: '"pr27499.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr27499.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr27573_19:
+  bin: '"pr27573.s"'
+  cargs: ' -O2 -fopenmp -fprofile-generate -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr27573.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -fopenmp -fprofile-generate"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr29955_14:
+  bin: '"pr29955.s"'
+  cargs: ' -O2 -fopenmp -fexceptions -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr29955.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -fopenmp -fexceptions"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr29965-1_45:
+  bin: '"pr29965-1.s"'
+  cargs: ' -O2 -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr29965-1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr29965-2_98:
+  bin: '"pr29965-2.s"'
+  cargs: ' -O2 -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr29965-2.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr29965-3_62:
+  bin: '"pr29965-3.s"'
+  cargs: ' -O2 -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr29965-3.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr29965-4_44:
+  bin: '"pr29965-4.s"'
+  cargs: ' -O2 -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr29965-4.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr29965-5_44:
+  bin: '"pr29965-5.s"'
+  cargs: ' -O2 -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr29965-5.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr29965-6_44:
+  bin: '"pr29965-6.s"'
+  cargs: ' -O2 -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr29965-6.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr30421_39:
+  bin: '"pr30421.s"'
+  cargs: ' -O2 -fopenmp -Wall -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr30421.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -fopenmp -Wall"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr30494_31:
+  bin: '"pr30494.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr30494.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr32468-1_99:
+  bin: '"pr32468-1.s"'
+  cargs: ' -O2 -fopenmp -fdump-tree-ompexp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr32468-1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -fopenmp -fdump-tree-ompexp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr34607_17:
+  bin: '"pr34607.s"'
+  cargs: ' -fopenmp -std=gnu99 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr34607.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -std=gnu99"'
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:8:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected expression before))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:11:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(unknown type name))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:13:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(unknown type name))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr34610_29:
+  bin: '"pr34610.s"'
+  cargs: ' -O2 -fprofile-arcs -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr34610.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -fprofile-arcs -fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr34692_27:
+  bin: '"pr34692.s"'
+  cargs: ' -fopenmp -fdump-tree-gimple -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr34692.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -fdump-tree-gimple"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr34694_15:
+  bin: '"pr34694.s"'
+  cargs: ' -O -fopenmp -Wall -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr34694.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O -fopenmp -Wall"'
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:13:)[^
+        ]*([0-9]+: warning:[^
+        ]*(is used uninitialized))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr34964_6:
+  bin: '"pr34964.s"'
+  cargs: ' -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr34964.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp"'
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:5:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid initializer))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr35244_20:
+  bin: '"pr35244.s"'
+  cargs: ' -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr35244.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp"'
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:9:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected identifier before))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:10:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected identifier before))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr35438_6:
+  bin: '"pr35438.s"'
+  cargs: ' -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr35438.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp"'
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:6:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(is not a variable))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr35439_6:
+  bin: '"pr35439.s"'
+  cargs: ' -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr35439.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp"'
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:5:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(array of voids))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr35738_18:
+  bin: '"pr35738.s"'
+  cargs: ' -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr35738.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp"'
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:13:)[^
+        ]*([0-9]+: warning:[^
+        ]*(makes integer from pointer without a cast))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:15:)[^
+        ]*([0-9]+: warning:[^
+        ]*(makes integer from pointer without a cast))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:17:)[^
+        ]*([0-9]+: warning:[^
+        ]*(makes integer from pointer without a cast))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr35751_34:
+  bin: '"pr35751.s"'
+  cargs: ' -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr35751.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp"'
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:8:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(must have no linkage|storage size of))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:9:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(storage size of))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr35818_16:
+  bin: '"pr35818.s"'
+  cargs: ' -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr35818.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr36790_23:
+  bin: '"pr36790.s"'
+  cargs: ' -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr36790.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr38633_14:
+  bin: '"pr38633.s"'
+  cargs: ' -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr38633.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr38676_19:
+  bin: '"pr38676.s"'
+  cargs: ' -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr38676.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr39495-1_95:
+  bin: '"pr39495-1.s"'
+  cargs: ' -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr39495-1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr39495-2_39:
+  bin: '"pr39495-2.s"'
+  cargs: ' -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr39495-2.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp"'
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:16:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid controlling predicate))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:19:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid controlling predicate))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:22:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid controlling predicate))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:25:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid controlling predicate))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:28:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid controlling predicate))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:31:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid controlling predicate))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:34:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid controlling predicate))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:37:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid controlling predicate))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr44085_27:
+  bin: '"pr44085.s"'
+  cargs: ' -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr44085.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp"'
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:12:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(enclosing task))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:14:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(used in untied task))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:15:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(used in untied task))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46032-2_29:
+  bin: '"pr46032-2.s"'
+  cargs: ' -O2 -fopenmp -std=c99 -fipa-pta -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr46032-2.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -fopenmp -std=c99 -fipa-pta -fdump-tree-optimized"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46032-3_28:
+  bin: '"pr46032-3.s"'
+  cargs: ' -O2 -fopenmp -std=c99 -fipa-pta -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr46032-3.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -fopenmp -std=c99 -fipa-pta -fdump-tree-optimized"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr47963_11:
+  bin: '"pr47963.s"'
+  cargs: ' -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr47963.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp"'
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:8:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(has non-integer type))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr48591_22:
+  bin: '"pr48591.s"'
+  cargs: ' -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr48591.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr48716_24:
+  bin: '"pr48716.s"'
+  cargs: ' -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr48716.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr49640_29:
+  bin: '"pr49640.s"'
+  cargs: ' -O2 -std=gnu99 -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr49640.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -std=gnu99 -fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr51339_15:
+  bin: '"pr51339.s"'
+  cargs: ' -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr51339.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr53992_21:
+  bin: '"pr53992.s"'
+  cargs: ' -fgnu-tm -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr53992.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fgnu-tm -fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr57412_10:
+  bin: '"pr57412.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr57412.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr58809_13:
+  bin: '"pr58809.s"'
+  cargs: ' -fopenmp -O -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr58809.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -O"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr59669-1_9:
+  bin: '"pr59669-1.s"'
+  cargs: ' -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr59669-1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr59669-2_9:
+  bin: '"pr59669-2.s"'
+  cargs: ' -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr59669-2.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr60534_16:
+  bin: '"pr60534.s"'
+  cargs: ' -fopenmp -O -fno-tree-loop-optimize -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr60534.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -O -fno-tree-loop-optimize"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr66633-1_14:
+  bin: '"pr66633-1.s"'
+  cargs: ' -fopenmp -O1 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr66633-1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -O1"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr66633-2_5:
+  bin: '"pr66633-2.s"'
+  cargs: ' -fopenmp -O0 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr66633-2.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -O0"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr66633-3_18:
+  bin: '"pr66633-3.s"'
+  cargs: ' -fopenmp -O1 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr66633-3.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -O1"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr66633-4_5:
+  bin: '"pr66633-4.s"'
+  cargs: ' -fopenmp -O0 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr66633-4.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -O0"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr66820_18:
+  bin: '"pr66820.s"'
+  cargs: ' -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr66820.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr67495_38:
+  bin: '"pr67495.s"'
+  cargs: ' -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr67495.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp"'
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:11:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid operator))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:13:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(lvalue required))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:15:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(lvalue required))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:17:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(lvalue required))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:19:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(lvalue required))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:21:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(lvalue required))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:23:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(uses two different expressions for memory))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:25:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid operator))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:27:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(lvalue required))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:29:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(lvalue required))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:31:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(lvalue required))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:33:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(lvalue required))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:35:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(lvalue required))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:37:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(lvalue required))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr67500_42:
+  bin: '"pr67500.s"'
+  cargs: ' -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr67500.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp"'
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:5:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(clause expression must be positive constant integer expression))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:6:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(undeclared here" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(clause expression must be positive constant integer expression))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:9:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(clause expression must be positive constant integer expression))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:11:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(clause expression must be positive constant integer expression))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:18:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(must be positive constant integer expression))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:19:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(undeclared" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:21:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(must be positive constant integer expression))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:24:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(must be positive constant integer expression))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:27:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(must be positive constant integer expression))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:30:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(must be positive constant integer expression))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:33:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(must be positive constant integer expression))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:36:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(must be positive constant integer expression))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:39:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(must be positive constant integer expression))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr68128-1_32:
+  bin: '"pr68128-1.s"'
+  cargs: ' -Ofast -fopenmp -fdump-tree-vect-details -mavx -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr68128-1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-Ofast -fopenmp -fdump-tree-vect-details"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr68128-2_198:
+  bin: '"pr68128-2.s"'
+  cargs: ' -fopenmp -Wno-hsa -O2 -fdump-tree-omplower -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr68128-2.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr68640_16:
+  bin: '"pr68640.s"'
+  cargs: ' -O2 -fopenmp -fdump-tree-ealias-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr68640.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -fopenmp -fdump-tree-ealias-all"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr72781_23:
+  bin: '"pr72781.s"'
+  cargs: ' -fopenmp -Wno-hsa -O2 -Wuninitialized -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr72781.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr81768-1_15:
+  bin: '"pr81768-1.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr81768-1.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr81768-2_15:
+  bin: '"pr81768-2.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/pr81768-2.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_preprocess-1_16:
+  bin: '"preprocess-1.i"'
+  cargs: ' -fopenmp -Wno-hsa -E'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/preprocess-1.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reduction-1_20:
+  bin: '"reduction-1.s"'
+  cargs: ' -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/reduction-1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp"'
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:14:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(zero length array section))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:16:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(zero length array section))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:18:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(is a zero size array))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_sections-1_39:
+  bin: '"sections-1.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/sections-1.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_sections-2_29:
+  bin: '"sections-2.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/sections-2.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:11:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:22:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:26:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_sections-3_15:
+  bin: '"sections-3.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/sections-3.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:8:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('nowait'))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_sections-4_13:
+  bin: '"sections-4.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/sections-4.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:4:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may only be used in))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:11:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(may only be used in))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_sharing-1_58:
+  bin: '"sharing-1.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/sharing-1.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:38:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(enclosing 'parallel'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:52:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(not specified in))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:53:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(not specified in))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:54:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(not specified in))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:55:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(not specified in))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_sharing-2_25:
+  bin: '"sharing-2.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/sharing-2.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_sharing-3_18:
+  bin: '"sharing-3.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/sharing-3.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_simd-clones-1_32:
+  bin: '"simd-clones-1.s"'
+  cargs: ' -fopenmp -fdump-tree-optimized -O3 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/simd-clones-1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -fdump-tree-optimized -O3"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_simd-clones-2_28:
+  bin: '"simd-clones-2.s"'
+  cargs: ' -fopenmp -fdump-tree-optimized -O -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/simd-clones-2.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -fdump-tree-optimized -O"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_simd-clones-3_19:
+  bin: '"simd-clones-3.s"'
+  cargs: ' -fopenmp -fdump-tree-optimized -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/simd-clones-3.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -fdump-tree-optimized -O2"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_simd-clones-4_11:
+  bin: '"simd-clones-4.s"'
+  cargs: ' -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/simd-clones-4.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_simd-clones-5_12:
+  bin: '"simd-clones-5.s"'
+  cargs: ' -fopenmp -w -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/simd-clones-5.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -w"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_simd-clones-6_11:
+  bin: '"simd-clones-6.s"'
+  cargs: ' -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/simd-clones-6.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_simd-clones-7_16:
+  bin: '"simd-clones-7.s"'
+  cargs: ' -fopenmp -w -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/simd-clones-7.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -w"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_sink-fold-1_31:
+  bin: '"sink-fold-1.s"'
+  cargs: ' -fopenmp -fdump-tree-omplower -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/sink-fold-1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -fdump-tree-omplower"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_sink-fold-2_19:
+  bin: '"sink-fold-2.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/sink-fold-2.c'
+  herit: *GRPSERIAL
+  info:
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:14:)[^
+        ]*([0-9]+: warning:[^
+        ]*(refers to iteration never in the iteration space))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:15:)[^
+        ]*([0-9]+: warning:[^
+        ]*(waiting for lexically later iteration))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_sink-fold-3_25:
+  bin: '"sink-fold-3.s"'
+  cargs: ' -fopenmp -fdump-tree-omplower -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/sink-fold-3.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -fdump-tree-omplower"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_static-chunk-size-one_18:
+  bin: '"static-chunk-size-one.s"'
+  cargs: ' -fopenmp -O2 -fdump-tree-optimized -fno-tree-pre -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/static-chunk-size-one.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -O2 -fdump-tree-optimized -fno-tree-pre"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_static_14:
+  bin: '"static.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/static.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_target-1_29:
+  bin: '"target-1.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/target-1.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:8:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid branch to/from OpenMP structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:10:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid entry to OpenMP structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:24:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid entry to OpenMP structured block))[^
+        ]*
+        ?)+
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:26:)[^
+        ]*([0-9]+: warning:[^
+        ]*(statement will never be executed))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_target-2_29:
+  bin: '"target-2.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/target-2.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:8:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid branch to/from OpenMP structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:10:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid entry to OpenMP structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:24:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid entry to OpenMP structured block))[^
+        ]*
+        ?)+
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:26:)[^
+        ]*([0-9]+: warning:[^
+        ]*(statement will never be executed))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_taskgroup-1_29:
+  bin: '"taskgroup-1.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/taskgroup-1.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:8:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid branch to/from OpenMP structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:10:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid entry to OpenMP structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:24:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid entry to OpenMP structured block))[^
+        ]*
+        ?)+
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:26:)[^
+        ]*([0-9]+: warning:[^
+        ]*(statement will never be executed))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_teams-1_61:
+  bin: '"teams-1.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/teams-1.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:8:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid branch to/from OpenMP structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:10:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid entry to OpenMP structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:24:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid entry to OpenMP structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:37:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid branch to/from OpenMP structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:39:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid entry to OpenMP structured block))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:55:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid entry to OpenMP structured block))[^
+        ]*
+        ?)+
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:27:)[^
+        ]*([0-9]+: warning:[^
+        ]*(statement will never be executed))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:57:)[^
+        ]*([0-9]+: warning:[^
+        ]*(statement will never be executed))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_tls-1_18:
+  bin: '"tls-1.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/tls-1.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:13:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(undeclared))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:18:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(after first use))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_tls-2_13:
+  bin: '"tls-2.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/tls-2.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:5:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(has incomplete type))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:11:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(automatic variable))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_udr-1_46:
+  bin: '"udr-1.s"'
+  cargs: ' -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/udr-1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp"'
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:4:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(predeclared arithmetic type))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:5:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(predeclared arithmetic type))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(predeclared arithmetic type))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:8:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(predeclared arithmetic type))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:13:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(predeclared arithmetic type))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:14:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(predeclared arithmetic type))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:15:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(predeclared arithmetic type))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:16:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(predeclared arithmetic type))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:19:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(function or array))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:20:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(function or array))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:21:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(function or array))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:26:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(function or array))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:27:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(function or array))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:28:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(function or array))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:32:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(const, volatile or restrict))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:33:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(const, volatile or restrict))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:35:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(const, volatile or restrict))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:36:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(const, volatile or restrict))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:41:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(const, volatile or restrict))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:42:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(const, volatile or restrict))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:44:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(const, volatile or restrict))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:45:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(const, volatile or restrict))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_udr-2_42:
+  bin: '"udr-2.s"'
+  cargs: ' -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/udr-2.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp"'
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(combiner refers to variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:8:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(combiner refers to variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:10:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(combiner refers to variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:11:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(combiner refers to variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:12:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(combiner refers to variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:17:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(combiner refers to variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:18:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(combiner refers to variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:19:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(combiner refers to variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:20:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(combiner refers to variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:21:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(combiner refers to variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:24:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(initializer refers to variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:25:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(initializer refers to variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:26:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(initializer refers to variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:27:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(initializer refers to variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:28:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(initializer refers to variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:29:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(initializer refers to variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:30:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(initializer refers to variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:35:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(initializer refers to variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:36:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(initializer refers to variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:37:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(initializer refers to variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:38:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(initializer refers to variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:39:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(initializer refers to variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:40:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(initializer refers to variable))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:41:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(initializer refers to variable))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_udr-3_77:
+  bin: '"udr-3.s"'
+  cargs: ' -fopenmp -std=gnu89 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/udr-3.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fopenmp -std=gnu89"'
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:31:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(one of the initializer call arguments should be))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:34:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(previous))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:35:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(redeclaration of))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:40:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(previous))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:41:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(redeclaration of))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:46:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(not at file or block scope))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:47:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(not at file or block scope))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:50:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(previous))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:51:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(redeclaration of))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:58:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(previous))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:59:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(redeclaration of))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:67:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:68:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:73:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(expected declaration specifiers before))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_udr-4_6:
+  bin: '"udr-4.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/udr-4.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:4:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid use of undefined type))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_uninit-1_13:
+  bin: '"uninit-1.s"'
+  cargs: ' -O -Wuninitialized -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/uninit-1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O -Wuninitialized -fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vla-1_11:
+  bin: '"vla-1.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/vla-1.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(enclosing))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:9:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('A' not specified))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vla-2_12:
+  bin: '"vla-2.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/vla-2.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vla-3_12:
+  bin: '"vla-3.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/vla-3.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vla-4_12:
+  bin: '"vla-4.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/vla-4.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vla-5_12:
+  bin: '"vla-5.s"'
+  cargs: ' -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/gomp/vla-5.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

@@ -1,0 +1,1037 @@
+test_diag-1_2:
+  bin: '"diag-1.s"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-1.C'
+  herit: *GRPSERIAL
+  info: &1 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_diag-1_3:
+  bin: '"diag-1.s"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-1.C'
+  herit: *GRPSERIAL
+  info: *1
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_diag-1_31:
+  bin: '"diag-1.s"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-1.C'
+  herit: *GRPSERIAL
+  info: *1
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_diag-2_26:
+  bin: '"diag-2.s"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-2.C'
+  herit: *GRPSERIAL
+  info: &2
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:4:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('__thread' before 'extern'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:5:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('__thread' before 'static'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:6:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(duplicate '__thread'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(multiple storage classes))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:11:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(implicitly auto and declared '__thread'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:12:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(multiple storage classes|data types))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:13:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('__thread' before 'extern'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:14:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(multiple storage classes))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:15:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(ISO C\\+\\+1z does not allow 'register' storage class specifier" "))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:17:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid for function))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:18:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid for function))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:19:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid for function))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:20:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid for function))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:22:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*((invalid in parameter)|(specified for parameter)))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:25:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(storage class specified))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_diag-2_5:
+  bin: '"diag-2.s"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-2.C'
+  herit: *GRPSERIAL
+  info: *2
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_diag-2_6:
+  bin: '"diag-2.s"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-2.C'
+  herit: *GRPSERIAL
+  info: *2
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_diag-3_11:
+  bin: '"diag-3.s"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-3.C'
+  herit: *GRPSERIAL
+  info: &3
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:5:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(follows non-thread-local))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:8:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(follows thread-local))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_diag-3_8:
+  bin: '"diag-3.s"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-3.C'
+  herit: *GRPSERIAL
+  info: *3
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_diag-3_9:
+  bin: '"diag-3.s"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-3.C'
+  herit: *GRPSERIAL
+  info: *3
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_diag-4_10:
+  bin: '"diag-4.s"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-4.C'
+  herit: *GRPSERIAL
+  info: &4
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:4:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(multiple storage classes))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:8:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(multiple storage classes|data types))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:9:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(multiple storage classes))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:10:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(ISO C\\+\\+1z does not allow 'register' storage class specifier" "))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_diag-4_11:
+  bin: '"diag-4.s"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-4.C'
+  herit: *GRPSERIAL
+  info: *4
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_diag-4_12:
+  bin: '"diag-4.s"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-4.C'
+  herit: *GRPSERIAL
+  info: *4
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_diag-5_14:
+  bin: '"diag-5.s"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-5.C'
+  herit: *GRPSERIAL
+  info: &5
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:5:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(multiple storage classes|storage class specified))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_diag-5_15:
+  bin: '"diag-5.s"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-5.C'
+  herit: *GRPSERIAL
+  info: *5
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_diag-5_5:
+  bin: '"diag-5.s"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-5.C'
+  herit: *GRPSERIAL
+  info: *5
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_init-1_14:
+  bin: '"init-1.s"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/init-1.C'
+  herit: *GRPSERIAL
+  info: &6 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_init-1_17:
+  bin: '"init-1.s"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/init-1.C'
+  herit: *GRPSERIAL
+  info: *6
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_init-1_18:
+  bin: '"init-1.s"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/init-1.C'
+  herit: *GRPSERIAL
+  info: *6
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_init-2_14:
+  bin: '"init-2.s"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/init-2.C'
+  herit: *GRPSERIAL
+  info: &7
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:5:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(dynamic initialization))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:8:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(dynamic initialization))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:14:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(dynamic initialization))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_init-2_20:
+  bin: '"init-2.s"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/init-2.C'
+  herit: *GRPSERIAL
+  info: *7
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_init-2_21:
+  bin: '"init-2.s"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/init-2.C'
+  herit: *GRPSERIAL
+  info: *7
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr66808_10:
+  bin: '"pr66808.s"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/pr66808.C'
+  herit: *GRPSERIAL
+  info: &8 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr66808_23:
+  bin: '"pr66808.s"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/pr66808.C'
+  herit: *GRPSERIAL
+  info: *8
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr69000_19:
+  bin: '"pr69000.s"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/pr69000.C'
+  herit: *GRPSERIAL
+  info: &9 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr69000_25:
+  bin: '"pr69000.s"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/pr69000.C'
+  herit: *GRPSERIAL
+  info: *9
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr69000_26:
+  bin: '"pr69000.s"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/pr69000.C'
+  herit: *GRPSERIAL
+  info: *9
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr77285-1_28:
+  bin: '"pr77285-1.exe"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/pr77285-1.C'
+  herit: *GRPSERIAL
+  info: &10 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr77285-1_8:
+  bin: '"pr77285-1.exe"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/pr77285-1.C'
+  herit: *GRPSERIAL
+  info: *10
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr77285-2_17:
+  bin: '"pr77285-2.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/pr77285-2.C'
+  herit: *GRPSERIAL
+  info: &11 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr77285-2_30:
+  bin: '"pr77285-2.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/pr77285-2.C'
+  herit: *GRPSERIAL
+  info: *11
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr79288_28:
+  bin: '"pr79288.s"'
+  cargs: -std=gnu++98 -O2 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/pr79288.C'
+  herit: *GRPSERIAL
+  info: &12
+    extraopts:
+      - '"-O2"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr79288_32:
+  bin: '"pr79288.s"'
+  cargs: -std=gnu++11 -O2 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/pr79288.C'
+  herit: *GRPSERIAL
+  info: *12
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr79288_33:
+  bin: '"pr79288.s"'
+  cargs: -std=gnu++14 -O2 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/pr79288.C'
+  herit: *GRPSERIAL
+  info: *12
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_static-1_30:
+  bin: '"./static-1.exe"'
+  cargs: ' -std=gnu++98 -O2'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/static-1.C'
+  herit: *GRPSERIAL
+  info: &13
+    extraopts:
+      - '"-O2"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_static-1_35:
+  bin: '"./static-1.exe"'
+  cargs: ' -std=gnu++11 -O2'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/static-1.C'
+  herit: *GRPSERIAL
+  info: *13
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_static-1_36:
+  bin: '"./static-1.exe"'
+  cargs: ' -std=gnu++14 -O2'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/static-1.C'
+  herit: *GRPSERIAL
+  info: *13
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_static2_18:
+  bin: '"static2.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/static2.C'
+  herit: *GRPSERIAL
+  info: &14 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_static2_38:
+  bin: '"static2.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/static2.C'
+  herit: *GRPSERIAL
+  info: *14
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_static2_39:
+  bin: '"static2.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/static2.C'
+  herit: *GRPSERIAL
+  info: *14
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local-cse_19:
+  bin: '"./thread_local-cse.exe"'
+  cargs: -std=gnu++11 -O -fno-inline -save-temps -ffat-lto-objects
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-cse.C'
+  herit: *GRPSERIAL
+  info: &15
+    extraopts:
+      - '"-O -fno-inline -save-temps"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local-cse_41:
+  bin: '"./thread_local-cse.exe"'
+  cargs: -std=gnu++14 -O -fno-inline -save-temps -ffat-lto-objects
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-cse.C'
+  herit: *GRPSERIAL
+  info: *15
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local-ice2_11:
+  bin: '"thread_local-ice2.s"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-ice2.C'
+  herit: *GRPSERIAL
+  info: &16
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:8:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local-ice2_45:
+  bin: '"thread_local-ice2.s"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-ice2.C'
+  herit: *GRPSERIAL
+  info: *16
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local-ice3_47:
+  bin: '"thread_local-ice3.s"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-ice3.C'
+  herit: *GRPSERIAL
+  info: &17 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local-ice3_5:
+  bin: '"thread_local-ice3.s"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-ice3.C'
+  herit: *GRPSERIAL
+  info: *17
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local-ice4_19:
+  bin: '"thread_local-ice4.s"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-ice4.C'
+  herit: *GRPSERIAL
+  info: &18 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local-ice4_49:
+  bin: '"thread_local-ice4.s"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-ice4.C'
+  herit: *GRPSERIAL
+  info: *18
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local-ice_43:
+  bin: '"thread_local-ice.s"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-ice.C'
+  herit: *GRPSERIAL
+  info: &19
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:6:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(incomplete))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local-ice_6:
+  bin: '"thread_local-ice.s"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-ice.C'
+  herit: *GRPSERIAL
+  info: *19
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local-order1_25:
+  bin: '"./thread_local-order1.exe"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-order1.C'
+  herit: *GRPSERIAL
+  info: &20 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local-order1_51:
+  bin: '"./thread_local-order1.exe"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-order1.C'
+  herit: *GRPSERIAL
+  info: *20
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local-order2_29:
+  bin: '"./thread_local-order2.exe"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-order2.C'
+  herit: *GRPSERIAL
+  info: &21 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local-order2_53:
+  bin: '"./thread_local-order2.exe"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-order2.C'
+  herit: *GRPSERIAL
+  info: *21
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local-wrap1_13:
+  bin: '"thread_local-wrap1.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-wrap1.C'
+  herit: *GRPSERIAL
+  info: &22 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local-wrap1_55:
+  bin: '"thread_local-wrap1.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-wrap1.C'
+  herit: *GRPSERIAL
+  info: *22
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local-wrap2_16:
+  bin: '"thread_local-wrap2.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-wrap2.C'
+  herit: *GRPSERIAL
+  info: &23 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local-wrap2_57:
+  bin: '"thread_local-wrap2.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-wrap2.C'
+  herit: *GRPSERIAL
+  info: *23
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local-wrap3_15:
+  bin: '"thread_local-wrap3.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-wrap3.C'
+  herit: *GRPSERIAL
+  info: &24 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local-wrap3_59:
+  bin: '"thread_local-wrap3.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-wrap3.C'
+  herit: *GRPSERIAL
+  info: *24
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local-wrap4_15:
+  bin: '"thread_local-wrap4.s"'
+  cargs: -std=gnu++11 -fPIC -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-wrap4.C'
+  herit: *GRPSERIAL
+  info: &25
+    extraopts:
+      - '"-fPIC"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local-wrap4_61:
+  bin: '"thread_local-wrap4.s"'
+  cargs: -std=gnu++14 -fPIC -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-wrap4.C'
+  herit: *GRPSERIAL
+  info: *25
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local10_23:
+  bin: '"./thread_local10.exe"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local10.C'
+  herit: *GRPSERIAL
+  info: &26 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local10_65:
+  bin: '"./thread_local10.exe"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local10.C'
+  herit: *GRPSERIAL
+  info: *26
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local1_21:
+  bin: '"thread_local1.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local1.C'
+  herit: *GRPSERIAL
+  info: &27 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local1_63:
+  bin: '"thread_local1.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local1.C'
+  herit: *GRPSERIAL
+  info: *27
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local2_27:
+  bin: '"./thread_local2.exe"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local2.C'
+  herit: *GRPSERIAL
+  info: &28 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local2_67:
+  bin: '"./thread_local2.exe"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local2.C'
+  herit: *GRPSERIAL
+  info: *28
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local2g_28:
+  bin: '"./thread_local2g.exe"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local2g.C'
+  herit: *GRPSERIAL
+  info: &29 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local2g_69:
+  bin: '"./thread_local2g.exe"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local2g.C'
+  herit: *GRPSERIAL
+  info: *29
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local3_38:
+  bin: '"./thread_local3.exe"'
+  cargs: ' -std=gnu++11 -pthread'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local3.C'
+  herit: *GRPSERIAL
+  info: &30
+    extraopts:
+      - -pthread
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local3_71:
+  bin: '"./thread_local3.exe"'
+  cargs: ' -std=gnu++14 -pthread'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local3.C'
+  herit: *GRPSERIAL
+  info: *30
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local3g_36:
+  bin: '"./thread_local3g.exe"'
+  cargs: ' -std=gnu++11 -pthread'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local3g.C'
+  herit: *GRPSERIAL
+  info: &31
+    extraopts:
+      - -pthread
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local3g_73:
+  bin: '"./thread_local3g.exe"'
+  cargs: ' -std=gnu++14 -pthread'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local3g.C'
+  herit: *GRPSERIAL
+  info: *31
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local4_49:
+  bin: '"./thread_local4.exe"'
+  cargs: ' -std=gnu++11 -pthread'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local4.C'
+  herit: *GRPSERIAL
+  info: &32
+    extraopts:
+      - -pthread
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local4_75:
+  bin: '"./thread_local4.exe"'
+  cargs: ' -std=gnu++14 -pthread'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local4.C'
+  herit: *GRPSERIAL
+  info: *32
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local4g_47:
+  bin: '"./thread_local4g.exe"'
+  cargs: ' -std=gnu++11 -pthread'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local4g.C'
+  herit: *GRPSERIAL
+  info: &33
+    extraopts:
+      - -pthread
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local4g_77:
+  bin: '"./thread_local4g.exe"'
+  cargs: ' -std=gnu++14 -pthread'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local4g.C'
+  herit: *GRPSERIAL
+  info: *33
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local5_49:
+  bin: '"./thread_local5.exe"'
+  cargs: ' -std=gnu++11 -pthread'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local5.C'
+  herit: *GRPSERIAL
+  info: &34
+    extraopts:
+      - -pthread
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local5_79:
+  bin: '"./thread_local5.exe"'
+  cargs: ' -std=gnu++14 -pthread'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local5.C'
+  herit: *GRPSERIAL
+  info: *34
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local5g_47:
+  bin: '"./thread_local5g.exe"'
+  cargs: ' -std=gnu++11 -pthread'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local5g.C'
+  herit: *GRPSERIAL
+  info: &35
+    extraopts:
+      - -pthread
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local5g_81:
+  bin: '"./thread_local5g.exe"'
+  cargs: ' -std=gnu++14 -pthread'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local5g.C'
+  herit: *GRPSERIAL
+  info: *35
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local6_34:
+  bin: '"./thread_local6.exe"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local6.C'
+  herit: *GRPSERIAL
+  info: &36 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local6_83:
+  bin: '"./thread_local6.exe"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local6.C'
+  herit: *GRPSERIAL
+  info: *36
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local6g_32:
+  bin: '"./thread_local6g.exe"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local6g.C'
+  herit: *GRPSERIAL
+  info: &37 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local6g_85:
+  bin: '"./thread_local6g.exe"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local6g.C'
+  herit: *GRPSERIAL
+  info: *37
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local7_10:
+  bin: '"thread_local7.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local7.C'
+  herit: *GRPSERIAL
+  info: &38 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local7_87:
+  bin: '"thread_local7.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local7.C'
+  herit: *GRPSERIAL
+  info: *38
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local7g_12:
+  bin: '"thread_local7g.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local7g.C'
+  herit: *GRPSERIAL
+  info: &39 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local7g_89:
+  bin: '"thread_local7g.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local7g.C'
+  herit: *GRPSERIAL
+  info: *39
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local8_12:
+  bin: '"thread_local8.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local8.C'
+  herit: *GRPSERIAL
+  info: &40 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local8_91:
+  bin: '"thread_local8.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local8.C'
+  herit: *GRPSERIAL
+  info: *40
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local9_23:
+  bin: '"./thread_local9.exe"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local9.C'
+  herit: *GRPSERIAL
+  info: &41 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_local9_93:
+  bin: '"./thread_local9.exe"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local9.C'
+  herit: *GRPSERIAL
+  info: *41
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_tls_model1_8:
+  bin: '"tls_model1.s"'
+  cargs: ' -std=gnu++98 -g -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/tls_model1.C'
+  herit: *GRPSERIAL
+  info: &42
+    extraopts:
+      - '"-g"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_tls_model1_95:
+  bin: '"tls_model1.s"'
+  cargs: ' -std=gnu++11 -g -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/tls_model1.C'
+  herit: *GRPSERIAL
+  info: *42
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_tls_model1_96:
+  bin: '"tls_model1.s"'
+  cargs: ' -std=gnu++14 -g -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/tls_model1.C'
+  herit: *GRPSERIAL
+  info: *42
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_trivial_3:
+  bin: '"trivial.s"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/trivial.C'
+  herit: *GRPSERIAL
+  info: &43 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_trivial_98:
+  bin: '"trivial.s"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/trivial.C'
+  herit: *GRPSERIAL
+  info: *43
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_trivial_99:
+  bin: '"trivial.s"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/trivial.C'
+  herit: *GRPSERIAL
+  info: *43
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

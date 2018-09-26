@@ -1,0 +1,94 @@
+test_pr43190_13:
+  bin: '"pr43190.s"'
+  cargs: -gdwarf-2 -dA -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/dwarf2/pr43190.c'
+  herit: *GRPSERIAL
+  info: &1
+    extraopts:
+      - '"-gdwarf-2 -dA"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr43190_4:
+  bin: '"pr43190.s"'
+  cargs: -std=gnu++98 -gdwarf-2 -dA -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/dwarf2/pr43190.c'
+  herit: *GRPSERIAL
+  info: *1
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr43190_5:
+  bin: '"pr43190.s"'
+  cargs: -std=gnu++11 -gdwarf-2 -dA -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/dwarf2/pr43190.c'
+  herit: *GRPSERIAL
+  info: *1
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr43190_6:
+  bin: '"pr43190.s"'
+  cargs: -std=gnu++14 -gdwarf-2 -dA -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/dwarf2/pr43190.c'
+  herit: *GRPSERIAL
+  info: *1
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr83550_10:
+  bin: '"pr83550.s"'
+  cargs: -gdwarf -dA -fno-merge-debug-strings -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/dwarf2/pr83550.c'
+  herit: *GRPSERIAL
+  info: &2
+    extraopts:
+      - '"-gdwarf -dA -fno-merge-debug-strings"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr83550_7:
+  bin: '"pr83550.s"'
+  cargs: -std=gnu++98 -gdwarf -dA -fno-merge-debug-strings -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/dwarf2/pr83550.c'
+  herit: *GRPSERIAL
+  info: *2
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr83550_8:
+  bin: '"pr83550.s"'
+  cargs: -std=gnu++11 -gdwarf -dA -fno-merge-debug-strings -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/dwarf2/pr83550.c'
+  herit: *GRPSERIAL
+  info: *2
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr83550_9:
+  bin: '"pr83550.s"'
+  cargs: -std=gnu++14 -gdwarf -dA -fno-merge-debug-strings -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/dwarf2/pr83550.c'
+  herit: *GRPSERIAL
+  info: *2
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vla1_10:
+  bin: '"vla1.s"'
+  cargs: -std=gnu++98 -gdwarf-2 -dA -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/dwarf2/vla1.c'
+  herit: *GRPSERIAL
+  info: &3
+    extraopts:
+      - '"-gdwarf-2 -dA"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vla1_11:
+  bin: '"vla1.s"'
+  cargs: -std=gnu++11 -gdwarf-2 -dA -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/dwarf2/vla1.c'
+  herit: *GRPSERIAL
+  info: *3
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vla1_12:
+  bin: '"vla1.s"'
+  cargs: -std=gnu++14 -gdwarf-2 -dA -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/dwarf2/vla1.c'
+  herit: *GRPSERIAL
+  info: *3
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

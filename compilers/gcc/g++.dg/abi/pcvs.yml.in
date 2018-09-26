@@ -1,0 +1,4610 @@
+test_Wabi-2-2_14:
+  bin: '"Wabi-2-2.s"'
+  cargs: ' -std=gnu++98 -Werror -Wabi=2 -fabi-version=2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/Wabi-2-2.C'
+  herit: *GRPSERIAL
+  info: &1
+    extraopts:
+      - '"-Werror -Wabi=2 -fabi-version=2"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_Wabi-2-2_2:
+  bin: '"Wabi-2-2.s"'
+  cargs: ' -std=gnu++11 -Werror -Wabi=2 -fabi-version=2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/Wabi-2-2.C'
+  herit: *GRPSERIAL
+  info: *1
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_Wabi-2-2_3:
+  bin: '"Wabi-2-2.s"'
+  cargs: ' -std=gnu++14 -Werror -Wabi=2 -fabi-version=2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/Wabi-2-2.C'
+  herit: *GRPSERIAL
+  info: *1
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_Wabi-2-3_16:
+  bin: '"Wabi-2-3.s"'
+  cargs: ' -std=gnu++98 -Wabi=2 -fabi-version=3 -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/Wabi-2-3.C'
+  herit: *GRPSERIAL
+  info: &2
+    extraopts:
+      - '"-Wabi=2 -fabi-version=3"'
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:15:)[^
+        ]*([0-9]+: warning:[^
+        ]*(the mangled name of .void foo\\(S<N>\\). changed between -fabi-version=2 \\(_Z3foo1SILZ1NEE\\) and -fabi-version=3 \\(_Z3foo1SIL_Z1NEE\\)))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_Wabi-2-3_5:
+  bin: '"Wabi-2-3.s"'
+  cargs: ' -std=gnu++11 -Wabi=2 -fabi-version=3 -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/Wabi-2-3.C'
+  herit: *GRPSERIAL
+  info: *2
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_Wabi-2-3_6:
+  bin: '"Wabi-2-3.s"'
+  cargs: ' -std=gnu++14 -Wabi=2 -fabi-version=3 -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/Wabi-2-3.C'
+  herit: *GRPSERIAL
+  info: *2
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_Wabi-3-2_16:
+  bin: '"Wabi-3-2.s"'
+  cargs: ' -std=gnu++98 -Wabi=3 -fabi-version=2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/Wabi-3-2.C'
+  herit: *GRPSERIAL
+  info: &3
+    extraopts:
+      - '"-Wabi=3 -fabi-version=2"'
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:15:)[^
+        ]*([0-9]+: warning:[^
+        ]*(the mangled name of .void foo\\(S<N>\\). changes between -fabi-version=2 \\(_Z3foo1SILZ1NEE\\) and -fabi-version=3 \\(_Z3foo1SIL_Z1NEE\\)))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_Wabi-3-2_8:
+  bin: '"Wabi-3-2.s"'
+  cargs: ' -std=gnu++11 -Wabi=3 -fabi-version=2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/Wabi-3-2.C'
+  herit: *GRPSERIAL
+  info: *3
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_Wabi-3-2_9:
+  bin: '"Wabi-3-2.s"'
+  cargs: ' -std=gnu++14 -Wabi=3 -fabi-version=2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/Wabi-3-2.C'
+  herit: *GRPSERIAL
+  info: *3
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_Wabi-3-3_11:
+  bin: '"Wabi-3-3.s"'
+  cargs: ' -std=gnu++11 -Werror -Wabi=3 -fabi-version=3 -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/Wabi-3-3.C'
+  herit: *GRPSERIAL
+  info: &4
+    extraopts:
+      - '"-Werror -Wabi=3 -fabi-version=3"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_Wabi-3-3_12:
+  bin: '"Wabi-3-3.s"'
+  cargs: ' -std=gnu++14 -Werror -Wabi=3 -fabi-version=3 -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/Wabi-3-3.C'
+  herit: *GRPSERIAL
+  info: *4
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_Wabi-3-3_14:
+  bin: '"Wabi-3-3.s"'
+  cargs: ' -std=gnu++98 -Werror -Wabi=3 -fabi-version=3 -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/Wabi-3-3.C'
+  herit: *GRPSERIAL
+  info: *4
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag10_17:
+  bin: '"abi-tag10.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag10.C'
+  herit: *GRPSERIAL
+  info: &5 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag10_18:
+  bin: '"abi-tag10.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag10.C'
+  herit: *GRPSERIAL
+  info: *5
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag10_28:
+  bin: '"abi-tag10.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag10.C'
+  herit: *GRPSERIAL
+  info: *5
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag11_12:
+  bin: '"abi-tag11.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag11.C'
+  herit: *GRPSERIAL
+  info: &6 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag11_20:
+  bin: '"abi-tag11.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag11.C'
+  herit: *GRPSERIAL
+  info: *6
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag11_21:
+  bin: '"abi-tag11.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag11.C'
+  herit: *GRPSERIAL
+  info: *6
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag12_23:
+  bin: '"abi-tag12.s"'
+  cargs: ' -std=gnu++11 -Wabi-tag -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag12.C'
+  herit: *GRPSERIAL
+  info: &7
+    extraopts:
+      - '"-Wabi-tag"'
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:8:)[^
+        ]*([0-9]+: warning:[^
+        ]*(tag))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag12_24:
+  bin: '"abi-tag12.s"'
+  cargs: ' -std=gnu++14 -Wabi-tag -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag12.C'
+  herit: *GRPSERIAL
+  info: *7
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag12_8:
+  bin: '"abi-tag12.s"'
+  cargs: ' -std=gnu++98 -Wabi-tag -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag12.C'
+  herit: *GRPSERIAL
+  info: *7
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag13_26:
+  bin: '"abi-tag13.s"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag13.C'
+  herit: *GRPSERIAL
+  info: &8
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:2:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(abi_tag))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:3:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(abi_tag))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:4:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(abi_tag))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:5:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(abi_tag))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag13_27:
+  bin: '"abi-tag13.s"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag13.C'
+  herit: *GRPSERIAL
+  info: *8
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag13_5:
+  bin: '"abi-tag13.s"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag13.C'
+  herit: *GRPSERIAL
+  info: *8
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag14_29:
+  bin: '"abi-tag14.s"'
+  cargs: -std=gnu++11 -Wabi-tag -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag14.C'
+  herit: *GRPSERIAL
+  info: &9
+    extraopts:
+      - '"-Wabi-tag"'
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:8:)[^
+        ]*([0-9]+: warning:[^
+        ]*(\"cxx11\"))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:11:)[^
+        ]*([0-9]+: warning:[^
+        ]*(\"cxx11\"))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag14_30:
+  bin: '"abi-tag14.s"'
+  cargs: -std=gnu++14 -Wabi-tag -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag14.C'
+  herit: *GRPSERIAL
+  info: *9
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag15_3:
+  bin: '"abi-tag15.s"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag15.C'
+  herit: *GRPSERIAL
+  info: &10 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag15_32:
+  bin: '"abi-tag15.s"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag15.C'
+  herit: *GRPSERIAL
+  info: *10
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag15_33:
+  bin: '"abi-tag15.s"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag15.C'
+  herit: *GRPSERIAL
+  info: *10
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag16_19:
+  bin: '"abi-tag16.s"'
+  cargs: -std=gnu++98 -Wabi=9 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag16.C'
+  herit: *GRPSERIAL
+  info: &11
+    extraopts:
+      - -Wabi=9
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:13:)[^
+        ]*([0-9]+: warning:[^
+        ]*(mangled name))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag16_35:
+  bin: '"abi-tag16.s"'
+  cargs: -std=gnu++11 -Wabi=9 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag16.C'
+  herit: *GRPSERIAL
+  info: *11
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag16_36:
+  bin: '"abi-tag16.s"'
+  cargs: -std=gnu++14 -Wabi=9 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag16.C'
+  herit: *GRPSERIAL
+  info: *11
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag16a_19:
+  bin: '"abi-tag16a.s"'
+  cargs: -std=gnu++98 -fabi-version=9 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag16a.C'
+  herit: *GRPSERIAL
+  info: &12
+    extraopts:
+      - '"-fabi-version=9"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag16a_38:
+  bin: '"abi-tag16a.s"'
+  cargs: -std=gnu++11 -fabi-version=9 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag16a.C'
+  herit: *GRPSERIAL
+  info: *12
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag16a_39:
+  bin: '"abi-tag16a.s"'
+  cargs: -std=gnu++14 -fabi-version=9 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag16a.C'
+  herit: *GRPSERIAL
+  info: *12
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag17_41:
+  bin: '"abi-tag17.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag17.C'
+  herit: *GRPSERIAL
+  info: &13 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag17_42:
+  bin: '"abi-tag17.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag17.C'
+  herit: *GRPSERIAL
+  info: *13
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag17_9:
+  bin: '"abi-tag17.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag17.C'
+  herit: *GRPSERIAL
+  info: *13
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag18_20:
+  bin: '"abi-tag18.s"'
+  cargs: -std=gnu++98 -Wabi=9 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag18.C'
+  herit: *GRPSERIAL
+  info: &14
+    extraopts:
+      - -Wabi=9
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:12:)[^
+        ]*([0-9]+: warning:[^
+        ]*(mangled name))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:13:)[^
+        ]*([0-9]+: warning:[^
+        ]*(mangled name))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag18_44:
+  bin: '"abi-tag18.s"'
+  cargs: -std=gnu++11 -Wabi=9 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag18.C'
+  herit: *GRPSERIAL
+  info: *14
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag18_45:
+  bin: '"abi-tag18.s"'
+  cargs: -std=gnu++14 -Wabi=9 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag18.C'
+  herit: *GRPSERIAL
+  info: *14
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag18a_20:
+  bin: '"abi-tag18a.s"'
+  cargs: -std=gnu++98 -fabi-version=9 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag18a.C'
+  herit: *GRPSERIAL
+  info: &15
+    extraopts:
+      - -fabi-version=9
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag18a_47:
+  bin: '"abi-tag18a.s"'
+  cargs: -std=gnu++11 -fabi-version=9 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag18a.C'
+  herit: *GRPSERIAL
+  info: *15
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag18a_48:
+  bin: '"abi-tag18a.s"'
+  cargs: -std=gnu++14 -fabi-version=9 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag18a.C'
+  herit: *GRPSERIAL
+  info: *15
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag19_4:
+  bin: '"abi-tag19.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag19.C'
+  herit: *GRPSERIAL
+  info: &16 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag19_50:
+  bin: '"abi-tag19.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag19.C'
+  herit: *GRPSERIAL
+  info: *16
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag19_51:
+  bin: '"abi-tag19.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag19.C'
+  herit: *GRPSERIAL
+  info: *16
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag1_14:
+  bin: '"abi-tag1.s"'
+  cargs: -std=gnu++11 -Wabi-tag -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag1.C'
+  herit: *GRPSERIAL
+  info: &17
+    extraopts:
+      - '"-Wabi-tag"'
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:8:)[^
+        ]*([0-9]+: warning:[^
+        ]*(bar. ABI tag))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:9:)[^
+        ]*([0-9]+: warning:[^
+        ]*(bar. ABI tag))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag1_15:
+  bin: '"abi-tag1.s"'
+  cargs: -std=gnu++14 -Wabi-tag -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag1.C'
+  herit: *GRPSERIAL
+  info: *17
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag1_19:
+  bin: '"abi-tag1.s"'
+  cargs: -std=gnu++98 -Wabi-tag -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag1.C'
+  herit: *GRPSERIAL
+  info: *17
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag20_15:
+  bin: '"abi-tag20.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag20.C'
+  herit: *GRPSERIAL
+  info: &18 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag20_56:
+  bin: '"abi-tag20.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag20.C'
+  herit: *GRPSERIAL
+  info: *18
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag21_27:
+  bin: '"abi-tag21.s"'
+  cargs: -std=gnu++11 -Wabi=10 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag21.C'
+  herit: *GRPSERIAL
+  info: &19
+    extraopts:
+      - -Wabi=10
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:13:)[^
+        ]*([0-9]+: warning:[^
+        ]*(mangled name))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag21_58:
+  bin: '"abi-tag21.s"'
+  cargs: -std=gnu++14 -Wabi=10 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag21.C'
+  herit: *GRPSERIAL
+  info: *19
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag21a_27:
+  bin: '"abi-tag21a.s"'
+  cargs: -std=gnu++11 -fabi-version=10 -Wabi -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag21a.C'
+  herit: *GRPSERIAL
+  info: &20
+    extraopts:
+      - '"-fabi-version=10 -Wabi"'
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:13:)[^
+        ]*([0-9]+: warning:[^
+        ]*(mangled name))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag21a_60:
+  bin: '"abi-tag21a.s"'
+  cargs: -std=gnu++14 -fabi-version=10 -Wabi -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag21a.C'
+  herit: *GRPSERIAL
+  info: *20
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag21b_27:
+  bin: '"abi-tag21b.s"'
+  cargs: -std=gnu++11 -fabi-version=9 -Wabi -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag21b.C'
+  herit: *GRPSERIAL
+  info: &21
+    extraopts:
+      - '"-fabi-version=9 -Wabi"'
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:15:)[^
+        ]*([0-9]+: warning:[^
+        ]*(mangled name))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag21b_62:
+  bin: '"abi-tag21b.s"'
+  cargs: -std=gnu++14 -fabi-version=9 -Wabi -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag21b.C'
+  herit: *GRPSERIAL
+  info: *21
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag22_11:
+  bin: '"abi-tag22.s"'
+  cargs: -std=gnu++98 -Wabi=10 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag22.C'
+  herit: *GRPSERIAL
+  info: &22
+    extraopts:
+      - -Wabi=10
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:6:)[^
+        ]*([0-9]+: warning:[^
+        ]*(mangled name))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag22_64:
+  bin: '"abi-tag22.s"'
+  cargs: -std=gnu++11 -Wabi=10 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag22.C'
+  herit: *GRPSERIAL
+  info: *22
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag22_65:
+  bin: '"abi-tag22.s"'
+  cargs: -std=gnu++14 -Wabi=10 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag22.C'
+  herit: *GRPSERIAL
+  info: *22
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag22a_11:
+  bin: '"abi-tag22a.s"'
+  cargs: -std=gnu++98 -fabi-version=10 -Wabi -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag22a.C'
+  herit: *GRPSERIAL
+  info: &23
+    extraopts:
+      - '"-fabi-version=10 -Wabi"'
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:6:)[^
+        ]*([0-9]+: warning:[^
+        ]*(mangled name))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag22a_67:
+  bin: '"abi-tag22a.s"'
+  cargs: -std=gnu++11 -fabi-version=10 -Wabi -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag22a.C'
+  herit: *GRPSERIAL
+  info: *23
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag22a_68:
+  bin: '"abi-tag22a.s"'
+  cargs: -std=gnu++14 -fabi-version=10 -Wabi -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag22a.C'
+  herit: *GRPSERIAL
+  info: *23
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag23_35:
+  bin: '"abi-tag23.s"'
+  cargs: -std=gnu++98 -fabi-version=0 -Wabi=10 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag23.C'
+  herit: *GRPSERIAL
+  info: &24
+    extraopts:
+      - '"-fabi-version=0 -Wabi=10"'
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:22:)[^
+        ]*([0-9]+: warning:[^
+        ]*(mangled name))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag23_70:
+  bin: '"abi-tag23.s"'
+  cargs: -std=gnu++11 -fabi-version=0 -Wabi=10 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag23.C'
+  herit: *GRPSERIAL
+  info: *24
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag23_71:
+  bin: '"abi-tag23.s"'
+  cargs: -std=gnu++14 -fabi-version=0 -Wabi=10 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag23.C'
+  herit: *GRPSERIAL
+  info: *24
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag23a_35:
+  bin: '"abi-tag23a.s"'
+  cargs: -std=gnu++98 -fabi-version=10 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag23a.C'
+  herit: *GRPSERIAL
+  info: &25
+    extraopts:
+      - -fabi-version=10
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag23a_73:
+  bin: '"abi-tag23a.s"'
+  cargs: -std=gnu++11 -fabi-version=10 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag23a.C'
+  herit: *GRPSERIAL
+  info: *25
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag23a_74:
+  bin: '"abi-tag23a.s"'
+  cargs: -std=gnu++14 -fabi-version=10 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag23a.C'
+  herit: *GRPSERIAL
+  info: *25
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag2_5:
+  bin: '"abi-tag2.s"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag2.C'
+  herit: *GRPSERIAL
+  info: &26
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:2:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(adds abi tag))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:5:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(adds abi tag))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag2_53:
+  bin: '"abi-tag2.s"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag2.C'
+  herit: *GRPSERIAL
+  info: *26
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag2_54:
+  bin: '"abi-tag2.s"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag2.C'
+  herit: *GRPSERIAL
+  info: *26
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag3_35:
+  bin: '"abi-tag3.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag3.C'
+  herit: *GRPSERIAL
+  info: &27
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:14:)[^
+        ]*([0-9]+: warning:[^
+        ]*(attribute))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag3_76:
+  bin: '"abi-tag3.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag3.C'
+  herit: *GRPSERIAL
+  info: *27
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag3_77:
+  bin: '"abi-tag3.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag3.C'
+  herit: *GRPSERIAL
+  info: *27
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag4_79:
+  bin: '"abi-tag4.s"'
+  cargs: ' -std=gnu++11 -Wabi-tag -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag4.C'
+  herit: *GRPSERIAL
+  info: &28
+    extraopts:
+      - '"-Wabi-tag"'
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:5:)[^
+        ]*([0-9]+: warning:[^
+        ]*(ABI tag))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag4_8:
+  bin: '"abi-tag4.s"'
+  cargs: ' -std=gnu++98 -Wabi-tag -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag4.C'
+  herit: *GRPSERIAL
+  info: *28
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag4_80:
+  bin: '"abi-tag4.s"'
+  cargs: ' -std=gnu++14 -Wabi-tag -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag4.C'
+  herit: *GRPSERIAL
+  info: *28
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag5_7:
+  bin: '"abi-tag5.s"'
+  cargs: -std=gnu++98 -Wabi-tag -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag5.C'
+  herit: *GRPSERIAL
+  info: &29
+    extraopts:
+      - -Wabi-tag
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag5_82:
+  bin: '"abi-tag5.s"'
+  cargs: -std=gnu++11 -Wabi-tag -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag5.C'
+  herit: *GRPSERIAL
+  info: *29
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag5_83:
+  bin: '"abi-tag5.s"'
+  cargs: -std=gnu++14 -Wabi-tag -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag5.C'
+  herit: *GRPSERIAL
+  info: *29
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag6_25:
+  bin: '"abi-tag6.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag6.C'
+  herit: *GRPSERIAL
+  info: &30 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag6_85:
+  bin: '"abi-tag6.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag6.C'
+  herit: *GRPSERIAL
+  info: *30
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag6_86:
+  bin: '"abi-tag6.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag6.C'
+  herit: *GRPSERIAL
+  info: *30
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag7_88:
+  bin: '"abi-tag7.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag7.C'
+  herit: *GRPSERIAL
+  info: &31
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:6:)[^
+        ]*([0-9]+: warning:[^
+        ]*(attribute))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag7_89:
+  bin: '"abi-tag7.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag7.C'
+  herit: *GRPSERIAL
+  info: *31
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag7_9:
+  bin: '"abi-tag7.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag7.C'
+  herit: *GRPSERIAL
+  info: *31
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag8_9:
+  bin: '"abi-tag8.s"'
+  cargs: ' -std=gnu++98 -Wabi-tag -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag8.C'
+  herit: *GRPSERIAL
+  info: &32
+    extraopts:
+      - '"-Wabi-tag"'
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: warning:[^
+        ]*(ABI tag))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag8_91:
+  bin: '"abi-tag8.s"'
+  cargs: ' -std=gnu++11 -Wabi-tag -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag8.C'
+  herit: *GRPSERIAL
+  info: *32
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag8_92:
+  bin: '"abi-tag8.s"'
+  cargs: ' -std=gnu++14 -Wabi-tag -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag8.C'
+  herit: *GRPSERIAL
+  info: *32
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag9_11:
+  bin: '"abi-tag9.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag9.C'
+  herit: *GRPSERIAL
+  info: &33 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag9_94:
+  bin: '"abi-tag9.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag9.C'
+  herit: *GRPSERIAL
+  info: *33
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_abi-tag9_95:
+  bin: '"abi-tag9.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/abi-tag9.C'
+  herit: *GRPSERIAL
+  info: *33
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_align1_27:
+  bin: '"./align1.exe"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/align1.C'
+  herit: *GRPSERIAL
+  info: &34 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_align1_97:
+  bin: '"./align1.exe"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/align1.C'
+  herit: *GRPSERIAL
+  info: *34
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_align1_98:
+  bin: '"./align1.exe"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/align1.C'
+  herit: *GRPSERIAL
+  info: *34
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_anon1_100:
+  bin: '"anon1.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/anon1.C'
+  herit: *GRPSERIAL
+  info: &35 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_anon1_101:
+  bin: '"anon1.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/anon1.C'
+  herit: *GRPSERIAL
+  info: *35
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_anon1_5:
+  bin: '"anon1.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/anon1.C'
+  herit: *GRPSERIAL
+  info: *35
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_anon2_103:
+  bin: '"anon2.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/anon2.C'
+  herit: *GRPSERIAL
+  info: &36 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_anon2_104:
+  bin: '"anon2.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/anon2.C'
+  herit: *GRPSERIAL
+  info: *36
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_anon2_66:
+  bin: '"anon2.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/anon2.C'
+  herit: *GRPSERIAL
+  info: *36
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_anon3_106:
+  bin: '"anon3.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/anon3.C'
+  herit: *GRPSERIAL
+  info: &37 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_anon3_107:
+  bin: '"anon3.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/anon3.C'
+  herit: *GRPSERIAL
+  info: *37
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_anon3_19:
+  bin: '"anon3.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/anon3.C'
+  herit: *GRPSERIAL
+  info: *37
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_anon4_109:
+  bin: '"anon4.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/anon4.C'
+  herit: *GRPSERIAL
+  info: &38 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_anon4_110:
+  bin: '"anon4.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/anon4.C'
+  herit: *GRPSERIAL
+  info: *38
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_anon4_41:
+  bin: '"anon4.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/anon4.C'
+  herit: *GRPSERIAL
+  info: *38
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfield10_115:
+  bin: '"bitfield10.s"'
+  cargs: ' -std=gnu++11 -w -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/bitfield10.C'
+  herit: *GRPSERIAL
+  info: &39
+    extraopts:
+      - '"-w"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfield10_116:
+  bin: '"bitfield10.s"'
+  cargs: ' -std=gnu++14 -w -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/bitfield10.C'
+  herit: *GRPSERIAL
+  info: *39
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfield10_5:
+  bin: '"bitfield10.s"'
+  cargs: ' -std=gnu++98 -w -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/bitfield10.C'
+  herit: *GRPSERIAL
+  info: *39
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfield11_118:
+  bin: '"./bitfield11.exe"'
+  cargs: ' -std=gnu++11 -w -fabi-version=0'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/bitfield11.C'
+  herit: *GRPSERIAL
+  info: &40
+    extraopts:
+      - '"-w -fabi-version=0"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfield11_119:
+  bin: '"./bitfield11.exe"'
+  cargs: ' -std=gnu++14 -w -fabi-version=0'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/bitfield11.C'
+  herit: *GRPSERIAL
+  info: *40
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfield11_14:
+  bin: '"./bitfield11.exe"'
+  cargs: ' -std=gnu++98 -w -fabi-version=0'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/bitfield11.C'
+  herit: *GRPSERIAL
+  info: *40
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfield1_112:
+  bin: '"./bitfield1.exe"'
+  cargs: ' -std=gnu++11 -ansi -pedantic-errors -funsigned-bitfields'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/bitfield1.C'
+  herit: *GRPSERIAL
+  info: &41
+    extraopts:
+      - '"-ansi -pedantic-errors -funsigned-bitfields"'
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:22:)[^
+        ]*([0-9]+: warning:[^
+        ]*(overflow))[^
+        ]*
+        ?)+
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfield1_113:
+  bin: '"./bitfield1.exe"'
+  cargs: ' -std=gnu++14 -ansi -pedantic-errors -funsigned-bitfields'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/bitfield1.C'
+  herit: *GRPSERIAL
+  info: *41
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfield1_34:
+  bin: '"./bitfield1.exe"'
+  cargs: ' -std=gnu++98 -ansi -pedantic-errors -funsigned-bitfields'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/bitfield1.C'
+  herit: *GRPSERIAL
+  info: *41
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfield2_121:
+  bin: '"./bitfield2.exe"'
+  cargs: ' -std=gnu++11 -ansi -pedantic-errors -fsigned-bitfields'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/bitfield2.C'
+  herit: *GRPSERIAL
+  info: &42
+    extraopts:
+      - '"-ansi -pedantic-errors -fsigned-bitfields"'
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:22:)[^
+        ]*([0-9]+: warning:[^
+        ]*(overflow))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:24:)[^
+        ]*([0-9]+: warning:[^
+        ]*(overflow))[^
+        ]*
+        ?)+
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfield2_122:
+  bin: '"./bitfield2.exe"'
+  cargs: ' -std=gnu++14 -ansi -pedantic-errors -fsigned-bitfields'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/bitfield2.C'
+  herit: *GRPSERIAL
+  info: *42
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfield2_34:
+  bin: '"./bitfield2.exe"'
+  cargs: ' -std=gnu++98 -ansi -pedantic-errors -fsigned-bitfields'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/bitfield2.C'
+  herit: *GRPSERIAL
+  info: *42
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfield4_124:
+  bin: '"./bitfield4.exe"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/bitfield4.C'
+  herit: *GRPSERIAL
+  info: &43 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfield4_125:
+  bin: '"./bitfield4.exe"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/bitfield4.C'
+  herit: *GRPSERIAL
+  info: *43
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfield4_41:
+  bin: '"./bitfield4.exe"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/bitfield4.C'
+  herit: *GRPSERIAL
+  info: *43
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfield6_127:
+  bin: '"./bitfield6.exe"'
+  cargs: ' -std=gnu++11 -w -fabi-version=0'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/bitfield6.C'
+  herit: *GRPSERIAL
+  info: &44
+    extraopts:
+      - '"-w -fabi-version=0"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfield6_128:
+  bin: '"./bitfield6.exe"'
+  cargs: ' -std=gnu++14 -w -fabi-version=0'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/bitfield6.C'
+  herit: *GRPSERIAL
+  info: *44
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfield6_14:
+  bin: '"./bitfield6.exe"'
+  cargs: ' -std=gnu++98 -w -fabi-version=0'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/bitfield6.C'
+  herit: *GRPSERIAL
+  info: *44
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_comdat1_13:
+  bin: '"comdat1.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/comdat1.C'
+  herit: *GRPSERIAL
+  info: &45 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_comdat1_130:
+  bin: '"comdat1.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/comdat1.C'
+  herit: *GRPSERIAL
+  info: *45
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_comdat1_131:
+  bin: '"comdat1.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/comdat1.C'
+  herit: *GRPSERIAL
+  info: *45
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_cookie1_133:
+  bin: '"cookie1.s"'
+  cargs: ' -std=gnu++11 -fabi-version=0 -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/cookie1.C'
+  herit: *GRPSERIAL
+  info: &46
+    extraopts:
+      - '"-fabi-version=0"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_cookie1_134:
+  bin: '"cookie1.s"'
+  cargs: ' -std=gnu++14 -fabi-version=0 -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/cookie1.C'
+  herit: *GRPSERIAL
+  info: *46
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_cookie1_15:
+  bin: '"cookie1.s"'
+  cargs: ' -std=gnu++98 -fabi-version=0 -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/cookie1.C'
+  herit: *GRPSERIAL
+  info: *46
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_covariant1_136:
+  bin: '"covariant1.s"'
+  cargs: -std=gnu++11 -w -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/covariant1.C'
+  herit: *GRPSERIAL
+  info: &47
+    extraopts:
+      - '"-w"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_covariant1_137:
+  bin: '"covariant1.s"'
+  cargs: -std=gnu++14 -w -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/covariant1.C'
+  herit: *GRPSERIAL
+  info: *47
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_covariant1_26:
+  bin: '"covariant1.s"'
+  cargs: -std=gnu++98 -w -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/covariant1.C'
+  herit: *GRPSERIAL
+  info: *47
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_covariant2_139:
+  bin: '"covariant2.s"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/covariant2.C'
+  herit: *GRPSERIAL
+  info: &48 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_covariant2_140:
+  bin: '"covariant2.s"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/covariant2.C'
+  herit: *GRPSERIAL
+  info: *48
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_covariant2_32:
+  bin: '"covariant2.s"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/covariant2.C'
+  herit: *GRPSERIAL
+  info: *48
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_covariant3_142:
+  bin: '"./covariant3.exe"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/covariant3.C'
+  herit: *GRPSERIAL
+  info: &49 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_covariant3_143:
+  bin: '"./covariant3.exe"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/covariant3.C'
+  herit: *GRPSERIAL
+  info: *49
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_covariant3_85:
+  bin: '"./covariant3.exe"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/covariant3.C'
+  herit: *GRPSERIAL
+  info: *49
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_covariant4_145:
+  bin: '"./covariant4.exe"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/covariant4.C'
+  herit: *GRPSERIAL
+  info: &50 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_covariant4_146:
+  bin: '"./covariant4.exe"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/covariant4.C'
+  herit: *GRPSERIAL
+  info: *50
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_covariant4_46:
+  bin: '"./covariant4.exe"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/covariant4.C'
+  herit: *GRPSERIAL
+  info: *50
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_covariant5_148:
+  bin: '"./covariant5.exe"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/covariant5.C'
+  herit: *GRPSERIAL
+  info: &51 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_covariant5_149:
+  bin: '"./covariant5.exe"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/covariant5.C'
+  herit: *GRPSERIAL
+  info: *51
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_covariant5_52:
+  bin: '"./covariant5.exe"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/covariant5.C'
+  herit: *GRPSERIAL
+  info: *51
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_covariant6_151:
+  bin: '"covariant6.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/covariant6.C'
+  herit: *GRPSERIAL
+  info: &52 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_covariant6_152:
+  bin: '"covariant6.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/covariant6.C'
+  herit: *GRPSERIAL
+  info: *52
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_covariant6_34:
+  bin: '"covariant6.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/covariant6.C'
+  herit: *GRPSERIAL
+  info: *52
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_dcast1_154:
+  bin: '"dcast1.s"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/dcast1.C'
+  herit: *GRPSERIAL
+  info: &53 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_dcast1_155:
+  bin: '"dcast1.s"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/dcast1.C'
+  herit: *GRPSERIAL
+  info: *53
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_dcast1_29:
+  bin: '"dcast1.s"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/dcast1.C'
+  herit: *GRPSERIAL
+  info: *53
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_empty11_157:
+  bin: '"./empty11.exe"'
+  cargs: ' -std=gnu++11 -w -fabi-version=0'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/empty11.C'
+  herit: *GRPSERIAL
+  info: &54
+    extraopts:
+      - '"-w -fabi-version=0"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_empty11_158:
+  bin: '"./empty11.exe"'
+  cargs: ' -std=gnu++14 -w -fabi-version=0'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/empty11.C'
+  herit: *GRPSERIAL
+  info: *54
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_empty11_19:
+  bin: '"./empty11.exe"'
+  cargs: ' -std=gnu++98 -w -fabi-version=0'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/empty11.C'
+  herit: *GRPSERIAL
+  info: *54
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_empty4_160:
+  bin: '"./empty4.exe"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/empty4.C'
+  herit: *GRPSERIAL
+  info: &55 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_empty4_161:
+  bin: '"./empty4.exe"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/empty4.C'
+  herit: *GRPSERIAL
+  info: *55
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_empty4_86:
+  bin: '"./empty4.exe"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/empty4.C'
+  herit: *GRPSERIAL
+  info: *55
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_empty5_163:
+  bin: '"empty5.s"'
+  cargs: ' -std=gnu++11 -fabi-version=0 -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/empty5.C'
+  herit: *GRPSERIAL
+  info: &56
+    extraopts:
+      - '"-fabi-version=0"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_empty5_164:
+  bin: '"empty5.s"'
+  cargs: ' -std=gnu++14 -fabi-version=0 -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/empty5.C'
+  herit: *GRPSERIAL
+  info: *56
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_empty5_17:
+  bin: '"empty5.s"'
+  cargs: ' -std=gnu++98 -fabi-version=0 -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/empty5.C'
+  herit: *GRPSERIAL
+  info: *56
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_empty8_14:
+  bin: '"./empty8.exe"'
+  cargs: ' -std=gnu++98 -fabi-version=0'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/empty8.C'
+  herit: *GRPSERIAL
+  info: &57
+    extraopts:
+      - '"-fabi-version=0"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_empty8_166:
+  bin: '"./empty8.exe"'
+  cargs: ' -std=gnu++11 -fabi-version=0'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/empty8.C'
+  herit: *GRPSERIAL
+  info: *57
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_empty8_167:
+  bin: '"./empty8.exe"'
+  cargs: ' -std=gnu++14 -fabi-version=0'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/empty8.C'
+  herit: *GRPSERIAL
+  info: *57
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_enum1_16:
+  bin: '"./enum1.exe"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/enum1.C'
+  herit: *GRPSERIAL
+  info: &58 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_enum1_169:
+  bin: '"./enum1.exe"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/enum1.C'
+  herit: *GRPSERIAL
+  info: *58
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_enum1_170:
+  bin: '"./enum1.exe"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/enum1.C'
+  herit: *GRPSERIAL
+  info: *58
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_forced_172:
+  bin: '"./forced.exe"'
+  cargs: ' -std=gnu++11 -pthread'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/forced.C'
+  herit: *GRPSERIAL
+  info: &59
+    extraopts:
+      - '"-pthread"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_forced_173:
+  bin: '"./forced.exe"'
+  cargs: ' -std=gnu++14 -pthread'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/forced.C'
+  herit: *GRPSERIAL
+  info: *59
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_forced_24:
+  bin: '"./forced.exe"'
+  cargs: ' -std=gnu++98 -pthread'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/forced.C'
+  herit: *GRPSERIAL
+  info: *59
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_guard1_10:
+  bin: '"guard1.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/guard1.C'
+  herit: *GRPSERIAL
+  info: &60 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_guard1_175:
+  bin: '"guard1.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/guard1.C'
+  herit: *GRPSERIAL
+  info: *60
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_guard1_176:
+  bin: '"guard1.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/guard1.C'
+  herit: *GRPSERIAL
+  info: *60
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_guard2_16:
+  bin: '"guard2.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/guard2.C'
+  herit: *GRPSERIAL
+  info: &61 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_guard2_178:
+  bin: '"guard2.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/guard2.C'
+  herit: *GRPSERIAL
+  info: *61
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_guard2_179:
+  bin: '"guard2.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/guard2.C'
+  herit: *GRPSERIAL
+  info: *61
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_guard3_14:
+  bin: '"guard3.s"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/guard3.C'
+  herit: *GRPSERIAL
+  info: &62 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_guard3_181:
+  bin: '"guard3.s"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/guard3.C'
+  herit: *GRPSERIAL
+  info: *62
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_guard3_182:
+  bin: '"guard3.s"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/guard3.C'
+  herit: *GRPSERIAL
+  info: *62
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_inline1_184:
+  bin: '"inline1.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/inline1.C'
+  herit: *GRPSERIAL
+  info: &63 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_inline1_185:
+  bin: '"inline1.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/inline1.C'
+  herit: *GRPSERIAL
+  info: *63
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_inline1_6:
+  bin: '"inline1.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/inline1.C'
+  herit: *GRPSERIAL
+  info: *63
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_layout1_187:
+  bin: '"./layout1.exe"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/layout1.C'
+  herit: *GRPSERIAL
+  info: &64 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_layout1_188:
+  bin: '"./layout1.exe"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/layout1.C'
+  herit: *GRPSERIAL
+  info: *64
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_layout1_31:
+  bin: '"./layout1.exe"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/layout1.C'
+  herit: *GRPSERIAL
+  info: *64
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_layout2_190:
+  bin: '"./layout2.exe"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/layout2.C'
+  herit: *GRPSERIAL
+  info: &65 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_layout2_191:
+  bin: '"./layout2.exe"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/layout2.C'
+  herit: *GRPSERIAL
+  info: *65
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_layout2_33:
+  bin: '"./layout2.exe"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/layout2.C'
+  herit: *GRPSERIAL
+  info: *65
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_local1_193:
+  bin: '"./local1.exe"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/local1.C'
+  herit: *GRPSERIAL
+  info: &66 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_local1_194:
+  bin: '"./local1.exe"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/local1.C'
+  herit: *GRPSERIAL
+  info: *66
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_local1_22:
+  bin: '"./local1.exe"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/local1.C'
+  herit: *GRPSERIAL
+  info: *66
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_local2_17:
+  bin: '"local2.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/local2.C'
+  herit: *GRPSERIAL
+  info: &67 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_local2_196:
+  bin: '"local2.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/local2.C'
+  herit: *GRPSERIAL
+  info: *67
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_local2_197:
+  bin: '"local2.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/local2.C'
+  herit: *GRPSERIAL
+  info: *67
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_macro0_199:
+  bin: '"macro0.s"'
+  cargs: ' -std=gnu++11 -fabi-version=0 -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/macro0.C'
+  herit: *GRPSERIAL
+  info: &68
+    extraopts:
+      - '"-fabi-version=0"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_macro0_200:
+  bin: '"macro0.s"'
+  cargs: ' -std=gnu++14 -fabi-version=0 -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/macro0.C'
+  herit: *GRPSERIAL
+  info: *68
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_macro0_6:
+  bin: '"macro0.s"'
+  cargs: ' -std=gnu++98 -fabi-version=0 -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/macro0.C'
+  herit: *GRPSERIAL
+  info: *68
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_macro2_202:
+  bin: '"macro2.s"'
+  cargs: ' -std=gnu++11 -fabi-version=2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/macro2.C'
+  herit: *GRPSERIAL
+  info: &69
+    extraopts:
+      - '"-fabi-version=2"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_macro2_203:
+  bin: '"macro2.s"'
+  cargs: ' -std=gnu++14 -fabi-version=2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/macro2.C'
+  herit: *GRPSERIAL
+  info: *69
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_macro2_5:
+  bin: '"macro2.s"'
+  cargs: ' -std=gnu++98 -fabi-version=2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/macro2.C'
+  herit: *GRPSERIAL
+  info: *69
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_main_205:
+  bin: '"main.s"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/main.C'
+  herit: *GRPSERIAL
+  info: &70 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_main_206:
+  bin: '"main.s"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/main.C'
+  herit: *GRPSERIAL
+  info: *70
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_main_24:
+  bin: '"main.s"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/main.C'
+  herit: *GRPSERIAL
+  info: *70
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle10_13:
+  bin: '"mangle10.s"'
+  cargs: -std=gnu++98 -fabi-version=0 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle10.C'
+  herit: *GRPSERIAL
+  info: &71
+    extraopts:
+      - '"-fabi-version=0"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle10_211:
+  bin: '"mangle10.s"'
+  cargs: -std=gnu++11 -fabi-version=0 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle10.C'
+  herit: *GRPSERIAL
+  info: *71
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle10_212:
+  bin: '"mangle10.s"'
+  cargs: -std=gnu++14 -fabi-version=0 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle10.C'
+  herit: *GRPSERIAL
+  info: *71
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle13_214:
+  bin: '"mangle13.s"'
+  cargs: -std=gnu++11 -fabi-version=10 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle13.C'
+  herit: *GRPSERIAL
+  info: &72
+    extraopts:
+      - '"-fabi-version=10"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle13_215:
+  bin: '"mangle13.s"'
+  cargs: -std=gnu++14 -fabi-version=10 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle13.C'
+  herit: *GRPSERIAL
+  info: *72
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle13_28:
+  bin: '"mangle13.s"'
+  cargs: -std=gnu++98 -fabi-version=10 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle13.C'
+  herit: *GRPSERIAL
+  info: *72
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle15_14:
+  bin: '"mangle15.s"'
+  cargs: -std=gnu++98 -fabi-version=0 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle15.C'
+  herit: *GRPSERIAL
+  info: &73
+    extraopts:
+      - '"-fabi-version=0"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle15_217:
+  bin: '"mangle15.s"'
+  cargs: -std=gnu++11 -fabi-version=0 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle15.C'
+  herit: *GRPSERIAL
+  info: *73
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle15_218:
+  bin: '"mangle15.s"'
+  cargs: -std=gnu++14 -fabi-version=0 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle15.C'
+  herit: *GRPSERIAL
+  info: *73
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle16_18:
+  bin: '"mangle16.s"'
+  cargs: -std=gnu++98 -fabi-version=0 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle16.C'
+  herit: *GRPSERIAL
+  info: &74
+    extraopts:
+      - '"-fabi-version=0"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle16_220:
+  bin: '"mangle16.s"'
+  cargs: -std=gnu++11 -fabi-version=0 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle16.C'
+  herit: *GRPSERIAL
+  info: *74
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle16_221:
+  bin: '"mangle16.s"'
+  cargs: -std=gnu++14 -fabi-version=0 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle16.C'
+  herit: *GRPSERIAL
+  info: *74
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle18-1_223:
+  bin: '"mangle18-1.s"'
+  cargs: -std=gnu++11 -fabi-version=2 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle18-1.C'
+  herit: *GRPSERIAL
+  info: &75
+    extraopts:
+      - '"-fabi-version=2"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle18-1_224:
+  bin: '"mangle18-1.s"'
+  cargs: -std=gnu++14 -fabi-version=2 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle18-1.C'
+  herit: *GRPSERIAL
+  info: *75
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle18-1_23:
+  bin: '"mangle18-1.s"'
+  cargs: -std=gnu++98 -fabi-version=2 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle18-1.C'
+  herit: *GRPSERIAL
+  info: *75
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle19-1_13:
+  bin: '"mangle19-1.s"'
+  cargs: -std=gnu++98 -fabi-version=2 -Wabi -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle19-1.C'
+  herit: *GRPSERIAL
+  info: &76
+    extraopts:
+      - '"-fabi-version=2 -Wabi"'
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:12:)[^
+        ]*([0-9]+: warning:[^
+        ]*(mangle))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle19-1_226:
+  bin: '"mangle19-1.s"'
+  cargs: -std=gnu++11 -fabi-version=2 -Wabi -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle19-1.C'
+  herit: *GRPSERIAL
+  info: *76
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle19-1_227:
+  bin: '"mangle19-1.s"'
+  cargs: -std=gnu++14 -fabi-version=2 -Wabi -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle19-1.C'
+  herit: *GRPSERIAL
+  info: *76
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle1_208:
+  bin: '"mangle1.s"'
+  cargs: -std=gnu++11 -fno-inline -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle1.C'
+  herit: *GRPSERIAL
+  info: &77
+    extraopts:
+      - '"-fno-inline"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle1_209:
+  bin: '"mangle1.s"'
+  cargs: -std=gnu++14 -fno-inline -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle1.C'
+  herit: *GRPSERIAL
+  info: *77
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle1_28:
+  bin: '"mangle1.s"'
+  cargs: -std=gnu++98 -fno-inline -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle1.C'
+  herit: *GRPSERIAL
+  info: *77
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle20-1_19:
+  bin: '"mangle20-1.s"'
+  cargs: -std=gnu++98 -fabi-version=2 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle20-1.C'
+  herit: *GRPSERIAL
+  info: &78
+    extraopts:
+      - '"-fabi-version=2"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle20-1_232:
+  bin: '"mangle20-1.s"'
+  cargs: -std=gnu++11 -fabi-version=2 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle20-1.C'
+  herit: *GRPSERIAL
+  info: *78
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle20-1_233:
+  bin: '"mangle20-1.s"'
+  cargs: -std=gnu++14 -fabi-version=2 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle20-1.C'
+  herit: *GRPSERIAL
+  info: *78
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle21_13:
+  bin: '"mangle21.o"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long -c'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle21.C'
+  herit: *GRPSERIAL
+  info: &79 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle21_235:
+  bin: '"mangle21.o"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long -c'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle21.C'
+  herit: *GRPSERIAL
+  info: *79
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle21_236:
+  bin: '"mangle21.o"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long -c'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle21.C'
+  herit: *GRPSERIAL
+  info: *79
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle22_238:
+  bin: '"mangle22.s"'
+  cargs: -std=gnu++11 -fabi-version=3 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle22.C'
+  herit: *GRPSERIAL
+  info: &80
+    extraopts:
+      - '"-fabi-version=3"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle22_239:
+  bin: '"mangle22.s"'
+  cargs: -std=gnu++14 -fabi-version=3 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle22.C'
+  herit: *GRPSERIAL
+  info: *80
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle22_9:
+  bin: '"mangle22.s"'
+  cargs: -std=gnu++98 -fabi-version=3 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle22.C'
+  herit: *GRPSERIAL
+  info: *80
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle23_241:
+  bin: '"mangle23.s"'
+  cargs: -std=gnu++11 -fabi-version=2 -Wno-abi -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle23.C'
+  herit: *GRPSERIAL
+  info: &81
+    extraopts:
+      - '"-fabi-version=2 -Wno-abi"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle23_242:
+  bin: '"mangle23.s"'
+  cargs: -std=gnu++14 -fabi-version=2 -Wno-abi -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle23.C'
+  herit: *GRPSERIAL
+  info: *81
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle23_9:
+  bin: '"mangle23.s"'
+  cargs: -std=gnu++98 -fabi-version=2 -Wno-abi -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle23.C'
+  herit: *GRPSERIAL
+  info: *81
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle24_12:
+  bin: '"mangle24.s"'
+  cargs: -std=gnu++98 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle24.C'
+  herit: *GRPSERIAL
+  info: &82
+    extraopts:
+      - '""'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle24_244:
+  bin: '"mangle24.s"'
+  cargs: -std=gnu++11 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle24.C'
+  herit: *GRPSERIAL
+  info: *82
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle24_245:
+  bin: '"mangle24.s"'
+  cargs: -std=gnu++14 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle24.C'
+  herit: *GRPSERIAL
+  info: *82
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle25_13:
+  bin: '"mangle25.s"'
+  cargs: -std=gnu++98 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle25.C'
+  herit: *GRPSERIAL
+  info: &83
+    extraopts:
+      - '""'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle25_247:
+  bin: '"mangle25.s"'
+  cargs: -std=gnu++11 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle25.C'
+  herit: *GRPSERIAL
+  info: *83
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle25_248:
+  bin: '"mangle25.s"'
+  cargs: -std=gnu++14 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle25.C'
+  herit: *GRPSERIAL
+  info: *83
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle26_14:
+  bin: '"mangle26.s"'
+  cargs: -std=gnu++98 -fno-inline -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle26.C'
+  herit: *GRPSERIAL
+  info: &84
+    extraopts:
+      - '"-fno-inline"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle26_250:
+  bin: '"mangle26.s"'
+  cargs: -std=gnu++11 -fno-inline -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle26.C'
+  herit: *GRPSERIAL
+  info: *84
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle26_251:
+  bin: '"mangle26.s"'
+  cargs: -std=gnu++14 -fno-inline -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle26.C'
+  herit: *GRPSERIAL
+  info: *84
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle27_14:
+  bin: '"mangle27.s"'
+  cargs: -std=gnu++98 -fno-inline -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle27.C'
+  herit: *GRPSERIAL
+  info: &85
+    extraopts:
+      - '"-fno-inline"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle27_253:
+  bin: '"mangle27.s"'
+  cargs: -std=gnu++11 -fno-inline -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle27.C'
+  herit: *GRPSERIAL
+  info: *85
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle27_254:
+  bin: '"mangle27.s"'
+  cargs: -std=gnu++14 -fno-inline -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle27.C'
+  herit: *GRPSERIAL
+  info: *85
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle28_14:
+  bin: '"mangle28.s"'
+  cargs: -std=gnu++98 -fno-inline -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle28.C'
+  herit: *GRPSERIAL
+  info: &86
+    extraopts:
+      - '"-fno-inline"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle28_256:
+  bin: '"mangle28.s"'
+  cargs: -std=gnu++11 -fno-inline -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle28.C'
+  herit: *GRPSERIAL
+  info: *86
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle28_257:
+  bin: '"mangle28.s"'
+  cargs: -std=gnu++14 -fno-inline -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle28.C'
+  herit: *GRPSERIAL
+  info: *86
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle29_14:
+  bin: '"mangle29.s"'
+  cargs: -std=gnu++98 -fno-inline -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle29.C'
+  herit: *GRPSERIAL
+  info: &87
+    extraopts:
+      - '"-fno-inline"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle29_259:
+  bin: '"mangle29.s"'
+  cargs: -std=gnu++11 -fno-inline -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle29.C'
+  herit: *GRPSERIAL
+  info: *87
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle29_260:
+  bin: '"mangle29.s"'
+  cargs: -std=gnu++14 -fno-inline -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle29.C'
+  herit: *GRPSERIAL
+  info: *87
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle2_19:
+  bin: '"./mangle2.exe"'
+  cargs: ' -std=gnu++98 -fno-weak'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle2.C'
+  herit: *GRPSERIAL
+  info: &88
+    extraopts:
+      - -fno-weak
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle2_229:
+  bin: '"./mangle2.exe"'
+  cargs: ' -std=gnu++11 -fno-weak'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle2.C'
+  herit: *GRPSERIAL
+  info: *88
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle2_230:
+  bin: '"./mangle2.exe"'
+  cargs: ' -std=gnu++14 -fno-weak'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle2.C'
+  herit: *GRPSERIAL
+  info: *88
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle3-2_20:
+  bin: '"mangle3-2.s"'
+  cargs: -std=gnu++98 -fabi-version=0 -Wabi=5 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle3-2.C'
+  herit: *GRPSERIAL
+  info: &89
+    extraopts:
+      - '"-fabi-version=0 -Wabi=5"'
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:9:)[^
+        ]*([0-9]+: warning:[^
+        ]*(mangle))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle3-2_262:
+  bin: '"mangle3-2.s"'
+  cargs: -std=gnu++11 -fabi-version=0 -Wabi=5 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle3-2.C'
+  herit: *GRPSERIAL
+  info: *89
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle3-2_263:
+  bin: '"mangle3-2.s"'
+  cargs: -std=gnu++14 -fabi-version=0 -Wabi=5 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle3-2.C'
+  herit: *GRPSERIAL
+  info: *89
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle30_22:
+  bin: '"mangle30.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle30.C'
+  herit: *GRPSERIAL
+  info: &90 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle30_268:
+  bin: '"mangle30.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle30.C'
+  herit: *GRPSERIAL
+  info: *90
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle30_269:
+  bin: '"mangle30.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle30.C'
+  herit: *GRPSERIAL
+  info: *90
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle31_271:
+  bin: '"mangle31.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle31.C'
+  herit: *GRPSERIAL
+  info: &91 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle31_272:
+  bin: '"mangle31.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle31.C'
+  herit: *GRPSERIAL
+  info: *91
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle31_35:
+  bin: '"mangle31.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle31.C'
+  herit: *GRPSERIAL
+  info: *91
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle32_274:
+  bin: '"mangle32.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle32.C'
+  herit: *GRPSERIAL
+  info: &92 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle32_44:
+  bin: '"mangle32.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle32.C'
+  herit: *GRPSERIAL
+  info: *92
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle33_19:
+  bin: '"mangle33.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle33.C'
+  herit: *GRPSERIAL
+  info: &93 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle33_276:
+  bin: '"mangle33.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle33.C'
+  herit: *GRPSERIAL
+  info: *93
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle33_277:
+  bin: '"mangle33.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle33.C'
+  herit: *GRPSERIAL
+  info: *93
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle34_279:
+  bin: '"mangle34.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle34.C'
+  herit: *GRPSERIAL
+  info: &94 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle34_280:
+  bin: '"mangle34.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle34.C'
+  herit: *GRPSERIAL
+  info: *94
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle34_41:
+  bin: '"mangle34.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle34.C'
+  herit: *GRPSERIAL
+  info: *94
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle35_13:
+  bin: '"mangle35.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle35.C'
+  herit: *GRPSERIAL
+  info: &95 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle35_282:
+  bin: '"mangle35.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle35.C'
+  herit: *GRPSERIAL
+  info: *95
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle35_283:
+  bin: '"mangle35.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle35.C'
+  herit: *GRPSERIAL
+  info: *95
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle36_285:
+  bin: '"mangle36.s"'
+  cargs: -std=gnu++11 -mavx -fabi-version=4 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle36.C'
+  herit: *GRPSERIAL
+  info: &96
+    extraopts:
+      - '"-mavx -fabi-version=4"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle36_286:
+  bin: '"mangle36.s"'
+  cargs: -std=gnu++14 -mavx -fabi-version=4 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle36.C'
+  herit: *GRPSERIAL
+  info: *96
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle36_9:
+  bin: '"mangle36.s"'
+  cargs: -std=gnu++98 -mavx -fabi-version=4 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle36.C'
+  herit: *GRPSERIAL
+  info: *96
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle37_288:
+  bin: '"mangle37.s"'
+  cargs: -std=gnu++14 -fabi-version=10 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle37.C'
+  herit: *GRPSERIAL
+  info: &97
+    extraopts:
+      - '"-fabi-version=10"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle37_36:
+  bin: '"mangle37.s"'
+  cargs: -std=gnu++11 -fabi-version=10 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle37.C'
+  herit: *GRPSERIAL
+  info: *97
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle39_29:
+  bin: '"mangle39.s"'
+  cargs: -std=gnu++11 -fabi-version=5 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle39.C'
+  herit: *GRPSERIAL
+  info: &98
+    extraopts:
+      - '"-fabi-version=5"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle39_290:
+  bin: '"mangle39.s"'
+  cargs: -std=gnu++14 -fabi-version=5 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle39.C'
+  herit: *GRPSERIAL
+  info: *98
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle3_20:
+  bin: '"mangle3.s"'
+  cargs: -std=gnu++98 -fabi-version=2 -Wabi -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle3.C'
+  herit: *GRPSERIAL
+  info: &99
+    extraopts:
+      - '"-fabi-version=2 -Wabi"'
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:9:)[^
+        ]*([0-9]+: warning:[^
+        ]*(mangle))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle3_265:
+  bin: '"mangle3.s"'
+  cargs: -std=gnu++11 -fabi-version=2 -Wabi -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle3.C'
+  herit: *GRPSERIAL
+  info: *99
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle3_266:
+  bin: '"mangle3.s"'
+  cargs: -std=gnu++14 -fabi-version=2 -Wabi -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle3.C'
+  herit: *GRPSERIAL
+  info: *99
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle40_28:
+  bin: '"mangle40.s"'
+  cargs: -std=gnu++98 -mavx -Wabi -fabi-version=2 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle40.C'
+  herit: *GRPSERIAL
+  info: &100
+    extraopts:
+      - '"-mavx -Wabi -fabi-version=2"'
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:20:)[^
+        ]*([0-9]+: warning:[^
+        ]*(mangled name))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:23:)[^
+        ]*([0-9]+: warning:[^
+        ]*(mangled name))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle40_292:
+  bin: '"mangle40.s"'
+  cargs: -std=gnu++11 -mavx -Wabi -fabi-version=2 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle40.C'
+  herit: *GRPSERIAL
+  info: *100
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle40_293:
+  bin: '"mangle40.s"'
+  cargs: -std=gnu++14 -mavx -Wabi -fabi-version=2 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle40.C'
+  herit: *GRPSERIAL
+  info: *100
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle41_295:
+  bin: '"mangle41.s"'
+  cargs: ' -std=gnu++11 -mavx -fabi-version=2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle41.C'
+  herit: *GRPSERIAL
+  info: &101
+    extraopts:
+      - '"-mavx -fabi-version=2"'
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(conflicts))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle41_296:
+  bin: '"mangle41.s"'
+  cargs: ' -std=gnu++14 -mavx -fabi-version=2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle41.C'
+  herit: *GRPSERIAL
+  info: *101
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle41_8:
+  bin: '"mangle41.s"'
+  cargs: ' -std=gnu++98 -mavx -fabi-version=2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle41.C'
+  herit: *GRPSERIAL
+  info: *101
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle42_16:
+  bin: '"mangle42.s"'
+  cargs: ' -std=gnu++11 -msse2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle42.C'
+  herit: *GRPSERIAL
+  info: &102
+    extraopts:
+      - '"-msse2"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle42_298:
+  bin: '"mangle42.s"'
+  cargs: ' -std=gnu++14 -msse2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle42.C'
+  herit: *GRPSERIAL
+  info: *102
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle43_300:
+  bin: '"mangle43.s"'
+  cargs: -std=gnu++11 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle43.C'
+  herit: *GRPSERIAL
+  info: &103
+    extraopts:
+      - '""'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle43_301:
+  bin: '"mangle43.s"'
+  cargs: -std=gnu++14 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle43.C'
+  herit: *GRPSERIAL
+  info: *103
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle43_43:
+  bin: '"mangle43.s"'
+  cargs: -std=gnu++98 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle43.C'
+  herit: *GRPSERIAL
+  info: *103
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle44_19:
+  bin: '"mangle44.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle44.C'
+  herit: *GRPSERIAL
+  info: &104 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle44_303:
+  bin: '"mangle44.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle44.C'
+  herit: *GRPSERIAL
+  info: *104
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle44_304:
+  bin: '"mangle44.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle44.C'
+  herit: *GRPSERIAL
+  info: *104
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle45_26:
+  bin: '"mangle45.s"'
+  cargs: -std=gnu++11 -fabi-version=5 -Wabi=4 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle45.C'
+  herit: *GRPSERIAL
+  info: &105
+    extraopts:
+      - '"-fabi-version=5 -Wabi=4"'
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:5:)[^
+        ]*([0-9]+: warning:[^
+        ]*(mangle))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:6:)[^
+        ]*([0-9]+: warning:[^
+        ]*(mangle))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:11:)[^
+        ]*([0-9]+: warning:[^
+        ]*(mangle))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle45_306:
+  bin: '"mangle45.s"'
+  cargs: -std=gnu++14 -fabi-version=5 -Wabi=4 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle45.C'
+  herit: *GRPSERIAL
+  info: *105
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle46_15:
+  bin: '"mangle46.s"'
+  cargs: -std=gnu++98 -fabi-version=5 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle46.C'
+  herit: *GRPSERIAL
+  info: &106
+    extraopts:
+      - -fabi-version=5
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle46_308:
+  bin: '"mangle46.s"'
+  cargs: -std=gnu++11 -fabi-version=5 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle46.C'
+  herit: *GRPSERIAL
+  info: *106
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle46_309:
+  bin: '"mangle46.s"'
+  cargs: -std=gnu++14 -fabi-version=5 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle46.C'
+  herit: *GRPSERIAL
+  info: *106
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle47_11:
+  bin: '"mangle47.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle47.C'
+  herit: *GRPSERIAL
+  info: &107 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle47_311:
+  bin: '"mangle47.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle47.C'
+  herit: *GRPSERIAL
+  info: *107
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle48_29:
+  bin: '"mangle48.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle48.C'
+  herit: *GRPSERIAL
+  info: &108 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle48_313:
+  bin: '"mangle48.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle48.C'
+  herit: *GRPSERIAL
+  info: *108
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle49_23:
+  bin: '"mangle49.s"'
+  cargs: -std=gnu++11 -fabi-version=0 -Wabi=2 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle49.C'
+  herit: *GRPSERIAL
+  info: &109
+    extraopts:
+      - '"-fabi-version=0 -Wabi=2"'
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: warning:[^
+        ]*(mangle))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle49_315:
+  bin: '"mangle49.s"'
+  cargs: -std=gnu++14 -fabi-version=0 -Wabi=2 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle49.C'
+  herit: *GRPSERIAL
+  info: *109
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle50_25:
+  bin: '"mangle50.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle50.C'
+  herit: *GRPSERIAL
+  info: &110 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle50_320:
+  bin: '"mangle50.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle50.C'
+  herit: *GRPSERIAL
+  info: *110
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle51_28:
+  bin: '"mangle51.s"'
+  cargs: -std=gnu++11 -fabi-version=0 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle51.C'
+  herit: *GRPSERIAL
+  info: &111
+    extraopts:
+      - '"-fabi-version=0"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle51_322:
+  bin: '"mangle51.s"'
+  cargs: -std=gnu++14 -fabi-version=0 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle51.C'
+  herit: *GRPSERIAL
+  info: *111
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle52_21:
+  bin: '"mangle52.s"'
+  cargs: -std=gnu++98 -fabi-version=0 -Wabi=2 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle52.C'
+  herit: *GRPSERIAL
+  info: &112
+    extraopts:
+      - '"-fabi-version=0 -Wabi=2"'
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:5:)[^
+        ]*([0-9]+: warning:[^
+        ]*(mangle))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: warning:[^
+        ]*(mangle))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle52_324:
+  bin: '"mangle52.s"'
+  cargs: -std=gnu++11 -fabi-version=0 -Wabi=2 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle52.C'
+  herit: *GRPSERIAL
+  info: *112
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle52_325:
+  bin: '"mangle52.s"'
+  cargs: -std=gnu++14 -fabi-version=0 -Wabi=2 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle52.C'
+  herit: *GRPSERIAL
+  info: *112
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle53_13:
+  bin: '"mangle53.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle53.C'
+  herit: *GRPSERIAL
+  info: &113 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle53_327:
+  bin: '"mangle53.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle53.C'
+  herit: *GRPSERIAL
+  info: *113
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle54_20:
+  bin: '"mangle54.s"'
+  cargs: -std=gnu++11 -fabi-version=0 -Wabi=2 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle54.C'
+  herit: *GRPSERIAL
+  info: &114
+    extraopts:
+      - '"-fabi-version=0 -Wabi=2"'
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:8:)[^
+        ]*([0-9]+: warning:[^
+        ]*(mangle))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:12:)[^
+        ]*([0-9]+: warning:[^
+        ]*(mangle))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle54_329:
+  bin: '"mangle54.s"'
+  cargs: -std=gnu++14 -fabi-version=0 -Wabi=2 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle54.C'
+  herit: *GRPSERIAL
+  info: *114
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle55_14:
+  bin: '"mangle55.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle55.C'
+  herit: *GRPSERIAL
+  info: &115 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle55_331:
+  bin: '"mangle55.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle55.C'
+  herit: *GRPSERIAL
+  info: *115
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle56_13:
+  bin: '"mangle56.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle56.C'
+  herit: *GRPSERIAL
+  info: &116 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle56_333:
+  bin: '"mangle56.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle56.C'
+  herit: *GRPSERIAL
+  info: *116
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle57_17:
+  bin: '"mangle57.s"'
+  cargs: -std=gnu++11 -fabi-version=0 -Wabi=2 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle57.C'
+  herit: *GRPSERIAL
+  info: &117
+    extraopts:
+      - '"-fabi-version=0 -Wabi=2"'
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:10:)[^
+        ]*([0-9]+: warning:[^
+        ]*(mangle))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle57_335:
+  bin: '"mangle57.s"'
+  cargs: -std=gnu++14 -fabi-version=0 -Wabi=2 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle57.C'
+  herit: *GRPSERIAL
+  info: *117
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle58_26:
+  bin: '"mangle58.s"'
+  cargs: -std=gnu++11 -fabi-version=0 -Wabi=2 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle58.C'
+  herit: *GRPSERIAL
+  info: &118
+    extraopts:
+      - '"-fabi-version=0 -Wabi=2"'
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:13:)[^
+        ]*([0-9]+: warning:[^
+        ]*(mangle))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:15:)[^
+        ]*([0-9]+: warning:[^
+        ]*(mangle))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle58_337:
+  bin: '"mangle58.s"'
+  cargs: -std=gnu++14 -fabi-version=0 -Wabi=2 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle58.C'
+  herit: *GRPSERIAL
+  info: *118
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle59_20:
+  bin: '"mangle59.s"'
+  cargs: -std=gnu++11 -fabi-version=0 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle59.C'
+  herit: *GRPSERIAL
+  info: &119
+    extraopts:
+      - '"-fabi-version=0"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle59_339:
+  bin: '"mangle59.s"'
+  cargs: -std=gnu++14 -fabi-version=0 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle59.C'
+  herit: *GRPSERIAL
+  info: *119
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle5_317:
+  bin: '"mangle5.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle5.C'
+  herit: *GRPSERIAL
+  info: &120 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle5_318:
+  bin: '"mangle5.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle5.C'
+  herit: *GRPSERIAL
+  info: *120
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle5_6:
+  bin: '"mangle5.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle5.C'
+  herit: *GRPSERIAL
+  info: *120
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle60_20:
+  bin: '"mangle60.s"'
+  cargs: -std=gnu++98 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle60.C'
+  herit: *GRPSERIAL
+  info: &121
+    extraopts:
+      - '""'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle60_341:
+  bin: '"mangle60.s"'
+  cargs: -std=gnu++11 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle60.C'
+  herit: *GRPSERIAL
+  info: *121
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle60_342:
+  bin: '"mangle60.s"'
+  cargs: -std=gnu++14 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle60.C'
+  herit: *GRPSERIAL
+  info: *121
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle61_28:
+  bin: '"mangle61.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle61.C'
+  herit: *GRPSERIAL
+  info: &122 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle61_344:
+  bin: '"mangle61.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle61.C'
+  herit: *GRPSERIAL
+  info: *122
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle61_345:
+  bin: '"mangle61.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle61.C'
+  herit: *GRPSERIAL
+  info: *122
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle62_11:
+  bin: '"mangle62.s"'
+  cargs: -std=gnu++98 -fabi-version=0 -Wabi=7 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle62.C'
+  herit: *GRPSERIAL
+  info: &123
+    extraopts:
+      - '"-fabi-version=0 -Wabi=7"'
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:9:)[^
+        ]*([0-9]+: warning:[^
+        ]*(mangled name))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:11:)[^
+        ]*([0-9]+: warning:[^
+        ]*(mangled name))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle62_347:
+  bin: '"mangle62.s"'
+  cargs: -std=gnu++11 -fabi-version=0 -Wabi=7 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle62.C'
+  herit: *GRPSERIAL
+  info: *123
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle62_348:
+  bin: '"mangle62.s"'
+  cargs: -std=gnu++14 -fabi-version=0 -Wabi=7 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle62.C'
+  herit: *GRPSERIAL
+  info: *123
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle62a_11:
+  bin: '"mangle62a.s"'
+  cargs: -std=gnu++98 -fabi-version=7 -Wabi -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle62a.C'
+  herit: *GRPSERIAL
+  info: &124
+    extraopts:
+      - '"-fabi-version=7 -Wabi"'
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:9:)[^
+        ]*([0-9]+: warning:[^
+        ]*(mangle))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:11:)[^
+        ]*([0-9]+: warning:[^
+        ]*(mangle))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle62a_350:
+  bin: '"mangle62a.s"'
+  cargs: -std=gnu++11 -fabi-version=7 -Wabi -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle62a.C'
+  herit: *GRPSERIAL
+  info: *124
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle62a_351:
+  bin: '"mangle62a.s"'
+  cargs: -std=gnu++14 -fabi-version=7 -Wabi -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle62a.C'
+  herit: *GRPSERIAL
+  info: *124
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle63_11:
+  bin: '"mangle63.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle63.C'
+  herit: *GRPSERIAL
+  info: &125 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle63_353:
+  bin: '"mangle63.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle63.C'
+  herit: *GRPSERIAL
+  info: *125
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle65_13:
+  bin: '"mangle65.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle65.C'
+  herit: *GRPSERIAL
+  info: &126 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle65_355:
+  bin: '"mangle65.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle65.C'
+  herit: *GRPSERIAL
+  info: *126
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle65_356:
+  bin: '"mangle65.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle65.C'
+  herit: *GRPSERIAL
+  info: *126
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle66_10:
+  bin: '"mangle66.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle66.C'
+  herit: *GRPSERIAL
+  info: &127 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle66_358:
+  bin: '"mangle66.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle66.C'
+  herit: *GRPSERIAL
+  info: *127
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle67_21:
+  bin: '"mangle67.s"'
+  cargs: ' -std=gnu++11 -fabi-version=5 -Os -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle67.C'
+  herit: *GRPSERIAL
+  info: &128
+    extraopts:
+      - '"-fabi-version=5 -Os"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle67_360:
+  bin: '"mangle67.s"'
+  cargs: ' -std=gnu++14 -fabi-version=5 -Os -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle67.C'
+  herit: *GRPSERIAL
+  info: *128
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle7_362:
+  bin: '"mangle7.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle7.C'
+  herit: *GRPSERIAL
+  info: &129 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle7_363:
+  bin: '"mangle7.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle7.C'
+  herit: *GRPSERIAL
+  info: *129
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle7_6:
+  bin: '"mangle7.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle7.C'
+  herit: *GRPSERIAL
+  info: *129
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle8_16:
+  bin: '"mangle8.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle8.C'
+  herit: *GRPSERIAL
+  info: &130 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle8_365:
+  bin: '"mangle8.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle8.C'
+  herit: *GRPSERIAL
+  info: *130
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle8_366:
+  bin: '"mangle8.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle8.C'
+  herit: *GRPSERIAL
+  info: *130
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle9_12:
+  bin: '"mangle9.s"'
+  cargs: -std=gnu++98 -fabi-version=0 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle9.C'
+  herit: *GRPSERIAL
+  info: &131
+    extraopts:
+      - '"-fabi-version=0"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle9_368:
+  bin: '"mangle9.s"'
+  cargs: -std=gnu++11 -fabi-version=0 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle9.C'
+  herit: *GRPSERIAL
+  info: *131
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle9_369:
+  bin: '"mangle9.s"'
+  cargs: -std=gnu++14 -fabi-version=0 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/mangle9.C'
+  herit: *GRPSERIAL
+  info: *131
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_no-weak1_21:
+  bin: '"no-weak1.s"'
+  cargs: -std=gnu++98 -fno-weak -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/no-weak1.C'
+  herit: *GRPSERIAL
+  info: &132
+    extraopts:
+      - '"-fno-weak"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_no-weak1_371:
+  bin: '"no-weak1.s"'
+  cargs: -std=gnu++11 -fno-weak -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/no-weak1.C'
+  herit: *GRPSERIAL
+  info: *132
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_no-weak1_372:
+  bin: '"no-weak1.s"'
+  cargs: -std=gnu++14 -fno-weak -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/no-weak1.C'
+  herit: *GRPSERIAL
+  info: *132
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_noreturn1_14:
+  bin: '"noreturn1.s"'
+  cargs: -std=gnu++98 -fabi-version=0 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/noreturn1.C'
+  herit: *GRPSERIAL
+  info: &133
+    extraopts:
+      - -fabi-version=0
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_noreturn1_374:
+  bin: '"noreturn1.s"'
+  cargs: -std=gnu++11 -fabi-version=0 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/noreturn1.C'
+  herit: *GRPSERIAL
+  info: *133
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_noreturn1_375:
+  bin: '"noreturn1.s"'
+  cargs: -std=gnu++14 -fabi-version=0 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/noreturn1.C'
+  herit: *GRPSERIAL
+  info: *133
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_noreturn2_14:
+  bin: '"noreturn2.s"'
+  cargs: -std=gnu++98 -fabi-version=4 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/noreturn2.C'
+  herit: *GRPSERIAL
+  info: &134
+    extraopts:
+      - -fabi-version=4
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_noreturn2_377:
+  bin: '"noreturn2.s"'
+  cargs: -std=gnu++11 -fabi-version=4 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/noreturn2.C'
+  herit: *GRPSERIAL
+  info: *134
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_noreturn2_378:
+  bin: '"noreturn2.s"'
+  cargs: -std=gnu++14 -fabi-version=4 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/noreturn2.C'
+  herit: *GRPSERIAL
+  info: *134
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nullptr-align2_20:
+  bin: '"nullptr-align2.s"'
+  cargs: ' -std=gnu++11 -fabi-version=0 -Wabi=8 -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/nullptr-align2.C'
+  herit: *GRPSERIAL
+  info: &135
+    extraopts:
+      - '"-fabi-version=0 -Wabi=8"'
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:19:)[^
+        ]*([0-9]+: warning:[^
+        ]*(alignment))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nullptr-align2_382:
+  bin: '"nullptr-align2.s"'
+  cargs: ' -std=gnu++14 -fabi-version=0 -Wabi=8 -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/nullptr-align2.C'
+  herit: *GRPSERIAL
+  info: *135
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nullptr-align_380:
+  bin: '"nullptr-align.s"'
+  cargs: ' -std=gnu++14 -fabi-version=9 -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/nullptr-align.C'
+  herit: *GRPSERIAL
+  info: &136
+    extraopts:
+      - '"-fabi-version=9"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nullptr-align_5:
+  bin: '"nullptr-align.s"'
+  cargs: ' -std=gnu++11 -fabi-version=9 -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/nullptr-align.C'
+  herit: *GRPSERIAL
+  info: *136
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_offsetof_21:
+  bin: '"./offsetof.exe"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/offsetof.C'
+  herit: *GRPSERIAL
+  info: &137 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_offsetof_384:
+  bin: '"./offsetof.exe"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/offsetof.C'
+  herit: *GRPSERIAL
+  info: *137
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_offsetof_385:
+  bin: '"./offsetof.exe"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/offsetof.C'
+  herit: *GRPSERIAL
+  info: *137
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_packed1_24:
+  bin: '"./packed1.exe"'
+  cargs: ' -std=gnu++98 -Wpacked -Wno-attributes'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/packed1.C'
+  herit: *GRPSERIAL
+  info: &138
+    extraopts:
+      - '"-Wpacked -Wno-attributes"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_packed1_387:
+  bin: '"./packed1.exe"'
+  cargs: ' -std=gnu++11 -Wpacked -Wno-attributes'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/packed1.C'
+  herit: *GRPSERIAL
+  info: *138
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_packed1_388:
+  bin: '"./packed1.exe"'
+  cargs: ' -std=gnu++14 -Wpacked -Wno-attributes'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/packed1.C'
+  herit: *GRPSERIAL
+  info: *138
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_param1_28:
+  bin: '"./param1.exe"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/param1.C'
+  herit: *GRPSERIAL
+  info: &139 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_param1_390:
+  bin: '"./param1.exe"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/param1.C'
+  herit: *GRPSERIAL
+  info: *139
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_param1_391:
+  bin: '"./param1.exe"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/param1.C'
+  herit: *GRPSERIAL
+  info: *139
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_param2_19:
+  bin: '"param2.s"'
+  cargs: ' -std=gnu++98  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/param2.C'
+  herit: *GRPSERIAL
+  info: &140
+    extraopts:
+      - '"-Wno-psabi" { target { { i?86-*-* x86_64-*-* } && ilp32 } }'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_param2_393:
+  bin: '"param2.s"'
+  cargs: ' -std=gnu++11  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/param2.C'
+  herit: *GRPSERIAL
+  info: *140
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_param2_394:
+  bin: '"param2.s"'
+  cargs: ' -std=gnu++14  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/param2.C'
+  herit: *GRPSERIAL
+  info: *140
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr39188-1a_12:
+  bin: '"./pr39188-1a.exe"'
+  cargs: ' -std=gnu++98 -O2'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/pr39188-1a.C'
+  herit: *GRPSERIAL
+  info: &141
+    extraopts:
+      - '"-O2"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr39188-1a_396:
+  bin: '"./pr39188-1a.exe"'
+  cargs: ' -std=gnu++11 -O2'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/pr39188-1a.C'
+  herit: *GRPSERIAL
+  info: *141
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr39188-1a_397:
+  bin: '"./pr39188-1a.exe"'
+  cargs: ' -std=gnu++14 -O2'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/pr39188-1a.C'
+  herit: *GRPSERIAL
+  info: *141
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr39188-1b_15:
+  bin: '"pr39188-1b.s"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/pr39188-1b.C'
+  herit: *GRPSERIAL
+  info: &142 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr39188-1b_399:
+  bin: '"pr39188-1b.s"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/pr39188-1b.C'
+  herit: *GRPSERIAL
+  info: *142
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr39188-1b_400:
+  bin: '"pr39188-1b.s"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/pr39188-1b.C'
+  herit: *GRPSERIAL
+  info: *142
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr39188-2a_12:
+  bin: '"./pr39188-2a.exe"'
+  cargs: ' -std=gnu++98 -O2'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/pr39188-2a.C'
+  herit: *GRPSERIAL
+  info: &143
+    extraopts:
+      - '"-O2"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr39188-2a_402:
+  bin: '"./pr39188-2a.exe"'
+  cargs: ' -std=gnu++11 -O2'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/pr39188-2a.C'
+  herit: *GRPSERIAL
+  info: *143
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr39188-2a_403:
+  bin: '"./pr39188-2a.exe"'
+  cargs: ' -std=gnu++14 -O2'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/pr39188-2a.C'
+  herit: *GRPSERIAL
+  info: *143
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr39188-2b_15:
+  bin: '"pr39188-2b.s"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/pr39188-2b.C'
+  herit: *GRPSERIAL
+  info: &144 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr39188-2b_405:
+  bin: '"pr39188-2b.s"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/pr39188-2b.C'
+  herit: *GRPSERIAL
+  info: *144
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr39188-2b_406:
+  bin: '"pr39188-2b.s"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/pr39188-2b.C'
+  herit: *GRPSERIAL
+  info: *144
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr39188-3a_12:
+  bin: '"./pr39188-3a.exe"'
+  cargs: ' -std=gnu++98 -O2'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/pr39188-3a.C'
+  herit: *GRPSERIAL
+  info: &145
+    extraopts:
+      - '"-O2"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr39188-3a_408:
+  bin: '"./pr39188-3a.exe"'
+  cargs: ' -std=gnu++11 -O2'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/pr39188-3a.C'
+  herit: *GRPSERIAL
+  info: *145
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr39188-3a_409:
+  bin: '"./pr39188-3a.exe"'
+  cargs: ' -std=gnu++14 -O2'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/pr39188-3a.C'
+  herit: *GRPSERIAL
+  info: *145
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr39188-3b_15:
+  bin: '"pr39188-3b.s"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/pr39188-3b.C'
+  herit: *GRPSERIAL
+  info: &146 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr39188-3b_411:
+  bin: '"pr39188-3b.s"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/pr39188-3b.C'
+  herit: *GRPSERIAL
+  info: *146
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr39188-3b_412:
+  bin: '"pr39188-3b.s"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/pr39188-3b.C'
+  herit: *GRPSERIAL
+  info: *146
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr70182_28:
+  bin: '"pr70182.s"'
+  cargs: -std=gnu++98 -fabi-version=0 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/pr70182.C'
+  herit: *GRPSERIAL
+  info: &147
+    extraopts:
+      - '"-fabi-version=0"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr70182_414:
+  bin: '"pr70182.s"'
+  cargs: -std=gnu++11 -fabi-version=0 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/pr70182.C'
+  herit: *GRPSERIAL
+  info: *147
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr70182_415:
+  bin: '"pr70182.s"'
+  cargs: -std=gnu++14 -fabi-version=0 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/pr70182.C'
+  herit: *GRPSERIAL
+  info: *147
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr77489_417:
+  bin: '"pr77489.s"'
+  cargs: -std=gnu++11 -fabi-version=11 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/pr77489.C'
+  herit: *GRPSERIAL
+  info: &148
+    extraopts:
+      - -fabi-version=11
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr77489_418:
+  bin: '"pr77489.s"'
+  cargs: -std=gnu++14 -fabi-version=11 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/pr77489.C'
+  herit: *GRPSERIAL
+  info: *148
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr77489_63:
+  bin: '"pr77489.s"'
+  cargs: -std=gnu++98 -fabi-version=11 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/pr77489.C'
+  herit: *GRPSERIAL
+  info: *148
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pragma-pack1_37:
+  bin: '"pragma-pack1.s"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/pragma-pack1.C'
+  herit: *GRPSERIAL
+  info: &149 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pragma-pack1_420:
+  bin: '"pragma-pack1.s"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/pragma-pack1.C'
+  herit: *GRPSERIAL
+  info: *149
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pragma-pack1_421:
+  bin: '"pragma-pack1.s"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/pragma-pack1.C'
+  herit: *GRPSERIAL
+  info: *149
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_regparm1_423:
+  bin: '"./regparm1.exe"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/regparm1.C'
+  herit: *GRPSERIAL
+  info: &150 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_regparm1_51:
+  bin: '"./regparm1.exe"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/regparm1.C'
+  herit: *GRPSERIAL
+  info: *150
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_rtti1_13:
+  bin: '"rtti1.s"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/rtti1.C'
+  herit: *GRPSERIAL
+  info: &151 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_rtti1_425:
+  bin: '"rtti1.s"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/rtti1.C'
+  herit: *GRPSERIAL
+  info: *151
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_rtti1_426:
+  bin: '"rtti1.s"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/rtti1.C'
+  herit: *GRPSERIAL
+  info: *151
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_rtti2_12:
+  bin: '"./rtti2.exe"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/rtti2.C'
+  herit: *GRPSERIAL
+  info: &152 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_rtti2_428:
+  bin: '"./rtti2.exe"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/rtti2.C'
+  herit: *GRPSERIAL
+  info: *152
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_rtti2_429:
+  bin: '"./rtti2.exe"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/rtti2.C'
+  herit: *GRPSERIAL
+  info: *152
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_rtti3_16:
+  bin: '"rtti3.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/rtti3.C'
+  herit: *GRPSERIAL
+  info: &153 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_rtti3_431:
+  bin: '"rtti3.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/rtti3.C'
+  herit: *GRPSERIAL
+  info: *153
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_rtti3_432:
+  bin: '"rtti3.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/rtti3.C'
+  herit: *GRPSERIAL
+  info: *153
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scoped1_23:
+  bin: '"./scoped1.exe"'
+  cargs: ' -std=gnu++11 -fabi-version=0 -Wabi=2'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/scoped1.C'
+  herit: *GRPSERIAL
+  info: &154
+    extraopts:
+      - '"-fabi-version=0 -Wabi=2"'
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:9:)[^
+        ]*([0-9]+: warning:[^
+        ]*(passed))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:10:)[^
+        ]*([0-9]+: warning:[^
+        ]*(passed))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:11:)[^
+        ]*([0-9]+: warning:[^
+        ]*(passed))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:12:)[^
+        ]*([0-9]+: warning:[^
+        ]*(passed))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:13:)[^
+        ]*([0-9]+: warning:[^
+        ]*(passed))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:14:)[^
+        ]*([0-9]+: warning:[^
+        ]*(passed))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:15:)[^
+        ]*([0-9]+: warning:[^
+        ]*(passed))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:16:)[^
+        ]*([0-9]+: warning:[^
+        ]*(passed))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:17:)[^
+        ]*([0-9]+: warning:[^
+        ]*(passed))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:22:)[^
+        ]*([0-9]+: warning:[^
+        ]*(passed))[^
+        ]*
+        ?)+
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scoped1_434:
+  bin: '"./scoped1.exe"'
+  cargs: ' -std=gnu++14 -fabi-version=0 -Wabi=2'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/scoped1.C'
+  herit: *GRPSERIAL
+  info: *154
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_spec1_4:
+  bin: '"spec1.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/spec1.C'
+  herit: *GRPSERIAL
+  info: &155 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_spec1_436:
+  bin: '"spec1.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/spec1.C'
+  herit: *GRPSERIAL
+  info: *155
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_spec1_437:
+  bin: '"spec1.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/spec1.C'
+  herit: *GRPSERIAL
+  info: *155
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thunk3_22:
+  bin: '"thunk3.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/thunk3.C'
+  herit: *GRPSERIAL
+  info: &156 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thunk3_439:
+  bin: '"thunk3.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/thunk3.C'
+  herit: *GRPSERIAL
+  info: *156
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thunk3_440:
+  bin: '"thunk3.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/thunk3.C'
+  herit: *GRPSERIAL
+  info: *156
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thunk4_25:
+  bin: '"thunk4.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/thunk4.C'
+  herit: *GRPSERIAL
+  info: &157 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thunk4_442:
+  bin: '"thunk4.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/thunk4.C'
+  herit: *GRPSERIAL
+  info: *157
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thunk4_443:
+  bin: '"thunk4.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/thunk4.C'
+  herit: *GRPSERIAL
+  info: *157
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thunk5_13:
+  bin: '"thunk5.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/thunk5.C'
+  herit: *GRPSERIAL
+  info: &158 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thunk5_445:
+  bin: '"thunk5.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/thunk5.C'
+  herit: *GRPSERIAL
+  info: *158
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thunk5_446:
+  bin: '"thunk5.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/thunk5.C'
+  herit: *GRPSERIAL
+  info: *158
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thunk6_19:
+  bin: '"thunk6.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/thunk6.C'
+  herit: *GRPSERIAL
+  info: &159 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thunk6_448:
+  bin: '"thunk6.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/thunk6.C'
+  herit: *GRPSERIAL
+  info: *159
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thunk6_449:
+  bin: '"thunk6.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/thunk6.C'
+  herit: *GRPSERIAL
+  info: *159
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vague1_17:
+  bin: '"vague1.s"'
+  cargs: ' -std=gnu++98 -g0 -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vague1.C'
+  herit: *GRPSERIAL
+  info: &160
+    extraopts:
+      - '"-g0"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vague1_451:
+  bin: '"vague1.s"'
+  cargs: ' -std=gnu++11 -g0 -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vague1.C'
+  herit: *GRPSERIAL
+  info: *160
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vague1_452:
+  bin: '"vague1.s"'
+  cargs: ' -std=gnu++14 -g0 -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vague1.C'
+  herit: *GRPSERIAL
+  info: *160
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vbase12_14:
+  bin: '"./vbase12.exe"'
+  cargs: ' -std=gnu++98 -fabi-version=0'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vbase12.C'
+  herit: *GRPSERIAL
+  info: &161
+    extraopts:
+      - '"-fabi-version=0"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vbase12_457:
+  bin: '"./vbase12.exe"'
+  cargs: ' -std=gnu++11 -fabi-version=0'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vbase12.C'
+  herit: *GRPSERIAL
+  info: *161
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vbase12_458:
+  bin: '"./vbase12.exe"'
+  cargs: ' -std=gnu++14 -fabi-version=0'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vbase12.C'
+  herit: *GRPSERIAL
+  info: *161
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vbase13_17:
+  bin: '"./vbase13.exe"'
+  cargs: ' -std=gnu++98 -fabi-version=0 -w'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vbase13.C'
+  herit: *GRPSERIAL
+  info: &162
+    extraopts:
+      - '"-fabi-version=0 -w"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vbase13_460:
+  bin: '"./vbase13.exe"'
+  cargs: ' -std=gnu++11 -fabi-version=0 -w'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vbase13.C'
+  herit: *GRPSERIAL
+  info: *162
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vbase13_461:
+  bin: '"./vbase13.exe"'
+  cargs: ' -std=gnu++14 -fabi-version=0 -w'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vbase13.C'
+  herit: *GRPSERIAL
+  info: *162
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vbase15_30:
+  bin: '"./vbase15.exe"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vbase15.C'
+  herit: *GRPSERIAL
+  info: &163 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vbase15_463:
+  bin: '"./vbase15.exe"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vbase15.C'
+  herit: *GRPSERIAL
+  info: *163
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vbase15_464:
+  bin: '"./vbase15.exe"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vbase15.C'
+  herit: *GRPSERIAL
+  info: *163
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vbase1_454:
+  bin: '"vbase1.s"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vbase1.C'
+  herit: *GRPSERIAL
+  info: &164 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vbase1_455:
+  bin: '"vbase1.s"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vbase1.C'
+  herit: *GRPSERIAL
+  info: *164
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vbase1_60:
+  bin: '"vbase1.s"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vbase1.C'
+  herit: *GRPSERIAL
+  info: *164
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vbase8-10_466:
+  bin: '"./vbase8-10.exe"'
+  cargs: ' -std=gnu++11 -w'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vbase8-10.C'
+  herit: *GRPSERIAL
+  info: &165
+    extraopts:
+      - -w
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vbase8-10_467:
+  bin: '"./vbase8-10.exe"'
+  cargs: ' -std=gnu++14 -w'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vbase8-10.C'
+  herit: *GRPSERIAL
+  info: *165
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vbase8-10_75:
+  bin: '"./vbase8-10.exe"'
+  cargs: ' -std=gnu++98 -w'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vbase8-10.C'
+  herit: *GRPSERIAL
+  info: *165
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vbase8-21_469:
+  bin: '"./vbase8-21.exe"'
+  cargs: ' -std=gnu++11 -w'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vbase8-21.C'
+  herit: *GRPSERIAL
+  info: &166
+    extraopts:
+      - -w
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vbase8-21_470:
+  bin: '"./vbase8-21.exe"'
+  cargs: ' -std=gnu++14 -w'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vbase8-21.C'
+  herit: *GRPSERIAL
+  info: *166
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vbase8-21_75:
+  bin: '"./vbase8-21.exe"'
+  cargs: ' -std=gnu++98 -w'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vbase8-21.C'
+  herit: *GRPSERIAL
+  info: *166
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vbase8-22_472:
+  bin: '"./vbase8-22.exe"'
+  cargs: ' -std=gnu++11 -w'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vbase8-22.C'
+  herit: *GRPSERIAL
+  info: &167
+    extraopts:
+      - -w
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vbase8-22_473:
+  bin: '"./vbase8-22.exe"'
+  cargs: ' -std=gnu++14 -w'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vbase8-22.C'
+  herit: *GRPSERIAL
+  info: *167
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vbase8-22_80:
+  bin: '"./vbase8-22.exe"'
+  cargs: ' -std=gnu++98 -w'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vbase8-22.C'
+  herit: *GRPSERIAL
+  info: *167
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vbase8-4_475:
+  bin: '"./vbase8-4.exe"'
+  cargs: ' -std=gnu++11 -w'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vbase8-4.C'
+  herit: *GRPSERIAL
+  info: &168
+    extraopts:
+      - -w
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vbase8-4_476:
+  bin: '"./vbase8-4.exe"'
+  cargs: ' -std=gnu++14 -w'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vbase8-4.C'
+  herit: *GRPSERIAL
+  info: *168
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vbase8-4_78:
+  bin: '"./vbase8-4.exe"'
+  cargs: ' -std=gnu++98 -w'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vbase8-4.C'
+  herit: *GRPSERIAL
+  info: *168
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vbase9_29:
+  bin: '"vbase9.s"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vbase9.C'
+  herit: *GRPSERIAL
+  info: &169 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vbase9_478:
+  bin: '"vbase9.s"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vbase9.C'
+  herit: *GRPSERIAL
+  info: *169
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vbase9_479:
+  bin: '"vbase9.s"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vbase9.C'
+  herit: *GRPSERIAL
+  info: *169
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vcall1_36:
+  bin: '"./vcall1.exe"'
+  cargs: ' -std=gnu++98 -w'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vcall1.C'
+  herit: *GRPSERIAL
+  info: &170
+    extraopts:
+      - '"-w"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vcall1_481:
+  bin: '"./vcall1.exe"'
+  cargs: ' -std=gnu++11 -w'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vcall1.C'
+  herit: *GRPSERIAL
+  info: *170
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vcall1_482:
+  bin: '"./vcall1.exe"'
+  cargs: ' -std=gnu++14 -w'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vcall1.C'
+  herit: *GRPSERIAL
+  info: *170
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vthunk1_45:
+  bin: '"vthunk1.exe"'
+  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vthunk1.C'
+  herit: *GRPSERIAL
+  info: &171 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vthunk1_484:
+  bin: '"vthunk1.exe"'
+  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vthunk1.C'
+  herit: *GRPSERIAL
+  info: *171
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vthunk1_485:
+  bin: '"vthunk1.exe"'
+  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vthunk1.C'
+  herit: *GRPSERIAL
+  info: *171
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vtt1_11:
+  bin: '"vtt1.s"'
+  cargs: -std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vtt1.C'
+  herit: *GRPSERIAL
+  info: &172 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vtt1_487:
+  bin: '"vtt1.s"'
+  cargs: -std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vtt1.C'
+  herit: *GRPSERIAL
+  info: *172
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vtt1_488:
+  bin: '"vtt1.s"'
+  cargs: -std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/abi/vtt1.C'
+  herit: *GRPSERIAL
+  info: *172
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

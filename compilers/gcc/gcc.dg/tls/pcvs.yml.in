@@ -1,0 +1,677 @@
+test_alias-1_25:
+  bin: '"alias-1.exe"'
+  cargs: '  -ansi -pedantic-errors'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/alias-1.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_asm-1_8:
+  bin: '"asm-1.s"'
+  cargs: ' -Werror -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/asm-1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-Werror"'
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(directly addressable))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_debug-1_5:
+  bin: '"debug-1.o"'
+  cargs: ' -g -c'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/debug-1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-g"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_diag-1_12:
+  bin: '"diag-1.s"'
+  cargs: '  -ansi -pedantic-errors -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/diag-1.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_diag-2_22:
+  bin: '"diag-2.s"'
+  cargs: '  -ansi -pedantic-errors -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/diag-2.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:4:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('__thread' before 'extern'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:5:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('__thread' before 'static'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:6:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(duplicate))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('__thread' used with 'typedef'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:11:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(implicitly auto and declared '__thread'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:12:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('__thread' used with 'auto'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:13:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('__thread' before 'extern'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:14:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('__thread' used with 'register'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:17:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid storage class for function))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:18:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid storage class for function))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:19:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(invalid storage class for function))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:20:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(function definition declared '__thread'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:22:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(storage class specified for parameter))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_diag-3_11:
+  bin: '"diag-3.s"'
+  cargs: '  -ansi -pedantic-errors -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/diag-3.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:5:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(follows non-thread-local))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:8:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(follows thread-local))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_diag-4_11:
+  bin: '"diag-4.s"'
+  cargs: '  -ansi -pedantic-errors -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/diag-4.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:5:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('__thread' used with 'typedef'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:9:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('__thread' used with 'auto'))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:10:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*('__thread' used with 'register'))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_diag-5_4:
+  bin: '"diag-5.s"'
+  cargs: '  -ansi -pedantic-errors -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/diag-5.c'
+  herit: *GRPSERIAL
+  info:
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:4:)[^
+        ]*([0-9]+: warning:[^
+        ]*(useless '__thread' in empty declaration))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_diag-6_8:
+  bin: '"diag-6.s"'
+  cargs: '  -ansi -pedantic-errors -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/diag-6.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(tls_model argument not a string))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:8:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(tls_model argument must be one of))[^
+        ]*
+        ?)+
+    regex-warn:
+      - |-
+        (^|
+        )([^
+        ]+(:4:)[^
+        ]*([0-9]+: warning:[^
+        ]*(attribute ignored))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:5:)[^
+        ]*([0-9]+: warning:[^
+        ]*(attribute ignored))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:6:)[^
+        ]*([0-9]+: warning:[^
+        ]*(attribute ignored))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_emutls-2_9:
+  bin: '"emutls-2.s"'
+  cargs: ' -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/emutls-2.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_init-1_5:
+  bin: '"init-1.s"'
+  cargs: '  -ansi -pedantic-errors -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/init-1.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:5:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(initializer element is not constant))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nonpic-1_72:
+  bin: '"nonpic-1.s"'
+  cargs: ' -O2 -ftls-model=initial-exec -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/nonpic-1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -ftls-model=initial-exec"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_opt-10_18:
+  bin: '"opt-10.s"'
+  cargs: ' -O3 -fpic -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-10.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O3 -fpic"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_opt-11_36:
+  bin: '"./opt-11.exe"'
+  cargs: '  -ansi -pedantic-errors'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-11.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_opt-12_51:
+  bin: '"./opt-12.exe"'
+  cargs: ' -O2 -fpic'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-12.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -fpic"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_opt-13_16:
+  bin: '"opt-13.s"'
+  cargs: ' -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-13.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_opt-14_28:
+  bin: '"opt-14.o"'
+  cargs: ' -O2 -c'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-14.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_opt-15_24:
+  bin: '"opt-15.s"'
+  cargs: ' -O -fPIC -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-15.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O -fPIC"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_opt-1_30:
+  bin: '"opt-1.s"'
+  cargs: ' -O2 -fPIC -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -fPIC"'
+      - '"-O2 -fPIC -mtune=i686" { target { { i?86-*-* x86_64-*-* } && ia32 } }'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_opt-2_55:
+  bin: '"opt-2.exe"'
+  cargs: ' -O2 -ftls-model=initial-exec'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-2.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -ftls-model=initial-exec"'
+      - '"-O2 -ftls-model=initial-exec -march=i686" { target { { i?86-*-* x86_64-*-* } && ia32 } }'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_opt-3_12:
+  bin: '"opt-3.s"'
+  cargs: ' -O2 -fpic -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-3.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -fpic"'
+      - '"-O2 -fpic -mregparm=3" { target { { i?86-*-* x86_64-*-* } && ia32 } }'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_opt-4_54:
+  bin: '"opt-4.s"'
+  cargs: -O2 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-4.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_opt-5_110:
+  bin: '"opt-5.s"'
+  cargs: ' -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-5.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_opt-6_71:
+  bin: '"opt-6.s"'
+  cargs: ' -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-6.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_opt-7_15:
+  bin: '"opt-7.s"'
+  cargs: -O2 -fPIC -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-7.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -fPIC"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_opt-8_14:
+  bin: '"opt-8.s"'
+  cargs: ' -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-8.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_opt-9_9:
+  bin: '"opt-9.s"'
+  cargs: ' -O2 -fPIC -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-9.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -fPIC"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pic-1_73:
+  bin: '"pic-1.s"'
+  cargs: ' -O2 -fpic -ftls-model=global-dynamic -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pic-1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -fpic -ftls-model=global-dynamic"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pie-1_6:
+  bin: '"pie-1.s"'
+  cargs: ' -fpie -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pie-1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-fpie"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr24428-2_14:
+  bin: '"./pr24428-2.exe"'
+  cargs: ' -O2'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr24428-2.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr24428_13:
+  bin: '"./pr24428.exe"'
+  cargs: ' -O2'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr24428.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr42894_11:
+  bin: '"pr42894.s"'
+  cargs: '  -ansi -pedantic-errors -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr42894.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr45870_21:
+  bin: '"pr45870.s"'
+  cargs: ' -g -O -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr45870.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-g -O"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr47715-1_11:
+  bin: '"pr47715-1.s"'
+  cargs: ' -O2 -fPIC -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr47715-1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -fPIC"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr47715-2_10:
+  bin: '"pr47715-2.s"'
+  cargs: ' -O2 -fPIC -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr47715-2.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -fPIC"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr47715-3_18:
+  bin: '"pr47715-3.s"'
+  cargs: ' -O2 -fPIC -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr47715-3.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -fPIC"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr47715-4_24:
+  bin: '"pr47715-4.s"'
+  cargs: ' -O0 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr47715-4.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O0"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr47715-5_11:
+  bin: '"pr47715-5.s"'
+  cargs: ' -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr47715-5.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr58595_29:
+  bin: '"./pr58595.exe"'
+  cargs: ' -O2 -fpic'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr58595.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr66470_29:
+  bin: '"pr66470.s"'
+  cargs: ' -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr66470.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr78796_33:
+  bin: '"./pr78796.exe"'
+  cargs: ' -O2'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr78796.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_section-1_12:
+  bin: '"section-1.s"'
+  cargs: '  -ansi -pedantic-errors -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/section-1.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:9:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(causes a section type conflict" "conflict with .data section))[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:12:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(causes a section type conflict" "conflict with user-defined section))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_struct-1_34:
+  bin: '"struct-1.s"'
+  cargs: ' -O2 -fpic -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/struct-1.c'
+  herit: *GRPSERIAL
+  info:
+    extraopts:
+      - '"-O2 -fpic"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thr-init-1_8:
+  bin: '"thr-init-1.s"'
+  cargs: '  -ansi -pedantic-errors -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/thr-init-1.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(redefinition of 'fstat'))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thr-init-2_24:
+  bin: '"./thr-init-2.exe"'
+  cargs: '  -ansi -pedantic-errors'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/thr-init-2.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_trivial_3:
+  bin: '"trivial.s"'
+  cargs: '  -ansi -pedantic-errors -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/trivial.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

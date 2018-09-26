@@ -1,0 +1,198 @@
+test_id-1_2:
+  bin: '"id-1.s"'
+  cargs: ' -std=c++11 -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/graphite/id-1.C'
+  herit: *GRPSERIAL
+  info: &1 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-1_3:
+  bin: '"id-1.s"'
+  cargs: ' -std=c++14 -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/graphite/id-1.C'
+  herit: *GRPSERIAL
+  info: *1
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-1_39:
+  bin: '"id-1.s"'
+  cargs: ' -std=c++98 -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/graphite/id-1.C'
+  herit: *GRPSERIAL
+  info: *1
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr39447_34:
+  bin: '"pr39447.s"'
+  cargs: ' -std=gnu++98 -O2 -fgraphite-identity -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/graphite/pr39447.C'
+  herit: *GRPSERIAL
+  info: &2
+    extraopts:
+      - '"-O2 -fgraphite-identity"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr39447_5:
+  bin: '"pr39447.s"'
+  cargs: ' -std=gnu++11 -O2 -fgraphite-identity -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/graphite/pr39447.C'
+  herit: *GRPSERIAL
+  info: *2
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr39447_6:
+  bin: '"pr39447.s"'
+  cargs: ' -std=gnu++14 -O2 -fgraphite-identity -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/graphite/pr39447.C'
+  herit: *GRPSERIAL
+  info: *2
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr41305_332:
+  bin: '"pr41305.s"'
+  cargs: ' -std=gnu++98 -O3 -floop-interchange -Wno-conversion-null -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/graphite/pr41305.C'
+  herit: *GRPSERIAL
+  info: &3
+    extraopts:
+      - '"-O3 -floop-interchange -Wno-conversion-null"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr41305_8:
+  bin: '"pr41305.s"'
+  cargs: ' -std=gnu++11 -O3 -floop-interchange -Wno-conversion-null -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/graphite/pr41305.C'
+  herit: *GRPSERIAL
+  info: *3
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr41305_9:
+  bin: '"pr41305.s"'
+  cargs: ' -std=gnu++14 -O3 -floop-interchange -Wno-conversion-null -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/graphite/pr41305.C'
+  herit: *GRPSERIAL
+  info: *3
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr41562_11:
+  bin: '"pr41562.s"'
+  cargs: ' -std=gnu++11 -O -ftree-loop-distribution -floop-block -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/graphite/pr41562.C'
+  herit: *GRPSERIAL
+  info: &4
+    extraopts:
+      - '"-O -ftree-loop-distribution -floop-block"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr41562_12:
+  bin: '"pr41562.s"'
+  cargs: ' -std=gnu++14 -O -ftree-loop-distribution -floop-block -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/graphite/pr41562.C'
+  herit: *GRPSERIAL
+  info: *4
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr41562_18:
+  bin: '"pr41562.s"'
+  cargs: ' -std=gnu++98 -O -ftree-loop-distribution -floop-block -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/graphite/pr41562.C'
+  herit: *GRPSERIAL
+  info: *4
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr42130_14:
+  bin: '"./pr42130.exe"'
+  cargs: ' -std=gnu++11 -O2 -fgraphite-identity -fno-tree-ch'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/graphite/pr42130.C'
+  herit: *GRPSERIAL
+  info: &5
+    extraopts:
+      - '"-O2 -fgraphite-identity -fno-tree-ch"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr42130_15:
+  bin: '"./pr42130.exe"'
+  cargs: ' -std=gnu++14 -O2 -fgraphite-identity -fno-tree-ch'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/graphite/pr42130.C'
+  herit: *GRPSERIAL
+  info: *5
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr42130_19:
+  bin: '"./pr42130.exe"'
+  cargs: ' -std=gnu++98 -O2 -fgraphite-identity -fno-tree-ch'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/graphite/pr42130.C'
+  herit: *GRPSERIAL
+  info: *5
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr42681_17:
+  bin: '"pr42681.s"'
+  cargs: ' -std=gnu++11 -O1 -fgraphite-identity -fno-loop-block -fno-loop-interchange -fno-loop-strip-mine -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/graphite/pr42681.C'
+  herit: *GRPSERIAL
+  info: &6
+    extraopts:
+      - '"-O1 -fgraphite-identity -fno-loop-block -fno-loop-interchange -fno-loop-strip-mine"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr42681_18:
+  bin: '"pr42681.s"'
+  cargs: ' -std=gnu++14 -O1 -fgraphite-identity -fno-loop-block -fno-loop-interchange -fno-loop-strip-mine -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/graphite/pr42681.C'
+  herit: *GRPSERIAL
+  info: *6
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr42930_20:
+  bin: '"pr42930.s"'
+  cargs: ' -std=gnu++11 -O1 -floop-block -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/graphite/pr42930.C'
+  herit: *GRPSERIAL
+  info: &7
+    extraopts:
+      - '"-O1 -floop-block"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr42930_21:
+  bin: '"pr42930.s"'
+  cargs: ' -std=gnu++14 -O1 -floop-block -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/graphite/pr42930.C'
+  herit: *GRPSERIAL
+  info: *7
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr42930_55:
+  bin: '"pr42930.s"'
+  cargs: ' -std=gnu++98 -O1 -floop-block -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/graphite/pr42930.C'
+  herit: *GRPSERIAL
+  info: *7
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr43026_23:
+  bin: '"pr43026.s"'
+  cargs: ' -std=gnu++11 -O2 -fgraphite-identity -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/graphite/pr43026.C'
+  herit: *GRPSERIAL
+  info: &8
+    extraopts:
+      - '"-O2 -fgraphite-identity"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr43026_24:
+  bin: '"pr43026.s"'
+  cargs: ' -std=gnu++14 -O2 -fgraphite-identity -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/graphite/pr43026.C'
+  herit: *GRPSERIAL
+  info: *8
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr43026_51:
+  bin: '"pr43026.s"'
+  cargs: ' -std=gnu++98 -O2 -fgraphite-identity -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/graphite/pr43026.C'
+  herit: *GRPSERIAL
+  info: *8
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

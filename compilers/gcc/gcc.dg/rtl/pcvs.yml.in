@@ -1,0 +1,42 @@
+test_test_31:
+  bin: '"test.s"'
+  cargs: '  -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/test.c'
+  herit: *GRPSERIAL
+  info: {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_truncated-rtl-file_2:
+  bin: '"truncated-rtl-file.s"'
+  cargs: '  -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/truncated-rtl-file.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:2:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(no closing brace))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_unknown-rtx-code_8:
+  bin: '"unknown-rtx-code.s"'
+  cargs: '  -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/unknown-rtx-code.c'
+  herit: *GRPSERIAL
+  info:
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:5:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(unknown rtx code))[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

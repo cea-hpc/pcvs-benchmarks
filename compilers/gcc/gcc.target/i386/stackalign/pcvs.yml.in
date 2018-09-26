@@ -1,0 +1,72 @@
+test_pr39146_13:
+  bin: '"pr39146.s"'
+  cargs: -mstackrealign -O2 -mavx -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/pr39146.c'
+  herit: *GRPSERIAL
+  info: &1
+    extraopts:
+      - '"-O2 -mavx"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr39146_5:
+  bin: '"pr39146.s"'
+  cargs: -mno-stackrealign -O2 -mavx -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/pr39146.c'
+  herit: *GRPSERIAL
+  info: *1
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_return-4_17:
+  bin: '"return-4.s"'
+  cargs: -mstackrealign -mpreferred-stack-boundary=4 -O -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-4.c'
+  herit: *GRPSERIAL
+  info: &2
+    extraopts:
+      - '"-mpreferred-stack-boundary=4 -O"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_return-4_6:
+  bin: '"return-4.s"'
+  cargs: -mno-stackrealign -mpreferred-stack-boundary=4 -O -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-4.c'
+  herit: *GRPSERIAL
+  info: *2
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_return-5_14:
+  bin: '"return-5.s"'
+  cargs: -mstackrealign -mpreferred-stack-boundary=4 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-5.c'
+  herit: *GRPSERIAL
+  info: &3
+    extraopts:
+      - '"-mpreferred-stack-boundary=4"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_return-5_7:
+  bin: '"return-5.s"'
+  cargs: -mno-stackrealign -mpreferred-stack-boundary=4 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-5.c'
+  herit: *GRPSERIAL
+  info: *3
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_return-6_14:
+  bin: '"return-6.s"'
+  cargs: -mstackrealign -mpreferred-stack-boundary=4 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-6.c'
+  herit: *GRPSERIAL
+  info: &4
+    extraopts:
+      - '"-mpreferred-stack-boundary=4"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_return-6_8:
+  bin: '"return-6.s"'
+  cargs: -mno-stackrealign -mpreferred-stack-boundary=4 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-6.c'
+  herit: *GRPSERIAL
+  info: *4
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
