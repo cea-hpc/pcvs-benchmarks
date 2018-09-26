@@ -21,8 +21,8 @@ my $arg = decode_json($ARGV[0]);
 
 # set regex depending on the condition
 my @regexes;
-push (@regexes, @{ %{ $arg }{'regex-err'}  } ) if (defined %{$arg}{'regex-err'});
-push (@regexes, @{ %{ $arg }{'regex-warn'} } ) if (defined %{$arg}{'regex-warn'});
+push (@regexes, @{ ${ $arg }{'regex-err'}  } ) if (exists ${$arg}{'regex-err'});
+push (@regexes, @{ ${ $arg }{'regex-warn'} } ) if (exists ${$arg}{'regex-warn'});
 my $nb_success = 0;
 my @matches = ();
 

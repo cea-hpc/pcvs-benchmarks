@@ -361,7 +361,7 @@ void RunnerSlave::launchWorkerThreadStart(Job* job)
 			replace( extras, "\\", "\\\\");
 			replace( extras, "\"", "\\\"");
 			post_instruction = " | " + post_instruction + " \"" + extras + "\"";
-			instruction += post_instruction;
+			instruction += post_instruction + " 2>&1";
 		}
 
 
