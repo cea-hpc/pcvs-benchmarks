@@ -73,6 +73,22 @@ test_array-1_2:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_array-1_223:
+  bin: '"array-1.s"'
+  cargs: '   -std=gnu99 -Wformat=2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/array-1.c'
+  herit: *GRPSERIAL
+  info: *1
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_array-1_224:
+  bin: '"array-1.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wformat=2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/array-1.c'
+  herit: *GRPSERIAL
+  info: *1
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_array-1_41:
   bin: '"array-1.s"'
   cargs: '   -std=gnu99 -Wformat=2 -S'
@@ -81,9 +97,9 @@ test_array-1_41:
   info: *1
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_asm_fprintf-1_4:
+test_asm_fprintf-1_225:
   bin: '"asm_fprintf-1.s"'
-  cargs: '  -DWIDE  -Wformat -S'
+  cargs: '   -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/asm_fprintf-1.c'
   herit: *GRPSERIAL
   info: &2
@@ -324,6 +340,22 @@ test_asm_fprintf-1_4:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_asm_fprintf-1_226:
+  bin: '"asm_fprintf-1.s"'
+  cargs: '  -DWIDE  -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/asm_fprintf-1.c'
+  herit: *GRPSERIAL
+  info: *2
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_asm_fprintf-1_4:
+  bin: '"asm_fprintf-1.s"'
+  cargs: '  -DWIDE  -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/asm_fprintf-1.c'
+  herit: *GRPSERIAL
+  info: *2
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_asm_fprintf-1_81:
   bin: '"asm_fprintf-1.s"'
   cargs: '   -Wformat -S'
@@ -332,9 +364,9 @@ test_asm_fprintf-1_81:
   info: *2
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_asm_fprintf-2_6:
+test_asm_fprintf-2_227:
   bin: '"asm_fprintf-2.s"'
-  cargs: '  -DWIDE  -Wformat -S'
+  cargs: '   -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/asm_fprintf-2.c'
   herit: *GRPSERIAL
   info: &3
@@ -349,6 +381,22 @@ test_asm_fprintf-2_6:
         ]*('__gcc_host_wide_int__' is not defined as a type))[^
         ]*
         ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_asm_fprintf-2_228:
+  bin: '"asm_fprintf-2.s"'
+  cargs: '  -DWIDE  -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/asm_fprintf-2.c'
+  herit: *GRPSERIAL
+  info: *3
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_asm_fprintf-2_6:
+  bin: '"asm_fprintf-2.s"'
+  cargs: '  -DWIDE  -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/asm_fprintf-2.c'
+  herit: *GRPSERIAL
+  info: *3
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_asm_fprintf-2_9:
@@ -378,6 +426,22 @@ test_asm_fprintf-3_10:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_asm_fprintf-3_229:
+  bin: '"asm_fprintf-3.s"'
+  cargs: '   -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/asm_fprintf-3.c'
+  herit: *GRPSERIAL
+  info: *4
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_asm_fprintf-3_230:
+  bin: '"asm_fprintf-3.s"'
+  cargs: '  -DWIDE  -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/asm_fprintf-3.c'
+  herit: *GRPSERIAL
+  info: *4
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_asm_fprintf-3_8:
   bin: '"asm_fprintf-3.s"'
   cargs: '  -DWIDE  -Wformat -S'
@@ -391,7 +455,7 @@ test_asm_fprintf-4_10:
   cargs: '  -DWIDE  -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/asm_fprintf-4.c'
   herit: *GRPSERIAL
-  info:
+  info: &5
     extraopts:
       - '"-Wformat"'
     regex-err:
@@ -405,12 +469,28 @@ test_asm_fprintf-4_10:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_asm_fprintf-4_231:
+  bin: '"asm_fprintf-4.s"'
+  cargs: '   -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/asm_fprintf-4.c'
+  herit: *GRPSERIAL
+  info: *5
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_asm_fprintf-4_232:
+  bin: '"asm_fprintf-4.s"'
+  cargs: '  -DWIDE  -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/asm_fprintf-4.c'
+  herit: *GRPSERIAL
+  info: *5
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_asm_fprintf-5_10:
   bin: '"asm_fprintf-5.s"'
   cargs: '   -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/asm_fprintf-5.c'
   herit: *GRPSERIAL
-  info: &5
+  info: &6
     extraopts:
       - '"-Wformat"'
     regex-err:
@@ -429,7 +509,23 @@ test_asm_fprintf-5_12:
   cargs: '  -DWIDE  -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/asm_fprintf-5.c'
   herit: *GRPSERIAL
-  info: *5
+  info: *6
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_asm_fprintf-5_233:
+  bin: '"asm_fprintf-5.s"'
+  cargs: '   -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/asm_fprintf-5.c'
+  herit: *GRPSERIAL
+  info: *6
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_asm_fprintf-5_234:
+  bin: '"asm_fprintf-5.s"'
+  cargs: '  -DWIDE  -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/asm_fprintf-5.c'
+  herit: *GRPSERIAL
+  info: *6
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_attr-1_10:
@@ -437,7 +533,7 @@ test_attr-1_10:
   cargs: '   -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/attr-1.c'
   herit: *GRPSERIAL
-  info: &6
+  info: &7
     extraopts:
       - '"-std=gnu99 -Wformat"'
     regex-err:
@@ -456,7 +552,23 @@ test_attr-1_14:
   cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/attr-1.c'
   herit: *GRPSERIAL
-  info: *6
+  info: *7
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_attr-1_235:
+  bin: '"attr-1.s"'
+  cargs: '   -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/attr-1.c'
+  herit: *GRPSERIAL
+  info: *7
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_attr-1_236:
+  bin: '"attr-1.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/attr-1.c'
+  herit: *GRPSERIAL
+  info: *7
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_attr-2_16:
@@ -464,7 +576,7 @@ test_attr-2_16:
   cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/attr-2.c'
   herit: *GRPSERIAL
-  info: &7
+  info: &8
     extraopts:
       - '"-std=gnu99 -Wformat"'
     regex-warn:
@@ -614,12 +726,28 @@ test_attr-2_16:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_attr-2_237:
+  bin: '"attr-2.s"'
+  cargs: '   -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/attr-2.c'
+  herit: *GRPSERIAL
+  info: *8
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_attr-2_238:
+  bin: '"attr-2.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/attr-2.c'
+  herit: *GRPSERIAL
+  info: *8
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_attr-2_68:
   bin: '"attr-2.s"'
   cargs: '   -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/attr-2.c'
   herit: *GRPSERIAL
-  info: *7
+  info: *8
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_attr-3_18:
@@ -627,7 +755,7 @@ test_attr-3_18:
   cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/attr-3.c'
   herit: *GRPSERIAL
-  info: &8
+  info: &9
     extraopts:
       - '"-std=gnu99 -Wformat"'
     regex-err:
@@ -890,12 +1018,28 @@ test_attr-3_18:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_attr-3_239:
+  bin: '"attr-3.s"'
+  cargs: '   -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/attr-3.c'
+  herit: *GRPSERIAL
+  info: *9
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_attr-3_240:
+  bin: '"attr-3.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/attr-3.c'
+  herit: *GRPSERIAL
+  info: *9
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_attr-3_71:
   bin: '"attr-3.s"'
   cargs: '   -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/attr-3.c'
   herit: *GRPSERIAL
-  info: *8
+  info: *9
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_attr-4_20:
@@ -903,7 +1047,7 @@ test_attr-4_20:
   cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/attr-4.c'
   herit: *GRPSERIAL
-  info: &9
+  info: &10
     extraopts:
       - '"-std=gnu99 -Wformat"'
     regex-warn:
@@ -941,12 +1085,28 @@ test_attr-4_20:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_attr-4_241:
+  bin: '"attr-4.s"'
+  cargs: '   -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/attr-4.c'
+  herit: *GRPSERIAL
+  info: *10
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_attr-4_242:
+  bin: '"attr-4.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/attr-4.c'
+  herit: *GRPSERIAL
+  info: *10
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_attr-4_26:
   bin: '"attr-4.s"'
   cargs: '   -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/attr-4.c'
   herit: *GRPSERIAL
-  info: *9
+  info: *10
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_attr-5_22:
@@ -954,7 +1114,7 @@ test_attr-5_22:
   cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/attr-5.c'
   herit: *GRPSERIAL
-  info: &10
+  info: &11
     extraopts:
       - '"-std=gnu99 -Wformat"'
     regex-warn:
@@ -968,12 +1128,28 @@ test_attr-5_22:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_attr-5_243:
+  bin: '"attr-5.s"'
+  cargs: '   -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/attr-5.c'
+  herit: *GRPSERIAL
+  info: *11
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_attr-5_244:
+  bin: '"attr-5.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/attr-5.c'
+  herit: *GRPSERIAL
+  info: *11
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_attr-5_28:
   bin: '"attr-5.s"'
   cargs: '   -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/attr-5.c'
   herit: *GRPSERIAL
-  info: *10
+  info: *11
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_attr-6_22:
@@ -981,7 +1157,7 @@ test_attr-6_22:
   cargs: '   -std=gnu89 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/attr-6.c'
   herit: *GRPSERIAL
-  info: &11
+  info: &12
     extraopts:
       - '"-std=gnu89 -Wformat"'
     regex-warn:
@@ -1008,15 +1184,31 @@ test_attr-6_24:
   cargs: '  -DWIDE  -std=gnu89 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/attr-6.c'
   herit: *GRPSERIAL
-  info: *11
+  info: *12
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_attr-7_26:
+test_attr-6_245:
+  bin: '"attr-6.s"'
+  cargs: '   -std=gnu89 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/attr-6.c'
+  herit: *GRPSERIAL
+  info: *12
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_attr-6_246:
+  bin: '"attr-6.s"'
+  cargs: '  -DWIDE  -std=gnu89 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/attr-6.c'
+  herit: *GRPSERIAL
+  info: *12
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_attr-7_247:
   bin: '"attr-7.s"'
-  cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
+  cargs: '   -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/attr-7.c'
   herit: *GRPSERIAL
-  info: &12
+  info: &13
     extraopts:
       - '"-std=gnu99 -Wformat"'
     regex-warn:
@@ -1086,20 +1278,36 @@ test_attr-7_26:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_attr-7_248:
+  bin: '"attr-7.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/attr-7.c'
+  herit: *GRPSERIAL
+  info: *13
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_attr-7_26:
+  bin: '"attr-7.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/attr-7.c'
+  herit: *GRPSERIAL
+  info: *13
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_attr-7_35:
   bin: '"attr-7.s"'
   cargs: '   -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/attr-7.c'
   herit: *GRPSERIAL
-  info: *12
+  info: *13
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfld-1_28:
+test_bitfld-1_249:
   bin: '"bitfld-1.s"'
-  cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
+  cargs: '   -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/bitfld-1.c'
   herit: *GRPSERIAL
-  info: &13
+  info: &14
     extraopts:
       - '"-std=gnu99 -Wformat"'
     regex-warn:
@@ -1113,20 +1321,36 @@ test_bitfld-1_28:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfld-1_250:
+  bin: '"bitfld-1.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/bitfld-1.c'
+  herit: *GRPSERIAL
+  info: *14
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfld-1_28:
+  bin: '"bitfld-1.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/bitfld-1.c'
+  herit: *GRPSERIAL
+  info: *14
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_bitfld-1_51:
   bin: '"bitfld-1.s"'
   cargs: '   -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/bitfld-1.c'
   herit: *GRPSERIAL
-  info: *13
+  info: *14
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_branch-1_28:
+test_branch-1_251:
   bin: '"branch-1.s"'
   cargs: '   -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/branch-1.c'
   herit: *GRPSERIAL
-  info: &14
+  info: &15
     extraopts:
       - '"-std=gnu99 -Wformat"'
     regex-warn:
@@ -1212,12 +1436,28 @@ test_branch-1_28:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_branch-1_252:
+  bin: '"branch-1.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/branch-1.c'
+  herit: *GRPSERIAL
+  info: *15
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_branch-1_28:
+  bin: '"branch-1.s"'
+  cargs: '   -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/branch-1.c'
+  herit: *GRPSERIAL
+  info: *15
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_branch-1_30:
   bin: '"branch-1.s"'
   cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/branch-1.c'
   herit: *GRPSERIAL
-  info: *14
+  info: *15
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_builtin-1_22:
@@ -1225,7 +1465,7 @@ test_builtin-1_22:
   cargs: '   -std=gnu99 -Wformat -ffreestanding -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/builtin-1.c'
   herit: *GRPSERIAL
-  info: &15
+  info: &16
     extraopts:
       - '"-std=gnu99 -Wformat -ffreestanding"'
     regex-warn:
@@ -1263,12 +1503,28 @@ test_builtin-1_22:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_builtin-1_253:
+  bin: '"builtin-1.s"'
+  cargs: '   -std=gnu99 -Wformat -ffreestanding -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/builtin-1.c'
+  herit: *GRPSERIAL
+  info: *16
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_builtin-1_254:
+  bin: '"builtin-1.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wformat -ffreestanding -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/builtin-1.c'
+  herit: *GRPSERIAL
+  info: *16
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_builtin-1_32:
   bin: '"builtin-1.s"'
   cargs: '  -DWIDE  -std=gnu99 -Wformat -ffreestanding -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/builtin-1.c'
   herit: *GRPSERIAL
-  info: *15
+  info: *16
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_c90-printf-1_248:
@@ -1276,7 +1532,7 @@ test_c90-printf-1_248:
   cargs: '   -std=iso9899:1990 -pedantic -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-printf-1.c'
   herit: *GRPSERIAL
-  info: &16
+  info: &17
     extraopts:
       - '"-std=iso9899:1990 -pedantic -Wformat"'
     regex-warn:
@@ -2234,12 +2490,28 @@ test_c90-printf-1_248:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c90-printf-1_255:
+  bin: '"c90-printf-1.s"'
+  cargs: '   -std=iso9899:1990 -pedantic -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-printf-1.c'
+  herit: *GRPSERIAL
+  info: *17
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c90-printf-1_256:
+  bin: '"c90-printf-1.s"'
+  cargs: '  -DWIDE  -std=iso9899:1990 -pedantic -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-printf-1.c'
+  herit: *GRPSERIAL
+  info: *17
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_c90-printf-1_34:
   bin: '"c90-printf-1.s"'
   cargs: '  -DWIDE  -std=iso9899:1990 -pedantic -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-printf-1.c'
   herit: *GRPSERIAL
-  info: *16
+  info: *17
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_c90-printf-2_24:
@@ -2247,7 +2519,7 @@ test_c90-printf-2_24:
   cargs: '   -std=iso9899:1990 -pedantic -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-printf-2.c'
   herit: *GRPSERIAL
-  info: &17
+  info: &18
     extraopts:
       - '"-std=iso9899:1990 -pedantic -Wformat"'
     regex-warn:
@@ -2317,20 +2589,36 @@ test_c90-printf-2_24:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c90-printf-2_257:
+  bin: '"c90-printf-2.s"'
+  cargs: '   -std=iso9899:1990 -pedantic -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-printf-2.c'
+  herit: *GRPSERIAL
+  info: *18
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c90-printf-2_258:
+  bin: '"c90-printf-2.s"'
+  cargs: '  -DWIDE  -std=iso9899:1990 -pedantic -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-printf-2.c'
+  herit: *GRPSERIAL
+  info: *18
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_c90-printf-2_36:
   bin: '"c90-printf-2.s"'
   cargs: '  -DWIDE  -std=iso9899:1990 -pedantic -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-printf-2.c'
   herit: *GRPSERIAL
-  info: *17
+  info: *18
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_c90-printf-3_38:
+test_c90-printf-3_259:
   bin: '"c90-printf-3.s"'
-  cargs: '  -DWIDE  -std=iso9899:1990 -pedantic -Wformat -S'
+  cargs: '   -std=iso9899:1990 -pedantic -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-printf-3.c'
   herit: *GRPSERIAL
-  info: &18
+  info: &19
     extraopts:
       - '"-std=iso9899:1990 -pedantic -Wformat"'
     regex-warn:
@@ -2384,12 +2672,28 @@ test_c90-printf-3_38:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c90-printf-3_260:
+  bin: '"c90-printf-3.s"'
+  cargs: '  -DWIDE  -std=iso9899:1990 -pedantic -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-printf-3.c'
+  herit: *GRPSERIAL
+  info: *19
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c90-printf-3_38:
+  bin: '"c90-printf-3.s"'
+  cargs: '  -DWIDE  -std=iso9899:1990 -pedantic -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-printf-3.c'
+  herit: *GRPSERIAL
+  info: *19
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_c90-printf-3_42:
   bin: '"c90-printf-3.s"'
   cargs: '   -std=iso9899:1990 -pedantic -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-printf-3.c'
   herit: *GRPSERIAL
-  info: *18
+  info: *19
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_c90-scanf-1_119:
@@ -2397,7 +2701,7 @@ test_c90-scanf-1_119:
   cargs: '   -std=iso9899:1990 -pedantic -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-scanf-1.c'
   herit: *GRPSERIAL
-  info: &19
+  info: &20
     extraopts:
       - '"-std=iso9899:1990 -pedantic -Wformat"'
     regex-warn:
@@ -2875,12 +3179,28 @@ test_c90-scanf-1_119:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c90-scanf-1_261:
+  bin: '"c90-scanf-1.s"'
+  cargs: '   -std=iso9899:1990 -pedantic -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-scanf-1.c'
+  herit: *GRPSERIAL
+  info: *20
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c90-scanf-1_262:
+  bin: '"c90-scanf-1.s"'
+  cargs: '  -DWIDE  -std=iso9899:1990 -pedantic -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-scanf-1.c'
+  herit: *GRPSERIAL
+  info: *20
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_c90-scanf-1_40:
   bin: '"c90-scanf-1.s"'
   cargs: '  -DWIDE  -std=iso9899:1990 -pedantic -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-scanf-1.c'
   herit: *GRPSERIAL
-  info: *19
+  info: *20
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_c90-scanf-2_25:
@@ -2888,7 +3208,7 @@ test_c90-scanf-2_25:
   cargs: '   -std=iso9899:1990 -pedantic -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-scanf-2.c'
   herit: *GRPSERIAL
-  info: &20
+  info: &21
     extraopts:
       - '"-std=iso9899:1990 -pedantic -Wformat"'
     regex-warn:
@@ -2958,12 +3278,28 @@ test_c90-scanf-2_25:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c90-scanf-2_263:
+  bin: '"c90-scanf-2.s"'
+  cargs: '   -std=iso9899:1990 -pedantic -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-scanf-2.c'
+  herit: *GRPSERIAL
+  info: *21
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c90-scanf-2_264:
+  bin: '"c90-scanf-2.s"'
+  cargs: '  -DWIDE  -std=iso9899:1990 -pedantic -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-scanf-2.c'
+  herit: *GRPSERIAL
+  info: *21
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_c90-scanf-2_42:
   bin: '"c90-scanf-2.s"'
   cargs: '  -DWIDE  -std=iso9899:1990 -pedantic -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-scanf-2.c'
   herit: *GRPSERIAL
-  info: *20
+  info: *21
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_c90-scanf-3_19:
@@ -2971,7 +3307,7 @@ test_c90-scanf-3_19:
   cargs: '   -std=iso9899:1990 -pedantic -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-scanf-3.c'
   herit: *GRPSERIAL
-  info: &21
+  info: &22
     extraopts:
       - '"-std=iso9899:1990 -pedantic -Wformat"'
     regex-warn:
@@ -3001,20 +3337,36 @@ test_c90-scanf-3_19:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c90-scanf-3_265:
+  bin: '"c90-scanf-3.s"'
+  cargs: '   -std=iso9899:1990 -pedantic -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-scanf-3.c'
+  herit: *GRPSERIAL
+  info: *22
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c90-scanf-3_266:
+  bin: '"c90-scanf-3.s"'
+  cargs: '  -DWIDE  -std=iso9899:1990 -pedantic -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-scanf-3.c'
+  herit: *GRPSERIAL
+  info: *22
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_c90-scanf-3_44:
   bin: '"c90-scanf-3.s"'
   cargs: '  -DWIDE  -std=iso9899:1990 -pedantic -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-scanf-3.c'
   herit: *GRPSERIAL
-  info: *21
+  info: *22
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_c90-scanf-4_33:
+test_c90-scanf-4_267:
   bin: '"c90-scanf-4.s"'
   cargs: '   -std=iso9899:1990 -pedantic -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-scanf-4.c'
   herit: *GRPSERIAL
-  info: &22
+  info: &23
     extraopts:
       - '"-std=iso9899:1990 -pedantic -Wformat"'
     regex-warn:
@@ -3044,12 +3396,28 @@ test_c90-scanf-4_33:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c90-scanf-4_268:
+  bin: '"c90-scanf-4.s"'
+  cargs: '  -DWIDE  -std=iso9899:1990 -pedantic -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-scanf-4.c'
+  herit: *GRPSERIAL
+  info: *23
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c90-scanf-4_33:
+  bin: '"c90-scanf-4.s"'
+  cargs: '   -std=iso9899:1990 -pedantic -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-scanf-4.c'
+  herit: *GRPSERIAL
+  info: *23
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_c90-scanf-4_46:
   bin: '"c90-scanf-4.s"'
   cargs: '  -DWIDE  -std=iso9899:1990 -pedantic -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-scanf-4.c'
   herit: *GRPSERIAL
-  info: *22
+  info: *23
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_c90-scanf-5_19:
@@ -3057,7 +3425,7 @@ test_c90-scanf-5_19:
   cargs: '   -std=iso9899:1990 -pedantic -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-scanf-5.c'
   herit: *GRPSERIAL
-  info: &23
+  info: &24
     extraopts:
       - '"-std=iso9899:1990 -pedantic -Wformat"'
     regex-warn:
@@ -3103,12 +3471,28 @@ test_c90-scanf-5_19:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c90-scanf-5_269:
+  bin: '"c90-scanf-5.s"'
+  cargs: '   -std=iso9899:1990 -pedantic -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-scanf-5.c'
+  herit: *GRPSERIAL
+  info: *24
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c90-scanf-5_270:
+  bin: '"c90-scanf-5.s"'
+  cargs: '  -DWIDE  -std=iso9899:1990 -pedantic -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-scanf-5.c'
+  herit: *GRPSERIAL
+  info: *24
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_c90-scanf-5_48:
   bin: '"c90-scanf-5.s"'
   cargs: '  -DWIDE  -std=iso9899:1990 -pedantic -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-scanf-5.c'
   herit: *GRPSERIAL
-  info: *23
+  info: *24
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_c90-strftime-1_19:
@@ -3116,7 +3500,7 @@ test_c90-strftime-1_19:
   cargs: '   -std=iso9899:1990 -pedantic -Wformat -Wformat-y2k -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-strftime-1.c'
   herit: *GRPSERIAL
-  info: &24
+  info: &25
     extraopts:
       - '"-std=iso9899:1990 -pedantic -Wformat -Wformat-y2k"'
     regex-warn:
@@ -3146,20 +3530,36 @@ test_c90-strftime-1_19:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c90-strftime-1_271:
+  bin: '"c90-strftime-1.s"'
+  cargs: '   -std=iso9899:1990 -pedantic -Wformat -Wformat-y2k -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-strftime-1.c'
+  herit: *GRPSERIAL
+  info: *25
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c90-strftime-1_272:
+  bin: '"c90-strftime-1.s"'
+  cargs: '  -DWIDE  -std=iso9899:1990 -pedantic -Wformat -Wformat-y2k -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-strftime-1.c'
+  herit: *GRPSERIAL
+  info: *25
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_c90-strftime-1_50:
   bin: '"c90-strftime-1.s"'
   cargs: '  -DWIDE  -std=iso9899:1990 -pedantic -Wformat -Wformat-y2k -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-strftime-1.c'
   herit: *GRPSERIAL
-  info: *24
+  info: *25
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_c90-strftime-2_31:
+test_c90-strftime-2_273:
   bin: '"c90-strftime-2.s"'
   cargs: '   -std=iso9899:1990 -pedantic -Wformat -Wformat-y2k -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-strftime-2.c'
   herit: *GRPSERIAL
-  info: &25
+  info: &26
     extraopts:
       - '"-std=iso9899:1990 -pedantic -Wformat -Wformat-y2k"'
     regex-warn:
@@ -3317,12 +3717,28 @@ test_c90-strftime-2_31:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c90-strftime-2_274:
+  bin: '"c90-strftime-2.s"'
+  cargs: '  -DWIDE  -std=iso9899:1990 -pedantic -Wformat -Wformat-y2k -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-strftime-2.c'
+  herit: *GRPSERIAL
+  info: *26
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c90-strftime-2_31:
+  bin: '"c90-strftime-2.s"'
+  cargs: '   -std=iso9899:1990 -pedantic -Wformat -Wformat-y2k -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-strftime-2.c'
+  herit: *GRPSERIAL
+  info: *26
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_c90-strftime-2_52:
   bin: '"c90-strftime-2.s"'
   cargs: '  -DWIDE  -std=iso9899:1990 -pedantic -Wformat -Wformat-y2k -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c90-strftime-2.c'
   herit: *GRPSERIAL
-  info: *25
+  info: *26
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_c94-printf-1_18:
@@ -3330,9 +3746,25 @@ test_c94-printf-1_18:
   cargs: '   -std=iso9899:199409 -pedantic -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c94-printf-1.c'
   herit: *GRPSERIAL
-  info: &26
+  info: &27
     extraopts:
       - '"-std=iso9899:199409 -pedantic -Wformat"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c94-printf-1_275:
+  bin: '"c94-printf-1.s"'
+  cargs: '   -std=iso9899:199409 -pedantic -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c94-printf-1.c'
+  herit: *GRPSERIAL
+  info: *27
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c94-printf-1_276:
+  bin: '"c94-printf-1.s"'
+  cargs: '  -DWIDE  -std=iso9899:199409 -pedantic -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c94-printf-1.c'
+  herit: *GRPSERIAL
+  info: *27
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_c94-printf-1_54:
@@ -3340,7 +3772,7 @@ test_c94-printf-1_54:
   cargs: '  -DWIDE  -std=iso9899:199409 -pedantic -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c94-printf-1.c'
   herit: *GRPSERIAL
-  info: *26
+  info: *27
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_c94-scanf-1_17:
@@ -3348,9 +3780,25 @@ test_c94-scanf-1_17:
   cargs: '   -std=iso9899:199409 -pedantic -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c94-scanf-1.c'
   herit: *GRPSERIAL
-  info: &27
+  info: &28
     extraopts:
       - '"-std=iso9899:199409 -pedantic -Wformat"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c94-scanf-1_277:
+  bin: '"c94-scanf-1.s"'
+  cargs: '   -std=iso9899:199409 -pedantic -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c94-scanf-1.c'
+  herit: *GRPSERIAL
+  info: *28
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c94-scanf-1_278:
+  bin: '"c94-scanf-1.s"'
+  cargs: '  -DWIDE  -std=iso9899:199409 -pedantic -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c94-scanf-1.c'
+  herit: *GRPSERIAL
+  info: *28
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_c94-scanf-1_56:
@@ -3358,7 +3806,7 @@ test_c94-scanf-1_56:
   cargs: '  -DWIDE  -std=iso9899:199409 -pedantic -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c94-scanf-1.c'
   herit: *GRPSERIAL
-  info: *27
+  info: *28
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_c99-printf-1_197:
@@ -3366,7 +3814,7 @@ test_c99-printf-1_197:
   cargs: '   -std=iso9899:1999 -pedantic -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c99-printf-1.c'
   herit: *GRPSERIAL
-  info: &28
+  info: &29
     extraopts:
       - '"-std=iso9899:1999 -pedantic -Wformat"'
     regex-warn:
@@ -4404,20 +4852,36 @@ test_c99-printf-1_197:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c99-printf-1_279:
+  bin: '"c99-printf-1.s"'
+  cargs: '   -std=iso9899:1999 -pedantic -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c99-printf-1.c'
+  herit: *GRPSERIAL
+  info: *29
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c99-printf-1_280:
+  bin: '"c99-printf-1.s"'
+  cargs: '  -DWIDE  -std=iso9899:1999 -pedantic -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c99-printf-1.c'
+  herit: *GRPSERIAL
+  info: *29
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_c99-printf-1_58:
   bin: '"c99-printf-1.s"'
   cargs: '  -DWIDE  -std=iso9899:1999 -pedantic -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c99-printf-1.c'
   herit: *GRPSERIAL
-  info: *28
+  info: *29
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_c99-printf-2_32:
+test_c99-printf-2_281:
   bin: '"c99-printf-2.s"'
   cargs: '   -std=iso9899:1999 -pedantic -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c99-printf-2.c'
   herit: *GRPSERIAL
-  info: &29
+  info: &30
     extraopts:
       - '"-std=iso9899:1999 -pedantic -Wformat"'
     regex-warn:
@@ -4495,20 +4959,36 @@ test_c99-printf-2_32:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c99-printf-2_282:
+  bin: '"c99-printf-2.s"'
+  cargs: '  -DWIDE  -std=iso9899:1999 -pedantic -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c99-printf-2.c'
+  herit: *GRPSERIAL
+  info: *30
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c99-printf-2_32:
+  bin: '"c99-printf-2.s"'
+  cargs: '   -std=iso9899:1999 -pedantic -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c99-printf-2.c'
+  herit: *GRPSERIAL
+  info: *30
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_c99-printf-2_60:
   bin: '"c99-printf-2.s"'
   cargs: '  -DWIDE  -std=iso9899:1999 -pedantic -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c99-printf-2.c'
   herit: *GRPSERIAL
-  info: *29
+  info: *30
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_c99-printf-3_39:
+test_c99-printf-3_283:
   bin: '"c99-printf-3.s"'
   cargs: '   -std=iso9899:1999 -pedantic -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c99-printf-3.c'
   herit: *GRPSERIAL
-  info: &30
+  info: &31
     extraopts:
       - '"-std=iso9899:1999 -pedantic -Wformat"'
     regex-warn:
@@ -4578,12 +5058,28 @@ test_c99-printf-3_39:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c99-printf-3_284:
+  bin: '"c99-printf-3.s"'
+  cargs: '  -DWIDE  -std=iso9899:1999 -pedantic -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c99-printf-3.c'
+  herit: *GRPSERIAL
+  info: *31
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c99-printf-3_39:
+  bin: '"c99-printf-3.s"'
+  cargs: '   -std=iso9899:1999 -pedantic -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c99-printf-3.c'
+  herit: *GRPSERIAL
+  info: *31
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_c99-printf-3_62:
   bin: '"c99-printf-3.s"'
   cargs: '  -DWIDE  -std=iso9899:1999 -pedantic -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c99-printf-3.c'
   herit: *GRPSERIAL
-  info: *30
+  info: *31
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_c99-scanf-1_145:
@@ -4591,7 +5087,7 @@ test_c99-scanf-1_145:
   cargs: '   -std=iso9899:1999 -pedantic -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c99-scanf-1.c'
   herit: *GRPSERIAL
-  info: &31
+  info: &32
     extraopts:
       - '"-std=iso9899:1999 -pedantic -Wformat"'
     regex-warn:
@@ -5317,12 +5813,28 @@ test_c99-scanf-1_145:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c99-scanf-1_285:
+  bin: '"c99-scanf-1.s"'
+  cargs: '   -std=iso9899:1999 -pedantic -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c99-scanf-1.c'
+  herit: *GRPSERIAL
+  info: *32
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c99-scanf-1_286:
+  bin: '"c99-scanf-1.s"'
+  cargs: '  -DWIDE  -std=iso9899:1999 -pedantic -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c99-scanf-1.c'
+  herit: *GRPSERIAL
+  info: *32
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_c99-scanf-1_64:
   bin: '"c99-scanf-1.s"'
   cargs: '  -DWIDE  -std=iso9899:1999 -pedantic -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c99-scanf-1.c'
   herit: *GRPSERIAL
-  info: *31
+  info: *32
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_c99-scanf-2_26:
@@ -5330,7 +5842,7 @@ test_c99-scanf-2_26:
   cargs: '   -std=iso9899:1999 -pedantic -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c99-scanf-2.c'
   herit: *GRPSERIAL
-  info: &32
+  info: &33
     extraopts:
       - '"-std=iso9899:1999 -pedantic -Wformat"'
     regex-warn:
@@ -5392,20 +5904,36 @@ test_c99-scanf-2_26:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c99-scanf-2_287:
+  bin: '"c99-scanf-2.s"'
+  cargs: '   -std=iso9899:1999 -pedantic -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c99-scanf-2.c'
+  herit: *GRPSERIAL
+  info: *33
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c99-scanf-2_288:
+  bin: '"c99-scanf-2.s"'
+  cargs: '  -DWIDE  -std=iso9899:1999 -pedantic -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c99-scanf-2.c'
+  herit: *GRPSERIAL
+  info: *33
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_c99-scanf-2_66:
   bin: '"c99-scanf-2.s"'
   cargs: '  -DWIDE  -std=iso9899:1999 -pedantic -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c99-scanf-2.c'
   herit: *GRPSERIAL
-  info: *32
+  info: *33
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_c99-scanf-3_32:
+test_c99-scanf-3_289:
   bin: '"c99-scanf-3.s"'
   cargs: '   -std=iso9899:1999 -pedantic -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c99-scanf-3.c'
   herit: *GRPSERIAL
-  info: &33
+  info: &34
     extraopts:
       - '"-std=iso9899:1999 -pedantic -Wformat"'
     regex-warn:
@@ -5459,12 +5987,28 @@ test_c99-scanf-3_32:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c99-scanf-3_290:
+  bin: '"c99-scanf-3.s"'
+  cargs: '  -DWIDE  -std=iso9899:1999 -pedantic -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c99-scanf-3.c'
+  herit: *GRPSERIAL
+  info: *34
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c99-scanf-3_32:
+  bin: '"c99-scanf-3.s"'
+  cargs: '   -std=iso9899:1999 -pedantic -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c99-scanf-3.c'
+  herit: *GRPSERIAL
+  info: *34
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_c99-scanf-3_68:
   bin: '"c99-scanf-3.s"'
   cargs: '  -DWIDE  -std=iso9899:1999 -pedantic -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c99-scanf-3.c'
   herit: *GRPSERIAL
-  info: *33
+  info: *34
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_c99-scanf-4_19:
@@ -5472,7 +6016,7 @@ test_c99-scanf-4_19:
   cargs: '   -std=iso9899:1999 -pedantic -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c99-scanf-4.c'
   herit: *GRPSERIAL
-  info: &34
+  info: &35
     extraopts:
       - '"-std=iso9899:1999 -pedantic -Wformat"'
     regex-warn:
@@ -5518,20 +6062,36 @@ test_c99-scanf-4_19:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c99-scanf-4_291:
+  bin: '"c99-scanf-4.s"'
+  cargs: '   -std=iso9899:1999 -pedantic -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c99-scanf-4.c'
+  herit: *GRPSERIAL
+  info: *35
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c99-scanf-4_292:
+  bin: '"c99-scanf-4.s"'
+  cargs: '  -DWIDE  -std=iso9899:1999 -pedantic -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c99-scanf-4.c'
+  herit: *GRPSERIAL
+  info: *35
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_c99-scanf-4_70:
   bin: '"c99-scanf-4.s"'
   cargs: '  -DWIDE  -std=iso9899:1999 -pedantic -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c99-scanf-4.c'
   herit: *GRPSERIAL
-  info: *34
+  info: *35
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_c99-strftime-1_72:
+test_c99-strftime-1_293:
   bin: '"c99-strftime-1.s"'
-  cargs: '  -DWIDE  -std=iso9899:1999 -pedantic -Wformat -Wformat-y2k -S'
+  cargs: '   -std=iso9899:1999 -pedantic -Wformat -Wformat-y2k -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c99-strftime-1.c'
   herit: *GRPSERIAL
-  info: &35
+  info: &36
     extraopts:
       - '"-std=iso9899:1999 -pedantic -Wformat -Wformat-y2k"'
     regex-warn:
@@ -6145,12 +6705,28 @@ test_c99-strftime-1_72:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c99-strftime-1_294:
+  bin: '"c99-strftime-1.s"'
+  cargs: '  -DWIDE  -std=iso9899:1999 -pedantic -Wformat -Wformat-y2k -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c99-strftime-1.c'
+  herit: *GRPSERIAL
+  info: *36
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c99-strftime-1_72:
+  bin: '"c99-strftime-1.s"'
+  cargs: '  -DWIDE  -std=iso9899:1999 -pedantic -Wformat -Wformat-y2k -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c99-strftime-1.c'
+  herit: *GRPSERIAL
+  info: *36
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_c99-strftime-1_97:
   bin: '"c99-strftime-1.s"'
   cargs: '   -std=iso9899:1999 -pedantic -Wformat -Wformat-y2k -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c99-strftime-1.c'
   herit: *GRPSERIAL
-  info: *35
+  info: *36
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_c99-strftime-2_23:
@@ -6158,7 +6734,7 @@ test_c99-strftime-2_23:
   cargs: '   -std=iso9899:1999 -pedantic -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c99-strftime-2.c'
   herit: *GRPSERIAL
-  info: &36
+  info: &37
     extraopts:
       - '"-std=iso9899:1999 -pedantic -Wformat"'
     regex-warn:
@@ -6212,12 +6788,28 @@ test_c99-strftime-2_23:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c99-strftime-2_295:
+  bin: '"c99-strftime-2.s"'
+  cargs: '   -std=iso9899:1999 -pedantic -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c99-strftime-2.c'
+  herit: *GRPSERIAL
+  info: *37
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_c99-strftime-2_296:
+  bin: '"c99-strftime-2.s"'
+  cargs: '  -DWIDE  -std=iso9899:1999 -pedantic -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c99-strftime-2.c'
+  herit: *GRPSERIAL
+  info: *37
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_c99-strftime-2_74:
   bin: '"c99-strftime-2.s"'
   cargs: '  -DWIDE  -std=iso9899:1999 -pedantic -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/c99-strftime-2.c'
   herit: *GRPSERIAL
-  info: *36
+  info: *37
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_cast-1_16:
@@ -6225,7 +6817,7 @@ test_cast-1_16:
   cargs: '   -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/cast-1.c'
   herit: *GRPSERIAL
-  info: &37
+  info: &38
     extraopts:
       - '"-Wformat"'
     regex-warn:
@@ -6255,12 +6847,28 @@ test_cast-1_16:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_cast-1_297:
+  bin: '"cast-1.s"'
+  cargs: '   -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/cast-1.c'
+  herit: *GRPSERIAL
+  info: *38
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_cast-1_298:
+  bin: '"cast-1.s"'
+  cargs: '  -DWIDE  -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/cast-1.c'
+  herit: *GRPSERIAL
+  info: *38
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_cast-1_76:
   bin: '"cast-1.s"'
   cargs: '  -DWIDE  -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/cast-1.c'
   herit: *GRPSERIAL
-  info: *37
+  info: *38
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_dfp-printf-1_123:
@@ -6268,7 +6876,7 @@ test_dfp-printf-1_123:
   cargs: '   -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/dfp-printf-1.c'
   herit: *GRPSERIAL
-  info: &38
+  info: &39
     extraopts:
       - '"-Wformat"'
     regex-warn:
@@ -6682,20 +7290,36 @@ test_dfp-printf-1_123:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_dfp-printf-1_299:
+  bin: '"dfp-printf-1.s"'
+  cargs: '   -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/dfp-printf-1.c'
+  herit: *GRPSERIAL
+  info: *39
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_dfp-printf-1_300:
+  bin: '"dfp-printf-1.s"'
+  cargs: '  -DWIDE  -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/dfp-printf-1.c'
+  herit: *GRPSERIAL
+  info: *39
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_dfp-printf-1_78:
   bin: '"dfp-printf-1.s"'
   cargs: '  -DWIDE  -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/dfp-printf-1.c'
   herit: *GRPSERIAL
-  info: *38
+  info: *39
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_dfp-scanf-1_80:
+test_dfp-scanf-1_301:
   bin: '"dfp-scanf-1.s"'
-  cargs: '  -DWIDE  -Wformat -S'
+  cargs: '   -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/dfp-scanf-1.c'
   herit: *GRPSERIAL
-  info: &39
+  info: &40
     extraopts:
       - '"-Wformat"'
     regex-warn:
@@ -7085,12 +7709,28 @@ test_dfp-scanf-1_80:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_dfp-scanf-1_302:
+  bin: '"dfp-scanf-1.s"'
+  cargs: '  -DWIDE  -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/dfp-scanf-1.c'
+  herit: *GRPSERIAL
+  info: *40
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_dfp-scanf-1_80:
+  bin: '"dfp-scanf-1.s"'
+  cargs: '  -DWIDE  -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/dfp-scanf-1.c'
+  herit: *GRPSERIAL
+  info: *40
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_dfp-scanf-1_99:
   bin: '"dfp-scanf-1.s"'
   cargs: '   -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/dfp-scanf-1.c'
   herit: *GRPSERIAL
-  info: *39
+  info: *40
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_diag-1_18:
@@ -7098,7 +7738,7 @@ test_diag-1_18:
   cargs: '   -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/diag-1.c'
   herit: *GRPSERIAL
-  info: &40
+  info: &41
     extraopts:
       - '"-std=gnu99 -Wformat"'
     regex-warn:
@@ -7128,12 +7768,28 @@ test_diag-1_18:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_diag-1_303:
+  bin: '"diag-1.s"'
+  cargs: '   -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/diag-1.c'
+  herit: *GRPSERIAL
+  info: *41
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_diag-1_304:
+  bin: '"diag-1.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/diag-1.c'
+  herit: *GRPSERIAL
+  info: *41
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_diag-1_82:
   bin: '"diag-1.s"'
   cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/diag-1.c'
   herit: *GRPSERIAL
-  info: *40
+  info: *41
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_diag-2_13:
@@ -7141,7 +7797,7 @@ test_diag-2_13:
   cargs: '   -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/diag-2.c'
   herit: *GRPSERIAL
-  info: &41
+  info: &42
     extraopts:
       - '"-std=gnu99 -Wformat"'
     regex-warn:
@@ -7163,20 +7819,36 @@ test_diag-2_13:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_diag-2_305:
+  bin: '"diag-2.s"'
+  cargs: '   -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/diag-2.c'
+  herit: *GRPSERIAL
+  info: *42
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_diag-2_306:
+  bin: '"diag-2.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/diag-2.c'
+  herit: *GRPSERIAL
+  info: *42
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_diag-2_84:
   bin: '"diag-2.s"'
   cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/diag-2.c'
   herit: *GRPSERIAL
-  info: *41
+  info: *42
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_diagnostic-ranges_335:
+test_diagnostic-ranges_307:
   bin: '"diagnostic-ranges.s"'
   cargs: '   -Wformat -fdiagnostics-show-caret -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/diagnostic-ranges.c'
   herit: *GRPSERIAL
-  info: &42
+  info: &43
     extraopts:
       - '"-Wformat -fdiagnostics-show-caret"'
     regex-warn:
@@ -7406,12 +8078,28 @@ test_diagnostic-ranges_335:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_diagnostic-ranges_308:
+  bin: '"diagnostic-ranges.s"'
+  cargs: '  -DWIDE  -Wformat -fdiagnostics-show-caret -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/diagnostic-ranges.c'
+  herit: *GRPSERIAL
+  info: *43
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_diagnostic-ranges_335:
+  bin: '"diagnostic-ranges.s"'
+  cargs: '   -Wformat -fdiagnostics-show-caret -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/diagnostic-ranges.c'
+  herit: *GRPSERIAL
+  info: *43
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_diagnostic-ranges_86:
   bin: '"diagnostic-ranges.s"'
   cargs: '  -DWIDE  -Wformat -fdiagnostics-show-caret -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/diagnostic-ranges.c'
   herit: *GRPSERIAL
-  info: *42
+  info: *43
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_errmk-1_12:
@@ -7419,7 +8107,7 @@ test_errmk-1_12:
   cargs: '   -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/errmk-1.c'
   herit: *GRPSERIAL
-  info: &43
+  info: &44
     extraopts:
       - '"-Wformat"'
     regex-err:
@@ -7433,12 +8121,28 @@ test_errmk-1_12:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_errmk-1_309:
+  bin: '"errmk-1.s"'
+  cargs: '   -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/errmk-1.c'
+  herit: *GRPSERIAL
+  info: *44
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_errmk-1_310:
+  bin: '"errmk-1.s"'
+  cargs: '  -DWIDE  -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/errmk-1.c'
+  herit: *GRPSERIAL
+  info: *44
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_errmk-1_88:
   bin: '"errmk-1.s"'
   cargs: '  -DWIDE  -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/errmk-1.c'
   herit: *GRPSERIAL
-  info: *43
+  info: *44
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ext-1_126:
@@ -7446,7 +8150,7 @@ test_ext-1_126:
   cargs: '   -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/ext-1.c'
   herit: *GRPSERIAL
-  info: &44
+  info: &45
     extraopts:
       - '"-std=gnu99 -Wformat"'
     regex-warn:
@@ -7916,20 +8620,36 @@ test_ext-1_126:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ext-1_311:
+  bin: '"ext-1.s"'
+  cargs: '   -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/ext-1.c'
+  herit: *GRPSERIAL
+  info: *45
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ext-1_312:
+  bin: '"ext-1.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/ext-1.c'
+  herit: *GRPSERIAL
+  info: *45
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ext-1_90:
   bin: '"ext-1.s"'
   cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/ext-1.c'
   herit: *GRPSERIAL
-  info: *44
+  info: *45
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_ext-2_73:
+test_ext-2_313:
   bin: '"ext-2.s"'
   cargs: '   -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/ext-2.c'
   herit: *GRPSERIAL
-  info: &45
+  info: &46
     extraopts:
       - '"-std=gnu99 -Wformat"'
     regex-warn:
@@ -8271,12 +8991,28 @@ test_ext-2_73:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ext-2_314:
+  bin: '"ext-2.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/ext-2.c'
+  herit: *GRPSERIAL
+  info: *46
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ext-2_73:
+  bin: '"ext-2.s"'
+  cargs: '   -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/ext-2.c'
+  herit: *GRPSERIAL
+  info: *46
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ext-2_92:
   bin: '"ext-2.s"'
   cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/ext-2.c'
   herit: *GRPSERIAL
-  info: *45
+  info: *46
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ext-3_216:
@@ -8284,7 +9020,7 @@ test_ext-3_216:
   cargs: '   -std=gnu99 -Wformat -Wformat-y2k -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/ext-3.c'
   herit: *GRPSERIAL
-  info: &46
+  info: &47
     extraopts:
       - '"-std=gnu99 -Wformat -Wformat-y2k"'
     regex-warn:
@@ -9666,12 +10402,28 @@ test_ext-3_216:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ext-3_315:
+  bin: '"ext-3.s"'
+  cargs: '   -std=gnu99 -Wformat -Wformat-y2k -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/ext-3.c'
+  herit: *GRPSERIAL
+  info: *47
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ext-3_316:
+  bin: '"ext-3.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wformat -Wformat-y2k -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/ext-3.c'
+  herit: *GRPSERIAL
+  info: *47
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ext-3_94:
   bin: '"ext-3.s"'
   cargs: '  -DWIDE  -std=gnu99 -Wformat -Wformat-y2k -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/ext-3.c'
   herit: *GRPSERIAL
-  info: *46
+  info: *47
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ext-4_18:
@@ -9679,9 +10431,25 @@ test_ext-4_18:
   cargs: '   -std=gnu89 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/ext-4.c'
   herit: *GRPSERIAL
-  info: &47
+  info: &48
     extraopts:
       - '"-std=gnu89 -Wformat"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ext-4_317:
+  bin: '"ext-4.s"'
+  cargs: '   -std=gnu89 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/ext-4.c'
+  herit: *GRPSERIAL
+  info: *48
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ext-4_318:
+  bin: '"ext-4.s"'
+  cargs: '  -DWIDE  -std=gnu89 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/ext-4.c'
+  herit: *GRPSERIAL
+  info: *48
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ext-4_96:
@@ -9689,7 +10457,7 @@ test_ext-4_96:
   cargs: '  -DWIDE  -std=gnu89 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/ext-4.c'
   herit: *GRPSERIAL
-  info: *47
+  info: *48
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ext-5_17:
@@ -9697,7 +10465,7 @@ test_ext-5_17:
   cargs: '   -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/ext-5.c'
   herit: *GRPSERIAL
-  info: &48
+  info: &49
     extraopts:
       - '"-std=gnu99 -Wformat"'
     regex-warn:
@@ -9727,12 +10495,28 @@ test_ext-5_17:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ext-5_319:
+  bin: '"ext-5.s"'
+  cargs: '   -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/ext-5.c'
+  herit: *GRPSERIAL
+  info: *49
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ext-5_320:
+  bin: '"ext-5.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/ext-5.c'
+  herit: *GRPSERIAL
+  info: *49
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ext-5_98:
   bin: '"ext-5.s"'
   cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/ext-5.c'
   herit: *GRPSERIAL
-  info: *48
+  info: *49
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ext-6_100:
@@ -9740,7 +10524,7 @@ test_ext-6_100:
   cargs: '  -DWIDE  -std=gnu89 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/ext-6.c'
   herit: *GRPSERIAL
-  info: &49
+  info: &50
     extraopts:
       - '"-std=gnu89 -Wformat"'
     regex-warn:
@@ -9874,12 +10658,28 @@ test_ext-6_100:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ext-6_321:
+  bin: '"ext-6.s"'
+  cargs: '   -std=gnu89 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/ext-6.c'
+  herit: *GRPSERIAL
+  info: *50
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ext-6_322:
+  bin: '"ext-6.s"'
+  cargs: '  -DWIDE  -std=gnu89 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/ext-6.c'
+  herit: *GRPSERIAL
+  info: *50
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ext-6_47:
   bin: '"ext-6.s"'
   cargs: '   -std=gnu89 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/ext-6.c'
   herit: *GRPSERIAL
-  info: *49
+  info: *50
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ext-7_102:
@@ -9887,7 +10687,7 @@ test_ext-7_102:
   cargs: '  -DWIDE  -std=gnu89 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/ext-7.c'
   herit: *GRPSERIAL
-  info: &50
+  info: &51
     extraopts:
       - '"-std=gnu89 -Wformat"'
     regex-warn:
@@ -10085,12 +10885,28 @@ test_ext-7_102:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ext-7_323:
+  bin: '"ext-7.s"'
+  cargs: '   -std=gnu89 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/ext-7.c'
+  herit: *GRPSERIAL
+  info: *51
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ext-7_324:
+  bin: '"ext-7.s"'
+  cargs: '  -DWIDE  -std=gnu89 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/ext-7.c'
+  herit: *GRPSERIAL
+  info: *51
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ext-7_85:
   bin: '"ext-7.s"'
   cargs: '   -std=gnu89 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/ext-7.c'
   herit: *GRPSERIAL
-  info: *50
+  info: *51
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ext-8_104:
@@ -10098,7 +10914,7 @@ test_ext-8_104:
   cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/ext-8.c'
   herit: *GRPSERIAL
-  info: &51
+  info: &52
     extraopts:
       - '"-std=gnu99 -Wformat"'
     regex-warn:
@@ -10240,12 +11056,28 @@ test_ext-8_104:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ext-8_325:
+  bin: '"ext-8.s"'
+  cargs: '   -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/ext-8.c'
+  herit: *GRPSERIAL
+  info: *52
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ext-8_326:
+  bin: '"ext-8.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/ext-8.c'
+  herit: *GRPSERIAL
+  info: *52
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ext-8_56:
   bin: '"ext-8.s"'
   cargs: '   -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/ext-8.c'
   herit: *GRPSERIAL
-  info: *51
+  info: *52
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_few-1_106:
@@ -10253,7 +11085,7 @@ test_few-1_106:
   cargs: '  -DWIDE  -std=gnu89 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/few-1.c'
   herit: *GRPSERIAL
-  info: &52
+  info: &53
     extraopts:
       - '"-std=gnu89 -Wformat"'
     regex-warn:
@@ -10376,7 +11208,23 @@ test_few-1_30:
   cargs: '   -std=gnu89 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/few-1.c'
   herit: *GRPSERIAL
-  info: *52
+  info: *53
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_few-1_327:
+  bin: '"few-1.s"'
+  cargs: '   -std=gnu89 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/few-1.c'
+  herit: *GRPSERIAL
+  info: *53
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_few-1_328:
+  bin: '"few-1.s"'
+  cargs: '  -DWIDE  -std=gnu89 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/few-1.c'
+  herit: *GRPSERIAL
+  info: *53
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_gcc_diag-1_108:
@@ -10384,7 +11232,7 @@ test_gcc_diag-1_108:
   cargs: '  -DWIDE  -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_diag-1.c'
   herit: *GRPSERIAL
-  info: &53
+  info: &54
     extraopts:
       - '"-Wformat"'
     regex-warn:
@@ -11291,7 +12139,23 @@ test_gcc_diag-1_225:
   cargs: '   -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_diag-1.c'
   herit: *GRPSERIAL
-  info: *53
+  info: *54
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_gcc_diag-1_329:
+  bin: '"gcc_diag-1.s"'
+  cargs: '   -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_diag-1.c'
+  herit: *GRPSERIAL
+  info: *54
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_gcc_diag-1_330:
+  bin: '"gcc_diag-1.s"'
+  cargs: '  -DWIDE  -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_diag-1.c'
+  herit: *GRPSERIAL
+  info: *54
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_gcc_diag-2_10:
@@ -11299,7 +12163,7 @@ test_gcc_diag-2_10:
   cargs: '   -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_diag-2.c'
   herit: *GRPSERIAL
-  info: &54
+  info: &55
     extraopts:
       - '"-Wformat"'
   type: build
@@ -11309,7 +12173,23 @@ test_gcc_diag-2_110:
   cargs: '  -DWIDE  -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_diag-2.c'
   herit: *GRPSERIAL
-  info: *54
+  info: *55
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_gcc_diag-2_331:
+  bin: '"gcc_diag-2.s"'
+  cargs: '   -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_diag-2.c'
+  herit: *GRPSERIAL
+  info: *55
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_gcc_diag-2_332:
+  bin: '"gcc_diag-2.s"'
+  cargs: '  -DWIDE  -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_diag-2.c'
+  herit: *GRPSERIAL
+  info: *55
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_gcc_diag-3_10:
@@ -11317,7 +12197,7 @@ test_gcc_diag-3_10:
   cargs: '   -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_diag-3.c'
   herit: *GRPSERIAL
-  info: &55
+  info: &56
     extraopts:
       - '"-Wformat"'
     regex-err:
@@ -11336,7 +12216,23 @@ test_gcc_diag-3_112:
   cargs: '  -DWIDE  -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_diag-3.c'
   herit: *GRPSERIAL
-  info: *55
+  info: *56
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_gcc_diag-3_333:
+  bin: '"gcc_diag-3.s"'
+  cargs: '   -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_diag-3.c'
+  herit: *GRPSERIAL
+  info: *56
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_gcc_diag-3_334:
+  bin: '"gcc_diag-3.s"'
+  cargs: '  -DWIDE  -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_diag-3.c'
+  herit: *GRPSERIAL
+  info: *56
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_gcc_diag-4_10:
@@ -11344,7 +12240,7 @@ test_gcc_diag-4_10:
   cargs: '   -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_diag-4.c'
   herit: *GRPSERIAL
-  info: &56
+  info: &57
     extraopts:
       - '"-Wformat"'
     regex-err:
@@ -11363,7 +12259,23 @@ test_gcc_diag-4_114:
   cargs: '  -DWIDE  -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_diag-4.c'
   herit: *GRPSERIAL
-  info: *56
+  info: *57
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_gcc_diag-4_335:
+  bin: '"gcc_diag-4.s"'
+  cargs: '   -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_diag-4.c'
+  herit: *GRPSERIAL
+  info: *57
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_gcc_diag-4_336:
+  bin: '"gcc_diag-4.s"'
+  cargs: '  -DWIDE  -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_diag-4.c'
+  herit: *GRPSERIAL
+  info: *57
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_gcc_diag-5_10:
@@ -11371,7 +12283,7 @@ test_gcc_diag-5_10:
   cargs: '   -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_diag-5.c'
   herit: *GRPSERIAL
-  info: &57
+  info: &58
     extraopts:
       - '"-Wformat"'
   type: build
@@ -11381,7 +12293,23 @@ test_gcc_diag-5_116:
   cargs: '  -DWIDE  -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_diag-5.c'
   herit: *GRPSERIAL
-  info: *57
+  info: *58
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_gcc_diag-5_337:
+  bin: '"gcc_diag-5.s"'
+  cargs: '   -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_diag-5.c'
+  herit: *GRPSERIAL
+  info: *58
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_gcc_diag-5_338:
+  bin: '"gcc_diag-5.s"'
+  cargs: '  -DWIDE  -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_diag-5.c'
+  herit: *GRPSERIAL
+  info: *58
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_gcc_diag-6_10:
@@ -11389,7 +12317,7 @@ test_gcc_diag-6_10:
   cargs: '   -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_diag-6.c'
   herit: *GRPSERIAL
-  info: &58
+  info: &59
     extraopts:
       - '"-Wformat"'
     regex-err:
@@ -11408,7 +12336,23 @@ test_gcc_diag-6_118:
   cargs: '  -DWIDE  -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_diag-6.c'
   herit: *GRPSERIAL
-  info: *58
+  info: *59
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_gcc_diag-6_339:
+  bin: '"gcc_diag-6.s"'
+  cargs: '   -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_diag-6.c'
+  herit: *GRPSERIAL
+  info: *59
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_gcc_diag-6_340:
+  bin: '"gcc_diag-6.s"'
+  cargs: '  -DWIDE  -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_diag-6.c'
+  herit: *GRPSERIAL
+  info: *59
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_gcc_diag-7_10:
@@ -11416,7 +12360,7 @@ test_gcc_diag-7_10:
   cargs: '   -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_diag-7.c'
   herit: *GRPSERIAL
-  info: &59
+  info: &60
     extraopts:
       - '"-Wformat"'
   type: build
@@ -11426,7 +12370,23 @@ test_gcc_diag-7_120:
   cargs: '  -DWIDE  -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_diag-7.c'
   herit: *GRPSERIAL
-  info: *59
+  info: *60
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_gcc_diag-7_341:
+  bin: '"gcc_diag-7.s"'
+  cargs: '   -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_diag-7.c'
+  herit: *GRPSERIAL
+  info: *60
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_gcc_diag-7_342:
+  bin: '"gcc_diag-7.s"'
+  cargs: '  -DWIDE  -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_diag-7.c'
+  herit: *GRPSERIAL
+  info: *60
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_gcc_diag-8_10:
@@ -11434,7 +12394,7 @@ test_gcc_diag-8_10:
   cargs: '   -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_diag-8.c'
   herit: *GRPSERIAL
-  info: &60
+  info: &61
     extraopts:
       - '"-Wformat"'
     regex-err:
@@ -11453,7 +12413,23 @@ test_gcc_diag-8_122:
   cargs: '  -DWIDE  -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_diag-8.c'
   herit: *GRPSERIAL
-  info: *60
+  info: *61
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_gcc_diag-8_343:
+  bin: '"gcc_diag-8.s"'
+  cargs: '   -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_diag-8.c'
+  herit: *GRPSERIAL
+  info: *61
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_gcc_diag-8_344:
+  bin: '"gcc_diag-8.s"'
+  cargs: '  -DWIDE  -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_diag-8.c'
+  herit: *GRPSERIAL
+  info: *61
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_gcc_diag-9_10:
@@ -11461,7 +12437,7 @@ test_gcc_diag-9_10:
   cargs: '   -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_diag-9.c'
   herit: *GRPSERIAL
-  info: &61
+  info: &62
     extraopts:
       - '"-Wformat"'
     regex-err:
@@ -11480,7 +12456,23 @@ test_gcc_diag-9_124:
   cargs: '  -DWIDE  -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_diag-9.c'
   herit: *GRPSERIAL
-  info: *61
+  info: *62
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_gcc_diag-9_345:
+  bin: '"gcc_diag-9.s"'
+  cargs: '   -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_diag-9.c'
+  herit: *GRPSERIAL
+  info: *62
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_gcc_diag-9_346:
+  bin: '"gcc_diag-9.s"'
+  cargs: '  -DWIDE  -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_diag-9.c'
+  herit: *GRPSERIAL
+  info: *62
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_gcc_gfc-1_126:
@@ -11488,7 +12480,7 @@ test_gcc_gfc-1_126:
   cargs: '  -DWIDE  -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_gfc-1.c'
   herit: *GRPSERIAL
-  info: &62
+  info: &63
     extraopts:
       - '"-Wformat"'
     regex-warn:
@@ -11539,7 +12531,23 @@ test_gcc_gfc-1_32:
   cargs: '   -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_gfc-1.c'
   herit: *GRPSERIAL
-  info: *62
+  info: *63
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_gcc_gfc-1_347:
+  bin: '"gcc_gfc-1.s"'
+  cargs: '   -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_gfc-1.c'
+  herit: *GRPSERIAL
+  info: *63
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_gcc_gfc-1_348:
+  bin: '"gcc_gfc-1.s"'
+  cargs: '  -DWIDE  -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_gfc-1.c'
+  herit: *GRPSERIAL
+  info: *63
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_gcc_gfc-2_128:
@@ -11547,7 +12555,7 @@ test_gcc_gfc-2_128:
   cargs: '  -DWIDE  -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_gfc-2.c'
   herit: *GRPSERIAL
-  info: &63
+  info: &64
     extraopts:
       - '"-Wformat"'
     regex-err:
@@ -11583,7 +12591,23 @@ test_gcc_gfc-2_13:
   cargs: '   -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_gfc-2.c'
   herit: *GRPSERIAL
-  info: *63
+  info: *64
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_gcc_gfc-2_349:
+  bin: '"gcc_gfc-2.s"'
+  cargs: '   -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_gfc-2.c'
+  herit: *GRPSERIAL
+  info: *64
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_gcc_gfc-2_350:
+  bin: '"gcc_gfc-2.s"'
+  cargs: '  -DWIDE  -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/gcc_gfc-2.c'
+  herit: *GRPSERIAL
+  info: *64
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_miss-1_130:
@@ -11591,7 +12615,7 @@ test_miss-1_130:
   cargs: '  -DWIDE  -std=gnu99 -Wmissing-format-attribute -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/miss-1.c'
   herit: *GRPSERIAL
-  info: &64
+  info: &65
     extraopts:
       - '"-std=gnu99 -Wmissing-format-attribute"'
     regex-warn:
@@ -11621,12 +12645,28 @@ test_miss-1_130:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_miss-1_351:
+  bin: '"miss-1.s"'
+  cargs: '   -std=gnu99 -Wmissing-format-attribute -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/miss-1.c'
+  herit: *GRPSERIAL
+  info: *65
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_miss-1_352:
+  bin: '"miss-1.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wmissing-format-attribute -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/miss-1.c'
+  herit: *GRPSERIAL
+  info: *65
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_miss-1_39:
   bin: '"miss-1.s"'
   cargs: '   -std=gnu99 -Wmissing-format-attribute -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/miss-1.c'
   herit: *GRPSERIAL
-  info: *64
+  info: *65
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_miss-2_132:
@@ -11634,7 +12674,7 @@ test_miss-2_132:
   cargs: '  -DWIDE  -std=gnu99 -Wmissing-format-attribute -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/miss-2.c'
   herit: *GRPSERIAL
-  info: &65
+  info: &66
     extraopts:
       - '"-std=gnu99 -Wmissing-format-attribute"'
   type: build
@@ -11644,7 +12684,23 @@ test_miss-2_16:
   cargs: '   -std=gnu99 -Wmissing-format-attribute -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/miss-2.c'
   herit: *GRPSERIAL
-  info: *65
+  info: *66
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_miss-2_353:
+  bin: '"miss-2.s"'
+  cargs: '   -std=gnu99 -Wmissing-format-attribute -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/miss-2.c'
+  herit: *GRPSERIAL
+  info: *66
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_miss-2_354:
+  bin: '"miss-2.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wmissing-format-attribute -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/miss-2.c'
+  herit: *GRPSERIAL
+  info: *66
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_miss-3_134:
@@ -11652,7 +12708,7 @@ test_miss-3_134:
   cargs: '  -DWIDE  -std=gnu99 -Wmissing-format-attribute -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/miss-3.c'
   herit: *GRPSERIAL
-  info: &66
+  info: &67
     extraopts:
       - '"-std=gnu99 -Wmissing-format-attribute"'
     regex-warn:
@@ -11679,7 +12735,23 @@ test_miss-3_27:
   cargs: '   -std=gnu99 -Wmissing-format-attribute -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/miss-3.c'
   herit: *GRPSERIAL
-  info: *66
+  info: *67
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_miss-3_355:
+  bin: '"miss-3.s"'
+  cargs: '   -std=gnu99 -Wmissing-format-attribute -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/miss-3.c'
+  herit: *GRPSERIAL
+  info: *67
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_miss-3_356:
+  bin: '"miss-3.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wmissing-format-attribute -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/miss-3.c'
+  herit: *GRPSERIAL
+  info: *67
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_miss-4_136:
@@ -11687,7 +12759,7 @@ test_miss-4_136:
   cargs: '  -DWIDE  -std=gnu99 -Wmissing-format-attribute -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/miss-4.c'
   herit: *GRPSERIAL
-  info: &67
+  info: &68
     extraopts:
       - '"-std=gnu99 -Wmissing-format-attribute"'
     regex-warn:
@@ -11714,7 +12786,23 @@ test_miss-4_33:
   cargs: '   -std=gnu99 -Wmissing-format-attribute -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/miss-4.c'
   herit: *GRPSERIAL
-  info: *67
+  info: *68
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_miss-4_357:
+  bin: '"miss-4.s"'
+  cargs: '   -std=gnu99 -Wmissing-format-attribute -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/miss-4.c'
+  herit: *GRPSERIAL
+  info: *68
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_miss-4_358:
+  bin: '"miss-4.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wmissing-format-attribute -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/miss-4.c'
+  herit: *GRPSERIAL
+  info: *68
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_miss-5_138:
@@ -11722,7 +12810,7 @@ test_miss-5_138:
   cargs: '  -DWIDE  -std=gnu99 -Wmissing-format-attribute -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/miss-5.c'
   herit: *GRPSERIAL
-  info: &68
+  info: &69
     extraopts:
       - '"-std=gnu99 -Wmissing-format-attribute"'
     regex-warn:
@@ -11744,12 +12832,28 @@ test_miss-5_138:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_miss-5_359:
+  bin: '"miss-5.s"'
+  cargs: '   -std=gnu99 -Wmissing-format-attribute -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/miss-5.c'
+  herit: *GRPSERIAL
+  info: *69
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_miss-5_360:
+  bin: '"miss-5.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wmissing-format-attribute -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/miss-5.c'
+  herit: *GRPSERIAL
+  info: *69
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_miss-5_49:
   bin: '"miss-5.s"'
   cargs: '   -std=gnu99 -Wmissing-format-attribute -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/miss-5.c'
   herit: *GRPSERIAL
-  info: *68
+  info: *69
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_miss-6_140:
@@ -11757,7 +12861,7 @@ test_miss-6_140:
   cargs: '  -DWIDE  -std=gnu99 -Wmissing-format-attribute -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/miss-6.c'
   herit: *GRPSERIAL
-  info: &69
+  info: &70
     extraopts:
       - '"-std=gnu99 -Wmissing-format-attribute"'
     regex-warn:
@@ -11784,7 +12888,23 @@ test_miss-6_32:
   cargs: '   -std=gnu99 -Wmissing-format-attribute -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/miss-6.c'
   herit: *GRPSERIAL
-  info: *69
+  info: *70
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_miss-6_361:
+  bin: '"miss-6.s"'
+  cargs: '   -std=gnu99 -Wmissing-format-attribute -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/miss-6.c'
+  herit: *GRPSERIAL
+  info: *70
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_miss-6_362:
+  bin: '"miss-6.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wmissing-format-attribute -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/miss-6.c'
+  herit: *GRPSERIAL
+  info: *70
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_miss-7_142:
@@ -11792,7 +12912,7 @@ test_miss-7_142:
   cargs: '  -DWIDE  -Wsuggest-attribute=format -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/miss-7.c'
   herit: *GRPSERIAL
-  info: &70
+  info: &71
     extraopts:
       - '"-Wsuggest-attribute=format"'
     regex-warn:
@@ -11811,7 +12931,23 @@ test_miss-7_36:
   cargs: '   -Wsuggest-attribute=format -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/miss-7.c'
   herit: *GRPSERIAL
-  info: *70
+  info: *71
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_miss-7_363:
+  bin: '"miss-7.s"'
+  cargs: '   -Wsuggest-attribute=format -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/miss-7.c'
+  herit: *GRPSERIAL
+  info: *71
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_miss-7_364:
+  bin: '"miss-7.s"'
+  cargs: '  -DWIDE  -Wsuggest-attribute=format -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/miss-7.c'
+  herit: *GRPSERIAL
+  info: *71
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_multattr-1_144:
@@ -11819,7 +12955,7 @@ test_multattr-1_144:
   cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/multattr-1.c'
   herit: *GRPSERIAL
-  info: &71
+  info: &72
     extraopts:
       - '"-std=gnu99 -Wformat"'
     regex-warn:
@@ -11889,12 +13025,28 @@ test_multattr-1_144:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_multattr-1_365:
+  bin: '"multattr-1.s"'
+  cargs: '   -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/multattr-1.c'
+  herit: *GRPSERIAL
+  info: *72
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_multattr-1_366:
+  bin: '"multattr-1.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/multattr-1.c'
+  herit: *GRPSERIAL
+  info: *72
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_multattr-1_51:
   bin: '"multattr-1.s"'
   cargs: '   -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/multattr-1.c'
   herit: *GRPSERIAL
-  info: *71
+  info: *72
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_multattr-2_146:
@@ -11902,7 +13054,7 @@ test_multattr-2_146:
   cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/multattr-2.c'
   herit: *GRPSERIAL
-  info: &72
+  info: &73
     extraopts:
       - '"-std=gnu99 -Wformat"'
     regex-warn:
@@ -11956,12 +13108,28 @@ test_multattr-2_146:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_multattr-2_367:
+  bin: '"multattr-2.s"'
+  cargs: '   -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/multattr-2.c'
+  herit: *GRPSERIAL
+  info: *73
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_multattr-2_368:
+  bin: '"multattr-2.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/multattr-2.c'
+  herit: *GRPSERIAL
+  info: *73
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_multattr-2_40:
   bin: '"multattr-2.s"'
   cargs: '   -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/multattr-2.c'
   herit: *GRPSERIAL
-  info: *72
+  info: *73
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_multattr-3_148:
@@ -11969,7 +13137,7 @@ test_multattr-3_148:
   cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/multattr-3.c'
   herit: *GRPSERIAL
-  info: &73
+  info: &74
     extraopts:
       - '"-std=gnu99 -Wformat"'
     regex-warn:
@@ -12036,7 +13204,23 @@ test_multattr-3_28:
   cargs: '   -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/multattr-3.c'
   herit: *GRPSERIAL
-  info: *73
+  info: *74
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_multattr-3_369:
+  bin: '"multattr-3.s"'
+  cargs: '   -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/multattr-3.c'
+  herit: *GRPSERIAL
+  info: *74
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_multattr-3_370:
+  bin: '"multattr-3.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/multattr-3.c'
+  herit: *GRPSERIAL
+  info: *74
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_no-exargs-1_14:
@@ -12044,7 +13228,7 @@ test_no-exargs-1_14:
   cargs: '   -std=gnu99 -Wformat -Wno-format-extra-args -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/no-exargs-1.c'
   herit: *GRPSERIAL
-  info: &74
+  info: &75
     extraopts:
       - '"-std=gnu99 -Wformat -Wno-format-extra-args"'
   type: build
@@ -12054,7 +13238,23 @@ test_no-exargs-1_150:
   cargs: '  -DWIDE  -std=gnu99 -Wformat -Wno-format-extra-args -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/no-exargs-1.c'
   herit: *GRPSERIAL
-  info: *74
+  info: *75
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_no-exargs-1_371:
+  bin: '"no-exargs-1.s"'
+  cargs: '   -std=gnu99 -Wformat -Wno-format-extra-args -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/no-exargs-1.c'
+  herit: *GRPSERIAL
+  info: *75
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_no-exargs-1_372:
+  bin: '"no-exargs-1.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wformat -Wno-format-extra-args -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/no-exargs-1.c'
+  herit: *GRPSERIAL
+  info: *75
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_no-exargs-2_152:
@@ -12062,7 +13262,7 @@ test_no-exargs-2_152:
   cargs: '  -DWIDE  -std=gnu99 -Wformat -Wno-format-extra-args -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/no-exargs-2.c'
   herit: *GRPSERIAL
-  info: &75
+  info: &76
     extraopts:
       - '"-std=gnu99 -Wformat -Wno-format-extra-args"'
     regex-warn:
@@ -12097,7 +13297,23 @@ test_no-exargs-2_27:
   cargs: '   -std=gnu99 -Wformat -Wno-format-extra-args -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/no-exargs-2.c'
   herit: *GRPSERIAL
-  info: *75
+  info: *76
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_no-exargs-2_373:
+  bin: '"no-exargs-2.s"'
+  cargs: '   -std=gnu99 -Wformat -Wno-format-extra-args -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/no-exargs-2.c'
+  herit: *GRPSERIAL
+  info: *76
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_no-exargs-2_374:
+  bin: '"no-exargs-2.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wformat -Wno-format-extra-args -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/no-exargs-2.c'
+  herit: *GRPSERIAL
+  info: *76
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_no-y2k-1_12:
@@ -12105,7 +13321,7 @@ test_no-y2k-1_12:
   cargs: '   -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/no-y2k-1.c'
   herit: *GRPSERIAL
-  info: &76
+  info: &77
     extraopts:
       - '"-std=gnu99 -Wformat"'
   type: build
@@ -12115,7 +13331,23 @@ test_no-y2k-1_154:
   cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/no-y2k-1.c'
   herit: *GRPSERIAL
-  info: *76
+  info: *77
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_no-y2k-1_375:
+  bin: '"no-y2k-1.s"'
+  cargs: '   -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/no-y2k-1.c'
+  herit: *GRPSERIAL
+  info: *77
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_no-y2k-1_376:
+  bin: '"no-y2k-1.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/no-y2k-1.c'
+  herit: *GRPSERIAL
+  info: *77
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_nonlit-1_13:
@@ -12123,7 +13355,7 @@ test_nonlit-1_13:
   cargs: '   -std=gnu99 -Wformat -Wformat-nonliteral -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/nonlit-1.c'
   herit: *GRPSERIAL
-  info: &77
+  info: &78
     extraopts:
       - '"-std=gnu99 -Wformat -Wformat-nonliteral"'
     regex-warn:
@@ -12150,7 +13382,23 @@ test_nonlit-1_156:
   cargs: '  -DWIDE  -std=gnu99 -Wformat -Wformat-nonliteral -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/nonlit-1.c'
   herit: *GRPSERIAL
-  info: *77
+  info: *78
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nonlit-1_377:
+  bin: '"nonlit-1.s"'
+  cargs: '   -std=gnu99 -Wformat -Wformat-nonliteral -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/nonlit-1.c'
+  herit: *GRPSERIAL
+  info: *78
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nonlit-1_378:
+  bin: '"nonlit-1.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wformat -Wformat-nonliteral -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/nonlit-1.c'
+  herit: *GRPSERIAL
+  info: *78
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_nonlit-2_13:
@@ -12158,7 +13406,7 @@ test_nonlit-2_13:
   cargs: '   -std=gnu99 -Wformat=2 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/nonlit-2.c'
   herit: *GRPSERIAL
-  info: &78
+  info: &79
     extraopts:
       - '"-std=gnu99 -Wformat=2"'
     regex-warn:
@@ -12185,7 +13433,23 @@ test_nonlit-2_158:
   cargs: '  -DWIDE  -std=gnu99 -Wformat=2 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/nonlit-2.c'
   herit: *GRPSERIAL
-  info: *78
+  info: *79
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nonlit-2_379:
+  bin: '"nonlit-2.s"'
+  cargs: '   -std=gnu99 -Wformat=2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/nonlit-2.c'
+  herit: *GRPSERIAL
+  info: *79
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nonlit-2_380:
+  bin: '"nonlit-2.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wformat=2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/nonlit-2.c'
+  herit: *GRPSERIAL
+  info: *79
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_nonlit-3_12:
@@ -12193,7 +13457,7 @@ test_nonlit-3_12:
   cargs: '   -std=gnu99 -Wformat -Wformat-nonliteral -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/nonlit-3.c'
   herit: *GRPSERIAL
-  info: &79
+  info: &80
     extraopts:
       - '"-std=gnu99 -Wformat -Wformat-nonliteral"'
     regex-warn:
@@ -12212,7 +13476,23 @@ test_nonlit-3_160:
   cargs: '  -DWIDE  -std=gnu99 -Wformat -Wformat-nonliteral -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/nonlit-3.c'
   herit: *GRPSERIAL
-  info: *79
+  info: *80
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nonlit-3_381:
+  bin: '"nonlit-3.s"'
+  cargs: '   -std=gnu99 -Wformat -Wformat-nonliteral -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/nonlit-3.c'
+  herit: *GRPSERIAL
+  info: *80
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nonlit-3_382:
+  bin: '"nonlit-3.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wformat -Wformat-nonliteral -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/nonlit-3.c'
+  herit: *GRPSERIAL
+  info: *80
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_nul-1_14:
@@ -12220,7 +13500,7 @@ test_nul-1_14:
   cargs: '   -Wformat -Wno-format-contains-nul -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/nul-1.c'
   herit: *GRPSERIAL
-  info: &80
+  info: &81
     extraopts:
       - '"-Wformat -Wno-format-contains-nul"'
   type: build
@@ -12230,7 +13510,23 @@ test_nul-1_162:
   cargs: '  -DWIDE  -Wformat -Wno-format-contains-nul -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/nul-1.c'
   herit: *GRPSERIAL
-  info: *80
+  info: *81
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nul-1_383:
+  bin: '"nul-1.s"'
+  cargs: '   -Wformat -Wno-format-contains-nul -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/nul-1.c'
+  herit: *GRPSERIAL
+  info: *81
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nul-1_384:
+  bin: '"nul-1.s"'
+  cargs: '  -DWIDE  -Wformat -Wno-format-contains-nul -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/nul-1.c'
+  herit: *GRPSERIAL
+  info: *81
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_nul-2_16:
@@ -12238,7 +13534,7 @@ test_nul-2_16:
   cargs: '   -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/nul-2.c'
   herit: *GRPSERIAL
-  info: &81
+  info: &82
     extraopts:
       - '"-Wformat"'
     regex-warn:
@@ -12257,7 +13553,23 @@ test_nul-2_164:
   cargs: '  -DWIDE  -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/nul-2.c'
   herit: *GRPSERIAL
-  info: *81
+  info: *82
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nul-2_385:
+  bin: '"nul-2.s"'
+  cargs: '   -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/nul-2.c'
+  herit: *GRPSERIAL
+  info: *82
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nul-2_386:
+  bin: '"nul-2.s"'
+  cargs: '  -DWIDE  -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/nul-2.c'
+  herit: *GRPSERIAL
+  info: *82
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_null-1_166:
@@ -12265,7 +13577,7 @@ test_null-1_166:
   cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/null-1.c'
   herit: *GRPSERIAL
-  info: &82
+  info: &83
     extraopts:
       - '"-std=gnu99 -Wformat"'
     regex-warn:
@@ -12300,7 +13612,23 @@ test_null-1_28:
   cargs: '   -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/null-1.c'
   herit: *GRPSERIAL
-  info: *82
+  info: *83
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_null-1_387:
+  bin: '"null-1.s"'
+  cargs: '   -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/null-1.c'
+  herit: *GRPSERIAL
+  info: *83
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_null-1_388:
+  bin: '"null-1.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/null-1.c'
+  herit: *GRPSERIAL
+  info: *83
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_opt-1_168:
@@ -12308,7 +13636,7 @@ test_opt-1_168:
   cargs: '  -DWIDE  -Wformat-extra-args -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/opt-1.c'
   herit: *GRPSERIAL
-  info: &83
+  info: &84
     extraopts:
       - '"-Wformat-extra-args"'
     regex-warn:
@@ -12322,12 +13650,28 @@ test_opt-1_168:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_opt-1_389:
+  bin: '"opt-1.s"'
+  cargs: '   -Wformat-extra-args -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/opt-1.c'
+  herit: *GRPSERIAL
+  info: *84
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_opt-1_390:
+  bin: '"opt-1.s"'
+  cargs: '  -DWIDE  -Wformat-extra-args -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/opt-1.c'
+  herit: *GRPSERIAL
+  info: *84
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_opt-1_7:
   bin: '"opt-1.s"'
   cargs: '   -Wformat-extra-args -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/opt-1.c'
   herit: *GRPSERIAL
-  info: *83
+  info: *84
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_opt-2_170:
@@ -12335,7 +13679,7 @@ test_opt-2_170:
   cargs: '  -DWIDE  -Wformat-nonliteral -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/opt-2.c'
   herit: *GRPSERIAL
-  info: &84
+  info: &85
     extraopts:
       - '"-Wformat-nonliteral"'
     regex-warn:
@@ -12349,12 +13693,28 @@ test_opt-2_170:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_opt-2_391:
+  bin: '"opt-2.s"'
+  cargs: '   -Wformat-nonliteral -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/opt-2.c'
+  herit: *GRPSERIAL
+  info: *85
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_opt-2_392:
+  bin: '"opt-2.s"'
+  cargs: '  -DWIDE  -Wformat-nonliteral -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/opt-2.c'
+  herit: *GRPSERIAL
+  info: *85
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_opt-2_7:
   bin: '"opt-2.s"'
   cargs: '   -Wformat-nonliteral -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/opt-2.c'
   herit: *GRPSERIAL
-  info: *84
+  info: *85
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_opt-3_172:
@@ -12362,7 +13722,7 @@ test_opt-3_172:
   cargs: '  -DWIDE  -Wformat-security -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/opt-3.c'
   herit: *GRPSERIAL
-  info: &85
+  info: &86
     extraopts:
       - '"-Wformat-security"'
     regex-warn:
@@ -12376,12 +13736,28 @@ test_opt-3_172:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_opt-3_393:
+  bin: '"opt-3.s"'
+  cargs: '   -Wformat-security -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/opt-3.c'
+  herit: *GRPSERIAL
+  info: *86
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_opt-3_394:
+  bin: '"opt-3.s"'
+  cargs: '  -DWIDE  -Wformat-security -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/opt-3.c'
+  herit: *GRPSERIAL
+  info: *86
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_opt-3_7:
   bin: '"opt-3.s"'
   cargs: '   -Wformat-security -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/opt-3.c'
   herit: *GRPSERIAL
-  info: *85
+  info: *86
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_opt-4_174:
@@ -12389,7 +13765,7 @@ test_opt-4_174:
   cargs: '  -DWIDE  -Wformat-y2k -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/opt-4.c'
   herit: *GRPSERIAL
-  info: &86
+  info: &87
     extraopts:
       - '"-Wformat-y2k"'
     regex-warn:
@@ -12403,12 +13779,28 @@ test_opt-4_174:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_opt-4_395:
+  bin: '"opt-4.s"'
+  cargs: '   -Wformat-y2k -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/opt-4.c'
+  herit: *GRPSERIAL
+  info: *87
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_opt-4_396:
+  bin: '"opt-4.s"'
+  cargs: '  -DWIDE  -Wformat-y2k -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/opt-4.c'
+  herit: *GRPSERIAL
+  info: *87
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_opt-4_7:
   bin: '"opt-4.s"'
   cargs: '   -Wformat-y2k -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/opt-4.c'
   herit: *GRPSERIAL
-  info: *86
+  info: *87
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_opt-5_176:
@@ -12416,7 +13808,7 @@ test_opt-5_176:
   cargs: '  -DWIDE  -Wformat-zero-length -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/opt-5.c'
   herit: *GRPSERIAL
-  info: &87
+  info: &88
     extraopts:
       - '"-Wformat-zero-length"'
     regex-warn:
@@ -12430,12 +13822,28 @@ test_opt-5_176:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_opt-5_397:
+  bin: '"opt-5.s"'
+  cargs: '   -Wformat-zero-length -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/opt-5.c'
+  herit: *GRPSERIAL
+  info: *88
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_opt-5_398:
+  bin: '"opt-5.s"'
+  cargs: '  -DWIDE  -Wformat-zero-length -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/opt-5.c'
+  herit: *GRPSERIAL
+  info: *88
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_opt-5_7:
   bin: '"opt-5.s"'
   cargs: '   -Wformat-zero-length -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/opt-5.c'
   herit: *GRPSERIAL
-  info: *87
+  info: *88
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_opt-6_178:
@@ -12443,7 +13851,7 @@ test_opt-6_178:
   cargs: '  -DWIDE  -Wformat-contains-nul -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/opt-6.c'
   herit: *GRPSERIAL
-  info: &88
+  info: &89
     extraopts:
       - '"-Wformat-contains-nul"'
     regex-warn:
@@ -12457,12 +13865,28 @@ test_opt-6_178:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_opt-6_399:
+  bin: '"opt-6.s"'
+  cargs: '   -Wformat-contains-nul -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/opt-6.c'
+  herit: *GRPSERIAL
+  info: *89
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_opt-6_400:
+  bin: '"opt-6.s"'
+  cargs: '  -DWIDE  -Wformat-contains-nul -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/opt-6.c'
+  herit: *GRPSERIAL
+  info: *89
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_opt-6_7:
   bin: '"opt-6.s"'
   cargs: '   -Wformat-contains-nul -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/opt-6.c'
   herit: *GRPSERIAL
-  info: *88
+  info: *89
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_plus-1_180:
@@ -12470,7 +13894,7 @@ test_plus-1_180:
   cargs: '  -DWIDE  -std=iso9899:1990 -pedantic -Wformat=2 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/plus-1.c'
   herit: *GRPSERIAL
-  info: &89
+  info: &90
     extraopts:
       - '"-std=iso9899:1990 -pedantic -Wformat=2"'
     regex-warn:
@@ -12529,7 +13953,23 @@ test_plus-1_20:
   cargs: '   -std=iso9899:1990 -pedantic -Wformat=2 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/plus-1.c'
   herit: *GRPSERIAL
-  info: *89
+  info: *90
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_plus-1_401:
+  bin: '"plus-1.s"'
+  cargs: '   -std=iso9899:1990 -pedantic -Wformat=2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/plus-1.c'
+  herit: *GRPSERIAL
+  info: *90
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_plus-1_402:
+  bin: '"plus-1.s"'
+  cargs: '  -DWIDE  -std=iso9899:1990 -pedantic -Wformat=2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/plus-1.c'
+  herit: *GRPSERIAL
+  info: *90
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr72858_182:
@@ -12537,7 +13977,7 @@ test_pr72858_182:
   cargs: '  -DWIDE  -Wformat -fdiagnostics-show-caret -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/pr72858.c'
   herit: *GRPSERIAL
-  info: &90
+  info: &91
     extraopts:
       - '"-Wformat -fdiagnostics-show-caret"'
     regex-warn:
@@ -12839,12 +14279,28 @@ test_pr72858_182:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr72858_403:
+  bin: '"pr72858.s"'
+  cargs: '   -Wformat -fdiagnostics-show-caret -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/pr72858.c'
+  herit: *GRPSERIAL
+  info: *91
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr72858_404:
+  bin: '"pr72858.s"'
+  cargs: '  -DWIDE  -Wformat -fdiagnostics-show-caret -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/pr72858.c'
+  herit: *GRPSERIAL
+  info: *91
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr72858_410:
   bin: '"pr72858.s"'
   cargs: '   -Wformat -fdiagnostics-show-caret -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/pr72858.c'
   herit: *GRPSERIAL
-  info: *90
+  info: *91
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr78304-2_11:
@@ -12852,7 +14308,7 @@ test_pr78304-2_11:
   cargs: '   -O2 -Wall -Wextra -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/pr78304-2.c'
   herit: *GRPSERIAL
-  info: &91
+  info: &92
     extraopts:
       - '"-O2 -Wall -Wextra"'
     regex-warn:
@@ -12871,7 +14327,23 @@ test_pr78304-2_184:
   cargs: '  -DWIDE  -O2 -Wall -Wextra -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/pr78304-2.c'
   herit: *GRPSERIAL
-  info: *91
+  info: *92
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr78304-2_405:
+  bin: '"pr78304-2.s"'
+  cargs: '   -O2 -Wall -Wextra -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/pr78304-2.c'
+  herit: *GRPSERIAL
+  info: *92
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr78304-2_406:
+  bin: '"pr78304-2.s"'
+  cargs: '  -DWIDE  -O2 -Wall -Wextra -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/pr78304-2.c'
+  herit: *GRPSERIAL
+  info: *92
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr78304_10:
@@ -12879,7 +14351,7 @@ test_pr78304_10:
   cargs: '   -O2 -Wall -Wextra -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/pr78304.c'
   herit: *GRPSERIAL
-  info: &92
+  info: &93
     extraopts:
       - '"-O2 -Wall -Wextra"'
     regex-warn:
@@ -12898,7 +14370,23 @@ test_pr78304_186:
   cargs: '  -DWIDE  -O2 -Wall -Wextra -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/pr78304.c'
   herit: *GRPSERIAL
-  info: *92
+  info: *93
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr78304_407:
+  bin: '"pr78304.s"'
+  cargs: '   -O2 -Wall -Wextra -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/pr78304.c'
+  herit: *GRPSERIAL
+  info: *93
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr78304_408:
+  bin: '"pr78304.s"'
+  cargs: '  -DWIDE  -O2 -Wall -Wextra -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/pr78304.c'
+  herit: *GRPSERIAL
+  info: *93
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr78498_12:
@@ -12906,7 +14394,7 @@ test_pr78498_12:
   cargs: '   -O2 -Wall -Wextra -fdiagnostics-show-caret -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/pr78498.c'
   herit: *GRPSERIAL
-  info: &93
+  info: &94
     extraopts:
       - '"-O2 -Wall -Wextra -fdiagnostics-show-caret"'
     regex-warn:
@@ -12925,7 +14413,23 @@ test_pr78498_188:
   cargs: '  -DWIDE  -O2 -Wall -Wextra -fdiagnostics-show-caret -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/pr78498.c'
   herit: *GRPSERIAL
-  info: *93
+  info: *94
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr78498_409:
+  bin: '"pr78498.s"'
+  cargs: '   -O2 -Wall -Wextra -fdiagnostics-show-caret -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/pr78498.c'
+  herit: *GRPSERIAL
+  info: *94
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr78498_410:
+  bin: '"pr78498.s"'
+  cargs: '  -DWIDE  -O2 -Wall -Wextra -fdiagnostics-show-caret -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/pr78498.c'
+  herit: *GRPSERIAL
+  info: *94
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr78569_190:
@@ -12933,7 +14437,7 @@ test_pr78569_190:
   cargs: '  -DWIDE  -Wformat-truncation -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/pr78569.c'
   herit: *GRPSERIAL
-  info: &94
+  info: &95
     extraopts:
       - '"-Wformat-truncation"'
     regex-warn:
@@ -12952,7 +14456,23 @@ test_pr78569_24:
   cargs: '   -Wformat-truncation -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/pr78569.c'
   herit: *GRPSERIAL
-  info: *94
+  info: *95
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr78569_411:
+  bin: '"pr78569.s"'
+  cargs: '   -Wformat-truncation -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/pr78569.c'
+  herit: *GRPSERIAL
+  info: *95
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr78569_412:
+  bin: '"pr78569.s"'
+  cargs: '  -DWIDE  -Wformat-truncation -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/pr78569.c'
+  herit: *GRPSERIAL
+  info: *95
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr78680_16:
@@ -12960,7 +14480,7 @@ test_pr78680_16:
   cargs: '   -O2 -Wall -Wextra -fdiagnostics-show-caret -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/pr78680.c'
   herit: *GRPSERIAL
-  info: &95
+  info: &96
     extraopts:
       - '"-O2 -Wall -Wextra -fdiagnostics-show-caret"'
     regex-warn:
@@ -12979,7 +14499,23 @@ test_pr78680_192:
   cargs: '  -DWIDE  -O2 -Wall -Wextra -fdiagnostics-show-caret -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/pr78680.c'
   herit: *GRPSERIAL
-  info: *95
+  info: *96
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr78680_413:
+  bin: '"pr78680.s"'
+  cargs: '   -O2 -Wall -Wextra -fdiagnostics-show-caret -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/pr78680.c'
+  herit: *GRPSERIAL
+  info: *96
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr78680_414:
+  bin: '"pr78680.s"'
+  cargs: '  -DWIDE  -O2 -Wall -Wextra -fdiagnostics-show-caret -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/pr78680.c'
+  herit: *GRPSERIAL
+  info: *96
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr79210_194:
@@ -12987,7 +14523,7 @@ test_pr79210_194:
   cargs: '  -DWIDE  -Wformat -Wformat-signedness -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/pr79210.c'
   herit: *GRPSERIAL
-  info: &96
+  info: &97
     extraopts:
       - '"-Wformat -Wformat-signedness"'
     regex-warn:
@@ -13006,7 +14542,23 @@ test_pr79210_23:
   cargs: '   -Wformat -Wformat-signedness -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/pr79210.c'
   herit: *GRPSERIAL
-  info: *96
+  info: *97
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr79210_415:
+  bin: '"pr79210.s"'
+  cargs: '   -Wformat -Wformat-signedness -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/pr79210.c'
+  herit: *GRPSERIAL
+  info: *97
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr79210_416:
+  bin: '"pr79210.s"'
+  cargs: '  -DWIDE  -Wformat -Wformat-signedness -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/pr79210.c'
+  herit: *GRPSERIAL
+  info: *97
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr80919_16:
@@ -13014,7 +14566,7 @@ test_pr80919_16:
   cargs: '   -Wall -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/pr80919.c'
   herit: *GRPSERIAL
-  info: &97
+  info: &98
     extraopts:
       - '"-Wall"'
     regex-warn:
@@ -13073,7 +14625,23 @@ test_pr80919_196:
   cargs: '  -DWIDE  -Wall -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/pr80919.c'
   herit: *GRPSERIAL
-  info: *97
+  info: *98
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr80919_417:
+  bin: '"pr80919.s"'
+  cargs: '   -Wall -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/pr80919.c'
+  herit: *GRPSERIAL
+  info: *98
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr80919_418:
+  bin: '"pr80919.s"'
+  cargs: '  -DWIDE  -Wall -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/pr80919.c'
+  herit: *GRPSERIAL
+  info: *98
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_sec-1_12:
@@ -13081,7 +14649,7 @@ test_sec-1_12:
   cargs: '   -std=gnu99 -Wformat -Wformat-security -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/sec-1.c'
   herit: *GRPSERIAL
-  info: &98
+  info: &99
     extraopts:
       - '"-std=gnu99 -Wformat -Wformat-security"'
     regex-warn:
@@ -13100,7 +14668,23 @@ test_sec-1_198:
   cargs: '  -DWIDE  -std=gnu99 -Wformat -Wformat-security -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/sec-1.c'
   herit: *GRPSERIAL
-  info: *98
+  info: *99
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_sec-1_419:
+  bin: '"sec-1.s"'
+  cargs: '   -std=gnu99 -Wformat -Wformat-security -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/sec-1.c'
+  herit: *GRPSERIAL
+  info: *99
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_sec-1_420:
+  bin: '"sec-1.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wformat -Wformat-security -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/sec-1.c'
+  herit: *GRPSERIAL
+  info: *99
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_sentinel-1_200:
@@ -13108,7 +14692,7 @@ test_sentinel-1_200:
   cargs: '  -DWIDE  -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/sentinel-1.c'
   herit: *GRPSERIAL
-  info: &99
+  info: &100
     extraopts:
       - '"-Wformat"'
     regex-err:
@@ -13395,12 +14979,28 @@ test_sentinel-1_200:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_sentinel-1_421:
+  bin: '"sentinel-1.s"'
+  cargs: '   -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/sentinel-1.c'
+  herit: *GRPSERIAL
+  info: *100
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_sentinel-1_422:
+  bin: '"sentinel-1.s"'
+  cargs: '  -DWIDE  -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/sentinel-1.c'
+  herit: *GRPSERIAL
+  info: *100
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_sentinel-1_73:
   bin: '"sentinel-1.s"'
   cargs: '   -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/sentinel-1.c'
   herit: *GRPSERIAL
-  info: *99
+  info: *100
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_strfmon-1_202:
@@ -13408,7 +15008,7 @@ test_strfmon-1_202:
   cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/strfmon-1.c'
   herit: *GRPSERIAL
-  info: &100
+  info: &101
     extraopts:
       - '"-std=gnu99 -Wformat"'
     regex-warn:
@@ -13550,12 +15150,28 @@ test_strfmon-1_202:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_strfmon-1_423:
+  bin: '"strfmon-1.s"'
+  cargs: '   -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/strfmon-1.c'
+  herit: *GRPSERIAL
+  info: *101
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_strfmon-1_424:
+  bin: '"strfmon-1.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/strfmon-1.c'
+  herit: *GRPSERIAL
+  info: *101
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_strfmon-1_63:
   bin: '"strfmon-1.s"'
   cargs: '   -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/strfmon-1.c'
   herit: *GRPSERIAL
-  info: *100
+  info: *101
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_strfmon-2_13:
@@ -13563,7 +15179,7 @@ test_strfmon-2_13:
   cargs: '   -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/strfmon-2.c'
   herit: *GRPSERIAL
-  info: &101
+  info: &102
     extraopts:
       - '"-std=gnu99 -Wformat"'
     regex-warn:
@@ -13582,7 +15198,23 @@ test_strfmon-2_204:
   cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/strfmon-2.c'
   herit: *GRPSERIAL
-  info: *101
+  info: *102
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_strfmon-2_425:
+  bin: '"strfmon-2.s"'
+  cargs: '   -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/strfmon-2.c'
+  herit: *GRPSERIAL
+  info: *102
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_strfmon-2_426:
+  bin: '"strfmon-2.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/strfmon-2.c'
+  herit: *GRPSERIAL
+  info: *102
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_unnamed-1_206:
@@ -13590,7 +15222,7 @@ test_unnamed-1_206:
   cargs: '  -DWIDE  -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/unnamed-1.c'
   herit: *GRPSERIAL
-  info: &102
+  info: &103
     extraopts:
       - '"-Wformat"'
       - '"-Wformat -msse" { target { { i?86-*-* x86_64-*-* } && ilp32 } }'
@@ -13626,7 +15258,23 @@ test_unnamed-1_25:
   cargs: '   -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/unnamed-1.c'
   herit: *GRPSERIAL
-  info: *102
+  info: *103
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_unnamed-1_427:
+  bin: '"unnamed-1.s"'
+  cargs: '   -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/unnamed-1.c'
+  herit: *GRPSERIAL
+  info: *103
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_unnamed-1_428:
+  bin: '"unnamed-1.s"'
+  cargs: '  -DWIDE  -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/unnamed-1.c'
+  herit: *GRPSERIAL
+  info: *103
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_va-1_13:
@@ -13634,7 +15282,7 @@ test_va-1_13:
   cargs: '   -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/va-1.c'
   herit: *GRPSERIAL
-  info: &103
+  info: &104
     extraopts:
       - '"-Wformat"'
     regex-warn:
@@ -13653,7 +15301,23 @@ test_va-1_208:
   cargs: '  -DWIDE  -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/va-1.c'
   herit: *GRPSERIAL
-  info: *103
+  info: *104
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_va-1_429:
+  bin: '"va-1.s"'
+  cargs: '   -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/va-1.c'
+  herit: *GRPSERIAL
+  info: *104
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_va-1_430:
+  bin: '"va-1.s"'
+  cargs: '  -DWIDE  -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/va-1.c'
+  herit: *GRPSERIAL
+  info: *104
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_warn-signedness_11:
@@ -13661,7 +15325,7 @@ test_warn-signedness_11:
   cargs: '   -Wformat -Wformat-signedness -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/warn-signedness.c'
   herit: *GRPSERIAL
-  info: &104
+  info: &105
     extraopts:
       - '"-Wformat -Wformat-signedness"'
     regex-warn:
@@ -13688,7 +15352,23 @@ test_warn-signedness_210:
   cargs: '  -DWIDE  -Wformat -Wformat-signedness -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/warn-signedness.c'
   herit: *GRPSERIAL
-  info: *104
+  info: *105
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_warn-signedness_431:
+  bin: '"warn-signedness.s"'
+  cargs: '   -Wformat -Wformat-signedness -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/warn-signedness.c'
+  herit: *GRPSERIAL
+  info: *105
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_warn-signedness_432:
+  bin: '"warn-signedness.s"'
+  cargs: '  -DWIDE  -Wformat -Wformat-signedness -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/warn-signedness.c'
+  herit: *GRPSERIAL
+  info: *105
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_warnll-1_212:
@@ -13696,7 +15376,7 @@ test_warnll-1_212:
   cargs: '  -DWIDE  -std=iso9899:1990 -pedantic -Wformat -Wno-long-long -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/warnll-1.c'
   herit: *GRPSERIAL
-  info: &105
+  info: &106
     extraopts:
       - '"-std=iso9899:1990 -pedantic -Wformat -Wno-long-long"'
     regex-warn:
@@ -13910,12 +15590,28 @@ test_warnll-1_212:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_warnll-1_433:
+  bin: '"warnll-1.s"'
+  cargs: '   -std=iso9899:1990 -pedantic -Wformat -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/warnll-1.c'
+  herit: *GRPSERIAL
+  info: *106
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_warnll-1_434:
+  bin: '"warnll-1.s"'
+  cargs: '  -DWIDE  -std=iso9899:1990 -pedantic -Wformat -Wno-long-long -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/warnll-1.c'
+  herit: *GRPSERIAL
+  info: *106
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_warnll-1_45:
   bin: '"warnll-1.s"'
   cargs: '   -std=iso9899:1990 -pedantic -Wformat -Wno-long-long -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/warnll-1.c'
   herit: *GRPSERIAL
-  info: *105
+  info: *106
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_xopen-1_125:
@@ -13923,7 +15619,7 @@ test_xopen-1_125:
   cargs: '   -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/xopen-1.c'
   herit: *GRPSERIAL
-  info: &106
+  info: &107
     extraopts:
       - '"-std=gnu99 -Wformat"'
     regex-warn:
@@ -14502,7 +16198,23 @@ test_xopen-1_214:
   cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/xopen-1.c'
   herit: *GRPSERIAL
-  info: *106
+  info: *107
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_xopen-1_435:
+  bin: '"xopen-1.s"'
+  cargs: '   -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/xopen-1.c'
+  herit: *GRPSERIAL
+  info: *107
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_xopen-1_436:
+  bin: '"xopen-1.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/xopen-1.c'
+  herit: *GRPSERIAL
+  info: *107
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_xopen-2_21:
@@ -14510,7 +16222,7 @@ test_xopen-2_21:
   cargs: '   -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/xopen-2.c'
   herit: *GRPSERIAL
-  info: &107
+  info: &108
     extraopts:
       - '"-std=gnu99 -Wformat"'
   type: build
@@ -14520,7 +16232,23 @@ test_xopen-2_216:
   cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/xopen-2.c'
   herit: *GRPSERIAL
-  info: *107
+  info: *108
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_xopen-2_437:
+  bin: '"xopen-2.s"'
+  cargs: '   -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/xopen-2.c'
+  herit: *GRPSERIAL
+  info: *108
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_xopen-2_438:
+  bin: '"xopen-2.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/xopen-2.c'
+  herit: *GRPSERIAL
+  info: *108
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_xopen-3_15:
@@ -14528,7 +16256,7 @@ test_xopen-3_15:
   cargs: '   -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/xopen-3.c'
   herit: *GRPSERIAL
-  info: &108
+  info: &109
     extraopts:
       - '"-std=gnu99 -Wformat"'
     regex-warn:
@@ -14563,7 +16291,23 @@ test_xopen-3_218:
   cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/xopen-3.c'
   herit: *GRPSERIAL
-  info: *108
+  info: *109
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_xopen-3_439:
+  bin: '"xopen-3.s"'
+  cargs: '   -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/xopen-3.c'
+  herit: *GRPSERIAL
+  info: *109
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_xopen-3_440:
+  bin: '"xopen-3.s"'
+  cargs: '  -DWIDE  -std=gnu99 -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/xopen-3.c'
+  herit: *GRPSERIAL
+  info: *109
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_z-1_220:
@@ -14571,7 +16315,7 @@ test_z-1_220:
   cargs: '  -DWIDE  -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/z-1.c'
   herit: *GRPSERIAL
-  info: &109
+  info: &110
     extraopts:
       - '"-Wformat"'
   type: build
@@ -14581,7 +16325,23 @@ test_z-1_28:
   cargs: '   -Wformat -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/z-1.c'
   herit: *GRPSERIAL
-  info: *109
+  info: *110
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_z-1_441:
+  bin: '"z-1.s"'
+  cargs: '   -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/z-1.c'
+  herit: *GRPSERIAL
+  info: *110
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_z-1_442:
+  bin: '"z-1.s"'
+  cargs: '  -DWIDE  -Wformat -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/z-1.c'
+  herit: *GRPSERIAL
+  info: *110
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_zero-length-1_15:
@@ -14589,7 +16349,7 @@ test_zero-length-1_15:
   cargs: '   -std=iso9899:1990 -pedantic -Wformat -Wno-format-zero-length -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/zero-length-1.c'
   herit: *GRPSERIAL
-  info: &110
+  info: &111
     extraopts:
       - '"-std=iso9899:1990 -pedantic -Wformat -Wno-format-zero-length"'
   type: build
@@ -14599,6 +16359,22 @@ test_zero-length-1_222:
   cargs: '  -DWIDE  -std=iso9899:1990 -pedantic -Wformat -Wno-format-zero-length -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/zero-length-1.c'
   herit: *GRPSERIAL
-  info: *110
+  info: *111
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_zero-length-1_443:
+  bin: '"zero-length-1.s"'
+  cargs: '   -std=iso9899:1990 -pedantic -Wformat -Wno-format-zero-length -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/zero-length-1.c'
+  herit: *GRPSERIAL
+  info: *111
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_zero-length-1_444:
+  bin: '"zero-length-1.s"'
+  cargs: '  -DWIDE  -std=iso9899:1990 -pedantic -Wformat -Wno-format-zero-length -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/format/zero-length-1.c'
+  herit: *GRPSERIAL
+  info: *111
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

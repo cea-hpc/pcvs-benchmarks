@@ -110,6 +110,7 @@ sub build_hash_table {
 	
 		$cargs = join(" ", @args);
 
+
 		$file_content{$name} = {
 			type  => "$type",
 			files => "\@ROOTPATH\@/compilers/gcc/$src",
@@ -119,6 +120,7 @@ sub build_hash_table {
 			valscript => "\@ROOTPATH\@/compilers/gcc/tools/gcc-valscript.pl"
 		};
 		$file_content{$name}{info} = $filetable{$src} if($filetable{$src});
+		$file_content{$name}{chdir} = "$out_dirname" if (grep {/-*-save-temps/} $cargs);
 	}
 
 	DumpFile("$out_dirname/pcvs.yml.in", \%file_content) if (%file_content);

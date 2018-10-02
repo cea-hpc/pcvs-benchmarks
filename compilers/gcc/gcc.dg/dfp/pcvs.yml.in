@@ -3,7 +3,7 @@ test_Wbad-function-cast-1_44:
   cargs: ' -Wbad-function-cast -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/Wbad-function-cast-1.c'
   herit: *GRPSERIAL
-  info:
+  info: &1
     extraopts:
       - '"-Wbad-function-cast"'
     regex-warn:
@@ -65,12 +65,20 @@ test_Wbad-function-cast-1_44:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_Wbad-function-cast-1_54:
+  bin: '"Wbad-function-cast-1.s"'
+  cargs: ' -Wbad-function-cast -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/Wbad-function-cast-1.c'
+  herit: *GRPSERIAL
+  info: *1
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_Wtraditional-conversion-2_46:
   bin: '"Wtraditional-conversion-2.s"'
   cargs: ' -Wtraditional-conversion -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/Wtraditional-conversion-2.c'
   herit: *GRPSERIAL
-  info:
+  info: &2
     extraopts:
       - '"-Wtraditional-conversion"'
     regex-warn:
@@ -220,12 +228,20 @@ test_Wtraditional-conversion-2_46:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_Wtraditional-conversion-2_55:
+  bin: '"Wtraditional-conversion-2.s"'
+  cargs: ' -Wtraditional-conversion -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/Wtraditional-conversion-2.c'
+  herit: *GRPSERIAL
+  info: *2
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_builtin-complex_10:
   bin: '"builtin-complex.s"'
   cargs: ' -std=gnu99 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/builtin-complex.c'
   herit: *GRPSERIAL
-  info:
+  info: &3
     regex-err:
       - |-
         (^|
@@ -237,12 +253,20 @@ test_builtin-complex_10:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_builtin-complex_56:
+  bin: '"builtin-complex.s"'
+  cargs: ' -std=gnu99 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/builtin-complex.c'
+  herit: *GRPSERIAL
+  info: *3
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_cast-bad_40:
   bin: '"cast-bad.s"'
   cargs: ' -std=gnu99 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/cast-bad.c'
   herit: *GRPSERIAL
-  info:
+  info: &4
     regex-err:
       - |-
         (^|
@@ -382,12 +406,20 @@ test_cast-bad_40:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_cast-bad_57:
+  bin: '"cast-bad.s"'
+  cargs: ' -std=gnu99 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/cast-bad.c'
+  herit: *GRPSERIAL
+  info: *4
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_composite-type_55:
   bin: '"composite-type.s"'
   cargs: ' -O -Wall -ftrack-macro-expansion=0 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/composite-type.c'
   herit: *GRPSERIAL
-  info:
+  info: &5
     extraopts:
       - '"-O -Wall -ftrack-macro-expansion=0"'
     regex-err:
@@ -442,12 +474,20 @@ test_composite-type_55:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_composite-type_58:
+  bin: '"composite-type.s"'
+  cargs: ' -O -Wall -ftrack-macro-expansion=0 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/composite-type.c'
+  herit: *GRPSERIAL
+  info: *5
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_constants-c99_12:
   bin: '"constants-c99.s"'
   cargs: ' -std=c99 -Wno-overflow -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/constants-c99.c'
   herit: *GRPSERIAL
-  info:
+  info: &6
     extraopts:
       - '"-std=c99 -Wno-overflow"'
     regex-err:
@@ -501,12 +541,20 @@ test_constants-c99_12:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_constants-c99_59:
+  bin: '"constants-c99.s"'
+  cargs: ' -std=c99 -Wno-overflow -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/constants-c99.c'
+  herit: *GRPSERIAL
+  info: *6
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_constants-hex_14:
   bin: '"constants-hex.s"'
   cargs: ' -std=gnu99 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/constants-hex.c'
   herit: *GRPSERIAL
-  info:
+  info: &7
     regex-err:
       - |-
         (^|
@@ -558,12 +606,20 @@ test_constants-hex_14:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_constants-hex_60:
+  bin: '"constants-hex.s"'
+  cargs: ' -std=gnu99 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/constants-hex.c'
+  herit: *GRPSERIAL
+  info: *7
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_constants-pedantic_14:
   bin: '"constants-pedantic.s"'
   cargs: ' -pedantic -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/constants-pedantic.c'
   herit: *GRPSERIAL
-  info:
+  info: &8
     extraopts:
       - '"-pedantic"'
     regex-warn:
@@ -617,12 +673,28 @@ test_constants-pedantic_14:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_constants-pedantic_61:
+  bin: '"constants-pedantic.s"'
+  cargs: ' -pedantic -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/constants-pedantic.c'
+  herit: *GRPSERIAL
+  info: *8
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_constants_11:
   bin: '"constants.s"'
   cargs: ' -std=gnu99 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/constants.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &9 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_constants_62:
+  bin: '"constants.s"'
+  cargs: ' -std=gnu99 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/constants.c'
+  herit: *GRPSERIAL
+  info: *9
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_convert-complex_118:
@@ -630,9 +702,17 @@ test_convert-complex_118:
   cargs: ' -O3'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/convert-complex.c'
   herit: *GRPSERIAL
-  info:
+  info: &10
     extraopts:
       - '"-O3"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_convert-complex_63:
+  bin: '"./convert-complex.exe"'
+  cargs: ' -O3'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/convert-complex.c'
+  herit: *GRPSERIAL
+  info: *10
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_convert-dfp-round-thread_496:
@@ -640,9 +720,17 @@ test_convert-dfp-round-thread_496:
   cargs: ' -std=gnu99 -D_GNU_SOURCE -pthread'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/convert-dfp-round-thread.c'
   herit: *GRPSERIAL
-  info:
+  info: &11
     extraopts:
       - '"-std=gnu99 -D_GNU_SOURCE -pthread"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_convert-dfp-round-thread_64:
+  bin: '"./convert-dfp-round-thread.exe"'
+  cargs: ' -std=gnu99 -D_GNU_SOURCE -pthread'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/convert-dfp-round-thread.c'
+  herit: *GRPSERIAL
+  info: *11
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_convert-dfp-round_124:
@@ -650,9 +738,17 @@ test_convert-dfp-round_124:
   cargs: ' -O0'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/convert-dfp-round.c'
   herit: *GRPSERIAL
-  info:
+  info: &12
     extraopts:
       - '"-O0"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_convert-dfp-round_65:
+  bin: '"./convert-dfp-round.exe"'
+  cargs: ' -O0'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/convert-dfp-round.c'
+  herit: *GRPSERIAL
+  info: *12
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ctypes_52:
@@ -660,7 +756,15 @@ test_ctypes_52:
   cargs: ' -std=gnu99 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/ctypes.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &13 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ctypes_66:
+  bin: '"ctypes.s"'
+  cargs: ' -std=gnu99 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/ctypes.c'
+  herit: *GRPSERIAL
+  info: *13
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ddmode-ice_54:
@@ -668,9 +772,17 @@ test_ddmode-ice_54:
   cargs: ' -O1 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/ddmode-ice.c'
   herit: *GRPSERIAL
-  info:
+  info: &14
     extraopts:
       - '"-O1"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ddmode-ice_67:
+  bin: '"ddmode-ice.s"'
+  cargs: ' -O1 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/ddmode-ice.c'
+  herit: *GRPSERIAL
+  info: *14
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_dec-eval-method-2_20:
@@ -678,9 +790,17 @@ test_dec-eval-method-2_20:
   cargs: ' -D__STDC_WANT_DEC_FP__ -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/dec-eval-method-2.c'
   herit: *GRPSERIAL
-  info:
+  info: &15
     extraopts:
       - '"-D__STDC_WANT_DEC_FP__"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_dec-eval-method-2_68:
+  bin: '"dec-eval-method-2.s"'
+  cargs: ' -D__STDC_WANT_DEC_FP__ -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/dec-eval-method-2.c'
+  herit: *GRPSERIAL
+  info: *15
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_dec-eval-method_13:
@@ -688,9 +808,17 @@ test_dec-eval-method_13:
   cargs: ' -std=gnu99 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/dec-eval-method.c'
   herit: *GRPSERIAL
-  info:
+  info: &16
     extraopts:
       - '"-std=gnu99"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_dec-eval-method_69:
+  bin: '"dec-eval-method.s"'
+  cargs: ' -std=gnu99 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/dec-eval-method.c'
+  herit: *GRPSERIAL
+  info: *16
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_decfloat-constants_47:
@@ -698,7 +826,15 @@ test_decfloat-constants_47:
   cargs: ' -std=gnu99'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/decfloat-constants.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &17 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_decfloat-constants_70:
+  bin: '"./decfloat-constants.exe"'
+  cargs: ' -std=gnu99'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/decfloat-constants.c'
+  herit: *GRPSERIAL
+  info: *17
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_fe-binop_105:
@@ -706,7 +842,15 @@ test_fe-binop_105:
   cargs: ' -std=gnu99'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/fe-binop.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &18 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_fe-binop_71:
+  bin: '"./fe-binop.exe"'
+  cargs: ' -std=gnu99'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/fe-binop.c'
+  herit: *GRPSERIAL
+  info: *18
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_fe-convert-1_40:
@@ -714,7 +858,15 @@ test_fe-convert-1_40:
   cargs: ' -std=gnu99'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/fe-convert-1.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &19 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_fe-convert-1_72:
+  bin: '"./fe-convert-1.exe"'
+  cargs: ' -std=gnu99'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/fe-convert-1.c'
+  herit: *GRPSERIAL
+  info: *19
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_fe-convert-2_33:
@@ -722,9 +874,17 @@ test_fe-convert-2_33:
   cargs: ' -std=gnu99'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/fe-convert-2.c'
   herit: *GRPSERIAL
-  info:
+  info: &20
     extraopts:
       - '"-mno-hard-dfp" { target { s390*-*-* } }'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_fe-convert-2_73:
+  bin: '"./fe-convert-2.exe"'
+  cargs: ' -std=gnu99'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/fe-convert-2.c'
+  herit: *GRPSERIAL
+  info: *20
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_fe-convert-3_45:
@@ -732,7 +892,15 @@ test_fe-convert-3_45:
   cargs: ' -std=gnu99'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/fe-convert-3.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &21 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_fe-convert-3_74:
+  bin: '"./fe-convert-3.exe"'
+  cargs: ' -std=gnu99'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/fe-convert-3.c'
+  herit: *GRPSERIAL
+  info: *21
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_float-constant-double_20:
@@ -740,7 +908,15 @@ test_float-constant-double_20:
   cargs: ' -std=gnu99 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/float-constant-double.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &22 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_float-constant-double_75:
+  bin: '"float-constant-double.s"'
+  cargs: ' -std=gnu99 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/float-constant-double.c'
+  herit: *GRPSERIAL
+  info: *22
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_floatn_20:
@@ -748,7 +924,7 @@ test_floatn_20:
   cargs: '  -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/floatn.c'
   herit: *GRPSERIAL
-  info:
+  info: &23
     extraopts:
       - '""'
     regex-err:
@@ -778,14 +954,65 @@ test_floatn_20:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_floatn_76:
+  bin: '"floatn.s"'
+  cargs: '  -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/floatn.c'
+  herit: *GRPSERIAL
+  info: *23
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_keywords-c89_77:
+  bin: '"keywords-c89.s"'
+  cargs: ' -std=c89 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/keywords-c89.c'
+  herit: *GRPSERIAL
+  info: &24
+    extraopts:
+      - '"-std=c89"'
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:6:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:7:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+      - |-
+        (^|
+        )([^
+        ]+(:8:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*())[^
+        ]*
+        ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_keywords-c89_8:
   bin: '"keywords-c89.s"'
   cargs: ' -std=c89 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/keywords-c89.c'
   herit: *GRPSERIAL
-  info:
+  info: *24
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_keywords-c99_78:
+  bin: '"keywords-c99.s"'
+  cargs: ' -std=c99 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/keywords-c99.c'
+  herit: *GRPSERIAL
+  info: &25
     extraopts:
-      - '"-std=c89"'
+      - '"-std=c99"'
     regex-err:
       - |-
         (^|
@@ -818,34 +1045,7 @@ test_keywords-c99_8:
   cargs: ' -std=c99 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/keywords-c99.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-std=c99"'
-    regex-err:
-      - |-
-        (^|
-        )([^
-        ]+(:6:)[^
-        ]*([0-9]+: (fatal )?error:[^
-        ]*())[^
-        ]*
-        ?)+
-      - |-
-        (^|
-        )([^
-        ]+(:7:)[^
-        ]*([0-9]+: (fatal )?error:[^
-        ]*())[^
-        ]*
-        ?)+
-      - |-
-        (^|
-        )([^
-        ]+(:8:)[^
-        ]*([0-9]+: (fatal )?error:[^
-        ]*())[^
-        ]*
-        ?)+
+  info: *25
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_keywords-ignored-c99_15:
@@ -853,9 +1053,17 @@ test_keywords-ignored-c99_15:
   cargs: ' -std=c99 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/keywords-ignored-c99.c'
   herit: *GRPSERIAL
-  info:
+  info: &26
     extraopts:
       - '"-std=c99"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_keywords-ignored-c99_79:
+  bin: '"keywords-ignored-c99.s"'
+  cargs: ' -std=c99 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/keywords-ignored-c99.c'
+  herit: *GRPSERIAL
+  info: *26
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_keywords-pedantic_8:
@@ -863,7 +1071,7 @@ test_keywords-pedantic_8:
   cargs: ' -pedantic -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/keywords-pedantic.c'
   herit: *GRPSERIAL
-  info:
+  info: &27
     extraopts:
       - '"-pedantic"'
     regex-warn:
@@ -893,12 +1101,20 @@ test_keywords-pedantic_8:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_keywords-pedantic_80:
+  bin: '"keywords-pedantic.s"'
+  cargs: ' -pedantic -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/keywords-pedantic.c'
+  herit: *GRPSERIAL
+  info: *27
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_keywords-reserved_16:
   bin: '"keywords-reserved.s"'
   cargs: ' -std=gnu99 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/keywords-reserved.c'
   herit: *GRPSERIAL
-  info:
+  info: &28
     regex-err:
       - |-
         (^|
@@ -926,12 +1142,20 @@ test_keywords-reserved_16:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_keywords-reserved_81:
+  bin: '"keywords-reserved.s"'
+  cargs: ' -std=gnu99 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/keywords-reserved.c'
+  herit: *GRPSERIAL
+  info: *28
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_operator-bitwise_63:
   bin: '"operator-bitwise.s"'
   cargs: ' -std=gnu99 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/operator-bitwise.c'
   herit: *GRPSERIAL
-  info:
+  info: &29
     regex-err:
       - |-
         (^|
@@ -1079,15 +1303,31 @@ test_operator-bitwise_63:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_operator-bitwise_82:
+  bin: '"operator-bitwise.s"'
+  cargs: ' -std=gnu99 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/operator-bitwise.c'
+  herit: *GRPSERIAL
+  info: *29
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr31344_25:
   bin: '"pr31344.s"'
   cargs: ' -O -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr31344.c'
   herit: *GRPSERIAL
-  info:
+  info: &30
     extraopts:
       - '"-O -mtune=i386" { target { { i?86-*-* x86_64-*-* } && ia32 } }'
       - '"-O"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr31344_83:
+  bin: '"pr31344.s"'
+  cargs: ' -O -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr31344.c'
+  herit: *GRPSERIAL
+  info: *30
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr37435_11:
@@ -1095,9 +1335,17 @@ test_pr37435_11:
   cargs: ' -O2 -fPIC -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr37435.c'
   herit: *GRPSERIAL
-  info:
+  info: &31
     extraopts:
       - '"-O2 -fPIC"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr37435_84:
+  bin: '"pr37435.s"'
+  cargs: ' -O2 -fPIC -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr37435.c'
+  herit: *GRPSERIAL
+  info: *31
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr41049_562:
@@ -1105,9 +1353,17 @@ test_pr41049_562:
   cargs: ' -std=gnu99'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr41049.c'
   herit: *GRPSERIAL
-  info:
+  info: &32
     extraopts:
       - '"-std=gnu99"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr41049_85:
+  bin: '"./pr41049.exe"'
+  cargs: ' -std=gnu99'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr41049.c'
+  herit: *GRPSERIAL
+  info: *32
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr48204_10:
@@ -1115,9 +1371,17 @@ test_pr48204_10:
   cargs: ' -O -fno-tree-ccp -fno-tree-dominator-opts -fno-tree-fre -g -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr48204.c'
   herit: *GRPSERIAL
-  info:
+  info: &33
     extraopts:
       - '"-O -fno-tree-ccp -fno-tree-dominator-opts -fno-tree-fre -g"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr48204_86:
+  bin: '"pr48204.s"'
+  cargs: ' -O -fno-tree-ccp -fno-tree-dominator-opts -fno-tree-fre -g -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr48204.c'
+  herit: *GRPSERIAL
+  info: *33
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr48928_10:
@@ -1125,9 +1389,17 @@ test_pr48928_10:
   cargs: ' -g -O2 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr48928.c'
   herit: *GRPSERIAL
-  info:
+  info: &34
     extraopts:
       - '"-g -O2"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr48928_87:
+  bin: '"pr48928.s"'
+  cargs: ' -g -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr48928.c'
+  herit: *GRPSERIAL
+  info: *34
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr52140_10:
@@ -1135,9 +1407,17 @@ test_pr52140_10:
   cargs: ' -O1 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr52140.c'
   herit: *GRPSERIAL
-  info:
+  info: &35
     extraopts:
       - '"-O1"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr52140_88:
+  bin: '"pr52140.s"'
+  cargs: ' -O1 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr52140.c'
+  herit: *GRPSERIAL
+  info: *35
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr70052_24:
@@ -1145,9 +1425,17 @@ test_pr70052_24:
   cargs: ' -O1 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr70052.c'
   herit: *GRPSERIAL
-  info:
+  info: &36
     extraopts:
       - '"-O1"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr70052_89:
+  bin: '"pr70052.s"'
+  cargs: ' -O1 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr70052.c'
+  herit: *GRPSERIAL
+  info: *36
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr79487_16:
@@ -1155,9 +1443,17 @@ test_pr79487_16:
   cargs: ' -O2'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr79487.c'
   herit: *GRPSERIAL
-  info:
+  info: &37
     extraopts:
       - '"-O2"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr79487_90:
+  bin: '"./pr79487.exe"'
+  cargs: ' -O2'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr79487.c'
+  herit: *GRPSERIAL
+  info: *37
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr79515_13:
@@ -1165,7 +1461,7 @@ test_pr79515_13:
   cargs: ' -Wdouble-promotion -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr79515.c'
   herit: *GRPSERIAL
-  info:
+  info: &38
     extraopts:
       - '"-Wdouble-promotion"'
     regex-err:
@@ -1179,14 +1475,30 @@ test_pr79515_13:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr79515_91:
+  bin: '"pr79515.s"'
+  cargs: ' -Wdouble-promotion -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr79515.c'
+  herit: *GRPSERIAL
+  info: *38
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pragma-float-const-decimal64-1_85:
   bin: '"pragma-float-const-decimal64-1.s"'
   cargs: ' -Wall -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-1.c'
   herit: *GRPSERIAL
-  info:
+  info: &39
     extraopts:
       - '"-Wall"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pragma-float-const-decimal64-1_92:
+  bin: '"pragma-float-const-decimal64-1.s"'
+  cargs: ' -Wall -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-1.c'
+  herit: *GRPSERIAL
+  info: *39
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pragma-float-const-decimal64-2_86:
@@ -1194,9 +1506,17 @@ test_pragma-float-const-decimal64-2_86:
   cargs: ' -Wall -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-2.c'
   herit: *GRPSERIAL
-  info:
+  info: &40
     extraopts:
       - '"-Wall"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pragma-float-const-decimal64-2_93:
+  bin: '"pragma-float-const-decimal64-2.s"'
+  cargs: ' -Wall -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-2.c'
+  herit: *GRPSERIAL
+  info: *40
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pragma-float-const-decimal64-3_83:
@@ -1204,9 +1524,17 @@ test_pragma-float-const-decimal64-3_83:
   cargs: ' -Wall -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-3.c'
   herit: *GRPSERIAL
-  info:
+  info: &41
     extraopts:
       - '"-Wall"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pragma-float-const-decimal64-3_94:
+  bin: '"pragma-float-const-decimal64-3.s"'
+  cargs: ' -Wall -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-3.c'
+  herit: *GRPSERIAL
+  info: *41
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pragma-float-const-decimal64-4_45:
@@ -1214,7 +1542,7 @@ test_pragma-float-const-decimal64-4_45:
   cargs: ' -std=gnu99 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-4.c'
   herit: *GRPSERIAL
-  info:
+  info: &42
     regex-warn:
       - |-
         (^|
@@ -1266,12 +1594,20 @@ test_pragma-float-const-decimal64-4_45:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pragma-float-const-decimal64-4_95:
+  bin: '"pragma-float-const-decimal64-4.s"'
+  cargs: ' -std=gnu99 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-4.c'
+  herit: *GRPSERIAL
+  info: *42
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pragma-float-const-decimal64-5_46:
   bin: '"pragma-float-const-decimal64-5.s"'
   cargs: ' -std=c99 -pedantic -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-5.c'
   herit: *GRPSERIAL
-  info:
+  info: &43
     extraopts:
       - '"-std=c99 -pedantic"'
     regex-warn:
@@ -1325,12 +1661,20 @@ test_pragma-float-const-decimal64-5_46:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pragma-float-const-decimal64-5_96:
+  bin: '"pragma-float-const-decimal64-5.s"'
+  cargs: ' -std=c99 -pedantic -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-5.c'
+  herit: *GRPSERIAL
+  info: *43
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pragma-float-const-decimal64-6_46:
   bin: '"pragma-float-const-decimal64-6.s"'
   cargs: ' -std=c99 -pedantic-errors -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-6.c'
   herit: *GRPSERIAL
-  info:
+  info: &44
     extraopts:
       - '"-std=c99 -pedantic-errors"'
     regex-err:
@@ -1384,12 +1728,20 @@ test_pragma-float-const-decimal64-6_46:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pragma-float-const-decimal64-6_97:
+  bin: '"pragma-float-const-decimal64-6.s"'
+  cargs: ' -std=c99 -pedantic-errors -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-6.c'
+  herit: *GRPSERIAL
+  info: *44
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pragma-float-const-decimal64-7_39:
   bin: '"pragma-float-const-decimal64-7.s"'
   cargs: ' -Wall -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-7.c'
   herit: *GRPSERIAL
-  info:
+  info: &45
     extraopts:
       - '"-Wall"'
     regex-err:
@@ -1411,12 +1763,20 @@ test_pragma-float-const-decimal64-7_39:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pragma-float-const-decimal64-7_98:
+  bin: '"pragma-float-const-decimal64-7.s"'
+  cargs: ' -Wall -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-7.c'
+  herit: *GRPSERIAL
+  info: *45
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pragma-float-const-decimal64-8_174:
   bin: '"pragma-float-const-decimal64-8.s"'
   cargs: ' -Wall -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-8.c'
   herit: *GRPSERIAL
-  info:
+  info: &46
     extraopts:
       - '"-Wall"'
     regex-err:
@@ -1583,12 +1943,20 @@ test_pragma-float-const-decimal64-8_174:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_struct-union_62:
+test_pragma-float-const-decimal64-8_99:
+  bin: '"pragma-float-const-decimal64-8.s"'
+  cargs: ' -Wall -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-8.c'
+  herit: *GRPSERIAL
+  info: *46
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_struct-union_100:
   bin: '"struct-union.s"'
   cargs: ' -O -Wall -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/struct-union.c'
   herit: *GRPSERIAL
-  info:
+  info: &47
     extraopts:
       - '"-O -Wall"'
     regex-err:
@@ -1690,12 +2058,20 @@ test_struct-union_62:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_typespec_302:
+test_struct-union_62:
+  bin: '"struct-union.s"'
+  cargs: ' -O -Wall -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/struct-union.c'
+  herit: *GRPSERIAL
+  info: *47
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_typespec_101:
   bin: '"typespec.s"'
   cargs: ' -std=gnu99 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/typespec.c'
   herit: *GRPSERIAL
-  info:
+  info: &48
     regex-err:
       - |-
         (^|
@@ -4051,20 +4427,36 @@ test_typespec_302:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_typespec_302:
+  bin: '"typespec.s"'
+  cargs: ' -std=gnu99 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/typespec.c'
+  herit: *GRPSERIAL
+  info: *48
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_union-init_102:
+  bin: '"./union-init.exe"'
+  cargs: ' -std=gnu99'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/union-init.c'
+  herit: *GRPSERIAL
+  info: &49 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_union-init_58:
   bin: '"./union-init.exe"'
   cargs: ' -std=gnu99'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/union-init.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *49
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_usual-arith-conv-bad-2_13:
+test_usual-arith-conv-bad-2_103:
   bin: '"usual-arith-conv-bad-2.s"'
   cargs: ' -std=gnu99 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/usual-arith-conv-bad-2.c'
   herit: *GRPSERIAL
-  info:
+  info: &50
     regex-err:
       - |-
         (^|
@@ -4076,12 +4468,20 @@ test_usual-arith-conv-bad-2_13:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_usual-arith-conv-bad-3_13:
+test_usual-arith-conv-bad-2_13:
+  bin: '"usual-arith-conv-bad-2.s"'
+  cargs: ' -std=gnu99 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/usual-arith-conv-bad-2.c'
+  herit: *GRPSERIAL
+  info: *50
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_usual-arith-conv-bad-3_104:
   bin: '"usual-arith-conv-bad-3.s"'
   cargs: ' -std=gnu99 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/usual-arith-conv-bad-3.c'
   herit: *GRPSERIAL
-  info:
+  info: &51
     regex-err:
       - |-
         (^|
@@ -4093,12 +4493,20 @@ test_usual-arith-conv-bad-3_13:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_usual-arith-conv-bad_49:
+test_usual-arith-conv-bad-3_13:
+  bin: '"usual-arith-conv-bad-3.s"'
+  cargs: ' -std=gnu99 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/usual-arith-conv-bad-3.c'
+  herit: *GRPSERIAL
+  info: *51
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_usual-arith-conv-bad_105:
   bin: '"usual-arith-conv-bad.s"'
   cargs: ' -std=gnu99 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/usual-arith-conv-bad.c'
   herit: *GRPSERIAL
-  info:
+  info: &52
     regex-err:
       - |-
         (^|
@@ -4246,12 +4654,20 @@ test_usual-arith-conv-bad_49:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_wtr-conversion-1_75:
+test_usual-arith-conv-bad_49:
+  bin: '"usual-arith-conv-bad.s"'
+  cargs: ' -std=gnu99 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/usual-arith-conv-bad.c'
+  herit: *GRPSERIAL
+  info: *52
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_wtr-conversion-1_106:
   bin: '"wtr-conversion-1.s"'
   cargs: ' -Wtraditional-conversion -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/wtr-conversion-1.c'
   herit: *GRPSERIAL
-  info:
+  info: &53
     extraopts:
       - '"-Wtraditional-conversion"'
     regex-warn:
@@ -4375,5 +4791,13 @@ test_wtr-conversion-1_75:
         ]*(as '_Decimal128' rather than 'long double'" "prototype conversion warning))[^
         ]*
         ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_wtr-conversion-1_75:
+  bin: '"wtr-conversion-1.s"'
+  cargs: ' -Wtraditional-conversion -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/wtr-conversion-1.c'
+  herit: *GRPSERIAL
+  info: *53
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

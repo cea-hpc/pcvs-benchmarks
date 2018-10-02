@@ -16,12 +16,36 @@ test_pr35154-dwarf2_38:
   info: *1
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr35154-dwarf2_42:
+  bin: '"pr35154-dwarf2.s"'
+  cargs: -gdwarf-2 -dA -gno-strict-dwarf -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr35154-dwarf2.f'
+  herit: *GRPSERIAL
+  info: *1
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr35154-dwarf2_43:
+  bin: '"pr35154-dwarf2.s"'
+  cargs: -gdwarf-2 -g3 -dA -gno-strict-dwarf -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr35154-dwarf2.f'
+  herit: *GRPSERIAL
+  info: *1
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr35154-stabs_35:
   bin: '"pr35154-stabs.s"'
   cargs: -gstabs -ffat-lto-objects -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr35154-stabs.f'
   herit: *GRPSERIAL
-  info: {}
+  info: &2 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr35154-stabs_44:
+  bin: '"pr35154-stabs.s"'
+  cargs: -gstabs -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr35154-stabs.f'
+  herit: *GRPSERIAL
+  info: *2
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr37738_31:
@@ -29,9 +53,25 @@ test_pr37738_31:
   cargs: -gdwarf-2 -dA -gno-strict-dwarf -ffat-lto-objects -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr37738.f'
   herit: *GRPSERIAL
-  info: &2
+  info: &3
     extraopts:
       - '"-dA -gno-strict-dwarf"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr37738_45:
+  bin: '"pr37738.s"'
+  cargs: -gdwarf-2 -dA -gno-strict-dwarf -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr37738.f'
+  herit: *GRPSERIAL
+  info: *3
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr37738_46:
+  bin: '"pr37738.s"'
+  cargs: -gdwarf-2 -g3 -dA -gno-strict-dwarf -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr37738.f'
+  herit: *GRPSERIAL
+  info: *3
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr37738_5:
@@ -39,7 +79,7 @@ test_pr37738_5:
   cargs: -gdwarf-2 -g3 -dA -gno-strict-dwarf -ffat-lto-objects -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr37738.f'
   herit: *GRPSERIAL
-  info: *2
+  info: *3
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr43166_10:
@@ -47,7 +87,7 @@ test_pr43166_10:
   cargs: -gstabs+ -O -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr43166.f'
   herit: *GRPSERIAL
-  info: &3
+  info: &4
     extraopts:
       - '"-O"'
   type: build
@@ -57,7 +97,7 @@ test_pr43166_11:
   cargs: -gstabs+3 -O -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr43166.f'
   herit: *GRPSERIAL
-  info: *3
+  info: *4
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr43166_12:
@@ -65,7 +105,7 @@ test_pr43166_12:
   cargs: -gcoff1 -O -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr43166.f'
   herit: *GRPSERIAL
-  info: *3
+  info: *4
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr43166_13:
@@ -73,7 +113,7 @@ test_pr43166_13:
   cargs: -gcoff -O -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr43166.f'
   herit: *GRPSERIAL
-  info: *3
+  info: *4
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr43166_14:
@@ -81,7 +121,7 @@ test_pr43166_14:
   cargs: -gcoff3 -O -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr43166.f'
   herit: *GRPSERIAL
-  info: *3
+  info: *4
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr43166_15:
@@ -89,7 +129,7 @@ test_pr43166_15:
   cargs: -gdwarf-2 -g1 -O -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr43166.f'
   herit: *GRPSERIAL
-  info: *3
+  info: *4
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr43166_16:
@@ -97,7 +137,7 @@ test_pr43166_16:
   cargs: -gdwarf-2 -O -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr43166.f'
   herit: *GRPSERIAL
-  info: *3
+  info: *4
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr43166_17:
@@ -105,7 +145,103 @@ test_pr43166_17:
   cargs: -gdwarf-2 -g3 -O -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr43166.f'
   herit: *GRPSERIAL
-  info: *3
+  info: *4
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr43166_47:
+  bin: '"pr43166.s"'
+  cargs: -gstabs1 -O -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr43166.f'
+  herit: *GRPSERIAL
+  info: *4
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr43166_48:
+  bin: '"pr43166.s"'
+  cargs: -gstabs -O -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr43166.f'
+  herit: *GRPSERIAL
+  info: *4
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr43166_49:
+  bin: '"pr43166.s"'
+  cargs: -gstabs3 -O -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr43166.f'
+  herit: *GRPSERIAL
+  info: *4
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr43166_50:
+  bin: '"pr43166.s"'
+  cargs: -gstabs+1 -O -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr43166.f'
+  herit: *GRPSERIAL
+  info: *4
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr43166_51:
+  bin: '"pr43166.s"'
+  cargs: -gstabs+ -O -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr43166.f'
+  herit: *GRPSERIAL
+  info: *4
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr43166_52:
+  bin: '"pr43166.s"'
+  cargs: -gstabs+3 -O -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr43166.f'
+  herit: *GRPSERIAL
+  info: *4
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr43166_53:
+  bin: '"pr43166.s"'
+  cargs: -gcoff1 -O -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr43166.f'
+  herit: *GRPSERIAL
+  info: *4
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr43166_54:
+  bin: '"pr43166.s"'
+  cargs: -gcoff -O -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr43166.f'
+  herit: *GRPSERIAL
+  info: *4
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr43166_55:
+  bin: '"pr43166.s"'
+  cargs: -gcoff3 -O -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr43166.f'
+  herit: *GRPSERIAL
+  info: *4
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr43166_56:
+  bin: '"pr43166.s"'
+  cargs: -gdwarf-2 -g1 -O -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr43166.f'
+  herit: *GRPSERIAL
+  info: *4
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr43166_57:
+  bin: '"pr43166.s"'
+  cargs: -gdwarf-2 -O -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr43166.f'
+  herit: *GRPSERIAL
+  info: *4
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr43166_58:
+  bin: '"pr43166.s"'
+  cargs: -gdwarf-2 -g3 -O -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr43166.f'
+  herit: *GRPSERIAL
+  info: *4
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr43166_7:
@@ -113,7 +249,7 @@ test_pr43166_7:
   cargs: -gstabs -O -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr43166.f'
   herit: *GRPSERIAL
-  info: *3
+  info: *4
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr43166_8:
@@ -121,7 +257,7 @@ test_pr43166_8:
   cargs: -gstabs3 -O -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr43166.f'
   herit: *GRPSERIAL
-  info: *3
+  info: *4
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr43166_9:
@@ -129,7 +265,7 @@ test_pr43166_9:
   cargs: -gstabs+1 -O -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr43166.f'
   herit: *GRPSERIAL
-  info: *3
+  info: *4
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr46756_19:
@@ -137,7 +273,7 @@ test_pr46756_19:
   cargs: -gstabs -O -fcompare-debug -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr46756.f'
   herit: *GRPSERIAL
-  info: &4
+  info: &5
     extraopts:
       - '"-O -fcompare-debug"'
     regex-warn:
@@ -196,7 +332,7 @@ test_pr46756_20:
   cargs: -gstabs3 -O -fcompare-debug -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr46756.f'
   herit: *GRPSERIAL
-  info: *4
+  info: *5
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr46756_21:
@@ -204,7 +340,7 @@ test_pr46756_21:
   cargs: -gstabs+1 -O -fcompare-debug -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr46756.f'
   herit: *GRPSERIAL
-  info: *4
+  info: *5
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr46756_22:
@@ -212,7 +348,7 @@ test_pr46756_22:
   cargs: -gstabs+ -O -fcompare-debug -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr46756.f'
   herit: *GRPSERIAL
-  info: *4
+  info: *5
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr46756_23:
@@ -220,7 +356,7 @@ test_pr46756_23:
   cargs: -gstabs+3 -O -fcompare-debug -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr46756.f'
   herit: *GRPSERIAL
-  info: *4
+  info: *5
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr46756_24:
@@ -228,7 +364,7 @@ test_pr46756_24:
   cargs: -gcoff1 -O -fcompare-debug -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr46756.f'
   herit: *GRPSERIAL
-  info: *4
+  info: *5
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr46756_25:
@@ -236,7 +372,7 @@ test_pr46756_25:
   cargs: -gcoff -O -fcompare-debug -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr46756.f'
   herit: *GRPSERIAL
-  info: *4
+  info: *5
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr46756_26:
@@ -244,7 +380,7 @@ test_pr46756_26:
   cargs: -gcoff3 -O -fcompare-debug -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr46756.f'
   herit: *GRPSERIAL
-  info: *4
+  info: *5
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr46756_27:
@@ -252,7 +388,7 @@ test_pr46756_27:
   cargs: -gdwarf-2 -g1 -O -fcompare-debug -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr46756.f'
   herit: *GRPSERIAL
-  info: *4
+  info: *5
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr46756_28:
@@ -260,7 +396,7 @@ test_pr46756_28:
   cargs: -gdwarf-2 -O -fcompare-debug -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr46756.f'
   herit: *GRPSERIAL
-  info: *4
+  info: *5
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr46756_29:
@@ -268,7 +404,7 @@ test_pr46756_29:
   cargs: -gdwarf-2 -g3 -O -fcompare-debug -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr46756.f'
   herit: *GRPSERIAL
-  info: *4
+  info: *5
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr46756_30:
@@ -276,7 +412,103 @@ test_pr46756_30:
   cargs: -gstabs1 -O -fcompare-debug -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr46756.f'
   herit: *GRPSERIAL
-  info: *4
+  info: *5
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46756_59:
+  bin: '"pr46756.s"'
+  cargs: -gstabs1 -O -fcompare-debug -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr46756.f'
+  herit: *GRPSERIAL
+  info: *5
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46756_60:
+  bin: '"pr46756.s"'
+  cargs: -gstabs -O -fcompare-debug -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr46756.f'
+  herit: *GRPSERIAL
+  info: *5
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46756_61:
+  bin: '"pr46756.s"'
+  cargs: -gstabs3 -O -fcompare-debug -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr46756.f'
+  herit: *GRPSERIAL
+  info: *5
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46756_62:
+  bin: '"pr46756.s"'
+  cargs: -gstabs+1 -O -fcompare-debug -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr46756.f'
+  herit: *GRPSERIAL
+  info: *5
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46756_63:
+  bin: '"pr46756.s"'
+  cargs: -gstabs+ -O -fcompare-debug -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr46756.f'
+  herit: *GRPSERIAL
+  info: *5
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46756_64:
+  bin: '"pr46756.s"'
+  cargs: -gstabs+3 -O -fcompare-debug -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr46756.f'
+  herit: *GRPSERIAL
+  info: *5
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46756_65:
+  bin: '"pr46756.s"'
+  cargs: -gcoff1 -O -fcompare-debug -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr46756.f'
+  herit: *GRPSERIAL
+  info: *5
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46756_66:
+  bin: '"pr46756.s"'
+  cargs: -gcoff -O -fcompare-debug -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr46756.f'
+  herit: *GRPSERIAL
+  info: *5
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46756_67:
+  bin: '"pr46756.s"'
+  cargs: -gcoff3 -O -fcompare-debug -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr46756.f'
+  herit: *GRPSERIAL
+  info: *5
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46756_68:
+  bin: '"pr46756.s"'
+  cargs: -gdwarf-2 -g1 -O -fcompare-debug -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr46756.f'
+  herit: *GRPSERIAL
+  info: *5
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46756_69:
+  bin: '"pr46756.s"'
+  cargs: -gdwarf-2 -O -fcompare-debug -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr46756.f'
+  herit: *GRPSERIAL
+  info: *5
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46756_70:
+  bin: '"pr46756.s"'
+  cargs: -gdwarf-2 -g3 -O -fcompare-debug -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/pr46756.f'
+  herit: *GRPSERIAL
+  info: *5
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_trivial_2:
@@ -284,7 +516,7 @@ test_trivial_2:
   cargs: -gstabs1  -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/trivial.f'
   herit: *GRPSERIAL
-  info: &5 {}
+  info: &6 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_trivial_31:
@@ -292,7 +524,7 @@ test_trivial_31:
   cargs: -gstabs  -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/trivial.f'
   herit: *GRPSERIAL
-  info: *5
+  info: *6
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_trivial_32:
@@ -300,7 +532,7 @@ test_trivial_32:
   cargs: -gstabs3  -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/trivial.f'
   herit: *GRPSERIAL
-  info: *5
+  info: *6
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_trivial_33:
@@ -308,7 +540,7 @@ test_trivial_33:
   cargs: -gstabs+1  -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/trivial.f'
   herit: *GRPSERIAL
-  info: *5
+  info: *6
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_trivial_34:
@@ -316,7 +548,7 @@ test_trivial_34:
   cargs: -gstabs+  -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/trivial.f'
   herit: *GRPSERIAL
-  info: *5
+  info: *6
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_trivial_35:
@@ -324,7 +556,7 @@ test_trivial_35:
   cargs: -gstabs+3  -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/trivial.f'
   herit: *GRPSERIAL
-  info: *5
+  info: *6
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_trivial_36:
@@ -332,7 +564,7 @@ test_trivial_36:
   cargs: -gcoff1  -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/trivial.f'
   herit: *GRPSERIAL
-  info: *5
+  info: *6
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_trivial_37:
@@ -340,7 +572,7 @@ test_trivial_37:
   cargs: -gcoff  -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/trivial.f'
   herit: *GRPSERIAL
-  info: *5
+  info: *6
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_trivial_38:
@@ -348,7 +580,7 @@ test_trivial_38:
   cargs: -gcoff3  -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/trivial.f'
   herit: *GRPSERIAL
-  info: *5
+  info: *6
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_trivial_39:
@@ -356,7 +588,7 @@ test_trivial_39:
   cargs: -gdwarf-2 -g1  -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/trivial.f'
   herit: *GRPSERIAL
-  info: *5
+  info: *6
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_trivial_40:
@@ -364,7 +596,7 @@ test_trivial_40:
   cargs: -gdwarf-2  -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/trivial.f'
   herit: *GRPSERIAL
-  info: *5
+  info: *6
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_trivial_41:
@@ -372,6 +604,102 @@ test_trivial_41:
   cargs: -gdwarf-2 -g3  -S
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/trivial.f'
   herit: *GRPSERIAL
-  info: *5
+  info: *6
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_trivial_71:
+  bin: '"trivial.s"'
+  cargs: -gstabs1  -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/trivial.f'
+  herit: *GRPSERIAL
+  info: *6
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_trivial_72:
+  bin: '"trivial.s"'
+  cargs: -gstabs  -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/trivial.f'
+  herit: *GRPSERIAL
+  info: *6
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_trivial_73:
+  bin: '"trivial.s"'
+  cargs: -gstabs3  -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/trivial.f'
+  herit: *GRPSERIAL
+  info: *6
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_trivial_74:
+  bin: '"trivial.s"'
+  cargs: -gstabs+1  -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/trivial.f'
+  herit: *GRPSERIAL
+  info: *6
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_trivial_75:
+  bin: '"trivial.s"'
+  cargs: -gstabs+  -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/trivial.f'
+  herit: *GRPSERIAL
+  info: *6
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_trivial_76:
+  bin: '"trivial.s"'
+  cargs: -gstabs+3  -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/trivial.f'
+  herit: *GRPSERIAL
+  info: *6
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_trivial_77:
+  bin: '"trivial.s"'
+  cargs: -gcoff1  -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/trivial.f'
+  herit: *GRPSERIAL
+  info: *6
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_trivial_78:
+  bin: '"trivial.s"'
+  cargs: -gcoff  -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/trivial.f'
+  herit: *GRPSERIAL
+  info: *6
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_trivial_79:
+  bin: '"trivial.s"'
+  cargs: -gcoff3  -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/trivial.f'
+  herit: *GRPSERIAL
+  info: *6
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_trivial_80:
+  bin: '"trivial.s"'
+  cargs: -gdwarf-2 -g1  -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/trivial.f'
+  herit: *GRPSERIAL
+  info: *6
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_trivial_81:
+  bin: '"trivial.s"'
+  cargs: -gdwarf-2  -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/trivial.f'
+  herit: *GRPSERIAL
+  info: *6
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_trivial_82:
+  bin: '"trivial.s"'
+  cargs: -gdwarf-2 -g3  -S
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/debug/trivial.f'
+  herit: *GRPSERIAL
+  info: *6
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

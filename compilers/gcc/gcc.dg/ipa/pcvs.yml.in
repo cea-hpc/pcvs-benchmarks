@@ -1,11 +1,29 @@
+test_PR64550_186:
+  bin: '"PR64550.s"'
+  cargs: ' -O2 -fdump-ipa-icf-details -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/PR64550.c'
+  herit: *GRPSERIAL
+  info: &1
+    extraopts:
+      - '"-O2 -fdump-ipa-icf-details" '
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_PR64550_74:
   bin: '"PR64550.s"'
   cargs: ' -O2 -fdump-ipa-icf-details -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/PR64550.c'
   herit: *GRPSERIAL
-  info:
+  info: *1
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_PR64559_187:
+  bin: '"PR64559.s"'
+  cargs: ' -Os -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/PR64559.c'
+  herit: *GRPSERIAL
+  info: &2
     extraopts:
-      - '"-O2 -fdump-ipa-icf-details" '
+      - '"-Os" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_PR64559_39:
@@ -13,9 +31,17 @@ test_PR64559_39:
   cargs: ' -Os -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/PR64559.c'
   herit: *GRPSERIAL
-  info:
+  info: *2
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_PR65282_188:
+  bin: '"PR65282.s"'
+  cargs: ' -Os -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/PR65282.c'
+  herit: *GRPSERIAL
+  info: &3
     extraopts:
-      - '"-Os" '
+      - '"-Os -fdump-ipa-icf" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_PR65282_19:
@@ -23,9 +49,17 @@ test_PR65282_19:
   cargs: ' -Os -fdump-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/PR65282.c'
   herit: *GRPSERIAL
-  info:
+  info: *3
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ctor-empty-1_189:
+  bin: '"ctor-empty-1.s"'
+  cargs: ' -O3 -c -fdump-ipa-free-inline-summary -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ctor-empty-1.c'
+  herit: *GRPSERIAL
+  info: &4
     extraopts:
-      - '"-Os -fdump-ipa-icf" '
+      - '"-O3 -c -fdump-ipa-free-inline-summary" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ctor-empty-1_7:
@@ -33,9 +67,17 @@ test_ctor-empty-1_7:
   cargs: ' -O3 -c -fdump-ipa-free-inline-summary -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ctor-empty-1.c'
   herit: *GRPSERIAL
-  info:
+  info: *4
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_iinline-1_190:
+  bin: '"iinline-1.s"'
+  cargs: ' -O3 -c -fdump-ipa-inline-details -fno-early-inlining -fno-ipa-cp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/iinline-1.c'
+  herit: *GRPSERIAL
+  info: &5
     extraopts:
-      - '"-O3 -c -fdump-ipa-free-inline-summary" '
+      - '"-O3 -c -fdump-ipa-inline-details -fno-early-inlining -fno-ipa-cp" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_iinline-1_26:
@@ -43,9 +85,17 @@ test_iinline-1_26:
   cargs: ' -O3 -c -fdump-ipa-inline-details -fno-early-inlining -fno-ipa-cp -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/iinline-1.c'
   herit: *GRPSERIAL
-  info:
+  info: *5
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_iinline-2_191:
+  bin: '"iinline-2.s"'
+  cargs: ' -O3 -c -fdump-ipa-inline -fno-early-inlining -fno-ipa-cp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/iinline-2.c'
+  herit: *GRPSERIAL
+  info: &6
     extraopts:
-      - '"-O3 -c -fdump-ipa-inline-details -fno-early-inlining -fno-ipa-cp" '
+      - '"-O3 -c -fdump-ipa-inline -fno-early-inlining -fno-ipa-cp" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_iinline-2_40:
@@ -53,29 +103,43 @@ test_iinline-2_40:
   cargs: ' -O3 -c -fdump-ipa-inline -fno-early-inlining -fno-ipa-cp -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/iinline-2.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O3 -c -fdump-ipa-inline -fno-early-inlining -fno-ipa-cp" '
+  info: *6
   type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_iinline-3_192:
+  bin: '"./iinline-3.exe"'
+  cargs: ' -O3 -fno-early-inlining'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/iinline-3.c'
+  herit: *GRPSERIAL
+  info: &7
+    extraopts:
+      - '"-O3 -fno-early-inlining" '
+  type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_iinline-3_33:
   bin: '"./iinline-3.exe"'
   cargs: ' -O3 -fno-early-inlining'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/iinline-3.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O3 -fno-early-inlining" '
+  info: *7
   type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_iinline-4_193:
+  bin: '"iinline-4.s"'
+  cargs: ' -O3 -fdump-ipa-inline -fno-early-inlining -fno-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/iinline-4.c'
+  herit: *GRPSERIAL
+  info: &8
+    extraopts:
+      - '"-O3 -fdump-ipa-inline -fno-early-inlining -fno-ipa-icf" '
+  type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_iinline-4_220:
   bin: '"iinline-4.s"'
   cargs: ' -O3 -fdump-ipa-inline -fno-early-inlining -fno-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/iinline-4.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O3 -fdump-ipa-inline -fno-early-inlining -fno-ipa-icf" '
+  info: *8
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_iinline-5_123:
@@ -83,9 +147,27 @@ test_iinline-5_123:
   cargs: ' -O3 -fdump-ipa-inline -fno-early-inlining -fno-ipa-icf'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/iinline-5.c'
   herit: *GRPSERIAL
-  info:
+  info: &9
     extraopts:
       - '"-O3 -fdump-ipa-inline -fno-early-inlining -fno-ipa-icf" '
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_iinline-5_194:
+  bin: '"./iinline-5.exe"'
+  cargs: ' -O3 -fdump-ipa-inline -fno-early-inlining -fno-ipa-icf'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/iinline-5.c'
+  herit: *GRPSERIAL
+  info: *9
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_iinline-6_195:
+  bin: '"./iinline-6.exe"'
+  cargs: ' -O3 -fdump-ipa-inline -fno-early-inlining'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/iinline-6.c'
+  herit: *GRPSERIAL
+  info: &10
+    extraopts:
+      - '"-O3 -fdump-ipa-inline -fno-early-inlining" '
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_iinline-6_71:
@@ -93,9 +175,7 @@ test_iinline-6_71:
   cargs: ' -O3 -fdump-ipa-inline -fno-early-inlining'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/iinline-6.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O3 -fdump-ipa-inline -fno-early-inlining" '
+  info: *10
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_iinline-7_156:
@@ -103,19 +183,45 @@ test_iinline-7_156:
   cargs: ' -O3 -fdump-ipa-inline -fno-early-inlining -fno-ipa-icf'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/iinline-7.c'
   herit: *GRPSERIAL
-  info:
+  info: &11
     extraopts:
       - '"-O3 -fdump-ipa-inline -fno-early-inlining -fno-ipa-icf" '
   type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_iinline-7_196:
+  bin: '"./iinline-7.exe"'
+  cargs: ' -O3 -fdump-ipa-inline -fno-early-inlining -fno-ipa-icf'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/iinline-7.c'
+  herit: *GRPSERIAL
+  info: *11
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_iinline-attr_197:
+  bin: '"iinline-attr.s"'
+  cargs: ' -O2 -fdump-ipa-inline -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/iinline-attr.c'
+  herit: *GRPSERIAL
+  info: &12
+    extraopts:
+      - '"-O2 -fdump-ipa-inline" '
+  type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_iinline-attr_27:
   bin: '"iinline-attr.s"'
   cargs: ' -O2 -fdump-ipa-inline -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/iinline-attr.c'
   herit: *GRPSERIAL
-  info:
+  info: *12
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_iinline-cstagg-1_198:
+  bin: '"iinline-cstagg-1.s"'
+  cargs: ' -O3 -fdump-ipa-inline-details -fno-early-inlining -fno-ipa-sra -fno-ipa-cp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/iinline-cstagg-1.c'
+  herit: *GRPSERIAL
+  info: &13
     extraopts:
-      - '"-O2 -fdump-ipa-inline" '
+      - '"-O3 -fdump-ipa-inline-details -fno-early-inlining -fno-ipa-sra -fno-ipa-cp"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_iinline-cstagg-1_37:
@@ -123,7 +229,15 @@ test_iinline-cstagg-1_37:
   cargs: ' -O3 -fdump-ipa-inline-details -fno-early-inlining -fno-ipa-sra -fno-ipa-cp -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/iinline-cstagg-1.c'
   herit: *GRPSERIAL
-  info:
+  info: *13
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_iinline-cstagg-2_199:
+  bin: '"iinline-cstagg-2.s"'
+  cargs: ' -O3 -fdump-ipa-inline-details -fno-early-inlining -fno-ipa-sra -fno-ipa-cp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/iinline-cstagg-2.c'
+  herit: *GRPSERIAL
+  info: &14
     extraopts:
       - '"-O3 -fdump-ipa-inline-details -fno-early-inlining -fno-ipa-sra -fno-ipa-cp"'
   type: build
@@ -133,9 +247,17 @@ test_iinline-cstagg-2_30:
   cargs: ' -O3 -fdump-ipa-inline-details -fno-early-inlining -fno-ipa-sra -fno-ipa-cp -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/iinline-cstagg-2.c'
   herit: *GRPSERIAL
-  info:
+  info: *14
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_inline-1_200:
+  bin: '"inline-1.s"'
+  cargs: ' -O3 -c -fdump-ipa-inline -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/inline-1.c'
+  herit: *GRPSERIAL
+  info: &15
     extraopts:
-      - '"-O3 -fdump-ipa-inline-details -fno-early-inlining -fno-ipa-sra -fno-ipa-cp"'
+      - '"-O3 -c -fdump-ipa-inline" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_inline-1_36:
@@ -143,9 +265,17 @@ test_inline-1_36:
   cargs: ' -O3 -c -fdump-ipa-inline -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/inline-1.c'
   herit: *GRPSERIAL
-  info:
+  info: *15
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_inline-2_201:
+  bin: '"inline-2.s"'
+  cargs: ' -O3 -c -fdump-ipa-inline -fno-early-inlining -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/inline-2.c'
+  herit: *GRPSERIAL
+  info: &16
     extraopts:
-      - '"-O3 -c -fdump-ipa-inline" '
+      - '"-O3 -c -fdump-ipa-inline -fno-early-inlining" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_inline-2_33:
@@ -153,9 +283,17 @@ test_inline-2_33:
   cargs: ' -O3 -c -fdump-ipa-inline -fno-early-inlining -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/inline-2.c'
   herit: *GRPSERIAL
-  info:
+  info: *16
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_inline-3_202:
+  bin: '"inline-3.s"'
+  cargs: ' -O3 -c -fdump-ipa-inline-details -fno-early-inlining -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/inline-3.c'
+  herit: *GRPSERIAL
+  info: &17
     extraopts:
-      - '"-O3 -c -fdump-ipa-inline -fno-early-inlining" '
+      - '"-O3 -c -fdump-ipa-inline-details -fno-early-inlining" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_inline-3_24:
@@ -163,9 +301,17 @@ test_inline-3_24:
   cargs: ' -O3 -c -fdump-ipa-inline-details -fno-early-inlining -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/inline-3.c'
   herit: *GRPSERIAL
-  info:
+  info: *17
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_inline-4_203:
+  bin: '"inline-4.s"'
+  cargs: ' -Os -c -fdump-ipa-inline -fno-early-inlining -fno-partial-inlining -fno-ipa-cp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/inline-4.c'
+  herit: *GRPSERIAL
+  info: &18
     extraopts:
-      - '"-O3 -c -fdump-ipa-inline-details -fno-early-inlining" '
+      - '"-Os -c -fdump-ipa-inline -fno-early-inlining -fno-partial-inlining -fno-ipa-cp" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_inline-4_31:
@@ -173,9 +319,17 @@ test_inline-4_31:
   cargs: ' -Os -c -fdump-ipa-inline -fno-early-inlining -fno-partial-inlining -fno-ipa-cp -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/inline-4.c'
   herit: *GRPSERIAL
-  info:
+  info: *18
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_inline-5_204:
+  bin: '"inline-5.s"'
+  cargs: ' -O2 -fdump-ipa-inline-details -fno-early-inlining -fno-partial-inlining -fno-ipa-cp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/inline-5.c'
+  herit: *GRPSERIAL
+  info: &19
     extraopts:
-      - '"-Os -c -fdump-ipa-inline -fno-early-inlining -fno-partial-inlining -fno-ipa-cp" '
+      - '"-O2 -fdump-ipa-inline-details -fno-early-inlining -fno-partial-inlining -fno-ipa-cp" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_inline-5_38:
@@ -183,7 +337,15 @@ test_inline-5_38:
   cargs: ' -O2 -fdump-ipa-inline-details -fno-early-inlining -fno-partial-inlining -fno-ipa-cp -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/inline-5.c'
   herit: *GRPSERIAL
-  info:
+  info: *19
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_inline-6_205:
+  bin: '"inline-6.s"'
+  cargs: ' -O2 -fdump-ipa-inline-details -fno-early-inlining -fno-partial-inlining -fno-ipa-cp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/inline-6.c'
+  herit: *GRPSERIAL
+  info: &20
     extraopts:
       - '"-O2 -fdump-ipa-inline-details -fno-early-inlining -fno-partial-inlining -fno-ipa-cp" '
   type: build
@@ -193,9 +355,17 @@ test_inline-6_47:
   cargs: ' -O2 -fdump-ipa-inline-details -fno-early-inlining -fno-partial-inlining -fno-ipa-cp -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/inline-6.c'
   herit: *GRPSERIAL
-  info:
+  info: *20
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_inline-7_206:
+  bin: '"inline-7.s"'
+  cargs: ' -O2 -fdump-tree-einline -fno-partial-inlining -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/inline-7.c'
+  herit: *GRPSERIAL
+  info: &21
     extraopts:
-      - '"-O2 -fdump-ipa-inline-details -fno-early-inlining -fno-partial-inlining -fno-ipa-cp" '
+      - '"-O2 -fdump-tree-einline -fno-partial-inlining" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_inline-7_24:
@@ -203,19 +373,25 @@ test_inline-7_24:
   cargs: ' -O2 -fdump-tree-einline -fno-partial-inlining -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/inline-7.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2 -fdump-tree-einline -fno-partial-inlining" '
+  info: *21
   type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_inline-8_207:
+  bin: '"./inline-8.exe"'
+  cargs: ' -O2'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/inline-8.c'
+  herit: *GRPSERIAL
+  info: &22
+    extraopts:
+      - '"-O2" '
+  type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_inline-8_39:
   bin: '"./inline-8.exe"'
   cargs: ' -O2'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/inline-8.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2" '
+  info: *22
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_inlinehint-1_20:
@@ -223,9 +399,17 @@ test_inlinehint-1_20:
   cargs: ' -O3 -c -fdump-ipa-inline-details -fno-early-inlining -fno-ipa-cp -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/inlinehint-1.c'
   herit: *GRPSERIAL
-  info:
+  info: &23
     extraopts:
       - '"-O3 -c -fdump-ipa-inline-details -fno-early-inlining -fno-ipa-cp" '
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_inlinehint-1_208:
+  bin: '"inlinehint-1.s"'
+  cargs: ' -O3 -c -fdump-ipa-inline-details -fno-early-inlining -fno-ipa-cp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/inlinehint-1.c'
+  herit: *GRPSERIAL
+  info: *23
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_inlinehint-2_16:
@@ -233,7 +417,25 @@ test_inlinehint-2_16:
   cargs: ' -O3 -c -fdump-ipa-inline-details -fno-early-inlining -fno-ipa-cp -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/inlinehint-2.c'
   herit: *GRPSERIAL
-  info:
+  info: &24
+    extraopts:
+      - '"-O3 -c -fdump-ipa-inline-details -fno-early-inlining -fno-ipa-cp" '
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_inlinehint-2_209:
+  bin: '"inlinehint-2.s"'
+  cargs: ' -O3 -c -fdump-ipa-inline-details -fno-early-inlining -fno-ipa-cp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/inlinehint-2.c'
+  herit: *GRPSERIAL
+  info: *24
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_inlinehint-3_210:
+  bin: '"inlinehint-3.s"'
+  cargs: ' -O3 -c -fdump-ipa-inline-details -fno-early-inlining -fno-ipa-cp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/inlinehint-3.c'
+  herit: *GRPSERIAL
+  info: &25
     extraopts:
       - '"-O3 -c -fdump-ipa-inline-details -fno-early-inlining -fno-ipa-cp" '
   type: build
@@ -243,9 +445,17 @@ test_inlinehint-3_40:
   cargs: ' -O3 -c -fdump-ipa-inline-details -fno-early-inlining -fno-ipa-cp -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/inlinehint-3.c'
   herit: *GRPSERIAL
-  info:
+  info: *25
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_inlinehint-4_211:
+  bin: '"inlinehint-4.s"'
+  cargs: ' -O3 -fdump-ipa-inline-details -fno-early-inlining --param large-unit-insns=1 -fno-partial-inlining -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/inlinehint-4.c'
+  herit: *GRPSERIAL
+  info: &26
     extraopts:
-      - '"-O3 -c -fdump-ipa-inline-details -fno-early-inlining -fno-ipa-cp" '
+      - '"-O3 -fdump-ipa-inline-details -fno-early-inlining --param large-unit-insns=1 -fno-partial-inlining" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_inlinehint-4_39:
@@ -253,9 +463,17 @@ test_inlinehint-4_39:
   cargs: ' -O3 -fdump-ipa-inline-details -fno-early-inlining --param large-unit-insns=1 -fno-partial-inlining -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/inlinehint-4.c'
   herit: *GRPSERIAL
-  info:
+  info: *26
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-1_212:
+  bin: '"ipa-1.s"'
+  cargs: ' -O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-1.c'
+  herit: *GRPSERIAL
+  info: &27
     extraopts:
-      - '"-O3 -fdump-ipa-inline-details -fno-early-inlining --param large-unit-insns=1 -fno-partial-inlining" '
+      - '"-O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-1_30:
@@ -263,7 +481,15 @@ test_ipa-1_30:
   cargs: ' -O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-1.c'
   herit: *GRPSERIAL
-  info:
+  info: *27
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-2_213:
+  bin: '"ipa-2.s"'
+  cargs: ' -O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-2.c'
+  herit: *GRPSERIAL
+  info: &28
     extraopts:
       - '"-O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining" '
   type: build
@@ -273,7 +499,15 @@ test_ipa-2_26:
   cargs: ' -O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-2.c'
   herit: *GRPSERIAL
-  info:
+  info: *28
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-3_214:
+  bin: '"ipa-3.s"'
+  cargs: ' -O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-3.c'
+  herit: *GRPSERIAL
+  info: &29
     extraopts:
       - '"-O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining" '
   type: build
@@ -283,7 +517,15 @@ test_ipa-3_35:
   cargs: ' -O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-3.c'
   herit: *GRPSERIAL
-  info:
+  info: *29
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-4_215:
+  bin: '"ipa-4.s"'
+  cargs: ' -O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-4.c'
+  herit: *GRPSERIAL
+  info: &30
     extraopts:
       - '"-O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining" '
   type: build
@@ -293,7 +535,15 @@ test_ipa-4_29:
   cargs: ' -O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-4.c'
   herit: *GRPSERIAL
-  info:
+  info: *30
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-5_216:
+  bin: '"ipa-5.s"'
+  cargs: ' -O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-5.c'
+  herit: *GRPSERIAL
+  info: &31
     extraopts:
       - '"-O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining" '
   type: build
@@ -303,9 +553,17 @@ test_ipa-5_32:
   cargs: ' -O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-5.c'
   herit: *GRPSERIAL
-  info:
+  info: *31
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-6_217:
+  bin: '"ipa-6.s"'
+  cargs: ' -O3 -fipa-cp -fno-early-inlining -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-6.c'
+  herit: *GRPSERIAL
+  info: &32
     extraopts:
-      - '"-O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining" '
+      - '"-O3 -fipa-cp -fno-early-inlining"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-6_33:
@@ -313,9 +571,17 @@ test_ipa-6_33:
   cargs: ' -O3 -fipa-cp -fno-early-inlining -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-6.c'
   herit: *GRPSERIAL
-  info:
+  info: *32
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-7_218:
+  bin: '"ipa-7.s"'
+  cargs: ' -O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-7.c'
+  herit: *GRPSERIAL
+  info: &33
     extraopts:
-      - '"-O3 -fipa-cp -fno-early-inlining"'
+      - '"-O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-7_32:
@@ -323,7 +589,15 @@ test_ipa-7_32:
   cargs: ' -O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-7.c'
   herit: *GRPSERIAL
-  info:
+  info: *33
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-8_219:
+  bin: '"ipa-8.s"'
+  cargs: ' -O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-8.c'
+  herit: *GRPSERIAL
+  info: &34
     extraopts:
       - '"-O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining" '
   type: build
@@ -333,9 +607,7 @@ test_ipa-8_30:
   cargs: ' -O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-8.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining" '
+  info: *34
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-clone-1_19:
@@ -343,9 +615,27 @@ test_ipa-clone-1_19:
   cargs: -O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -ffat-lto-objects -S
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-clone-1.c'
   herit: *GRPSERIAL
-  info:
+  info: &35
     extraopts:
       - '"-O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp" '
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-clone-1_220:
+  bin: '"ipa-clone-1.s"'
+  cargs: -O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-clone-1.c'
+  herit: *GRPSERIAL
+  info: *35
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-10_222:
+  bin: '"ipa-icf-10.s"'
+  cargs: ' -O2 -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-10.c'
+  herit: *GRPSERIAL
+  info: &36
+    extraopts:
+      - '"-O2 -fdump-ipa-icf" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-icf-10_33:
@@ -353,7 +643,15 @@ test_ipa-icf-10_33:
   cargs: ' -O2 -fdump-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-10.c'
   herit: *GRPSERIAL
-  info:
+  info: *36
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-11_223:
+  bin: '"ipa-icf-11.s"'
+  cargs: ' -O2 -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-11.c'
+  herit: *GRPSERIAL
+  info: &37
     extraopts:
       - '"-O2 -fdump-ipa-icf" '
   type: build
@@ -363,7 +661,15 @@ test_ipa-icf-11_28:
   cargs: ' -O2 -fdump-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-11.c'
   herit: *GRPSERIAL
-  info:
+  info: *37
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-12_224:
+  bin: '"ipa-icf-12.s"'
+  cargs: ' -O2 -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-12.c'
+  herit: *GRPSERIAL
+  info: &38
     extraopts:
       - '"-O2 -fdump-ipa-icf" '
   type: build
@@ -373,9 +679,7 @@ test_ipa-icf-12_77:
   cargs: ' -O2 -fdump-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-12.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2 -fdump-ipa-icf" '
+  info: *38
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-icf-13_193:
@@ -383,7 +687,25 @@ test_ipa-icf-13_193:
   cargs: ' -O2 -fdump-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-13.c'
   herit: *GRPSERIAL
-  info:
+  info: &39
+    extraopts:
+      - '"-O2 -fdump-ipa-icf" '
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-13_225:
+  bin: '"ipa-icf-13.s"'
+  cargs: ' -O2 -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-13.c'
+  herit: *GRPSERIAL
+  info: *39
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-14_226:
+  bin: '"ipa-icf-14.s"'
+  cargs: ' -O2 -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-14.c'
+  herit: *GRPSERIAL
+  info: &40
     extraopts:
       - '"-O2 -fdump-ipa-icf" '
   type: build
@@ -393,7 +715,15 @@ test_ipa-icf-14_46:
   cargs: ' -O2 -fdump-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-14.c'
   herit: *GRPSERIAL
-  info:
+  info: *40
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-15_227:
+  bin: '"ipa-icf-15.s"'
+  cargs: ' -O2 -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-15.c'
+  herit: *GRPSERIAL
+  info: &41
     extraopts:
       - '"-O2 -fdump-ipa-icf" '
   type: build
@@ -403,7 +733,15 @@ test_ipa-icf-15_45:
   cargs: ' -O2 -fdump-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-15.c'
   herit: *GRPSERIAL
-  info:
+  info: *41
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-16_228:
+  bin: '"ipa-icf-16.s"'
+  cargs: ' -O2 -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-16.c'
+  herit: *GRPSERIAL
+  info: &42
     extraopts:
       - '"-O2 -fdump-ipa-icf" '
   type: build
@@ -413,7 +751,15 @@ test_ipa-icf-16_26:
   cargs: ' -O2 -fdump-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-16.c'
   herit: *GRPSERIAL
-  info:
+  info: *42
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-17_229:
+  bin: '"ipa-icf-17.s"'
+  cargs: ' -O2 -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-17.c'
+  herit: *GRPSERIAL
+  info: &43
     extraopts:
       - '"-O2 -fdump-ipa-icf" '
   type: build
@@ -423,7 +769,15 @@ test_ipa-icf-17_36:
   cargs: ' -O2 -fdump-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-17.c'
   herit: *GRPSERIAL
-  info:
+  info: *43
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-18_230:
+  bin: '"ipa-icf-18.s"'
+  cargs: ' -O2 -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-18.c'
+  herit: *GRPSERIAL
+  info: &44
     extraopts:
       - '"-O2 -fdump-ipa-icf" '
   type: build
@@ -433,7 +787,15 @@ test_ipa-icf-18_36:
   cargs: ' -O2 -fdump-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-18.c'
   herit: *GRPSERIAL
-  info:
+  info: *44
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-19_231:
+  bin: '"ipa-icf-19.s"'
+  cargs: ' -O2 -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-19.c'
+  herit: *GRPSERIAL
+  info: &45
     extraopts:
       - '"-O2 -fdump-ipa-icf" '
   type: build
@@ -443,7 +805,15 @@ test_ipa-icf-19_36:
   cargs: ' -O2 -fdump-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-19.c'
   herit: *GRPSERIAL
-  info:
+  info: *45
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-1_221:
+  bin: '"ipa-icf-1.s"'
+  cargs: ' -O2 -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-1.c'
+  herit: *GRPSERIAL
+  info: &46
     extraopts:
       - '"-O2 -fdump-ipa-icf" '
   type: build
@@ -453,7 +823,15 @@ test_ipa-icf-1_60:
   cargs: ' -O2 -fdump-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-1.c'
   herit: *GRPSERIAL
-  info:
+  info: *46
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-20_233:
+  bin: '"ipa-icf-20.s"'
+  cargs: ' -O2 -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-20.c'
+  herit: *GRPSERIAL
+  info: &47
     extraopts:
       - '"-O2 -fdump-ipa-icf" '
   type: build
@@ -463,9 +841,17 @@ test_ipa-icf-20_27:
   cargs: ' -O2 -fdump-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-20.c'
   herit: *GRPSERIAL
-  info:
+  info: *47
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-21_234:
+  bin: '"ipa-icf-21.s"'
+  cargs: ' -O2 -msse2 -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-21.c'
+  herit: *GRPSERIAL
+  info: &48
     extraopts:
-      - '"-O2 -fdump-ipa-icf" '
+      - '"-O2 -msse2 -fdump-ipa-icf" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-icf-21_26:
@@ -473,9 +859,17 @@ test_ipa-icf-21_26:
   cargs: ' -O2 -msse2 -fdump-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-21.c'
   herit: *GRPSERIAL
-  info:
+  info: *48
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-22_235:
+  bin: '"ipa-icf-22.s"'
+  cargs: ' -O2 -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-22.c'
+  herit: *GRPSERIAL
+  info: &49
     extraopts:
-      - '"-O2 -msse2 -fdump-ipa-icf" '
+      - '"-O2 -fdump-ipa-icf" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-icf-22_36:
@@ -483,7 +877,15 @@ test_ipa-icf-22_36:
   cargs: ' -O2 -fdump-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-22.c'
   herit: *GRPSERIAL
-  info:
+  info: *49
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-23_236:
+  bin: '"ipa-icf-23.s"'
+  cargs: ' -O2 -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-23.c'
+  herit: *GRPSERIAL
+  info: &50
     extraopts:
       - '"-O2 -fdump-ipa-icf" '
   type: build
@@ -493,7 +895,15 @@ test_ipa-icf-23_28:
   cargs: ' -O2 -fdump-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-23.c'
   herit: *GRPSERIAL
-  info:
+  info: *50
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-24_237:
+  bin: '"ipa-icf-24.s"'
+  cargs: ' -O2 -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-24.c'
+  herit: *GRPSERIAL
+  info: &51
     extraopts:
       - '"-O2 -fdump-ipa-icf" '
   type: build
@@ -503,7 +913,15 @@ test_ipa-icf-24_35:
   cargs: ' -O2 -fdump-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-24.c'
   herit: *GRPSERIAL
-  info:
+  info: *51
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-25_238:
+  bin: '"ipa-icf-25.s"'
+  cargs: ' -O2 -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-25.c'
+  herit: *GRPSERIAL
+  info: &52
     extraopts:
       - '"-O2 -fdump-ipa-icf" '
   type: build
@@ -513,7 +931,15 @@ test_ipa-icf-25_51:
   cargs: ' -O2 -fdump-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-25.c'
   herit: *GRPSERIAL
-  info:
+  info: *52
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-26_239:
+  bin: '"ipa-icf-26.s"'
+  cargs: ' -O2 -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-26.c'
+  herit: *GRPSERIAL
+  info: &53
     extraopts:
       - '"-O2 -fdump-ipa-icf" '
   type: build
@@ -523,9 +949,17 @@ test_ipa-icf-26_42:
   cargs: ' -O2 -fdump-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-26.c'
   herit: *GRPSERIAL
-  info:
+  info: *53
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-27_240:
+  bin: '"ipa-icf-27.s"'
+  cargs: ' -O2 -fdump-ipa-icf -fno-inline -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-27.c'
+  herit: *GRPSERIAL
+  info: &54
     extraopts:
-      - '"-O2 -fdump-ipa-icf" '
+      - '"-O2 -fdump-ipa-icf -fno-inline" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-icf-27_29:
@@ -533,9 +967,7 @@ test_ipa-icf-27_29:
   cargs: ' -O2 -fdump-ipa-icf -fno-inline -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-27.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2 -fdump-ipa-icf -fno-inline" '
+  info: *54
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-icf-28_23:
@@ -543,9 +975,27 @@ test_ipa-icf-28_23:
   cargs: ' -O2 -fdump-ipa-icf-details -fno-inline -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-28.c'
   herit: *GRPSERIAL
-  info:
+  info: &55
     extraopts:
       - '"-O2 -fdump-ipa-icf-details -fno-inline" '
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-28_241:
+  bin: '"ipa-icf-28.s"'
+  cargs: ' -O2 -fdump-ipa-icf-details -fno-inline -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-28.c'
+  herit: *GRPSERIAL
+  info: *55
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-29_242:
+  bin: '"ipa-icf-29.s"'
+  cargs: ' -O2 -fdump-ipa-icf -fno-inline -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-29.c'
+  herit: *GRPSERIAL
+  info: &56
+    extraopts:
+      - '"-O2 -fdump-ipa-icf -fno-inline" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-icf-29_29:
@@ -553,9 +1003,17 @@ test_ipa-icf-29_29:
   cargs: ' -O2 -fdump-ipa-icf -fno-inline -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-29.c'
   herit: *GRPSERIAL
-  info:
+  info: *56
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-2_232:
+  bin: '"ipa-icf-2.s"'
+  cargs: ' -O2 -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-2.c'
+  herit: *GRPSERIAL
+  info: &57
     extraopts:
-      - '"-O2 -fdump-ipa-icf -fno-inline" '
+      - '"-O2 -fdump-ipa-icf" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-icf-2_68:
@@ -563,9 +1021,17 @@ test_ipa-icf-2_68:
   cargs: ' -O2 -fdump-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-2.c'
   herit: *GRPSERIAL
-  info:
+  info: *57
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-30_244:
+  bin: '"ipa-icf-30.s"'
+  cargs: ' -O2 -fdump-ipa-icf -fno-inline -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-30.c'
+  herit: *GRPSERIAL
+  info: &58
     extraopts:
-      - '"-O2 -fdump-ipa-icf" '
+      - '"-O2 -fdump-ipa-icf -fno-inline" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-icf-30_29:
@@ -573,19 +1039,25 @@ test_ipa-icf-30_29:
   cargs: ' -O2 -fdump-ipa-icf -fno-inline -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-30.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2 -fdump-ipa-icf -fno-inline" '
+  info: *58
   type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-31_245:
+  bin: '"./ipa-icf-31.exe"'
+  cargs: ' -O2 -fipa-icf'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-31.c'
+  herit: *GRPSERIAL
+  info: &59
+    extraopts:
+      - '"-O2 -fipa-icf"'
+  type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-icf-31_41:
   bin: '"./ipa-icf-31.exe"'
   cargs: ' -O2 -fipa-icf'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-31.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2 -fipa-icf"'
+  info: *59
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-icf-32_22:
@@ -593,17 +1065,43 @@ test_ipa-icf-32_22:
   cargs: ' -O1 -fipa-icf -fdump-ipa-icf-details'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-32.c'
   herit: *GRPSERIAL
-  info:
+  info: &60
     extraopts:
       - '"-O1 -fipa-icf -fdump-ipa-icf-details"'
   type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-32_246:
+  bin: '"./ipa-icf-32.exe"'
+  cargs: ' -O1 -fipa-icf -fdump-ipa-icf-details'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-32.c'
+  herit: *GRPSERIAL
+  info: *60
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-33_247:
+  bin: '"ipa-icf-33.s"'
+  cargs: ' -O0 -fipa-icf -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-33.c'
+  herit: *GRPSERIAL
+  info: &61
+    extraopts:
+      - '"-O0 -fipa-icf -fdump-ipa-icf" '
+  type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-icf-33_25:
   bin: '"ipa-icf-33.s"'
   cargs: ' -O0 -fipa-icf -fdump-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-33.c'
   herit: *GRPSERIAL
-  info:
+  info: *61
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-34_248:
+  bin: '"ipa-icf-34.s"'
+  cargs: ' -O0 -fipa-icf -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-34.c'
+  herit: *GRPSERIAL
+  info: &62
     extraopts:
       - '"-O0 -fipa-icf -fdump-ipa-icf" '
   type: build
@@ -613,9 +1111,17 @@ test_ipa-icf-34_28:
   cargs: ' -O0 -fipa-icf -fdump-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-34.c'
   herit: *GRPSERIAL
-  info:
+  info: *62
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-35_249:
+  bin: '"ipa-icf-35.s"'
+  cargs: ' -O2 -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-35.c'
+  herit: *GRPSERIAL
+  info: &63
     extraopts:
-      - '"-O0 -fipa-icf -fdump-ipa-icf" '
+      - '"-O2 -fdump-ipa-icf" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-icf-35_30:
@@ -623,9 +1129,17 @@ test_ipa-icf-35_30:
   cargs: ' -O2 -fdump-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-35.c'
   herit: *GRPSERIAL
-  info:
+  info: *63
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-36_250:
+  bin: '"ipa-icf-36.s"'
+  cargs: ' -O2 -fdump-ipa-icf -fmerge-all-constants -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-36.c'
+  herit: *GRPSERIAL
+  info: &64
     extraopts:
-      - '"-O2 -fdump-ipa-icf" '
+      - '"-O2 -fdump-ipa-icf -fmerge-all-constants" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-icf-36_36:
@@ -633,9 +1147,17 @@ test_ipa-icf-36_36:
   cargs: ' -O2 -fdump-ipa-icf -fmerge-all-constants -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-36.c'
   herit: *GRPSERIAL
-  info:
+  info: *64
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-37_251:
+  bin: '"ipa-icf-37.s"'
+  cargs: ' -O2 -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-37.c'
+  herit: *GRPSERIAL
+  info: &65
     extraopts:
-      - '"-O2 -fdump-ipa-icf -fmerge-all-constants" '
+      - '"-O2 -fdump-ipa-icf" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-icf-37_36:
@@ -643,7 +1165,15 @@ test_ipa-icf-37_36:
   cargs: ' -O2 -fdump-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-37.c'
   herit: *GRPSERIAL
-  info:
+  info: *65
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-3_243:
+  bin: '"ipa-icf-3.s"'
+  cargs: ' -O2 -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-3.c'
+  herit: *GRPSERIAL
+  info: &66
     extraopts:
       - '"-O2 -fdump-ipa-icf" '
   type: build
@@ -653,7 +1183,15 @@ test_ipa-icf-3_35:
   cargs: ' -O2 -fdump-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-3.c'
   herit: *GRPSERIAL
-  info:
+  info: *66
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-4_252:
+  bin: '"ipa-icf-4.s"'
+  cargs: ' -O2 -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-4.c'
+  herit: *GRPSERIAL
+  info: &67
     extraopts:
       - '"-O2 -fdump-ipa-icf" '
   type: build
@@ -663,7 +1201,15 @@ test_ipa-icf-4_31:
   cargs: ' -O2 -fdump-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-4.c'
   herit: *GRPSERIAL
-  info:
+  info: *67
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-5_253:
+  bin: '"ipa-icf-5.s"'
+  cargs: ' -O2 -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-5.c'
+  herit: *GRPSERIAL
+  info: &68
     extraopts:
       - '"-O2 -fdump-ipa-icf" '
   type: build
@@ -673,9 +1219,17 @@ test_ipa-icf-5_55:
   cargs: ' -O2 -fdump-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-5.c'
   herit: *GRPSERIAL
-  info:
+  info: *68
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-6_254:
+  bin: '"ipa-icf-6.s"'
+  cargs: ' -O0 -fipa-icf -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-6.c'
+  herit: *GRPSERIAL
+  info: &69
     extraopts:
-      - '"-O2 -fdump-ipa-icf" '
+      - '"-O0 -fipa-icf -fdump-ipa-icf" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-icf-6_35:
@@ -683,9 +1237,17 @@ test_ipa-icf-6_35:
   cargs: ' -O0 -fipa-icf -fdump-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-6.c'
   herit: *GRPSERIAL
-  info:
+  info: *69
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-7_255:
+  bin: '"ipa-icf-7.s"'
+  cargs: ' -O2 -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-7.c'
+  herit: *GRPSERIAL
+  info: &70
     extraopts:
-      - '"-O0 -fipa-icf -fdump-ipa-icf" '
+      - '"-O2 -fdump-ipa-icf" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-icf-7_72:
@@ -693,7 +1255,15 @@ test_ipa-icf-7_72:
   cargs: ' -O2 -fdump-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-7.c'
   herit: *GRPSERIAL
-  info:
+  info: *70
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-8_256:
+  bin: '"ipa-icf-8.s"'
+  cargs: ' -O2 -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-8.c'
+  herit: *GRPSERIAL
+  info: &71
     extraopts:
       - '"-O2 -fdump-ipa-icf" '
   type: build
@@ -703,7 +1273,15 @@ test_ipa-icf-8_44:
   cargs: ' -O2 -fdump-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-8.c'
   herit: *GRPSERIAL
-  info:
+  info: *71
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-9_257:
+  bin: '"ipa-icf-9.s"'
+  cargs: ' -O2 -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-9.c'
+  herit: *GRPSERIAL
+  info: &72
     extraopts:
       - '"-O2 -fdump-ipa-icf" '
   type: build
@@ -713,9 +1291,15 @@ test_ipa-icf-9_32:
   cargs: ' -O2 -fdump-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-9.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2 -fdump-ipa-icf" '
+  info: *72
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-icf-merge-1_258:
+  bin: '"ipa-icf-merge-1.s"'
+  cargs: ' -ansi -pedantic-errors -O2 -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-merge-1.c'
+  herit: *GRPSERIAL
+  info: &73 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-icf-merge-1_27:
@@ -723,15 +1307,33 @@ test_ipa-icf-merge-1_27:
   cargs: ' -ansi -pedantic-errors -O2 -fdump-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-icf-merge-1.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *73
   type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-pta-10_260:
+  bin: '"./ipa-pta-10.exe"'
+  cargs: ' -O2 -fipa-pta -fdump-ipa-pta2-details'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-pta-10.c'
+  herit: *GRPSERIAL
+  info: &74
+    extraopts:
+      - '"-O2 -fipa-pta -fdump-ipa-pta2-details"'
+  type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-pta-10_29:
   bin: '"./ipa-pta-10.exe"'
   cargs: ' -O2 -fipa-pta -fdump-ipa-pta2-details'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-pta-10.c'
   herit: *GRPSERIAL
-  info:
+  info: *74
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-pta-11_261:
+  bin: '"ipa-pta-11.exe"'
+  cargs: ' -O2 -fipa-pta -fdump-ipa-pta2-details'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-pta-11.c'
+  herit: *GRPSERIAL
+  info: &75
     extraopts:
       - '"-O2 -fipa-pta -fdump-ipa-pta2-details"'
   type: complete
@@ -741,27 +1343,51 @@ test_ipa-pta-11_35:
   cargs: ' -O2 -fipa-pta -fdump-ipa-pta2-details'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-pta-11.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2 -fipa-pta -fdump-ipa-pta2-details"'
+  info: *75
   type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-pta-12_262:
+  bin: '"ipa-pta-12.s"'
+  cargs: '  -ansi -pedantic-errors -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-pta-12.c'
+  herit: *GRPSERIAL
+  info: &76 {}
+  type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-pta-12_34:
   bin: '"ipa-pta-12.s"'
   cargs: '  -ansi -pedantic-errors -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-pta-12.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *76
   type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-pta-13_263:
+  bin: '"ipa-pta-13.exe"'
+  cargs: ' -O2 -fipa-pta -fdump-ipa-pta2-details -fdump-tree-fre3 -fno-ipa-icf'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-pta-13.c'
+  herit: *GRPSERIAL
+  info: &77
+    extraopts:
+      - '"-O2 -fipa-pta -fdump-ipa-pta2-details -fdump-tree-fre3 -fno-ipa-icf"'
+  type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-pta-13_60:
   bin: '"ipa-pta-13.exe"'
   cargs: ' -O2 -fipa-pta -fdump-ipa-pta2-details -fdump-tree-fre3 -fno-ipa-icf'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-pta-13.c'
   herit: *GRPSERIAL
-  info:
+  info: *77
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-pta-14_264:
+  bin: '"./ipa-pta-14.exe"'
+  cargs: ' -O2 -fipa-pta -fno-tree-fre -fno-tree-sra -fdump-ipa-pta2-details -fdelete-null-pointer-checks'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-pta-14.c'
+  herit: *GRPSERIAL
+  info: &78
     extraopts:
-      - '"-O2 -fipa-pta -fdump-ipa-pta2-details -fdump-tree-fre3 -fno-ipa-icf"'
+      - '"-O2 -fipa-pta -fno-tree-fre -fno-tree-sra -fdump-ipa-pta2-details -fdelete-null-pointer-checks"'
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-pta-14_31:
@@ -769,9 +1395,17 @@ test_ipa-pta-14_31:
   cargs: ' -O2 -fipa-pta -fno-tree-fre -fno-tree-sra -fdump-ipa-pta2-details -fdelete-null-pointer-checks'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-pta-14.c'
   herit: *GRPSERIAL
-  info:
+  info: *78
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-pta-15_265:
+  bin: '"./ipa-pta-15.exe"'
+  cargs: ' -O2 -fipa-pta'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-pta-15.c'
+  herit: *GRPSERIAL
+  info: &79
     extraopts:
-      - '"-O2 -fipa-pta -fno-tree-fre -fno-tree-sra -fdump-ipa-pta2-details -fdelete-null-pointer-checks"'
+      - '"-O2 -fipa-pta"'
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-pta-15_32:
@@ -779,9 +1413,17 @@ test_ipa-pta-15_32:
   cargs: ' -O2 -fipa-pta'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-pta-15.c'
   herit: *GRPSERIAL
-  info:
+  info: *79
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-pta-16_266:
+  bin: '"./ipa-pta-16.exe"'
+  cargs: ' -O2 -fno-tree-sra -fipa-pta -fdump-ipa-pta2'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-pta-16.c'
+  herit: *GRPSERIAL
+  info: &80
     extraopts:
-      - '"-O2 -fipa-pta"'
+      - '"-O2 -fno-tree-sra -fipa-pta -fdump-ipa-pta2"'
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-pta-16_32:
@@ -789,29 +1431,43 @@ test_ipa-pta-16_32:
   cargs: ' -O2 -fno-tree-sra -fipa-pta -fdump-ipa-pta2'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-pta-16.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2 -fno-tree-sra -fipa-pta -fdump-ipa-pta2"'
+  info: *80
   type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-pta-17_267:
+  bin: '"ipa-pta-17.s"'
+  cargs: ' -O -fipa-pta -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-pta-17.c'
+  herit: *GRPSERIAL
+  info: &81
+    extraopts:
+      - '"-O -fipa-pta"'
+  type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-pta-17_7:
   bin: '"ipa-pta-17.s"'
   cargs: ' -O -fipa-pta -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-pta-17.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O -fipa-pta"'
+  info: *81
   type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-pta-1_259:
+  bin: '"./ipa-pta-1.exe"'
+  cargs: ' -O -fipa-pta -fdump-ipa-pta2-details'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-pta-1.c'
+  herit: *GRPSERIAL
+  info: &82
+    extraopts:
+      - '"-O -fipa-pta -fdump-ipa-pta2-details"'
+  type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-pta-1_49:
   bin: '"./ipa-pta-1.exe"'
   cargs: ' -O -fipa-pta -fdump-ipa-pta2-details'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-pta-1.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O -fipa-pta -fdump-ipa-pta2-details"'
+  info: *82
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-pta-2_24:
@@ -819,9 +1475,17 @@ test_ipa-pta-2_24:
   cargs: ' -O -fipa-pta -fdump-ipa-pta2-details -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-pta-2.c'
   herit: *GRPSERIAL
-  info:
+  info: &83
     extraopts:
       - '"-O -fipa-pta -fdump-ipa-pta2-details"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-pta-2_268:
+  bin: '"ipa-pta-2.s"'
+  cargs: ' -O -fipa-pta -fdump-ipa-pta2-details -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-pta-2.c'
+  herit: *GRPSERIAL
+  info: *83
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-pta-3_26:
@@ -829,7 +1493,25 @@ test_ipa-pta-3_26:
   cargs: ' -O2 -fipa-pta -fdump-ipa-pta2-details -fdump-tree-fre3-details'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-pta-3.c'
   herit: *GRPSERIAL
-  info:
+  info: &84
+    extraopts:
+      - '"-O2 -fipa-pta -fdump-ipa-pta2-details -fdump-tree-fre3-details"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-pta-3_269:
+  bin: '"./ipa-pta-3.exe"'
+  cargs: ' -O2 -fipa-pta -fdump-ipa-pta2-details -fdump-tree-fre3-details'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-pta-3.c'
+  herit: *GRPSERIAL
+  info: *84
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-pta-4_270:
+  bin: '"./ipa-pta-4.exe"'
+  cargs: ' -O2 -fipa-pta -fdump-ipa-pta2-details -fdump-tree-fre3-details'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-pta-4.c'
+  herit: *GRPSERIAL
+  info: &85
     extraopts:
       - '"-O2 -fipa-pta -fdump-ipa-pta2-details -fdump-tree-fre3-details"'
   type: complete
@@ -839,9 +1521,7 @@ test_ipa-pta-4_31:
   cargs: ' -O2 -fipa-pta -fdump-ipa-pta2-details -fdump-tree-fre3-details'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-pta-4.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2 -fipa-pta -fdump-ipa-pta2-details -fdump-tree-fre3-details"'
+  info: *85
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-pta-5_25:
@@ -849,9 +1529,17 @@ test_ipa-pta-5_25:
   cargs: ' -O2 -fipa-pta -fdump-ipa-pta2-details'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-pta-5.c'
   herit: *GRPSERIAL
-  info:
+  info: &86
     extraopts:
       - '"-O2 -fipa-pta -fdump-ipa-pta2-details"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-pta-5_271:
+  bin: '"./ipa-pta-5.exe"'
+  cargs: ' -O2 -fipa-pta -fdump-ipa-pta2-details'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-pta-5.c'
+  herit: *GRPSERIAL
+  info: *86
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-pta-6_24:
@@ -859,9 +1547,27 @@ test_ipa-pta-6_24:
   cargs: ' -O -fipa-pta -fdump-ipa-pta2-details'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-pta-6.c'
   herit: *GRPSERIAL
-  info:
+  info: &87
     extraopts:
       - '"-O -fipa-pta -fdump-ipa-pta2-details"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-pta-6_272:
+  bin: '"./ipa-pta-6.exe"'
+  cargs: ' -O -fipa-pta -fdump-ipa-pta2-details'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-pta-6.c'
+  herit: *GRPSERIAL
+  info: *87
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-pta-7_273:
+  bin: '"./ipa-pta-7.exe"'
+  cargs: ' -O2 -fno-early-inlining -fipa-pta'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-pta-7.c'
+  herit: *GRPSERIAL
+  info: &88
+    extraopts:
+      - '"-O2 -fno-early-inlining -fipa-pta"'
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-pta-7_30:
@@ -869,7 +1575,15 @@ test_ipa-pta-7_30:
   cargs: ' -O2 -fno-early-inlining -fipa-pta'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-pta-7.c'
   herit: *GRPSERIAL
-  info:
+  info: *88
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-pta-8_274:
+  bin: '"./ipa-pta-8.exe"'
+  cargs: ' -O2 -fno-early-inlining -fipa-pta'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-pta-8.c'
+  herit: *GRPSERIAL
+  info: &89
     extraopts:
       - '"-O2 -fno-early-inlining -fipa-pta"'
   type: complete
@@ -879,9 +1593,7 @@ test_ipa-pta-8_31:
   cargs: ' -O2 -fno-early-inlining -fipa-pta'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-pta-8.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2 -fno-early-inlining -fipa-pta"'
+  info: *89
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-pta-9_17:
@@ -889,39 +1601,81 @@ test_ipa-pta-9_17:
   cargs: ' -O2 -fipa-pta'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-pta-9.c'
   herit: *GRPSERIAL
-  info:
+  info: &90
     extraopts:
       - '"-O2 -fipa-pta"'
   type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-pta-9_275:
+  bin: '"./ipa-pta-9.exe"'
+  cargs: ' -O2 -fipa-pta'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-pta-9.c'
+  herit: *GRPSERIAL
+  info: *90
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-sra-10_277:
+  bin: '"ipa-sra-10.s"'
+  cargs: ' -O2 -fipa-sra -fdump-tree-eipa_sra-details -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-sra-10.c'
+  herit: *GRPSERIAL
+  info: &91
+    extraopts:
+      - '"-O2 -fipa-sra -fdump-tree-eipa_sra-details" '
+  type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-sra-10_34:
   bin: '"ipa-sra-10.s"'
   cargs: ' -O2 -fipa-sra -fdump-tree-eipa_sra-details -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-sra-10.c'
   herit: *GRPSERIAL
-  info:
+  info: *91
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-sra-1_276:
+  bin: '"./ipa-sra-1.exe"'
+  cargs: ' -O2 -fipa-sra -fdump-tree-eipa_sra-details'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-sra-1.c'
+  herit: *GRPSERIAL
+  info: &92
     extraopts:
       - '"-O2 -fipa-sra -fdump-tree-eipa_sra-details" '
-  type: build
+  type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-sra-1_39:
   bin: '"./ipa-sra-1.exe"'
   cargs: ' -O2 -fipa-sra -fdump-tree-eipa_sra-details'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-sra-1.c'
   herit: *GRPSERIAL
-  info:
+  info: *92
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-sra-2_278:
+  bin: '"ipa-sra-2.s"'
+  cargs: ' -O2 -fipa-sra -fdump-tree-eipa_sra-details -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-sra-2.c'
+  herit: *GRPSERIAL
+  info: &93
     extraopts:
       - '"-O2 -fipa-sra -fdump-tree-eipa_sra-details" '
-  type: complete
+  type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-sra-2_51:
   bin: '"ipa-sra-2.s"'
   cargs: ' -O2 -fipa-sra -fdump-tree-eipa_sra-details -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-sra-2.c'
   herit: *GRPSERIAL
-  info:
+  info: *93
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-sra-3_279:
+  bin: '"ipa-sra-3.s"'
+  cargs: ' -O2 -fipa-sra -fdump-tree-eipa_sra-details -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-sra-3.c'
+  herit: *GRPSERIAL
+  info: &94
     extraopts:
-      - '"-O2 -fipa-sra -fdump-tree-eipa_sra-details" '
+      - '"-O2 -fipa-sra -fdump-tree-eipa_sra-details"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-sra-3_38:
@@ -929,7 +1683,15 @@ test_ipa-sra-3_38:
   cargs: ' -O2 -fipa-sra -fdump-tree-eipa_sra-details -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-sra-3.c'
   herit: *GRPSERIAL
-  info:
+  info: *94
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-sra-4_280:
+  bin: '"ipa-sra-4.s"'
+  cargs: ' -O2 -fipa-sra -fdump-tree-eipa_sra-details -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-sra-4.c'
+  herit: *GRPSERIAL
+  info: &95
     extraopts:
       - '"-O2 -fipa-sra -fdump-tree-eipa_sra-details"'
   type: build
@@ -939,9 +1701,7 @@ test_ipa-sra-4_67:
   cargs: ' -O2 -fipa-sra -fdump-tree-eipa_sra-details -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-sra-4.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2 -fipa-sra -fdump-tree-eipa_sra-details"'
+  info: *95
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-sra-5_19:
@@ -949,9 +1709,27 @@ test_ipa-sra-5_19:
   cargs: ' -O2 -fipa-sra -fdump-tree-eipa_sra-details -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-sra-5.c'
   herit: *GRPSERIAL
-  info:
+  info: &96
     extraopts:
       - '"-O2 -fipa-sra -fdump-tree-eipa_sra-details"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-sra-5_281:
+  bin: '"ipa-sra-5.s"'
+  cargs: ' -O2 -fipa-sra -fdump-tree-eipa_sra-details -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-sra-5.c'
+  herit: *GRPSERIAL
+  info: *96
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-sra-6_282:
+  bin: '"ipa-sra-6.s"'
+  cargs: ' -O2 -fipa-sra -fdump-tree-eipa_sra-slim -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-sra-6.c'
+  herit: *GRPSERIAL
+  info: &97
+    extraopts:
+      - '"-O2 -fipa-sra -fdump-tree-eipa_sra-slim" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-sra-6_33:
@@ -959,17 +1737,33 @@ test_ipa-sra-6_33:
   cargs: ' -O2 -fipa-sra -fdump-tree-eipa_sra-slim -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-sra-6.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2 -fipa-sra -fdump-tree-eipa_sra-slim" '
+  info: *97
   type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-sra-7_283:
+  bin: '"./ipa-sra-7.exe"'
+  cargs: ' -O3'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-sra-7.c'
+  herit: *GRPSERIAL
+  info: &98
+    extraopts:
+      - '"-O3"'
+  type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipa-sra-7_42:
   bin: '"./ipa-sra-7.exe"'
   cargs: ' -O3'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-sra-7.c'
   herit: *GRPSERIAL
-  info:
+  info: *98
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-sra-8_284:
+  bin: '"./ipa-sra-8.exe"'
+  cargs: ' -O3'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-sra-8.c'
+  herit: *GRPSERIAL
+  info: &99
     extraopts:
       - '"-O3"'
   type: complete
@@ -979,7 +1773,15 @@ test_ipa-sra-8_41:
   cargs: ' -O3'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-sra-8.c'
   herit: *GRPSERIAL
-  info:
+  info: *99
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipa-sra-9_285:
+  bin: '"./ipa-sra-9.exe"'
+  cargs: ' -O3'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-sra-9.c'
+  herit: *GRPSERIAL
+  info: &100
     extraopts:
       - '"-O3"'
   type: complete
@@ -989,19 +1791,35 @@ test_ipa-sra-9_44:
   cargs: ' -O3'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipa-sra-9.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O3"'
+  info: *100
   type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipacost-1_286:
+  bin: '"ipacost-1.s"'
+  cargs: ' -Os -fipa-cp -fdump-ipa-cp -fno-early-inlining -fdump-tree-optimized -fno-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipacost-1.c'
+  herit: *GRPSERIAL
+  info: &101
+    extraopts:
+      - '"-Os -fipa-cp -fdump-ipa-cp -fno-early-inlining -fdump-tree-optimized -fno-ipa-icf" '
+  type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipacost-1_60:
   bin: '"ipacost-1.s"'
   cargs: ' -Os -fipa-cp -fdump-ipa-cp -fno-early-inlining -fdump-tree-optimized -fno-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipacost-1.c'
   herit: *GRPSERIAL
-  info:
+  info: *101
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipacost-2_287:
+  bin: '"ipacost-2.s"'
+  cargs: ' -O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining -fdump-tree-optimized -fno-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipacost-2.c'
+  herit: *GRPSERIAL
+  info: &102
     extraopts:
-      - '"-Os -fipa-cp -fdump-ipa-cp -fno-early-inlining -fdump-tree-optimized -fno-ipa-icf" '
+      - '"-O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining -fdump-tree-optimized -fno-ipa-icf" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipacost-2_79:
@@ -1009,9 +1827,17 @@ test_ipacost-2_79:
   cargs: ' -O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining -fdump-tree-optimized -fno-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipacost-2.c'
   herit: *GRPSERIAL
-  info:
+  info: *102
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipcp-1_288:
+  bin: '"ipcp-1.s"'
+  cargs: ' -O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-1.c'
+  herit: *GRPSERIAL
+  info: &103
     extraopts:
-      - '"-O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining -fdump-tree-optimized -fno-ipa-icf" '
+      - '"-O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipcp-1_51:
@@ -1019,7 +1845,15 @@ test_ipcp-1_51:
   cargs: ' -O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-1.c'
   herit: *GRPSERIAL
-  info:
+  info: *103
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipcp-2_289:
+  bin: '"ipcp-2.s"'
+  cargs: ' -O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-2.c'
+  herit: *GRPSERIAL
+  info: &104
     extraopts:
       - '"-O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining" '
   type: build
@@ -1029,29 +1863,53 @@ test_ipcp-2_98:
   cargs: ' -O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-2.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining" '
+  info: *104
   type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipcp-3_290:
+  bin: '"./ipcp-3.exe"'
+  cargs: ' -O3 -fdump-ipa-cp'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-3.c'
+  herit: *GRPSERIAL
+  info: &105
+    extraopts:
+      - '"-O3 -fdump-ipa-cp"'
+  type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipcp-3_69:
   bin: '"./ipcp-3.exe"'
   cargs: ' -O3 -fdump-ipa-cp'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-3.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O3 -fdump-ipa-cp"'
+  info: *105
   type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipcp-4_291:
+  bin: '"ipcp-4.s"'
+  cargs: ' -O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-4.c'
+  herit: *GRPSERIAL
+  info: &106
+    extraopts:
+      - '"-O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining" '
+  type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipcp-4_67:
   bin: '"ipcp-4.s"'
   cargs: ' -O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-4.c'
   herit: *GRPSERIAL
-  info:
+  info: *106
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipcp-agg-1_292:
+  bin: '"ipcp-agg-1.s"'
+  cargs: ' -O3 -fno-ipa-sra -fdump-ipa-cp-details -fdump-tree-optimized-slim -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-agg-1.c'
+  herit: *GRPSERIAL
+  info: &107
     extraopts:
-      - '"-O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining" '
+      - '"-O3 -fno-ipa-sra -fdump-ipa-cp-details -fdump-tree-optimized-slim" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipcp-agg-1_35:
@@ -1059,7 +1917,15 @@ test_ipcp-agg-1_35:
   cargs: ' -O3 -fno-ipa-sra -fdump-ipa-cp-details -fdump-tree-optimized-slim -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-agg-1.c'
   herit: *GRPSERIAL
-  info:
+  info: *107
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipcp-agg-2_293:
+  bin: '"ipcp-agg-2.s"'
+  cargs: ' -O3 -fno-ipa-sra -fdump-ipa-cp-details -fdump-tree-optimized-slim -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-agg-2.c'
+  herit: *GRPSERIAL
+  info: &108
     extraopts:
       - '"-O3 -fno-ipa-sra -fdump-ipa-cp-details -fdump-tree-optimized-slim" '
   type: build
@@ -1069,7 +1935,15 @@ test_ipcp-agg-2_41:
   cargs: ' -O3 -fno-ipa-sra -fdump-ipa-cp-details -fdump-tree-optimized-slim -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-agg-2.c'
   herit: *GRPSERIAL
-  info:
+  info: *108
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipcp-agg-3_294:
+  bin: '"ipcp-agg-3.s"'
+  cargs: ' -O3 -fno-ipa-sra -fdump-ipa-cp-details -fdump-tree-optimized-slim -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-agg-3.c'
+  herit: *GRPSERIAL
+  info: &109
     extraopts:
       - '"-O3 -fno-ipa-sra -fdump-ipa-cp-details -fdump-tree-optimized-slim" '
   type: build
@@ -1079,7 +1953,15 @@ test_ipcp-agg-3_42:
   cargs: ' -O3 -fno-ipa-sra -fdump-ipa-cp-details -fdump-tree-optimized-slim -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-agg-3.c'
   herit: *GRPSERIAL
-  info:
+  info: *109
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipcp-agg-4_295:
+  bin: '"ipcp-agg-4.s"'
+  cargs: ' -O3 -fno-ipa-sra -fdump-ipa-cp-details -fdump-tree-optimized-slim -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-agg-4.c'
+  herit: *GRPSERIAL
+  info: &110
     extraopts:
       - '"-O3 -fno-ipa-sra -fdump-ipa-cp-details -fdump-tree-optimized-slim" '
   type: build
@@ -1089,7 +1971,15 @@ test_ipcp-agg-4_60:
   cargs: ' -O3 -fno-ipa-sra -fdump-ipa-cp-details -fdump-tree-optimized-slim -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-agg-4.c'
   herit: *GRPSERIAL
-  info:
+  info: *110
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipcp-agg-5_296:
+  bin: '"ipcp-agg-5.s"'
+  cargs: ' -O3 -fno-ipa-sra -fdump-ipa-cp-details -fdump-tree-optimized-slim -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-agg-5.c'
+  herit: *GRPSERIAL
+  info: &111
     extraopts:
       - '"-O3 -fno-ipa-sra -fdump-ipa-cp-details -fdump-tree-optimized-slim" '
   type: build
@@ -1099,9 +1989,17 @@ test_ipcp-agg-5_66:
   cargs: ' -O3 -fno-ipa-sra -fdump-ipa-cp-details -fdump-tree-optimized-slim -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-agg-5.c'
   herit: *GRPSERIAL
-  info:
+  info: *111
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipcp-agg-6_297:
+  bin: '"ipcp-agg-6.s"'
+  cargs: ' -O3 -fno-ipa-sra -fdump-ipa-cp-details -fdump-tree-optimized-slim -fno-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-agg-6.c'
+  herit: *GRPSERIAL
+  info: &112
     extraopts:
-      - '"-O3 -fno-ipa-sra -fdump-ipa-cp-details -fdump-tree-optimized-slim" '
+      - '"-O3 -fno-ipa-sra -fdump-ipa-cp-details -fdump-tree-optimized-slim -fno-ipa-icf" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipcp-agg-6_73:
@@ -1109,9 +2007,17 @@ test_ipcp-agg-6_73:
   cargs: ' -O3 -fno-ipa-sra -fdump-ipa-cp-details -fdump-tree-optimized-slim -fno-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-agg-6.c'
   herit: *GRPSERIAL
-  info:
+  info: *112
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipcp-agg-7_298:
+  bin: '"ipcp-agg-7.s"'
+  cargs: ' -O3 -fno-ipa-sra -fdump-ipa-cp-details -fdump-tree-optimized-slim -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-agg-7.c'
+  herit: *GRPSERIAL
+  info: &113
     extraopts:
-      - '"-O3 -fno-ipa-sra -fdump-ipa-cp-details -fdump-tree-optimized-slim -fno-ipa-icf" '
+      - '"-O3 -fno-ipa-sra -fdump-ipa-cp-details -fdump-tree-optimized-slim" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipcp-agg-7_52:
@@ -1119,9 +2025,17 @@ test_ipcp-agg-7_52:
   cargs: ' -O3 -fno-ipa-sra -fdump-ipa-cp-details -fdump-tree-optimized-slim -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-agg-7.c'
   herit: *GRPSERIAL
-  info:
+  info: *113
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipcp-agg-8_299:
+  bin: '"ipcp-agg-8.s"'
+  cargs: ' -O3 -fno-ipa-sra -fdump-tree-optimized-slim -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-agg-8.c'
+  herit: *GRPSERIAL
+  info: &114
     extraopts:
-      - '"-O3 -fno-ipa-sra -fdump-ipa-cp-details -fdump-tree-optimized-slim" '
+      - '"-O3 -fno-ipa-sra -fdump-tree-optimized-slim" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipcp-agg-8_51:
@@ -1129,9 +2043,17 @@ test_ipcp-agg-8_51:
   cargs: ' -O3 -fno-ipa-sra -fdump-tree-optimized-slim -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-agg-8.c'
   herit: *GRPSERIAL
-  info:
+  info: *114
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipcp-agg-9_300:
+  bin: '"ipcp-agg-9.s"'
+  cargs: ' -O3 -fno-early-inlining -fdump-ipa-cp -fdump-ipa-inline -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-agg-9.c'
+  herit: *GRPSERIAL
+  info: &115
     extraopts:
-      - '"-O3 -fno-ipa-sra -fdump-tree-optimized-slim" '
+      - '"-O3 -fno-early-inlining -fdump-ipa-cp -fdump-ipa-inline" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipcp-agg-9_43:
@@ -1139,9 +2061,17 @@ test_ipcp-agg-9_43:
   cargs: ' -O3 -fno-early-inlining -fdump-ipa-cp -fdump-ipa-inline -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-agg-9.c'
   herit: *GRPSERIAL
-  info:
+  info: *115
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipcp-cstagg-1_301:
+  bin: '"ipcp-cstagg-1.s"'
+  cargs: ' -O3 -fdump-ipa-cp-details -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-cstagg-1.c'
+  herit: *GRPSERIAL
+  info: &116
     extraopts:
-      - '"-O3 -fno-early-inlining -fdump-ipa-cp -fdump-ipa-inline" '
+      - '"-O3 -fdump-ipa-cp-details"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipcp-cstagg-1_42:
@@ -1149,7 +2079,15 @@ test_ipcp-cstagg-1_42:
   cargs: ' -O3 -fdump-ipa-cp-details -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-cstagg-1.c'
   herit: *GRPSERIAL
-  info:
+  info: *116
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipcp-cstagg-2_302:
+  bin: '"ipcp-cstagg-2.s"'
+  cargs: ' -O3 -fdump-ipa-cp-details -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-cstagg-2.c'
+  herit: *GRPSERIAL
+  info: &117
     extraopts:
       - '"-O3 -fdump-ipa-cp-details"'
   type: build
@@ -1159,7 +2097,15 @@ test_ipcp-cstagg-2_46:
   cargs: ' -O3 -fdump-ipa-cp-details -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-cstagg-2.c'
   herit: *GRPSERIAL
-  info:
+  info: *117
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipcp-cstagg-3_303:
+  bin: '"ipcp-cstagg-3.s"'
+  cargs: ' -O3 -fdump-ipa-cp-details -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-cstagg-3.c'
+  herit: *GRPSERIAL
+  info: &118
     extraopts:
       - '"-O3 -fdump-ipa-cp-details"'
   type: build
@@ -1169,7 +2115,15 @@ test_ipcp-cstagg-3_58:
   cargs: ' -O3 -fdump-ipa-cp-details -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-cstagg-3.c'
   herit: *GRPSERIAL
-  info:
+  info: *118
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipcp-cstagg-4_304:
+  bin: '"ipcp-cstagg-4.s"'
+  cargs: ' -O3 -fdump-ipa-cp-details -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-cstagg-4.c'
+  herit: *GRPSERIAL
+  info: &119
     extraopts:
       - '"-O3 -fdump-ipa-cp-details"'
   type: build
@@ -1179,7 +2133,15 @@ test_ipcp-cstagg-4_64:
   cargs: ' -O3 -fdump-ipa-cp-details -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-cstagg-4.c'
   herit: *GRPSERIAL
-  info:
+  info: *119
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipcp-cstagg-5_305:
+  bin: '"ipcp-cstagg-5.s"'
+  cargs: ' -O3 -fdump-ipa-cp-details -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-cstagg-5.c'
+  herit: *GRPSERIAL
+  info: &120
     extraopts:
       - '"-O3 -fdump-ipa-cp-details"'
   type: build
@@ -1189,7 +2151,15 @@ test_ipcp-cstagg-5_37:
   cargs: ' -O3 -fdump-ipa-cp-details -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-cstagg-5.c'
   herit: *GRPSERIAL
-  info:
+  info: *120
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipcp-cstagg-6_306:
+  bin: '"ipcp-cstagg-6.s"'
+  cargs: ' -O3 -fdump-ipa-cp-details -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-cstagg-6.c'
+  herit: *GRPSERIAL
+  info: &121
     extraopts:
       - '"-O3 -fdump-ipa-cp-details"'
   type: build
@@ -1199,7 +2169,15 @@ test_ipcp-cstagg-6_43:
   cargs: ' -O3 -fdump-ipa-cp-details -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-cstagg-6.c'
   herit: *GRPSERIAL
-  info:
+  info: *121
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipcp-cstagg-7_307:
+  bin: '"ipcp-cstagg-7.s"'
+  cargs: ' -O3 -fdump-ipa-cp-details -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-cstagg-7.c'
+  herit: *GRPSERIAL
+  info: &122
     extraopts:
       - '"-O3 -fdump-ipa-cp-details"'
   type: build
@@ -1209,9 +2187,17 @@ test_ipcp-cstagg-7_65:
   cargs: ' -O3 -fdump-ipa-cp-details -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-cstagg-7.c'
   herit: *GRPSERIAL
-  info:
+  info: *122
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ipcp-ii-1_308:
+  bin: '"ipcp-ii-1.s"'
+  cargs: ' -O3 -c -fdump-ipa-inline -fno-early-inlining -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-ii-1.c'
+  herit: *GRPSERIAL
+  info: &123
     extraopts:
-      - '"-O3 -fdump-ipa-cp-details"'
+      - '"-O3 -c -fdump-ipa-inline -fno-early-inlining" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ipcp-ii-1_33:
@@ -1219,9 +2205,7 @@ test_ipcp-ii-1_33:
   cargs: ' -O3 -c -fdump-ipa-inline -fno-early-inlining -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/ipcp-ii-1.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O3 -c -fdump-ipa-inline -fno-early-inlining" '
+  info: *123
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_noclone-1_28:
@@ -1229,9 +2213,17 @@ test_noclone-1_28:
   cargs: ' -O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/noclone-1.c'
   herit: *GRPSERIAL
-  info:
+  info: &124
     extraopts:
       - '"-O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining" '
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_noclone-1_309:
+  bin: '"noclone-1.s"'
+  cargs: ' -O3 -fipa-cp -fipa-cp-clone -fdump-ipa-cp -fno-early-inlining -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/noclone-1.c'
+  herit: *GRPSERIAL
+  info: *124
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr42706_27:
@@ -1239,19 +2231,35 @@ test_pr42706_27:
   cargs: ' -O2 -fno-early-inlining -fipa-sra -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr42706.c'
   herit: *GRPSERIAL
-  info:
+  info: &125
     extraopts:
       - '"-O2 -fno-early-inlining -fipa-sra" '
   type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr42706_310:
+  bin: '"pr42706.s"'
+  cargs: ' -O2 -fno-early-inlining -fipa-sra -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr42706.c'
+  herit: *GRPSERIAL
+  info: *125
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr45644_311:
+  bin: '"./pr45644.exe"'
+  cargs: ' -O2'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr45644.c'
+  herit: *GRPSERIAL
+  info: &126
+    extraopts:
+      - '"-O2" '
+  type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr45644_36:
   bin: '"./pr45644.exe"'
   cargs: ' -O2'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr45644.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2" '
+  info: *126
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr48195_25:
@@ -1259,9 +2267,17 @@ test_pr48195_25:
   cargs: ' -O2 -flto --param partial-inlining-entry-probability=100'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr48195.c'
   herit: *GRPSERIAL
-  info:
+  info: &127
     extraopts:
       - '"-O2 -flto --param partial-inlining-entry-probability=100"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr48195_312:
+  bin: '"pr48195.exe"'
+  cargs: ' -O2 -flto --param partial-inlining-entry-probability=100'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr48195.c'
+  herit: *GRPSERIAL
+  info: *127
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr50744_119:
@@ -1269,9 +2285,17 @@ test_pr50744_119:
   cargs: ' -O3 -fno-optimize-sibling-calls -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr50744.c'
   herit: *GRPSERIAL
-  info:
+  info: &128
     extraopts:
       - '"-O3 -fno-optimize-sibling-calls"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr50744_313:
+  bin: '"pr50744.s"'
+  cargs: ' -O3 -fno-optimize-sibling-calls -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr50744.c'
+  herit: *GRPSERIAL
+  info: *128
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr51362_22:
@@ -1279,9 +2303,27 @@ test_pr51362_22:
   cargs: ' -O -fipa-cp -fipa-cp-clone -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr51362.c'
   herit: *GRPSERIAL
-  info:
+  info: &129
     extraopts:
       - '"-O -fipa-cp -fipa-cp-clone"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr51362_314:
+  bin: '"pr51362.s"'
+  cargs: ' -O -fipa-cp -fipa-cp-clone -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr51362.c'
+  herit: *GRPSERIAL
+  info: *129
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr55260_315:
+  bin: '"pr55260.s"'
+  cargs: ' -O2 -fno-inline -fipa-cp-clone -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr55260.c'
+  herit: *GRPSERIAL
+  info: &130
+    extraopts:
+      - '"-O2 -fno-inline -fipa-cp-clone" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr55260_38:
@@ -1289,19 +2331,25 @@ test_pr55260_38:
   cargs: ' -O2 -fno-inline -fipa-cp-clone -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr55260.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2 -fno-inline -fipa-cp-clone" '
+  info: *130
   type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr56988_316:
+  bin: '"./pr56988.exe"'
+  cargs: ' -O3'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr56988.c'
+  herit: *GRPSERIAL
+  info: &131
+    extraopts:
+      - '"-O3"'
+  type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr56988_38:
   bin: '"./pr56988.exe"'
   cargs: ' -O3'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr56988.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O3"'
+  info: *131
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr57294_18:
@@ -1309,9 +2357,17 @@ test_pr57294_18:
   cargs: ' -O3 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr57294.c'
   herit: *GRPSERIAL
-  info:
+  info: &132
     extraopts:
       - '"-O3"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr57294_317:
+  bin: '"pr57294.s"'
+  cargs: ' -O3 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr57294.c'
+  herit: *GRPSERIAL
+  info: *132
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr57347_27:
@@ -1319,19 +2375,35 @@ test_pr57347_27:
   cargs: ' -O3'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr57347.c'
   herit: *GRPSERIAL
-  info:
+  info: &133
     extraopts:
       - '"-O3"'
   type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr57347_318:
+  bin: '"./pr57347.exe"'
+  cargs: ' -O3'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr57347.c'
+  herit: *GRPSERIAL
+  info: *133
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr57358_319:
+  bin: '"pr57358.s"'
+  cargs: ' -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr57358.c'
+  herit: *GRPSERIAL
+  info: &134
+    extraopts:
+      - '"-O2"'
+  type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr57358_9:
   bin: '"pr57358.s"'
   cargs: ' -O2 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr57358.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2"'
+  info: *134
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr57539_220:
@@ -1339,9 +2411,27 @@ test_pr57539_220:
   cargs: ' -O3 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr57539.c'
   herit: *GRPSERIAL
-  info:
+  info: &135
     extraopts:
       - '"-O3"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr57539_320:
+  bin: '"pr57539.s"'
+  cargs: ' -O3 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr57539.c'
+  herit: *GRPSERIAL
+  info: *135
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr58106_321:
+  bin: '"pr58106.s"'
+  cargs: ' -O3 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr58106.c'
+  herit: *GRPSERIAL
+  info: &136
+    extraopts:
+      - '"-O3" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr58106_50:
@@ -1349,9 +2439,17 @@ test_pr58106_50:
   cargs: ' -O3 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr58106.c'
   herit: *GRPSERIAL
-  info:
+  info: *136
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr58492_322:
+  bin: '"pr58492.s"'
+  cargs: ' -O3 -fipa-pta -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr58492.c'
+  herit: *GRPSERIAL
+  info: &137
     extraopts:
-      - '"-O3" '
+      - '"-O3 -fipa-pta"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr58492_7:
@@ -1359,9 +2457,7 @@ test_pr58492_7:
   cargs: ' -O3 -fipa-pta -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr58492.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O3 -fipa-pta"'
+  info: *137
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr59008_32:
@@ -1369,9 +2465,17 @@ test_pr59008_32:
   cargs: ' -O3 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr59008.c'
   herit: *GRPSERIAL
-  info:
+  info: &138
     extraopts:
       - '"-O3"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr59008_323:
+  bin: '"pr59008.s"'
+  cargs: ' -O3 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr59008.c'
+  herit: *GRPSERIAL
+  info: *138
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr59610_11:
@@ -1379,9 +2483,27 @@ test_pr59610_11:
   cargs: ' -O2 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr59610.c'
   herit: *GRPSERIAL
-  info:
+  info: &139
     extraopts:
       - '"-O2"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr59610_324:
+  bin: '"pr59610.s"'
+  cargs: ' -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr59610.c'
+  herit: *GRPSERIAL
+  info: *139
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr61986_325:
+  bin: '"pr61986.s"'
+  cargs: ' -O3 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr61986.c'
+  herit: *GRPSERIAL
+  info: &140
+    extraopts:
+      - '"-O3"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr61986_48:
@@ -1389,9 +2511,17 @@ test_pr61986_48:
   cargs: ' -O3 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr61986.c'
   herit: *GRPSERIAL
-  info:
+  info: *140
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr63416_326:
+  bin: '"pr63416.s"'
+  cargs: ' -O2 -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr63416.c'
+  herit: *GRPSERIAL
+  info: &141
     extraopts:
-      - '"-O3"'
+      - '"-O2 -fdump-tree-optimized" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr63416_56:
@@ -1399,19 +2529,25 @@ test_pr63416_56:
   cargs: ' -O2 -fdump-tree-optimized -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr63416.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2 -fdump-tree-optimized" '
+  info: *141
   type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr63551_327:
+  bin: '"./pr63551.exe"'
+  cargs: ' -Os'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr63551.c'
+  herit: *GRPSERIAL
+  info: &142
+    extraopts:
+      - '"-Os"'
+  type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr63551_34:
   bin: '"./pr63551.exe"'
   cargs: ' -Os'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr63551.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-Os"'
+  info: *142
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr63569_30:
@@ -1419,7 +2555,25 @@ test_pr63569_30:
   cargs: ' -O2 -fdump-ipa-icf-details -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr63569.c'
   herit: *GRPSERIAL
-  info:
+  info: &143
+    extraopts:
+      - '"-O2 -fdump-ipa-icf-details" '
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr63569_328:
+  bin: '"pr63569.s"'
+  cargs: ' -O2 -fdump-ipa-icf-details -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr63569.c'
+  herit: *GRPSERIAL
+  info: *143
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr63595_329:
+  bin: '"pr63595.s"'
+  cargs: ' -O2 -fdump-ipa-icf-details -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr63595.c'
+  herit: *GRPSERIAL
+  info: &144
     extraopts:
       - '"-O2 -fdump-ipa-icf-details" '
   type: build
@@ -1429,19 +2583,25 @@ test_pr63595_65:
   cargs: ' -O2 -fdump-ipa-icf-details -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr63595.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2 -fdump-ipa-icf-details" '
+  info: *144
   type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr63747_330:
+  bin: '"./pr63747.exe"'
+  cargs: ' -O2 -fdump-ipa-icf'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr63747.c'
+  herit: *GRPSERIAL
+  info: &145
+    extraopts:
+      - '"-O2 -fdump-ipa-icf"'
+  type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr63747_39:
   bin: '"./pr63747.exe"'
   cargs: ' -O2 -fdump-ipa-icf'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr63747.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2 -fdump-ipa-icf"'
+  info: *145
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr63909_27:
@@ -1449,19 +2609,35 @@ test_pr63909_27:
   cargs: ' -O2 -fno-guess-branch-probability -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr63909.c'
   herit: *GRPSERIAL
-  info:
+  info: &146
     extraopts:
       - '"-O2 -fno-guess-branch-probability"'
   type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr63909_331:
+  bin: '"pr63909.s"'
+  cargs: ' -O2 -fno-guess-branch-probability -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr63909.c'
+  herit: *GRPSERIAL
+  info: *146
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr64041_332:
+  bin: '"./pr64041.exe"'
+  cargs: ' -O2'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr64041.c'
+  herit: *GRPSERIAL
+  info: &147
+    extraopts:
+      - '"-O2"'
+  type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr64041_65:
   bin: '"./pr64041.exe"'
   cargs: ' -O2'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr64041.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2"'
+  info: *147
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr64307_31:
@@ -1469,9 +2645,17 @@ test_pr64307_31:
   cargs: ' -O0 -fipa-icf -fdump-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr64307.c'
   herit: *GRPSERIAL
-  info:
+  info: &148
     extraopts:
       - '"-O0 -fipa-icf -fdump-ipa-icf" '
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr64307_333:
+  bin: '"pr64307.s"'
+  cargs: ' -O0 -fipa-icf -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr64307.c'
+  herit: *GRPSERIAL
+  info: *148
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr65287_15:
@@ -1479,9 +2663,17 @@ test_pr65287_15:
   cargs: ' -O2 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr65287.c'
   herit: *GRPSERIAL
-  info:
+  info: &149
     extraopts:
       - '"-O2"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr65287_334:
+  bin: '"pr65287.s"'
+  cargs: ' -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr65287.c'
+  herit: *GRPSERIAL
+  info: *149
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr65318_17:
@@ -1489,9 +2681,17 @@ test_pr65318_17:
   cargs: ' -O2 -fdump-ipa-icf-details -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr65318.c'
   herit: *GRPSERIAL
-  info:
+  info: &150
     extraopts:
       - '"-O2 -fdump-ipa-icf-details" '
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr65318_335:
+  bin: '"pr65318.s"'
+  cargs: ' -O2 -fdump-ipa-icf-details -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr65318.c'
+  herit: *GRPSERIAL
+  info: *150
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr68035_108:
@@ -1499,19 +2699,45 @@ test_pr68035_108:
   cargs: ' -O2 -fdump-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr68035.c'
   herit: *GRPSERIAL
-  info:
+  info: &151
     extraopts:
       - '"-O2 -fdump-ipa-icf" '
   type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr68035_336:
+  bin: '"pr68035.s"'
+  cargs: ' -O2 -fdump-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr68035.c'
+  herit: *GRPSERIAL
+  info: *151
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr68790_337:
+  bin: '"./pr68790.exe"'
+  cargs: ' -O0 -fipa-icf -fdump-ipa-icf'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr68790.c'
+  herit: *GRPSERIAL
+  info: &152
+    extraopts:
+      - '"-O0 -fipa-icf -fdump-ipa-icf" '
+  type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr68790_40:
   bin: '"./pr68790.exe"'
   cargs: ' -O0 -fipa-icf -fdump-ipa-icf'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr68790.c'
   herit: *GRPSERIAL
-  info:
+  info: *152
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr70306_338:
+  bin: '"./pr70306.exe"'
+  cargs: ' -O2 -fdump-ipa-icf'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr70306.c'
+  herit: *GRPSERIAL
+  info: &153
     extraopts:
-      - '"-O0 -fipa-icf -fdump-ipa-icf" '
+      - '"-O2 -fdump-ipa-icf"'
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr70306_46:
@@ -1519,9 +2745,17 @@ test_pr70306_46:
   cargs: ' -O2 -fdump-ipa-icf'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr70306.c'
   herit: *GRPSERIAL
-  info:
+  info: *153
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr70646_339:
+  bin: '"./pr70646.exe"'
+  cargs: ' -O2 -fno-unit-at-a-time'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr70646.c'
+  herit: *GRPSERIAL
+  info: &154
     extraopts:
-      - '"-O2 -fdump-ipa-icf"'
+      - '"-O2 -fno-unit-at-a-time"'
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr70646_38:
@@ -1529,9 +2763,7 @@ test_pr70646_38:
   cargs: ' -O2 -fno-unit-at-a-time'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr70646.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2 -fno-unit-at-a-time"'
+  info: *154
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr71981_10:
@@ -1539,9 +2771,17 @@ test_pr71981_10:
   cargs: ' -O2 -w -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr71981.c'
   herit: *GRPSERIAL
-  info:
+  info: &155
     extraopts:
       - '"-O2 -w"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr71981_340:
+  bin: '"pr71981.s"'
+  cargs: ' -O2 -w -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr71981.c'
+  herit: *GRPSERIAL
+  info: *155
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr77653_25:
@@ -1549,9 +2789,17 @@ test_pr77653_25:
   cargs: ' -O2 -fdump-ipa-icf-details -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr77653.c'
   herit: *GRPSERIAL
-  info:
+  info: &156
     extraopts:
       - '"-O2 -fdump-ipa-icf-details" '
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr77653_341:
+  bin: '"pr77653.s"'
+  cargs: ' -O2 -fdump-ipa-icf-details -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr77653.c'
+  herit: *GRPSERIAL
+  info: *156
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr78121_16:
@@ -1559,9 +2807,17 @@ test_pr78121_16:
   cargs: ' -ansi -O2 -fdump-ipa-cp-details -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr78121.c'
   herit: *GRPSERIAL
-  info:
+  info: &157
     extraopts:
       - '"-ansi -O2 -fdump-ipa-cp-details"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr78121_342:
+  bin: '"pr78121.s"'
+  cargs: ' -ansi -O2 -fdump-ipa-cp-details -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr78121.c'
+  herit: *GRPSERIAL
+  info: *157
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr80104_15:
@@ -1569,9 +2825,17 @@ test_pr80104_15:
   cargs: ' -fipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr80104.c'
   herit: *GRPSERIAL
-  info:
+  info: &158
     extraopts:
       - '"-fipa-icf"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr80104_343:
+  bin: '"pr80104.s"'
+  cargs: ' -fipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr80104.c'
+  herit: *GRPSERIAL
+  info: *158
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr81696_26:
@@ -1579,9 +2843,17 @@ test_pr81696_26:
   cargs: ' -O2 -fdump-ipa-icf-details -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr81696.c'
   herit: *GRPSERIAL
-  info:
+  info: &159
     extraopts:
       - '"-O2 -fdump-ipa-icf-details" '
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr81696_344:
+  bin: '"pr81696.s"'
+  cargs: ' -O2 -fdump-ipa-icf-details -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr81696.c'
+  herit: *GRPSERIAL
+  info: *159
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr82001_21:
@@ -1589,9 +2861,17 @@ test_pr82001_21:
   cargs: ' -O2 -fdump-ipa-icf-details -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr82001.c'
   herit: *GRPSERIAL
-  info:
+  info: &160
     extraopts:
       - '"-O2 -fdump-ipa-icf-details" '
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr82001_345:
+  bin: '"pr82001.s"'
+  cargs: ' -O2 -fdump-ipa-icf-details -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr82001.c'
+  herit: *GRPSERIAL
+  info: *160
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr82808_27:
@@ -1599,9 +2879,17 @@ test_pr82808_27:
   cargs: ' -O2'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr82808.c'
   herit: *GRPSERIAL
-  info:
+  info: &161
     extraopts:
       - '"-O2"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr82808_346:
+  bin: '"./pr82808.exe"'
+  cargs: ' -O2'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pr82808.c'
+  herit: *GRPSERIAL
+  info: *161
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_propalign-1_31:
@@ -1609,7 +2897,25 @@ test_propalign-1_31:
   cargs: ' -O2 -fno-early-inlining -fdump-ipa-cp -fdump-tree-optimized -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/propalign-1.c'
   herit: *GRPSERIAL
-  info:
+  info: &162
+    extraopts:
+      - '"-O2 -fno-early-inlining -fdump-ipa-cp -fdump-tree-optimized"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_propalign-1_347:
+  bin: '"propalign-1.s"'
+  cargs: ' -O2 -fno-early-inlining -fdump-ipa-cp -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/propalign-1.c'
+  herit: *GRPSERIAL
+  info: *162
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_propalign-2_348:
+  bin: '"propalign-2.s"'
+  cargs: ' -O2 -fno-early-inlining -fdump-ipa-cp -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/propalign-2.c'
+  herit: *GRPSERIAL
+  info: &163
     extraopts:
       - '"-O2 -fno-early-inlining -fdump-ipa-cp -fdump-tree-optimized"'
   type: build
@@ -1619,9 +2925,17 @@ test_propalign-2_57:
   cargs: ' -O2 -fno-early-inlining -fdump-ipa-cp -fdump-tree-optimized -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/propalign-2.c'
   herit: *GRPSERIAL
-  info:
+  info: *163
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_propalign-3_349:
+  bin: '"propalign-3.s"'
+  cargs: ' -O2 -fno-ipa-bit-cp -fno-early-inlining -fdump-ipa-cp -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/propalign-3.c'
+  herit: *GRPSERIAL
+  info: &164
     extraopts:
-      - '"-O2 -fno-early-inlining -fdump-ipa-cp -fdump-tree-optimized"'
+      - '"-O2 -fno-ipa-bit-cp -fno-early-inlining -fdump-ipa-cp -fdump-tree-optimized"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_propalign-3_57:
@@ -1629,9 +2943,7 @@ test_propalign-3_57:
   cargs: ' -O2 -fno-ipa-bit-cp -fno-early-inlining -fdump-ipa-cp -fdump-tree-optimized -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/propalign-3.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2 -fno-ipa-bit-cp -fno-early-inlining -fdump-ipa-cp -fdump-tree-optimized"'
+  info: *164
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_propalign-4_23:
@@ -1639,9 +2951,17 @@ test_propalign-4_23:
   cargs: ' -O2 -fdump-ipa-cp -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/propalign-4.c'
   herit: *GRPSERIAL
-  info:
+  info: &165
     extraopts:
       - '"-O2 -fdump-ipa-cp" '
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_propalign-4_350:
+  bin: '"propalign-4.s"'
+  cargs: ' -O2 -fdump-ipa-cp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/propalign-4.c'
+  herit: *GRPSERIAL
+  info: *165
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_propalign-5_23:
@@ -1649,9 +2969,17 @@ test_propalign-5_23:
   cargs: ' -O2 -fdump-ipa-cp -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/propalign-5.c'
   herit: *GRPSERIAL
-  info:
+  info: &166
     extraopts:
       - '"-O2 -fdump-ipa-cp" '
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_propalign-5_351:
+  bin: '"propalign-5.s"'
+  cargs: ' -O2 -fdump-ipa-cp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/propalign-5.c'
+  herit: *GRPSERIAL
+  info: *166
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_propbits-1_19:
@@ -1659,9 +2987,27 @@ test_propbits-1_19:
   cargs: ' -O2 -fno-early-inlining -fdump-ipa-cp -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/propbits-1.c'
   herit: *GRPSERIAL
-  info:
+  info: &167
     extraopts:
       - '"-O2 -fno-early-inlining -fdump-ipa-cp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_propbits-1_352:
+  bin: '"propbits-1.s"'
+  cargs: ' -O2 -fno-early-inlining -fdump-ipa-cp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/propbits-1.c'
+  herit: *GRPSERIAL
+  info: *167
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_propbits-2_353:
+  bin: '"propbits-2.s"'
+  cargs: ' -O2 -fno-early-inlining -fdump-ipa-cp -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/propbits-2.c'
+  herit: *GRPSERIAL
+  info: &168
+    extraopts:
+      - '"-O2 -fno-early-inlining -fdump-ipa-cp -fdump-tree-optimized"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_propbits-2_41:
@@ -1669,9 +3015,7 @@ test_propbits-2_41:
   cargs: ' -O2 -fno-early-inlining -fdump-ipa-cp -fdump-tree-optimized -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/propbits-2.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2 -fno-early-inlining -fdump-ipa-cp -fdump-tree-optimized"'
+  info: *168
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_propbits-3_22:
@@ -1679,9 +3023,27 @@ test_propbits-3_22:
   cargs: ' -O2 -fno-early-inlining -fdump-ipa-cp -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/propbits-3.c'
   herit: *GRPSERIAL
-  info:
+  info: &169
     extraopts:
       - '"-O2 -fno-early-inlining -fdump-ipa-cp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_propbits-3_354:
+  bin: '"propbits-3.s"'
+  cargs: ' -O2 -fno-early-inlining -fdump-ipa-cp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/propbits-3.c'
+  herit: *GRPSERIAL
+  info: *169
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pure-const-1_355:
+  bin: '"pure-const-1.s"'
+  cargs: ' -O3 -fdump-tree-local-pure-const1 -fdump-ipa-pure-const -fdump-tree-optimized -fno-early-inlining -fgnu89-inline -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pure-const-1.c'
+  herit: *GRPSERIAL
+  info: &170
+    extraopts:
+      - '"-O3 -fdump-tree-local-pure-const1 -fdump-ipa-pure-const -fdump-tree-optimized -fno-early-inlining -fgnu89-inline"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pure-const-1_78:
@@ -1689,9 +3051,7 @@ test_pure-const-1_78:
   cargs: ' -O3 -fdump-tree-local-pure-const1 -fdump-ipa-pure-const -fdump-tree-optimized -fno-early-inlining -fgnu89-inline -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pure-const-1.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O3 -fdump-tree-local-pure-const1 -fdump-ipa-pure-const -fdump-tree-optimized -fno-early-inlining -fgnu89-inline"'
+  info: *170
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pure-const-2_28:
@@ -1699,9 +3059,17 @@ test_pure-const-2_28:
   cargs: ' -O3 -fdump-tree-local-pure-const1 -fdump-tree-optimized -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pure-const-2.c'
   herit: *GRPSERIAL
-  info:
+  info: &171
     extraopts:
       - '"-O3 -fdump-tree-local-pure-const1 -fdump-tree-optimized"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pure-const-2_356:
+  bin: '"pure-const-2.s"'
+  cargs: ' -O3 -fdump-tree-local-pure-const1 -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pure-const-2.c'
+  herit: *GRPSERIAL
+  info: *171
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pure-const-3_24:
@@ -1709,9 +3077,17 @@ test_pure-const-3_24:
   cargs: ' -O2 -fdump-tree-local-pure-const1'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pure-const-3.c'
   herit: *GRPSERIAL
-  info:
+  info: &172
     extraopts:
       - '"-O2 -fdump-tree-local-pure-const1"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pure-const-3_357:
+  bin: '"./pure-const-3.exe"'
+  cargs: ' -O2 -fdump-tree-local-pure-const1'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/pure-const-3.c'
+  herit: *GRPSERIAL
+  info: *172
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_remref-0_28:
@@ -1719,9 +3095,17 @@ test_remref-0_28:
   cargs: ' -O3 -fno-early-inlining -fno-ipa-sra -fno-ipa-cp -fdump-ipa-inline -fdump-tree-optimized -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/remref-0.c'
   herit: *GRPSERIAL
-  info:
+  info: &173
     extraopts:
       - '"-O3 -fno-early-inlining -fno-ipa-sra -fno-ipa-cp -fdump-ipa-inline -fdump-tree-optimized" '
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_remref-0_358:
+  bin: '"remref-0.s"'
+  cargs: ' -O3 -fno-early-inlining -fno-ipa-sra -fno-ipa-cp -fdump-ipa-inline -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/remref-0.c'
+  herit: *GRPSERIAL
+  info: *173
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_remref-1a_32:
@@ -1729,9 +3113,17 @@ test_remref-1a_32:
   cargs: ' -O3 -fno-early-inlining -fno-ipa-cp -fdump-ipa-inline -fdump-tree-optimized -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/remref-1a.c'
   herit: *GRPSERIAL
-  info:
+  info: &174
     extraopts:
       - '"-O3 -fno-early-inlining -fno-ipa-cp -fdump-ipa-inline -fdump-tree-optimized" '
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_remref-1a_359:
+  bin: '"remref-1a.s"'
+  cargs: ' -O3 -fno-early-inlining -fno-ipa-cp -fdump-ipa-inline -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/remref-1a.c'
+  herit: *GRPSERIAL
+  info: *174
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_remref-1b_34:
@@ -1739,9 +3131,27 @@ test_remref-1b_34:
   cargs: ' -O3 -fno-early-inlining -fdump-ipa-cp-details -fdump-ipa-inline -fdump-tree-optimized -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/remref-1b.c'
   herit: *GRPSERIAL
-  info:
+  info: &175
     extraopts:
       - '"-O3 -fno-early-inlining -fdump-ipa-cp-details -fdump-ipa-inline -fdump-tree-optimized" '
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_remref-1b_360:
+  bin: '"remref-1b.s"'
+  cargs: ' -O3 -fno-early-inlining -fdump-ipa-cp-details -fdump-ipa-inline -fdump-tree-optimized -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/remref-1b.c'
+  herit: *GRPSERIAL
+  info: *175
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_remref-2a_361:
+  bin: '"remref-2a.s"'
+  cargs: ' -O3 -fno-early-inlining -fno-ipa-cp -fdump-ipa-inline -fdump-tree-optimized -fno-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/remref-2a.c'
+  herit: *GRPSERIAL
+  info: &176
+    extraopts:
+      - '"-O3 -fno-early-inlining -fno-ipa-cp -fdump-ipa-inline -fdump-tree-optimized -fno-ipa-icf" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_remref-2a_88:
@@ -1749,9 +3159,17 @@ test_remref-2a_88:
   cargs: ' -O3 -fno-early-inlining -fno-ipa-cp -fdump-ipa-inline -fdump-tree-optimized -fno-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/remref-2a.c'
   herit: *GRPSERIAL
-  info:
+  info: *176
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_remref-2b_362:
+  bin: '"remref-2b.s"'
+  cargs: ' -O3 -fno-early-inlining -fdump-ipa-cp-details -fdump-ipa-inline -fdump-tree-optimized -fno-ipa-icf -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/remref-2b.c'
+  herit: *GRPSERIAL
+  info: &177
     extraopts:
-      - '"-O3 -fno-early-inlining -fno-ipa-cp -fdump-ipa-inline -fdump-tree-optimized -fno-ipa-icf" '
+      - '"-O3 -fno-early-inlining -fdump-ipa-cp-details -fdump-ipa-inline -fdump-tree-optimized -fno-ipa-icf" '
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_remref-2b_91:
@@ -1759,9 +3177,7 @@ test_remref-2b_91:
   cargs: ' -O3 -fno-early-inlining -fdump-ipa-cp-details -fdump-ipa-inline -fdump-tree-optimized -fno-ipa-icf -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/remref-2b.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O3 -fno-early-inlining -fdump-ipa-cp-details -fdump-ipa-inline -fdump-tree-optimized -fno-ipa-icf" '
+  info: *177
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_vrp1_32:
@@ -1769,9 +3185,17 @@ test_vrp1_32:
   cargs: ' -O2 -fdump-ipa-cp-details -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/vrp1.c'
   herit: *GRPSERIAL
-  info:
+  info: &178
     extraopts:
       - '"-O2 -fdump-ipa-cp-details"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vrp1_363:
+  bin: '"vrp1.s"'
+  cargs: ' -O2 -fdump-ipa-cp-details -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/vrp1.c'
+  herit: *GRPSERIAL
+  info: *178
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_vrp2_35:
@@ -1779,9 +3203,17 @@ test_vrp2_35:
   cargs: ' -O2 -fdump-ipa-cp-details -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/vrp2.c'
   herit: *GRPSERIAL
-  info:
+  info: &179
     extraopts:
       - '"-O2 -fdump-ipa-cp-details"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vrp2_364:
+  bin: '"vrp2.s"'
+  cargs: ' -O2 -fdump-ipa-cp-details -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/vrp2.c'
+  herit: *GRPSERIAL
+  info: *179
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_vrp3_30:
@@ -1789,9 +3221,17 @@ test_vrp3_30:
   cargs: ' -O2 -fdump-ipa-cp-details -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/vrp3.c'
   herit: *GRPSERIAL
-  info:
+  info: &180
     extraopts:
       - '"-O2 -fdump-ipa-cp-details"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vrp3_365:
+  bin: '"vrp3.s"'
+  cargs: ' -O2 -fdump-ipa-cp-details -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/vrp3.c'
+  herit: *GRPSERIAL
+  info: *180
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_vrp4_28:
@@ -1799,9 +3239,17 @@ test_vrp4_28:
   cargs: ' -O2 -fdump-ipa-cp-details -fdump-tree-vrp1 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/vrp4.c'
   herit: *GRPSERIAL
-  info:
+  info: &181
     extraopts:
       - '"-O2 -fdump-ipa-cp-details -fdump-tree-vrp1"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vrp4_366:
+  bin: '"vrp4.s"'
+  cargs: ' -O2 -fdump-ipa-cp-details -fdump-tree-vrp1 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/vrp4.c'
+  herit: *GRPSERIAL
+  info: *181
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_vrp5_34:
@@ -1809,9 +3257,17 @@ test_vrp5_34:
   cargs: ' -O2 -fdump-ipa-cp-details -fdump-tree-vrp1 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/vrp5.c'
   herit: *GRPSERIAL
-  info:
+  info: &182
     extraopts:
       - '"-O2 -fdump-ipa-cp-details -fdump-tree-vrp1"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vrp5_367:
+  bin: '"vrp5.s"'
+  cargs: ' -O2 -fdump-ipa-cp-details -fdump-tree-vrp1 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/vrp5.c'
+  herit: *GRPSERIAL
+  info: *182
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_vrp6_34:
@@ -1819,9 +3275,17 @@ test_vrp6_34:
   cargs: ' -O2 -fdump-ipa-cp-details -fdump-tree-vrp1 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/vrp6.c'
   herit: *GRPSERIAL
-  info:
+  info: &183
     extraopts:
       - '"-O2 -fdump-ipa-cp-details -fdump-tree-vrp1"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vrp6_368:
+  bin: '"vrp6.s"'
+  cargs: ' -O2 -fdump-ipa-cp-details -fdump-tree-vrp1 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/vrp6.c'
+  herit: *GRPSERIAL
+  info: *183
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_vrp7_32:
@@ -1829,7 +3293,25 @@ test_vrp7_32:
   cargs: ' -O2 -fdump-ipa-cp-details -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/vrp7.c'
   herit: *GRPSERIAL
-  info:
+  info: &184
+    extraopts:
+      - '"-O2 -fdump-ipa-cp-details"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vrp7_369:
+  bin: '"vrp7.s"'
+  cargs: ' -O2 -fdump-ipa-cp-details -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/vrp7.c'
+  herit: *GRPSERIAL
+  info: *184
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vrp8_370:
+  bin: '"vrp8.s"'
+  cargs: ' -O2 -fdump-ipa-cp-details -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/vrp8.c'
+  herit: *GRPSERIAL
+  info: &185
     extraopts:
       - '"-O2 -fdump-ipa-cp-details"'
   type: build
@@ -1839,8 +3321,6 @@ test_vrp8_42:
   cargs: ' -O2 -fdump-ipa-cp-details -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/ipa/vrp8.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2 -fdump-ipa-cp-details"'
+  info: *185
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

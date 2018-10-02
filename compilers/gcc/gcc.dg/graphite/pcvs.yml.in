@@ -1,9 +1,25 @@
+test_block-0_322:
+  bin: '"./block-0.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/block-0.c'
+  herit: *GRPSERIAL
+  info: &1 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_block-0_45:
   bin: '"./block-0.exe"'
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/block-0.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *1
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_block-1_323:
+  bin: '"./block-1.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/block-1.c'
+  herit: *GRPSERIAL
+  info: &2 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_block-1_48:
@@ -11,7 +27,15 @@ test_block-1_48:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/block-1.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *2
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_block-5_324:
+  bin: '"./block-5.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/block-5.c'
+  herit: *GRPSERIAL
+  info: &3 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_block-5_56:
@@ -19,7 +43,15 @@ test_block-5_56:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/block-5.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *3
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_block-6_325:
+  bin: '"./block-6.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/block-6.c'
+  herit: *GRPSERIAL
+  info: &4 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_block-6_51:
@@ -27,7 +59,7 @@ test_block-6_51:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/block-6.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *4
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_block-pr47654_24:
@@ -35,7 +67,25 @@ test_block-pr47654_24:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/block-pr47654.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &5 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_block-pr47654_326:
+  bin: '"./block-pr47654.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/block-pr47654.c'
+  herit: *GRPSERIAL
+  info: *5
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_fuse-1_327:
+  bin: '"./fuse-1.exe"'
+  cargs: ' -O2 -floop-nest-optimize -fdump-tree-forwprop-all -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/fuse-1.c'
+  herit: *GRPSERIAL
+  info: &6
+    extraopts:
+      - '"-O2 -floop-nest-optimize -fdump-tree-forwprop-all -fdump-tree-graphite-all"'
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_fuse-1_39:
@@ -43,9 +93,15 @@ test_fuse-1_39:
   cargs: ' -O2 -floop-nest-optimize -fdump-tree-forwprop-all -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/fuse-1.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2 -floop-nest-optimize -fdump-tree-forwprop-all -fdump-tree-graphite-all"'
+  info: *6
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_fuse-2_328:
+  bin: '"./fuse-2.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/fuse-2.c'
+  herit: *GRPSERIAL
+  info: &7 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_fuse-2_41:
@@ -53,7 +109,7 @@ test_fuse-2_41:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/fuse-2.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *7
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-10_15:
@@ -61,7 +117,15 @@ test_id-10_15:
   cargs: ' -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-10.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &8 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-10_270:
+  bin: '"id-10.s"'
+  cargs: ' -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-10.c'
+  herit: *GRPSERIAL
+  info: *8
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-11_14:
@@ -69,7 +133,15 @@ test_id-11_14:
   cargs: ' -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-11.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &9 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-11_271:
+  bin: '"id-11.s"'
+  cargs: ' -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-11.c'
+  herit: *GRPSERIAL
+  info: *9
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-12_10:
@@ -77,7 +149,15 @@ test_id-12_10:
   cargs: ' -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-12.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &10 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-12_272:
+  bin: '"id-12.s"'
+  cargs: ' -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-12.c'
+  herit: *GRPSERIAL
+  info: *10
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-13_13:
@@ -85,7 +165,15 @@ test_id-13_13:
   cargs: ' -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-13.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &11 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-13_273:
+  bin: '"id-13.s"'
+  cargs: ' -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-13.c'
+  herit: *GRPSERIAL
+  info: *11
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-14_19:
@@ -93,7 +181,15 @@ test_id-14_19:
   cargs: ' -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-14.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &12 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-14_274:
+  bin: '"id-14.s"'
+  cargs: ' -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-14.c'
+  herit: *GRPSERIAL
+  info: *12
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-15_120:
@@ -101,7 +197,23 @@ test_id-15_120:
   cargs: ' -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-15.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &13 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-15_275:
+  bin: '"id-15.s"'
+  cargs: ' -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-15.c'
+  herit: *GRPSERIAL
+  info: *13
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-16_276:
+  bin: '"id-16.s"'
+  cargs: ' -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-16.c'
+  herit: *GRPSERIAL
+  info: &14 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-16_44:
@@ -109,7 +221,7 @@ test_id-16_44:
   cargs: ' -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-16.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *14
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-17_22:
@@ -117,7 +229,23 @@ test_id-17_22:
   cargs: ' -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-17.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &15 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-17_277:
+  bin: '"id-17.s"'
+  cargs: ' -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-17.c'
+  herit: *GRPSERIAL
+  info: *15
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-18_278:
+  bin: '"id-18.s"'
+  cargs: ' -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-18.c'
+  herit: *GRPSERIAL
+  info: &16 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-18_7:
@@ -125,7 +253,15 @@ test_id-18_7:
   cargs: ' -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-18.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *16
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-19_279:
+  bin: '"id-19.s"'
+  cargs: ' -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-19.c'
+  herit: *GRPSERIAL
+  info: &17 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-19_6:
@@ -133,7 +269,7 @@ test_id-19_6:
   cargs: ' -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-19.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *17
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-1_20:
@@ -141,7 +277,15 @@ test_id-1_20:
   cargs: ' -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-1.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &18 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-1_269:
+  bin: '"id-1.s"'
+  cargs: ' -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-1.c'
+  herit: *GRPSERIAL
+  info: *18
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-20_26:
@@ -149,9 +293,17 @@ test_id-20_26:
   cargs: ' -O3 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-20.c'
   herit: *GRPSERIAL
-  info:
+  info: &19
     extraopts:
       - '"-O3 -fgraphite-identity -ffast-math"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-20_281:
+  bin: '"id-20.s"'
+  cargs: ' -O3 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-20.c'
+  herit: *GRPSERIAL
+  info: *19
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-22_15:
@@ -159,7 +311,15 @@ test_id-22_15:
   cargs: ' -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-22.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &20 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-22_282:
+  bin: '"id-22.s"'
+  cargs: ' -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-22.c'
+  herit: *GRPSERIAL
+  info: *20
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-23_23:
@@ -167,7 +327,15 @@ test_id-23_23:
   cargs: ' -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-23.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &21 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-23_283:
+  bin: '"id-23.s"'
+  cargs: ' -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-23.c'
+  herit: *GRPSERIAL
+  info: *21
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-24_22:
@@ -175,7 +343,23 @@ test_id-24_22:
   cargs: ' -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-24.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &22 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-24_284:
+  bin: '"id-24.s"'
+  cargs: ' -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-24.c'
+  herit: *GRPSERIAL
+  info: *22
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-25_285:
+  bin: '"id-25.s"'
+  cargs: ' -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-25.c'
+  herit: *GRPSERIAL
+  info: &23 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-25_34:
@@ -183,7 +367,7 @@ test_id-25_34:
   cargs: ' -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-25.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *23
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-26_25:
@@ -191,7 +375,15 @@ test_id-26_25:
   cargs: ' -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-26.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &24 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-26_286:
+  bin: '"id-26.s"'
+  cargs: ' -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-26.c'
+  herit: *GRPSERIAL
+  info: *24
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-27_17:
@@ -199,9 +391,27 @@ test_id-27_17:
   cargs: ' -O2 -fgraphite-identity -flto -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-27.c'
   herit: *GRPSERIAL
-  info:
+  info: &25
     extraopts:
       - '"-O2 -fgraphite-identity -flto" { target lto }'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-27_287:
+  bin: '"id-27.s"'
+  cargs: ' -O2 -fgraphite-identity -flto -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-27.c'
+  herit: *GRPSERIAL
+  info: *25
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-28_288:
+  bin: '"id-28.s"'
+  cargs: ' -fcilkplus -floop-nest-optimize -O3 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-28.c'
+  herit: *GRPSERIAL
+  info: &26
+    extraopts:
+      - '"-fcilkplus -floop-nest-optimize -O3"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-28_73:
@@ -209,9 +419,7 @@ test_id-28_73:
   cargs: ' -fcilkplus -floop-nest-optimize -O3 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-28.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-fcilkplus -floop-nest-optimize -O3"'
+  info: *26
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-29_17:
@@ -219,9 +427,17 @@ test_id-29_17:
   cargs: ' -floop-nest-optimize -O2 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-29.c'
   herit: *GRPSERIAL
-  info:
+  info: &27
     extraopts:
       - '"-floop-nest-optimize -O2"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-29_289:
+  bin: '"id-29.s"'
+  cargs: ' -floop-nest-optimize -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-29.c'
+  herit: *GRPSERIAL
+  info: *27
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-2_17:
@@ -229,7 +445,15 @@ test_id-2_17:
   cargs: ' -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-2.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &28 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-2_280:
+  bin: '"id-2.s"'
+  cargs: ' -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-2.c'
+  herit: *GRPSERIAL
+  info: *28
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-3_11:
@@ -237,7 +461,23 @@ test_id-3_11:
   cargs: ' -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-3.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &29 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-3_290:
+  bin: '"id-3.s"'
+  cargs: ' -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-3.c'
+  herit: *GRPSERIAL
+  info: *29
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-4_291:
+  bin: '"id-4.s"'
+  cargs: ' -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-4.c'
+  herit: *GRPSERIAL
+  info: &30 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-4_8:
@@ -245,7 +485,7 @@ test_id-4_8:
   cargs: ' -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-4.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *30
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-5_15:
@@ -253,7 +493,15 @@ test_id-5_15:
   cargs: ' -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-5.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &31 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-5_292:
+  bin: '"id-5.s"'
+  cargs: ' -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-5.c'
+  herit: *GRPSERIAL
+  info: *31
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-6_29:
@@ -261,7 +509,15 @@ test_id-6_29:
   cargs: ' -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-6.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &32 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-6_293:
+  bin: '"id-6.s"'
+  cargs: ' -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-6.c'
+  herit: *GRPSERIAL
+  info: *32
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-7_16:
@@ -269,7 +525,15 @@ test_id-7_16:
   cargs: ' -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-7.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &33 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-7_294:
+  bin: '"id-7.s"'
+  cargs: ' -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-7.c'
+  herit: *GRPSERIAL
+  info: *33
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-8_15:
@@ -277,7 +541,15 @@ test_id-8_15:
   cargs: ' -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-8.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &34 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-8_295:
+  bin: '"id-8.s"'
+  cargs: ' -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-8.c'
+  herit: *GRPSERIAL
+  info: *34
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-9_26:
@@ -285,7 +557,23 @@ test_id-9_26:
   cargs: ' -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-9.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &35 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-9_296:
+  bin: '"id-9.s"'
+  cargs: ' -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-9.c'
+  herit: *GRPSERIAL
+  info: *35
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-pr43351_297:
+  bin: '"id-pr43351.s"'
+  cargs: ' -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-pr43351.c'
+  herit: *GRPSERIAL
+  info: &36 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-pr43351_5:
@@ -293,7 +581,7 @@ test_id-pr43351_5:
   cargs: ' -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-pr43351.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *36
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-pr43464-1_19:
@@ -301,7 +589,23 @@ test_id-pr43464-1_19:
   cargs: ' -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-pr43464-1.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &37 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-pr43464-1_298:
+  bin: '"id-pr43464-1.s"'
+  cargs: ' -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-pr43464-1.c'
+  herit: *GRPSERIAL
+  info: *37
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-pr43464_299:
+  bin: '"id-pr43464.s"'
+  cargs: ' -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-pr43464.c'
+  herit: *GRPSERIAL
+  info: &38 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-pr43464_69:
@@ -309,7 +613,7 @@ test_id-pr43464_69:
   cargs: ' -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-pr43464.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *38
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-pr44676_13:
@@ -317,9 +621,17 @@ test_id-pr44676_13:
   cargs: ' -O2 -fgraphite-identity -fprofile-generate -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-pr44676.c'
   herit: *GRPSERIAL
-  info:
+  info: &39
     extraopts:
       - '"-O2 -fgraphite-identity -fprofile-generate"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-pr44676_300:
+  bin: '"id-pr44676.s"'
+  cargs: ' -O2 -fgraphite-identity -fprofile-generate -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-pr44676.c'
+  herit: *GRPSERIAL
+  info: *39
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-pr45230-1_141:
@@ -327,7 +639,15 @@ test_id-pr45230-1_141:
   cargs: ' -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-pr45230-1.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &40 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-pr45230-1_301:
+  bin: '"id-pr45230-1.s"'
+  cargs: ' -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-pr45230-1.c'
+  herit: *GRPSERIAL
+  info: *40
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-pr45230_15:
@@ -335,7 +655,23 @@ test_id-pr45230_15:
   cargs: ' -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-pr45230.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &41 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-pr45230_302:
+  bin: '"id-pr45230.s"'
+  cargs: ' -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-pr45230.c'
+  herit: *GRPSERIAL
+  info: *41
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-pr45231_303:
+  bin: '"id-pr45231.s"'
+  cargs: ' -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-pr45231.c'
+  herit: *GRPSERIAL
+  info: &42 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-pr45231_37:
@@ -343,7 +679,7 @@ test_id-pr45231_37:
   cargs: ' -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-pr45231.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *42
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-pr46834_12:
@@ -351,9 +687,17 @@ test_id-pr46834_12:
   cargs: ' -O -fgraphite-identity -ffast-math -fno-tree-dce -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-pr46834.c'
   herit: *GRPSERIAL
-  info:
+  info: &43
     extraopts:
       - '"-O -fgraphite-identity -ffast-math -fno-tree-dce"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-pr46834_304:
+  bin: '"id-pr46834.s"'
+  cargs: ' -O -fgraphite-identity -ffast-math -fno-tree-dce -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-pr46834.c'
+  herit: *GRPSERIAL
+  info: *43
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-pr46845_17:
@@ -361,9 +705,17 @@ test_id-pr46845_17:
   cargs: ' -O2 -ffast-math -fgraphite-identity -w -Wno-psabi -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-pr46845.c'
   herit: *GRPSERIAL
-  info:
+  info: &44
     extraopts:
       - '"-O2 -ffast-math -fgraphite-identity -w -Wno-psabi" { target { i?86-*-* x86_64-*-* powerpc*-*-* } }'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-pr46845_305:
+  bin: '"id-pr46845.s"'
+  cargs: ' -O2 -ffast-math -fgraphite-identity -w -Wno-psabi -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-pr46845.c'
+  herit: *GRPSERIAL
+  info: *44
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-pr47046_13:
@@ -371,7 +723,15 @@ test_id-pr47046_13:
   cargs: ' -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-pr47046.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &45 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-pr47046_306:
+  bin: '"id-pr47046.s"'
+  cargs: ' -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-pr47046.c'
+  herit: *GRPSERIAL
+  info: *45
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-pr48648_21:
@@ -379,9 +739,17 @@ test_id-pr48648_21:
   cargs: ' -O -fgraphite-identity -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-pr48648.c'
   herit: *GRPSERIAL
-  info:
+  info: &46
     extraopts:
       - '"-O -fgraphite-identity"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-pr48648_307:
+  bin: '"id-pr48648.s"'
+  cargs: ' -O -fgraphite-identity -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-pr48648.c'
+  herit: *GRPSERIAL
+  info: *46
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-pr48805_20:
@@ -389,15 +757,39 @@ test_id-pr48805_20:
   cargs: ' -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-pr48805.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &47 {}
   type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-pr48805_308:
+  bin: '"id-pr48805.s"'
+  cargs: ' -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/id-pr48805.c'
+  herit: *GRPSERIAL
+  info: *47
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_interchange-0_329:
+  bin: '"./interchange-0.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/interchange-0.c'
+  herit: *GRPSERIAL
+  info: &48 {}
+  type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_interchange-0_49:
   bin: '"./interchange-0.exe"'
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/interchange-0.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *48
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_interchange-10_331:
+  bin: '"./interchange-10.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/interchange-10.c'
+  herit: *GRPSERIAL
+  info: &49 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_interchange-10_49:
@@ -405,7 +797,15 @@ test_interchange-10_49:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/interchange-10.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *49
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_interchange-11_332:
+  bin: '"./interchange-11.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/interchange-11.c'
+  herit: *GRPSERIAL
+  info: &50 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_interchange-11_49:
@@ -413,7 +813,15 @@ test_interchange-11_49:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/interchange-11.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *50
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_interchange-12_333:
+  bin: '"./interchange-12.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/interchange-12.c'
+  herit: *GRPSERIAL
+  info: &51 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_interchange-12_56:
@@ -421,7 +829,15 @@ test_interchange-12_56:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/interchange-12.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *51
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_interchange-13_334:
+  bin: '"./interchange-13.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/interchange-13.c'
+  herit: *GRPSERIAL
+  info: &52 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_interchange-13_51:
@@ -429,7 +845,15 @@ test_interchange-13_51:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/interchange-13.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *52
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_interchange-14_335:
+  bin: '"./interchange-14.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/interchange-14.c'
+  herit: *GRPSERIAL
+  info: &53 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_interchange-14_57:
@@ -437,7 +861,15 @@ test_interchange-14_57:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/interchange-14.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *53
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_interchange-15_336:
+  bin: '"./interchange-15.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/interchange-15.c'
+  herit: *GRPSERIAL
+  info: &54 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_interchange-15_51:
@@ -445,7 +877,7 @@ test_interchange-15_51:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/interchange-15.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *54
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_interchange-16_21:
@@ -453,7 +885,23 @@ test_interchange-16_21:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/interchange-16.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &55 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_interchange-16_337:
+  bin: '"./interchange-16.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/interchange-16.c'
+  herit: *GRPSERIAL
+  info: *55
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_interchange-1_330:
+  bin: '"./interchange-1.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/interchange-1.c'
+  herit: *GRPSERIAL
+  info: &56 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_interchange-1_57:
@@ -461,7 +909,15 @@ test_interchange-1_57:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/interchange-1.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *56
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_interchange-2_338:
+  bin: '"./interchange-2.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/interchange-2.c'
+  herit: *GRPSERIAL
+  info: &57 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_interchange-2_55:
@@ -469,7 +925,15 @@ test_interchange-2_55:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/interchange-2.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *57
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_interchange-3_339:
+  bin: '"./interchange-3.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/interchange-3.c'
+  herit: *GRPSERIAL
+  info: &58 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_interchange-3_50:
@@ -477,7 +941,15 @@ test_interchange-3_50:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/interchange-3.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *58
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_interchange-4_340:
+  bin: '"./interchange-4.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/interchange-4.c'
+  herit: *GRPSERIAL
+  info: &59 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_interchange-4_49:
@@ -485,7 +957,15 @@ test_interchange-4_49:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/interchange-4.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *59
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_interchange-5_341:
+  bin: '"./interchange-5.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/interchange-5.c'
+  herit: *GRPSERIAL
+  info: &60 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_interchange-5_49:
@@ -493,7 +973,15 @@ test_interchange-5_49:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/interchange-5.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *60
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_interchange-6_342:
+  bin: '"./interchange-6.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/interchange-6.c'
+  herit: *GRPSERIAL
+  info: &61 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_interchange-6_50:
@@ -501,7 +989,15 @@ test_interchange-6_50:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/interchange-6.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *61
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_interchange-7_343:
+  bin: '"./interchange-7.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/interchange-7.c'
+  herit: *GRPSERIAL
+  info: &62 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_interchange-7_49:
@@ -509,7 +1005,15 @@ test_interchange-7_49:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/interchange-7.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *62
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_interchange-8_344:
+  bin: '"./interchange-8.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/interchange-8.c'
+  herit: *GRPSERIAL
+  info: &63 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_interchange-8_85:
@@ -517,7 +1021,15 @@ test_interchange-8_85:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/interchange-8.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *63
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_interchange-9_345:
+  bin: '"./interchange-9.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/interchange-9.c'
+  herit: *GRPSERIAL
+  info: &64 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_interchange-9_47:
@@ -525,7 +1037,15 @@ test_interchange-9_47:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/interchange-9.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *64
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_interchange-mvt_346:
+  bin: '"./interchange-mvt.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/interchange-mvt.c'
+  herit: *GRPSERIAL
+  info: &65 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_interchange-mvt_61:
@@ -533,7 +1053,7 @@ test_interchange-mvt_61:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/interchange-mvt.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *65
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_isl-ast-gen-blocks-1_24:
@@ -541,7 +1061,15 @@ test_isl-ast-gen-blocks-1_24:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/isl-ast-gen-blocks-1.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &66 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_isl-ast-gen-blocks-1_347:
+  bin: '"./isl-ast-gen-blocks-1.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/isl-ast-gen-blocks-1.c'
+  herit: *GRPSERIAL
+  info: *66
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_isl-ast-gen-blocks-2_24:
@@ -549,7 +1077,15 @@ test_isl-ast-gen-blocks-2_24:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/isl-ast-gen-blocks-2.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &67 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_isl-ast-gen-blocks-2_348:
+  bin: '"./isl-ast-gen-blocks-2.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/isl-ast-gen-blocks-2.c'
+  herit: *GRPSERIAL
+  info: *67
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_isl-ast-gen-blocks-3_24:
@@ -557,7 +1093,15 @@ test_isl-ast-gen-blocks-3_24:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/isl-ast-gen-blocks-3.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &68 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_isl-ast-gen-blocks-3_349:
+  bin: '"./isl-ast-gen-blocks-3.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/isl-ast-gen-blocks-3.c'
+  herit: *GRPSERIAL
+  info: *68
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_isl-ast-gen-blocks-4_29:
@@ -565,7 +1109,15 @@ test_isl-ast-gen-blocks-4_29:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/isl-ast-gen-blocks-4.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &69 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_isl-ast-gen-blocks-4_350:
+  bin: '"./isl-ast-gen-blocks-4.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/isl-ast-gen-blocks-4.c'
+  herit: *GRPSERIAL
+  info: *69
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_isl-ast-gen-if-1_34:
@@ -573,7 +1125,15 @@ test_isl-ast-gen-if-1_34:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/isl-ast-gen-if-1.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &70 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_isl-ast-gen-if-1_351:
+  bin: '"./isl-ast-gen-if-1.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/isl-ast-gen-if-1.c'
+  herit: *GRPSERIAL
+  info: *70
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_isl-ast-gen-if-2_28:
@@ -581,7 +1141,15 @@ test_isl-ast-gen-if-2_28:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/isl-ast-gen-if-2.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &71 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_isl-ast-gen-if-2_352:
+  bin: '"./isl-ast-gen-if-2.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/isl-ast-gen-if-2.c'
+  herit: *GRPSERIAL
+  info: *71
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_isl-ast-gen-single-loop-1_23:
@@ -589,7 +1157,15 @@ test_isl-ast-gen-single-loop-1_23:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/isl-ast-gen-single-loop-1.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &72 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_isl-ast-gen-single-loop-1_353:
+  bin: '"./isl-ast-gen-single-loop-1.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/isl-ast-gen-single-loop-1.c'
+  herit: *GRPSERIAL
+  info: *72
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_isl-ast-gen-single-loop-2_32:
@@ -597,7 +1173,15 @@ test_isl-ast-gen-single-loop-2_32:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/isl-ast-gen-single-loop-2.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &73 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_isl-ast-gen-single-loop-2_354:
+  bin: '"./isl-ast-gen-single-loop-2.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/isl-ast-gen-single-loop-2.c'
+  herit: *GRPSERIAL
+  info: *73
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_isl-ast-gen-single-loop-3_32:
@@ -605,7 +1189,15 @@ test_isl-ast-gen-single-loop-3_32:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/isl-ast-gen-single-loop-3.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &74 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_isl-ast-gen-single-loop-3_355:
+  bin: '"./isl-ast-gen-single-loop-3.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/isl-ast-gen-single-loop-3.c'
+  herit: *GRPSERIAL
+  info: *74
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_isl-ast-gen-user-1_23:
@@ -613,7 +1205,15 @@ test_isl-ast-gen-user-1_23:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/isl-ast-gen-user-1.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &75 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_isl-ast-gen-user-1_356:
+  bin: '"./isl-ast-gen-user-1.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/isl-ast-gen-user-1.c'
+  herit: *GRPSERIAL
+  info: *75
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_isl-ast-op-select_31:
@@ -621,9 +1221,17 @@ test_isl-ast-op-select_31:
   cargs: ' -O2 -floop-nest-optimize -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/isl-ast-op-select.c'
   herit: *GRPSERIAL
-  info:
+  info: &76
     extraopts:
       - '"-O2 -floop-nest-optimize"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_isl-ast-op-select_364:
+  bin: '"isl-ast-op-select.s"'
+  cargs: ' -O2 -floop-nest-optimize -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/isl-ast-op-select.c'
+  herit: *GRPSERIAL
+  info: *76
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr18792_16:
@@ -631,9 +1239,17 @@ test_pr18792_16:
   cargs: ' -O1 -ftree-loop-linear -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr18792.c'
   herit: *GRPSERIAL
-  info:
+  info: &77
     extraopts:
       - '"-O1 -ftree-loop-linear"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr18792_365:
+  bin: '"pr18792.s"'
+  cargs: ' -O1 -ftree-loop-linear -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr18792.c'
+  herit: *GRPSERIAL
+  info: *77
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr19910_16:
@@ -641,9 +1257,17 @@ test_pr19910_16:
   cargs: ' -O2 -ftree-loop-linear -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr19910.c'
   herit: *GRPSERIAL
-  info:
+  info: &78
     extraopts:
       - '"-O2 -ftree-loop-linear"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr19910_366:
+  bin: '"pr19910.s"'
+  cargs: ' -O2 -ftree-loop-linear -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr19910.c'
+  herit: *GRPSERIAL
+  info: *78
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr20041110-1_26:
@@ -651,9 +1275,17 @@ test_pr20041110-1_26:
   cargs: ' -O2 -ftree-loop-linear -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr20041110-1.c'
   herit: *GRPSERIAL
-  info:
+  info: &79
     extraopts:
       - '"-O2 -ftree-loop-linear"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr20041110-1_367:
+  bin: '"pr20041110-1.s"'
+  cargs: ' -O2 -ftree-loop-linear -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr20041110-1.c'
+  herit: *GRPSERIAL
+  info: *79
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr20256_22:
@@ -661,9 +1293,17 @@ test_pr20256_22:
   cargs: ' -O2 -ftree-loop-linear -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr20256.c'
   herit: *GRPSERIAL
-  info:
+  info: &80
     extraopts:
       - '"-O2 -ftree-loop-linear"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr20256_368:
+  bin: '"pr20256.s"'
+  cargs: ' -O2 -ftree-loop-linear -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr20256.c'
+  herit: *GRPSERIAL
+  info: *80
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr23625_27:
@@ -671,9 +1311,17 @@ test_pr23625_27:
   cargs: ' -O2 -ftree-vectorize -ftree-loop-linear -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr23625.c'
   herit: *GRPSERIAL
-  info:
+  info: &81
     extraopts:
       - '"-O2 -ftree-vectorize -ftree-loop-linear"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr23625_369:
+  bin: '"pr23625.s"'
+  cargs: ' -O2 -ftree-vectorize -ftree-loop-linear -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr23625.c'
+  herit: *GRPSERIAL
+  info: *81
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr23820_26:
@@ -681,9 +1329,17 @@ test_pr23820_26:
   cargs: ' -O2 -ftree-loop-linear -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr23820.c'
   herit: *GRPSERIAL
-  info:
+  info: &82
     extraopts:
       - '"-O2 -ftree-loop-linear"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr23820_370:
+  bin: '"pr23820.s"'
+  cargs: ' -O2 -ftree-loop-linear -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr23820.c'
+  herit: *GRPSERIAL
+  info: *82
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr24309_18:
@@ -691,9 +1347,17 @@ test_pr24309_18:
   cargs: ' -O2 -ftree-loop-linear -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr24309.c'
   herit: *GRPSERIAL
-  info:
+  info: &83
     extraopts:
       - '"-O2 -ftree-loop-linear"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr24309_371:
+  bin: '"pr24309.s"'
+  cargs: ' -O2 -ftree-loop-linear -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr24309.c'
+  herit: *GRPSERIAL
+  info: *83
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr26435_17:
@@ -701,9 +1365,17 @@ test_pr26435_17:
   cargs: ' -O2 -ftree-loop-linear -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr26435.c'
   herit: *GRPSERIAL
-  info:
+  info: &84
     extraopts:
       - '"-O2 -ftree-loop-linear"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr26435_372:
+  bin: '"pr26435.s"'
+  cargs: ' -O2 -ftree-loop-linear -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr26435.c'
+  herit: *GRPSERIAL
+  info: *84
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr29330_15:
@@ -711,17 +1383,43 @@ test_pr29330_15:
   cargs: ' -O -ftree-loop-linear -std=gnu99 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr29330.c'
   herit: *GRPSERIAL
-  info:
+  info: &85
     extraopts:
       - '"-O -ftree-loop-linear -std=gnu99"'
   type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr29330_373:
+  bin: '"pr29330.s"'
+  cargs: ' -O -ftree-loop-linear -std=gnu99 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr29330.c'
+  herit: *GRPSERIAL
+  info: *85
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr29581-1_374:
+  bin: '"./pr29581-1.exe"'
+  cargs: ' -O2 -ftree-loop-linear'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr29581-1.c'
+  herit: *GRPSERIAL
+  info: &86
+    extraopts:
+      - '"-O2 -ftree-loop-linear"'
+  type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr29581-1_44:
   bin: '"./pr29581-1.exe"'
   cargs: ' -O2 -ftree-loop-linear'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr29581-1.c'
   herit: *GRPSERIAL
-  info:
+  info: *86
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr29581-2_375:
+  bin: '"./pr29581-2.exe"'
+  cargs: ' -O2 -ftree-loop-linear'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr29581-2.c'
+  herit: *GRPSERIAL
+  info: &87
     extraopts:
       - '"-O2 -ftree-loop-linear"'
   type: complete
@@ -731,7 +1429,15 @@ test_pr29581-2_46:
   cargs: ' -O2 -ftree-loop-linear'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr29581-2.c'
   herit: *GRPSERIAL
-  info:
+  info: *87
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr29581-3_376:
+  bin: '"./pr29581-3.exe"'
+  cargs: ' -O2 -ftree-loop-linear'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr29581-3.c'
+  herit: *GRPSERIAL
+  info: &88
     extraopts:
       - '"-O2 -ftree-loop-linear"'
   type: complete
@@ -741,7 +1447,15 @@ test_pr29581-3_48:
   cargs: ' -O2 -ftree-loop-linear'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr29581-3.c'
   herit: *GRPSERIAL
-  info:
+  info: *88
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr29581-4_377:
+  bin: '"./pr29581-4.exe"'
+  cargs: ' -O2 -ftree-loop-linear'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr29581-4.c'
+  herit: *GRPSERIAL
+  info: &89
     extraopts:
       - '"-O2 -ftree-loop-linear"'
   type: complete
@@ -751,9 +1465,7 @@ test_pr29581-4_48:
   cargs: ' -O2 -ftree-loop-linear'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr29581-4.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2 -ftree-loop-linear"'
+  info: *89
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr30565_14:
@@ -761,9 +1473,17 @@ test_pr30565_14:
   cargs: ' -O1 -ftree-pre -ftree-loop-linear -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr30565.c'
   herit: *GRPSERIAL
-  info:
+  info: &90
     extraopts:
       - '"-O1 -ftree-pre -ftree-loop-linear"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr30565_378:
+  bin: '"pr30565.s"'
+  cargs: ' -O1 -ftree-pre -ftree-loop-linear -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr30565.c'
+  herit: *GRPSERIAL
+  info: *90
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr31183_14:
@@ -771,9 +1491,17 @@ test_pr31183_14:
   cargs: ' -O2 -ftree-loop-linear -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr31183.c'
   herit: *GRPSERIAL
-  info:
+  info: &91
     extraopts:
       - '"-O2 -ftree-loop-linear"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr31183_379:
+  bin: '"pr31183.s"'
+  cargs: ' -O2 -ftree-loop-linear -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr31183.c'
+  herit: *GRPSERIAL
+  info: *91
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr33576_20:
@@ -781,9 +1509,17 @@ test_pr33576_20:
   cargs: ' -O2 -ftree-loop-linear -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr33576.c'
   herit: *GRPSERIAL
-  info:
+  info: &92
     extraopts:
       - '"-O2 -ftree-loop-linear"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr33576_380:
+  bin: '"pr33576.s"'
+  cargs: ' -O2 -ftree-loop-linear -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr33576.c'
+  herit: *GRPSERIAL
+  info: *92
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr33766_19:
@@ -791,9 +1527,17 @@ test_pr33766_19:
   cargs: ' -O2 -ftree-loop-linear -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr33766.c'
   herit: *GRPSERIAL
-  info:
+  info: &93
     extraopts:
       - '"-O2 -ftree-loop-linear"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr33766_381:
+  bin: '"pr33766.s"'
+  cargs: ' -O2 -ftree-loop-linear -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr33766.c'
+  herit: *GRPSERIAL
+  info: *93
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr34016_19:
@@ -801,9 +1545,17 @@ test_pr34016_19:
   cargs: ' -O2 -ftree-loop-linear -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr34016.c'
   herit: *GRPSERIAL
-  info:
+  info: &94
     extraopts:
       - '"-O2 -ftree-loop-linear"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr34016_382:
+  bin: '"pr34016.s"'
+  cargs: ' -O2 -ftree-loop-linear -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr34016.c'
+  herit: *GRPSERIAL
+  info: *94
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr34017_26:
@@ -811,9 +1563,17 @@ test_pr34017_26:
   cargs: ' -O2 -ftree-loop-linear -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr34017.c'
   herit: *GRPSERIAL
-  info:
+  info: &95
     extraopts:
       - '"-O2 -ftree-loop-linear"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr34017_383:
+  bin: '"pr34017.s"'
+  cargs: ' -O2 -ftree-loop-linear -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr34017.c'
+  herit: *GRPSERIAL
+  info: *95
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr34123_18:
@@ -821,9 +1581,17 @@ test_pr34123_18:
   cargs: ' -O2 -ftree-loop-linear -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr34123.c'
   herit: *GRPSERIAL
-  info:
+  info: &96
     extraopts:
       - '"-O2 -ftree-loop-linear"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr34123_384:
+  bin: '"pr34123.s"'
+  cargs: ' -O2 -ftree-loop-linear -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr34123.c'
+  herit: *GRPSERIAL
+  info: *96
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr35356-1_37:
@@ -831,7 +1599,25 @@ test_pr35356-1_37:
   cargs: ' -O2 -fgraphite-identity -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr35356-1.c'
   herit: *GRPSERIAL
-  info:
+  info: &97
+    extraopts:
+      - '"-O2 -fgraphite-identity -fdump-tree-graphite-all"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr35356-1_385:
+  bin: '"pr35356-1.s"'
+  cargs: ' -O2 -fgraphite-identity -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr35356-1.c'
+  herit: *GRPSERIAL
+  info: *97
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr35356-2_386:
+  bin: '"pr35356-2.s"'
+  cargs: ' -O2 -fgraphite-identity -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr35356-2.c'
+  herit: *GRPSERIAL
+  info: &98
     extraopts:
       - '"-O2 -fgraphite-identity -fdump-tree-graphite-all"'
   type: build
@@ -841,7 +1627,15 @@ test_pr35356-2_41:
   cargs: ' -O2 -fgraphite-identity -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr35356-2.c'
   herit: *GRPSERIAL
-  info:
+  info: *98
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr35356-3_387:
+  bin: '"pr35356-3.s"'
+  cargs: ' -O2 -fgraphite-identity -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr35356-3.c'
+  herit: *GRPSERIAL
+  info: &99
     extraopts:
       - '"-O2 -fgraphite-identity -fdump-tree-graphite-all"'
   type: build
@@ -851,9 +1645,7 @@ test_pr35356-3_39:
   cargs: ' -O2 -fgraphite-identity -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr35356-3.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2 -fgraphite-identity -fdump-tree-graphite-all"'
+  info: *99
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr36287_22:
@@ -861,9 +1653,17 @@ test_pr36287_22:
   cargs: ' -O -ftree-loop-linear -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr36287.c'
   herit: *GRPSERIAL
-  info:
+  info: &100
     extraopts:
       - '"-O -ftree-loop-linear"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr36287_388:
+  bin: '"pr36287.s"'
+  cargs: ' -O -ftree-loop-linear -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr36287.c'
+  herit: *GRPSERIAL
+  info: *100
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr37485_32:
@@ -871,9 +1671,27 @@ test_pr37485_32:
   cargs: ' -O2 -floop-block -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr37485.c'
   herit: *GRPSERIAL
-  info:
+  info: &101
     extraopts:
       - '"-O2 -floop-block -ffast-math"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr37485_389:
+  bin: '"pr37485.s"'
+  cargs: ' -O2 -floop-block -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr37485.c'
+  herit: *GRPSERIAL
+  info: *101
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr37684_390:
+  bin: '"pr37684.s"'
+  cargs: ' -O2 -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr37684.c'
+  herit: *GRPSERIAL
+  info: &102
+    extraopts:
+      - '"-O2 -fdump-tree-graphite-all"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr37684_66:
@@ -881,9 +1699,7 @@ test_pr37684_66:
   cargs: ' -O2 -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr37684.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2 -fdump-tree-graphite-all"'
+  info: *102
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr37828_25:
@@ -891,9 +1707,17 @@ test_pr37828_25:
   cargs: ' -O2 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr37828.c'
   herit: *GRPSERIAL
-  info:
+  info: &103
     extraopts:
       - '"-O2"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr37828_391:
+  bin: '"pr37828.s"'
+  cargs: ' -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr37828.c'
+  herit: *GRPSERIAL
+  info: *103
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr37883_11:
@@ -901,9 +1725,17 @@ test_pr37883_11:
   cargs: ' -O3 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr37883.c'
   herit: *GRPSERIAL
-  info:
+  info: &104
     extraopts:
       - '"-O3"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr37883_392:
+  bin: '"pr37883.s"'
+  cargs: ' -O3 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr37883.c'
+  herit: *GRPSERIAL
+  info: *104
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr37928_33:
@@ -911,9 +1743,17 @@ test_pr37928_33:
   cargs: ' -O3 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr37928.c'
   herit: *GRPSERIAL
-  info:
+  info: &105
     extraopts:
       - '"-O3"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr37928_393:
+  bin: '"pr37928.s"'
+  cargs: ' -O3 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr37928.c'
+  herit: *GRPSERIAL
+  info: *105
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr37943_32:
@@ -921,9 +1761,17 @@ test_pr37943_32:
   cargs: ' -O3 -fgraphite-identity -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr37943.c'
   herit: *GRPSERIAL
-  info:
+  info: &106
     extraopts:
       - '"-O3 -fgraphite-identity -fdump-tree-graphite-all"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr37943_394:
+  bin: '"pr37943.s"'
+  cargs: ' -O3 -fgraphite-identity -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr37943.c'
+  herit: *GRPSERIAL
+  info: *106
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr38073_10:
@@ -931,9 +1779,17 @@ test_pr38073_10:
   cargs: ' -O3 -fgraphite-identity -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr38073.c'
   herit: *GRPSERIAL
-  info:
+  info: &107
     extraopts:
       - '"-O3 -fgraphite-identity"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr38073_395:
+  bin: '"pr38073.s"'
+  cargs: ' -O3 -fgraphite-identity -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr38073.c'
+  herit: *GRPSERIAL
+  info: *107
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr38084_31:
@@ -941,9 +1797,17 @@ test_pr38084_31:
   cargs: ' -O3 -fgraphite-identity -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr38084.c'
   herit: *GRPSERIAL
-  info:
+  info: &108
     extraopts:
       - '"-O3 -fgraphite-identity"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr38084_396:
+  bin: '"pr38084.s"'
+  cargs: ' -O3 -fgraphite-identity -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr38084.c'
+  herit: *GRPSERIAL
+  info: *108
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr38125_33:
@@ -951,9 +1815,17 @@ test_pr38125_33:
   cargs: ' -O3 -fgraphite-identity -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr38125.c'
   herit: *GRPSERIAL
-  info:
+  info: &109
     extraopts:
       - '"-O3 -fgraphite-identity"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr38125_397:
+  bin: '"pr38125.s"'
+  cargs: ' -O3 -fgraphite-identity -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr38125.c'
+  herit: *GRPSERIAL
+  info: *109
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr38409_25:
@@ -961,9 +1833,17 @@ test_pr38409_25:
   cargs: ' -O2 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr38409.c'
   herit: *GRPSERIAL
-  info:
+  info: &110
     extraopts:
       - '"-O2"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr38409_398:
+  bin: '"pr38409.s"'
+  cargs: ' -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr38409.c'
+  herit: *GRPSERIAL
+  info: *110
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr38413_15:
@@ -971,9 +1851,17 @@ test_pr38413_15:
   cargs: ' -O2 -fgraphite-identity -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr38413.c'
   herit: *GRPSERIAL
-  info:
+  info: &111
     extraopts:
       - '"-O2 -fgraphite-identity"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr38413_399:
+  bin: '"pr38413.s"'
+  cargs: ' -O2 -fgraphite-identity -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr38413.c'
+  herit: *GRPSERIAL
+  info: *111
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr38446_14:
@@ -981,9 +1869,17 @@ test_pr38446_14:
   cargs: ' -O2 -fgraphite-identity -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr38446.c'
   herit: *GRPSERIAL
-  info:
+  info: &112
     extraopts:
       - '"-O2 -fgraphite-identity"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr38446_400:
+  bin: '"pr38446.s"'
+  cargs: ' -O2 -fgraphite-identity -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr38446.c'
+  herit: *GRPSERIAL
+  info: *112
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr38498_19:
@@ -991,9 +1887,17 @@ test_pr38498_19:
   cargs: ' -O2 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr38498.c'
   herit: *GRPSERIAL
-  info:
+  info: &113
     extraopts:
       - '"-O2"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr38498_401:
+  bin: '"pr38498.s"'
+  cargs: ' -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr38498.c'
+  herit: *GRPSERIAL
+  info: *113
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr38500_30:
@@ -1001,9 +1905,27 @@ test_pr38500_30:
   cargs: ' -O3 -fgraphite-identity -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr38500.c'
   herit: *GRPSERIAL
-  info:
+  info: &114
     extraopts:
       - '"-O3 -fgraphite-identity"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr38500_402:
+  bin: '"pr38500.s"'
+  cargs: ' -O3 -fgraphite-identity -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr38500.c'
+  herit: *GRPSERIAL
+  info: *114
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr38510_403:
+  bin: '"pr38510.s"'
+  cargs: ' -O2 -fgraphite-identity -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr38510.c'
+  herit: *GRPSERIAL
+  info: &115
+    extraopts:
+      - '"-O2 -fgraphite-identity"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr38510_41:
@@ -1011,9 +1933,7 @@ test_pr38510_41:
   cargs: ' -O2 -fgraphite-identity -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr38510.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2 -fgraphite-identity"'
+  info: *115
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr38559_14:
@@ -1021,9 +1941,17 @@ test_pr38559_14:
   cargs: ' -O2 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr38559.c'
   herit: *GRPSERIAL
-  info:
+  info: &116
     extraopts:
       - '"-O2"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr38559_404:
+  bin: '"pr38559.s"'
+  cargs: ' -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr38559.c'
+  herit: *GRPSERIAL
+  info: *116
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr38786_21:
@@ -1031,9 +1959,17 @@ test_pr38786_21:
   cargs: ' -O2 -fgraphite-identity -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr38786.c'
   herit: *GRPSERIAL
-  info:
+  info: &117
     extraopts:
       - '"-O2 -fgraphite-identity"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr38786_405:
+  bin: '"pr38786.s"'
+  cargs: ' -O2 -fgraphite-identity -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr38786.c'
+  herit: *GRPSERIAL
+  info: *117
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr39260_18:
@@ -1041,9 +1977,27 @@ test_pr39260_18:
   cargs: ' -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr39260.c'
   herit: *GRPSERIAL
-  info:
+  info: &118
     extraopts:
       - '"-O2 -fgraphite-identity -ffast-math"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr39260_406:
+  bin: '"pr39260.s"'
+  cargs: ' -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr39260.c'
+  herit: *GRPSERIAL
+  info: *118
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr39335_1_408:
+  bin: '"pr39335_1.s"'
+  cargs: ' -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr39335_1.c'
+  herit: *GRPSERIAL
+  info: &119
+    extraopts:
+      - '"-O2"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr39335_1_9:
@@ -1051,9 +2005,7 @@ test_pr39335_1_9:
   cargs: ' -O2 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr39335_1.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2"'
+  info: *119
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr39335_20:
@@ -1061,9 +2013,17 @@ test_pr39335_20:
   cargs: ' -O2 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr39335.c'
   herit: *GRPSERIAL
-  info:
+  info: &120
     extraopts:
       - '"-O2"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr39335_407:
+  bin: '"pr39335.s"'
+  cargs: ' -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr39335.c'
+  herit: *GRPSERIAL
+  info: *120
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr40157_13:
@@ -1071,9 +2031,17 @@ test_pr40157_13:
   cargs: ' -O2 -fgraphite-identity -floop-block -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr40157.c'
   herit: *GRPSERIAL
-  info:
+  info: &121
     extraopts:
       - '"-O2 -fgraphite-identity -floop-block"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr40157_409:
+  bin: '"pr40157.s"'
+  cargs: ' -O2 -fgraphite-identity -floop-block -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr40157.c'
+  herit: *GRPSERIAL
+  info: *121
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr40281_13:
@@ -1081,10 +2049,18 @@ test_pr40281_13:
   cargs: ' -O -fprefetch-loop-arrays -w -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr40281.c'
   herit: *GRPSERIAL
-  info:
+  info: &122
     extraopts:
       - '"-O -fprefetch-loop-arrays -w"'
       - '"-O -fprefetch-loop-arrays -march=i686 -msse -w" { target { { i?86-*-* x86_64-*-* } && ia32 } }'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr40281_410:
+  bin: '"pr40281.s"'
+  cargs: ' -O -fprefetch-loop-arrays -w -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr40281.c'
+  herit: *GRPSERIAL
+  info: *122
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr41888_17:
@@ -1092,9 +2068,17 @@ test_pr41888_17:
   cargs: ' -g -O2 -ftree-loop-distribution -fgraphite-identity -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr41888.c'
   herit: *GRPSERIAL
-  info:
+  info: &123
     extraopts:
       - '"-g -O2 -ftree-loop-distribution -fgraphite-identity"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr41888_411:
+  bin: '"pr41888.s"'
+  cargs: ' -g -O2 -ftree-loop-distribution -fgraphite-identity -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr41888.c'
+  herit: *GRPSERIAL
+  info: *123
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr42205-1_18:
@@ -1102,9 +2086,17 @@ test_pr42205-1_18:
   cargs: ' -O1 -ffast-math -floop-interchange -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr42205-1.c'
   herit: *GRPSERIAL
-  info:
+  info: &124
     extraopts:
       - '"-O1 -ffast-math -floop-interchange"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr42205-1_412:
+  bin: '"pr42205-1.s"'
+  cargs: ' -O1 -ffast-math -floop-interchange -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr42205-1.c'
+  herit: *GRPSERIAL
+  info: *124
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr42205-2_11:
@@ -1112,9 +2104,17 @@ test_pr42205-2_11:
   cargs: ' -O1 -funsafe-math-optimizations -floop-interchange -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr42205-2.c'
   herit: *GRPSERIAL
-  info:
+  info: &125
     extraopts:
       - '"-O1 -funsafe-math-optimizations -floop-interchange"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr42205-2_413:
+  bin: '"pr42205-2.s"'
+  cargs: ' -O1 -funsafe-math-optimizations -floop-interchange -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr42205-2.c'
+  herit: *GRPSERIAL
+  info: *125
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr42211_22:
@@ -1122,9 +2122,17 @@ test_pr42211_22:
   cargs: ' -O3 -floop-interchange -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr42211.c'
   herit: *GRPSERIAL
-  info:
+  info: &126
     extraopts:
       - '"-O3 -floop-interchange"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr42211_414:
+  bin: '"pr42211.s"'
+  cargs: ' -O3 -floop-interchange -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr42211.c'
+  herit: *GRPSERIAL
+  info: *126
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr42221_25:
@@ -1132,9 +2140,17 @@ test_pr42221_25:
   cargs: ' -Os -fgraphite-identity -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr42221.c'
   herit: *GRPSERIAL
-  info:
+  info: &127
     extraopts:
       - '"-Os -fgraphite-identity"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr42221_415:
+  bin: '"pr42221.s"'
+  cargs: ' -Os -fgraphite-identity -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr42221.c'
+  herit: *GRPSERIAL
+  info: *127
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr42284_29:
@@ -1142,9 +2158,17 @@ test_pr42284_29:
   cargs: ' -O2 -fgraphite-identity -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr42284.c'
   herit: *GRPSERIAL
-  info:
+  info: &128
     extraopts:
       - '"-O2 -fgraphite-identity"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr42284_416:
+  bin: '"pr42284.s"'
+  cargs: ' -O2 -fgraphite-identity -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr42284.c'
+  herit: *GRPSERIAL
+  info: *128
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr42326_20:
@@ -1152,9 +2176,17 @@ test_pr42326_20:
   cargs: ' -O1 -floop-parallelize-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr42326.c'
   herit: *GRPSERIAL
-  info:
+  info: &129
     extraopts:
       - '"-O1 -floop-parallelize-all"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr42326_417:
+  bin: '"pr42326.s"'
+  cargs: ' -O1 -floop-parallelize-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr42326.c'
+  herit: *GRPSERIAL
+  info: *129
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr42521_18:
@@ -1162,9 +2194,17 @@ test_pr42521_18:
   cargs: ' -O3 -fgraphite-identity -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr42521.c'
   herit: *GRPSERIAL
-  info:
+  info: &130
     extraopts:
       - '"-O3 -fgraphite-identity"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr42521_418:
+  bin: '"pr42521.s"'
+  cargs: ' -O3 -fgraphite-identity -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr42521.c'
+  herit: *GRPSERIAL
+  info: *130
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr42530_18:
@@ -1172,9 +2212,17 @@ test_pr42530_18:
   cargs: ' -O2 -g -ffast-math -floop-parallelize-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr42530.c'
   herit: *GRPSERIAL
-  info:
+  info: &131
     extraopts:
       - '"-O2 -g -ffast-math -floop-parallelize-all"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr42530_419:
+  bin: '"pr42530.s"'
+  cargs: ' -O2 -g -ffast-math -floop-parallelize-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr42530.c'
+  herit: *GRPSERIAL
+  info: *131
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr42729_15:
@@ -1182,9 +2230,17 @@ test_pr42729_15:
   cargs: ' -O1 -fgraphite-identity -fcompare-debug -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr42729.c'
   herit: *GRPSERIAL
-  info:
+  info: &132
     extraopts:
       - '"-O1 -fgraphite-identity -fcompare-debug"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr42729_420:
+  bin: '"pr42729.s"'
+  cargs: ' -O1 -fgraphite-identity -fcompare-debug -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr42729.c'
+  herit: *GRPSERIAL
+  info: *132
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr42771_19:
@@ -1192,9 +2248,17 @@ test_pr42771_19:
   cargs: ' -O3 -fgraphite-identity -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr42771.c'
   herit: *GRPSERIAL
-  info:
+  info: &133
     extraopts:
       - '"-O3 -fgraphite-identity"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr42771_421:
+  bin: '"pr42771.s"'
+  cargs: ' -O3 -fgraphite-identity -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr42771.c'
+  herit: *GRPSERIAL
+  info: *133
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr42914_23:
@@ -1202,9 +2266,17 @@ test_pr42914_23:
   cargs: ' -O2 -g -ffast-math -fgraphite-identity -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr42914.c'
   herit: *GRPSERIAL
-  info:
+  info: &134
     extraopts:
       - '"-O2 -g -ffast-math -fgraphite-identity"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr42914_422:
+  bin: '"pr42914.s"'
+  cargs: ' -O2 -g -ffast-math -fgraphite-identity -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr42914.c'
+  herit: *GRPSERIAL
+  info: *134
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr42917_14:
@@ -1212,19 +2284,35 @@ test_pr42917_14:
   cargs: ' -O1 -ftree-loop-linear -fcompare-debug -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr42917.c'
   herit: *GRPSERIAL
-  info:
+  info: &135
     extraopts:
       - '"-O1 -ftree-loop-linear -fcompare-debug"'
   type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr42917_423:
+  bin: '"pr42917.s"'
+  cargs: ' -O1 -ftree-loop-linear -fcompare-debug -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr42917.c'
+  herit: *GRPSERIAL
+  info: *135
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr43012_424:
+  bin: '"./pr43012.exe"'
+  cargs: ' -O2 -floop-strip-mine'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr43012.c'
+  herit: *GRPSERIAL
+  info: &136
+    extraopts:
+      - '"-O2 -floop-strip-mine"'
+  type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr43012_74:
   bin: '"./pr43012.exe"'
   cargs: ' -O2 -floop-strip-mine'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr43012.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2 -floop-strip-mine"'
+  info: *136
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr43083_14:
@@ -1232,9 +2320,27 @@ test_pr43083_14:
   cargs: ' -O3 -fgraphite-identity -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr43083.c'
   herit: *GRPSERIAL
-  info:
+  info: &137
     extraopts:
       - '"-O3 -fgraphite-identity"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr43083_425:
+  bin: '"pr43083.s"'
+  cargs: ' -O3 -fgraphite-identity -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr43083.c'
+  herit: *GRPSERIAL
+  info: *137
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr43306_426:
+  bin: '"pr43306.s"'
+  cargs: ' -O1 -fstrict-overflow -fgraphite-identity -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr43306.c'
+  herit: *GRPSERIAL
+  info: &138
+    extraopts:
+      - '"-O1 -fstrict-overflow -fgraphite-identity"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr43306_9:
@@ -1242,9 +2348,7 @@ test_pr43306_9:
   cargs: ' -O1 -fstrict-overflow -fgraphite-identity -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr43306.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O1 -fstrict-overflow -fgraphite-identity"'
+  info: *138
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr43567_26:
@@ -1252,9 +2356,27 @@ test_pr43567_26:
   cargs: ' -O2 -fno-inline -fno-tree-ch -ftree-loop-linear'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr43567.c'
   herit: *GRPSERIAL
-  info:
+  info: &139
     extraopts:
       - '"-O2 -fno-inline -fno-tree-ch -ftree-loop-linear"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr43567_427:
+  bin: '"./pr43567.exe"'
+  cargs: ' -O2 -fno-inline -fno-tree-ch -ftree-loop-linear'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr43567.c'
+  herit: *GRPSERIAL
+  info: *139
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr43657_428:
+  bin: '"./pr43657.exe"'
+  cargs: ' -O1 -ftree-loop-linear'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr43657.c'
+  herit: *GRPSERIAL
+  info: &140
+    extraopts:
+      - '"-O1 -ftree-loop-linear"'
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr43657_52:
@@ -1262,19 +2384,35 @@ test_pr43657_52:
   cargs: ' -O1 -ftree-loop-linear'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr43657.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O1 -ftree-loop-linear"'
+  info: *140
   type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr44391_429:
+  bin: '"pr44391.s"'
+  cargs: ' -Os -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr44391.c'
+  herit: *GRPSERIAL
+  info: &141
+    extraopts:
+      - '"-Os -fgraphite-identity -ffast-math"'
+  type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr44391_7:
   bin: '"pr44391.s"'
   cargs: ' -Os -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr44391.c'
   herit: *GRPSERIAL
-  info:
+  info: *141
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr45297_430:
+  bin: '"pr45297.s"'
+  cargs: ' -Os -fgraphite-identity -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr45297.c'
+  herit: *GRPSERIAL
+  info: &142
     extraopts:
-      - '"-Os -fgraphite-identity -ffast-math"'
+      - '"-Os -fgraphite-identity"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr45297_9:
@@ -1282,9 +2420,7 @@ test_pr45297_9:
   cargs: ' -Os -fgraphite-identity -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr45297.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-Os -fgraphite-identity"'
+  info: *142
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr46168_15:
@@ -1292,19 +2428,35 @@ test_pr46168_15:
   cargs: ' -O -ftree-loop-linear -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr46168.c'
   herit: *GRPSERIAL
-  info:
+  info: &143
     extraopts:
       - '"-O -ftree-loop-linear"'
   type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46168_431:
+  bin: '"pr46168.s"'
+  cargs: ' -O -ftree-loop-linear -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr46168.c'
+  herit: *GRPSERIAL
+  info: *143
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46185_432:
+  bin: '"./pr46185.exe"'
+  cargs: ' -O2 -floop-interchange -ffast-math -fno-ipa-cp'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr46185.c'
+  herit: *GRPSERIAL
+  info: &144
+    extraopts:
+      - '"-O2 -floop-interchange -ffast-math -fno-ipa-cp"'
+  type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr46185_48:
   bin: '"./pr46185.exe"'
   cargs: ' -O2 -floop-interchange -ffast-math -fno-ipa-cp'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr46185.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2 -floop-interchange -ffast-math -fno-ipa-cp"'
+  info: *144
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr46215_12:
@@ -1312,9 +2464,17 @@ test_pr46215_12:
   cargs: ' -O -fstrict-overflow -fno-tree-ch -ftree-loop-linear -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr46215.c'
   herit: *GRPSERIAL
-  info:
+  info: &145
     extraopts:
       - '"-O -fstrict-overflow -fno-tree-ch -ftree-loop-linear"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46215_433:
+  bin: '"pr46215.s"'
+  cargs: ' -O -fstrict-overflow -fno-tree-ch -ftree-loop-linear -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr46215.c'
+  herit: *GRPSERIAL
+  info: *145
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr46404-1_29:
@@ -1322,9 +2482,17 @@ test_pr46404-1_29:
   cargs: ' -O -fgraphite-identity -fno-tree-scev-cprop -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr46404-1.c'
   herit: *GRPSERIAL
-  info:
+  info: &146
     extraopts:
       - '"-O -fgraphite-identity -fno-tree-scev-cprop"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46404-1_434:
+  bin: '"pr46404-1.s"'
+  cargs: ' -O -fgraphite-identity -fno-tree-scev-cprop -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr46404-1.c'
+  herit: *GRPSERIAL
+  info: *146
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr46404_13:
@@ -1332,9 +2500,17 @@ test_pr46404_13:
   cargs: ' -O -fgraphite-identity -fno-tree-scev-cprop -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr46404.c'
   herit: *GRPSERIAL
-  info:
+  info: &147
     extraopts:
       - '"-O -fgraphite-identity -fno-tree-scev-cprop"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46404_435:
+  bin: '"pr46404.s"'
+  cargs: ' -O -fgraphite-identity -fno-tree-scev-cprop -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr46404.c'
+  herit: *GRPSERIAL
+  info: *147
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr46761_22:
@@ -1342,9 +2518,17 @@ test_pr46761_22:
   cargs: ' -O -fgraphite-identity'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr46761.c'
   herit: *GRPSERIAL
-  info:
+  info: &148
     extraopts:
       - '"-O -fgraphite-identity"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46761_436:
+  bin: '"./pr46761.exe"'
+  cargs: ' -O -fgraphite-identity'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr46761.c'
+  herit: *GRPSERIAL
+  info: *148
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr46924_18:
@@ -1352,9 +2536,17 @@ test_pr46924_18:
   cargs: ' -O -fgraphite-identity -ffast-math -fno-tree-loop-im -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr46924.c'
   herit: *GRPSERIAL
-  info:
+  info: &149
     extraopts:
       - '"-O -fgraphite-identity -ffast-math -fno-tree-loop-im"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46924_437:
+  bin: '"pr46924.s"'
+  cargs: ' -O -fgraphite-identity -ffast-math -fno-tree-loop-im -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr46924.c'
+  herit: *GRPSERIAL
+  info: *149
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr46966_15:
@@ -1362,9 +2554,17 @@ test_pr46966_15:
   cargs: ' -O -floop-interchange -ffast-math -fno-tree-copy-prop -fno-tree-loop-im -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr46966.c'
   herit: *GRPSERIAL
-  info:
+  info: &150
     extraopts:
       - '"-O -floop-interchange -ffast-math -fno-tree-copy-prop -fno-tree-loop-im"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46966_438:
+  bin: '"pr46966.s"'
+  cargs: ' -O -floop-interchange -ffast-math -fno-tree-copy-prop -fno-tree-loop-im -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr46966.c'
+  herit: *GRPSERIAL
+  info: *150
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr46970_28:
@@ -1372,19 +2572,35 @@ test_pr46970_28:
   cargs: ' -Os -ftree-loop-linear'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr46970.c'
   herit: *GRPSERIAL
-  info:
+  info: &151
     extraopts:
       - '"-Os -ftree-loop-linear"'
   type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46970_439:
+  bin: '"./pr46970.exe"'
+  cargs: ' -Os -ftree-loop-linear'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr46970.c'
+  herit: *GRPSERIAL
+  info: *151
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr50561_440:
+  bin: '"pr50561.s"'
+  cargs: ' -O2 -floop-strip-mine -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr50561.c'
+  herit: *GRPSERIAL
+  info: &152
+    extraopts:
+      - '"-O2 -floop-strip-mine"'
+  type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr50561_9:
   bin: '"pr50561.s"'
   cargs: ' -O2 -floop-strip-mine -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr50561.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2 -floop-strip-mine"'
+  info: *152
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr54094_10:
@@ -1392,9 +2608,17 @@ test_pr54094_10:
   cargs: ' -O2 -floop-parallelize-all -floop-nest-optimize -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr54094.c'
   herit: *GRPSERIAL
-  info:
+  info: &153
     extraopts:
       - '"-O2 -floop-parallelize-all -floop-nest-optimize"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr54094_441:
+  bin: '"pr54094.s"'
+  cargs: ' -O2 -floop-parallelize-all -floop-nest-optimize -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr54094.c'
+  herit: *GRPSERIAL
+  info: *153
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr55022_27:
@@ -1402,9 +2626,17 @@ test_pr55022_27:
   cargs: ' -O2 -fgraphite-identity'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr55022.c'
   herit: *GRPSERIAL
-  info:
+  info: &154
     extraopts:
       - '"-O2 -fgraphite-identity"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr55022_442:
+  bin: '"./pr55022.exe"'
+  cargs: ' -O2 -fgraphite-identity'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr55022.c'
+  herit: *GRPSERIAL
+  info: *154
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr59817-1_16:
@@ -1412,9 +2644,17 @@ test_pr59817-1_16:
   cargs: ' -O2 -floop-interchange -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr59817-1.c'
   herit: *GRPSERIAL
-  info:
+  info: &155
     extraopts:
       - '"-O2 -floop-interchange"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr59817-1_443:
+  bin: '"pr59817-1.s"'
+  cargs: ' -O2 -floop-interchange -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr59817-1.c'
+  herit: *GRPSERIAL
+  info: *155
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr59817-2_15:
@@ -1422,9 +2662,17 @@ test_pr59817-2_15:
   cargs: ' -O2 -floop-interchange -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr59817-2.c'
   herit: *GRPSERIAL
-  info:
+  info: &156
     extraopts:
       - '"-O2 -floop-interchange"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr59817-2_444:
+  bin: '"pr59817-2.s"'
+  cargs: ' -O2 -floop-interchange -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr59817-2.c'
+  herit: *GRPSERIAL
+  info: *156
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr60740_16:
@@ -1432,9 +2680,17 @@ test_pr60740_16:
   cargs: ' -O2 -floop-interchange -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr60740.c'
   herit: *GRPSERIAL
-  info:
+  info: &157
     extraopts:
       - '"-O2 -floop-interchange"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr60740_445:
+  bin: '"pr60740.s"'
+  cargs: ' -O2 -floop-interchange -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr60740.c'
+  herit: *GRPSERIAL
+  info: *157
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr60785_27:
@@ -1442,9 +2698,17 @@ test_pr60785_27:
   cargs: ' -O2 -floop-interchange -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr60785.c'
   herit: *GRPSERIAL
-  info:
+  info: &158
     extraopts:
       - '"-O2 -floop-interchange"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr60785_446:
+  bin: '"pr60785.s"'
+  cargs: ' -O2 -floop-interchange -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr60785.c'
+  herit: *GRPSERIAL
+  info: *158
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr60979_39:
@@ -1452,9 +2716,17 @@ test_pr60979_39:
   cargs: ' -O -fgraphite-identity -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr60979.c'
   herit: *GRPSERIAL
-  info:
+  info: &159
     extraopts:
       - '"-O -fgraphite-identity"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr60979_447:
+  bin: '"pr60979.s"'
+  cargs: ' -O -fgraphite-identity -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr60979.c'
+  herit: *GRPSERIAL
+  info: *159
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr61929_19:
@@ -1462,9 +2734,17 @@ test_pr61929_19:
   cargs: ' -O2 -ftree-loop-linear -floop-strip-mine -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr61929.c'
   herit: *GRPSERIAL
-  info:
+  info: &160
     extraopts:
       - '"-O2 -ftree-loop-linear -floop-strip-mine"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr61929_448:
+  bin: '"pr61929.s"'
+  cargs: ' -O2 -ftree-loop-linear -floop-strip-mine -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr61929.c'
+  herit: *GRPSERIAL
+  info: *160
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr67984_17:
@@ -1472,9 +2752,17 @@ test_pr67984_17:
   cargs: ' -O2 -floop-nest-optimize -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr67984.c'
   herit: *GRPSERIAL
-  info:
+  info: &161
     extraopts:
       - '"-O2 -floop-nest-optimize"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr67984_449:
+  bin: '"pr67984.s"'
+  cargs: ' -O2 -floop-nest-optimize -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr67984.c'
+  herit: *GRPSERIAL
+  info: *161
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr68428_23:
@@ -1482,9 +2770,17 @@ test_pr68428_23:
   cargs: ' -O2 -floop-nest-optimize -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr68428.c'
   herit: *GRPSERIAL
-  info:
+  info: &162
     extraopts:
       - '"-O2 -floop-nest-optimize"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr68428_450:
+  bin: '"pr68428.s"'
+  cargs: ' -O2 -floop-nest-optimize -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr68428.c'
+  herit: *GRPSERIAL
+  info: *162
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr68493_34:
@@ -1492,9 +2788,17 @@ test_pr68493_34:
   cargs: ' -O1 -floop-nest-optimize -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr68493.c'
   herit: *GRPSERIAL
-  info:
+  info: &163
     extraopts:
       - '"-O1 -floop-nest-optimize"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr68493_451:
+  bin: '"pr68493.s"'
+  cargs: ' -O1 -floop-nest-optimize -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr68493.c'
+  herit: *GRPSERIAL
+  info: *163
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr68715-2_35:
@@ -1502,9 +2806,17 @@ test_pr68715-2_35:
   cargs: ' -Ofast -floop-interchange -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr68715-2.c'
   herit: *GRPSERIAL
-  info:
+  info: &164
     extraopts:
       - '"-Ofast -floop-interchange"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr68715-2_452:
+  bin: '"pr68715-2.s"'
+  cargs: ' -Ofast -floop-interchange -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr68715-2.c'
+  herit: *GRPSERIAL
+  info: *164
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr68715_36:
@@ -1512,9 +2824,17 @@ test_pr68715_36:
   cargs: ' -O2 -floop-interchange -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr68715.c'
   herit: *GRPSERIAL
-  info:
+  info: &165
     extraopts:
       - '"-O2 -floop-interchange"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr68715_453:
+  bin: '"pr68715.s"'
+  cargs: ' -O2 -floop-interchange -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr68715.c'
+  herit: *GRPSERIAL
+  info: *165
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr68756_26:
@@ -1522,9 +2842,17 @@ test_pr68756_26:
   cargs: ' -O1 -floop-nest-optimize -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr68756.c'
   herit: *GRPSERIAL
-  info:
+  info: &166
     extraopts:
       - '"-O1 -floop-nest-optimize"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr68756_454:
+  bin: '"pr68756.s"'
+  cargs: ' -O1 -floop-nest-optimize -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr68756.c'
+  herit: *GRPSERIAL
+  info: *166
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr68809-2_27:
@@ -1532,9 +2860,17 @@ test_pr68809-2_27:
   cargs: ' -O2 -floop-nest-optimize -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr68809-2.c'
   herit: *GRPSERIAL
-  info:
+  info: &167
     extraopts:
       - '"-O2 -floop-nest-optimize"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr68809-2_455:
+  bin: '"pr68809-2.s"'
+  cargs: ' -O2 -floop-nest-optimize -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr68809-2.c'
+  herit: *GRPSERIAL
+  info: *167
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr68809_28:
@@ -1542,9 +2878,17 @@ test_pr68809_28:
   cargs: ' -O2 -floop-nest-optimize -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr68809.c'
   herit: *GRPSERIAL
-  info:
+  info: &168
     extraopts:
       - '"-O2 -floop-nest-optimize"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr68809_456:
+  bin: '"pr68809.s"'
+  cargs: ' -O2 -floop-nest-optimize -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr68809.c'
+  herit: *GRPSERIAL
+  info: *168
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr68953_30:
@@ -1552,9 +2896,17 @@ test_pr68953_30:
   cargs: ' -O1 -floop-nest-optimize'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr68953.c'
   herit: *GRPSERIAL
-  info:
+  info: &169
     extraopts:
       - '"-O1 -floop-nest-optimize"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr68953_457:
+  bin: '"./pr68953.exe"'
+  cargs: ' -O1 -floop-nest-optimize'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr68953.c'
+  herit: *GRPSERIAL
+  info: *169
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr68976_11:
@@ -1562,9 +2914,17 @@ test_pr68976_11:
   cargs: ' -O2 -floop-nest-optimize -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr68976.c'
   herit: *GRPSERIAL
-  info:
+  info: &170
     extraopts:
       - '"-O2 -floop-nest-optimize"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr68976_458:
+  bin: '"pr68976.s"'
+  cargs: ' -O2 -floop-nest-optimize -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr68976.c'
+  herit: *GRPSERIAL
+  info: *170
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr69067_28:
@@ -1572,9 +2932,17 @@ test_pr69067_28:
   cargs: ' -O1 -floop-nest-optimize -flto'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr69067.c'
   herit: *GRPSERIAL
-  info:
+  info: &171
     extraopts:
       - '" -O1 -floop-nest-optimize"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr69067_459:
+  bin: '"pr69067.exe"'
+  cargs: ' -O1 -floop-nest-optimize -flto'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr69067.c'
+  herit: *GRPSERIAL
+  info: *171
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr69068_14:
@@ -1582,9 +2950,17 @@ test_pr69068_14:
   cargs: ' -O1 -fgraphite-identity -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr69068.c'
   herit: *GRPSERIAL
-  info:
+  info: &172
     extraopts:
       - '"-O1 -fgraphite-identity"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr69068_460:
+  bin: '"pr69068.s"'
+  cargs: ' -O1 -fgraphite-identity -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr69068.c'
+  herit: *GRPSERIAL
+  info: *172
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr69292_19:
@@ -1592,9 +2968,17 @@ test_pr69292_19:
   cargs: ' -O2 -floop-nest-optimize -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr69292.c'
   herit: *GRPSERIAL
-  info:
+  info: &173
     extraopts:
       - '"-O2 -floop-nest-optimize"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr69292_461:
+  bin: '"pr69292.s"'
+  cargs: ' -O2 -floop-nest-optimize -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr69292.c'
+  herit: *GRPSERIAL
+  info: *173
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr69823_20:
@@ -1602,9 +2986,17 @@ test_pr69823_20:
   cargs: ' -O2 -floop-nest-optimize -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr69823.c'
   herit: *GRPSERIAL
-  info:
+  info: &174
     extraopts:
       - '"-O2 -floop-nest-optimize"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr69823_462:
+  bin: '"pr69823.s"'
+  cargs: ' -O2 -floop-nest-optimize -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr69823.c'
+  herit: *GRPSERIAL
+  info: *174
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr70045_28:
@@ -1612,9 +3004,17 @@ test_pr70045_28:
   cargs: ' -O2 -floop-interchange -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr70045.c'
   herit: *GRPSERIAL
-  info:
+  info: &175
     extraopts:
       - '"-O2 -floop-interchange"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr70045_463:
+  bin: '"pr70045.s"'
+  cargs: ' -O2 -floop-interchange -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr70045.c'
+  herit: *GRPSERIAL
+  info: *175
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr70956_4:
@@ -1622,9 +3022,17 @@ test_pr70956_4:
   cargs: ' -O2 -fgraphite-identity -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr70956.c'
   herit: *GRPSERIAL
-  info:
+  info: &176
     extraopts:
       - '"-O2 -fgraphite-identity"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr70956_464:
+  bin: '"pr70956.s"'
+  cargs: ' -O2 -fgraphite-identity -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr70956.c'
+  herit: *GRPSERIAL
+  info: *176
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr71575-1_22:
@@ -1632,9 +3040,17 @@ test_pr71575-1_22:
   cargs: ' -O2 -floop-nest-optimize -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr71575-1.c'
   herit: *GRPSERIAL
-  info:
+  info: &177
     extraopts:
       - '"-O2 -floop-nest-optimize"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr71575-1_465:
+  bin: '"pr71575-1.s"'
+  cargs: ' -O2 -floop-nest-optimize -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr71575-1.c'
+  herit: *GRPSERIAL
+  info: *177
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr71575-2_16:
@@ -1642,9 +3058,17 @@ test_pr71575-2_16:
   cargs: ' -Ofast -floop-nest-optimize -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr71575-2.c'
   herit: *GRPSERIAL
-  info:
+  info: &178
     extraopts:
       - '"-Ofast -floop-nest-optimize"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr71575-2_466:
+  bin: '"pr71575-2.s"'
+  cargs: ' -Ofast -floop-nest-optimize -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr71575-2.c'
+  herit: *GRPSERIAL
+  info: *178
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr71824-2_34:
@@ -1652,9 +3076,17 @@ test_pr71824-2_34:
   cargs: ' -O2 -floop-nest-optimize -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr71824-2.c'
   herit: *GRPSERIAL
-  info:
+  info: &179
     extraopts:
       - '"-O2 -floop-nest-optimize"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr71824-2_467:
+  bin: '"pr71824-2.s"'
+  cargs: ' -O2 -floop-nest-optimize -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr71824-2.c'
+  herit: *GRPSERIAL
+  info: *179
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr71824-3_19:
@@ -1662,9 +3094,17 @@ test_pr71824-3_19:
   cargs: ' -O2 -ftree-loop-distribution -floop-nest-optimize -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr71824-3.c'
   herit: *GRPSERIAL
-  info:
+  info: &180
     extraopts:
       - '"-O2 -ftree-loop-distribution -floop-nest-optimize"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr71824-3_468:
+  bin: '"pr71824-3.s"'
+  cargs: ' -O2 -ftree-loop-distribution -floop-nest-optimize -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr71824-3.c'
+  herit: *GRPSERIAL
+  info: *180
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr71824_17:
@@ -1672,9 +3112,17 @@ test_pr71824_17:
   cargs: ' -O2 -floop-nest-optimize -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr71824.c'
   herit: *GRPSERIAL
-  info:
+  info: &181
     extraopts:
       - '"-O2 -floop-nest-optimize"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr71824_469:
+  bin: '"pr71824.s"'
+  cargs: ' -O2 -floop-nest-optimize -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr71824.c'
+  herit: *GRPSERIAL
+  info: *181
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr79977_27:
@@ -1682,9 +3130,17 @@ test_pr79977_27:
   cargs: ' -O2 -floop-nest-optimize -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr79977.c'
   herit: *GRPSERIAL
-  info:
+  info: &182
     extraopts:
       - '"-O2 -floop-nest-optimize"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr79977_470:
+  bin: '"pr79977.s"'
+  cargs: ' -O2 -floop-nest-optimize -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr79977.c'
+  herit: *GRPSERIAL
+  info: *182
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr80167_24:
@@ -1692,9 +3148,17 @@ test_pr80167_24:
   cargs: ' -O2 -floop-nest-optimize -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr80167.c'
   herit: *GRPSERIAL
-  info:
+  info: &183
     extraopts:
       - '"-O2 -floop-nest-optimize"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr80167_471:
+  bin: '"pr80167.s"'
+  cargs: ' -O2 -floop-nest-optimize -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr80167.c'
+  herit: *GRPSERIAL
+  info: *183
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr80906_28:
@@ -1702,9 +3166,17 @@ test_pr80906_28:
   cargs: ' -O2 -floop-nest-optimize -fdump-tree-graphite -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr80906.c'
   herit: *GRPSERIAL
-  info:
+  info: &184
     extraopts:
       - '"-O2 -floop-nest-optimize -fdump-tree-graphite"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr80906_472:
+  bin: '"pr80906.s"'
+  cargs: ' -O2 -floop-nest-optimize -fdump-tree-graphite -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/pr80906.c'
+  herit: *GRPSERIAL
+  info: *184
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_run-id-1_27:
@@ -1712,9 +3184,25 @@ test_run-id-1_27:
   cargs: ' -O2 -fgraphite-identity'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/run-id-1.c'
   herit: *GRPSERIAL
-  info:
+  info: &185
     extraopts:
       - '"-Wl,--stack,12582912" { target *-*-mingw* *-*-cygwin* }'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_run-id-1_309:
+  bin: '"./run-id-1.exe"'
+  cargs: ' -O2 -fgraphite-identity'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/run-id-1.c'
+  herit: *GRPSERIAL
+  info: *185
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_run-id-2_310:
+  bin: '"./run-id-2.exe"'
+  cargs: ' -O2 -fgraphite-identity'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/run-id-2.c'
+  herit: *GRPSERIAL
+  info: &186 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_run-id-2_35:
@@ -1722,7 +3210,7 @@ test_run-id-2_35:
   cargs: ' -O2 -fgraphite-identity'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/run-id-2.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *186
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_run-id-3_24:
@@ -1730,7 +3218,15 @@ test_run-id-3_24:
   cargs: ' -O2 -fgraphite-identity'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/run-id-3.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &187 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_run-id-3_311:
+  bin: '"./run-id-3.exe"'
+  cargs: ' -O2 -fgraphite-identity'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/run-id-3.c'
+  herit: *GRPSERIAL
+  info: *187
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_run-id-4_28:
@@ -1738,7 +3234,25 @@ test_run-id-4_28:
   cargs: ' -O2 -fgraphite-identity'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/run-id-4.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &188 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_run-id-4_312:
+  bin: '"./run-id-4.exe"'
+  cargs: ' -O2 -fgraphite-identity'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/run-id-4.c'
+  herit: *GRPSERIAL
+  info: *188
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_run-id-5_313:
+  bin: '"./run-id-5.exe"'
+  cargs: ' -O2 -ftree-vectorize -fno-vect-cost-model -fno-tree-scev-cprop -fgraphite-identity'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/run-id-5.c'
+  herit: *GRPSERIAL
+  info: &189
+    extraopts:
+      - '"-O2 -ftree-vectorize -fno-vect-cost-model -fno-tree-scev-cprop -fgraphite-identity"'
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_run-id-5_54:
@@ -1746,7 +3260,15 @@ test_run-id-5_54:
   cargs: ' -O2 -ftree-vectorize -fno-vect-cost-model -fno-tree-scev-cprop -fgraphite-identity'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/run-id-5.c'
   herit: *GRPSERIAL
-  info:
+  info: *189
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_run-id-6_314:
+  bin: '"./run-id-6.exe"'
+  cargs: ' -O2 -ftree-vectorize -fno-vect-cost-model -fno-tree-scev-cprop -fgraphite-identity'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/run-id-6.c'
+  herit: *GRPSERIAL
+  info: &190
     extraopts:
       - '"-O2 -ftree-vectorize -fno-vect-cost-model -fno-tree-scev-cprop -fgraphite-identity"'
   type: complete
@@ -1756,9 +3278,15 @@ test_run-id-6_55:
   cargs: ' -O2 -ftree-vectorize -fno-vect-cost-model -fno-tree-scev-cprop -fgraphite-identity'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/run-id-6.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2 -ftree-vectorize -fno-vect-cost-model -fno-tree-scev-cprop -fgraphite-identity"'
+  info: *190
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_run-id-pr42644_315:
+  bin: '"./run-id-pr42644.exe"'
+  cargs: ' -O2 -fgraphite-identity'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/run-id-pr42644.c'
+  herit: *GRPSERIAL
+  info: &191 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_run-id-pr42644_37:
@@ -1766,7 +3294,7 @@ test_run-id-pr42644_37:
   cargs: ' -O2 -fgraphite-identity'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/run-id-pr42644.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *191
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_run-id-pr46758_18:
@@ -1774,7 +3302,15 @@ test_run-id-pr46758_18:
   cargs: ' -O2 -fgraphite-identity'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/run-id-pr46758.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &192 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_run-id-pr46758_316:
+  bin: '"./run-id-pr46758.exe"'
+  cargs: ' -O2 -fgraphite-identity'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/run-id-pr46758.c'
+  herit: *GRPSERIAL
+  info: *192
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_run-id-pr47593_29:
@@ -1782,9 +3318,17 @@ test_run-id-pr47593_29:
   cargs: ' -O2 -fgraphite-identity'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/run-id-pr47593.c'
   herit: *GRPSERIAL
-  info:
+  info: &193
     extraopts:
       - '"-O2 -fgraphite-identity"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_run-id-pr47593_317:
+  bin: '"./run-id-pr47593.exe"'
+  cargs: ' -O2 -fgraphite-identity'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/run-id-pr47593.c'
+  herit: *GRPSERIAL
+  info: *193
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_run-id-pr47653_19:
@@ -1792,9 +3336,17 @@ test_run-id-pr47653_19:
   cargs: ' -O -fstack-check=generic -ftree-pre -fgraphite-identity'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/run-id-pr47653.c'
   herit: *GRPSERIAL
-  info:
+  info: &194
     extraopts:
       - '"-O -fstack-check=generic -ftree-pre -fgraphite-identity"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_run-id-pr47653_318:
+  bin: '"./run-id-pr47653.exe"'
+  cargs: ' -O -fstack-check=generic -ftree-pre -fgraphite-identity'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/run-id-pr47653.c'
+  herit: *GRPSERIAL
+  info: *194
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_run-id-pr47654_24:
@@ -1802,9 +3354,25 @@ test_run-id-pr47654_24:
   cargs: ' -O -floop-strip-mine'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/run-id-pr47654.c'
   herit: *GRPSERIAL
-  info:
+  info: &195
     extraopts:
       - '"-O -floop-strip-mine"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_run-id-pr47654_319:
+  bin: '"./run-id-pr47654.exe"'
+  cargs: ' -O -floop-strip-mine'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/run-id-pr47654.c'
+  herit: *GRPSERIAL
+  info: *195
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_run-id-pr67700-1_320:
+  bin: '"./run-id-pr67700-1.exe"'
+  cargs: ' -O2 -fgraphite-identity'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/run-id-pr67700-1.c'
+  herit: *GRPSERIAL
+  info: &196 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_run-id-pr67700-1_48:
@@ -1812,7 +3380,15 @@ test_run-id-pr67700-1_48:
   cargs: ' -O2 -fgraphite-identity'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/run-id-pr67700-1.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *196
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_run-id-pr67700_321:
+  bin: '"./run-id-pr67700.exe"'
+  cargs: ' -O2 -fgraphite-identity'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/run-id-pr67700.c'
+  herit: *GRPSERIAL
+  info: &197 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_run-id-pr67700_36:
@@ -1820,7 +3396,7 @@ test_run-id-pr67700_36:
   cargs: ' -O2 -fgraphite-identity'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/run-id-pr67700.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *197
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_scop-0_22:
@@ -1828,7 +3404,23 @@ test_scop-0_22:
   cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-0.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &198 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scop-0_237:
+  bin: '"scop-0.s"'
+  cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-0.c'
+  herit: *GRPSERIAL
+  info: *198
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scop-10_239:
+  bin: '"scop-10.s"'
+  cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-10.c'
+  herit: *GRPSERIAL
+  info: &199 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_scop-10_28:
@@ -1836,7 +3428,7 @@ test_scop-10_28:
   cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-10.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *199
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_scop-11_22:
@@ -1844,7 +3436,23 @@ test_scop-11_22:
   cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-11.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &200 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scop-11_240:
+  bin: '"scop-11.s"'
+  cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-11.c'
+  herit: *GRPSERIAL
+  info: *200
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scop-12_241:
+  bin: '"scop-12.s"'
+  cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-12.c'
+  herit: *GRPSERIAL
+  info: &201 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_scop-12_35:
@@ -1852,7 +3460,15 @@ test_scop-12_35:
   cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-12.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *201
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scop-13_242:
+  bin: '"scop-13.s"'
+  cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-13.c'
+  herit: *GRPSERIAL
+  info: &202 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_scop-13_40:
@@ -1860,7 +3476,7 @@ test_scop-13_40:
   cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-13.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *202
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_scop-14_24:
@@ -1868,7 +3484,23 @@ test_scop-14_24:
   cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-14.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &203 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scop-14_243:
+  bin: '"scop-14.s"'
+  cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-14.c'
+  herit: *GRPSERIAL
+  info: *203
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scop-15_244:
+  bin: '"scop-15.s"'
+  cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-15.c'
+  herit: *GRPSERIAL
+  info: &204 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_scop-15_50:
@@ -1876,7 +3508,7 @@ test_scop-15_50:
   cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-15.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *204
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_scop-16_24:
@@ -1884,7 +3516,15 @@ test_scop-16_24:
   cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-16.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &205 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scop-16_245:
+  bin: '"scop-16.s"'
+  cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-16.c'
+  herit: *GRPSERIAL
+  info: *205
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_scop-17_23:
@@ -1892,7 +3532,23 @@ test_scop-17_23:
   cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-17.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &206 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scop-17_246:
+  bin: '"scop-17.s"'
+  cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-17.c'
+  herit: *GRPSERIAL
+  info: *206
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scop-18_247:
+  bin: '"scop-18.s"'
+  cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-18.c'
+  herit: *GRPSERIAL
+  info: &207 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_scop-18_25:
@@ -1900,7 +3556,15 @@ test_scop-18_25:
   cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-18.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *207
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scop-19_248:
+  bin: '"scop-19.s"'
+  cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-19.c'
+  herit: *GRPSERIAL
+  info: &208 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_scop-19_36:
@@ -1908,7 +3572,15 @@ test_scop-19_36:
   cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-19.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *208
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scop-1_238:
+  bin: '"scop-1.s"'
+  cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-1.c'
+  herit: *GRPSERIAL
+  info: &209 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_scop-1_30:
@@ -1916,7 +3588,15 @@ test_scop-1_30:
   cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-1.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *209
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scop-20_250:
+  bin: '"scop-20.s"'
+  cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-20.c'
+  herit: *GRPSERIAL
+  info: &210 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_scop-20_26:
@@ -1924,7 +3604,15 @@ test_scop-20_26:
   cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-20.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *210
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scop-21_251:
+  bin: '"scop-21.s"'
+  cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-21.c'
+  herit: *GRPSERIAL
+  info: &211 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_scop-21_33:
@@ -1932,7 +3620,7 @@ test_scop-21_33:
   cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-21.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *211
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_scop-22_24:
@@ -1940,7 +3628,23 @@ test_scop-22_24:
   cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-22.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &212 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scop-22_252:
+  bin: '"scop-22.s"'
+  cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-22.c'
+  herit: *GRPSERIAL
+  info: *212
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scop-23_253:
+  bin: '"scop-23.s"'
+  cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-23.c'
+  herit: *GRPSERIAL
+  info: &213 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_scop-23_40:
@@ -1948,7 +3652,15 @@ test_scop-23_40:
   cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-23.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *213
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scop-2_249:
+  bin: '"scop-2.s"'
+  cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-2.c'
+  herit: *GRPSERIAL
+  info: &214 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_scop-2_38:
@@ -1956,7 +3668,15 @@ test_scop-2_38:
   cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-2.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *214
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scop-3_254:
+  bin: '"scop-3.s"'
+  cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-3.c'
+  herit: *GRPSERIAL
+  info: &215 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_scop-3_28:
@@ -1964,7 +3684,15 @@ test_scop-3_28:
   cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-3.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *215
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scop-4_255:
+  bin: '"scop-4.s"'
+  cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-4.c'
+  herit: *GRPSERIAL
+  info: &216 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_scop-4_28:
@@ -1972,7 +3700,15 @@ test_scop-4_28:
   cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-4.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *216
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scop-5_256:
+  bin: '"scop-5.s"'
+  cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-5.c'
+  herit: *GRPSERIAL
+  info: &217 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_scop-5_36:
@@ -1980,7 +3716,15 @@ test_scop-5_36:
   cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-5.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *217
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scop-6_257:
+  bin: '"scop-6.s"'
+  cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-6.c'
+  herit: *GRPSERIAL
+  info: &218 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_scop-6_29:
@@ -1988,7 +3732,15 @@ test_scop-6_29:
   cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-6.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *218
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scop-7_258:
+  bin: '"scop-7.s"'
+  cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-7.c'
+  herit: *GRPSERIAL
+  info: &219 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_scop-7_29:
@@ -1996,7 +3748,15 @@ test_scop-7_29:
   cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-7.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *219
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scop-8_259:
+  bin: '"scop-8.s"'
+  cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-8.c'
+  herit: *GRPSERIAL
+  info: &220 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_scop-8_29:
@@ -2004,7 +3764,7 @@ test_scop-8_29:
   cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-8.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *220
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_scop-9_24:
@@ -2012,7 +3772,15 @@ test_scop-9_24:
   cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-9.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &221 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scop-9_260:
+  bin: '"scop-9.s"'
+  cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-9.c'
+  herit: *GRPSERIAL
+  info: *221
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_scop-dsyr2k-2_24:
@@ -2020,7 +3788,15 @@ test_scop-dsyr2k-2_24:
   cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-dsyr2k-2.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &222 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scop-dsyr2k-2_261:
+  bin: '"scop-dsyr2k-2.s"'
+  cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-dsyr2k-2.c'
+  herit: *GRPSERIAL
+  info: *222
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_scop-dsyr2k_20:
@@ -2028,7 +3804,15 @@ test_scop-dsyr2k_20:
   cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-dsyr2k.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &223 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scop-dsyr2k_262:
+  bin: '"scop-dsyr2k.s"'
+  cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-dsyr2k.c'
+  herit: *GRPSERIAL
+  info: *223
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_scop-dsyrk-2_25:
@@ -2036,7 +3820,15 @@ test_scop-dsyrk-2_25:
   cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-dsyrk-2.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &224 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scop-dsyrk-2_263:
+  bin: '"scop-dsyrk-2.s"'
+  cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-dsyrk-2.c'
+  herit: *GRPSERIAL
+  info: *224
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_scop-dsyrk_22:
@@ -2044,7 +3836,15 @@ test_scop-dsyrk_22:
   cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-dsyrk.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &225 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scop-dsyrk_264:
+  bin: '"scop-dsyrk.s"'
+  cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-dsyrk.c'
+  herit: *GRPSERIAL
+  info: *225
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_scop-matmult_19:
@@ -2052,7 +3852,15 @@ test_scop-matmult_19:
   cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-matmult.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &226 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scop-matmult_265:
+  bin: '"scop-matmult.s"'
+  cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-matmult.c'
+  herit: *GRPSERIAL
+  info: *226
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_scop-mvt_24:
@@ -2060,7 +3868,15 @@ test_scop-mvt_24:
   cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-mvt.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &227 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scop-mvt_266:
+  bin: '"scop-mvt.s"'
+  cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-mvt.c'
+  herit: *GRPSERIAL
+  info: *227
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_scop-pr66980_10:
@@ -2068,7 +3884,15 @@ test_scop-pr66980_10:
   cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-pr66980.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &228 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scop-pr66980_267:
+  bin: '"scop-pr66980.s"'
+  cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-pr66980.c'
+  herit: *GRPSERIAL
+  info: *228
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_scop-sor_18:
@@ -2076,15 +3900,39 @@ test_scop-sor_18:
   cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-sor.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &229 {}
   type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scop-sor_268:
+  bin: '"scop-sor.s"'
+  cargs: ' -O2 -fgraphite -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/scop-sor.c'
+  herit: *GRPSERIAL
+  info: *229
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_uns-block-1_357:
+  bin: '"./uns-block-1.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/uns-block-1.c'
+  herit: *GRPSERIAL
+  info: &230 {}
+  type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_uns-block-1_48:
   bin: '"./uns-block-1.exe"'
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/uns-block-1.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *230
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_uns-interchange-12_358:
+  bin: '"./uns-interchange-12.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/uns-interchange-12.c'
+  herit: *GRPSERIAL
+  info: &231 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_uns-interchange-12_57:
@@ -2092,7 +3940,15 @@ test_uns-interchange-12_57:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/uns-interchange-12.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *231
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_uns-interchange-14_359:
+  bin: '"./uns-interchange-14.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/uns-interchange-14.c'
+  herit: *GRPSERIAL
+  info: &232 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_uns-interchange-14_58:
@@ -2100,7 +3956,15 @@ test_uns-interchange-14_58:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/uns-interchange-14.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *232
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_uns-interchange-15_360:
+  bin: '"./uns-interchange-15.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/uns-interchange-15.c'
+  herit: *GRPSERIAL
+  info: &233 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_uns-interchange-15_52:
@@ -2108,7 +3972,15 @@ test_uns-interchange-15_52:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/uns-interchange-15.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *233
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_uns-interchange-9_361:
+  bin: '"./uns-interchange-9.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/uns-interchange-9.c'
+  herit: *GRPSERIAL
+  info: &234 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_uns-interchange-9_48:
@@ -2116,7 +3988,15 @@ test_uns-interchange-9_48:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/uns-interchange-9.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *234
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_uns-interchange-mvt_362:
+  bin: '"./uns-interchange-mvt.exe"'
+  cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/uns-interchange-mvt.c'
+  herit: *GRPSERIAL
+  info: &235 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_uns-interchange-mvt_62:
@@ -2124,7 +4004,7 @@ test_uns-interchange-mvt_62:
   cargs: ' -O2 -ffast-math -floop-nest-optimize -fdump-tree-graphite-all'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/uns-interchange-mvt.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *235
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_vect-pr43423_18:
@@ -2132,6 +4012,14 @@ test_vect-pr43423_18:
   cargs: ' -O2 -fgraphite-identity -ftree-vectorize -fno-vect-cost-model -fdump-tree-vect-details -ffast-math -msse2 -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/vect-pr43423.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &236 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vect-pr43423_363:
+  bin: '"vect-pr43423.s"'
+  cargs: ' -O2 -fgraphite-identity -ftree-vectorize -fno-vect-cost-model -fdump-tree-vect-details -ffast-math -msse2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/graphite/vect-pr43423.c'
+  herit: *GRPSERIAL
+  info: *236
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

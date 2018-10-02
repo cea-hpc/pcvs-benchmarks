@@ -22,12 +22,60 @@ test_44473-1_3:
   info: *1
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_44473-1_34:
+  bin: '"44473-1.o"'
+  cargs: ' -std=c++98  -c'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/44473-1.C'
+  herit: *GRPSERIAL
+  info: *1
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_44473-1_35:
+  bin: '"44473-1.o"'
+  cargs: ' -std=c++11  -c'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/44473-1.C'
+  herit: *GRPSERIAL
+  info: *1
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_44473-1_36:
+  bin: '"44473-1.o"'
+  cargs: ' -std=c++14  -c'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/44473-1.C'
+  herit: *GRPSERIAL
+  info: *1
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_44473-2_25:
   bin: '"44473-2.s"'
   cargs: -std=c++98 -ffat-lto-objects -S
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/44473-2.C'
   herit: *GRPSERIAL
   info: &2 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_44473-2_37:
+  bin: '"44473-2.s"'
+  cargs: -std=c++98 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/44473-2.C'
+  herit: *GRPSERIAL
+  info: *2
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_44473-2_38:
+  bin: '"44473-2.s"'
+  cargs: -std=c++11 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/44473-2.C'
+  herit: *GRPSERIAL
+  info: *2
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_44473-2_39:
+  bin: '"44473-2.s"'
+  cargs: -std=c++14 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/44473-2.C'
+  herit: *GRPSERIAL
+  info: *2
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_44473-2_5:
@@ -61,6 +109,30 @@ test_base_23:
         ]*(has base))[^
         ]*
         ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_base_40:
+  bin: '"base.s"'
+  cargs: ' -std=c++98  -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/base.C'
+  herit: *GRPSERIAL
+  info: *3
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_base_41:
+  bin: '"base.s"'
+  cargs: ' -std=c++11  -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/base.C'
+  herit: *GRPSERIAL
+  info: *3
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_base_42:
+  bin: '"base.s"'
+  cargs: ' -std=c++14  -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/base.C'
+  herit: *GRPSERIAL
+  info: *3
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_base_8:
@@ -105,6 +177,30 @@ test_mangle-1_41:
   info: *4
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle-1_43:
+  bin: '"mangle-1.s"'
+  cargs: -std=gnu++98 -fabi-version=10 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/mangle-1.C'
+  herit: *GRPSERIAL
+  info: *4
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle-1_44:
+  bin: '"mangle-1.s"'
+  cargs: -std=gnu++11 -fabi-version=10 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/mangle-1.C'
+  herit: *GRPSERIAL
+  info: *4
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle-1_45:
+  bin: '"mangle-1.s"'
+  cargs: -std=gnu++14 -fabi-version=10 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/mangle-1.C'
+  herit: *GRPSERIAL
+  info: *4
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_mangle-2_14:
   bin: '"mangle-2.s"'
   cargs: -std=c++11 -ffat-lto-objects -S
@@ -124,6 +220,30 @@ test_mangle-2_15:
 test_mangle-2_28:
   bin: '"mangle-2.s"'
   cargs: -std=c++98 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/mangle-2.C'
+  herit: *GRPSERIAL
+  info: *5
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle-2_46:
+  bin: '"mangle-2.s"'
+  cargs: -std=c++98 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/mangle-2.C'
+  herit: *GRPSERIAL
+  info: *5
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle-2_47:
+  bin: '"mangle-2.s"'
+  cargs: -std=c++11 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/mangle-2.C'
+  herit: *GRPSERIAL
+  info: *5
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle-2_48:
+  bin: '"mangle-2.s"'
+  cargs: -std=c++14 -ffat-lto-objects -S
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/mangle-2.C'
   herit: *GRPSERIAL
   info: *5
@@ -153,6 +273,30 @@ test_mangle-3_28:
   info: *6
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle-3_49:
+  bin: '"mangle-3.s"'
+  cargs: -std=c++98 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/mangle-3.C'
+  herit: *GRPSERIAL
+  info: *6
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle-3_50:
+  bin: '"mangle-3.s"'
+  cargs: -std=c++11 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/mangle-3.C'
+  herit: *GRPSERIAL
+  info: *6
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle-3_51:
+  bin: '"mangle-3.s"'
+  cargs: -std=c++14 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/mangle-3.C'
+  herit: *GRPSERIAL
+  info: *6
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_mangle-4_20:
   bin: '"mangle-4.s"'
   cargs: -std=c++11 -ffat-lto-objects -S
@@ -172,6 +316,30 @@ test_mangle-4_21:
 test_mangle-4_35:
   bin: '"mangle-4.s"'
   cargs: -std=c++98 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/mangle-4.C'
+  herit: *GRPSERIAL
+  info: *7
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle-4_52:
+  bin: '"mangle-4.s"'
+  cargs: -std=c++98 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/mangle-4.C'
+  herit: *GRPSERIAL
+  info: *7
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle-4_53:
+  bin: '"mangle-4.s"'
+  cargs: -std=c++11 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/mangle-4.C'
+  herit: *GRPSERIAL
+  info: *7
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle-4_54:
+  bin: '"mangle-4.s"'
+  cargs: -std=c++14 -ffat-lto-objects -S
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/mangle-4.C'
   herit: *GRPSERIAL
   info: *7
@@ -201,6 +369,30 @@ test_mangle-5_29:
   info: *8
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle-5_55:
+  bin: '"mangle-5.s"'
+  cargs: -std=c++98 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/mangle-5.C'
+  herit: *GRPSERIAL
+  info: *8
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle-5_56:
+  bin: '"mangle-5.s"'
+  cargs: -std=c++11 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/mangle-5.C'
+  herit: *GRPSERIAL
+  info: *8
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle-5_57:
+  bin: '"mangle-5.s"'
+  cargs: -std=c++14 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/mangle-5.C'
+  herit: *GRPSERIAL
+  info: *8
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_mangle-mode_26:
   bin: '"mangle-mode.s"'
   cargs: -std=c++11 -ffat-lto-objects -S
@@ -220,6 +412,30 @@ test_mangle-mode_27:
 test_mangle-mode_37:
   bin: '"mangle-mode.s"'
   cargs: -std=c++98 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/mangle-mode.C'
+  herit: *GRPSERIAL
+  info: *9
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle-mode_58:
+  bin: '"mangle-mode.s"'
+  cargs: -std=c++98 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/mangle-mode.C'
+  herit: *GRPSERIAL
+  info: *9
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle-mode_59:
+  bin: '"mangle-mode.s"'
+  cargs: -std=c++11 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/mangle-mode.C'
+  herit: *GRPSERIAL
+  info: *9
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle-mode_60:
+  bin: '"mangle-mode.s"'
+  cargs: -std=c++14 -ffat-lto-objects -S
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/mangle-mode.C'
   herit: *GRPSERIAL
   info: *9
@@ -274,6 +490,30 @@ test_nofields_30:
   info: *10
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nofields_61:
+  bin: '"nofields.s"'
+  cargs: ' -std=c++98  -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/nofields.C'
+  herit: *GRPSERIAL
+  info: *10
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nofields_62:
+  bin: '"nofields.s"'
+  cargs: ' -std=c++11  -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/nofields.C'
+  herit: *GRPSERIAL
+  info: *10
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nofields_63:
+  bin: '"nofields.s"'
+  cargs: ' -std=c++14  -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/nofields.C'
+  herit: *GRPSERIAL
+  info: *10
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_typeid1_32:
   bin: '"typeid1.exe"'
   cargs: ' -std=c++11 '
@@ -283,6 +523,30 @@ test_typeid1_32:
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_typeid1_33:
+  bin: '"typeid1.exe"'
+  cargs: ' -std=c++14 '
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/typeid1.C'
+  herit: *GRPSERIAL
+  info: *11
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_typeid1_64:
+  bin: '"typeid1.exe"'
+  cargs: ' -std=c++98 '
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/typeid1.C'
+  herit: *GRPSERIAL
+  info: *11
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_typeid1_65:
+  bin: '"typeid1.exe"'
+  cargs: ' -std=c++11 '
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/typeid1.C'
+  herit: *GRPSERIAL
+  info: *11
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_typeid1_66:
   bin: '"typeid1.exe"'
   cargs: ' -std=c++14 '
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/dfp/typeid1.C'

@@ -1,11 +1,19 @@
+test_typeof-2_20:
+  bin: '"typeof-2.s"'
+  cargs: -O2 -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/typeof-2.c'
+  herit: *GRPSERIAL
+  info: &1
+    extraopts:
+      - '"-O2"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_typeof-2_53:
   bin: '"typeof-2.s"'
   cargs: -O2 -ffat-lto-objects -S
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/typeof-2.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2"'
+  info: *1
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_weak-10_13:
@@ -13,9 +21,17 @@ test_weak-10_13:
   cargs: -fno-common -ffat-lto-objects -S
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/weak-10.c'
   herit: *GRPSERIAL
-  info:
+  info: &2
     extraopts:
       - '"-fno-common"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_weak-10_22:
+  bin: '"weak-10.s"'
+  cargs: -fno-common -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/weak-10.c'
+  herit: *GRPSERIAL
+  info: *2
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_weak-11_10:
@@ -23,9 +39,17 @@ test_weak-11_10:
   cargs: -funit-at-a-time -ffat-lto-objects -S
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/weak-11.c'
   herit: *GRPSERIAL
-  info:
+  info: &3
     extraopts:
       - '"-funit-at-a-time"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_weak-11_23:
+  bin: '"weak-11.s"'
+  cargs: -funit-at-a-time -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/weak-11.c'
+  herit: *GRPSERIAL
+  info: *3
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_weak-12_19:
@@ -33,9 +57,17 @@ test_weak-12_19:
   cargs: -ffat-lto-objects -S
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/weak-12.c'
   herit: *GRPSERIAL
-  info:
+  info: &4
     extraopts:
       - '""'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_weak-12_24:
+  bin: '"weak-12.s"'
+  cargs: -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/weak-12.c'
+  herit: *GRPSERIAL
+  info: *4
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_weak-13_13:
@@ -43,29 +75,53 @@ test_weak-13_13:
   cargs: '  -c'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/weak-13.c'
   herit: *GRPSERIAL
-  info:
+  info: &5
     extraopts:
       - '""'
   type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_weak-13_25:
+  bin: '"weak-13.o"'
+  cargs: '  -c'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/weak-13.c'
+  herit: *GRPSERIAL
+  info: *5
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_weak-14_26:
+  bin: '"./weak-14.exe"'
+  cargs: ' -O2 -fno-common'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/weak-14.c'
+  herit: *GRPSERIAL
+  info: &6
+    extraopts:
+      - '"-O2 -fno-common"'
+  type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_weak-14_34:
   bin: '"./weak-14.exe"'
   cargs: ' -O2 -fno-common'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/weak-14.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2 -fno-common"'
+  info: *6
   type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_weak-15_27:
+  bin: '"weak-15.s"'
+  cargs: -fno-common -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/weak-15.c'
+  herit: *GRPSERIAL
+  info: &7
+    extraopts:
+      - '"-fno-common"'
+  type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_weak-15_42:
   bin: '"weak-15.s"'
   cargs: -fno-common -ffat-lto-objects -S
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/weak-15.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-fno-common"'
+  info: *7
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_weak-16_24:
@@ -73,17 +129,25 @@ test_weak-16_24:
   cargs: -fno-common -Os -ffat-lto-objects -S
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/weak-16.c'
   herit: *GRPSERIAL
-  info:
+  info: &8
     extraopts:
       - '"-fno-common -Os"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_weak-17_5:
+test_weak-16_28:
+  bin: '"weak-16.s"'
+  cargs: -fno-common -Os -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/weak-16.c'
+  herit: *GRPSERIAL
+  info: *8
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_weak-17_29:
   bin: '"weak-17.s"'
   cargs: '  -ansi -pedantic-errors -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/weak-17.c'
   herit: *GRPSERIAL
-  info:
+  info: &9
     regex-warn:
       - |-
         (^|
@@ -95,12 +159,20 @@ test_weak-17_5:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_weak-18_9:
+test_weak-17_5:
+  bin: '"weak-17.s"'
+  cargs: '  -ansi -pedantic-errors -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/weak-17.c'
+  herit: *GRPSERIAL
+  info: *9
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_weak-18_30:
   bin: '"weak-18.s"'
   cargs: '  -ansi -pedantic-errors -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/weak-18.c'
   herit: *GRPSERIAL
-  info:
+  info: &10
     regex-err:
       - |-
         (^|
@@ -112,12 +184,38 @@ test_weak-18_9:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_weak-18_9:
+  bin: '"weak-18.s"'
+  cargs: '  -ansi -pedantic-errors -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/weak-18.c'
+  herit: *GRPSERIAL
+  info: *10
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_weak-1_21:
+  bin: '"weak-1.s"'
+  cargs: -fno-common -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/weak-1.c'
+  herit: *GRPSERIAL
+  info: &11
+    extraopts:
+      - '"-fno-common"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_weak-1_54:
   bin: '"weak-1.s"'
   cargs: -fno-common -ffat-lto-objects -S
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/weak-1.c'
   herit: *GRPSERIAL
-  info:
+  info: *11
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_weak-2_31:
+  bin: '"weak-2.s"'
+  cargs: -fno-common -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/weak-2.c'
+  herit: *GRPSERIAL
+  info: &12
     extraopts:
       - '"-fno-common"'
   type: build
@@ -127,17 +225,15 @@ test_weak-2_50:
   cargs: -fno-common -ffat-lto-objects -S
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/weak-2.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-fno-common"'
+  info: *12
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_weak-3_74:
+test_weak-3_32:
   bin: '"weak-3.s"'
   cargs: -fno-common -Waddress -ffat-lto-objects -S
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/weak-3.c'
   herit: *GRPSERIAL
-  info:
+  info: &13
     extraopts:
       - '"-fno-common -Waddress"'
     regex-warn:
@@ -151,14 +247,30 @@ test_weak-3_74:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_weak-3_74:
+  bin: '"weak-3.s"'
+  cargs: -fno-common -Waddress -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/weak-3.c'
+  herit: *GRPSERIAL
+  info: *13
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_weak-4_108:
   bin: '"weak-4.s"'
   cargs: -fno-common -ffat-lto-objects -S
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/weak-4.c'
   herit: *GRPSERIAL
-  info:
+  info: &14
     extraopts:
       - '"-fno-common"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_weak-4_33:
+  bin: '"weak-4.s"'
+  cargs: -fno-common -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/weak-4.c'
+  herit: *GRPSERIAL
+  info: *14
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_weak-5_110:
@@ -166,9 +278,34 @@ test_weak-5_110:
   cargs: -fno-common -ffat-lto-objects -S
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/weak-5.c'
   herit: *GRPSERIAL
-  info:
+  info: &15
     extraopts:
       - '"-fno-common"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_weak-5_34:
+  bin: '"weak-5.s"'
+  cargs: -fno-common -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/weak-5.c'
+  herit: *GRPSERIAL
+  info: *15
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_weak-6_35:
+  bin: '"weak-6.s"'
+  cargs: '  -ansi -pedantic-errors -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/weak-6.c'
+  herit: *GRPSERIAL
+  info: &16
+    regex-err:
+      - |-
+        (^|
+        )([^
+        ]+(:6:)[^
+        ]*([0-9]+: (fatal )?error:[^
+        ]*(function pointer" "pointer conversion))[^
+        ]*
+        ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_weak-6_7:
@@ -176,7 +313,15 @@ test_weak-6_7:
   cargs: '  -ansi -pedantic-errors -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/weak-6.c'
   herit: *GRPSERIAL
-  info:
+  info: *16
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_weak-7_36:
+  bin: '"weak-7.s"'
+  cargs: '  -ansi -pedantic-errors -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/weak-7.c'
+  herit: *GRPSERIAL
+  info: &17
     regex-err:
       - |-
         (^|
@@ -193,16 +338,15 @@ test_weak-7_7:
   cargs: '  -ansi -pedantic-errors -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/weak-7.c'
   herit: *GRPSERIAL
-  info:
-    regex-err:
-      - |-
-        (^|
-        )([^
-        ]+(:6:)[^
-        ]*([0-9]+: (fatal )?error:[^
-        ]*(function pointer" "pointer conversion))[^
-        ]*
-        ?)+
+  info: *17
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_weak-8_37:
+  bin: '"weak-8.o"'
+  cargs: '  -ansi -pedantic-errors -c'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/weak-8.c'
+  herit: *GRPSERIAL
+  info: &18 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_weak-8_8:
@@ -210,7 +354,7 @@ test_weak-8_8:
   cargs: '  -ansi -pedantic-errors -c'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/weak-8.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *18
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_weak-9_23:
@@ -218,8 +362,16 @@ test_weak-9_23:
   cargs: -fno-common -ffat-lto-objects -S
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/weak-9.c'
   herit: *GRPSERIAL
-  info:
+  info: &19
     extraopts:
       - '"-fno-common"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_weak-9_38:
+  bin: '"weak-9.s"'
+  cargs: -fno-common -ffat-lto-objects -S
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/weak/weak-9.c'
+  herit: *GRPSERIAL
+  info: *19
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

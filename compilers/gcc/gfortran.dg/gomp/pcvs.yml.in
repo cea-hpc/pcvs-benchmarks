@@ -1,17 +1,25 @@
+test_affinity-1_124:
+  bin: '"affinity-1.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/affinity-1.f90'
+  herit: *GRPSERIAL
+  info: &1 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_affinity-1_19:
   bin: '"affinity-1.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/affinity-1.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: *1
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_allocatable_components_1_57:
+test_allocatable_components_1_125:
   bin: '"allocatable_components_1.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/allocatable_components_1.f90'
   herit: *GRPSERIAL
-  info:
+  info: &2
     regex-err:
       - |-
         (^|
@@ -23,12 +31,20 @@ test_allocatable_components_1_57:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_associate1_83:
+test_allocatable_components_1_57:
+  bin: '"allocatable_components_1.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/allocatable_components_1.f90'
+  herit: *GRPSERIAL
+  info: *2
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_associate1_126:
   bin: '"associate1.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/associate1.f90'
   herit: *GRPSERIAL
-  info:
+  info: &3
     regex-err:
       - |-
         (^|
@@ -192,12 +208,20 @@ test_associate1_83:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_associate1_83:
+  bin: '"associate1.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/associate1.f90'
+  herit: *GRPSERIAL
+  info: *3
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_block-1_10:
   bin: '"block-1.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/block-1.f90'
   herit: *GRPSERIAL
-  info:
+  info: &4
     regex-err:
       - |-
         (^|
@@ -209,12 +233,20 @@ test_block-1_10:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_collapse1_57:
+test_block-1_127:
+  bin: '"block-1.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/block-1.f90'
+  herit: *GRPSERIAL
+  info: *4
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_collapse1_128:
   bin: '"collapse1.s"'
   cargs: '  -O  -fopenmp -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/collapse1.f90'
   herit: *GRPSERIAL
-  info:
+  info: &5
     extraopts:
       - '"-fopenmp"'
     regex-err:
@@ -285,12 +317,20 @@ test_collapse1_57:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_crayptr1_51:
+test_collapse1_57:
+  bin: '"collapse1.s"'
+  cargs: '  -O  -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/collapse1.f90'
+  herit: *GRPSERIAL
+  info: *5
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_crayptr1_129:
   bin: '"crayptr1.s"'
   cargs: '  -O  -fopenmp -fcray-pointer -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/crayptr1.f90'
   herit: *GRPSERIAL
-  info:
+  info: &6
     extraopts:
       - '"-fopenmp -fcray-pointer"'
     regex-err:
@@ -344,12 +384,20 @@ test_crayptr1_51:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_crayptr2_17:
+test_crayptr1_51:
+  bin: '"crayptr1.s"'
+  cargs: '  -O  -fopenmp -fcray-pointer -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/crayptr1.f90'
+  herit: *GRPSERIAL
+  info: *6
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_crayptr2_130:
   bin: '"crayptr2.s"'
   cargs: '  -O  -fopenmp -fcray-pointer -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/crayptr2.f90'
   herit: *GRPSERIAL
-  info:
+  info: &7
     extraopts:
       - '"-fopenmp -fcray-pointer"'
     regex-err:
@@ -363,12 +411,20 @@ test_crayptr2_17:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_crayptr3_22:
+test_crayptr2_17:
+  bin: '"crayptr2.s"'
+  cargs: '  -O  -fopenmp -fcray-pointer -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/crayptr2.f90'
+  herit: *GRPSERIAL
+  info: *7
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_crayptr3_131:
   bin: '"crayptr3.s"'
   cargs: '  -O  -fopenmp -fcray-pointer -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/crayptr3.f90'
   herit: *GRPSERIAL
-  info:
+  info: &8
     extraopts:
       - '"-fopenmp -fcray-pointer"'
     regex-err:
@@ -390,12 +446,38 @@ test_crayptr3_22:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_crayptr3_22:
+  bin: '"crayptr3.s"'
+  cargs: '  -O  -fopenmp -fcray-pointer -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/crayptr3.f90'
+  herit: *GRPSERIAL
+  info: *8
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_crayptr4_132:
+  bin: '"crayptr4.s"'
+  cargs: '  -O  -fopenmp -fcray-pointer -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/crayptr4.f90'
+  herit: *GRPSERIAL
+  info: &9
+    extraopts:
+      - '"-fopenmp -fcray-pointer"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_crayptr4_24:
   bin: '"crayptr4.s"'
   cargs: '  -O  -fopenmp -fcray-pointer -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/crayptr4.f90'
   herit: *GRPSERIAL
-  info:
+  info: *9
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_crayptr5_133:
+  bin: '"crayptr5.s"'
+  cargs: '  -O  -fopenmp -fcray-pointer -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/crayptr5.f90'
+  herit: *GRPSERIAL
+  info: &10
     extraopts:
       - '"-fopenmp -fcray-pointer"'
   type: build
@@ -405,17 +487,15 @@ test_crayptr5_27:
   cargs: '  -O  -fopenmp -fcray-pointer -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/crayptr5.f90'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-fopenmp -fcray-pointer"'
+  info: *10
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_declare-simd-1_9:
+test_declare-simd-1_134:
   bin: '"declare-simd-1.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/declare-simd-1.f90'
   herit: *GRPSERIAL
-  info:
+  info: &11
     regex-err:
       - |-
         (^|
@@ -435,12 +515,36 @@ test_declare-simd-1_9:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_declare-simd-1_9:
+  bin: '"declare-simd-1.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/declare-simd-1.f90'
+  herit: *GRPSERIAL
+  info: *11
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_declare-simd-2_135:
+  bin: '"declare-simd-2.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/declare-simd-2.f90'
+  herit: *GRPSERIAL
+  info: &12 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_declare-simd-2_20:
   bin: '"declare-simd-2.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/declare-simd-2.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: *12
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_declare-target-1_136:
+  bin: '"declare-target-1.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/declare-target-1.f90'
+  herit: *GRPSERIAL
+  info: &13 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_declare-target-1_27:
@@ -448,15 +552,15 @@ test_declare-target-1_27:
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/declare-target-1.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: *13
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_declare-target-2_51:
+test_declare-target-2_137:
   bin: '"declare-target-2.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/declare-target-2.f90'
   herit: *GRPSERIAL
-  info:
+  info: &14
     regex-err:
       - |-
         (^|
@@ -604,12 +708,20 @@ test_declare-target-2_51:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_declare-target-2_51:
+  bin: '"declare-target-2.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/declare-target-2.f90'
+  herit: *GRPSERIAL
+  info: *14
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_depend-1_13:
   bin: '"depend-1.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/depend-1.f90'
   herit: *GRPSERIAL
-  info:
+  info: &15
     regex-err:
       - |-
         (^|
@@ -621,14 +733,38 @@ test_depend-1_13:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_depend-1_138:
+  bin: '"depend-1.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/depend-1.f90'
+  herit: *GRPSERIAL
+  info: *15
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_do-1_139:
+  bin: '"do-1.s"'
+  cargs: '  -O  -O -fopenmp -fdump-tree-omplower -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/do-1.f90'
+  herit: *GRPSERIAL
+  info: &16
+    extraopts:
+      - '"-O -fopenmp -fdump-tree-omplower"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_do-1_25:
   bin: '"do-1.s"'
   cargs: '  -O  -O -fopenmp -fdump-tree-omplower -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/do-1.f90'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O -fopenmp -fdump-tree-omplower"'
+  info: *16
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_fixed-1_140:
+  bin: '"fixed-1.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/fixed-1.f'
+  herit: *GRPSERIAL
+  info: &17 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_fixed-1_22:
@@ -636,7 +772,15 @@ test_fixed-1_22:
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/fixed-1.f'
   herit: *GRPSERIAL
-  info: {}
+  info: *17
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_free-1_141:
+  bin: '"free-1.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/free-1.f90'
+  herit: *GRPSERIAL
+  info: &18 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_free-1_8:
@@ -644,7 +788,7 @@ test_free-1_8:
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/free-1.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: *18
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_free-2_14:
@@ -652,7 +796,7 @@ test_free-2_14:
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/free-2.f90'
   herit: *GRPSERIAL
-  info:
+  info: &19
     regex-warn:
       - |-
         (^|
@@ -680,12 +824,20 @@ test_free-2_14:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_intentin1_16:
+test_free-2_142:
+  bin: '"free-2.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/free-2.f90'
+  herit: *GRPSERIAL
+  info: *19
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_intentin1_143:
   bin: '"intentin1.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/intentin1.f90'
   herit: *GRPSERIAL
-  info:
+  info: &20
     regex-err:
       - |-
         (^|
@@ -721,12 +873,20 @@ test_intentin1_16:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_linear-1_58:
+test_intentin1_16:
+  bin: '"intentin1.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/intentin1.f90'
+  herit: *GRPSERIAL
+  info: *20
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_linear-1_144:
   bin: '"linear-1.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/linear-1.f90'
   herit: *GRPSERIAL
-  info:
+  info: &21
     regex-err:
       - |-
         (^|
@@ -802,12 +962,20 @@ test_linear-1_58:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_linear-1_58:
+  bin: '"linear-1.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/linear-1.f90'
+  herit: *GRPSERIAL
+  info: *21
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_map-1_110:
   bin: '"map-1.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/map-1.f90'
   herit: *GRPSERIAL
-  info:
+  info: &22
     regex-err:
       - |-
         (^|
@@ -996,12 +1164,20 @@ test_map-1_110:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_omp_atomic1_38:
+test_map-1_145:
+  bin: '"map-1.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/map-1.f90'
+  herit: *GRPSERIAL
+  info: *22
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_omp_atomic1_146:
   bin: '"omp_atomic1.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/omp_atomic1.f90'
   herit: *GRPSERIAL
-  info:
+  info: &23
     regex-err:
       - |-
         (^|
@@ -1069,20 +1245,36 @@ test_omp_atomic1_38:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_omp_atomic1_38:
+  bin: '"omp_atomic1.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/omp_atomic1.f90'
+  herit: *GRPSERIAL
+  info: *23
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_omp_atomic2_147:
+  bin: '"omp_atomic2.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/omp_atomic2.f90'
+  herit: *GRPSERIAL
+  info: &24 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_omp_atomic2_54:
   bin: '"omp_atomic2.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/omp_atomic2.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: *24
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_omp_clauses1_25:
+test_omp_clauses1_148:
   bin: '"omp_clauses1.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/omp_clauses1.f90'
   herit: *GRPSERIAL
-  info:
+  info: &25
     regex-err:
       - |-
         (^|
@@ -1134,12 +1326,20 @@ test_omp_clauses1_25:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_omp_do1_57:
+test_omp_clauses1_25:
+  bin: '"omp_clauses1.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/omp_clauses1.f90'
+  herit: *GRPSERIAL
+  info: *25
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_omp_do1_149:
   bin: '"omp_do1.s"'
   cargs: '  -O  -fopenmp -std=gnu -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/omp_do1.f90'
   herit: *GRPSERIAL
-  info:
+  info: &26
     extraopts:
       - '"-fopenmp -std=gnu"'
     regex-err:
@@ -1258,12 +1458,20 @@ test_omp_do1_57:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_omp_do1_57:
+  bin: '"omp_do1.s"'
+  cargs: '  -O  -fopenmp -std=gnu -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/omp_do1.f90'
+  herit: *GRPSERIAL
+  info: *26
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_omp_do_concurrent_13:
   bin: '"omp_do_concurrent.s"'
   cargs: '  -O  -fopenmp -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/omp_do_concurrent.f90'
   herit: *GRPSERIAL
-  info:
+  info: &27
     extraopts:
       - '"-fopenmp"'
     regex-err:
@@ -1277,12 +1485,38 @@ test_omp_do_concurrent_13:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_omp_do_concurrent_150:
+  bin: '"omp_do_concurrent.s"'
+  cargs: '  -O  -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/omp_do_concurrent.f90'
+  herit: *GRPSERIAL
+  info: *27
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_omp_parallel_1_151:
+  bin: '"omp_parallel_1.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -fdump-tree-original -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/omp_parallel_1.f90'
+  herit: *GRPSERIAL
+  info: &28 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_omp_parallel_1_37:
   bin: '"omp_parallel_1.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -fdump-tree-original -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/omp_parallel_1.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: *28
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_omp_parse1_152:
+  bin: '"omp_parse1.s"'
+  cargs: '  -O  -fopenmp -fdump-tree-omplower -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/omp_parse1.f90'
+  herit: *GRPSERIAL
+  info: &29
+    extraopts:
+      - '"-fopenmp -fdump-tree-omplower"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_omp_parse1_19:
@@ -1290,9 +1524,7 @@ test_omp_parse1_19:
   cargs: '  -O  -fopenmp -fdump-tree-omplower -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/omp_parse1.f90'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-fopenmp -fdump-tree-omplower"'
+  info: *29
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_omp_parse2_13:
@@ -1300,17 +1532,25 @@ test_omp_parse2_13:
   cargs: '  -O  -fopenmp -fdump-tree-omplower -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/omp_parse2.f'
   herit: *GRPSERIAL
-  info:
+  info: &30
     extraopts:
       - '"-fopenmp -fdump-tree-omplower"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_omp_threadprivate1_17:
+test_omp_parse2_153:
+  bin: '"omp_parse2.s"'
+  cargs: '  -O  -fopenmp -fdump-tree-omplower -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/omp_parse2.f'
+  herit: *GRPSERIAL
+  info: *30
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_omp_threadprivate1_154:
   bin: '"omp_threadprivate1.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/omp_threadprivate1.f90'
   herit: *GRPSERIAL
-  info:
+  info: &31
     regex-err:
       - |-
         (^|
@@ -1338,12 +1578,20 @@ test_omp_threadprivate1_17:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_omp_threadprivate2_6:
+test_omp_threadprivate1_17:
+  bin: '"omp_threadprivate1.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/omp_threadprivate1.f90'
+  herit: *GRPSERIAL
+  info: *31
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_omp_threadprivate2_155:
   bin: '"omp_threadprivate2.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/omp_threadprivate2.f90'
   herit: *GRPSERIAL
-  info:
+  info: &32
     regex-err:
       - |-
         (^|
@@ -1355,14 +1603,40 @@ test_omp_threadprivate2_6:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_omp_threadprivate2_6:
+  bin: '"omp_threadprivate2.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/omp_threadprivate2.f90'
+  herit: *GRPSERIAL
+  info: *32
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_openmp-simd-1_136:
   bin: '"openmp-simd-1.s"'
   cargs: '  -O  -fno-openmp -fopenmp-simd -fdump-tree-original -O2 -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/openmp-simd-1.f90'
   herit: *GRPSERIAL
-  info:
+  info: &33
     extraopts:
       - '"-fno-openmp -fopenmp-simd -fdump-tree-original -O2"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_openmp-simd-1_156:
+  bin: '"openmp-simd-1.s"'
+  cargs: '  -O  -fno-openmp -fopenmp-simd -fdump-tree-original -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/openmp-simd-1.f90'
+  herit: *GRPSERIAL
+  info: *33
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_openmp-simd-2_157:
+  bin: '"openmp-simd-2.s"'
+  cargs: '  -O  -fopenmp -fopenmp-simd -fdump-tree-original -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/openmp-simd-2.f90'
+  herit: *GRPSERIAL
+  info: &34
+    extraopts:
+      - '"-fopenmp -fopenmp-simd -fdump-tree-original -O2"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_openmp-simd-2_27:
@@ -1370,9 +1644,17 @@ test_openmp-simd-2_27:
   cargs: '  -O  -fopenmp -fopenmp-simd -fdump-tree-original -O2 -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/openmp-simd-2.f90'
   herit: *GRPSERIAL
-  info:
+  info: *34
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_openmp-simd-3_158:
+  bin: '"openmp-simd-3.s"'
+  cargs: '  -O  -fopenmp -fno-openmp-simd -fdump-tree-original -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/openmp-simd-3.f90'
+  herit: *GRPSERIAL
+  info: &35
     extraopts:
-      - '"-fopenmp -fopenmp-simd -fdump-tree-original -O2"'
+      - '"-fopenmp -fno-openmp-simd -fdump-tree-original -O2"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_openmp-simd-3_27:
@@ -1380,9 +1662,15 @@ test_openmp-simd-3_27:
   cargs: '  -O  -fopenmp -fno-openmp-simd -fdump-tree-original -O2 -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/openmp-simd-3.f90'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-fopenmp -fno-openmp-simd -fdump-tree-original -O2"'
+  info: *35
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_order-1_159:
+  bin: '"order-1.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/order-1.f90'
+  herit: *GRPSERIAL
+  info: &36 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_order-1_92:
@@ -1390,15 +1678,15 @@ test_order-1_92:
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/order-1.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: *36
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_order-2_37:
+test_order-2_160:
   bin: '"order-2.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/order-2.f90'
   herit: *GRPSERIAL
-  info:
+  info: &37
     regex-err:
       - |-
         (^|
@@ -1442,12 +1730,28 @@ test_order-2_37:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_order-2_37:
+  bin: '"order-2.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/order-2.f90'
+  herit: *GRPSERIAL
+  info: *37
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr26224_161:
+  bin: '"pr26224.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr26224.f'
+  herit: *GRPSERIAL
+  info: &38 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr26224_8:
   bin: '"pr26224.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr26224.f'
   herit: *GRPSERIAL
-  info: {}
+  info: *38
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr27573_14:
@@ -1455,17 +1759,25 @@ test_pr27573_14:
   cargs: '  -O  -O2 -fopenmp -fprofile-generate -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr27573.f90'
   herit: *GRPSERIAL
-  info:
+  info: &39
     extraopts:
       - '"-O2 -fopenmp -fprofile-generate"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr29759_42:
+test_pr27573_162:
+  bin: '"pr27573.s"'
+  cargs: '  -O  -O2 -fopenmp -fprofile-generate -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr27573.f90'
+  herit: *GRPSERIAL
+  info: *39
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr29759_163:
   bin: '"pr29759.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr29759.f90'
   herit: *GRPSERIAL
-  info:
+  info: &40
     regex-err:
       - |-
         (^|
@@ -1565,12 +1877,20 @@ test_pr29759_42:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr33439_38:
+test_pr29759_42:
+  bin: '"pr29759.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr29759.f90'
+  herit: *GRPSERIAL
+  info: *40
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr33439_164:
   bin: '"pr33439.s"'
   cargs: '  -O  -fopenmp -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr33439.f90'
   herit: *GRPSERIAL
-  info:
+  info: &41
     extraopts:
       - '"-fopenmp"'
     regex-err:
@@ -1616,12 +1936,20 @@ test_pr33439_38:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr35786-1_72:
+test_pr33439_38:
+  bin: '"pr33439.s"'
+  cargs: '  -O  -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr33439.f90'
+  herit: *GRPSERIAL
+  info: *41
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr35786-1_165:
   bin: '"pr35786-1.s"'
   cargs: '  -O  -fopenmp -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr35786-1.f90'
   herit: *GRPSERIAL
-  info:
+  info: &42
     extraopts:
       - '"-fopenmp"'
     regex-err:
@@ -1707,12 +2035,38 @@ test_pr35786-1_72:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr35786-1_72:
+  bin: '"pr35786-1.s"'
+  cargs: '  -O  -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr35786-1.f90'
+  herit: *GRPSERIAL
+  info: *42
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr35786-2_166:
+  bin: '"pr35786-2.s"'
+  cargs: '  -O  -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr35786-2.f90'
+  herit: *GRPSERIAL
+  info: &43
+    extraopts:
+      - '"-fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr35786-2_48:
   bin: '"pr35786-2.s"'
   cargs: '  -O  -fopenmp -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr35786-2.f90'
   herit: *GRPSERIAL
-  info:
+  info: *43
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr36726_167:
+  bin: '"pr36726.s"'
+  cargs: '  -O  -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr36726.f90'
+  herit: *GRPSERIAL
+  info: &44
     extraopts:
       - '"-fopenmp"'
   type: build
@@ -1722,7 +2076,15 @@ test_pr36726_20:
   cargs: '  -O  -fopenmp -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr36726.f90'
   herit: *GRPSERIAL
-  info:
+  info: *44
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr39354_168:
+  bin: '"pr39354.s"'
+  cargs: '  -O  -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr39354.f90'
+  herit: *GRPSERIAL
+  info: &45
     extraopts:
       - '"-fopenmp"'
   type: build
@@ -1732,17 +2094,15 @@ test_pr39354_37:
   cargs: '  -O  -fopenmp -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr39354.f90'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-fopenmp"'
+  info: *45
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr40878-1_63:
+test_pr40878-1_169:
   bin: '"pr40878-1.s"'
   cargs: '  -O  -fopenmp -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr40878-1.f90'
   herit: *GRPSERIAL
-  info:
+  info: &46
     extraopts:
       - '"-fopenmp"'
     regex-err:
@@ -1796,14 +2156,30 @@ test_pr40878-1_63:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr40878-1_63:
+  bin: '"pr40878-1.s"'
+  cargs: '  -O  -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr40878-1.f90'
+  herit: *GRPSERIAL
+  info: *46
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr40878-2_170:
+  bin: '"pr40878-2.s"'
+  cargs: '  -O  -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr40878-2.f90'
+  herit: *GRPSERIAL
+  info: &47
+    extraopts:
+      - '"-fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr40878-2_23:
   bin: '"pr40878-2.s"'
   cargs: '  -O  -fopenmp -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr40878-2.f90'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-fopenmp"'
+  info: *47
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr41344_16:
@@ -1811,7 +2187,7 @@ test_pr41344_16:
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr41344.f'
   herit: *GRPSERIAL
-  info:
+  info: &48
     regex-err:
       - |-
         (^|
@@ -1823,22 +2199,38 @@ test_pr41344_16:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr41344_171:
+  bin: '"pr41344.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr41344.f'
+  herit: *GRPSERIAL
+  info: *48
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr43337_172:
+  bin: '"pr43337.s"'
+  cargs: '  -O  -fopenmp -O2 -g -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr43337.f90'
+  herit: *GRPSERIAL
+  info: &49
+    extraopts:
+      - '"-fopenmp -O2 -g"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr43337_30:
   bin: '"pr43337.s"'
   cargs: '  -O  -fopenmp -O2 -g -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr43337.f90'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-fopenmp -O2 -g"'
+  info: *49
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr43711_18:
+test_pr43711_173:
   bin: '"pr43711.s"'
   cargs: '  -O  -fopenmp -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr43711.f90'
   herit: *GRPSERIAL
-  info:
+  info: &50
     extraopts:
       - '"-fopenmp"'
     regex-err:
@@ -1852,22 +2244,38 @@ test_pr43711_18:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr43711_18:
+  bin: '"pr43711.s"'
+  cargs: '  -O  -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr43711.f90'
+  herit: *GRPSERIAL
+  info: *50
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr43836_10:
   bin: '"pr43836.s"'
   cargs: '  -O  -fopenmp -fexceptions -O2 -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr43836.f90'
   herit: *GRPSERIAL
-  info:
+  info: &51
     extraopts:
       - '"-fopenmp -fexceptions -O2"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr44036-1_24:
+test_pr43836_174:
+  bin: '"pr43836.s"'
+  cargs: '  -O  -fopenmp -fexceptions -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr43836.f90'
+  herit: *GRPSERIAL
+  info: *51
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr44036-1_175:
   bin: '"pr44036-1.s"'
   cargs: '  -O  -fopenmp -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr44036-1.f90'
   herit: *GRPSERIAL
-  info:
+  info: &52
     extraopts:
       - '"-fopenmp"'
     regex-err:
@@ -1905,14 +2313,30 @@ test_pr44036-1_24:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr44036-1_24:
+  bin: '"pr44036-1.s"'
+  cargs: '  -O  -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr44036-1.f90'
+  herit: *GRPSERIAL
+  info: *52
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr44036-2_17:
   bin: '"pr44036-2.s"'
   cargs: '  -O  -fopenmp -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr44036-2.f90'
   herit: *GRPSERIAL
-  info:
+  info: &53
     extraopts:
       - '"-fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr44036-2_176:
+  bin: '"pr44036-2.s"'
+  cargs: '  -O  -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr44036-2.f90'
+  herit: *GRPSERIAL
+  info: *53
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr44036-3_13:
@@ -1920,7 +2344,7 @@ test_pr44036-3_13:
   cargs: '  -O  -fopenmp -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr44036-3.f90'
   herit: *GRPSERIAL
-  info:
+  info: &54
     extraopts:
       - '"-fopenmp"'
     regex-err:
@@ -1942,12 +2366,20 @@ test_pr44036-3_13:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr44085_25:
+test_pr44036-3_177:
+  bin: '"pr44036-3.s"'
+  cargs: '  -O  -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr44036-3.f90'
+  herit: *GRPSERIAL
+  info: *54
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr44085_178:
   bin: '"pr44085.s"'
   cargs: '  -O  -fopenmp -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr44085.f90'
   herit: *GRPSERIAL
-  info:
+  info: &55
     extraopts:
       - '"-fopenmp"'
     regex-err:
@@ -1993,12 +2425,20 @@ test_pr44085_25:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr44085_25:
+  bin: '"pr44085.s"'
+  cargs: '  -O  -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr44085.f90'
+  herit: *GRPSERIAL
+  info: *55
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr44536_10:
   bin: '"pr44536.s"'
   cargs: '  -O  -fopenmp -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr44536.f90'
   herit: *GRPSERIAL
-  info:
+  info: &56
     extraopts:
       - '"-fopenmp"'
     regex-err:
@@ -2020,12 +2460,20 @@ test_pr44536_10:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr44847_86:
+test_pr44536_179:
+  bin: '"pr44536.s"'
+  cargs: '  -O  -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr44536.f90'
+  herit: *GRPSERIAL
+  info: *56
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr44847_180:
   bin: '"pr44847.s"'
   cargs: '  -O  -fopenmp -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr44847.f90'
   herit: *GRPSERIAL
-  info:
+  info: &57
     extraopts:
       - '"-fopenmp"'
     regex-err:
@@ -2071,14 +2519,30 @@ test_pr44847_86:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr44847_86:
+  bin: '"pr44847.s"'
+  cargs: '  -O  -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr44847.f90'
+  herit: *GRPSERIAL
+  info: *57
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr45172_181:
+  bin: '"pr45172.s"'
+  cargs: '  -O  -O -fopenmp -fexceptions -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr45172.f90'
+  herit: *GRPSERIAL
+  info: &58
+    extraopts:
+      - '"-O -fopenmp -fexceptions"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr45172_21:
   bin: '"pr45172.s"'
   cargs: '  -O  -O -fopenmp -fexceptions -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr45172.f90'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O -fopenmp -fexceptions"'
+  info: *58
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr45595_10:
@@ -2086,7 +2550,7 @@ test_pr45595_10:
   cargs: '  -O  -fopenmp -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr45595.f90'
   herit: *GRPSERIAL
-  info:
+  info: &59
     extraopts:
       - '"-fopenmp"'
     regex-err:
@@ -2100,14 +2564,40 @@ test_pr45595_10:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr45595_182:
+  bin: '"pr45595.s"'
+  cargs: '  -O  -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr45595.f90'
+  herit: *GRPSERIAL
+  info: *59
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr45597_183:
+  bin: '"pr45597.s"'
+  cargs: '  -O  -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr45597.f90'
+  herit: *GRPSERIAL
+  info: &60
+    extraopts:
+      - '"-fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr45597_22:
   bin: '"pr45597.s"'
   cargs: '  -O  -fopenmp -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr45597.f90'
   herit: *GRPSERIAL
-  info:
+  info: *60
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr47331_184:
+  bin: '"pr47331.s"'
+  cargs: '  -O  -fopenmp -fwhole-file -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr47331.f90'
+  herit: *GRPSERIAL
+  info: &61
     extraopts:
-      - '"-fopenmp"'
+      - '"-fopenmp -fwhole-file"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr47331_24:
@@ -2115,9 +2605,7 @@ test_pr47331_24:
   cargs: '  -O  -fopenmp -fwhole-file -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr47331.f90'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-fopenmp -fwhole-file"'
+  info: *61
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr48117_11:
@@ -2125,9 +2613,17 @@ test_pr48117_11:
   cargs: '  -O  -O2 -fopenmp -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr48117.f90'
   herit: *GRPSERIAL
-  info:
+  info: &62
     extraopts:
       - '"-O2 -fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr48117_185:
+  bin: '"pr48117.s"'
+  cargs: '  -O  -O2 -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr48117.f90'
+  herit: *GRPSERIAL
+  info: *62
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr48611_12:
@@ -2135,9 +2631,17 @@ test_pr48611_12:
   cargs: '  -O  -Os -fopenmp -fexceptions -fno-tree-ccp -fno-tree-copy-prop -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr48611.f90'
   herit: *GRPSERIAL
-  info:
+  info: &63
     extraopts:
       - '"-Os -fopenmp -fexceptions -fno-tree-ccp -fno-tree-copy-prop"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr48611_186:
+  bin: '"pr48611.s"'
+  cargs: '  -O  -Os -fopenmp -fexceptions -fno-tree-ccp -fno-tree-copy-prop -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr48611.f90'
+  herit: *GRPSERIAL
+  info: *63
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr48794-2_16:
@@ -2145,9 +2649,17 @@ test_pr48794-2_16:
   cargs: '  -O  -Os -fopenmp -fexceptions -fno-tree-ccp -fno-tree-copy-prop -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr48794-2.f90'
   herit: *GRPSERIAL
-  info:
+  info: &64
     extraopts:
       - '"-Os -fopenmp -fexceptions -fno-tree-ccp -fno-tree-copy-prop"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr48794-2_187:
+  bin: '"pr48794-2.s"'
+  cargs: '  -O  -Os -fopenmp -fexceptions -fno-tree-ccp -fno-tree-copy-prop -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr48794-2.f90'
+  herit: *GRPSERIAL
+  info: *64
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr48794_12:
@@ -2155,9 +2667,17 @@ test_pr48794_12:
   cargs: '  -O  -Os -fopenmp -fexceptions -fno-tree-ccp -fno-tree-copy-prop -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr48794.f90'
   herit: *GRPSERIAL
-  info:
+  info: &65
     extraopts:
       - '"-Os -fopenmp -fexceptions -fno-tree-ccp -fno-tree-copy-prop"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr48794_188:
+  bin: '"pr48794.s"'
+  cargs: '  -O  -Os -fopenmp -fexceptions -fno-tree-ccp -fno-tree-copy-prop -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr48794.f90'
+  herit: *GRPSERIAL
+  info: *65
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr51089_16:
@@ -2165,9 +2685,17 @@ test_pr51089_16:
   cargs: '  -O  -O -fexceptions -fopenmp -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr51089.f90'
   herit: *GRPSERIAL
-  info:
+  info: &66
     extraopts:
       - '"-O -fexceptions -fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr51089_189:
+  bin: '"pr51089.s"'
+  cargs: '  -O  -O -fexceptions -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr51089.f90'
+  herit: *GRPSERIAL
+  info: *66
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr52531_16:
@@ -2175,7 +2703,15 @@ test_pr52531_16:
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr52531.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: &67 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr52531_190:
+  bin: '"pr52531.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr52531.f90'
+  herit: *GRPSERIAL
+  info: *67
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr56052_16:
@@ -2183,9 +2719,17 @@ test_pr56052_16:
   cargs: '  -O  -fopenmp -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr56052.f90'
   herit: *GRPSERIAL
-  info:
+  info: &68
     extraopts:
       - '"-fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr56052_191:
+  bin: '"pr56052.s"'
+  cargs: '  -O  -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr56052.f90'
+  herit: *GRPSERIAL
+  info: *68
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr57089_12:
@@ -2193,17 +2737,25 @@ test_pr57089_12:
   cargs: '  -O  -O -fopenmp -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr57089.f90'
   herit: *GRPSERIAL
-  info:
+  info: &69
     extraopts:
       - '"-O -fopenmp"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr59467_24:
+test_pr57089_192:
+  bin: '"pr57089.s"'
+  cargs: '  -O  -O -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr57089.f90'
+  herit: *GRPSERIAL
+  info: *69
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr59467_193:
   bin: '"pr59467.s"'
   cargs: '  -O  -fopenmp -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr59467.f90'
   herit: *GRPSERIAL
-  info:
+  info: &70
     extraopts:
       - '"-fopenmp"'
     regex-err:
@@ -2217,14 +2769,30 @@ test_pr59467_24:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr59467_24:
+  bin: '"pr59467.s"'
+  cargs: '  -O  -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr59467.f90'
+  herit: *GRPSERIAL
+  info: *70
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr59488-1_13:
   bin: '"pr59488-1.s"'
   cargs: '  -O  -fopenmp -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr59488-1.f90'
   herit: *GRPSERIAL
-  info:
+  info: &71
     extraopts:
       - '"-fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr59488-1_194:
+  bin: '"pr59488-1.s"'
+  cargs: '  -O  -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr59488-1.f90'
+  herit: *GRPSERIAL
+  info: *71
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr59488-2_16:
@@ -2232,9 +2800,17 @@ test_pr59488-2_16:
   cargs: '  -O  -fopenmp -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr59488-2.f90'
   herit: *GRPSERIAL
-  info:
+  info: &72
     extraopts:
       - '"-fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr59488-2_195:
+  bin: '"pr59488-2.s"'
+  cargs: '  -O  -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr59488-2.f90'
+  herit: *GRPSERIAL
+  info: *72
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr62131_19:
@@ -2242,9 +2818,17 @@ test_pr62131_19:
   cargs: '  -O  -fopenmp -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr62131.f90'
   herit: *GRPSERIAL
-  info:
+  info: &73
     extraopts:
       - '"-fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr62131_196:
+  bin: '"pr62131.s"'
+  cargs: '  -O  -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr62131.f90'
+  herit: *GRPSERIAL
+  info: *73
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr66633_17:
@@ -2252,9 +2836,25 @@ test_pr66633_17:
   cargs: '  -O  -O0 -fopenmp -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr66633.f90'
   herit: *GRPSERIAL
-  info:
+  info: &74
     extraopts:
       - '"-O0 -fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr66633_197:
+  bin: '"pr66633.s"'
+  cargs: '  -O  -O0 -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr66633.f90'
+  herit: *GRPSERIAL
+  info: *74
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr69128_198:
+  bin: '"pr69128.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr69128.f90'
+  herit: *GRPSERIAL
+  info: &75 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr69128_23:
@@ -2262,7 +2862,7 @@ test_pr69128_23:
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr69128.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: *75
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr69183_11:
@@ -2270,7 +2870,23 @@ test_pr69183_11:
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr69183.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: &76 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr69183_199:
+  bin: '"pr69183.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr69183.f90'
+  herit: *GRPSERIAL
+  info: *76
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr69281_200:
+  bin: '"pr69281.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -fstack-arrays -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr69281.f90'
+  herit: *GRPSERIAL
+  info: &77 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr69281_63:
@@ -2278,7 +2894,7 @@ test_pr69281_63:
   cargs: '  -O  -fopenmp -Wno-hsa -fstack-arrays -O2 -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr69281.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: *77
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr70855_18:
@@ -2286,7 +2902,15 @@ test_pr70855_18:
   cargs: '  -O  -fopenmp -Wno-hsa -O2 -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr70855.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: &78 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr70855_201:
+  bin: '"pr70855.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr70855.f90'
+  herit: *GRPSERIAL
+  info: *78
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr71687_11:
@@ -2294,7 +2918,23 @@ test_pr71687_11:
   cargs: '  -O  -fopenmp -Wno-hsa -fstack-arrays -O2 -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr71687.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: &79 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr71687_202:
+  bin: '"pr71687.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -fstack-arrays -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr71687.f90'
+  herit: *GRPSERIAL
+  info: *79
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr71704_203:
+  bin: '"pr71704.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr71704.f90'
+  herit: *GRPSERIAL
+  info: &80 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr71704_58:
@@ -2302,7 +2942,15 @@ test_pr71704_58:
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr71704.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: *80
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr71705_204:
+  bin: '"pr71705.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr71705.f90'
+  herit: *GRPSERIAL
+  info: &81 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr71705_7:
@@ -2310,7 +2958,7 @@ test_pr71705_7:
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr71705.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: *81
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr71758_10:
@@ -2318,15 +2966,23 @@ test_pr71758_10:
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr71758.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: &82 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr72716_6:
+test_pr71758_205:
+  bin: '"pr71758.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr71758.f90'
+  herit: *GRPSERIAL
+  info: *82
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr72716_206:
   bin: '"pr72716.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr72716.f90'
   herit: *GRPSERIAL
-  info:
+  info: &83
     regex-err:
       - |-
         (^|
@@ -2338,12 +2994,28 @@ test_pr72716_6:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr72716_6:
+  bin: '"pr72716.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr72716.f90'
+  herit: *GRPSERIAL
+  info: *83
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr72744_18:
   bin: '"pr72744.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -Ofast -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr72744.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: &84 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr72744_207:
+  bin: '"pr72744.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -Ofast -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr72744.f90'
+  herit: *GRPSERIAL
+  info: *84
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr77352_16:
@@ -2351,15 +3023,23 @@ test_pr77352_16:
   cargs: '  -O  -fopenmp -Wno-hsa -fstack-arrays -O2 -fopenacc -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr77352.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: &85 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr77374_21:
+test_pr77352_208:
+  bin: '"pr77352.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -fstack-arrays -O2 -fopenacc -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr77352.f90'
+  herit: *GRPSERIAL
+  info: *85
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr77374_209:
   bin: '"pr77374.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr77374.f08'
   herit: *GRPSERIAL
-  info:
+  info: &86
     regex-err:
       - |-
         (^|
@@ -2379,12 +3059,28 @@ test_pr77374_21:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr77374_21:
+  bin: '"pr77374.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr77374.f08'
+  herit: *GRPSERIAL
+  info: *86
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr77500_210:
+  bin: '"pr77500.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr77500.f90'
+  herit: *GRPSERIAL
+  info: &87 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr77500_9:
   bin: '"pr77500.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr77500.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: *87
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr77516_12:
@@ -2392,7 +3088,7 @@ test_pr77516_12:
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr77516.f90'
   herit: *GRPSERIAL
-  info:
+  info: &88
     regex-warn:
       - |-
         (^|
@@ -2404,12 +3100,36 @@ test_pr77516_12:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr77516_211:
+  bin: '"pr77516.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr77516.f90'
+  herit: *GRPSERIAL
+  info: *88
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr77665_18:
   bin: '"pr77665.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -O2 -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr77665.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: &89 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr77665_212:
+  bin: '"pr77665.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr77665.f90'
+  herit: *GRPSERIAL
+  info: *89
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr77666_213:
+  bin: '"pr77666.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr77666.f90'
+  herit: *GRPSERIAL
+  info: &90 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr77666_26:
@@ -2417,7 +3137,7 @@ test_pr77666_26:
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr77666.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: *90
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr77973_12:
@@ -2425,15 +3145,23 @@ test_pr77973_12:
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr77973.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: &91 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr78026_5:
+test_pr77973_214:
+  bin: '"pr77973.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr77973.f90'
+  herit: *GRPSERIAL
+  info: *91
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr78026_215:
   bin: '"pr78026.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr78026.f03'
   herit: *GRPSERIAL
-  info:
+  info: &92
     regex-err:
       - |-
         (^|
@@ -2461,20 +3189,36 @@ test_pr78026_5:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr78026_5:
+  bin: '"pr78026.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr78026.f03'
+  herit: *GRPSERIAL
+  info: *92
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr78298_216:
+  bin: '"pr78298.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr78298.f90'
+  herit: *GRPSERIAL
+  info: &93 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr78298_28:
   bin: '"pr78298.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -O2 -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr78298.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: *93
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr78299_55:
+test_pr78299_217:
   bin: '"pr78299.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -fcheck=bounds -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr78299.f90'
   herit: *GRPSERIAL
-  info:
+  info: &94
     regex-warn:
       - |-
         (^|
@@ -2510,12 +3254,20 @@ test_pr78299_55:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr78299_55:
+  bin: '"pr78299.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -fcheck=bounds -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr78299.f90'
+  herit: *GRPSERIAL
+  info: *94
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr78866-1_19:
   bin: '"pr78866-1.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr78866-1.f90'
   herit: *GRPSERIAL
-  info:
+  info: &95
     regex-err:
       - |-
         (^|
@@ -2567,12 +3319,20 @@ test_pr78866-1_19:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr78866-2_9:
+test_pr78866-1_218:
+  bin: '"pr78866-1.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr78866-1.f90'
+  herit: *GRPSERIAL
+  info: *95
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr78866-2_219:
   bin: '"pr78866-2.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr78866-2.f90'
   herit: *GRPSERIAL
-  info:
+  info: &96
     regex-err:
       - |-
         (^|
@@ -2584,20 +3344,36 @@ test_pr78866-2_9:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr78866-2_9:
+  bin: '"pr78866-2.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr78866-2.f90'
+  herit: *GRPSERIAL
+  info: *96
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr79154-1_220:
+  bin: '"pr79154-1.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr79154-1.f90'
+  herit: *GRPSERIAL
+  info: &97 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr79154-1_32:
   bin: '"pr79154-1.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr79154-1.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: *97
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr79154-2_44:
+test_pr79154-2_221:
   bin: '"pr79154-2.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr79154-2.f90'
   herit: *GRPSERIAL
-  info:
+  info: &98
     regex-err:
       - |-
         (^|
@@ -2673,12 +3449,36 @@ test_pr79154-2_44:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr79154-2_44:
+  bin: '"pr79154-2.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr79154-2.f90'
+  herit: *GRPSERIAL
+  info: *98
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr80918_10:
   bin: '"pr80918.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr80918.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: &99 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr80918_222:
+  bin: '"pr80918.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/pr80918.f90'
+  herit: *GRPSERIAL
+  info: *99
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_proc_ptr_1_223:
+  bin: '"proc_ptr_1.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/proc_ptr_1.f90'
+  herit: *GRPSERIAL
+  info: &100 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_proc_ptr_1_28:
@@ -2686,7 +3486,7 @@ test_proc_ptr_1_28:
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/proc_ptr_1.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: *100
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_proc_ptr_2_14:
@@ -2694,7 +3494,7 @@ test_proc_ptr_2_14:
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/proc_ptr_2.f90'
   herit: *GRPSERIAL
-  info:
+  info: &101
     regex-err:
       - |-
         (^|
@@ -2714,12 +3514,20 @@ test_proc_ptr_2_14:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_proc_ptr_2_224:
+  bin: '"proc_ptr_2.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/proc_ptr_2.f90'
+  herit: *GRPSERIAL
+  info: *101
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_reduction1_132:
   bin: '"reduction1.s"'
   cargs: '  -O  -fopenmp -fmax-errors=100 -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/reduction1.f90'
   herit: *GRPSERIAL
-  info:
+  info: &102
     extraopts:
       - '"-fopenmp -fmax-errors=100"'
     regex-err:
@@ -3037,20 +3845,36 @@ test_reduction1_132:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reduction1_225:
+  bin: '"reduction1.s"'
+  cargs: '  -O  -fopenmp -fmax-errors=100 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/reduction1.f90'
+  herit: *GRPSERIAL
+  info: *102
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reduction2_226:
+  bin: '"reduction2.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/reduction2.f90'
+  herit: *GRPSERIAL
+  info: &103 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_reduction2_33:
   bin: '"reduction2.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/reduction2.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: *103
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_reduction3_64:
+test_reduction3_227:
   bin: '"reduction3.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/reduction3.f90'
   herit: *GRPSERIAL
-  info:
+  info: &104
     regex-err:
       - |-
         (^|
@@ -3094,12 +3918,20 @@ test_reduction3_64:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reduction3_64:
+  bin: '"reduction3.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/reduction3.f90'
+  herit: *GRPSERIAL
+  info: *104
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_schedule-1_11:
   bin: '"schedule-1.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/schedule-1.f90'
   herit: *GRPSERIAL
-  info:
+  info: &105
     regex-warn:
       - |-
         (^|
@@ -3119,12 +3951,20 @@ test_schedule-1_11:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_sharing-1_28:
+test_schedule-1_228:
+  bin: '"schedule-1.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/schedule-1.f90'
+  herit: *GRPSERIAL
+  info: *105
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_sharing-1_229:
   bin: '"sharing-1.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/sharing-1.f90'
   herit: *GRPSERIAL
-  info:
+  info: &106
     regex-err:
       - |-
         (^|
@@ -3160,12 +4000,20 @@ test_sharing-1_28:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_sharing-2_84:
+test_sharing-1_28:
+  bin: '"sharing-1.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/sharing-1.f90'
+  herit: *GRPSERIAL
+  info: *106
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_sharing-2_230:
   bin: '"sharing-2.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/sharing-2.f90'
   herit: *GRPSERIAL
-  info:
+  info: &107
     regex-err:
       - |-
         (^|
@@ -3265,12 +4113,20 @@ test_sharing-2_84:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_sharing-3_37:
+test_sharing-2_84:
+  bin: '"sharing-2.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/sharing-2.f90'
+  herit: *GRPSERIAL
+  info: *107
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_sharing-3_231:
   bin: '"sharing-3.s"'
   cargs: '  -O  -fopenmp -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/sharing-3.f90'
   herit: *GRPSERIAL
-  info:
+  info: &108
     extraopts:
       - '"-fopenmp"'
     regex-err:
@@ -3316,14 +4172,38 @@ test_sharing-3_37:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_sharing-3_37:
+  bin: '"sharing-3.s"'
+  cargs: '  -O  -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/sharing-3.f90'
+  herit: *GRPSERIAL
+  info: *108
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_sharing-4_232:
+  bin: '"sharing-4.s"'
+  cargs: '  -O  -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/sharing-4.f90'
+  herit: *GRPSERIAL
+  info: &109
+    extraopts:
+      - '"-fopenmp"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_sharing-4_24:
   bin: '"sharing-4.s"'
   cargs: '  -O  -fopenmp -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/sharing-4.f90'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-fopenmp"'
+  info: *109
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_target1_233:
+  bin: '"target1.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/target1.f90'
+  herit: *GRPSERIAL
+  info: &110 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_target1_495:
@@ -3331,7 +4211,15 @@ test_target1_495:
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/target1.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: *110
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_target2_234:
+  bin: '"target2.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -ffree-line-length-160 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/target2.f90'
+  herit: *GRPSERIAL
+  info: &111 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_target2_74:
@@ -3339,7 +4227,7 @@ test_target2_74:
   cargs: '  -O  -fopenmp -Wno-hsa -ffree-line-length-160 -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/target2.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: *111
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_target3_11:
@@ -3347,7 +4235,7 @@ test_target3_11:
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/target3.f90'
   herit: *GRPSERIAL
-  info:
+  info: &112
     regex-warn:
       - |-
         (^|
@@ -3359,12 +4247,20 @@ test_target3_11:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_udr1_41:
+test_target3_235:
+  bin: '"target3.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/target3.f90'
+  herit: *GRPSERIAL
+  info: *112
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_udr1_236:
   bin: '"udr1.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/udr1.f90'
   herit: *GRPSERIAL
-  info:
+  info: &113
     regex-err:
       - |-
         (^|
@@ -3432,12 +4328,20 @@ test_udr1_41:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_udr2_53:
+test_udr1_41:
+  bin: '"udr1.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/udr1.f90'
+  herit: *GRPSERIAL
+  info: *113
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_udr2_237:
   bin: '"udr2.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/udr2.f90'
   herit: *GRPSERIAL
-  info:
+  info: &114
     regex-err:
       - |-
         (^|
@@ -3545,12 +4449,20 @@ test_udr2_53:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_udr3_75:
+test_udr2_53:
+  bin: '"udr2.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/udr2.f90'
+  herit: *GRPSERIAL
+  info: *114
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_udr3_238:
   bin: '"udr3.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/udr3.f90'
   herit: *GRPSERIAL
-  info:
+  info: &115
     regex-err:
       - |-
         (^|
@@ -3626,12 +4538,20 @@ test_udr3_75:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_udr4_74:
+test_udr3_75:
+  bin: '"udr3.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/udr3.f90'
+  herit: *GRPSERIAL
+  info: *115
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_udr4_239:
   bin: '"udr4.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/udr4.f90'
   herit: *GRPSERIAL
-  info:
+  info: &116
     regex-err:
       - |-
         (^|
@@ -3771,12 +4691,20 @@ test_udr4_74:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_udr5_59:
+test_udr4_74:
+  bin: '"udr4.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/udr4.f90'
+  herit: *GRPSERIAL
+  info: *116
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_udr5_240:
   bin: '"udr5.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/udr5.f90'
   herit: *GRPSERIAL
-  info:
+  info: &117
     regex-err:
       - |-
         (^|
@@ -3796,12 +4724,20 @@ test_udr5_59:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_udr5_59:
+  bin: '"udr5.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/udr5.f90'
+  herit: *GRPSERIAL
+  info: *117
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_udr6_205:
   bin: '"udr6.s"'
   cargs: '  -O  -fmax-errors=1000 -fopenmp -ffree-line-length-160 -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/udr6.f90'
   herit: *GRPSERIAL
-  info:
+  info: &118
     extraopts:
       - '"-fmax-errors=1000 -fopenmp -ffree-line-length-160"'
     regex-err:
@@ -4159,12 +5095,20 @@ test_udr6_205:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_udr7_90:
+test_udr6_241:
+  bin: '"udr6.s"'
+  cargs: '  -O  -fmax-errors=1000 -fopenmp -ffree-line-length-160 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/udr6.f90'
+  herit: *GRPSERIAL
+  info: *118
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_udr7_242:
   bin: '"udr7.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/udr7.f90'
   herit: *GRPSERIAL
-  info:
+  info: &119
     regex-err:
       - |-
         (^|
@@ -4184,12 +5128,20 @@ test_udr7_90:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_udr8_351:
+test_udr7_90:
+  bin: '"udr7.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/udr7.f90'
+  herit: *GRPSERIAL
+  info: *119
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_udr8_243:
   bin: '"udr8.s"'
   cargs: '  -O  -fmax-errors=1000 -fopenmp -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/udr8.f90'
   herit: *GRPSERIAL
-  info:
+  info: &120
     extraopts:
       - '"-fmax-errors=1000 -fopenmp"'
     regex-err:
@@ -4532,12 +5484,20 @@ test_udr8_351:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_workshare1_42:
+test_udr8_351:
+  bin: '"udr8.s"'
+  cargs: '  -O  -fmax-errors=1000 -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/udr8.f90'
+  herit: *GRPSERIAL
+  info: *120
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_workshare1_244:
   bin: '"workshare1.s"'
   cargs: '  -O  -fopenmp -Wno-hsa -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/workshare1.f90'
   herit: *GRPSERIAL
-  info:
+  info: &121
     regex-err:
       - |-
         (^|
@@ -4573,14 +5533,40 @@ test_workshare1_42:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_workshare1_42:
+  bin: '"workshare1.s"'
+  cargs: '  -O  -fopenmp -Wno-hsa -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/workshare1.f90'
+  herit: *GRPSERIAL
+  info: *121
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_workshare2_245:
+  bin: '"workshare2.s"'
+  cargs: '  -O  -fopenmp -ffrontend-optimize -fdump-tree-original -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/workshare2.f90'
+  herit: *GRPSERIAL
+  info: &122
+    extraopts:
+      - '"-fopenmp -ffrontend-optimize -fdump-tree-original"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_workshare2_52:
   bin: '"workshare2.s"'
   cargs: '  -O  -fopenmp -ffrontend-optimize -fdump-tree-original -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/workshare2.f90'
   herit: *GRPSERIAL
-  info:
+  info: *122
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_workshare3_246:
+  bin: '"workshare3.s"'
+  cargs: '  -O  -ffrontend-optimize -fdump-tree-original -fopenmp -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/workshare3.f90'
+  herit: *GRPSERIAL
+  info: &123
     extraopts:
-      - '"-fopenmp -ffrontend-optimize -fdump-tree-original"'
+      - '"-ffrontend-optimize -fdump-tree-original -fopenmp"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_workshare3_38:
@@ -4588,8 +5574,6 @@ test_workshare3_38:
   cargs: '  -O  -ffrontend-optimize -fdump-tree-original -fopenmp -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/gomp/workshare3.f90'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-ffrontend-optimize -fdump-tree-original -fopenmp"'
+  info: *123
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

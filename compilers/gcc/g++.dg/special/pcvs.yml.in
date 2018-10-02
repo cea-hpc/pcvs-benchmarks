@@ -3,7 +3,15 @@ test_conpr-1_20:
   cargs: ' '
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/special/conpr-1.C'
   herit: *GRPSERIAL
-  info: {}
+  info: &1 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_conpr-1_8:
+  bin: '"./conpr-1.exe"'
+  cargs: ' '
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/special/conpr-1.C'
+  herit: *GRPSERIAL
+  info: *1
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_conpr-2_23:
@@ -11,7 +19,23 @@ test_conpr-2_23:
   cargs: ' '
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/special/conpr-2.C'
   herit: *GRPSERIAL
-  info: {}
+  info: &2 {}
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_conpr-2_9:
+  bin: '"./conpr-2.exe"'
+  cargs: ' '
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/special/conpr-2.C'
+  herit: *GRPSERIAL
+  info: *2
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_conpr-3_10:
+  bin: '"./conpr-3.exe"'
+  cargs: ' '
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/special/conpr-3.C'
+  herit: *GRPSERIAL
+  info: &3 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_conpr-3_23:
@@ -19,7 +43,15 @@ test_conpr-3_23:
   cargs: ' '
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/special/conpr-3.C'
   herit: *GRPSERIAL
-  info: {}
+  info: *3
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_conpr-4_11:
+  bin: '"./conpr-4.exe"'
+  cargs: ' '
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/special/conpr-4.C'
+  herit: *GRPSERIAL
+  info: &4 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_conpr-4_23:
@@ -27,7 +59,15 @@ test_conpr-4_23:
   cargs: ' '
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/special/conpr-4.C'
   herit: *GRPSERIAL
-  info: {}
+  info: *4
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_initp1_12:
+  bin: '"./initp1.exe"'
+  cargs: ' '
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/special/initp1.C'
+  herit: *GRPSERIAL
+  info: &5 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_initp1_90:
@@ -35,7 +75,15 @@ test_initp1_90:
   cargs: ' '
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/special/initp1.C'
   herit: *GRPSERIAL
-  info: {}
+  info: *5
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_initpri1_13:
+  bin: '"./initpri1.exe"'
+  cargs: ' '
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/special/initpri1.C'
+  herit: *GRPSERIAL
+  info: &6 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_initpri1_62:
@@ -43,15 +91,15 @@ test_initpri1_62:
   cargs: ' '
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/special/initpri1.C'
   herit: *GRPSERIAL
-  info: {}
+  info: *6
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_initpri2_39:
+test_initpri2_14:
   bin: '"initpri2.s"'
   cargs: '  -S'
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/special/initpri2.C'
   herit: *GRPSERIAL
-  info:
+  info: &7
     regex-err:
       - |-
         (^|
@@ -134,5 +182,13 @@ test_initpri2_39:
         ]*(reserved))[^
         ]*
         ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_initpri2_39:
+  bin: '"initpri2.s"'
+  cargs: '  -S'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/special/initpri2.C'
+  herit: *GRPSERIAL
+  info: *7
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

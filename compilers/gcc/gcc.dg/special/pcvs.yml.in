@@ -3,17 +3,41 @@ test_20000419-2_18:
   cargs: ' -Wall -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/special/20000419-2.c'
   herit: *GRPSERIAL
-  info:
+  info: &1
     extraopts:
       - '"-Wall"'
   type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_20000419-2_9:
+  bin: '"20000419-2.s"'
+  cargs: ' -Wall -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/special/20000419-2.c'
+  herit: *GRPSERIAL
+  info: *1
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_alias-1_10:
+  bin: '"alias-1.exe"'
+  cargs: ' '
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/special/alias-1.c'
+  herit: *GRPSERIAL
+  info: &2 {}
+  type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_alias-1_18:
   bin: '"alias-1.exe"'
   cargs: ' '
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/special/alias-1.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *2
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_alias-2_11:
+  bin: '"./alias-2.exe"'
+  cargs: ' '
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/special/alias-2.c'
+  herit: *GRPSERIAL
+  info: &3 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_alias-2_19:
@@ -21,7 +45,18 @@ test_alias-2_19:
   cargs: ' '
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/special/alias-2.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *3
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_gcsec-1_12:
+  bin: '"./gcsec-1.exe"'
+  cargs: ' -ffunction-sections -fdata-sections -Wl,--gc-sections'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/special/gcsec-1.c'
+  herit: *GRPSERIAL
+  info: &4
+    extraopts:
+      - '"-ffunction-sections -fdata-sections -Wl,--gc-sections"'
+      - '"-ffunction-sections -fdata-sections -Wl,--gc-sections -static" { target static }'
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_gcsec-1_29:
@@ -29,10 +64,15 @@ test_gcsec-1_29:
   cargs: ' -ffunction-sections -fdata-sections -Wl,--gc-sections'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/special/gcsec-1.c'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-ffunction-sections -fdata-sections -Wl,--gc-sections"'
-      - '"-ffunction-sections -fdata-sections -Wl,--gc-sections -static" { target static }'
+  info: *4
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_weak-1_13:
+  bin: '"./weak-1.exe"'
+  cargs: ' '
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/special/weak-1.c'
+  herit: *GRPSERIAL
+  info: &5 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_weak-1_20:
@@ -40,7 +80,15 @@ test_weak-1_20:
   cargs: ' '
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/special/weak-1.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *5
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_weak-2_14:
+  bin: '"./weak-2.exe"'
+  cargs: ' '
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/special/weak-2.c'
+  herit: *GRPSERIAL
+  info: &6 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_weak-2_19:
@@ -48,7 +96,15 @@ test_weak-2_19:
   cargs: ' '
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/special/weak-2.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *6
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_wkali-1_15:
+  bin: '"wkali-1.exe"'
+  cargs: ' '
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/special/wkali-1.c'
+  herit: *GRPSERIAL
+  info: &7 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_wkali-1_19:
@@ -56,7 +112,7 @@ test_wkali-1_19:
   cargs: ' '
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/special/wkali-1.c'
   herit: *GRPSERIAL
-  info: {}
+  info: *7
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_wkali-2_16:

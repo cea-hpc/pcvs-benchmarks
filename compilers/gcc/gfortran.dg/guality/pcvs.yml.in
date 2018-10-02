@@ -1,4 +1,4 @@
-test_arg1_15:
+test_arg1_13:
   bin: '"./arg1.exe"'
   cargs: '  -O0  -g'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/guality/arg1.f90'
@@ -6,6 +6,46 @@ test_arg1_15:
   info: &1
     extraopts:
       - '"-g"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_arg1_14:
+  bin: '"./arg1.exe"'
+  cargs: '  -O1  -g'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/guality/arg1.f90'
+  herit: *GRPSERIAL
+  info: *1
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_arg1_15:
+  bin: '"./arg1.exe"'
+  cargs: '  -O2  -g'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/guality/arg1.f90'
+  herit: *GRPSERIAL
+  info: *1
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_arg1_16:
+  bin: '"./arg1.exe"'
+  cargs: '  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions  -g'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/guality/arg1.f90'
+  herit: *GRPSERIAL
+  info: *1
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_arg1_17:
+  bin: '"./arg1.exe"'
+  cargs: '  -O3 -g  -g'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/guality/arg1.f90'
+  herit: *GRPSERIAL
+  info: *1
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_arg1_18:
+  bin: '"./arg1.exe"'
+  cargs: '  -Os  -g'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/guality/arg1.f90'
+  herit: *GRPSERIAL
+  info: *1
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_arg1_2:
@@ -67,6 +107,54 @@ test_pr41558_11:
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr41558_12:
+  bin: '"./pr41558.exe"'
+  cargs: '  -Os  -g'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/guality/pr41558.f90'
+  herit: *GRPSERIAL
+  info: *2
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr41558_19:
+  bin: '"./pr41558.exe"'
+  cargs: '  -O0  -g'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/guality/pr41558.f90'
+  herit: *GRPSERIAL
+  info: *2
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr41558_20:
+  bin: '"./pr41558.exe"'
+  cargs: '  -O1  -g'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/guality/pr41558.f90'
+  herit: *GRPSERIAL
+  info: *2
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr41558_21:
+  bin: '"./pr41558.exe"'
+  cargs: '  -O2  -g'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/guality/pr41558.f90'
+  herit: *GRPSERIAL
+  info: *2
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr41558_22:
+  bin: '"./pr41558.exe"'
+  cargs: '  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions  -g'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/guality/pr41558.f90'
+  herit: *GRPSERIAL
+  info: *2
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr41558_23:
+  bin: '"./pr41558.exe"'
+  cargs: '  -O3 -g  -g'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/guality/pr41558.f90'
+  herit: *GRPSERIAL
+  info: *2
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr41558_24:
   bin: '"./pr41558.exe"'
   cargs: '  -Os  -g'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/guality/pr41558.f90'

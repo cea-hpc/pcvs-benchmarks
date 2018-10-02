@@ -1,9 +1,27 @@
+test_PR53852_160:
+  bin: '"PR53852.s"'
+  cargs: '  -O  -floop-nest-optimize -O2 -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/PR53852.f90'
+  herit: *GRPSERIAL
+  info: &1
+    extraopts:
+      - '"-floop-nest-optimize -O2 -ffast-math"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_PR53852_37:
   bin: '"PR53852.s"'
   cargs: '  -O  -floop-nest-optimize -O2 -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/PR53852.f90'
   herit: *GRPSERIAL
-  info:
+  info: *1
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_PR67518_161:
+  bin: '"PR67518.s"'
+  cargs: '  -O  -floop-nest-optimize -O2 -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/PR67518.f90'
+  herit: *GRPSERIAL
+  info: &2
     extraopts:
       - '"-floop-nest-optimize -O2 -ffast-math"'
   type: build
@@ -13,9 +31,7 @@ test_PR67518_45:
   cargs: '  -O  -floop-nest-optimize -O2 -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/PR67518.f90'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-floop-nest-optimize -O2 -ffast-math"'
+  info: *2
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_block-1_11:
@@ -23,7 +39,23 @@ test_block-1_11:
   cargs: '  -O  -O2 -floop-nest-optimize -ffast-math -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/block-1.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: &3 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_block-1_142:
+  bin: '"block-1.s"'
+  cargs: '  -O  -O2 -floop-nest-optimize -ffast-math -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/block-1.f90'
+  herit: *GRPSERIAL
+  info: *3
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_block-2_143:
+  bin: '"block-2.s"'
+  cargs: '  -O  -O2 -floop-nest-optimize -ffast-math -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/block-2.f'
+  herit: *GRPSERIAL
+  info: &4 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_block-2_20:
@@ -31,7 +63,15 @@ test_block-2_20:
   cargs: '  -O  -O2 -floop-nest-optimize -ffast-math -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/block-2.f'
   herit: *GRPSERIAL
-  info: {}
+  info: *4
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_block-3_144:
+  bin: '"block-3.s"'
+  cargs: '  -O  -O2 -floop-nest-optimize -ffast-math -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/block-3.f90'
+  herit: *GRPSERIAL
+  info: &5 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_block-3_17:
@@ -39,7 +79,15 @@ test_block-3_17:
   cargs: '  -O  -O2 -floop-nest-optimize -ffast-math -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/block-3.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: *5
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_block-4_145:
+  bin: '"block-4.s"'
+  cargs: '  -O  -O2 -floop-nest-optimize -ffast-math -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/block-4.f90'
+  herit: *GRPSERIAL
+  info: &6 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_block-4_20:
@@ -47,7 +95,7 @@ test_block-4_20:
   cargs: '  -O  -O2 -floop-nest-optimize -ffast-math -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/block-4.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: *6
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-10_11:
@@ -55,7 +103,23 @@ test_id-10_11:
   cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-10.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: &7 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-10_112:
+  bin: '"id-10.s"'
+  cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-10.f90'
+  herit: *GRPSERIAL
+  info: *7
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-11_113:
+  bin: '"id-11.s"'
+  cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-11.f'
+  herit: *GRPSERIAL
+  info: &8 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-11_14:
@@ -63,7 +127,15 @@ test_id-11_14:
   cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-11.f'
   herit: *GRPSERIAL
-  info: {}
+  info: *8
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-12_114:
+  bin: '"id-12.s"'
+  cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-12.f'
+  herit: *GRPSERIAL
+  info: &9 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-12_19:
@@ -71,7 +143,15 @@ test_id-12_19:
   cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-12.f'
   herit: *GRPSERIAL
-  info: {}
+  info: *9
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-13_115:
+  bin: '"id-13.s"'
+  cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-13.f'
+  herit: *GRPSERIAL
+  info: &10 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-13_12:
@@ -79,7 +159,15 @@ test_id-13_12:
   cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-13.f'
   herit: *GRPSERIAL
-  info: {}
+  info: *10
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-14_116:
+  bin: '"id-14.s"'
+  cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-14.f'
+  herit: *GRPSERIAL
+  info: &11 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-14_20:
@@ -87,7 +175,15 @@ test_id-14_20:
   cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-14.f'
   herit: *GRPSERIAL
-  info: {}
+  info: *11
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-15_117:
+  bin: '"id-15.s"'
+  cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-15.f'
+  herit: *GRPSERIAL
+  info: &12 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-15_16:
@@ -95,7 +191,7 @@ test_id-15_16:
   cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-15.f'
   herit: *GRPSERIAL
-  info: {}
+  info: *12
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-16_10:
@@ -103,7 +199,23 @@ test_id-16_10:
   cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-16.f'
   herit: *GRPSERIAL
-  info: {}
+  info: &13 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-16_118:
+  bin: '"id-16.s"'
+  cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-16.f'
+  herit: *GRPSERIAL
+  info: *13
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-17_119:
+  bin: '"id-17.s"'
+  cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-17.f'
+  herit: *GRPSERIAL
+  info: &14 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-17_16:
@@ -111,7 +223,15 @@ test_id-17_16:
   cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-17.f'
   herit: *GRPSERIAL
-  info: {}
+  info: *14
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-18_120:
+  bin: '"id-18.s"'
+  cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-18.f90'
+  herit: *GRPSERIAL
+  info: &15 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-18_25:
@@ -119,7 +239,15 @@ test_id-18_25:
   cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-18.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: *15
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-19_121:
+  bin: '"id-19.s"'
+  cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-19.f'
+  herit: *GRPSERIAL
+  info: &16 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-19_15:
@@ -127,7 +255,7 @@ test_id-19_15:
   cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-19.f'
   herit: *GRPSERIAL
-  info: {}
+  info: *16
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-1_11:
@@ -135,7 +263,15 @@ test_id-1_11:
   cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-1.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: &17 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-1_111:
+  bin: '"id-1.s"'
+  cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-1.f90'
+  herit: *GRPSERIAL
+  info: *17
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-20_10:
@@ -143,9 +279,25 @@ test_id-20_10:
   cargs: '  -O  -O3 -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-20.f'
   herit: *GRPSERIAL
-  info:
+  info: &18
     extraopts:
       - '"-O3 -ffast-math"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-20_123:
+  bin: '"id-20.s"'
+  cargs: '  -O  -O3 -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-20.f'
+  herit: *GRPSERIAL
+  info: *18
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-21_124:
+  bin: '"id-21.s"'
+  cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-21.f'
+  herit: *GRPSERIAL
+  info: &19 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-21_20:
@@ -153,7 +305,7 @@ test_id-21_20:
   cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-21.f'
   herit: *GRPSERIAL
-  info: {}
+  info: *19
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-22_10:
@@ -161,9 +313,25 @@ test_id-22_10:
   cargs: '  -O  -O3 -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-22.f'
   herit: *GRPSERIAL
-  info:
+  info: &20
     extraopts:
       - '"-O3 -ffast-math"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-22_125:
+  bin: '"id-22.s"'
+  cargs: '  -O  -O3 -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-22.f'
+  herit: *GRPSERIAL
+  info: *20
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-23_126:
+  bin: '"id-23.s"'
+  cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-23.f'
+  herit: *GRPSERIAL
+  info: &21 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-23_13:
@@ -171,7 +339,15 @@ test_id-23_13:
   cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-23.f'
   herit: *GRPSERIAL
-  info: {}
+  info: *21
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-24_127:
+  bin: '"id-24.s"'
+  cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-24.f'
+  herit: *GRPSERIAL
+  info: &22 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-24_9:
@@ -179,7 +355,7 @@ test_id-24_9:
   cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-24.f'
   herit: *GRPSERIAL
-  info: {}
+  info: *22
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-25_10:
@@ -187,7 +363,25 @@ test_id-25_10:
   cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-25.f'
   herit: *GRPSERIAL
-  info: {}
+  info: &23 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-25_128:
+  bin: '"id-25.s"'
+  cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-25.f'
+  herit: *GRPSERIAL
+  info: *23
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-26_129:
+  bin: '"id-26.s"'
+  cargs: '  -O  -fcray-pointer -floop-nest-optimize -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-26.f03'
+  herit: *GRPSERIAL
+  info: &24
+    extraopts:
+      - '"-fcray-pointer -floop-nest-optimize"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-26_132:
@@ -195,9 +389,15 @@ test_id-26_132:
   cargs: '  -O  -fcray-pointer -floop-nest-optimize -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-26.f03'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-fcray-pointer -floop-nest-optimize"'
+  info: *24
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-2_122:
+  bin: '"id-2.s"'
+  cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-2.f90'
+  herit: *GRPSERIAL
+  info: &25 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-2_13:
@@ -205,7 +405,15 @@ test_id-2_13:
   cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-2.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: *25
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-3_130:
+  bin: '"id-3.s"'
+  cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-3.f90'
+  herit: *GRPSERIAL
+  info: &26 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-3_19:
@@ -213,7 +421,15 @@ test_id-3_19:
   cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-3.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: *26
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-4_131:
+  bin: '"id-4.s"'
+  cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-4.f90'
+  herit: *GRPSERIAL
+  info: &27 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-4_32:
@@ -221,7 +437,15 @@ test_id-4_32:
   cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-4.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: *27
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-5_132:
+  bin: '"id-5.s"'
+  cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-5.f'
+  herit: *GRPSERIAL
+  info: &28 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-5_19:
@@ -229,7 +453,15 @@ test_id-5_19:
   cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-5.f'
   herit: *GRPSERIAL
-  info: {}
+  info: *28
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-6_133:
+  bin: '"id-6.s"'
+  cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-6.f'
+  herit: *GRPSERIAL
+  info: &29 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-6_22:
@@ -237,7 +469,15 @@ test_id-6_22:
   cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-6.f'
   herit: *GRPSERIAL
-  info: {}
+  info: *29
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-7_134:
+  bin: '"id-7.s"'
+  cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-7.f'
+  herit: *GRPSERIAL
+  info: &30 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-7_14:
@@ -245,7 +485,15 @@ test_id-7_14:
   cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-7.f'
   herit: *GRPSERIAL
-  info: {}
+  info: *30
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-8_135:
+  bin: '"id-8.s"'
+  cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-8.f'
+  herit: *GRPSERIAL
+  info: &31 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-8_17:
@@ -253,7 +501,15 @@ test_id-8_17:
   cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-8.f'
   herit: *GRPSERIAL
-  info: {}
+  info: *31
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-9_136:
+  bin: '"id-9.s"'
+  cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-9.f'
+  herit: *GRPSERIAL
+  info: &32 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-9_20:
@@ -261,7 +517,15 @@ test_id-9_20:
   cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-9.f'
   herit: *GRPSERIAL
-  info: {}
+  info: *32
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-pr43354_137:
+  bin: '"id-pr43354.s"'
+  cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-pr43354.f'
+  herit: *GRPSERIAL
+  info: &33 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-pr43354_18:
@@ -269,7 +533,7 @@ test_id-pr43354_18:
   cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-pr43354.f'
   herit: *GRPSERIAL
-  info: {}
+  info: *33
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-pr45370_100:
@@ -277,7 +541,25 @@ test_id-pr45370_100:
   cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-pr45370.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: &34 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-pr45370_138:
+  bin: '"id-pr45370.s"'
+  cargs: '  -O  -O2 -fgraphite-identity -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-pr45370.f90'
+  herit: *GRPSERIAL
+  info: *34
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-pr46994_139:
+  bin: '"id-pr46994.s"'
+  cargs: '  -O  -O -ffast-math -fgraphite-identity -fno-tree-dce -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-pr46994.f90'
+  herit: *GRPSERIAL
+  info: &35
+    extraopts:
+      - '"-O -ffast-math -fgraphite-identity -fno-tree-dce"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-pr46994_14:
@@ -285,7 +567,15 @@ test_id-pr46994_14:
   cargs: '  -O  -O -ffast-math -fgraphite-identity -fno-tree-dce -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-pr46994.f90'
   herit: *GRPSERIAL
-  info:
+  info: *35
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-pr46995_140:
+  bin: '"id-pr46995.s"'
+  cargs: '  -O  -O -ffast-math -fgraphite-identity -fno-tree-dce -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-pr46995.f90'
+  herit: *GRPSERIAL
+  info: &36
     extraopts:
       - '"-O -ffast-math -fgraphite-identity -fno-tree-dce"'
   type: build
@@ -295,9 +585,17 @@ test_id-pr46995_16:
   cargs: '  -O  -O -ffast-math -fgraphite-identity -fno-tree-dce -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-pr46995.f90'
   herit: *GRPSERIAL
-  info:
+  info: *36
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_id-pr47691_141:
+  bin: '"id-pr47691.s"'
+  cargs: '  -O  -O -fgraphite-identity -ffast-math -fno-tree-scev-cprop -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-pr47691.f'
+  herit: *GRPSERIAL
+  info: &37
     extraopts:
-      - '"-O -ffast-math -fgraphite-identity -fno-tree-dce"'
+      - '"-O -fgraphite-identity -ffast-math -fno-tree-scev-cprop"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_id-pr47691_7:
@@ -305,9 +603,15 @@ test_id-pr47691_7:
   cargs: '  -O  -O -fgraphite-identity -ffast-math -fno-tree-scev-cprop -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/id-pr47691.f'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O -fgraphite-identity -ffast-math -fno-tree-scev-cprop"'
+  info: *37
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_interchange-1_146:
+  bin: '"interchange-1.s"'
+  cargs: '  -O  -O2 -floop-nest-optimize -ffast-math -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/interchange-1.f'
+  herit: *GRPSERIAL
+  info: &38 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_interchange-1_44:
@@ -315,7 +619,15 @@ test_interchange-1_44:
   cargs: '  -O  -O2 -floop-nest-optimize -ffast-math -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/interchange-1.f'
   herit: *GRPSERIAL
-  info: {}
+  info: *38
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_interchange-2_147:
+  bin: '"interchange-2.s"'
+  cargs: '  -O  -O2 -floop-nest-optimize -ffast-math -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/interchange-2.f'
+  herit: *GRPSERIAL
+  info: &39 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_interchange-2_42:
@@ -323,7 +635,15 @@ test_interchange-2_42:
   cargs: '  -O  -O2 -floop-nest-optimize -ffast-math -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/interchange-2.f'
   herit: *GRPSERIAL
-  info: {}
+  info: *39
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_interchange-3_148:
+  bin: '"interchange-3.s"'
+  cargs: '  -O  -O2 -floop-nest-optimize -ffast-math -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/interchange-3.f90'
+  herit: *GRPSERIAL
+  info: &40 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_interchange-3_27:
@@ -331,7 +651,15 @@ test_interchange-3_27:
   cargs: '  -O  -O2 -floop-nest-optimize -ffast-math -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/interchange-3.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: *40
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_interchange-4_149:
+  bin: '"interchange-4.s"'
+  cargs: '  -O  -O2 -floop-nest-optimize -ffast-math -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/interchange-4.f'
+  herit: *GRPSERIAL
+  info: &41 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_interchange-4_28:
@@ -339,7 +667,15 @@ test_interchange-4_28:
   cargs: '  -O  -O2 -floop-nest-optimize -ffast-math -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/interchange-4.f'
   herit: *GRPSERIAL
-  info: {}
+  info: *41
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_interchange-5_150:
+  bin: '"interchange-5.s"'
+  cargs: '  -O  -O2 -floop-nest-optimize -ffast-math -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/interchange-5.f'
+  herit: *GRPSERIAL
+  info: &42 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_interchange-5_29:
@@ -347,7 +683,17 @@ test_interchange-5_29:
   cargs: '  -O  -O2 -floop-nest-optimize -ffast-math -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/interchange-5.f'
   herit: *GRPSERIAL
-  info: {}
+  info: *42
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr14741_162:
+  bin: '"pr14741.s"'
+  cargs: '  -O  -O3 -ffast-math -floop-interchange -floop-block -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr14741.f90'
+  herit: *GRPSERIAL
+  info: &43
+    extraopts:
+      - '"-O3 -ffast-math -floop-interchange -floop-block -fdump-tree-graphite-all"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr14741_27:
@@ -355,9 +701,17 @@ test_pr14741_27:
   cargs: '  -O  -O3 -ffast-math -floop-interchange -floop-block -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr14741.f90'
   herit: *GRPSERIAL
-  info:
+  info: *43
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr29290_163:
+  bin: '"pr29290.s"'
+  cargs: '  -O  -O3 -ftree-loop-linear -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr29290.f90'
+  herit: *GRPSERIAL
+  info: &44
     extraopts:
-      - '"-O3 -ffast-math -floop-interchange -floop-block -fdump-tree-graphite-all"'
+      - '"-O3 -ftree-loop-linear"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr29290_9:
@@ -365,19 +719,65 @@ test_pr29290_9:
   cargs: '  -O  -O3 -ftree-loop-linear -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr29290.f90'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O3 -ftree-loop-linear"'
+  info: *44
   type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr29581_164:
+  bin: '"./pr29581.exe"'
+  cargs: '  -O0  -O2 -ftree-loop-linear'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr29581.f90'
+  herit: *GRPSERIAL
+  info: &45
+    extraopts:
+      - '"-O2 -ftree-loop-linear"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr29581_165:
+  bin: '"./pr29581.exe"'
+  cargs: '  -O1  -O2 -ftree-loop-linear'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr29581.f90'
+  herit: *GRPSERIAL
+  info: *45
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr29581_166:
+  bin: '"./pr29581.exe"'
+  cargs: '  -O2  -O2 -ftree-loop-linear'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr29581.f90'
+  herit: *GRPSERIAL
+  info: *45
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr29581_167:
+  bin: '"./pr29581.exe"'
+  cargs: '  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions  -O2 -ftree-loop-linear'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr29581.f90'
+  herit: *GRPSERIAL
+  info: *45
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr29581_168:
+  bin: '"./pr29581.exe"'
+  cargs: '  -O3 -g  -O2 -ftree-loop-linear'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr29581.f90'
+  herit: *GRPSERIAL
+  info: *45
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr29581_169:
+  bin: '"./pr29581.exe"'
+  cargs: '  -Os  -O2 -ftree-loop-linear'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr29581.f90'
+  herit: *GRPSERIAL
+  info: *45
+  type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr29581_27:
   bin: '"./pr29581.exe"'
   cargs: '  -O0  -O2 -ftree-loop-linear'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr29581.f90'
   herit: *GRPSERIAL
-  info: &1
-    extraopts:
-      - '"-O2 -ftree-loop-linear"'
+  info: *45
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr29581_56:
@@ -385,7 +785,7 @@ test_pr29581_56:
   cargs: '  -O1  -O2 -ftree-loop-linear'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr29581.f90'
   herit: *GRPSERIAL
-  info: *1
+  info: *45
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr29581_57:
@@ -393,7 +793,7 @@ test_pr29581_57:
   cargs: '  -O2  -O2 -ftree-loop-linear'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr29581.f90'
   herit: *GRPSERIAL
-  info: *1
+  info: *45
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr29581_58:
@@ -401,7 +801,7 @@ test_pr29581_58:
   cargs: '  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions  -O2 -ftree-loop-linear'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr29581.f90'
   herit: *GRPSERIAL
-  info: *1
+  info: *45
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr29581_59:
@@ -409,7 +809,7 @@ test_pr29581_59:
   cargs: '  -O3 -g  -O2 -ftree-loop-linear'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr29581.f90'
   herit: *GRPSERIAL
-  info: *1
+  info: *45
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr29581_60:
@@ -417,7 +817,57 @@ test_pr29581_60:
   cargs: '  -Os  -O2 -ftree-loop-linear'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr29581.f90'
   herit: *GRPSERIAL
-  info: *1
+  info: *45
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr29832_170:
+  bin: '"./pr29832.exe"'
+  cargs: '  -O0  -O2 -ftree-loop-linear'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr29832.f90'
+  herit: *GRPSERIAL
+  info: &46
+    extraopts:
+      - '"-O2 -ftree-loop-linear"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr29832_171:
+  bin: '"./pr29832.exe"'
+  cargs: '  -O1  -O2 -ftree-loop-linear'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr29832.f90'
+  herit: *GRPSERIAL
+  info: *46
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr29832_172:
+  bin: '"./pr29832.exe"'
+  cargs: '  -O2  -O2 -ftree-loop-linear'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr29832.f90'
+  herit: *GRPSERIAL
+  info: *46
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr29832_173:
+  bin: '"./pr29832.exe"'
+  cargs: '  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions  -O2 -ftree-loop-linear'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr29832.f90'
+  herit: *GRPSERIAL
+  info: *46
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr29832_174:
+  bin: '"./pr29832.exe"'
+  cargs: '  -O3 -g  -O2 -ftree-loop-linear'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr29832.f90'
+  herit: *GRPSERIAL
+  info: *46
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr29832_175:
+  bin: '"./pr29832.exe"'
+  cargs: '  -Os  -O2 -ftree-loop-linear'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr29832.f90'
+  herit: *GRPSERIAL
+  info: *46
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr29832_26:
@@ -425,9 +875,7 @@ test_pr29832_26:
   cargs: '  -O0  -O2 -ftree-loop-linear'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr29832.f90'
   herit: *GRPSERIAL
-  info: &2
-    extraopts:
-      - '"-O2 -ftree-loop-linear"'
+  info: *46
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr29832_62:
@@ -435,7 +883,7 @@ test_pr29832_62:
   cargs: '  -O1  -O2 -ftree-loop-linear'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr29832.f90'
   herit: *GRPSERIAL
-  info: *2
+  info: *46
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr29832_63:
@@ -443,7 +891,7 @@ test_pr29832_63:
   cargs: '  -O2  -O2 -ftree-loop-linear'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr29832.f90'
   herit: *GRPSERIAL
-  info: *2
+  info: *46
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr29832_64:
@@ -451,7 +899,7 @@ test_pr29832_64:
   cargs: '  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions  -O2 -ftree-loop-linear'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr29832.f90'
   herit: *GRPSERIAL
-  info: *2
+  info: *46
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr29832_65:
@@ -459,7 +907,7 @@ test_pr29832_65:
   cargs: '  -O3 -g  -O2 -ftree-loop-linear'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr29832.f90'
   herit: *GRPSERIAL
-  info: *2
+  info: *46
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr29832_66:
@@ -467,7 +915,7 @@ test_pr29832_66:
   cargs: '  -Os  -O2 -ftree-loop-linear'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr29832.f90'
   herit: *GRPSERIAL
-  info: *2
+  info: *46
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr36286_14:
@@ -475,9 +923,17 @@ test_pr36286_14:
   cargs: '  -O  -O1 -ftree-loop-linear -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr36286.f90'
   herit: *GRPSERIAL
-  info:
+  info: &47
     extraopts:
       - '"-O1 -ftree-loop-linear"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr36286_176:
+  bin: '"pr36286.s"'
+  cargs: '  -O  -O1 -ftree-loop-linear -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr36286.f90'
+  herit: *GRPSERIAL
+  info: *47
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr36922_16:
@@ -485,9 +941,17 @@ test_pr36922_16:
   cargs: '  -O  -O2 -ftree-loop-linear -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr36922.f'
   herit: *GRPSERIAL
-  info:
+  info: &48
     extraopts:
       - '"-O2 -ftree-loop-linear"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr36922_177:
+  bin: '"pr36922.s"'
+  cargs: '  -O  -O2 -ftree-loop-linear -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr36922.f'
+  herit: *GRPSERIAL
+  info: *48
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr37852_13:
@@ -495,7 +959,25 @@ test_pr37852_13:
   cargs: '  -O  -O2  -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr37852.f90'
   herit: *GRPSERIAL
-  info:
+  info: &49
+    extraopts:
+      - '"-O2 "'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr37852_178:
+  bin: '"pr37852.s"'
+  cargs: '  -O  -O2  -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr37852.f90'
+  herit: *GRPSERIAL
+  info: *49
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr37857_179:
+  bin: '"pr37857.s"'
+  cargs: '  -O  -O2  -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr37857.f90'
+  herit: *GRPSERIAL
+  info: &50
     extraopts:
       - '"-O2 "'
   type: build
@@ -505,9 +987,7 @@ test_pr37857_9:
   cargs: '  -O  -O2  -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr37857.f90'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2 "'
+  info: *50
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr37980_11:
@@ -515,9 +995,17 @@ test_pr37980_11:
   cargs: '  -O  -O2  -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr37980.f90'
   herit: *GRPSERIAL
-  info:
+  info: &51
     extraopts:
       - '"-O2 "'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr37980_180:
+  bin: '"pr37980.s"'
+  cargs: '  -O  -O2  -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr37980.f90'
+  herit: *GRPSERIAL
+  info: *51
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr38083_16:
@@ -525,9 +1013,17 @@ test_pr38083_16:
   cargs: '  -O  -O3  -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr38083.f90'
   herit: *GRPSERIAL
-  info:
+  info: &52
     extraopts:
       - '"-O3 "'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr38083_181:
+  bin: '"pr38083.s"'
+  cargs: '  -O  -O3  -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr38083.f90'
+  herit: *GRPSERIAL
+  info: *52
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr38459_14:
@@ -535,9 +1031,17 @@ test_pr38459_14:
   cargs: '  -O  -O2 -fgraphite-identity -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr38459.f90'
   herit: *GRPSERIAL
-  info:
+  info: &53
     extraopts:
       - '"-O2 -fgraphite-identity"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr38459_182:
+  bin: '"pr38459.s"'
+  cargs: '  -O  -O2 -fgraphite-identity -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr38459.f90'
+  herit: *GRPSERIAL
+  info: *53
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr38953_115:
@@ -545,9 +1049,27 @@ test_pr38953_115:
   cargs: '  -O  -O3  -fgraphite-identity -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr38953.f90'
   herit: *GRPSERIAL
-  info:
+  info: &54
     extraopts:
       - '"-O3  -fgraphite-identity"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr38953_183:
+  bin: '"pr38953.s"'
+  cargs: '  -O  -O3  -fgraphite-identity -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr38953.f90'
+  herit: *GRPSERIAL
+  info: *54
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr39516_184:
+  bin: '"pr39516.s"'
+  cargs: '  -O  -O2 -ftree-loop-linear -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr39516.f'
+  herit: *GRPSERIAL
+  info: &55
+    extraopts:
+      - '"-O2 -ftree-loop-linear"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr39516_20:
@@ -555,9 +1077,17 @@ test_pr39516_20:
   cargs: '  -O  -O2 -ftree-loop-linear -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr39516.f'
   herit: *GRPSERIAL
-  info:
+  info: *55
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr40982_185:
+  bin: '"pr40982.s"'
+  cargs: '  -O  -O3 -fgraphite-identity -floop-interchange  -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr40982.f90'
+  herit: *GRPSERIAL
+  info: &56
     extraopts:
-      - '"-O2 -ftree-loop-linear"'
+      - '"-O3 -fgraphite-identity -floop-interchange "'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr40982_69:
@@ -565,9 +1095,7 @@ test_pr40982_69:
   cargs: '  -O  -O3 -fgraphite-identity -floop-interchange  -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr40982.f90'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O3 -fgraphite-identity -floop-interchange "'
+  info: *56
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr41924_15:
@@ -575,7 +1103,25 @@ test_pr41924_15:
   cargs: '  -O  -O2 -fgraphite-identity  -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr41924.f90'
   herit: *GRPSERIAL
-  info:
+  info: &57
+    extraopts:
+      - '"-O2 -fgraphite-identity "'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr41924_186:
+  bin: '"pr41924.s"'
+  cargs: '  -O  -O2 -fgraphite-identity  -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr41924.f90'
+  herit: *GRPSERIAL
+  info: *57
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr42050_187:
+  bin: '"pr42050.s"'
+  cargs: '  -O  -O2 -fgraphite-identity  -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr42050.f90'
+  herit: *GRPSERIAL
+  info: &58
     extraopts:
       - '"-O2 -fgraphite-identity "'
   type: build
@@ -585,9 +1131,17 @@ test_pr42050_25:
   cargs: '  -O  -O2 -fgraphite-identity  -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr42050.f90'
   herit: *GRPSERIAL
-  info:
+  info: *58
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr42180_188:
+  bin: '"pr42180.s"'
+  cargs: '  -O  -ffast-math -O2 -fgraphite-identity -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr42180.f90'
+  herit: *GRPSERIAL
+  info: &59
     extraopts:
-      - '"-O2 -fgraphite-identity "'
+      - '"-ffast-math -O2 -fgraphite-identity"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr42180_22:
@@ -595,9 +1149,17 @@ test_pr42180_22:
   cargs: '  -O  -ffast-math -O2 -fgraphite-identity -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr42180.f90'
   herit: *GRPSERIAL
-  info:
+  info: *59
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr42181_189:
+  bin: '"pr42181.s"'
+  cargs: '  -O  -O1 -fgraphite -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr42181.f90'
+  herit: *GRPSERIAL
+  info: &60
     extraopts:
-      - '"-ffast-math -O2 -fgraphite-identity"'
+      - '"-O1 -fgraphite"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr42181_19:
@@ -605,9 +1167,17 @@ test_pr42181_19:
   cargs: '  -O  -O1 -fgraphite -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr42181.f90'
   herit: *GRPSERIAL
-  info:
+  info: *60
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr42185_190:
+  bin: '"pr42185.s"'
+  cargs: '  -O  -fgraphite -O -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr42185.f90'
+  herit: *GRPSERIAL
+  info: &61
     extraopts:
-      - '"-O1 -fgraphite"'
+      - '"-fgraphite -O -ffast-math"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr42185_27:
@@ -615,9 +1185,7 @@ test_pr42185_27:
   cargs: '  -O  -fgraphite -O -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr42185.f90'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-fgraphite -O -ffast-math"'
+  info: *61
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr42186_14:
@@ -625,9 +1193,27 @@ test_pr42186_14:
   cargs: '  -O  -fgraphite-identity -g -O3 -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr42186.f90'
   herit: *GRPSERIAL
-  info:
+  info: &62
     extraopts:
       - '"-fgraphite-identity -g -O3 -ffast-math"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr42186_191:
+  bin: '"pr42186.s"'
+  cargs: '  -O  -fgraphite-identity -g -O3 -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr42186.f90'
+  herit: *GRPSERIAL
+  info: *62
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr42285_192:
+  bin: '"pr42285.s"'
+  cargs: '  -O  -O2 -floop-interchange -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr42285.f90'
+  herit: *GRPSERIAL
+  info: &63
+    extraopts:
+      - '"-O2 -floop-interchange"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr42285_24:
@@ -635,9 +1221,7 @@ test_pr42285_24:
   cargs: '  -O  -O2 -floop-interchange -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr42285.f90'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O2 -floop-interchange"'
+  info: *63
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr42334-1_16:
@@ -645,9 +1229,27 @@ test_pr42334-1_16:
   cargs: '  -O  -O2 -floop-interchange -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr42334-1.f'
   herit: *GRPSERIAL
-  info:
+  info: &64
     extraopts:
       - '"-O2 -floop-interchange"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr42334-1_193:
+  bin: '"pr42334-1.s"'
+  cargs: '  -O  -O2 -floop-interchange -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr42334-1.f'
+  herit: *GRPSERIAL
+  info: *64
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr42334_194:
+  bin: '"pr42334.s"'
+  cargs: '  -O  -O2 -floop-interchange -ftree-loop-distribution -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr42334.f90'
+  herit: *GRPSERIAL
+  info: &65
+    extraopts:
+      - '"-O2 -floop-interchange -ftree-loop-distribution"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr42334_20:
@@ -655,9 +1257,17 @@ test_pr42334_20:
   cargs: '  -O  -O2 -floop-interchange -ftree-loop-distribution -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr42334.f90'
   herit: *GRPSERIAL
-  info:
+  info: *65
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr42393-1_195:
+  bin: '"pr42393-1.s"'
+  cargs: '  -O  -O2 -fgraphite-identity -fno-loop-block -fno-loop-interchange -fno-loop-strip-mine -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr42393-1.f90'
+  herit: *GRPSERIAL
+  info: &66
     extraopts:
-      - '"-O2 -floop-interchange -ftree-loop-distribution"'
+      - '"-O2 -fgraphite-identity -fno-loop-block -fno-loop-interchange -fno-loop-strip-mine"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr42393-1_24:
@@ -665,7 +1275,15 @@ test_pr42393-1_24:
   cargs: '  -O  -O2 -fgraphite-identity -fno-loop-block -fno-loop-interchange -fno-loop-strip-mine -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr42393-1.f90'
   herit: *GRPSERIAL
-  info:
+  info: *66
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr42393_196:
+  bin: '"pr42393.s"'
+  cargs: '  -O  -O2 -fgraphite-identity -fno-loop-block -fno-loop-interchange -fno-loop-strip-mine -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr42393.f90'
+  herit: *GRPSERIAL
+  info: &67
     extraopts:
       - '"-O2 -fgraphite-identity -fno-loop-block -fno-loop-interchange -fno-loop-strip-mine"'
   type: build
@@ -675,9 +1293,17 @@ test_pr42393_30:
   cargs: '  -O  -O2 -fgraphite-identity -fno-loop-block -fno-loop-interchange -fno-loop-strip-mine -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr42393.f90'
   herit: *GRPSERIAL
-  info:
+  info: *67
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr42732_197:
+  bin: '"pr42732.s"'
+  cargs: '  -O  -O2 -fgraphite-identity -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr42732.f'
+  herit: *GRPSERIAL
+  info: &68
     extraopts:
-      - '"-O2 -fgraphite-identity -fno-loop-block -fno-loop-interchange -fno-loop-strip-mine"'
+      - '"-O2 -fgraphite-identity"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr42732_23:
@@ -685,7 +1311,15 @@ test_pr42732_23:
   cargs: '  -O  -O2 -fgraphite-identity -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr42732.f'
   herit: *GRPSERIAL
-  info:
+  info: *68
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr43097_198:
+  bin: '"pr43097.s"'
+  cargs: '  -O  -O2 -fgraphite-identity -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr43097.f'
+  herit: *GRPSERIAL
+  info: &69
     extraopts:
       - '"-O2 -fgraphite-identity"'
   type: build
@@ -695,9 +1329,17 @@ test_pr43097_25:
   cargs: '  -O  -O2 -fgraphite-identity -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr43097.f'
   herit: *GRPSERIAL
-  info:
+  info: *69
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr43349_199:
+  bin: '"pr43349.s"'
+  cargs: '  -O  -O2 -floop-interchange -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr43349.f'
+  herit: *GRPSERIAL
+  info: &70
     extraopts:
-      - '"-O2 -fgraphite-identity"'
+      - '"-O2 -floop-interchange"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr43349_35:
@@ -705,9 +1347,17 @@ test_pr43349_35:
   cargs: '  -O  -O2 -floop-interchange -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr43349.f'
   herit: *GRPSERIAL
-  info:
+  info: *70
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr45758_200:
+  bin: '"pr45758.s"'
+  cargs: '  -O  -O3 -floop-block -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr45758.f90'
+  herit: *GRPSERIAL
+  info: &71
     extraopts:
-      - '"-O2 -floop-interchange"'
+      - '"-O3 -floop-block"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr45758_40:
@@ -715,9 +1365,7 @@ test_pr45758_40:
   cargs: '  -O  -O3 -floop-block -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr45758.f90'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-O3 -floop-block"'
+  info: *71
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr47019_12:
@@ -725,9 +1373,17 @@ test_pr47019_12:
   cargs: '  -O  -O -ftree-pre -fgraphite-identity -fno-tree-copy-prop -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr47019.f'
   herit: *GRPSERIAL
-  info:
+  info: &72
     extraopts:
       - '"-O -ftree-pre -fgraphite-identity -fno-tree-copy-prop"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr47019_201:
+  bin: '"pr47019.s"'
+  cargs: '  -O  -O -ftree-pre -fgraphite-identity -fno-tree-copy-prop -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr47019.f'
+  herit: *GRPSERIAL
+  info: *72
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr59586_11:
@@ -735,7 +1391,15 @@ test_pr59586_11:
   cargs: '  -O  -Ofast -floop-parallelize-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr59586.f'
   herit: *GRPSERIAL
-  info: {}
+  info: &73 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr59586_202:
+  bin: '"pr59586.s"'
+  cargs: '  -O  -Ofast -floop-parallelize-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr59586.f'
+  herit: *GRPSERIAL
+  info: *73
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr59817_14:
@@ -743,9 +1407,27 @@ test_pr59817_14:
   cargs: '  -O  -O2 -floop-interchange -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr59817.f'
   herit: *GRPSERIAL
-  info:
+  info: &74
     extraopts:
       - '"-O2 -floop-interchange"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr59817_203:
+  bin: '"pr59817.s"'
+  cargs: '  -O  -O2 -floop-interchange -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr59817.f'
+  herit: *GRPSERIAL
+  info: *74
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr68279_204:
+  bin: '"pr68279.s"'
+  cargs: '  -O  -std=legacy -floop-nest-optimize -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr68279.f90'
+  herit: *GRPSERIAL
+  info: &75
+    extraopts:
+      - '"-std=legacy -floop-nest-optimize -O2"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr68279_28:
@@ -753,9 +1435,17 @@ test_pr68279_28:
   cargs: '  -O  -std=legacy -floop-nest-optimize -O2 -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr68279.f90'
   herit: *GRPSERIAL
-  info:
+  info: *75
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr68335_205:
+  bin: '"pr68335.s"'
+  cargs: '  -O  -O2 -floop-nest-optimize -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr68335.f90'
+  herit: *GRPSERIAL
+  info: &76
     extraopts:
-      - '"-std=legacy -floop-nest-optimize -O2"'
+      - '"-O2 -floop-nest-optimize"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr68335_45:
@@ -763,9 +1453,17 @@ test_pr68335_45:
   cargs: '  -O  -O2 -floop-nest-optimize -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr68335.f90'
   herit: *GRPSERIAL
-  info:
+  info: *76
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr68453_206:
+  bin: '"pr68453.s"'
+  cargs: '  -O  -floop-nest-optimize -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr68453.f90'
+  herit: *GRPSERIAL
+  info: &77
     extraopts:
-      - '"-O2 -floop-nest-optimize"'
+      - '"-floop-nest-optimize -O2"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr68453_24:
@@ -773,7 +1471,15 @@ test_pr68453_24:
   cargs: '  -O  -floop-nest-optimize -O2 -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr68453.f90'
   herit: *GRPSERIAL
-  info:
+  info: *77
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr68550-1_207:
+  bin: '"pr68550-1.s"'
+  cargs: '  -O  -floop-nest-optimize -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr68550-1.f90'
+  herit: *GRPSERIAL
+  info: &78
     extraopts:
       - '"-floop-nest-optimize -O2"'
   type: build
@@ -783,9 +1489,7 @@ test_pr68550-1_36:
   cargs: '  -O  -floop-nest-optimize -O2 -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr68550-1.f90'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-floop-nest-optimize -O2"'
+  info: *78
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr68550-2_14:
@@ -793,9 +1497,17 @@ test_pr68550-2_14:
   cargs: '  -O  -floop-nest-optimize -fcheck=bounds -O1 -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr68550-2.f90'
   herit: *GRPSERIAL
-  info:
+  info: &79
     extraopts:
       - '"-floop-nest-optimize -fcheck=bounds -O1"'
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr68550-2_208:
+  bin: '"pr68550-2.s"'
+  cargs: '  -O  -floop-nest-optimize -fcheck=bounds -O1 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr68550-2.f90'
+  herit: *GRPSERIAL
+  info: *79
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr68565_101:
@@ -803,7 +1515,7 @@ test_pr68565_101:
   cargs: '  -O1  -floop-nest-optimize'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr68565.f90'
   herit: *GRPSERIAL
-  info: &3
+  info: &80
     extraopts:
       - '"-floop-nest-optimize"'
   type: complete
@@ -813,7 +1525,7 @@ test_pr68565_102:
   cargs: '  -O2  -floop-nest-optimize'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr68565.f90'
   herit: *GRPSERIAL
-  info: *3
+  info: *80
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr68565_103:
@@ -821,7 +1533,7 @@ test_pr68565_103:
   cargs: '  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions  -floop-nest-optimize'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr68565.f90'
   herit: *GRPSERIAL
-  info: *3
+  info: *80
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr68565_104:
@@ -829,7 +1541,7 @@ test_pr68565_104:
   cargs: '  -O3 -g  -floop-nest-optimize'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr68565.f90'
   herit: *GRPSERIAL
-  info: *3
+  info: *80
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr68565_105:
@@ -837,7 +1549,55 @@ test_pr68565_105:
   cargs: '  -Os  -floop-nest-optimize'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr68565.f90'
   herit: *GRPSERIAL
-  info: *3
+  info: *80
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr68565_209:
+  bin: '"./pr68565.exe"'
+  cargs: '  -O0  -floop-nest-optimize'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr68565.f90'
+  herit: *GRPSERIAL
+  info: *80
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr68565_210:
+  bin: '"./pr68565.exe"'
+  cargs: '  -O1  -floop-nest-optimize'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr68565.f90'
+  herit: *GRPSERIAL
+  info: *80
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr68565_211:
+  bin: '"./pr68565.exe"'
+  cargs: '  -O2  -floop-nest-optimize'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr68565.f90'
+  herit: *GRPSERIAL
+  info: *80
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr68565_212:
+  bin: '"./pr68565.exe"'
+  cargs: '  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions  -floop-nest-optimize'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr68565.f90'
+  herit: *GRPSERIAL
+  info: *80
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr68565_213:
+  bin: '"./pr68565.exe"'
+  cargs: '  -O3 -g  -floop-nest-optimize'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr68565.f90'
+  herit: *GRPSERIAL
+  info: *80
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr68565_214:
+  bin: '"./pr68565.exe"'
+  cargs: '  -Os  -floop-nest-optimize'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr68565.f90'
+  herit: *GRPSERIAL
+  info: *80
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr68565_30:
@@ -845,17 +1605,35 @@ test_pr68565_30:
   cargs: '  -O0  -floop-nest-optimize'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr68565.f90'
   herit: *GRPSERIAL
-  info: *3
+  info: *80
   type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr68692_215:
+  bin: '"pr68692.s"'
+  cargs: '  -O  -floop-nest-optimize -O3 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr68692.f90'
+  herit: *GRPSERIAL
+  info: &81
+    extraopts:
+      - '"-floop-nest-optimize -O3"'
+  type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr68692_64:
   bin: '"pr68692.s"'
   cargs: '  -O  -floop-nest-optimize -O3 -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr68692.f90'
   herit: *GRPSERIAL
-  info:
+  info: *81
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr68693_216:
+  bin: '"pr68693.s"'
+  cargs: '  -O  -floop-nest-optimize -O2 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr68693.f90'
+  herit: *GRPSERIAL
+  info: &82
     extraopts:
-      - '"-floop-nest-optimize -O3"'
+      - '"-floop-nest-optimize -O2"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr68693_35:
@@ -863,9 +1641,17 @@ test_pr68693_35:
   cargs: '  -O  -floop-nest-optimize -O2 -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr68693.f90'
   herit: *GRPSERIAL
-  info:
+  info: *82
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr68715_217:
+  bin: '"pr68715.s"'
+  cargs: '  -O  -floop-nest-optimize -O1 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr68715.f90'
+  herit: *GRPSERIAL
+  info: &83
     extraopts:
-      - '"-floop-nest-optimize -O2"'
+      - '"-floop-nest-optimize -O1"'
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr68715_31:
@@ -873,7 +1659,15 @@ test_pr68715_31:
   cargs: '  -O  -floop-nest-optimize -O1 -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr68715.f90'
   herit: *GRPSERIAL
-  info:
+  info: *83
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr71898_218:
+  bin: '"pr71898.s"'
+  cargs: '  -O  -floop-nest-optimize -O1 -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr71898.f90'
+  herit: *GRPSERIAL
+  info: &84
     extraopts:
       - '"-floop-nest-optimize -O1"'
   type: build
@@ -883,17 +1677,31 @@ test_pr71898_45:
   cargs: '  -O  -floop-nest-optimize -O1 -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/pr71898.f90'
   herit: *GRPSERIAL
-  info:
-    extraopts:
-      - '"-floop-nest-optimize -O1"'
+  info: *84
   type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_run-id-1_152:
+  bin: '"./run-id-1.exe"'
+  cargs: '  -O  -O2 -fgraphite-identity'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/run-id-1.f'
+  herit: *GRPSERIAL
+  info: &85 {}
+  type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_run-id-1_47:
   bin: '"./run-id-1.exe"'
   cargs: '  -O  -O2 -fgraphite-identity'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/run-id-1.f'
   herit: *GRPSERIAL
-  info: {}
+  info: *85
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_run-id-2_153:
+  bin: '"./run-id-2.exe"'
+  cargs: '  -O  -O2 -fgraphite-identity'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/run-id-2.f90'
+  herit: *GRPSERIAL
+  info: &86 {}
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_run-id-2_66:
@@ -901,7 +1709,7 @@ test_run-id-2_66:
   cargs: '  -O  -O2 -fgraphite-identity'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/run-id-2.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: *86
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_run-id-3_12:
@@ -909,9 +1717,57 @@ test_run-id-3_12:
   cargs: '  -O0  -ffrontend-optimize -floop-nest-optimize'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/run-id-3.f90'
   herit: *GRPSERIAL
-  info: &4
+  info: &87
     extraopts:
       - '"-ffrontend-optimize -floop-nest-optimize"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_run-id-3_154:
+  bin: '"./run-id-3.exe"'
+  cargs: '  -O0  -ffrontend-optimize -floop-nest-optimize'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/run-id-3.f90'
+  herit: *GRPSERIAL
+  info: *87
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_run-id-3_155:
+  bin: '"./run-id-3.exe"'
+  cargs: '  -O1  -ffrontend-optimize -floop-nest-optimize'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/run-id-3.f90'
+  herit: *GRPSERIAL
+  info: *87
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_run-id-3_156:
+  bin: '"./run-id-3.exe"'
+  cargs: '  -O2  -ffrontend-optimize -floop-nest-optimize'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/run-id-3.f90'
+  herit: *GRPSERIAL
+  info: *87
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_run-id-3_157:
+  bin: '"./run-id-3.exe"'
+  cargs: '  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions  -ffrontend-optimize -floop-nest-optimize'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/run-id-3.f90'
+  herit: *GRPSERIAL
+  info: *87
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_run-id-3_158:
+  bin: '"./run-id-3.exe"'
+  cargs: '  -O3 -g  -ffrontend-optimize -floop-nest-optimize'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/run-id-3.f90'
+  herit: *GRPSERIAL
+  info: *87
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_run-id-3_159:
+  bin: '"./run-id-3.exe"'
+  cargs: '  -Os  -ffrontend-optimize -floop-nest-optimize'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/run-id-3.f90'
+  herit: *GRPSERIAL
+  info: *87
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_run-id-3_46:
@@ -919,7 +1775,7 @@ test_run-id-3_46:
   cargs: '  -O1  -ffrontend-optimize -floop-nest-optimize'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/run-id-3.f90'
   herit: *GRPSERIAL
-  info: *4
+  info: *87
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_run-id-3_47:
@@ -927,7 +1783,7 @@ test_run-id-3_47:
   cargs: '  -O2  -ffrontend-optimize -floop-nest-optimize'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/run-id-3.f90'
   herit: *GRPSERIAL
-  info: *4
+  info: *87
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_run-id-3_48:
@@ -935,7 +1791,7 @@ test_run-id-3_48:
   cargs: '  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions  -ffrontend-optimize -floop-nest-optimize'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/run-id-3.f90'
   herit: *GRPSERIAL
-  info: *4
+  info: *87
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_run-id-3_49:
@@ -943,7 +1799,7 @@ test_run-id-3_49:
   cargs: '  -O3 -g  -ffrontend-optimize -floop-nest-optimize'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/run-id-3.f90'
   herit: *GRPSERIAL
-  info: *4
+  info: *87
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_run-id-3_50:
@@ -951,15 +1807,31 @@ test_run-id-3_50:
   cargs: '  -Os  -ffrontend-optimize -floop-nest-optimize'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/run-id-3.f90'
   herit: *GRPSERIAL
-  info: *4
+  info: *87
   type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scop-1_110:
+  bin: '"scop-1.s"'
+  cargs: '  -O  -O2 -fgraphite -fdump-tree-graphite-all -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/scop-1.f'
+  herit: *GRPSERIAL
+  info: &88 {}
+  type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_scop-1_12:
   bin: '"scop-1.s"'
   cargs: '  -O  -O2 -fgraphite -fdump-tree-graphite-all -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/scop-1.f'
   herit: *GRPSERIAL
-  info: {}
+  info: *88
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vect-pr40979_151:
+  bin: '"vect-pr40979.s"'
+  cargs: '  -O  -O2 -fgraphite-identity -ftree-vectorize -fno-vect-cost-model -fdump-tree-vect-details -ffast-math -S'
+  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/vect-pr40979.f90'
+  herit: *GRPSERIAL
+  info: &89 {}
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_vect-pr40979_26:
@@ -967,6 +1839,6 @@ test_vect-pr40979_26:
   cargs: '  -O  -O2 -fgraphite-identity -ftree-vectorize -fno-vect-cost-model -fdump-tree-vect-details -ffast-math -S'
   files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/graphite/vect-pr40979.f90'
   herit: *GRPSERIAL
-  info: {}
+  info: *89
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

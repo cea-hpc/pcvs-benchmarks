@@ -3,7 +3,15 @@ test_test_31:
   cargs: '  -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/test.c'
   herit: *GRPSERIAL
-  info: {}
+  info: &1 {}
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_test_4:
+  bin: '"test.s"'
+  cargs: '  -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/test.c'
+  herit: *GRPSERIAL
+  info: *1
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_truncated-rtl-file_2:
@@ -11,7 +19,7 @@ test_truncated-rtl-file_2:
   cargs: '  -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/truncated-rtl-file.c'
   herit: *GRPSERIAL
-  info:
+  info: &2
     regex-err:
       - |-
         (^|
@@ -23,12 +31,20 @@ test_truncated-rtl-file_2:
         ?)+
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_unknown-rtx-code_8:
+test_truncated-rtl-file_5:
+  bin: '"truncated-rtl-file.s"'
+  cargs: '  -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/truncated-rtl-file.c'
+  herit: *GRPSERIAL
+  info: *2
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_unknown-rtx-code_6:
   bin: '"unknown-rtx-code.s"'
   cargs: '  -S'
   files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/unknown-rtx-code.c'
   herit: *GRPSERIAL
-  info:
+  info: &3
     regex-err:
       - |-
         (^|
@@ -38,5 +54,13 @@ test_unknown-rtx-code_8:
         ]*(unknown rtx code))[^
         ]*
         ?)+
+  type: build
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_unknown-rtx-code_8:
+  bin: '"unknown-rtx-code.s"'
+  cargs: '  -S'
+  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/unknown-rtx-code.c'
+  herit: *GRPSERIAL
+  info: *3
   type: build
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

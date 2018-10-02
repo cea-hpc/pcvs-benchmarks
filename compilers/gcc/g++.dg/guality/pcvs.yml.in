@@ -3,9 +3,17 @@ test_pr46815_25:
   cargs: '  -O0  -g'
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr46815.C'
   herit: *GRPSERIAL
-  info:
+  info: &1
     extraopts:
       - '"-g"'
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46815_29:
+  bin: '"./pr46815.exe"'
+  cargs: '  -O0  -g'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr46815.C'
+  herit: *GRPSERIAL
+  info: *1
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr55541_11:
@@ -13,7 +21,7 @@ test_pr55541_11:
   cargs: '  -O0  -g'
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr55541.C'
   herit: *GRPSERIAL
-  info: &1
+  info: &2
     extraopts:
       - '"-g"'
   type: complete
@@ -23,7 +31,63 @@ test_pr55541_3:
   cargs: '  -O1  -g'
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr55541.C'
   herit: *GRPSERIAL
-  info: *1
+  info: *2
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr55541_30:
+  bin: '"./pr55541.exe"'
+  cargs: '  -O0  -g'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr55541.C'
+  herit: *GRPSERIAL
+  info: *2
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr55541_31:
+  bin: '"./pr55541.exe"'
+  cargs: '  -O1  -g'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr55541.C'
+  herit: *GRPSERIAL
+  info: *2
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr55541_32:
+  bin: '"./pr55541.exe"'
+  cargs: '  -O2  -g'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr55541.C'
+  herit: *GRPSERIAL
+  info: *2
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr55541_33:
+  bin: '"./pr55541.exe"'
+  cargs: '  -O3 -g  -g'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr55541.C'
+  herit: *GRPSERIAL
+  info: *2
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr55541_34:
+  bin: '"./pr55541.exe"'
+  cargs: '  -Os  -g'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr55541.C'
+  herit: *GRPSERIAL
+  info: *2
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr55541_35:
+  bin: '"./pr55541.exe"'
+  cargs: '  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -g'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr55541.C'
+  herit: *GRPSERIAL
+  info: *2
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr55541_36:
+  bin: '"./pr55541.exe"'
+  cargs: '  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -g'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr55541.C'
+  herit: *GRPSERIAL
+  info: *2
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr55541_4:
@@ -31,7 +95,7 @@ test_pr55541_4:
   cargs: '  -O2  -g'
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr55541.C'
   herit: *GRPSERIAL
-  info: *1
+  info: *2
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr55541_5:
@@ -39,7 +103,7 @@ test_pr55541_5:
   cargs: '  -O3 -g  -g'
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr55541.C'
   herit: *GRPSERIAL
-  info: *1
+  info: *2
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr55541_6:
@@ -47,7 +111,7 @@ test_pr55541_6:
   cargs: '  -Os  -g'
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr55541.C'
   herit: *GRPSERIAL
-  info: *1
+  info: *2
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr55541_7:
@@ -55,7 +119,7 @@ test_pr55541_7:
   cargs: '  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -g'
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr55541.C'
   herit: *GRPSERIAL
-  info: *1
+  info: *2
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr55541_8:
@@ -63,7 +127,7 @@ test_pr55541_8:
   cargs: '  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -g'
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr55541.C'
   herit: *GRPSERIAL
-  info: *1
+  info: *2
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr55665_10:
@@ -71,7 +135,7 @@ test_pr55665_10:
   cargs: '  -O1  -g'
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr55665.C'
   herit: *GRPSERIAL
-  info: &2
+  info: &3
     extraopts:
       - '"-g"'
   type: complete
@@ -81,7 +145,7 @@ test_pr55665_11:
   cargs: '  -O2  -g'
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr55665.C'
   herit: *GRPSERIAL
-  info: *2
+  info: *3
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr55665_12:
@@ -89,7 +153,7 @@ test_pr55665_12:
   cargs: '  -O3 -g  -g'
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr55665.C'
   herit: *GRPSERIAL
-  info: *2
+  info: *3
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr55665_13:
@@ -97,7 +161,7 @@ test_pr55665_13:
   cargs: '  -Os  -g'
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr55665.C'
   herit: *GRPSERIAL
-  info: *2
+  info: *3
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr55665_14:
@@ -105,7 +169,7 @@ test_pr55665_14:
   cargs: '  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -g'
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr55665.C'
   herit: *GRPSERIAL
-  info: *2
+  info: *3
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr55665_15:
@@ -113,7 +177,7 @@ test_pr55665_15:
   cargs: '  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -g'
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr55665.C'
   herit: *GRPSERIAL
-  info: *2
+  info: *3
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr55665_33:
@@ -121,7 +185,63 @@ test_pr55665_33:
   cargs: '  -O0  -g'
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr55665.C'
   herit: *GRPSERIAL
-  info: *2
+  info: *3
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr55665_37:
+  bin: '"./pr55665.exe"'
+  cargs: '  -O0  -g'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr55665.C'
+  herit: *GRPSERIAL
+  info: *3
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr55665_38:
+  bin: '"./pr55665.exe"'
+  cargs: '  -O1  -g'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr55665.C'
+  herit: *GRPSERIAL
+  info: *3
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr55665_39:
+  bin: '"./pr55665.exe"'
+  cargs: '  -O2  -g'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr55665.C'
+  herit: *GRPSERIAL
+  info: *3
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr55665_40:
+  bin: '"./pr55665.exe"'
+  cargs: '  -O3 -g  -g'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr55665.C'
+  herit: *GRPSERIAL
+  info: *3
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr55665_41:
+  bin: '"./pr55665.exe"'
+  cargs: '  -Os  -g'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr55665.C'
+  herit: *GRPSERIAL
+  info: *3
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr55665_42:
+  bin: '"./pr55665.exe"'
+  cargs: '  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -g'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr55665.C'
+  herit: *GRPSERIAL
+  info: *3
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr55665_43:
+  bin: '"./pr55665.exe"'
+  cargs: '  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -g'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr55665.C'
+  herit: *GRPSERIAL
+  info: *3
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr67192_17:
@@ -129,7 +249,7 @@ test_pr67192_17:
   cargs: '  -O1  -x c++ -g -Wmisleading-indentation'
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr67192.C'
   herit: *GRPSERIAL
-  info: &3
+  info: &4
     extraopts:
       - '"-x c++ -g -Wmisleading-indentation"'
   type: complete
@@ -139,7 +259,7 @@ test_pr67192_18:
   cargs: '  -O2  -x c++ -g -Wmisleading-indentation'
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr67192.C'
   herit: *GRPSERIAL
-  info: *3
+  info: *4
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr67192_19:
@@ -147,7 +267,7 @@ test_pr67192_19:
   cargs: '  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions  -x c++ -g -Wmisleading-indentation'
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr67192.C'
   herit: *GRPSERIAL
-  info: *3
+  info: *4
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr67192_20:
@@ -155,7 +275,7 @@ test_pr67192_20:
   cargs: '  -O3 -g  -x c++ -g -Wmisleading-indentation'
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr67192.C'
   herit: *GRPSERIAL
-  info: *3
+  info: *4
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr67192_21:
@@ -163,7 +283,7 @@ test_pr67192_21:
   cargs: '  -Os  -x c++ -g -Wmisleading-indentation'
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr67192.C'
   herit: *GRPSERIAL
-  info: *3
+  info: *4
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr67192_22:
@@ -171,7 +291,7 @@ test_pr67192_22:
   cargs: '  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -x c++ -g -Wmisleading-indentation'
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr67192.C'
   herit: *GRPSERIAL
-  info: *3
+  info: *4
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr67192_23:
@@ -179,7 +299,71 @@ test_pr67192_23:
   cargs: '  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -x c++ -g -Wmisleading-indentation'
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr67192.C'
   herit: *GRPSERIAL
-  info: *3
+  info: *4
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr67192_44:
+  bin: '"./pr67192.exe"'
+  cargs: '  -O0  -x c++ -g -Wmisleading-indentation'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr67192.C'
+  herit: *GRPSERIAL
+  info: *4
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr67192_45:
+  bin: '"./pr67192.exe"'
+  cargs: '  -O1  -x c++ -g -Wmisleading-indentation'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr67192.C'
+  herit: *GRPSERIAL
+  info: *4
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr67192_46:
+  bin: '"./pr67192.exe"'
+  cargs: '  -O2  -x c++ -g -Wmisleading-indentation'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr67192.C'
+  herit: *GRPSERIAL
+  info: *4
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr67192_47:
+  bin: '"./pr67192.exe"'
+  cargs: '  -O3 -fomit-frame-pointer -funroll-loops -fpeel-loops -ftracer -finline-functions  -x c++ -g -Wmisleading-indentation'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr67192.C'
+  herit: *GRPSERIAL
+  info: *4
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr67192_48:
+  bin: '"./pr67192.exe"'
+  cargs: '  -O3 -g  -x c++ -g -Wmisleading-indentation'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr67192.C'
+  herit: *GRPSERIAL
+  info: *4
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr67192_49:
+  bin: '"./pr67192.exe"'
+  cargs: '  -Os  -x c++ -g -Wmisleading-indentation'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr67192.C'
+  herit: *GRPSERIAL
+  info: *4
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr67192_50:
+  bin: '"./pr67192.exe"'
+  cargs: '  -O2 -flto -fno-use-linker-plugin -flto-partition=none  -x c++ -g -Wmisleading-indentation'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr67192.C'
+  herit: *GRPSERIAL
+  info: *4
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr67192_51:
+  bin: '"./pr67192.exe"'
+  cargs: '  -O2 -flto -fuse-linker-plugin -fno-fat-lto-objects  -x c++ -g -Wmisleading-indentation'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr67192.C'
+  herit: *GRPSERIAL
+  info: *4
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr67192_79:
@@ -187,7 +371,7 @@ test_pr67192_79:
   cargs: '  -O0  -x c++ -g -Wmisleading-indentation'
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/pr67192.C'
   herit: *GRPSERIAL
-  info: *3
+  info: *4
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_redeclaration1_25:
@@ -195,7 +379,7 @@ test_redeclaration1_25:
   cargs: '  -O1  -g'
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/redeclaration1.C'
   herit: *GRPSERIAL
-  info: &4
+  info: &5
     extraopts:
       - '"-g"'
   type: complete
@@ -205,7 +389,7 @@ test_redeclaration1_26:
   cargs: '  -O2  -g'
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/redeclaration1.C'
   herit: *GRPSERIAL
-  info: *4
+  info: *5
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_redeclaration1_27:
@@ -213,7 +397,7 @@ test_redeclaration1_27:
   cargs: '  -O3 -g  -g'
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/redeclaration1.C'
   herit: *GRPSERIAL
-  info: *4
+  info: *5
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_redeclaration1_28:
@@ -221,6 +405,46 @@ test_redeclaration1_28:
   cargs: '  -Os  -g'
   files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/redeclaration1.C'
   herit: *GRPSERIAL
-  info: *4
+  info: *5
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_redeclaration1_52:
+  bin: '"./redeclaration1.exe"'
+  cargs: '  -O0  -g'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/redeclaration1.C'
+  herit: *GRPSERIAL
+  info: *5
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_redeclaration1_53:
+  bin: '"./redeclaration1.exe"'
+  cargs: '  -O1  -g'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/redeclaration1.C'
+  herit: *GRPSERIAL
+  info: *5
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_redeclaration1_54:
+  bin: '"./redeclaration1.exe"'
+  cargs: '  -O2  -g'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/redeclaration1.C'
+  herit: *GRPSERIAL
+  info: *5
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_redeclaration1_55:
+  bin: '"./redeclaration1.exe"'
+  cargs: '  -O3 -g  -g'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/redeclaration1.C'
+  herit: *GRPSERIAL
+  info: *5
+  type: complete
+  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_redeclaration1_56:
+  bin: '"./redeclaration1.exe"'
+  cargs: '  -Os  -g'
+  files: '@ROOTPATH@/compilers/gcc/./g++.dg/guality/redeclaration1.C'
+  herit: *GRPSERIAL
+  info: *5
   type: complete
   valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
