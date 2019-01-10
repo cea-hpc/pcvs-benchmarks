@@ -1,0 +1,77 @@
+---
+########################################################
+# Description of a compiler, to build test suites
+########################################################
+# Compilers here are not necesarily able to compile MPI
+# applications. There could be focused on other validation
+# components. Obviously, tests running under MPI should
+# not be run with such a configuration.
+
+# the C compiler
+c	: "cc"
+# the C++ compiler
+cxx	: "cxx"
+# CUDA compiler (cannot be left empty if 'accl' is set)
+cu      : "nvcc"
+#Fortran compiler (differenciating versions)
+f77     : "mpifort"
+
+f90     : "mpifort"
+f95     : "mpifort"
+f03     : "mpifort"
+f08     : "mpifort"
+
+#additional flags to pass to aforementioned compilers (in any case C/LD)
+cflags    : ""
+#specific flag to enable OpenMP tests
+#It does NOT select OpenMP tests, it specifies the option syntax to use when necessary)
+openmp    : "-fopenmp"
+#Flags to use when tests require to use TBB
+#It does not select TBB tests but specifies flags to use to link TBB properly
+tbb       : "-ltbb -ltbbmalloc -ldl"
+#Specific options to take care of accelerator-based tests
+accl      : ""
+# Not really used anymore but a feature to force 'strict compliancy' tests is on the way...
+strict	  : "-Werror -pedantic"
+
+# by default, compiler(s) to use should be pre-loaded into the environment 
+# before PCVS starts (or their complete PATH should be provided as long as any environment variables)
+# We add the capability to load a compiler from the Spack package manager.
+# This solution is preferred as it won't infer with PCVS core-system.
+# The only mandatory field here the package name.
+#
+# IMPORTANT : For now, we do not support any conflict in matching a package. It means
+# the specification provided here should be sufficient to identify a unique package.
+#
+# Note:
+# - the extra 's' for this field name (<spack-age>)
+# - the char '~' means 'not significant and can be ignored (parsed as 'undef' by Perl modules)
+# - 'False' is not considered False, so please avoid True/False boolean and prefer 0/1 values
+#
+spackage :
+        #REQUIRED package name, as specified by Spack
+        name : "mypackage"
+        #version for this package
+        version : 1.2.0
+        #a scalar array, of potential variants for this package
+        variants : ["+debug", "cflags='-O3 -Werror'"]
+        #Specify which Known-by-spack compiler has been used to build this package
+        #can be ignored if the Spack installation picked up a default compiler
+        build_with :
+                compiler : gcc
+                version : 5.2.0
+        #if the specified package is not installed, just install it
+        build_if_missing : 0
+        # list of dependencies for this package.
+        # This allow the user to explicitly request custom dependencies or dep options.
+        # This node can be duplicated as many times needed, the name should be the dep name (as known by Spack) 
+        # fields are the same as for the main package.
+        deps:
+                mydep :
+                        version : 0.5.0
+                        build_if_missing : 0
+                        #this can be different from the root one (allowed by Spack)
+                        build_with :
+                                compiler : gcc
+                                version : 6.2.0
+

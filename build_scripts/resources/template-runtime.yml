@@ -1,0 +1,107 @@
+---
+#############################################################
+# Description of runtime used to execute tests
+#############################################################
+
+#The command to use to launch tests (prefixed)
+cmd   : "mpirun"
+#arguments to the previous command"
+args  : ""
+#the Filter module for this runtime, to remove invalid test combination
+#for this particular usage (see build_scripts/modules/PCVS/Validate)
+module: "OpenMPI"
+
+#Below, each iterator should be listed to detail its representation for
+#this particular runtime. For instance, the option to specify the number
+#of processes is not standard and can change from one MPI implementation to another.
+#To express this information, each iterator should set two fields:
+# - The 'key' used before the option. In the case of n_mpi, OpenMPI would take the '-np' argument.
+# - The 'usage' to specify if it is a runtime command-line option or an environment variable
+#
+#In the first case, the option will be amended to the generated command line.
+#In the second case, the option will be prepended to the generated command line
+#
+#If the iterator is left empty, then no argument will be carried over.
+#If the iterator is removed, then the whole PCVS won't iterate over it, because it will be
+#considered as 'not relevant' for this runtime (ex: 'sched' iterator for MPC, not relevant for other impl.)
+
+n_node:
+        key             : ""
+        usage           : ""
+
+n_mpi:
+        key             : "-np "
+        usage           : "argument"
+
+n_omp:
+        key             : "OMP_NUM_THREADS="
+        usage           : "environment"
+
+n_core:
+        key             : ""
+        usage           : ""
+
+        #If the iterator is not numeric (easy to know because not prefixed by 'n_'), the iterator
+#here can express how a given value should be translated for this particular runtime.
+#For instance, the 'network' iterator takes its value in ['ib', 'tcp', shmem', 'portals],
+#regardless the runtime used at the end. This allow an abstraction layer between tests and runtime.
+#Then, to define how a particular value should be transled into the correct option, each potential
+#value can be defined as a field suffixed with '_val'. Instead of generating $KEY$VALUE, the data stored
+#into ${${VALUE}_VAL} will be used instead. For instance, if the value 'shmem' is set for a test, the 
+#associated command-line option for OpenMPI will be: -mca btl sm,self'.
+net:
+        key         : "-mca btl "
+        usage       : "argument"
+
+        ib_val      : "openib,self"
+        tcp_val     : "tcp,self"
+        shmem_val   : "sm,self"
+        portals_val : "portals,self"
+
+# TL;DR: This documentation is the same as template-compiler.yml except the this below:
+# As PCVS is able to validate MPI runtimes but is not bound to this single usage, a precaution is required
+# when validation MPI implementations. The Spack definition should be the same for compiler & Runtime, as
+# there is generally one package to load to have mpicc & mpirun in the environment. If configurations mismatch
+# the behavior is undefined as nothing guarantees the API/ABI are compliant between two versions.
+#
+# By default, runtime(s) to use should be pre-loaded into the envitronment 
+# before PCVS starts (or their complete PATH should be provided as long as any environment variables)
+# We add the capability to load a runtime from the Spack package manager.
+# This solution is preferred as it won't infer with PCVS core-system.
+# The only mandatory field here the package name.
+#
+# IMPORTANT : For now, we do not support any conflict in matching a package. It means
+# the specification provided here should be sufficient to identify a unique package.
+#
+# Note:
+# - the extra 's' for this field name (<spack-age>)
+# - the char '~' means 'not significant and can be ignored (parsed as 'undef' by Perl modules)
+# - 'False' is not considered False, so please avoid True/False boolean and prefer 0/1 values
+#
+spackage :
+        #REQUIRED package name, as specified by Spack
+        name : "mypackage"
+        #version for this package
+        version : 1.2.0
+        #a scalar array, of potential variants for this package
+        variants : ["+debug", "cflags='-O3 -Werror'"]
+        #Specify which Known-by-spack compiler has been used to build this package
+        #can be ignored if the Spack installation picked up a default compiler
+        build_with :
+                compiler : gcc
+                version : 5.2.0
+        #if the specified package is not installed, just install it
+        build_if_missing : 0
+        # list of dependencies for this package.
+        # This allow the user to explicitly request custom dependencies or dep options.
+        # This node can be duplicated as many times needed, the name should be the dep name (as known by Spack) 
+        # fields are the same as for the main package.
+        deps:
+                mydep :
+                        version : 0.5.0
+                        build_if_missing : 0
+                        #this can be different from the root one (allowed by Spack)
+                        build_with :
+                                compiler : gcc
+                                version : 6.2.0
+
