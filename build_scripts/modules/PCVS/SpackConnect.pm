@@ -88,13 +88,23 @@ sub spack_prepare
 
 sub spack_load
 {
-	my (%node) = @_;
-	if(exists $node{spackage})
+	my ($user_conf, %node) = @_;
+	my ($tobuild, $spackage, $module_name) = (undef, undef, undef);
+
+	$module_name = "$gconf->{colorcode}{r}None$gconf->{colorcode}{d}";
+
+	
+	if(defined $user_conf)
 	{
-		spack_prepare();
-		print "   - Found ! Using it\n";
+		$spackage=$user_conf;
+		$tobuild=(exists $gconf->{"spack-install"} && $gconf->{'spack-install'});
+	}
+	elsif(exists $node{spackage})
+	{
 		my %spackrun = %{$node{spackage}};
-		my $spackage = $spackrun{name} || spack_die("The field 'name' should be provided for runtime definition");
+
+		$spackage = $spackrun{name} || spack_die("The field 'name' should be provided for runtime definition");
+		$tobuild = $spackrun{build_if_missing};
 
 		$spackage .= "\@$spackrun{version}" if(defined $spackrun{version});
 		$spackage .= " ".join("", @{$spackrun{variants}}) if(defined $spackrun{variants});
@@ -109,19 +119,23 @@ sub spack_load
 			$spackage .= " ".join("", @{$depnode{variants}}) if defined($depnode{variants});
 
 		}
-		
+	}
+
+	if(defined $spackage)
+	{
+		spack_prepare();
 		my $spack_out = `spack find $spackage 2>&1`;
 		chomp $spack_out;
 
 		if($spack_out !~ /([0-9]+) installed package/)
 		{
-			if($spackrun{build_if_missing})
+			if(defined $tobuild)
 			{
-				system("echo spack install $spackage");
+				system("spack install $spackage");
 			}
 			else
 			{
-				spack_die("Failed to load $spackrun{name} according to spec and not allowed to build it by ourselves\n$spack_out");
+				spack_die("Failed to load according to spec and not allowed to build it by ourselves\n$spack_out");
 			}
 		}
 		elsif($1 gt 1)
@@ -129,16 +143,15 @@ sub spack_load
 			spack_die("We did not handle multiple matches yet :( Please see below :\n$spack_out");
 		}
 
-		my $module_name = `spack module tcl loads --input-only $spackage`;
+		$module_name = `spack module tcl loads --input-only $spackage`;
 		chomp $module_name;
 		#TODO: hack...
 		#Env::Modulecmd::load($module_name);
 		module("load $module_name");
+		#a bit of color...
+		$module_name = "$gconf->{colorcode}{gb}$module_name$gconf->{colorcode}{d}";
 	} 
-	else
-	{
-		print "   - Spack not requested, hope for the best through the environment.\n";
-	}
+	printf "    - Module loaded: $module_name\n";
 }
 
 1;
