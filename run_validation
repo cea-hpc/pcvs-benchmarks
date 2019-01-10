@@ -586,11 +586,19 @@ Specify which compiler has to be used for the validation. The target defines C, 
 
 To add you own custom compiler file to make it available with PCVS, please add your file in build_scripts/configuration/compilers/*name*.yml.
 
+=item --compiler-spack=<Spack-formatted package>
+
+Override any Spack configuration set in build_scripts/configuration/compilers. The argument has to be a correct Spack package (including one or multiple dependencies/variants/compilers). The associated module is then loaded into the Perl environment to make the compiler configuration reachable (CC, CXX...).
+
 =item --runtime-target B<name>
 
 Specify which runtime has to be used for the validation. The targeted runtime has to be previously loaded into the environment before running PCVS. The runtime defines which PCVS parameters can be forwarded (nproc, nmpi, networks...) or not. From this configuration file, you can directly alter the validation process. The given B<name> is the name of runtime file, without path nor extension. You can visualize current list of available runtimes with I<--list-runtimes>.
 
 To add you own custom runtime file to make it available with PCVS, please add your file in build_scripts/configuration/runtimes/*name*.yml.
+
+=item --runtime-spack=<Spack-formatted package>
+
+Override any Spack configuration set in build_scripts/configuration/runtimes. The argument has to be a correct Spack package (including one or multiple dependencies/variants/runtimes). The associated module is then loaded into the Perl environment to make the runtime configuration reachable (Launch command).
 
 =item --target B<name>
 
@@ -632,6 +640,8 @@ Use this option to change where the validation build system will go (binaries, a
 =item --expect-success
 
 This option makes run_validation returning non-zero exit code if at least one job failed. Note that this option roughly aborts the script. These won't be any created archive ! 
+
+=item --[no-]spack-install
 
 =item --[no]log
 

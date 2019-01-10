@@ -92,19 +92,23 @@ sub spack_load
 	my ($tobuild, $spackage, $module_name) = (undef, undef, undef);
 
 	$module_name = "$gconf->{colorcode}{r}None$gconf->{colorcode}{d}";
+	
+	if(exists $gconf->{"spack-install"} and $gconf->{'spack-install'})
+	{
+		$tobuild = 1;
+	}
 
 	
 	if(defined $user_conf)
 	{
 		$spackage=$user_conf;
-		$tobuild=(exists $gconf->{"spack-install"} && $gconf->{'spack-install'});
 	}
 	elsif(exists $node{spackage})
 	{
 		my %spackrun = %{$node{spackage}};
 
 		$spackage = $spackrun{name} || spack_die("The field 'name' should be provided for runtime definition");
-		$tobuild = $spackrun{build_if_missing};
+		$tobuild = $spackrun{build_if_missing} if(! defined $tobuild); # only if not overriden by CL
 
 		$spackage .= "\@$spackrun{version}" if(defined $spackrun{version});
 		$spackage .= " ".join("", @{$spackrun{variants}}) if(defined $spackrun{variants});
@@ -129,13 +133,16 @@ sub spack_load
 
 		if($spack_out !~ /([0-9]+) installed package/)
 		{
-			if(defined $tobuild)
+			printf "    - Module $spackage not installed\n";
+			if($tobuild)
 			{
-				system("spack install $spackage");
+				printf "    - Installation in progress...\n";
+				my $ret = system("spack install $spackage");
+				spack_die("Something went wrong when building $spackage") if ($ret);
 			}
 			else
 			{
-				spack_die("Failed to load according to spec and not allowed to build it by ourselves\n$spack_out");
+				spack_die("Cannot load $spackage\n(not known by Spack or not allowed to install (see --spack-install)");
 			}
 		}
 		elsif($1 gt 1)
