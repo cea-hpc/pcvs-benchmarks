@@ -40,7 +40,7 @@ sub helper_error
 {
 	my (@str) = @_;
 	my $s = "Error: ".join("\nError: ", @str);
-	print STDERR "$s\n";
+	print STDERR "$conf->{colorcode}{rb}$s$conf->{colorcode}{d}\n";
 	exit 42;
 }
 

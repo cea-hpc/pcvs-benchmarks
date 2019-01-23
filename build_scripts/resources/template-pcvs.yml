@@ -77,6 +77,29 @@ simple_compilation:
         #set if the TE needs Accelerator support and check for Runtime support (TE skipped if not)
         accl: (true|false)
 
+# The definition here is the same as compiler/runtime definition.
+# The only difference is for TE, it is not possible to specify the "build_with" field.
+# This field is autmatically filled with compiler specification.
+# 
+# Any previous field listed in this current documentation will be overriden with what is described in the Spack configuration (variants will override cargs, openmp...
+simple_spack_compilation:
+        spackage :
+                #REQUIRED package name, as specified by Spack
+                name : "mypackage"
+                #version for this package
+                version : 1.2.0
+                #a scalar array, of potential variants for this package
+                variants : ["+debug", "cflags='-O3 -Werror'"]
+                #if the specified package is not installed, just install it
+                build_if_missing : 0
+                # list of dependencies for this package.
+                # This allow the user to explicitly request custom dependencies or dep options.
+                # This node can be duplicated as many times needed, the name should be the dep name (as known by Spack) 
+                # fields are the same as for the main package.
+                deps:
+                        mydep :
+                                version : 0.5.0
+                                build_if_missing : 0
 
 # TE describing building step only
 # "bin" field is not used here. As targets are handled by the Makefile
