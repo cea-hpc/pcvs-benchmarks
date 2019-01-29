@@ -78,7 +78,7 @@ sub configuration_build
 	my %cmdline_override = %gconf;
 	
 	# load the default file (default values)
-	my %default_data = load_yml ("$internaldir/environment/default.yml");
+	my %default_data = load_yml ("$internaldir/configuration/environment/default.yml");
 
 	#update the current configuration hash with default value (no overlap w/ options)
 	%gconf = %default_data;
@@ -211,10 +211,10 @@ sub configuration_display_vars
 # Args: No Args
 sub configuration_load
 {
-	my $prefix = "$internaldir/environment";
+	my $prefix = "$internaldir/configuration/environment";
 	my $name = lc(hostname);
 	my ($user_name) = @_;
-	my @avail_names = helper_lister("$internaldir/environment", "yml");
+	my @avail_names = helper_lister("$internaldir/configuration/environment", "yml");
 
 	# if no user file exists (not provided)
 	if(! defined $user_name)
