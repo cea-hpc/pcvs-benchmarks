@@ -278,9 +278,9 @@ sub run_env
 	spack_init(\%gconf);
 
 	print " * Detection for compiler setup through Spack\n";
-	spack_load($gconf{'compiler-spack'}, %{$gconf{compiler}});
+	spack_env_load($gconf{'compiler-spack'}, %{$gconf{compiler}});
 	print " * Detection for runtime setup through Spack\n";
-	spack_load($gconf{'runtime-spack'}, %{$gconf{runtime}});
+	spack_env_load($gconf{'runtime-spack'}, %{$gconf{runtime}});
 	# check if the HASH is valid (not complete)
 	configuration_validate();
 	env_logging();

@@ -23,6 +23,7 @@ use warnings;
 
 use Exporter;
 use PCVS::Helper;                     # PCVS Helper (paths...)
+use PCVS::SpackConnect;
 use Algorithm::Loops qw(NestedLoops); # Used for building combinations from iterators
 use Module::Load qw(load autoload);   # Dynamic module loading
 use XML::Writer;                      # XML parser (output)
@@ -236,9 +237,6 @@ sub engine_TE_combinations
 	my $nparent = 0;          # parent-level (used for debug)
 	my $ret = 0;
 	
-	engine_debug("\n######################\n");
-	engine_debug("Processing $tn:\n");
-
 	#Browsing the TE
 	while(defined $cur)
 	{
@@ -573,6 +571,16 @@ sub engine_unfold_test_expr
 	$chdir = "$bpath/$chdir" if (defined $chdir);
 	#check if the TE is usable within the current configuration
 	return $ret if (!engine_check_foldable($tname, $ttype, $arg_omp, $arg_tbb, $arg_accl));
+	
+	engine_debug("\n######################\n");
+	engine_debug("Processing $tname:\n");
+
+	my $spack_node = engine_get_value_ifdef($tvalue, "spackage") || undef;
+	my ($ret_spack, $spack_set, @msgs) = spack_test_load(undef, $spack_node);
+	# backport err msgs from Spack module (not including TEngine.pm)
+	$ret += $ret_spack;
+	engine_debug("\t".join("\n\t", @msgs));
+	return $ret if ($ret_spack gt 0);
 
 	# if the current should be compiled
 	if($ttype =~ m/^(build|complete)$/)
@@ -590,8 +598,19 @@ sub engine_unfold_test_expr
 		$args .= " $sysconf->{compiler}{tbb}" if($arg_tbb eq 'true');
 		$args .= " $sysconf->{compiler}{accl}" if($arg_accl eq 'true');
 
+		if($spack_set)
+		{
+			if($spack_node->{build_if_missing})
+			{
+				$command = "spack install $spack_node->{gen_spackname}";
+			}
+			else
+			{
+				$command = "echo 'Test to check package is installed' && spack load $spack_node->{gen_spackname}" ;
+			}
+		}
 		# if it should be a makefile
-		if(defined $target)
+		elsif(defined $target)
 		{
 			(my $makepath = $files) =~ s,/[^/]*$,,;
 			(my $makefile = $files) =~ s/^$makepath\///;

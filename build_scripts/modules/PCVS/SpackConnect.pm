@@ -25,13 +25,14 @@ use File::chdir;
 use Data::Dumper;
 
 our @ISA = 'Exporter';
-our @EXPORT = qw(spack_init spack_load);
+our @EXPORT = qw(spack_init spack_env_load spack_test_load);
 our @EXPORT_OK = qw();
 
 our $gconf;
 our ($buildir, $internaldir, $srcdir, $rundir);
 
 my $prepare_done = 0;
+my $glob_tobuild = undef;
 
 sub spack_die
 {
@@ -53,6 +54,12 @@ sub spack_init
 	$buildir = $gconf->{'build'};
 	$srcdir = $gconf->{src};
 	$internaldir = "$srcdir/build_scripts";
+	
+	if(exists $gconf->{"spack-install"})
+	{
+		$glob_tobuild = $gconf->{"spack-install"};
+	}
+
 }
 
 sub spack_build_with_generator
@@ -71,7 +78,7 @@ sub spack_prepare
 {
 	if(not $prepare_done)
 	{
-		my $str = `which spack 2>&1`;
+		my $str = qx(which spack 2>&1);
 		if($? ne 0)
 		{
 			spack_die("Spack is used somewhere in the configuration,\nbut unable to find the 'spack' command in the environment.");
@@ -79,86 +86,164 @@ sub spack_prepare
 		
 		spack_die("PCVS only support Spack with Modules-tcl support") if($ENV{"MODULESHOME"} eq "");
 		spack_die("Are you sure \$MODULESHOME is pointing to Modules setup directory ?") if(! -d "$ENV{MODULESHOME}/init" );
-		my $perl_script = `ls $ENV{MODULESHOME}/init/*perl*`; chomp $perl_script;
+		my $perl_script = qx(ls $ENV{MODULESHOME}/init/*perl*); chomp $perl_script;
 		require "$perl_script";
 
 	}
 	$prepare_done = 1;
 }
 
-sub spack_load
+sub spack_find_module_from_package
 {
-	my ($user_conf, %node) = @_;
-	my ($tobuild, $spackage, $module_name) = (undef, undef, undef);
+	my ($spackage) = @_;
+	my $name = qx(spack module tcl loads --input-only $spackage);
+	chomp $name;
+	return $name;
+}
 
-	$module_name = "$gconf->{colorcode}{r}None$gconf->{colorcode}{d}";
-	
-	if(exists $gconf->{"spack-install"} and $gconf->{'spack-install'})
+
+sub spack_build_package_name
+{
+	my ($spackrun) = @_;
+	my $spackage = undef; 
+	$spackage = $spackrun->{name} || return undef;
+
+	$spackage .= "\@$spackrun->{version}" if(defined $spackrun->{version});
+	$spackage .= " ".join("", @{$spackrun->{variants}}) if(defined $spackrun->{variants});
+	$spackage .= spack_build_with_generator(%{$spackrun});
+
+	foreach my $depname(keys %{$spackrun->{deps}})
 	{
-		$tobuild = 1;
+		my %depnode = %{$spackrun->{deps}{$depname}};
+		$spackage .= " ^".$depname;
+		$spackage .= "\@$depnode{version}" if(defined $depnode{version});
+		$spackage .= spack_build_with_generator(%depnode);
+		$spackage .= " ".join("", @{$depnode{variants}}) if defined($depnode{variants});
 	}
+	return $spackage;
+}
 
-	
-	if(defined $user_conf)
-	{
-		$spackage=$user_conf;
-	}
-	elsif(exists $node{spackage})
-	{
-		my %spackrun = %{$node{spackage}};
+sub spack_detect_package
+{
+	my ($override, $yaml_node) = @_;
+	my @commands;
+	my $spackage = undef;
 
-		$spackage = $spackrun{name} || spack_die("The field 'name' should be provided for runtime definition");
-		$tobuild = $spackrun{build_if_missing} if(! defined $tobuild); # only if not overriden by CL
+	$spackage = $override if (defined $override);
+	$spackage = spack_build_package_name($yaml_node) if(exists $yaml_node->{name} and not defined $spackage);
 
-		$spackage .= "\@$spackrun{version}" if(defined $spackrun{version});
-		$spackage .= " ".join("", @{$spackrun{variants}}) if(defined $spackrun{variants});
-		$spackage .= spack_build_with_generator(%spackrun);
-
-		foreach my $depname(keys %{$spackrun{deps}})
-		{
-			my %depnode = %{$spackrun{deps}{$depname}};
-			$spackage .= " ^".$depname;
-			$spackage .= "\@$depnode{version}" if(defined $depnode{version});
-			$spackage .= spack_build_with_generator(%depnode);
-			$spackage .= " ".join("", @{$depnode{variants}}) if defined($depnode{variants});
-
-		}
-	}
-
-	if(defined $spackage)
+	if(defined $spackage) # a Spack spec should be loaded
 	{
 		spack_prepare();
-		my $spack_out = `spack find $spackage 2>&1`;
-		chomp $spack_out;
-
-		if($spack_out !~ /([0-9]+) installed package/)
+		$yaml_node->{gen_spackname} = $spackage;
+		$yaml_node->{gen_modname} = undef;
+		$yaml_node->{build_if_missing} = 0;
+		
+		$yaml_node->{build_if_missing} = $yaml_node->{build_if_missing} if(exists $yaml_node->{build_if_missing});
+		$yaml_node->{build_if_missing} = $glob_tobuild if(defined $glob_tobuild);
+		
+		my $pattern = qx(spack location --install-dir $spackage 2>&1);
+		chomp $pattern;
+		
+		# if something seems to be found
+		if($pattern =~ /no installed package/)
 		{
-			printf "    - Module $spackage not installed\n";
-			if($tobuild)
-			{
-				printf "    - Installation in progress...\n";
-				my $ret = system("spack install $spackage");
-				spack_die("Something went wrong when building $spackage") if ($ret);
-			}
-			else
-			{
-				spack_die("Cannot load $spackage\n(not known by Spack or not allowed to install (see --spack-install)");
-			}
+			# can be either :
+			#  - valid package name but not installed or,
+			#  - invalid package name
+			# Up to the caller to decide what to do.
+			return 1;
 		}
-		elsif($1 gt 1)
+		elsif($pattern =~ /Use a more specific spec/)
 		{
-			spack_die("We did not handle multiple matches yet :( Please see below :\n$spack_out");
+			#ambiguous name, cannot identify one unique entry.
+			return 2;
 		}
+		else
+		{
+			# Everything goes well, package is already installed -> retrieve the module name
+			$yaml_node->{gen_modname} = spack_find_module_from_package($spackage);
+			return 0;
 
-		$module_name = `spack module tcl loads --input-only $spackage`;
-		chomp $module_name;
-		#TODO: hack...
-		#Env::Modulecmd::load($module_name);
-		module("load $module_name");
-		#a bit of color...
-		$module_name = "$gconf->{colorcode}{gb}$module_name$gconf->{colorcode}{d}";
-	} 
-	printf "    - Module loaded: $module_name\n";
+		}
+	}
+	return -1;
+}
+
+sub spack_load_package
+{
+	my ($need_install, %node) = @_;
+	my $module_name = undef ;
+
+	if($need_install)
+	{
+		spack_die("Package '$node{spackage}{gen_spackname}' cannot be found nor installed (see --spack-install)") if(! $node{spackage}{build_if_missing});
+		system("spack install $node{spackage}{gen_spackname}");
+		spack_die("An error occured when installed the package. See above") if ($? ne 0);
+		$module_name = spack_find_module_from_package($node{spackage}{gen_spackname});
+		$node{spackage}{gen_modname} = $module_name;
+	}
+	else
+	{
+		$module_name = "$node{spackage}{gen_modname}";
+	}
+
+	module("load $module_name");
+	return $module_name;
+}
+
+sub spack_env_load
+{
+	my ($user_conf, %node) = @_;
+	my ($ret, $tobuild, $spackage, $module_name) = (undef, undef, undef, undef);
+
+
+	$ret = spack_detect_package($user_conf, $node{spackage});
+
+	if($ret eq -1) # no spack-definition
+	{
+		$module_name = "$gconf->{colorcode}{r}None$gconf->{colorcode}{d}";
+	}
+	elsif($ret eq 2) # ambiguous
+	{
+		spack_die("Unable to identify one *UNIQUE* package to load :\n".qx(spack location --install-dir $node{spackage}{gen_spackname} 2>&1));
+	}
+	else
+	{
+		$module_name = spack_load_package($ret, %node);
+	}
+	printf "    - Module loaded: $gconf->{colorcode}{g}$module_name$gconf->{colorcode}{d}\n";
+}
+
+sub spack_test_load
+{
+	my ($user_conf, $node) = @_;
+	
+	my ($spack_set,$ret,$rc) = (0, 0, 0);
+	my @msgs;
+
+	if(defined $node)
+	{
+		$ret = spack_detect_package(undef, $node);
+		if($ret eq -1) # No spack definition
+		{
+			$rc+=1;
+			push @msgs, "No Spack identification for this node...";
+		}
+		elsif($ret eq 2) # ambiguous
+		{
+			push @msgs, "Ambiguous Spack definition '$node->{gen_spackname}'";
+			$rc+=1;
+		}
+		else
+		{
+			push @msgs, "Spack will be loaded : $node->{gen_spackname}";
+			$spack_set=1;
+
+		}
+	}
+
+	return ($rc, $spack_set, @msgs);
 }
 
 1;
