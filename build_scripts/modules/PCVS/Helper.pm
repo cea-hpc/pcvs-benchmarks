@@ -179,7 +179,7 @@ sub helper_do_not_run_validation
 
 	if ($conf->{'list-configs'})
 	{
-		print "Environments: ".join(", ", helper_lister("$internaldir/environment", "yml"))."\n";
+		print "Environments: ".join(", ", helper_lister("$internaldir/configuration/environment", "yml"))."\n";
 		$ret = 1;
 	}
 
