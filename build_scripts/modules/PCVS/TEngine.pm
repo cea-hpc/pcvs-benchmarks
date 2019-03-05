@@ -584,6 +584,10 @@ sub engine_unfold_test_expr
 	engine_debug("\t".join("\n\t", @msgs));
 	return $ret if ($ret_spack gt 0);
 
+	#if there is a spack def for this node, build the commande taking care of it
+	#Note that $command is appended all along this function. 
+	#It means that the Spack definition is applied to the current TE, whatever the type is
+	#If you want to use this mechanism as 'depdency', please look at 'templates' instead
 	if($spack_set)
 	{
 		$command = ". $sysconf->{'spack-root'}/share/spack/setup-env.sh ";
@@ -592,12 +596,14 @@ sub engine_unfold_test_expr
 		{
 			$command .= "&& spack install $spack_node->{gen_spackname} ";
 		}
+		# replace SPACKAGE_PATH with computed values (this is a bit costly)
 		$command .= "&& spack load $spack_node->{gen_spackname} && " ;
 		$bin =~ s,\@SPACKAGE_PATH\@,$spack_node->{gen_modpath}, if(defined $bin);
 		$chdir =~ s,\@SPACKAGE_PATH\@,$spack_node->{gen_modpath}, if (defined $chdir);
 		$files =~ s,\@SPACKAGE_PATH\@,$spack_node->{gen_modpath}, if(defined $files);
 	}
 
+	#prefix with build_path if not starting with an absolute path
 	$bin =~ s,^([^/]),$bpath/$1,;
 
 	# if the current should be compiled
