@@ -34,6 +34,10 @@ our ($buildir, $internaldir, $srcdir, $rundir);
 my $prepare_done = 0;
 my $glob_tobuild = undef;
 
+
+# die function, to print Spack-specific messages, will
+# abort after being called.
+# take a single string as argument
 sub spack_die
 {
 	my ($str) = @_;
@@ -46,6 +50,8 @@ sub spack_die
 	die "ERROR (Spack) : Abort due to error(s) above";
 }
 
+# same as above but do not abort after being called.
+# Take a single string as argument
 sub spack_warn
 {
 	my ($str) = @_;
@@ -57,6 +63,7 @@ sub spack_warn
 	print STDERR "$gconf->{colorcode}{d}";
 }
 
+# module initialisation with global config (CLI, files...)
 sub spack_init
 {
 	($gconf) = @_;
@@ -66,6 +73,7 @@ sub spack_init
 	$srcdir = $gconf->{src};
 	$internaldir = "$srcdir/build_scripts";
 	
+	# if the user overrides 'build_if_missing' for all packages from CL, cache it
 	if(exists $gconf->{"spack-install"})
 	{
 		$glob_tobuild = $gconf->{"spack-install"};
@@ -73,6 +81,8 @@ sub spack_init
 
 }
 
+# extract compiler (in spack sense) pacakge name to provide the right Spack string (starting with '%')
+# It will convert YAML spec into a string like '%mycompiler@version'
 sub spack_build_with_generator
 {
 	my (%node) = @_;
@@ -85,24 +95,34 @@ sub spack_build_with_generator
 	return $str;
 }
 
+# if at least one Spack package is set, initialise all Spack relative
 sub spack_prepare
 {
 	if(not $prepare_done)
 	{
+		# this is an ptimisation we are willing to have in PCVS, where
+		# a system Spack installation could be reused to avoid installing duplicates
+		# But because we had some issues, for now, only one instance of Spack can be
+		# loaded at a time. If a previous environment is loaded, it will be used in place.
+		# We just warn the user that its Spack environment can be altered with the addition/removal
+		# of packages related to PCVS. To avoid that, the best solution for now is to run 
+		# the script without pre-loading any Spack environmetn beforehand (see env -i or sh -l for example)
 		spack_warn(
 "DISCLAIMER : Two Spack installations should not exist at the same time when running PCVS (to be fixed).
 In the meantime, be aware that if a Spack environment is present before running the test-suite, 
 it will be modified by the installation/removal of packages during benchmark processing."
 		);
-		# override with user definition, if any
+		# IF there is muliple Spack installation, one can switch from the desired one to avoid conflict
 		if(defined $gconf->{'spack-root'})
 		{
 			print " * INIT: Reusing Spack installation: $gconf->{'spack-root'}\n";
 			spack_die("Unable to find Spack in designated folder '$gconf->{'spack-root'}'") if(! -f "$gconf->{'spack-root'}/bin/spack");
+			# be aware that just setting PATH is not sufficient for a complete Spack integration
+			# We need to source setup-ev.sh each time we want to load a package (it measns, per geneated test)
 			$ENV{'PATH'} = "$gconf->{'spack-root'}/bin:".$ENV{'PATH'};
 		}
 
-		#check override or default
+		#check if we have the required commands in PATH
 		my $str = qx(type spack spack-python 2>&1);
 		if($str =~ /not found/)
 		{
@@ -122,6 +142,9 @@ it will be modified by the installation/removal of packages during benchmark pro
 		}
 		#print "ROOT = $gconf->{'spack-root'}\n";
 		
+		#does it still have a sense to keep the TCL adherence while we are relying now fully on top of Spack ?
+		#I think yes because PCVS is still using that approach to load the compiler. Spack is stilling missing 
+		#Perl bindings anyway
 		spack_die("PCVS only support Spack with Modules-tcl support") if($ENV{"MODULESHOME"} eq "");
 		spack_die("Are you sure \$MODULESHOME is pointing to Modules setup directory ?") if(! -d "$ENV{MODULESHOME}/init" );
 		my $perl_script = qx(ls $ENV{MODULESHOME}/init/*perl*); chomp $perl_script;
@@ -130,6 +153,10 @@ it will be modified by the installation/removal of packages during benchmark pro
 	$prepare_done = 1;
 }
 
+#from a Spack package name, return the module (TCL) name and its location on fhe FS
+#The called script is writing on stdout two lines : 
+#	1 - The module name
+#	2 - the location
 sub spack_find_module_from_package
 {
 	my ($spackage) = @_;
@@ -141,25 +168,45 @@ sub spack_find_module_from_package
 	return @tmp;
 }
 
-
+# from YAML specs, build the string that Spack will use to identify the 'UNIQUE' package we want to load/install
+# the YAML node is the argument
 sub spack_build_package_name
 {
 	my ($spackrun) = @_;
-	my $spackage = undef; 
+	my $spackage = undef;
+
+	#first, keep the name, this is mandatory
 	$spackage = $spackrun->{name} || return undef;
 
+	#if specified, add the version and any variants
 	$spackage .= "\@$spackrun->{version}" if(defined $spackrun->{version});
 	$spackage .= " ".join("", @{$spackrun->{variants}}) if(defined $spackrun->{variants});
+
+	#if specified add the compiler 'specified with '%'
 	$spackage .= spack_build_with_generator(%{$spackrun});
 
+	#for each defined dep, some cherks are performed
+	#then, their name are expanded in the same way as above and added to the current package with a '^'
 	foreach my $depname(keys %{$spackrun->{deps}})
 	{
 		my %depnode = %{$spackrun->{deps}{$depname}};
 
+		# if the YAML spec requires to add the compiler as a dependency AND we actually found a 
+		# spack configuration for the comiler, add it
+		# Consider packages specifing rules over the mpi package without explicitly mentioning an implementation.
+		# This let TEs to add filters to loaded compiler in a dynamic way
 		if($depnode{upstream} eq "compiler" and defined $gconf->{compiler}{spackage}{gen_spackname})
 		{
+			#There is a tricky case for compilers. If the compiler is a bare one, we have to use the '%' as
+			#Spack is probablky knowing it as a compiler and not a regular dependecy.
+			#But then, consider MPI compilers, which are atually virtual packages for Spack, actually compiling code
+			#but Spack is expecting them as regular dependencies.
+			#To deal with it, a good Spack comiler configuration should set a 'bare_compiler' field if it needs to be loaded
+			#as a regulard compiler (prefix with '%'). By default, it is set to false as most of our use cases are MPI-based
+			#compilers
 			$spackage .= ($gconf->{compiler}{spackage}{bare_compiler} ? "%" : "^"). $gconf->{compiler}{spackage}{gen_spackname};
 		}
+		#same as above, but for runtime Spack configuration
 		elsif($depnode{upstream} eq "runtime" and defined $gconf->{runtime}{spackage}{gen_spackname})
 		{
 			$spackage .= "^$gconf->{runtime}{spackage}{gen_spackname}";
@@ -175,6 +222,11 @@ sub spack_build_package_name
 	return $spackage;
 }
 
+#Try do tectect if a package is already installed, can be installed or not
+#This function will return :
+#  * zero if the package is installed
+#  - 1 if the package is not installed or not existing (will be discovered at runtime unfortunately)
+#  - 2 there is multiple matches for this spec
 sub spack_detect_package
 {
 	my ($override, $yaml_node) = @_;
@@ -188,13 +240,21 @@ sub spack_detect_package
 	if(defined $spackage) # a Spack spec should be loaded
 	{
 		spack_prepare();
+		#initialize default values for this node
 		$yaml_node->{gen_spackname} = $spackage;
 		$yaml_node->{gen_modname} = undef;
 		$yaml_node->{gen_modpath} = undef;
 
+		# priority : from the most to the least specialized definition : 
+		#  - explicitly defined in YAML
+		#  - then override from the command line
+		#  - 0 by default
 		$yaml_node->{build_if_missing} = $glob_tobuild if(defined $glob_tobuild and not exists $yaml_node->{build_if_missing});
 		$yaml_node->{build_if_missing} = 0 if(not exists $yaml_node->{build_if_missing});
 		
+		# by trying to find a location, we can assess if the package is already installed
+		# This is a limitation, probably the reason why we cannot handle multiple Spack installations
+		# for now, but currently the best way to have it on best effort
 		my $pattern = qx(spack location --install-dir $spackage 2>&1);
 		chomp $pattern;
 		#print "spack location = $pattern\n";
@@ -224,11 +284,14 @@ sub spack_detect_package
 	return -1;
 }
 
+#effectively load a Spack definition if any.
+#This is mainly used by compiler/runtime configuration to be loaded when pre-processing TEs
 sub spack_load_package
 {
 	my ($need_install, %node) = @_;
 	my ($module_name, $module_path) ;
 
+	#if package is not found but is allowed to be built, build it
 	if($need_install)
 	{
 		spack_die("Package '$node{spackage}{gen_spackname}' cannot be found nor installed (see --spack-install)") if(! $node{spackage}{build_if_missing});
@@ -242,10 +305,13 @@ sub spack_load_package
 	{
 		$module_name = "$node{spackage}{gen_modname}";
 	}
+
+	# use the Perl bindings for module, working pretty well for now...
 	module("load $module_name");
 	return $module_name;
 }
 
+# load the environment, compiler/runtime mainly
 sub spack_env_load
 {
 	my ($user_conf, %node) = @_;
@@ -278,8 +344,10 @@ sub spack_env_load
 		$module_name = spack_load_package($ret, %node);
 	}
 	print "    - Module loaded: $gconf->{colorcode}{g}$module_name$gconf->{colorcode}{d}\n";
+	printf Dumper(\%node);
 }
 
+#create the Spack specs for a test, if any
 sub spack_test_load
 {
 	my ($user_conf, $node) = @_;
@@ -287,7 +355,7 @@ sub spack_test_load
 	my ($spack_set,$ret,$rc) = (0, 0, 0);
 	my @msgs;
 
-	if(defined $node)
+	if(defined $node) # if there is a Spack definition
 	{
 		$ret = spack_detect_package(undef, $node);
 		if($ret eq -1) # No spack definition
