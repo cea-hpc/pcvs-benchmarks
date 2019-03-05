@@ -40,10 +40,21 @@ sub spack_die
 	print STDERR "$gconf->{colorcode}{rb}";
 	foreach my $line (split /\n/, $str)
 	{
-		print STDERR "ERROR (Spack): $line\n";
+		print STDERR " ERROR (Spack): $line\n";
 	}
 	print STDERR "$gconf->{colorcode}{d}";
 	die "ERROR (Spack) : Abort due to error(s) above";
+}
+
+sub spack_warn
+{
+	my ($str) = @_;
+	print STDERR "$gconf->{colorcode}{yb}";
+	foreach my $line (split /\n/, $str)
+	{
+		print STDERR " WARNING (Spack): $line\n";
+	}
+	print STDERR "$gconf->{colorcode}{d}";
 }
 
 sub spack_init
@@ -197,7 +208,18 @@ sub spack_env_load
 	my ($user_conf, %node) = @_;
 	my ($ret, $tobuild, $spackage, $module_name) = (undef, undef, undef, undef);
 
-
+	#The function below is gonna fill this node up with Spack configuration.
+	#The node is given by reference to let the calling function set the actual values.
+	#There is two cases :
+	# - A Spack definition is present in the YAML file, the node will exist and everything will be fine as the existing
+	# 	 key will be passed by reference
+	# - There is no Spack definition BUT the user set an override through the CL. in that case, no pre-existing node
+	# has been created and 'undef' is forwarded. For this particular case, we create an empty node beforhand.
+	#
+	# The distinction between these two cases is kept by the miss of the 'name' key in the Spack node.
+	# This should not impact TE spack configuration because CL override is not possible.
+	#
+	$node{spackage} = {} if (! exists $node{spackage});
 	$ret = spack_detect_package($user_conf, $node{spackage});
 
 	if($ret eq -1) # no spack-definition
@@ -212,7 +234,7 @@ sub spack_env_load
 	{
 		$module_name = spack_load_package($ret, %node);
 	}
-	printf "    - Module loaded: $gconf->{colorcode}{g}$module_name$gconf->{colorcode}{d}\n";
+	print "    - Module loaded: $gconf->{colorcode}{g}$module_name$gconf->{colorcode}{d}\n";
 }
 
 sub spack_test_load
