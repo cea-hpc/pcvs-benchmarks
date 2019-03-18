@@ -213,6 +213,7 @@ sub spack_build_package_name
 		}
 		else
 		{
+			$depname = $depnode{upstream} if (defined $depnode{upstream});
 			$spackage .= "^".$depname;
 			$spackage .= "\@$depnode{version}" if(defined $depnode{version});
 			$spackage .= spack_build_with_generator(%depnode);
@@ -344,7 +345,7 @@ sub spack_env_load
 		$module_name = spack_load_package($ret, %node);
 	}
 	print "    - Module loaded: $gconf->{colorcode}{g}$module_name$gconf->{colorcode}{d}\n";
-	printf Dumper(\%node);
+	#printf Dumper(\%node);
 }
 
 #create the Spack specs for a test, if any

@@ -545,7 +545,7 @@ sub engine_unfold_test_expr
 	#params
 	my  ($xml, $tname,  $tvalue, $bpath) = @_;
 	#global var for a test_expr
-	my ($name, $bin, $command, $args, $arg_omp, $arg_tbb, $arg_accl, $rc, $time, $delta, $constraint, $timeout, $chdir, $tinfos, $pcmd, $target, $files, @deps) = ();
+	my ($name, $bin, $spack_command, $command, $args, $arg_omp, $arg_tbb, $arg_accl, $rc, $time, $delta, $constraint, $timeout, $chdir, $tinfos, $pcmd, $target, $files, @deps) = ();
 	#other vars
 	my $ttype = lc(engine_get_value_ifdef($tvalue, 'type') || "run");
 	my $ret = 0;
@@ -590,14 +590,14 @@ sub engine_unfold_test_expr
 	#If you want to use this mechanism as 'depdency', please look at 'templates' instead
 	if($spack_set)
 	{
-		$command = ". $sysconf->{'spack-root'}/share/spack/setup-env.sh ";
+		$spack_command = ". $sysconf->{'spack-root'}/share/spack/setup-env.sh ";
 
 		if($spack_node->{build_if_missing})
 		{
-			$command .= "&& spack install $spack_node->{gen_spackname} ";
+			$spack_command .= "&& spack install $spack_node->{gen_spackname} ";
 		}
 		# replace SPACKAGE_PATH with computed values (this is a bit costly)
-		$command .= "&& spack load $spack_node->{gen_spackname} && " ;
+		$spack_command .= "&& spack load $spack_node->{gen_spackname} && " ;
 		$bin =~ s,\@SPACKAGE_PATH\@,$spack_node->{gen_modpath}, if(defined $bin);
 		$chdir =~ s,\@SPACKAGE_PATH\@,$spack_node->{gen_modpath}, if (defined $chdir);
 		$files =~ s,\@SPACKAGE_PATH\@,$spack_node->{gen_modpath}, if(defined $files);
@@ -624,7 +624,7 @@ sub engine_unfold_test_expr
 		{
 			(my $makepath = $files) =~ s,/[^/]*$,,;
 			(my $makefile = $files) =~ s/^$makepath\///;
-			$command .= "make -f $makefile -C $makepath $target PCVS_CC=\"$sysconf->{compiler}{c}\" PCVS_CXX=\"$sysconf->{compiler}{cxx}\" PCVS_CU=\"$sysconf->{compiler}{cu}\" PCVS_FC=\"$sysconf->{compiler}{f77}\" PCVS_CFLAGS=\"$cflags $args\"";
+			$command = "$spack_command make -f $makefile -C $makepath $target PCVS_CC=\"$sysconf->{compiler}{c}\" PCVS_CXX=\"$sysconf->{compiler}{cxx}\" PCVS_CU=\"$sysconf->{compiler}{cu}\" PCVS_FC=\"$sysconf->{compiler}{f77}\" PCVS_CFLAGS=\"$cflags $args\"";
 		}
 		#else, simple compilation
 		else
@@ -672,9 +672,9 @@ sub engine_unfold_test_expr
 			$name    = "$tname".engine_build_testname($it_keys, @{ $it_comb->[$_]} );
 			#parse arguments and options depending on runtime
 			my ($pre_env, $nb_res, $post_args) = engine_convert_to_cmd($name, $it_keys, @{ $it_comb->[$_] });
-			my $full_command = "$command $pre_env $launcher $post_args $timeout $extra_args $bin $args";
+			$command = "$spack_command $pre_env $launcher $post_args $timeout $extra_args $bin $args";
 			#push the test into XML file
-			engine_gen_test($xml, $name, $nb_res, $chdir, $full_command, $rc, $time, $delta, $constraint, $tinfos, $pcmd, @deps);
+			engine_gen_test($xml, $name, $nb_res, $chdir, $command, $rc, $time, $delta, $constraint, $tinfos, $pcmd, @deps);
 		}
 	}
 
