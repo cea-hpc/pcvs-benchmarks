@@ -396,7 +396,7 @@ sub run_configure
 sub run_exec
 {	
 	print "\n >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> RUN STEP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
-	my ($nb_resources, $nb_workers, $compil_w, $run_w, $autokill, $wlist, $blist, $verbosity, $policy, $maxjobt, $max_workert, $min_workert, $rc_on_fail, $test_files, $fake_switch) = ();
+	my ($nb_resources, $nb_workers, $compil_w, $run_w, $autokill, $wlist, $blist, $verbosity, $policy, $maxjobt, $max_workert, $min_workert, $rc_on_fail, $test_files, $fake_switch, $logging, $log_sz) = ();
 
 	$nb_resources = $gconf{'cluster'}{'max_nodes'} || 1;
 	$nb_workers = $gconf{'validation'}{'workers'}  || 1;
@@ -404,18 +404,20 @@ sub run_exec
 	$autokill    = helper_prefix_if_exists("--autokill=", $gconf{'validation'}{'autokill'});
 	$run_w       = helper_prefix_if_exists("--launcher=$internaldir/launchers/", $gconf{'validation'}{'run_wrapper'});
 	$compil_w    = helper_prefix_if_exists("--compil-launcher=$internaldir/launchers/", $gconf{'validation'}{'compil_wrapper'});
-	$verbosity   = helper_prefix_if_exists("--verbosity=", $gconf{'verbose'});
+	$verbosity   = helper_prefix_if_exists("--verbosity=", $gconf{'validation'}{'verbose'});
 	$policy      = helper_prefix_if_exists("--policy=", $gconf{'validation'}{'sched_policy'});
 	$maxjobt     = helper_prefix_if_exists("--maxt-job=", $gconf{'validation'}{'job_meantime'});
 	$max_workert = helper_prefix_if_exists("--maxt-slave=", $gconf{'validation'}{'worker_maxtime'});
 	$min_workert = helper_prefix_if_exists("--mint-slave=", $gconf{'validation'}{'worker_mintime'});
+	$logging     = helper_prefix_if_exists("--keep=", $gconf{'validation'}{'logging'});
+	$log_sz      = helper_prefix_if_exists("--size-flow=", $gconf{'validation'}{'log_size'});
 	$rc_on_fail  = ($gconf{'validation'}{'expect-success'}) ? "--expect-success" : "";
 	$fake_switch = ($gconf{'engine-sim'}) ? "--fake" : "";
 
 	my @list = `find $buildir/test_suite/ -name 'list_of_tests.xml'`; chomp @list;
 	$test_files = join(" ", @list);
 
-	my $command = "$buildir/tmp/bin/jchronoss $fake_switch --long-names --nb-resources=$nb_resources --nb-slaves=$nb_workers --build=$buildir/tmp/exec_build $run_w $compil_w $autokill $verbosity $policy $max_workert $min_workert $rc_on_fail $maxjobt $test_files";
+	my $command = "$buildir/tmp/bin/jchronoss $fake_switch --long-names --nb-resources=$nb_resources --nb-slaves=$nb_workers --build=$buildir/tmp/exec_build $run_w $compil_w $autokill $verbosity $log_sz $policy $max_workert $min_workert $logging $rc_on_fail $maxjobt $test_files";
 
 	#print($command."\n");
 	system($command);
@@ -436,7 +438,8 @@ $SIG{INT} = \&trap_signal;
 ##### DEFAULT VALUES
 $gconf{'regen'} = 1;
 $gconf{'color'} = 0;
-$gconf{'verbose'} = 0;
+$gconf{'verbose'} = undef;
+$gconf{'logging'} = undef;
 $gconf{'src'} = $srcdir;
 $gconf{'build'} = $srcdir."/build";
 
@@ -461,6 +464,7 @@ GetOptions (
 	"color|c!",
 	"expect-success",
 	"verbose:i",
+	"logging:i",
 	"speed!",
 	"engine-debug",
 	"engine-sim",
@@ -493,6 +497,9 @@ my $validation_start = time();
 # Parse configuration files (default and user)
 configuration_init(%gconf);
 %gconf = configuration_build();
+
+$gconf{'validation'}{'verbose'} = $gconf{'verbose'} if(defined $gconf{'verbose'});
+$gconf{'validation'}{'logging'} = $gconf{'logging'} if(defined $gconf{'logging'});
 
 # If just listing available vars, do it and stop (cannot be done earlier
 # because the configuration needs to be loaded for it
