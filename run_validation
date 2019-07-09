@@ -47,16 +47,16 @@ BEGIN {
 use lib "$srcdir/build_scripts/modules";
 
 # dep inclusions
-use PCVS::Helper;           # PCVS Helper (path cleaning...)
-use PCVS::Configuration;    # PCVS Configuration handler (loading...)
-use PCVS::TEngine;          # PCVS TE engine
-use File::Tee "tee";        # get the output sync'd w/ a file
-use File::chdir;            # Change directory (to build JCHRONOSS)
-use File::Path qw(mkpath);  # Path modifiers
-use File::Copy::Recursive qw(fcopy dircopy pathempty); #Copy routines
-use Getopt::Long;           # Parsing options
-use Sys::Hostname;          # Hostname getter
-use Data::Dumper;           # Help printing data structures (could be removed)
+use PCVS::Helper;                                      # PCVS Helper (path cleaning...)
+use PCVS::Configuration;                               # PCVS Configuration handler (loading...)
+use PCVS::TEngine;                                     # PCVS TE engine
+use File::Tee "tee";                                   # get the output sync'd w/ a file
+use File::chdir;                                       # Change directory (to build JCHRONOSS)
+use File::Path qw(mkpath);                             # Path modifiers
+use File::Copy::Recursive qw(fcopy dircopy pathempty); # Copy routines
+use Getopt::Long qw(:config no_ignore_case);           # Parsing options
+use Sys::Hostname;                                     # Hostname getter
+use Data::Dumper;                                      # Help printing data structures (could be removed)
 
 ###########################################################################
 #### FUNCTIONS
@@ -442,6 +442,7 @@ $gconf{'verbose'} = undef;
 $gconf{'logging'} = undef;
 $gconf{'src'} = $srcdir;
 $gconf{'build'} = $srcdir."/build";
+$gconf{'version_value'} = `. $internaldir/resources/current_version && pcvs_version`;
 
 # Read the command-line configuration
 GetOptions (
@@ -470,7 +471,8 @@ GetOptions (
 	"engine-sim",
 	"h",
 	"man",
-	"help"
+	"help",
+	"Version"
 
 )  or helper_error(" Issue(s) while parsing arguments (see --help|--man).\n");
 
@@ -482,6 +484,7 @@ $buildir = $gconf{'build'};
 pod2usage({-exitval => 0, -verbose => 0}) if($gconf{h});
 pod2usage({-exitval => 0, -verbose => 1}) if($gconf{help});
 pod2usage({-exitval => 0, -verbose => 2}) if($gconf{'man'});
+print "PCVS version $gconf{'version_value'}\n" and exit(0) if ($gconf{'version'});
 
 # init the helper
 helper_init(\%gconf);
@@ -540,6 +543,7 @@ Main Options (see --help or --man for further details):
     --runtime-target    Select runtime file to load.
     --compiler-target   Select compiler file to load.
     --help              Print argument-oriented help.
+    --version           Print current version of the tool.
     --man               Print complete script documentation.
 
 =head1 DESCRIPTION
@@ -650,6 +654,10 @@ Print condensed help menu (SYNOPSIS).
 =item -help
 
 Print each argument and a short description about them.
+
+=item -version
+
+Print current version of PCVS.
 
 =item -man
 
