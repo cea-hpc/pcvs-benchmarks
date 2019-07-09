@@ -20,7 +20,6 @@ package PCVS::TEngine;
 
 use strict;
 use warnings;
-use 5.010;
 
 use Exporter;
 use PCVS::Helper;                     # PCVS Helper (paths...)
@@ -335,7 +334,12 @@ sub engine_TE_combinations
 		{
 			# ~~ means 'contains' (only >= perl 5.10 !)
 			# SmartMatch is not bug-free (according to PerlMonks). This should probably be replaced.
-			@val_sequence = grep { $_ ~~ @{$sys_iterlist{$name}} } @val_sequence;
+			#@val_sequence = grep { $_ ~~ @{$sys_iterlist{$name}} } @val_sequence;
+			my @temp_array = ();
+			for my $val(@val_sequence){
+				push(@temp_array, $val) if (grep /^$val$/, @{$sys_iterlist{$name}});
+			}
+			@val_sequence = @temp_array;
 		}
 		
 		#if the array is empty here, it means that the intersection between system and user configuration
