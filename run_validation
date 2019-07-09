@@ -50,6 +50,7 @@ use lib "$srcdir/build_scripts/modules";
 use PCVS::Helper;                                      # PCVS Helper (path cleaning...)
 use PCVS::Configuration;                               # PCVS Configuration handler (loading...)
 use PCVS::TEngine;                                     # PCVS TE engine
+use PCVS::SpackConnect;     # Glue w/ spack
 use File::Tee "tee";                                   # get the output sync'd w/ a file
 use File::chdir;                                       # Change directory (to build JCHRONOSS)
 use File::Path qw(mkpath);                             # Path modifiers
@@ -273,8 +274,14 @@ sub run_finalize
 
 sub run_env
 {
-	print "\n$gconf{colorcode}{y} >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ENV STEP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<$gconf{colorcode}{d}\n";
+	print "\n$gconf{colorcode}{y} >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ENV/SPACK STEP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<$gconf{colorcode}{d}\n";
+	spack_init(\%gconf);
 
+	print " * Detection for compiler setup through Spack\n";
+	spack_load(%{$gconf{compiler}});
+	print " * Detection for runtime setup through Spack\n";
+	spack_load(%{$gconf{runtime}});
+	# check if the HASH is valid (not complete)
 	configuration_validate();
 	env_logging();
 }
