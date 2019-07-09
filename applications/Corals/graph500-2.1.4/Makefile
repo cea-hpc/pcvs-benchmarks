@@ -1,27 +1,69 @@
-CFLAGS = -g -Wall -O0 -DGRAPH_GENERATOR_MPI -Drestrict='' -include stdint.h # -g -pg
-# CFLAGS = -g -Wall -Drestrict= -DGRAPH_GENERATOR_MPI
-LDFLAGS = -g # -g -pg
-MPICC=$(PCVS_CC)
-all: graph500_mpi_simple graph500_mpi_one_sided graph500_mpi_replicated graph500_mpi_replicated_csc graph500_mpi_custom
+# -*- Makefile -*-
+# Copyright 2010,  Georgia Institute of Technology, USA.
+# See COPYING for license.
+BUILD_OPENMP = No
+BUILD_XMT = No
+include make.inc
 
-GENERATOR_SOURCES = ../generator/graph_generator.c ../generator/make_graph.c ../generator/splittable_mrg.c ../generator/utils.c
-SOURCES = main.c oned_csr.c oned_csc.c utils.c validate.c onesided.c onesided_emul.c
-HEADERS = common.h oned_csr.h oned_csc.h redistribute.h mpi_workarounds.h onesided.h
+GRAPH500_SOURCES=graph500.c options.c rmat.c kronecker.c verify.c prng.c \
+	xalloc.c timer.c 
 
-graph500_mpi_simple: bfs_simple.c $(SOURCES) $(HEADERS) $(GENERATOR_SOURCES)
-	$(MPICC) $(CFLAGS) $(LDFLAGS) -o graph500_mpi_simple bfs_simple.c $(SOURCES) $(GENERATOR_SOURCES) -lm
+MAKE_EDGELIST_SOURCES=make-edgelist.c options.c rmat.c kronecker.c prng.c \
+	xalloc.c timer.c 
 
-graph500_mpi_one_sided: bfs_one_sided.c $(SOURCES) $(HEADERS) $(GENERATOR_SOURCES)
-	$(MPICC) $(CFLAGS) $(LDFLAGS) -o graph500_mpi_one_sided bfs_one_sided.c $(SOURCES) $(GENERATOR_SOURCES) -lm
+BIN=seq-list/seq-list seq-csr/seq-csr make-edgelist
 
-graph500_mpi_replicated: bfs_replicated.c $(SOURCES) $(HEADERS) $(GENERATOR_SOURCES)
-	$(MPICC) $(CFLAGS) $(LDFLAGS) -o graph500_mpi_replicated bfs_replicated.c $(SOURCES) $(GENERATOR_SOURCES) -lm
+ifeq ($(BUILD_OPENMP), Yes)
+BIN += omp-csr/omp-csr
+endif
 
-graph500_mpi_replicated_csc: bfs_replicated_csc.c $(SOURCES) $(HEADERS) $(GENERATOR_SOURCES)
-	$(MPICC) $(CFLAGS) $(LDFLAGS) -o graph500_mpi_replicated_csc bfs_replicated_csc.c $(SOURCES) $(GENERATOR_SOURCES) -lm
+ifeq ($(BUILD_MPI), Yes)
+BIN += mpi/graph500_mpi_simple
+endif
 
-graph500_mpi_custom: bfs_custom.c $(SOURCES) $(HEADERS) $(GENERATOR_SOURCES)
-	$(MPICC) $(CFLAGS) $(LDFLAGS) -o graph500_mpi_custom bfs_custom.c $(SOURCES) $(GENERATOR_SOURCES) -lm
+ifeq ($(BUILD_XMT), Yes)
+BIN = xmt-csr/xmt-csr xmt-csr-local/xmt-csr-local
+endif
 
+GENERATOR_SRCS=splittable_mrg.c	\
+	graph_generator.c \
+	make_graph.c utils.c
+
+.PHONY: all
+all: $(BIN)
+
+CPPFLAGS += -I./generator
+
+make-edgelist: CFLAGS:=$(CFLAGS) $(CFLAGS_OPENMP)
+make-edgelist:	make-edgelist.c options.c rmat.c kronecker.c prng.c \
+	xalloc.c timer.c $(addprefix generator/,$(GENERATOR_SRCS))
+
+seq-list/seq-list: seq-list/seq-list.c $(GRAPH500_SOURCES) \
+	$(addprefix generator/,$(GENERATOR_SRCS))
+seq-csr/seq-csr: seq-csr/seq-csr.c $(GRAPH500_SOURCES) \
+	$(addprefix generator/,$(GENERATOR_SRCS))
+
+omp-csr/omp-csr: CFLAGS:=$(CFLAGS) $(CFLAGS_OPENMP)
+omp-csr/omp-csr: omp-csr/omp-csr.c $(GRAPH500_SOURCES) \
+	$(addprefix generator/,$(GENERATOR_SRCS))
+
+xmt-csr/xmt-csr: CFLAGS:=$(CFLAGS) -pl xmt-csr/xmt-csr.pl
+xmt-csr/xmt-csr: xmt-csr/xmt-csr.c $(GRAPH500_SOURCES) \
+	$(addprefix generator/,$(GENERATOR_SRCS))
+
+xmt-csr-local/xmt-csr-local: CFLAGS:=$(CFLAGS) -pl xmt-csr-local/xmt-csr-local.pl
+xmt-csr-local/xmt-csr-local: xmt-csr-local/xmt-csr-local.c $(GRAPH500_SOURCES) \
+	$(addprefix generator/,$(GENERATOR_SRCS))
+
+generator/generator_test_seq: generator/generator_test_seq.c $(GENERATOR_SRCS)
+
+generator/generator_test_omp: generator/generator_test_omp.c $(GENERATOR_SRCS)
+
+mpi/graph500_mpi_simple mpi/graph500_mpi_one_sided mpi/graph500_mpi_replicated:
+	$(MAKE) -C mpi
+
+.PHONY:	clean
 clean:
-	-rm -f graph500_mpi_* *.o *.a
+	rm -f generator/generator_test_seq generator/generator_test_omp \
+		$(BIN)
+	-$(MAKE) -C mpi clean
