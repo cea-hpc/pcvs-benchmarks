@@ -404,7 +404,7 @@ sub run_configure
 sub run_exec
 {	
 	print "\n$gconf{colorcode}{y} >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> RUN STEP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<$gconf{colorcode}{d}\n";
-	my ($nb_resources, $nb_workers, $compil_w, $run_w, $autokill, $wlist, $blist, $verbosity, $policy, $maxjobt, $max_workert, $min_workert, $rc_on_fail, $test_files, $fake_switch, $logging, $log_sz) = ();
+	my ($nb_resources, $nb_workers, $compil_w, $run_w, $autokill, $wlist, $blist, $verbosity, $policy, $maxjobt, $max_workert, $min_workert, $rc_on_fail, $test_files, $fake_switch, $logging, $log_sz, $formats) = ();
 
 	$nb_resources = $gconf{'cluster'}{'max_nodes'} || 1;
 	$nb_workers = $gconf{'validation'}{'workers'}  || 1;
@@ -422,10 +422,16 @@ sub run_exec
 	$rc_on_fail  = ($gconf{'validation'}{'expect-success'}) ? "--expect-success" : "";
 	$fake_switch = ($gconf{'engine-sim'}) ? "--fake" : "";
 
+	$formats = "";
+	if(exists $gconf{validation}{formats})
+	{
+		$formats = "--output-format=".join(",", @{$gconf{'validation'}{'formats'}});
+	}
+
 	my @list = `find $buildir/test_suite/ -name 'list_of_tests.xml'`; chomp @list;
 	$test_files = join(" ", @list);
 
-	my $command = "$buildir/tmp/bin/jchronoss $fake_switch --long-names --nb-resources=$nb_resources --nb-slaves=$nb_workers --build=$buildir/tmp/exec_build $run_w $compil_w $autokill $verbosity $log_sz $policy $max_workert $min_workert $logging $rc_on_fail $maxjobt $test_files";
+	my $command = "$buildir/tmp/bin/jchronoss $fake_switch --long-names --nb-resources=$nb_resources --nb-slaves=$nb_workers --build=$buildir/tmp/exec_build $run_w $compil_w $autokill $verbosity $log_sz $policy $max_workert $min_workert $logging $rc_on_fail $maxjobt $formats $test_files";
 
 	#print($command."\n");
 	system($command);
