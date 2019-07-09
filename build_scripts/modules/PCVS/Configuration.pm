@@ -159,7 +159,7 @@ sub configuration_build
 	}
 	else
 	{
-		$gconf{colorcode}{def} = "";
+		$gconf{colorcode}{d} = "";
 		$gconf{colorcode}{r} = "";
 		$gconf{colorcode}{rb} = "";
 		$gconf{colorcode}{g} = "";
