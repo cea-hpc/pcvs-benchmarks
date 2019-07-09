@@ -67,16 +67,16 @@ sub print_summary
 {
 	my $config_target = "\'default\'";
 	$config_target .= " & \'$gconf{'config-target'}\'" if(exists $gconf{'config-target'});
-	print "\n >>>>>>>>>>>>>>>>>>>>> GLOBAL INFOS (see \$buildir/config.yml) <<<<<<<<<<<<<<<<<<\n";
+	print "\n$gconf{colorcode}{y} >>>>>>>>>>>>>>>>>>>>> GLOBAL INFOS (see \$buildir/config.yml) <<<<<<<<<<<<<<<<<<$gconf{colorcode}{d}\n";
 	print "      - Run Start date   : ".localtime()."\n";
 	print "      - Host name        : ".hostname."\n";
 	print "      - Source directory : $gconf{'src'}\n";
 	print "      - Build directory  : $gconf{'build'}\n";
-	print "      - Loaded Config.   : $config_target\n";
-	print "      - Loaded Runtime   : \'$gconf{'runtime'}{'target'}\'\n";
+	print "$gconf{colorcode}{g}      - Loaded Config.   : $config_target\n";
 	print "      - Loaded Compiler  : \'$gconf{'compiler'}{'target'}\'\n";
+	print "      - Loaded Runtime   : \'$gconf{'runtime'}{'target'}\'$gconf{colorcode}{d}\n";
 	print "      - Loaded Group File: \'$gconf{'group-target'}\'\n";
-	print "      - Test directories : ".join(", ", @{ $gconf{'select'} } )."\n";
+	print "$gconf{colorcode}{r}      - Test directories : ".join(", ", @{ $gconf{'select'} } )."$gconf{colorcode}{d}\n";
 }
 
 ###########################################################################
@@ -187,7 +187,7 @@ sub anonymize_archive
 # Args: No Args
 sub run_prepare
 {
-	print "\n >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> PRE-RUN STEP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
+	print "\n$gconf{colorcode}{y} >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> PRE-RUN STEP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<$gconf{colorcode}{d}\n";
 	#copy the webview in target dir
 	print ' * Building the Webview (reachable at $buildir/webview//index.html)'."\n";
 	dircopy("$internaldir/generation/jchronoss/tools/webview/*", "$buildir/") or helper_error("Unable to copy the webview: $!");
@@ -213,8 +213,6 @@ sub run_prepare
 
 	}
 	helper_clean_path("$buildir/tmp/traces", 1);
-
-	env_logging();
 	build_global_patterns();
 }
 
@@ -224,7 +222,7 @@ sub run_prepare
 sub run_finalize
 {
 
-	print "\n >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> POST-RUN STEP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
+	print "\n$gconf{colorcode}{y} >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> POST-RUN STEP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<$gconf{colorcode}{d}\n";
 	#remove colors sequences
 	#copy banners
 	dircopy("$internaldir/resources/banners", "$buildir/banners");
@@ -271,12 +269,20 @@ sub run_finalize
 	}
 }
 
+sub run_env
+{
+	print "\n$gconf{colorcode}{y} >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ENV STEP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<$gconf{colorcode}{d}\n";
+
+	configuration_validate();
+	env_logging();
+}
+
 ###########################################################################
 # Load test configurations and build associated XML files
 # Args: No Args
 sub run_configure
 {
-	print "\n >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> BUILD STEP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
+	print "\n$gconf{colorcode}{y} >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> BUILD STEP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<$gconf{colorcode}{d}\n";
 	engine_init(\%gconf);
 
 	#we put this here, because engine_init unrolls system iterator values.
@@ -395,7 +401,7 @@ sub run_configure
 # Args: No Args
 sub run_exec
 {	
-	print "\n >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> RUN STEP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n";
+	print "\n$gconf{colorcode}{y} >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> RUN STEP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<$gconf{colorcode}{d}\n";
 	my ($nb_resources, $nb_workers, $compil_w, $run_w, $autokill, $wlist, $blist, $verbosity, $policy, $maxjobt, $max_workert, $min_workert, $rc_on_fail, $test_files, $fake_switch, $logging, $log_sz) = ();
 
 	$nb_resources = $gconf{'cluster'}{'max_nodes'} || 1;
@@ -516,6 +522,7 @@ print_summary();
 
 # ready to go !
 run_prepare();
+run_env();
 run_configure() if($gconf{'regen'}); # this can be skipped to avoid overhead with slow FS
 run_exec();
 run_finalize();

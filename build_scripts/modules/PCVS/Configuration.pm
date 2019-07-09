@@ -27,7 +27,7 @@ use YAML qw(LoadFile DumpFile);
 use Data::Dumper;
 
 our @ISA = 'Exporter';
-our @EXPORT = qw(configuration_init configuration_build configuration_display_vars configuration_save);
+our @EXPORT = qw(configuration_init configuration_build configuration_display_vars configuration_save configuration_validate);
 our @EXPORT_OK = qw();
 
 our %gconf;
@@ -145,8 +145,30 @@ sub configuration_build
 		}
 	}
 
-	# check if the HASH is valid (not complete)
-	configuration_validate();
+	if($gconf{color})
+	{
+		$gconf{colorcode}{d} = `printf "\033[0;0m"`;
+		$gconf{colorcode}{r} = `printf "\033[0;31m"`;
+		$gconf{colorcode}{rb} = `printf "\033[1;31m"`;
+		$gconf{colorcode}{g} = `printf "\033[0;32m"`;
+		$gconf{colorcode}{gb} = `printf "\033[1;32m"`;
+		$gconf{colorcode}{y} = `printf "\033[0;33m"`;
+		$gconf{colorcode}{yb} = `printf "\033[1;33m"`;
+		$gconf{colorcode}{b} = `printf "\033[0;34m"`;
+		$gconf{colorcode}{bb} = `printf "\033[1;34m"`;
+	}
+	else
+	{
+		$gconf{colorcode}{def} = "";
+		$gconf{colorcode}{r} = "";
+		$gconf{colorcode}{rb} = "";
+		$gconf{colorcode}{g} = "";
+		$gconf{colorcode}{gb} = "";
+		$gconf{colorcode}{y} = "";
+		$gconf{colorcode}{yb} = "";
+		$gconf{colorcode}{b} = "";
+		$gconf{colorcode}{bb} = "";
+	}
 	return %gconf;
 }
 
