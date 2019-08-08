@@ -507,7 +507,7 @@ sub engine_check_foldable
 {
 	my ($tname, $ttype, $omp, $tbb, $accl) = @_;
 	
-	if(!($ttype =~ /^(build|run|complete)$/))
+	if(!($ttype =~ /^(build|run|spack|complete)$/))
 	{
 		print ("       Skipping $tname: bad type '$ttype'\n");
 		return 0;
@@ -597,7 +597,7 @@ sub engine_unfold_test_expr
 			$spack_command .= "&& spack install $spack_node->{gen_spackname} ";
 		}
 		# replace SPACKAGE_PATH with computed values (this is a bit costly)
-		$spack_command .= "&& spack load $spack_node->{gen_spackname} && " ;
+		$spack_command .= "&& spack load $spack_node->{gen_spackname} " ;
 		$bin =~ s,\@SPACKAGE_PATH\@,$spack_node->{gen_modpath}, if(defined $bin);
 		$chdir =~ s,\@SPACKAGE_PATH\@,$spack_node->{gen_modpath}, if (defined $chdir);
 		$files =~ s,\@SPACKAGE_PATH\@,$spack_node->{gen_modpath}, if(defined $files);
@@ -606,6 +606,11 @@ sub engine_unfold_test_expr
 	#prefix with build_path if not starting with an absolute path
 	$bin =~ s,^([^/]),$bpath/$1,;
 
+
+	if($ttype =~ m/^(spack)$/)
+	{
+		engine_gen_test($xml, $tname, undef, undef, $spack_command, $rc, $time, $delta, "compilation", $tinfos, $pcmd, @deps);
+	}
 	# if the current should be compiled
 	if($ttype =~ m/^(build|complete)$/)
 	{
@@ -624,7 +629,7 @@ sub engine_unfold_test_expr
 		{
 			(my $makepath = $files) =~ s,/[^/]*$,,;
 			(my $makefile = $files) =~ s/^$makepath\///;
-			$command = "$spack_command make -f $makefile -C $makepath $target PCVS_CC=\"$sysconf->{compiler}{c}\" PCVS_CXX=\"$sysconf->{compiler}{cxx}\" PCVS_CU=\"$sysconf->{compiler}{cu}\" PCVS_FC=\"$sysconf->{compiler}{f77}\" PCVS_CFLAGS=\"$cflags $args\"";
+			$command = "$spack_command && make -f $makefile -C $makepath $target PCVS_CC=\"$sysconf->{compiler}{c}\" PCVS_CXX=\"$sysconf->{compiler}{cxx}\" PCVS_CU=\"$sysconf->{compiler}{cu}\" PCVS_FC=\"$sysconf->{compiler}{f77}\" PCVS_CFLAGS=\"$cflags $args\"";
 		}
 		#else, simple compilation
 		else
@@ -635,7 +640,7 @@ sub engine_unfold_test_expr
 			helper_error("No compiler set for $comp_name source type.") if(!exists $sysconf->{compiler}{$comp_name});
 
 			#build the command
-			$command .= "$sysconf->{compiler}{$comp_name} -o $bin $files $cflags $args" ;
+			$command .= "$spack_command && $sysconf->{compiler}{$comp_name} -o $bin $files $cflags $args" ;
 		}
 		#generate the XML entry
 		engine_gen_test($xml, $tname, undef, undef, $command, $rc, $time, $delta, $constraint, $tinfos, $pcmd, @deps);
@@ -672,7 +677,7 @@ sub engine_unfold_test_expr
 			$name    = "$tname".engine_build_testname($it_keys, @{ $it_comb->[$_]} );
 			#parse arguments and options depending on runtime
 			my ($pre_env, $nb_res, $post_args) = engine_convert_to_cmd($name, $it_keys, @{ $it_comb->[$_] });
-			$command = "$spack_command $pre_env $launcher $post_args $timeout $extra_args $bin $args";
+			$command = "$spack_command && $pre_env $launcher $post_args $timeout $extra_args $bin $args";
 			#push the test into XML file
 			engine_gen_test($xml, $name, $nb_res, $chdir, $command, $rc, $time, $delta, $constraint, $tinfos, $pcmd, @deps);
 		}
