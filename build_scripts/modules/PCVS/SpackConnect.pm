@@ -123,7 +123,7 @@ it will be modified by the installation/removal of packages during benchmark pro
 		}
 
 		#check if we have the required commands in PATH
-		my $str = qx(type spack spack-python 2>&1);
+		my $str = qx(sh -c 'type spack spack-python' 2>&1);
 		if($str =~ /not found/)
 		{
 			# if not available, deploy our own version (won't conflict)
