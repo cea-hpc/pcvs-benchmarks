@@ -156,6 +156,14 @@ sub configuration_build
 		$gconf{colorcode}{yb} = `printf "\033[1;33m"`;
 		$gconf{colorcode}{b} = `printf "\033[0;34m"`;
 		$gconf{colorcode}{bb} = `printf "\033[1;34m"`;
+		$gconf{colorcode}{b} = `printf "\033[0;34m"`;
+		$gconf{colorcode}{bb} = `printf "\033[1;34m"`;
+		$gconf{colorcode}{p} = `printf "\033[0;35m"`;
+		$gconf{colorcode}{pb} = `printf "\033[1;35m"`;
+		$gconf{colorcode}{c} = `printf "\033[0;36m"`;
+		$gconf{colorcode}{cb} = `printf "\033[1;36m"`;
+		$gconf{colorcode}{w} = `printf "\033[0;37m"`;
+		$gconf{colorcode}{wb} = `printf "\033[1;37m"`;
 	}
 	else
 	{
@@ -168,6 +176,12 @@ sub configuration_build
 		$gconf{colorcode}{yb} = "";
 		$gconf{colorcode}{b} = "";
 		$gconf{colorcode}{bb} = "";
+		$gconf{colorcode}{p} = "";
+		$gconf{colorcode}{pb} = "";
+		$gconf{colorcode}{c} = "";
+		$gconf{colorcode}{cb} = "";
+		$gconf{colorcode}{w} = "";
+		$gconf{colorcode}{wb} = "";
 	}
 	return %gconf;
 }
