@@ -461,20 +461,21 @@ $gconf{'version_value'} = `. $internaldir/resources/current_version && pcvs_vers
 # Read the command-line configuration
 GetOptions (
 	\%gconf,
-	"config-target=s",
-	"list-configs",
-	"build=s",
+	"config-target|env-target|environment=s",
+	"build|output=s",
 	"select=s@",
-	"compiler-target=s",
-	"runtime-target=s",
-	"group-target=s",
+	"compiler-target|compiler=s",
+	"runtime-target|runtime=s",
+	"group-target|group=s",
 	"target=s",
 	"log!",
 	"list-directories",
 	"list-runtimes",
 	"list-compilers",
 	"list-groups",
-	"list-vars",
+	"list-vars|list-variables",
+	"list-configs|list-environments|list-envs",
+	"list-all",
 	"regen!",
 	"color|c!",
 	"expect-success",
@@ -504,9 +505,6 @@ print "PCVS version $gconf{'version_value'}\n" and exit(0) if ($gconf{'Version'}
 # init the helper
 helper_init(\%gconf);
 
-# if options just ask for listing, do it and stop
-exit(0) if helper_do_not_run_validation();
-
 # create $buildir tree if not exist (without cleaning it)
 helper_clean_path($buildir, 0);
 
@@ -521,6 +519,8 @@ $gconf{'validation'}{'logging'} = $gconf{'logging'} if(defined $gconf{'logging'}
 
 # If just listing available vars, do it and stop (cannot be done earlier
 # because the configuration needs to be loaded for it
+# if options just ask for listing, do it and stop
+exit(0) if helper_do_not_run_validation();
 if(exists $gconf{'list-vars'}) { configuration_display_vars();  exit(0); }
 
 # if user wants to log the output (by default)
@@ -555,9 +555,10 @@ run_validation [ --help ] [options] [--select=<directory>]
 Main Options (see --help or --man for further details):
 
     --select            Pick directories to build
-    --config-target     Select configuration file to load.
-    --runtime-target    Select runtime file to load.
-    --compiler-target   Select compiler file to load.
+    --output            Define output directory to store results
+    --runtime           Select runtime file to load.
+    --compiler          Select compiler file to load.
+    --env[ironment]     Select environment file to load.
     --h[elp]            Print argument-oriented help.
     --V[ersion]         Print current version of the tool.
     --m[an]             Print complete script documentation.
@@ -566,17 +567,37 @@ Main Options (see --help or --man for further details):
 
 =head1 OPTIONS
 
+The exotic approach of PCVS about tests leaded to give a name to new semantics, ensuring
+coherency for both new and advertised users when manipulating these concepts.
+Some of these concets evolved and their initial "name" does not match with the behavior 
+an user could except based on its name. PCVS developers are aware of this potential struggle
+and attempt to address incrementally these ambiguities.
+
+Nonetheless, to ensure backward compatibility, these old "names" have to remain valid and 
+should have their place in the current documentation. To make it clear to the reader of 
+deprecated option name, these are put between brackets and should not be introduced in new scripts.
+
+Please note also that option parsing is made following a "lazy matching" approach, an option is identified
+as soon as the number of characters provided allows the script to uniquely identify a single one. 
+For instance, providing C<--env> is equivalent to the long option name C<--environment>. Following the
+Getopt option identification, both "space" and "=" can be used to separate the option key and its potential value
+(not all options reuire a value).
+
+Please contact the PCVS team (see AUTHORS, section MAINTAINERS) if some confusing options persist,
+they will be happy to strip them away for you.
+
+
 =head2 Selection Arguments
 
 =over 4
 
-=item --compiler-target B<name>
+=item --compiler (--compiler-target) B<name>
 
 Specify which compiler has to be used for the validation. The target defines C, C++ and Fortran compilers as well as third-party flag support like OpenMP, TBB or Accelerators, for the current compiler. The targeted environment has to be previously loaded before running PCVS. The given B<name> is the name of compiler file, without path nor extension. You can visualize current list of available compilers with I<--list-compilers>.
 
 To add you own custom compiler file to make it available with PCVS, please add your file in build_scripts/configuration/compilers/*name*.yml.
 
-=item --runtime-target B<name>
+=item --runtime (--runtime-target) B<name>
 
 Specify which runtime has to be used for the validation. The targeted runtime has to be previously loaded into the environment before running PCVS. The runtime defines which PCVS parameters can be forwarded (nproc, nmpi, networks...) or not. From this configuration file, you can directly alter the validation process. The given B<name> is the name of runtime file, without path nor extension. You can visualize current list of available runtimes with I<--list-runtimes>.
 
@@ -584,7 +605,7 @@ To add you own custom runtime file to make it available with PCVS, please add yo
 
 =item --target B<name>
 
-This option overrides I<--compiler-target> and I<--runtime-target> with B<name>. This option shortcuts command line if both compiler and runtime uses same configuration file names.
+This option overrides I<--compiler> and I<--runtime> with B<name>. This option shortcuts command line if both compiler and runtime uses same configuration file names.
 
 =item --select B<dir[,dir[,dir...]]>
 
@@ -596,13 +617,13 @@ This option is cumulative other repetitions. It means that each occurrence is ad
 
 	--select MPI,OpenMP --select Hybrid
 
-=item --config-target B<name>
+=item --environment (--config-target | --env-target)  B<name>
 
 Specify which configuration file (ie. environment) the validation has to rely to run. Configuration file depicts information at machine-level, by specifying which iterators will be used depending on availables resources, parallelism level for scheduling jobs as fast as possible, etc... The B<name> argument is the file name, without the path nor extension. You can list available configuration files (and valid names) with I<--list-configs> option.
 
 To add you own custom configuration file to make it available for us, please add your file in build_scripts/environment/*name*.yml
 
-=item --group-target B<name>
+=item --group (--group-target) B<name>
 
 Specify how test groups will be analyzed by the PCVS parser. Groups are templates gathering global properties, then herited by jobs. These groups can gather at one place homogenous configuration for a specific axis of validation. For example, most used groups are GRPMPI and GRPOMP. GRPMPI defines OpenMP property to null, meaning that OpenMP configuration is not relevant for tests belonging to MPI group. This drastically reduces number of tests. The argument B<name> is the file name, without the path nor exension. You can list available group configuration files with I<--list-groups> option.
 
@@ -614,7 +635,7 @@ To add you own custom group file, please add your file in build_scripts/configur
 
 =over 4
 
-=item --build B<path>
+=item --output (--build) B<path>
 
 Use this option to change where the validation build system will go (binaries, artefacts). You should provide absolute path even if it should not be a problem to provide a relative one.
 
@@ -691,23 +712,27 @@ List available directories to be configured with the validation system. Listed v
 
 =item --list-runtimes
 
-List available runtime configuration files, located in build_scripts/configuration/runtimes. Values can then be used with I<--runtime-target> option.
+List available runtime configuration files, located in build_scripts/configuration/runtimes. Values can then be used with I<--runtime> option.
 
-=item --list-configs
+=item --list-environments (--list-configs)
 
-List available environment configuration files, located in build_scripts/environment. Values can then be used with I<--config-target> option.
+List available environment configuration files, located in build_scripts/environment. Values can then be used with I<--environment> option.
 
 =item --list-compilers
 
-List available compiler configuration files, located in build_scripts/configuration/compilers. Values can then be used with I<--compiler-target> option.
+List available compiler configuration files, located in build_scripts/configuration/compilers. Values can then be used with I<--compiler> option.
 
 =item --list-groups
 
 List available group configuration files, located in build_scripts/configuration/groups. Values can then be used with I<--group-target> option.
 
-=item --list-vars
+=item --list-all
 
-List available Shell variables which can be used in pcvs.setup files. These variables depicts validation state, merging all configuration files and exposing which parameters validation relies on. To be sure to obtain all values, you can combine this option with I<--config-target>, I<--runtime-target> and I<--compiler-target> options. (Almost) no variables are mandatory, so be sure variables exist before using them.
+Enable all the C<--list-*> options above. Does not include the listing of variables (the option below) because of too high verbosity level.
+
+=item --list-variables (--list-vars)
+
+List available Shell variables which can be used in pcvs.setup files. These variables depicts validation state, merging all configuration files and exposing which parameters validation relies on. To be sure to obtain all values, you can combine this option with I<--environment>, I<--runtime> and I<--compiler> options. (Almost) no variables are mandatory, so be sure variables exist before using them.
 
 =back
 
@@ -725,8 +750,6 @@ Copyright (c) 2016,
 
 Commissariat à l'Énergie Atomique et aux Énergies Alternatives (CEA)
 
-This library is free software; you may redistribute it and/or modify it under the terms of the GNU General Public License (GPL) Version 2 or any later version.
-
-
+This framework is free software; you may redistribute it and/or modify it under the terms of the GNU General Public License (GPL) Version 2 or any later version.
 
 =cut #Documentation end
