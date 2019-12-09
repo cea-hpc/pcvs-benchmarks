@@ -165,35 +165,40 @@ sub helper_do_not_run_validation
 {
 	my $ret = 0;
 	
-	if ($conf->{'list-compilers'})
+	if ($conf->{'list-compilers'} or $conf->{'list-all'})
 	{
-		print "Compilers: ".join(", ", helper_lister("$internaldir/configuration/compilers", "yml"))."\n";
+		print "$conf->{colorcode}{rb}Compilers:$conf->{colorcode}{d} (found in $internaldir/configuration/compilers/) \n";
+		print "\t- ".join("\n\t- ", helper_lister("$internaldir/configuration/compilers", "yml"))."\n\n";
 		$ret = 1;
 	}
 
-	if ($conf->{'list-runtimes'})
+	if ($conf->{'list-runtimes'} or $conf->{'list-all'})
 	{
-		print "Runtimes: ".join(", ", helper_lister("$internaldir/configuration/runtimes", "yml"))."\n";
+		print "$conf->{colorcode}{gb}Runtimes:$conf->{colorcode}{d} (found in $internaldir/configuration/runtimes/) \n";
+		print "\t- ".join("\n\t- ", helper_lister("$internaldir/configuration/runtimes", "yml"))."\n\n";
 		$ret = 1;
 	}
 
-	if ($conf->{'list-configs'})
+	if ($conf->{'list-configs'} or $conf->{'list-all'})
 	{
-		print "Environments: ".join(", ", helper_lister("$internaldir/configuration/environment", "yml"))."\n";
+		print "$conf->{colorcode}{cb}Environments:$conf->{colorcode}{d} (found in $internaldir/configuration/environment/) \n";
+		print "\t- ".join("\n\t- ", helper_lister("$internaldir/configuration/environment", "yml"))."\n\n";
 		$ret = 1;
 	}
 
-	if ($conf->{'list-directories'})
+	if ($conf->{'list-groups'} or $conf->{'list-all'})
 	{
-		print "Available root directories: ".join(", ", helper_list_avail_dirs())."\n";
+		print "$conf->{colorcode}{yb}Groups:$conf->{colorcode}{d} (found in $internaldir/configuration/groups/) \n";
+		print "\t- ".join("\n\t- ", helper_lister("$internaldir/configuration/groups", "yml"))."\n\n";
+		$ret = 1;
+	}
+
+	if ($conf->{'list-directories'} or $conf->{'list-all'})
+	{
+		print "$conf->{colorcode}{bb}Test Directories:$conf->{colorcode}{d}\n\t- ".join("\n\t- ", helper_list_avail_dirs())."\n\n";
 		$ret = 1;
 	}
 	
-	if ($conf->{'list-groups'})
-	{
-		print "Group definitions: ".join(", ", helper_lister("$internaldir/configuration/groups", "yml"))."\n";
-		$ret = 1;
-	}
 
 	return $ret;
 }

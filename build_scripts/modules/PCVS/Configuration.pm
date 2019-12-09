@@ -156,6 +156,14 @@ sub configuration_build
 		$gconf{colorcode}{yb} = `printf "\033[1;33m"`;
 		$gconf{colorcode}{b} = `printf "\033[0;34m"`;
 		$gconf{colorcode}{bb} = `printf "\033[1;34m"`;
+		$gconf{colorcode}{b} = `printf "\033[0;34m"`;
+		$gconf{colorcode}{bb} = `printf "\033[1;34m"`;
+		$gconf{colorcode}{p} = `printf "\033[0;35m"`;
+		$gconf{colorcode}{pb} = `printf "\033[1;35m"`;
+		$gconf{colorcode}{c} = `printf "\033[0;36m"`;
+		$gconf{colorcode}{cb} = `printf "\033[1;36m"`;
+		$gconf{colorcode}{w} = `printf "\033[0;37m"`;
+		$gconf{colorcode}{wb} = `printf "\033[1;37m"`;
 	}
 	else
 	{
@@ -168,6 +176,12 @@ sub configuration_build
 		$gconf{colorcode}{yb} = "";
 		$gconf{colorcode}{b} = "";
 		$gconf{colorcode}{bb} = "";
+		$gconf{colorcode}{p} = "";
+		$gconf{colorcode}{pb} = "";
+		$gconf{colorcode}{c} = "";
+		$gconf{colorcode}{cb} = "";
+		$gconf{colorcode}{w} = "";
+		$gconf{colorcode}{wb} = "";
 	}
 	return %gconf;
 }
@@ -238,9 +252,16 @@ sub configuration_load
 	my ($user_name) = @_;
 	my @avail_names = helper_lister("$internaldir/configuration/environment", "yml");
 
-	# if no user file exists (not provided)
+	# if no user file exists (not provided through command line)
 	if(! defined $user_name)
 	{
+		#try to load a user-wide-set configuration file in HOME
+		if(-f "$ENV{HOME}/.pcvs/environment.yml")
+		{
+			$gconf{'config-target'} = "home-defined";
+			return "$ENV{HOME}/.pcvs/environment.yml"
+		}
+
 		# we try to autodetect a file named with `hostname`.yml
 		if (grep(/^$name$/, @avail_names))
 		{
@@ -261,7 +282,7 @@ sub configuration_load
 	else
 	{
 		# if the user provides a file name, but we didn't found it in $internaldir/configuration/environment/
-		helper_error("$user_name is not valid (check --list-configs)") if (!grep(/^$user_name$/, @avail_names));
+		helper_error("$user_name is not valid (check --list-environments)") if (!grep(/^$user_name$/, @avail_names));
 		return "$prefix/$user_name.yml";
 	}
 
