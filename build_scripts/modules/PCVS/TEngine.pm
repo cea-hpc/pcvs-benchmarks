@@ -387,7 +387,7 @@ sub engine_TE_combinations
 sub engine_convert_to_cmd
 {
 	my ($name, $keys, @c) = @_;
-	my ($pre_env, $nb_res, $post_args) = ();
+	my ($pre_env, $nb_res, $post_args) = ("", undef, "");
 	# for each combination element
 	foreach (0..$#c)
 	{
@@ -424,7 +424,7 @@ sub engine_convert_to_cmd
 	}
 	#special case: we export a var allowing the test case to identify itself
 	$pre_env = "PCVS_TESTCASE=\"$name\" ".($pre_env || "");
-	return ($pre_env || "", $nb_res || undef, $post_args || "");
+	return ($pre_env, $nb_res, $post_args);
 }
 
 ###########################################################################
