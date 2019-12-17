@@ -81,7 +81,7 @@ static int ws_callback(struct lws *wsi, enum lws_callback_reasons reason, void *
 	{
 		case LWS_CALLBACK_ESTABLISHED: /* a new client has been connected */
 			pss->id = ++nb_connections;
-			lwsl_warn("JCHRONOSS: %d - CONNECTION OPENING\n", pss->id);
+			//lwsl_warn("JCHRONOSS: %d - CONNECTION OPENING\n", pss->id);
 			
 			/* initialize the per session data structure : sending the configuration */
 			pss->tosend = (char*)run_config.data;
@@ -94,7 +94,7 @@ static int ws_callback(struct lws *wsi, enum lws_callback_reasons reason, void *
 
 		case LWS_CALLBACK_SERVER_WRITEABLE: /* the server is ready to send contents */
 			{
-				lwsl_warn("JCHRONOSS: %d - DATA SENDING\n", pss->id);
+				//lwsl_warn("JCHRONOSS: %d - DATA SENDING\n", pss->id);
 				char * eos = (char*)"EOS";
 				if(pss->tosend == NULL)
 				{
@@ -130,7 +130,7 @@ static int ws_callback(struct lws *wsi, enum lws_callback_reasons reason, void *
 
 		case LWS_CALLBACK_RECEIVE: /* a client sent a request */
 			{
-				lwsl_warn("JCHRONOSS: %d - DATA RECEIVING\n", pss->id);
+				//lwsl_warn("JCHRONOSS: %d - DATA RECEIVING\n", pss->id);
 
 				/* sanity check */
 				if(strncmp((char*)in, "polling", len) != 0)
@@ -178,7 +178,7 @@ static int ws_callback(struct lws *wsi, enum lws_callback_reasons reason, void *
 			}
 
 		case LWS_CALLBACK_CLOSED: /* a client disconnected */
-			lwsl_warn("JCHRONOSS: %d - CONNECTION CLOSING\n", pss->id);
+			//lwsl_warn("JCHRONOSS: %d - CONNECTION CLOSING\n", pss->id);
 			nb_closed_connections++;
 			break;
 

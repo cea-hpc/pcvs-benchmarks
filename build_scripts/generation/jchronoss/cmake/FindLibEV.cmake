@@ -1,80 +1,43 @@
 # Finder copied from lighthttpd2 found at:
-# https://github.com/lighttpd/lighttpd2/blob/master/cmake/FindLibEV.cmake
+# https://github.com/nghttpd2/nghttp2/master/cmake/FindLibEV.cmake
 #
+# - Try to find libev
+# Once done this will define
+#  LIBEV_FOUND        - System has libev
+#  LIBEV_INCLUDE_DIRS - The libev include directories
+#  LIBEV_LIBRARIES    - The libraries needed to use libev
 
+find_path(LIBEV_INCLUDE_DIR
+  NAMES ev.h
+)
+find_library(LIBEV_LIBRARY
+  NAMES ev
+)
 
-SET(LIBEV_PATH "" CACHE PATH "Base path for include/ev.h and lib/libev*")
-SET(LIBEV_INCLUDE_PATH "" CACHE PATH "Include path for ev.h")
-SET(LIBEV_LIBDIR "" CACHE PATH "Path containing libev")
+if(LIBEV_INCLUDE_DIR)
+  file(STRINGS "${LIBEV_INCLUDE_DIR}/ev.h"
+    LIBEV_VERSION_MAJOR REGEX "^#define[ \t]+EV_VERSION_MAJOR[ \t]+[0-9]+")
+  file(STRINGS "${LIBEV_INCLUDE_DIR}/ev.h"
+    LIBEV_VERSION_MINOR REGEX "^#define[ \t]+EV_VERSION_MINOR[ \t]+[0-9]+")
+  string(REGEX REPLACE "[^0-9]+" "" LIBEV_VERSION_MAJOR "${LIBEV_VERSION_MAJOR}")
+  string(REGEX REPLACE "[^0-9]+" "" LIBEV_VERSION_MINOR "${LIBEV_VERSION_MINOR}")
+  set(LIBEV_VERSION "${LIBEV_VERSION_MAJOR}.${LIBEV_VERSION_MINOR}")
+  unset(LIBEV_VERSION_MINOR)
+  unset(LIBEV_VERSION_MAJOR)
+endif()
 
-IF(LIBEV_PATH)
-	SET(LIBEV_INCLUDE_PATH "${LIBEV_PATH}/include" CACHE PATH "Include path for ev.h" FORCE)
-	SET(LIBEV_LIBDIR "${LIBEV_PATH}/lib" CACHE PATH "Path containing libev" FORCE)
-ENDIF(LIBEV_PATH)
+include(FindPackageHandleStandardArgs)
+# handle the QUIETLY and REQUIRED arguments and set LIBEV_FOUND to TRUE
+# if all listed variables are TRUE and the requested version matches.
+find_package_handle_standard_args(Libev REQUIRED_VARS
+                                  LIBEV_LIBRARY LIBEV_INCLUDE_DIR
+                                  VERSION_VAR LIBEV_VERSION)
 
-IF(LIBEV_INCLUDE_PATH)
-	INCLUDE_DIRECTORIES(${LIBEV_INCLUDE_PATH})
-ENDIF(LIBEV_INCLUDE_PATH)
+if(LIBEV_FOUND)
+  set(LIBEV_LIBRARIES     ${LIBEV_LIBRARY})
+  set(LIBEV_INCLUDE_DIRS  ${LIBEV_INCLUDE_DIR})
+endif()
 
-# Use cached result
-IF(NOT LIBEV_FOUND)
-	UNSET(HAVE_EV_H)
-	UNSET(HAVE_LIBEV)
-	UNSET(HAVE_EV_H CACHE)
-	UNSET(HAVE_LIBEV CACHE)
-	UNSET(LIBEV_CFLAGS)
-	UNSET(LIBEV_LDFLAGS)
+mark_as_advanced(LIBEV_INCLUDE_DIR LIBEV_LIBRARY)
 
-	IF(LIBEV_INCLUDE_PATH OR LIBEV_LIBDIR)
-		SET(CMAKE_REQUIRED_INCLUDES ${LIBEV_INCLUDE_PATH})
-# 		MESSAGE(STATUS "Looking for ev.h in ${CMAKE_REQUIRED_INCLUDES}")
-		CHECK_INCLUDE_FILES(ev.h HAVE_EV_H)
-		IF(HAVE_EV_H)
-# 			MESSAGE(STATUS "Looking for lib ev in ${LIBEV_LIBDIR}")
-			CHECK_LIBRARY_EXISTS(ev ev_time "${LIBEV_LIBDIR}" HAVE_LIBEV)
-			IF(HAVE_LIBEV)
-				SET(LIBEV_LIBRARIES ev CACHE INTERNAL "")
-				SET(LIBEV_CFLAGS "" CACHE INTERNAL "")
-				SET(LIBEV_CFLAGS_OTHER "" CACHE INTERNAL "")
-				SET(LIBEV_INCLUDE_DIRS "" CACHE INTERNAL "")
-				SET(LIBEV_LDFLAGS "-L${LIBEV_LIBDIR} -lev" CACHE INTERNAL "")
-				SET(LIBEV_FOUND TRUE CACHE INTERNAL "Found libev" FORCE)
-			ELSE(HAVE_LIBEV)
-				MESSAGE(STATUS "Couldn't find lib ev in ${LIBEV_LIBDIR}")
-			ENDIF(HAVE_LIBEV)
-		ELSE(HAVE_EV_H)
-			MESSAGE(STATUS "Couldn't find <ev.h> in ${LIBEV_INCLUDE_PATH}")
-		ENDIF(HAVE_EV_H)
-	ELSE(LIBEV_INCLUDE_PATH OR LIBEV_LIBDIR)
-		pkg_check_modules(LIBEV libev)
-		IF(NOT LIBEV_FOUND)
-# 			MESSAGE(STATUS "Looking for ev.h in ${CMAKE_REQUIRED_INCLUDES}")
-			CHECK_INCLUDE_FILES(ev.h HAVE_EV_H)
-			IF(HAVE_EV_H)
-# 				MESSAGE(STATUS "Looking for lib ev")
-				CHECK_LIBRARY_EXISTS(ev ev_time "" HAVE_LIBEV)
-				IF(HAVE_LIBEV)
-					SET(LIBEV_CFLAGS "" CACHE INTERNAL "")
-					SET(LIBEV_CFLAGS_OTHER "" CACHE INTERNAL "")
-					SET(LIBEV_INCLUDE_DIRS "" CACHE INTERNAL "")
-					SET(LIBEV_LDFLAGS "-lev" CACHE INTERNAL "")
-					SET(LIBEV_FOUND TRUE CACHE INTERNAL "Found libev" FORCE)
-				ELSE(HAVE_LIBEV)
-					MESSAGE(STATUS "Couldn't find lib ev")
-				ENDIF(HAVE_LIBEV)
-			ELSE(HAVE_EV_H)
-				MESSAGE(STATUS "Couldn't find <ev.h>")
-			ENDIF(HAVE_EV_H)
-		ENDIF(NOT LIBEV_FOUND)
-	ENDIF(LIBEV_INCLUDE_PATH OR LIBEV_LIBDIR)
-
-ENDIF(NOT LIBEV_FOUND)
-
-IF(NOT LIBEV_FOUND)
-	IF(LibEV_FIND_REQUIRED)
-		MESSAGE(FATAL_ERROR "Could not find libev")
-	ENDIF(LibEV_FIND_REQUIRED)
-ENDIF(NOT LIBEV_FOUND)
-
-MARK_AS_ADVANCED(LIBEV_PATH LIBEV_INCLUDE_PATH LIBEV_LIBDIR)
 

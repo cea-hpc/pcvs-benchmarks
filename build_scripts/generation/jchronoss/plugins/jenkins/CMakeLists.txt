@@ -3,7 +3,7 @@
 #                         Copyright or (C) or Copr.                        #
 #       Commissariat a l'Energie Atomique et aux Energies Alternatives     #
 #                                                                          #
-# Version : 2.0                                                            #
+# Version : 1.2                                                            #
 # Date    : Tue Jul 22 13:28:10 CEST 2014                                  #
 # Author  : Julien Adam <julien.adam@cea.fr>                               #
 #           Marc Perache <marc.perache@cea.fr>                             #
@@ -39,4 +39,6 @@
 ############################################################################
 
 #file(GLOB_RECURSE server_files *.cpp)
-message(STATUS "Jenkins Driver not available yet !")
+message(STATUS "To build Jchronoss plugin for Jenkins, please install Java & Maven")
+message(STATUS "Then, run 'mvn package' into /plugins/jenkins/bundle/")
+message(STATUS "the file 'target/jchronoss.hpi' can be provided to the Jenkins Plugin Interface")

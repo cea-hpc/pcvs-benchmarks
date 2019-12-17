@@ -3,7 +3,7 @@
 #                         Copyright or (C) or Copr.                        #
 #       Commissariat a l'Energie Atomique et aux Energies Alternatives     #
 #                                                                          #
-# Version : 2.0                                                            #
+# Version : 1.2                                                            #
 # Date    : Tue Jul 22 13:28:10 CEST 2014                                  #
 # Author  : Julien Adam <julien.adam@cea.fr>                               #
 #           Marc Perache <marc.perache@cea.fr>                             #

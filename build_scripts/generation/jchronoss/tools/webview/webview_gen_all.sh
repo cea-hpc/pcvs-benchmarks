@@ -5,7 +5,7 @@
 #                         Copyright or (C) or Copr.                        #
 #       Commissariat a l'Energie Atomique et aux Energies Alternatives     #
 #                                                                          #
-# Version : 2.0                                                            #
+# Version : 1.2                                                            #
 # Date    : Tue Jul 22 13:28:10 CEST 2014                                  #
 # Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      #
 # Author  : Julien Adam <julien.adam@cea.fr>                               #
@@ -199,6 +199,11 @@ generate_by_xsl ${WEBVIEW_PATH}/webview/generated/errors.html ${WEBVIEW_PATH}/we
 
 for file in $(find $SOURCES_LIST -iname 'output*.xml' )
 do
+	# Strip out non UTF-8 characters
+	tmp_file=$(echo $file | dirname)/test.xml
+	iconv -f utf-8 -t utf-8 -c $file -o $tmp_file
+	mv $tmp_file $file
+
 	out_filename="$(egrep -o "<testsuite name=\"[^\"]+\"" $file | sed -e "s@<testsuite name\=@@g" -e "s@\"@@g" -e 's#\.#-#g' -e "s#/#-#g").html"
 	generate_by_xsl ${WEBVIEW_PATH}/webview/generated/$out_filename ${WEBVIEW_PATH}/webview/generators/detail.html.xsl $file
 
