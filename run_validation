@@ -50,6 +50,7 @@ use lib "$srcdir/build_scripts/modules";
 use PCVS::Helper;                                      # PCVS Helper (path cleaning...)
 use PCVS::Configuration;                               # PCVS Configuration handler (loading...)
 use PCVS::TEngine;                                     # PCVS TE engine
+use PCVS::SpackConnect;     # Glue w/ spack
 use File::Tee "tee";                                   # get the output sync'd w/ a file
 use File::chdir;                                       # Change directory (to build JCHRONOSS)
 use File::Path qw(mkpath);                             # Path modifiers
@@ -273,8 +274,14 @@ sub run_finalize
 
 sub run_env
 {
-	print "\n$gconf{colorcode}{y} >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ENV STEP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<$gconf{colorcode}{d}\n";
+	print "\n$gconf{colorcode}{y} >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ENV/SPACK STEP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<$gconf{colorcode}{d}\n";
+	spack_init(\%gconf);
 
+	print " * Detection for compiler setup through Spack\n";
+	spack_env_load($gconf{'spack-compiler'}, %{$gconf{compiler}});
+	print " * Detection for runtime setup through Spack\n";
+	spack_env_load($gconf{'spack-runtime'}, %{$gconf{runtime}});
+	# check if the HASH is valid (not complete)
 	configuration_validate();
 	env_logging();
 }
@@ -457,6 +464,7 @@ $gconf{'logging'} = undef;
 $gconf{'src'} = $srcdir;
 $gconf{'build'} = $srcdir."/build";
 $gconf{'version_value'} = `. $internaldir/resources/current_version && pcvs_version`;
+$gconf{'spack-root'} = undef;
 
 # Read the command-line configuration
 GetOptions (
@@ -465,8 +473,11 @@ GetOptions (
 	"build|output=s",
 	"select=s@",
 	"compiler-target|compiler=s",
-	"runtime-target|runtime=s",
+	"spack-compiler=s",
 	"group-target|group=s",
+	"spack-runtime=s",
+	"spack-install!",
+	"spack-root=s",
 	"target=s",
 	"log!",
 	"list-directories",
@@ -597,11 +608,19 @@ Specify which compiler has to be used for the validation. The target defines C, 
 
 To add you own custom compiler file to make it available with PCVS, please add your file in build_scripts/configuration/compilers/*name*.yml.
 
+=item --spack-compiler=<Spack-formatted package>
+
+Override any Spack configuration set in build_scripts/configuration/compilers. The argument has to be a correct Spack package (including one or multiple dependencies/variants/compilers). The associated module is then loaded into the Perl environment to make the compiler configuration reachable (CC, CXX...).
+
 =item --runtime (--runtime-target) B<name>
 
 Specify which runtime has to be used for the validation. The targeted runtime has to be previously loaded into the environment before running PCVS. The runtime defines which PCVS parameters can be forwarded (nproc, nmpi, networks...) or not. From this configuration file, you can directly alter the validation process. The given B<name> is the name of runtime file, without path nor extension. You can visualize current list of available runtimes with I<--list-runtimes>.
 
 To add you own custom runtime file to make it available with PCVS, please add your file in build_scripts/configuration/runtimes/*name*.yml.
+
+=item --spack-runtime=<Spack-formatted package>
+
+Override any Spack configuration set in build_scripts/configuration/runtimes. The argument has to be a correct Spack package (including one or multiple dependencies/variants/runtimes). The associated module is then loaded into the Perl environment to make the runtime configuration reachable (Launch command).
 
 =item --target B<name>
 
@@ -643,6 +662,8 @@ Use this option to change where the validation build system will go (binaries, a
 =item --expect-success
 
 This option makes run_validation returning non-zero exit code if at least one job failed. Note that this option roughly aborts the script. These won't be any created archive ! 
+
+=item --[no-]spack-install
 
 =item --[no]log
 

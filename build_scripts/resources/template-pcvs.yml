@@ -77,6 +77,46 @@ simple_compilation:
         #set if the TE needs Accelerator support and check for Runtime support (TE skipped if not)
         accl: (true|false)
 
+# The definition here is the same as compiler/runtime definition.
+# The only difference is for TE, it is not possible to specify the "build_with" field.
+# This field is autmatically filled with compiler specification.
+# 
+# Any previous field listed in this current documentation will be overriden with what is described in the Spack configuration (variants will override cargs, openmp...
+simple_spack_compilation:
+        spackage :
+                #REQUIRED package name, as specified by Spack
+                name : "mypackage"
+                #version for this package
+                version : 1.2.0
+                #a scalar array, of potential variants for this package
+                variants : ["+debug", "cflags='-O3 -Werror'"]
+                #if the specified package is not installed, just install it
+                build_if_missing : 0
+                # list of dependencies for this package.
+                # This allow the user to explicitly request custom dependencies or dep options.
+                # This node can be duplicated as many times needed, the name should be the dep name (as known by Spack) 
+                # fields are the same as for the main package.
+                deps:
+                        mydep :
+                                version : 0.5.0
+                                build_if_missing : 0
+                        # special case to declare a dep to a virtual package.
+                        # Name of the virtual package is the key and cannot be the real package name (it would
+                        # lead to pass '^mpi@' to spack , which is invalid.
+                        # The special field 'upstream' mentions the actual concretization (if required)
+                        # ex: openmpi
+                        # this field can also be used to defined a special attachment to compiler/runtime defined to validate
+                        # For example, if you want to load OSU compiled with OpenMPI, it has to be explicit that the
+                        # MPI implemention used by Spack is OpenMPI. Thus, you have 2 ways to do it :
+                        #  1. setting upstream to 'openmpi', clearly a lack a flexibility as when PCVS will change the compiler to valid,
+                        #     this field should be changed accordingly
+                        #  2. Using one of two special keywords : 'compiler' or 'runtime'. These mean that when unrolling this TE, 
+                        #     if compiler (resp. runtime) has been loaded through Spack, a dependence to it should be inserted for this TE
+                        #     ex : if PCVS is loading OpenMPI, and a TE defines : { “mpi": { "upstream": "compiler"
+                        mpi:
+                                upstream: "compiler"
+                                upstream: "runtime"
+                                upstream: "openmpi@3.1.3"
 
 # TE describing building step only
 # "bin" field is not used here. As targets are handled by the Makefile
@@ -192,7 +232,6 @@ run_target:
         limit: 100
         tolerance: 5
         args: "--run-args"
-        iter: ["nnode", "nproc", "ncore"]
         n_node: [1, 2]
         n_proc: [4, 8]
         returns: 0
