@@ -4,7 +4,7 @@
 #                         Copyright or (C) or Copr.                        #
 #       Commissariat a l'Energie Atomique et aux Energies Alternatives     #
 #                                                                          #
-# Version : 2.0                                                            #
+# Version : 1.2                                                            #
 # Date    : Tue Jul 22 13:28:10 CEST 2014                                  #
 # Ref ID  : IDDN.FR.001.160040.000.S.P.2015.000.10800                      #
 # Author  : Julien Adam <julien.adam@cea.fr>                               #
@@ -106,7 +106,7 @@ gen_slaves_data_file(){
 #$1 = filename as input
 gen_svg(){
 	SVG_PREFIX="$(basename $1 | cut -f1 -d".")"
-	python ${JSLOC_PATH}/${JSLOC_MAIN} -d ${OUT_DIR}/${SVG_PREFIX}.svg $1
+	python ${JSLOC_PATH}/${JSLOC_MAIN} -d ${OUT_DIR}/${SVG_PREFIX}.svg -s $1
 }
 
 #############################

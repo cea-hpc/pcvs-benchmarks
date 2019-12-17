@@ -6,7 +6,7 @@
 	<job>
 		<!-- needed information -->
 		<name>test_01</name>
-		<command>echo "This is the output of the simple failed test !" &amp;&amp; exit 1</command>
+		<command>echo "This is the output of the simple failed test !" >&amp;2 &amp;&amp; exit 1</command>
 		<rc>0</rc>
 		<resources>1</resources>
 		
@@ -14,6 +14,7 @@
 		<deps>
 			<!--<dep></dep>-->
 		</deps>
+		<postCommand>hostname</postCommand>
 		
 		<!-- add this job to the constraint group named here -->
 		<constraints>

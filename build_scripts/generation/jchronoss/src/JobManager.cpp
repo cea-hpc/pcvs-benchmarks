@@ -475,6 +475,7 @@ void JobManager::pushJobsIntoFiles() {
 
 Job* JobManager::resolveADep ( std::string pattern ) {
 
+	
 	size_t key = Job::getHash(pattern) % MAX_JOB_HT;
 	for(list<HashedJob>::iterator it = hashTable[key].begin(); it != hashTable[key].end(); it++)
 	{
@@ -484,6 +485,18 @@ Job* JobManager::resolveADep ( std::string pattern ) {
 		}
 	}
 
+	return NULL;
+
+	for(size_t i = 0; i < nbLists; i++){
+		for(list<Job*>::iterator it = jobsList[i].begin(); it != jobsList[i].end(); it++){
+			if ((*it)->getName() == pattern || (*it)->getShortName() == pattern)
+				return (*it);
+		}
+	}
+	for(list<Job*>::iterator it = executedJobsList.begin(); it != executedJobsList.end(); it++){
+		if ((*it)->getName() == pattern || (*it)->getShortName() == pattern)
+			return (*it);
+	}
 	return NULL;
 }
 
