@@ -81,7 +81,7 @@
 /*************************/
 #define NB_MS_IN_SEC (1000)                  ///< define the number of milliseconds in a second
 #define NB_NS_IN_MS (1000000)                ///< define the number of nanoseconds in a millisecond
-#define MAX_RANDOM 5000                      ///< define max random time in millisecond
+#define MAX_RANDOM 500                      ///< define max random time in millisecond
 #define MIN_RANDOM 0                         ///< define min random time
 #define VAR_COEFF 0.5                        ///< define variance on random time
 #define DEFAULT_MAGIK_NUMBER 42U             ///< define magik number to ensure data coherency
