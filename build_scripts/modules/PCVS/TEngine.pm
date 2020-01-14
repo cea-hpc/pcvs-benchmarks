@@ -423,7 +423,7 @@ sub engine_convert_to_cmd
 		$nb_res = $c[$_] if($param_name eq $sysconf->{validation}{resource_level});
 	}
 	#special case: we export a var allowing the test case to identify itself
-	$pre_env = "PCVS_TESTCASE=\"$name\" ".($pre_env || "");
+	$pre_env = "PCVS_TESTCASE=\"$name\" ".$pre_env;
 	return ($pre_env, $nb_res, $post_args);
 }
 
@@ -545,11 +545,12 @@ sub engine_unfold_test_expr
 	#params
 	my  ($xml, $tname,  $tvalue, $bpath) = @_;
 	#global var for a test_expr
-	my ($name, $bin, $spack_command, $command, $args, $arg_omp, $arg_tbb, $arg_accl, $rc, $time, $delta, $constraint, $timeout, $chdir, $tinfos, $pcmd, $target, $files, @deps) = ();
+	my ($name, $bin, $command, $args, $arg_omp, $arg_tbb, $arg_accl, $rc, $time, $delta, $constraint, $timeout, $chdir, $tinfos, $pcmd, $target, $files, @deps) = ();
 	#other vars
 	my $ttype = lc(engine_get_value_ifdef($tvalue, 'type') || "run");
 	my $ret = 0;
 	my $rawinfos;
+	my $spack_command = "";
 
 	#common params, whatever the TE type
 	$time    = engine_get_value_ifdef($tvalue, 'limit') || undef;
@@ -611,6 +612,10 @@ sub engine_unfold_test_expr
 	{
 		engine_gen_test($xml, $tname, undef, undef, $spack_command, $rc, $time, $delta, "compilation", $tinfos, $pcmd, @deps);
 	}
+
+	# if spack is required for any further TE (means spack decl. is a dep to this TE), add "&&"
+	$spack_command .=  "&& " if($spack_command ne "");
+
 	# if the current should be compiled
 	if($ttype =~ m/^(build|complete)$/)
 	{
@@ -629,7 +634,7 @@ sub engine_unfold_test_expr
 		{
 			(my $makepath = $files) =~ s,/[^/]*$,,;
 			(my $makefile = $files) =~ s/^$makepath\///;
-			$command = "$spack_command && make -f $makefile -C $makepath $target PCVS_CC=\"$sysconf->{compiler}{c}\" PCVS_CXX=\"$sysconf->{compiler}{cxx}\" PCVS_CU=\"$sysconf->{compiler}{cu}\" PCVS_FC=\"$sysconf->{compiler}{f77}\" PCVS_CFLAGS=\"$cflags $args\"";
+			$command = "$spack_command make -f $makefile -C $makepath $target PCVS_CC=\"$sysconf->{compiler}{c}\" PCVS_CXX=\"$sysconf->{compiler}{cxx}\" PCVS_CU=\"$sysconf->{compiler}{cu}\" PCVS_FC=\"$sysconf->{compiler}{f77}\" PCVS_CFLAGS=\"$cflags $args\"";
 		}
 		#else, simple compilation
 		else
@@ -640,7 +645,7 @@ sub engine_unfold_test_expr
 			helper_error("No compiler set for $comp_name source type.") if(!exists $sysconf->{compiler}{$comp_name});
 
 			#build the command
-			$command .= "$spack_command && $sysconf->{compiler}{$comp_name} -o $bin $files $cflags $args" ;
+			$command .= "$spack_command $sysconf->{compiler}{$comp_name} -o $bin $files $cflags $args" ;
 		}
 		#generate the XML entry
 		engine_gen_test($xml, $tname, undef, undef, $command, $rc, $time, $delta, $constraint, $tinfos, $pcmd, @deps);
