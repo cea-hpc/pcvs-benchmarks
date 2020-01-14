@@ -21,7 +21,7 @@ do
 	if test "$?" = "0"; then
 		continue;
 	fi
-	perl ./template_parser_fortran.pl --test --crosstest $pcvs_src_current/${f_file}.f $pcvs_build_current/${f_file}.f || exit 1
+	PERL5LIB=$PWD perl ./template_parser_fortran.pl --test --crosstest $pcvs_src_current/${f_file}.f $pcvs_build_current/${f_file}.f || exit 1
 
 echo "
 $f_file:

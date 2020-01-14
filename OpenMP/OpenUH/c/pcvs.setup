@@ -21,7 +21,7 @@ do
 	if test "$?" = "0"; then
 		continue;
 	fi
-	perl ./template_parser_c.pl --test --crosstest $pcvs_src_current/${c_file}.c $pcvs_build_current/${c_file}.c || exit 1
+	PERL5LIB=$PWD perl ./template_parser_c.pl --test --crosstest $pcvs_src_current/${c_file}.c $pcvs_build_current/${c_file}.c || exit 1
 echo "
 $c_file:
     herit: *tc
