@@ -200,7 +200,7 @@ generate_by_xsl ${WEBVIEW_PATH}/webview/generated/errors.html ${WEBVIEW_PATH}/we
 for file in $(find $SOURCES_LIST -iname 'output*.xml' )
 do
 	# Strip out non UTF-8 characters
-	tmp_file=$(echo $file | dirname)/test.xml
+	tmp_file=$(dirname $file)/test.xml
 	iconv -f utf-8 -t utf-8 -c $file -o $tmp_file
 	mv $tmp_file $file
 
