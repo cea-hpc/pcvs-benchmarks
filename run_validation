@@ -333,6 +333,7 @@ sub run_configure
 			# create the tree if it does not exist yet (no cleanups)
 			helper_clean_path("$current_bpath", 0);
 			
+			$name =~ s/^\.\///g; #remove trailing './' if any...
 			print "    - Setup $name";
 			my $override_file = `. $buildir/config.env && $setup_elem/pcvs.setup $name`;
 			if (($? >> 8) != 0)
@@ -381,6 +382,7 @@ sub run_configure
 			system("cat $current_bpath/pcvs.yml.in | sed -f $buildir/global_patterns.sed -e 's,\@SRCPATH\@,$current_path,g' -e 's,\@BUILDPATH\@,$current_bpath,g' > $current_bpath/pcvs.yml");
 
 			#Where things are going to be done (TE un-rolling)
+			$name =~ s/^\.\///g; #remove trailing './' if any...
 			print "    - Generate $name";
 			$ret2 = engine_unfold_file($current_bpath, $name, "$current_bpath/pcvs.yml");
 			if($ret2 > 0)

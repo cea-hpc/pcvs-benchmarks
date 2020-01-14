@@ -543,7 +543,7 @@ sub engine_check_foldable
 sub engine_unfold_test_expr
 {
 	#params
-	my  ($xml, $tname,  $tvalue, $bpath) = @_;
+	my  ($xml, $tname,  $tvalue, $bpath, $package) = @_;
 	#global var for a test_expr
 	my ($name, $bin, $command, $args, $arg_omp, $arg_tbb, $arg_accl, $rc, $time, $delta, $constraint, $timeout, $chdir, $tinfos, $pcmd, $target, $files, @deps) = ();
 	#other vars
@@ -664,7 +664,7 @@ sub engine_unfold_test_expr
 		$timeout = ($timeout and exists $sysconf->{runtime}{'timeout-prefix'} and $sysconf->{runtime}{'timeout-prefix'} ne "") ? "$sysconf->{runtime}{'timeout-prefix'}$timeout" : "";
 			
 		#special case : if type is 'complete' -> autocreate the dependency between compilation and exec
-		push @deps, $tname if($ttype =~ /^complete$/);
+		push @deps, $package.".".$tname if($ttype =~ /^complete$/);
 
 		#do the job...
 		my ($ret2, $it_keys, $it_comb) = engine_TE_combinations($tname, $tvalue);
@@ -682,7 +682,7 @@ sub engine_unfold_test_expr
 			$name    = "$tname".engine_build_testname($it_keys, @{ $it_comb->[$_]} );
 			#parse arguments and options depending on runtime
 			my ($pre_env, $nb_res, $post_args) = engine_convert_to_cmd($name, $it_keys, @{ $it_comb->[$_] });
-			$command = "$spack_command && $pre_env $launcher $post_args $timeout $extra_args $bin $args";
+			$command = "$spack_command $pre_env $launcher $post_args $timeout $extra_args $bin $args";
 			#push the test into XML file
 			engine_gen_test($xml, $name, $nb_res, $chdir, $command, $rc, $time, $delta, $constraint, $tinfos, $pcmd, @deps);
 		}
@@ -737,7 +737,7 @@ sub engine_unfold_file
 	{
 		# skip test template
 		next if($test =~ m/^pcvs.*$/);
-		my $ret2 = engine_unfold_test_expr($xmlwriter, $test, $filestream->{$test}, $bpath);
+		my $ret2 = engine_unfold_test_expr($xmlwriter, $test, $filestream->{$test}, $bpath, $ftree);
 		$ret+=$ret2;
 	}
 
