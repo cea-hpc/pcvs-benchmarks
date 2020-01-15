@@ -459,7 +459,8 @@ sub run_exec
 $SIG{INT} = \&trap_signal;
 
 ##### DEFAULT VALUES
-$gconf{'regen'} = 1;
+$gconf{'generate'} = 1;
+$gconf{'exec'} = 1;
 $gconf{'color'} = 0;
 $gconf{'verbose'} = undef;
 $gconf{'logging'} = undef;
@@ -490,7 +491,8 @@ GetOptions (
 	"list-vars|list-variables",
 	"list-configs|list-environments|list-envs",
 	"list-all",
-	"regen!",
+	"generate|regen!",
+	"exec!",
 	"color|c!",
 	"expect-success",
 	"verbose:i",
@@ -546,8 +548,8 @@ print_summary();
 # ready to go !
 run_prepare();
 run_env();
-run_configure() if($gconf{'regen'}); # this can be skipped to avoid overhead with slow FS
-run_exec();
+run_configure() if($gconf{'generate'}); # this can be skipped to avoid overhead with slow FS
+run_exec() if($gconf{'exec'});
 run_finalize();
 
 my ($d, $h, $m, $s) = helper_convert_time(time()-$validation_start);
@@ -672,9 +674,13 @@ This option makes run_validation returning non-zero exit code if at least one jo
 
 Enable/disable output logging. Everything written on stdout is logged into $build/output.log. You can replay the complete output by cat or less on this file. If you use 'less' and you want to display color (instead of Esacping sequences), be sure to invoke 'less' with '-R' option.
 
-=item --[no]regen
+=item --[no]generate -[no]regen
 
 Enable/Disable tests generation. This option can be used when you run multiples times the validation with same parameters (configuration files & command-line arguments). This allow you to skip test generation phase, already done by previous invocations.
+
+=item --[no]exec
+
+Enable/Disable test execution. This option can be used to opt out the actual start of the validation (i.e. JCHRONOSS). when --noexec is set, the process will skip the JCHRONOSS run.
 
 =item --[no]color, -[no]c
 
