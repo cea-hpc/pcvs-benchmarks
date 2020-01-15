@@ -43,6 +43,12 @@ Resource Relinquishing:
   #
   - scancel --name GL-build_$CI_PIPELINE_ID
 
+Options:
+  stage: Basic Testing
+  script:
+  - ./run_validation --help
+  - ./run_validation --Version
+
 Listings:
   stage: Basic Testing
   script:
@@ -53,20 +59,26 @@ Listings:
   - ./run_validation --list-groups
   - ./run_validation --list-all
 
-Setup:
+Subset run:
    stage: Regular Testing
    script:
-   - ./run_validation --select=applications --engine-sim --output=$HOME/GL_$CI_PIPELINE_ID/test
+   - ./run_validation --select=applications --compiler=ompi --runtime=ompi --environment=default --expect-success --engine-sim --output=$HOME/GL_$CI_PIPELINE_ID/test
 
-Run:
+Full Generation:
   stage: Regular Testing
   script:
-  - ./run_validation --engine-sim --output=$HOME/GL_$CI_PIPELINE_ID/test
+  - ./run_validation --engine-sim --output=$HOME/GL_$CI_PIPELINE_ID/test --noexec --expect-success
 
+Subset run:
+   stage: Regular Testing
+   script:
+   - ./run_validation --select=MPI --engine-sim --output=$HOME/GL_$CI_PIPELINE_ID/test --expect-success
+
+# this job should be run after another that created *.xml files (not the case with --noexec option)
 Webview:
   stage: Applications
   script:
-  - rm -rf $HOME/GL_$CI_PIPELINE_ID/webview/generated/*
-  - $HOME/GL_$CI_PIPELINE_ID/webview_gen_all.sh --new=$HOME/GL_$CI_PIPELINE_ID/
-  - test -f $HOME/GL_$CI_PIPELINE_ID/generated/errors.html || exit 42
+  - rm -rf $HOME/GL_$CI_PIPELINE_ID/test/webview/generated/*
+  - $HOME/GL_$CI_PIPELINE_ID/test/webview_gen_all.sh --new=$HOME/GL_$CI_PIPELINE_ID/test
+  - test -f $HOME/GL_$CI_PIPELINE_ID/test/webview/generated/errors.html || exit 42
 
