@@ -67,7 +67,7 @@ void SchedTimePolicy::fillingAlgo(Worker * cur, size_t maxIndice, size_t nbCurRe
 	//getters
 	nRes = config->system().getNbMaxResources();
 	nWorkers = config->system().getNbMaxSlaves();
-	nWorkers = (nWorkers <= 0) ? 1 : nWorkers;
+	nWorkers = std::min(std::max(nWorkers, (size_t)1), nRes);
 	//warning : if worker max not defined, value = -1 (unsigned)
 	tWorkerMax = config->system().getMaxSlaveTime();
 	tWorkerMin = config->system().getMinSlaveTime();

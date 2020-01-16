@@ -1,0 +1,84 @@
+#Available stages to run in 'automatic' processing:
+# For convenience, implicit stages have been made explicit here...
+stages:
+  - Initialization
+  - Basic Testing
+  - Regular Testing
+  - Applications
+  - Finalization
+
+############################
+##### EXTRA ACTIONS ########
+############################
+#these actions should herit from implicit stages ".pre" and ".post"
+
+# pre-actions to cleanup the machine before the run
+# this job will be run in ANY pipeline -> ensure to enable all proper tags
+# CAUTION : Otherwise tag-specific runners won't allow to run the whole pipeline because
+# both .pre and .post cannot be scheduled (thus, why not using user-defined pre and post
+# to avoid them to be run systematically ?)
+Env Sanitize:
+  stage: Initialization
+  script:
+    - mkdir -p $HOME/GL_$CI_PIPELINE_ID/{build,install,test}
+    - echo "Environment Cleaned !"
+
+# post-actions to cleanup the machine after the run
+# The last line may not be necessary as a pipeline start run something like a "git clean" before running
+# This implies a probable issue when multiple piplines are run concurrently on the same project :(
+# Please read the CAUTION above !
+Artifact Deletion:
+  stage: Finalization
+  allow_failure: true
+  when: on_success
+  script:
+    - $HOME/clean_old_pipelines.sh
+    - rm -rf $HOME/$CI_PIPELINE_ID/
+
+Resource Relinquishing:
+  stage: Finalization
+  allow_failure: true
+  when: always
+  script:
+  #
+  - scancel --name GL-build_$CI_PIPELINE_ID
+
+Options:
+  stage: Basic Testing
+  script:
+  - ./run_validation --help
+  - ./run_validation --Version
+
+Listings:
+  stage: Basic Testing
+  script:
+  - ./run_validation --list-compilers --list-runtimes
+  - ./run_validation --list-directories
+  - ./run_validation --list-environments
+  - ./run_validation --list-variables
+  - ./run_validation --list-groups
+  - ./run_validation --list-all
+
+Subset run:
+   stage: Regular Testing
+   script:
+   - ./run_validation --select=applications --compiler=ompi --runtime=ompi --environment=default --expect-success --engine-sim --output=$HOME/GL_$CI_PIPELINE_ID/test
+
+Full Generation:
+  stage: Regular Testing
+  script:
+  - ./run_validation --engine-sim --output=$HOME/GL_$CI_PIPELINE_ID/test --noexec --expect-success
+
+Subset run:
+   stage: Regular Testing
+   script:
+   - ./run_validation --select=MPI --engine-sim --output=$HOME/GL_$CI_PIPELINE_ID/test --expect-success
+
+# this job should be run after another that created *.xml files (not the case with --noexec option)
+Webview:
+  stage: Applications
+  script:
+  - rm -rf $HOME/GL_$CI_PIPELINE_ID/test/webview/generated/*
+  - $HOME/GL_$CI_PIPELINE_ID/test/webview_gen_all.sh --new=$HOME/GL_$CI_PIPELINE_ID/test
+  - test -f $HOME/GL_$CI_PIPELINE_ID/test/webview/generated/errors.html || exit 42
+
