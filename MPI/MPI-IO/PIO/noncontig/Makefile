@@ -1,5 +1,5 @@
-CC=mpc_cc
-CFLAGS=-Wall -g
+CC=${PCVS_CC}
+CFLAGS=-Wall -g ${PCVS_CFLAGS}
 
 #CC=mpicc
 #CFLAGS=-Wall -g

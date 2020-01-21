@@ -13,14 +13,14 @@ OS := $(shell uname -i | tr "[A-Z]" "[a-z]")
 # Pink
 MPI_PATH	= 	${MPI_ROOT}
 
-CC		=       mpc_cc -D_LARGEFILE64_SOURCE 
+CC		=       ${PCVS_CC} -D_LARGEFILE64_SOURCE 
 CLIBS           =       -L${MPI_PATH}/lib     -lmpi -lromio
 CLIBS = ${MPI_INC}
 #ifeq "$(findstring x86_64,$(OS))" "x86_64"
 #CLIBS           =       -L${MPI_PATH}/lib64   -lmpi
 #endif
 #CLIBS           =       -L${MPI_PATH}/lib -lmpich -lgm
-CFLAGS 		= 	-g     -I. -I${MPI_PATH}/include
+CFLAGS 		= 	-g     -I. -I${MPI_PATH}/include ${PCVS_CFLAGS}
 
 AR		=	ar
 ARFLAGS		=	-r -c
