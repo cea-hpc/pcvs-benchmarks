@@ -1,4 +1,7 @@
 #include <mpi.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include <pthread.h>
 
 int query_fn(  void * extra_state, MPI_Status * status )

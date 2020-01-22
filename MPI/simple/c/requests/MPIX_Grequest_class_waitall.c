@@ -1,5 +1,7 @@
 #include <mpi.h>
 #include <pthread.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 
