@@ -1,5 +1,8 @@
 #include <mpi.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <pthread.h>
+#include <unistd.h>
 
 int query_fn(  void * extra_state, MPI_Status * status )
 {
@@ -41,7 +44,7 @@ int poll_fn( void * preq, MPI_Status * status )
 
 int wait_fn_called = 0;
 
-int wait_fn( int count, void ** array_of_states, double timeout, MPC_Status * status )
+int wait_fn( int count, void ** array_of_states, double timeout, MPI_Status * status )
 {
 	wait_fn_called = 1;
 	return MPI_SUCCESS;
