@@ -76,7 +76,7 @@ sub helper_convert_absolute
 	#convert relative  -> absolute path
 	if($path =~ /^[^\/].*$/)
 	{
-		$path = $prefix.$path;
+		$path = $prefix.'/'.$path;
 	}
 
 	return $path;
