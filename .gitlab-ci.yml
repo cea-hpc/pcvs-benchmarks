@@ -7,49 +7,43 @@ stages:
   - Applications
   - Finalization
 
+.only_rules: &only_rules
+  only:
+    - merge_requests
+    - web
+
 ############################
 ##### EXTRA ACTIONS ########
 ############################
-#these actions should herit from implicit stages ".pre" and ".post"
-
-# pre-actions to cleanup the machine before the run
-# this job will be run in ANY pipeline -> ensure to enable all proper tags
-# CAUTION : Otherwise tag-specific runners won't allow to run the whole pipeline because
-# both .pre and .post cannot be scheduled (thus, why not using user-defined pre and post
-# to avoid them to be run systematically ?)
-Env Sanitize:
-  stage: Initialization
-  script:
-    - mkdir -p $HOME/GL_$CI_PIPELINE_ID/{build,install,test}
-    - echo "Environment Cleaned !"
-
 # post-actions to cleanup the machine after the run
 # The last line may not be necessary as a pipeline start run something like a "git clean" before running
 # This implies a probable issue when multiple piplines are run concurrently on the same project :(
 # Please read the CAUTION above !
 Artifact Deletion:
+  <<: *only_rules
   stage: Finalization
   allow_failure: true
   when: on_success
   script:
     - $HOME/clean_old_pipelines.sh
-    - rm -rf $HOME/$CI_PIPELINE_ID/
 
 Resource Relinquishing:
+  <<: *only_rules
   stage: Finalization
   allow_failure: true
   when: always
   script:
-  #
   - scancel --name GL-build_$CI_PIPELINE_ID
 
 Options:
+  <<: *only_rules
   stage: Basic Testing
   script:
   - ./run_validation --help
   - ./run_validation --Version
 
 Listings:
+  <<: *only_rules
   stage: Basic Testing
   script:
   - ./run_validation --list-compilers --list-runtimes
@@ -60,25 +54,26 @@ Listings:
   - ./run_validation --list-all
 
 Subset run:
-   stage: Regular Testing
-   script:
-   - ./run_validation --select=applications --compiler=ompi --runtime=ompi --environment=default --expect-success --engine-sim --output=$HOME/GL_$CI_PIPELINE_ID/test
-
-Full Generation:
+  <<: *only_rules
   stage: Regular Testing
   script:
-  - ./run_validation --engine-sim --output=$HOME/GL_$CI_PIPELINE_ID/test --noexec --expect-success
+  - ./run_validation --select=applications --compiler=ompi --runtime=ompi --environment=default --expect-success --engine-sim --output=GL_${CI_PIPELINE_ID}/apps
 
-Subset run:
-   stage: Regular Testing
-   script:
-   - ./run_validation --select=MPI --engine-sim --output=$HOME/GL_$CI_PIPELINE_ID/test --expect-success
+Full Generation:
+  <<: *only_rules
+  stage: Regular Testing
+  script:
+  - ./run_validation --engine-sim --output=$HOME/GL_$CI_PIPELINE_ID/full --noexec --expect-success
+  cache:
+    paths:
+      - GL_$CI_PIPELINE_ID/full
 
 # this job should be run after another that created *.xml files (not the case with --noexec option)
 Webview:
+  <<: *only_rules
   stage: Applications
   script:
-  - rm -rf $HOME/GL_$CI_PIPELINE_ID/test/webview/generated/*
-  - $HOME/GL_$CI_PIPELINE_ID/test/webview_gen_all.sh --new=$HOME/GL_$CI_PIPELINE_ID/test
-  - test -f $HOME/GL_$CI_PIPELINE_ID/test/webview/generated/errors.html || exit 42
+  - rm -rf $HOME/GL_$CI_PIPELINE_ID/full/webview/generated/*
+  - $HOME/GL_$CI_PIPELINE_ID/full/webview_gen_all.sh --new=GL_$CI_PIPELINE_ID/full/test_suite
+  - test -f $HOME/GL_$CI_PIPELINE_ID/full/webview/generated/errors.html || exit 42
 
