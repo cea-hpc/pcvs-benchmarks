@@ -73,7 +73,7 @@ Find_package(Doxygen)
 
 ########################################################
 #add found directories and libraries to path inclusion
-set(CMAKE_CXX_FLAGS "-Wall -pedantic -ansi -Wextra")
+set(CMAKE_CXX_FLAGS "-Wall -pedantic -Wextra")
 set(EXTRA_LIBS ${LIBXML2_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 
 option(ENABLE_OPENMP "Enabling OpenMP for JCHRONOSS" ON)
