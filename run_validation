@@ -521,9 +521,6 @@ print "PCVS version $gconf{'version_value'}\n" and exit(0) if ($gconf{'Version'}
 # init the helper
 helper_init(\%gconf);
 
-# create $buildir tree if not exist (without cleaning it)
-helper_clean_path($buildir, 0);
-
 my $validation_start = time();
 
 # Parse configuration files (default and user)
@@ -538,6 +535,10 @@ $gconf{'validation'}{'logging'} = $gconf{'logging'} if(defined $gconf{'logging'}
 # if options just ask for listing, do it and stop
 exit(0) if helper_do_not_run_validation();
 if(exists $gconf{'list-vars'}) { configuration_display_vars();  exit(0); }
+
+# create $buildir tree if not exist (without cleaning it)
+# not moving before, to avoid empty dirs when --list-* are used
+helper_clean_path($buildir, 0);
 
 # if user wants to log the output (by default)
 tee(STDOUT, '>', "$buildir/output.log") if (!exists $gconf{'log'} || $gconf{'log'});
