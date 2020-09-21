@@ -6,7 +6,7 @@ pcvs_build_current=$pcvs_testbuild/$1
 #Copy Sources in BUILD env
 cp -r $pcvs_src_current/* $pcvs_build_current
 
-UMT_FORTAN_LIB=`$pcvs_compiler_f77 -show | sed "s/ /\n/g" | grep "lmpi" | xargs echo`
+UMT_FORTAN_LIB=`$pcvs_compiler_commands_f77 -show | sed "s/ /\n/g" | grep "lmpi" | xargs echo`
 
 echo "# FORTRAN LIBS : $UMT_FORTAN_LIB"
 

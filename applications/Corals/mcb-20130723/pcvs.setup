@@ -19,12 +19,12 @@ echo "    files: '@BUILDPATH@/src/Makefile'"
 echo ""
 
 
-if test -z "$pcvs_iterators_n_mpi_list"; then
+if test -z "$pcvs_criterion_iterators_n_mpi_values"; then
 	#NO ITERATOR
 	exit 0
 fi
 
-if test "x$pcvs_iterators_n_mpi_list" = "xundefined"; then
+if test "x$pcvs_criterion_iterators_n_mpi_values" = "xundefined"; then
 	#DEACTIVATED ITERATOR
 	exit 0
 fi
@@ -45,7 +45,7 @@ emit_mcb_test()
 	echo ""
 }
 
-for i in $pcvs_iterators_n_mpi_list
+for i in $pcvs_criterion_iterators_n_mpi_values
 do
 	SQR=`perl -e "print int(sqrt($i))"`
 	MUL=`perl -e "print int($SQR**2)"`

@@ -39,7 +39,7 @@ build_benchs()
 	do
 		for class in S W A
 		do
-			for mpi in $pcvs_iterators_n_mpi_list
+			for mpi in $pcvs_criterion_iterators_n_mpi_values
 			do
 				printf "$bench\t$class\t$mpi\n" >> $pcvs_build_current/config/suite.def
 
@@ -59,7 +59,7 @@ build_benchs()
 }
 
 #if n_mpi iterator is explicitly disabled
-test "x$pcvs_iterators_n_mpi_list" = "xundefined" && exit 0
+test "x$pcvs_criterion_iterators_n_mpi_values" = "xundefined" && exit 0
 
 build_benchs
 

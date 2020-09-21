@@ -82,8 +82,7 @@ sub process_file
 
 # Run MPICH configure during setup...
 `cp -r $pcvs_src_current/* $pcvs_build_current/`;
-`mkdir -p $pcvs_build_current/build && cd $pcvs_build_current/build && \
-    $pcvs_build_current/configure --disable-maintainer_mode --enable-strict --enable-threads=multiple --enable-fortran=yes CC="$ENV{pcvs_compiler_c}" CXX="$ENV{pcvs_compiler_cxx}" F77="$ENV{pcvs_compiler_f77}" CFLAGS="$ENV{pcvs_compiler_cflags} -D_GNU_SOURCE" FC="$ENV{pcvs_compiler_f90}" > /dev/null 2>&1`;
+`mkdir -p $pcvs_build_current/build && cd $pcvs_build_current/build && $pcvs_build_current/configure --disable-maintainer_mode --enable-strict --enable-threads=multiple --enable-fortran=yes CC="$ENV{pcvs_compiler_commands_cc}" CXX="$ENV{pcvs_compiler_commands_cxx}" F77="$ENV{pcvs_compiler_commands_f77}" CFLAGS="$ENV{pcvs_compiler_cflags}" FC="$ENV{pcvs_compiler_commands_f90}" > /dev/null 2>&1`;
 #check for errors
 exit 1 if(($? >> 8) != 0);
 
