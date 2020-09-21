@@ -9,63 +9,85 @@ cp -r $pcvs_src_current/* $pcvs_build_current
 # OPENMP
 #
 
-echo "#OPENMP"
-
-echo "graph500omp:"
-echo "    type: 'complete'"
-echo "    target: 'omp-csr/omp-csr'"
-echo "    openmp : true"
-echo "    files: '@BUILDPATH@/Makefile'"
-echo "    herit : *GRPOMP"
-echo "    bin: 'omp-csr/omp-csr'"
-echo "    args:  ""\"-s 16 -e 16\""
-echo ""
+echo "
+graph500omp:
+    build:
+        group: 'GRPOMP'
+        files: '@BUILDPATH@/Makefile'
+        variants: [ 'openmp' ]
+        make:
+            target: 'omp-csr/omp-csr'
+    run:
+        program: 'omp-csr/omp-csr'
+        iterate:
+            program: &same_args
+                args:
+                    type: 'argument'
+                    subtitle: 'SILENT'
+                    values: '-s 16 -e 16'
+"
 
 #
 # SEQUENTIAL
 #
+echo "graphseqcsr:
+    group: 'GRPSERIAL'
+    build:
+        files: '@BUILDPATH@/Makefile'
+        make:
+            target: 'seq-csr/seq-csr'
+    run:
+        program: 'seq-csr/seq-csr'
+        iterate:
+            program: *same_args
+"
 
-echo "#SEQUENTIAL"
 
-echo "graphseqcsr:"
-echo "    type: 'complete'"
-echo "    target: 'seq-csr/seq-csr'"
-echo "    files: '@BUILDPATH@/Makefile'"
-echo "    herit : *GRPSERIAL"
-echo "    bin: 'seq-csr/seq-csr'"
-echo "    args:  ""\"-s 16 -e 16\""
-echo ""
-
-echo "graphseqlist:"
-echo "    type: 'complete'"
-echo "    target: 'seq-list/seq-list'"
-echo "    files: '@BUILDPATH@/Makefile'"
-echo "    herit : *GRPSERIAL"
-echo "    bin: 'seq-list/seq-list'"
-echo "    args:  ""\"-s 16 -e 16\""
-echo ""
+echo "graphseqlist:
+    group: 'GRPSERIAL'
+    build:
+        files: '@BUILDPATH@/Makefile'
+        make:
+            target: 'seq-list/seq-list'
+    run:
+        program: 'seq-list/seq-list'
+        iterate:
+            program: *same_args
+"
 
 #
 # MPI
 #
 
-echo "make_graphmpi:"
-echo "    type: 'build'"
-echo "    target: ''"
-echo "    files: '@BUILDPATH@/mpi/Makefile'"
-echo ""
+echo "make_graphmpi:
+    build:
+        files: '@BUILDPATH@/mpi/Makefile'
+        make:
+            target: ''
+"
 
 #graph500_mpi_custom  -> Removed as produces bad run on all MPI
 for GT in graph500_mpi_one_sided graph500_mpi_replicated graph500_mpi_replicated_csc graph500_mpi_simple
 do
-	echo "#MPI -- ${GT}"
-	echo "run_${GT}:"
-	echo "    type: 'run'"
-	echo "    deps: [ 'make_graphmpi' ]"
-	echo "    herit : *GRPMPI"
-	echo "    n_mpi:  ['2:64:*2']" # square values
-	echo "    bin: 'mpi/${GT}'"
-	echo "    args:  ""\"10 15\""
+	echo "run_${GT}:
+    group: 'GRPMPI'
+    run:
+        depends_on: [ 'make_graphmpi' ]
+        program: 'mpi/${GT}'
+        iterate:
+           n_mpi:
+               values:
+               - mul:
+                   from: 2
+                   to: 64
+                   of: 2
+           program:
+               args:
+                   type: 'argument'
+                   subtitle: 'SILENT'
+                   option: ''
+                   values: '10 15'
+"
 done
 
 exit 0
