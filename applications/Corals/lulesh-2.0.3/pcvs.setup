@@ -4,16 +4,27 @@ pcvs_src_current=$pcvs_src/$1
 pcvs_build_current=$pcvs_testbuild/$1
 
 cp -r $pcvs_src_current/* $pcvs_build_current
-echo "lulesh:"
-echo "    type: 'complete'"
-echo "    target: ''"
-echo "    openmp : true"
-echo "    files: '@BUILDPATH@/Makefile'"
-echo "    bin: 'lulesh2.0'"
-echo "    n_node: [1, 2, 4]"
-echo "    n_proc: [1:8:*2]" # 'power of 2' values
-echo "    n_mpi:  ['1:64:^3']" # cubic values
-echo "    n_omp:  [2, 4, 8]"
-echo ""
+echo "lulesh:
+    build:
+        variants: [ 'openmp' ]
+        files: '@BUILDPATH@/Makefile'
+        make:
+            target: ''
+    run:
+        program: 'lulesh2.0'
+        iterate:
+            n_node:
+                values: [1, 2, 4]
+            n_proc:
+                values:
+                - mul:
+                    of: 2
+            n_mpi:
+                values:
+                - powerof:
+                    of: 3
+            n_omp:
+                values: [2, 4, 8]
+"
 
 exit 0
