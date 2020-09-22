@@ -21,11 +21,11 @@ $pcvs_compiler_commands_f77 -show | grep "gfortran" > /dev/null
 
 if test "x$?" != "x0"; then
 	if test "$COMP_TYPE" = "gfortran"; then
-		echo "#USING GFORTRAN but it is something else !"
+		echo "#USING GFORTRAN but it is something else !" >2
 		echo "WARNING : Nekbone is only integrated for gfortran and ifort compilation may fail" > 2
 	fi	
 else
-	echo "#gfortran DETECTED"
+	echo "#gfortran DETECTED" >2
 fi
 
 #Default
@@ -46,14 +46,15 @@ echo "#NKFLAGS = $NKFLAGS"
 # EMIT TE
 #
 
-echo "nek:"
-echo "    type: 'complete'"
-#Crashes in all configurations (MPI / MPC)
-#echo "    openmp: true"
-echo "    target: 'NKFLAGS=\"$NKFLAGS\"'"
-echo "    files: '@BUILDPATH@/Makefile'"
-echo "    chdir: './test/example1'"
-echo "    bin: './test/example1/nekbone'"
-echo ""
+echo "nek:
+    build:
+#       variants: ['openmp']
+        make:
+            target: 'NKFLAGS=\"$NKFLAGS\"'
+        files: '@BUILDPATH@/Makefile'
+        cwd: './test/example1'
+    run:
+        program: './test/example1/nekbone'
+"
 
 exit 0
