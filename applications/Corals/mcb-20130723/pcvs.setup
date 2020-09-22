@@ -11,21 +11,16 @@ tar xzf ./boost_headers.tgz || exit 1
 cp ./Makefile-linux-pcvs ./src/Makefile || exit 1
 cd $HERE
 
-echo "make_mcb:"
-echo "    type: 'build'"
-echo "    target: 'MPC_UNPRIVATIZED_FILES=\"bool.hpp:integral_wrapper.hpp:util.hpp:ice_eq.hpp\"'"
-echo "    openmp: true"
-echo "    files: '@BUILDPATH@/src/Makefile'"
-echo ""
+echo "make_mcb:
+    build:
+        files: '@BUILDPATH@/src/Makefile'
+        make:
+            target: 'MPC_UNPRIVATIZED_FILES=\"bool.hpp:integral_wrapper.hpp:util.hpp:ice_eq.hpp\"'
+        variants: [ 'openmp' ]
+"
 
 
-if test -z "$pcvs_criterion_iterators_n_mpi_values"; then
-	#NO ITERATOR
-	exit 0
-fi
-
-if test "x$pcvs_criterion_iterators_n_mpi_values" = "xundefined"; then
-	#DEACTIVATED ITERATOR
+if test -z "$pcvs_criterion_iterators_n_mpi_values" -o "x$pcvs_criterion_iterators_n_mpi_values" = "xundefined"; then
 	exit 0
 fi
 
@@ -37,12 +32,18 @@ emit_mcb_test()
 	MPIY=$3
 	
 	echo "#$NUMBERMPI $MPIX $MPIY"
-	echo "run_mcb_$NUMBERMPI:"
-	echo "    deps: [ 'make_mcb' ]"
-	echo "    bin: 'src/MCBenchmark.exe'"
-	echo "    n_mpi:  [$i]" #Forced to match args
-	echo "    args: \"--nMpiTasksX $MPIX --nMpiTasksY $MPIY\"" #Forced to match args
-	echo ""
+	echo "run_mcb_$NUMBERMPI:
+    run:
+        depends_on: [ 'make_mcb' ]
+        program: 'src/MCBenchmark.exe'
+        iterate:
+            n_mpi:
+                values: [ $NUMBERMPI ]
+            program:
+                args:
+                    subtitle: 'SILENT'
+                    values: '--nMpiTasksX $MPIX --nMpiTasksY $MPIY'
+"
 }
 
 for i in $pcvs_criterion_iterators_n_mpi_values
@@ -53,6 +54,7 @@ do
 	if test "x$MUL" = "x$i"; then
 		#YES ! This is a square
 		echo "#SQR"
+
 		emit_mcb_test $i $SQR $SQR
 	else
 		#NO we did not find a square
