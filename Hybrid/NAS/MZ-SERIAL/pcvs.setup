@@ -7,16 +7,17 @@ cp -r $pcvs_src_current/* $pcvs_build_current/ || exit 1
 cp -r $pcvs_build_current/pcvs.makedefs $pcvs_build_current/config/make.def || exit 1
 mkdir -p $pcvs_build_current/bin #didn't understand why is this not automatically created.
 
-echo "build_SerialNAS-MZ:"
-echo "    type: 'build'"
-echo "    target: 'suite'"
-echo "    files: '@BUILDPATH@/Makefile'"
-echo ""
+echo "build_SerialNAS-MZ:
+    build:
+        make:
+            target: 'suite'
+        files: '@BUILDPATH@/Makefile'
 
-echo "pcvst_serialnas-mz: &nas"
-echo "    type: 'run'"
-echo "    herit: *GRPSERIAL"
-echo "    deps: [ 'build_SerialNAS-MZ' ]"
+.template: &nas
+    group: 'GRPSERIAL'
+    run:
+        depends_on: [ 'build_SerialNAS-MZ' ]
+"
 
 # config/suite.def
 # This file is used to build several benchmarks with a single command. 
@@ -38,9 +39,9 @@ build_benchs()
 			printf "$bench\t$class\n" >> $pcvs_build_current/config/suite.def
 
 			echo "$bench-$class:"
-			echo "    herit: *nas"
-			echo "    bin: 'bin/${bench}.${class}.x'"
-			
+			echo "    <<: *nas"
+			echo "    run:"
+			echo "        program: 'bin/${bench}.${class}.x'"
 			echo ""
 		done
 	done

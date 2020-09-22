@@ -7,17 +7,17 @@ cp -r $pcvs_src_current/* $pcvs_build_current/ || exit 1
 cp -r $pcvs_build_current/pcvs.makedefs $pcvs_build_current/config/make.def || exit 1
 mkdir -p $pcvs_build_current/bin #didn't understand why is this not automatically created.
 
-echo "build_OMPNAS-MZ:"
-echo "    type: 'build'"
-echo "    target: 'suite'"
-echo "    files: '@BUILDPATH@/Makefile'"
-echo "    openmp: true"
-echo ""
+echo "build_OMPNAS-MZ:
+    build:
+        make:
+            target: 'suite'
+        files: '@BUILDPATH@/Makefile'
 
-echo "pcvst_ompnas-mz: &nas"
-echo "    type: 'run'"
-echo "    herit: *GRPOMP"
-echo "    deps: [ 'build_OMPNAS-MZ' ]"
+.template: &nas
+    group: 'GRPOMP'
+    run:
+        depends_on: [ 'build_OMPNAS-MZ' ]
+"
 
 # config/suite.def
 # This file is used to build several benchmarks with a single command. 
@@ -39,11 +39,12 @@ build_benchs()
 			printf "$bench\t$class\n" >> $pcvs_build_current/config/suite.def
 
 			echo "$bench-$class:"
-			echo "    herit: *nas"
-			echo "    bin: 'bin/${bench}.${class}.x'"
+			echo "    <<: *nas"
+			echo "    run:"
+			echo "        program: 'bin/${bench}.${class}.x'"
 			
 			if test "x$class" = "xB"; then
-				echo "    n_omp: [ '>=8' ]"
+				echo "        iterate: { 'n_omp': { 'values': [ {'seq': {from: 8}}]}}"
 			fi
 
 			echo ""

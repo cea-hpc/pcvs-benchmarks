@@ -7,16 +7,17 @@ cp -r $pcvs_src_current/* $pcvs_build_current/ || exit 1
 cp -r $pcvs_build_current/pcvs.makedefs $pcvs_build_current/config/make.def || exit 1
 mkdir -p $pcvs_build_current/bin #didn't understand why is this not automatically created.
 
-echo "build_MPINAS-MZ:"
-echo "    type: 'build'"
-echo "    target: 'suite'"
-echo "    files: '@BUILDPATH@/Makefile'"
-echo ""
+echo "build_MPINAS-MZ:
+    build:
+        make:
+            target: 'suite'
+        files: '@BUILDPATH@/Makefile'
 
-echo "pcvst_mpinas-mz: &nas"
-echo "    type: 'run'"
-echo "    herit: *GRPMPI"
-echo "    deps: [ 'build_MPINAS-MZ' ]"
+.template: &nas
+    group: 'GRPMPI'
+    run:
+        depends_on: [ 'build_MPINAS-MZ' ]
+"
 
 # config/suite.def
 # This file is used to build several benchmarks with a single command. 
@@ -44,9 +45,12 @@ build_benchs()
 				printf "$bench\t$class\t$mpi\n" >> $pcvs_build_current/config/suite.def
 
 				echo "$bench-$class.$mpi:"
-				echo "    herit: *nas"
-				echo "    bin: 'bin/${bench}.${class}.$mpi'"
-				echo "    n_mpi: [ $mpi ]"
+				echo "    <<: *nas"
+				echo "    run:"
+				echo "        program: 'bin/${bench}.${class}.$mpi'"
+				echo "        iterate:"
+				echo "            n_mpi:"
+				echo "                values: [ $mpi ]"
 
 				#if test "x$class" = "xB"; then
 				#echo "    n_omp: [ '>=8' ]"
