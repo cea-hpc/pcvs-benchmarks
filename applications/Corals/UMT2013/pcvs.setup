@@ -14,87 +14,118 @@ echo "# FORTRAN LIBS : $UMT_FORTAN_LIB"
 # EMIT TE
 #
 
-echo "make_umt:"
-echo "    type: 'build'"
-echo "    openmp: true"
-echo "    target: 'UMT_FORTRAN_LIB=\"$UMT_FORTAN_LIB\"'"
-echo "    files: '@BUILDPATH@/Makefile'"
-echo ""
+echo "make_umt:
+    build:
+        variants: ['openmp']
+        make:
+            target: 'UMT_FORTRAN_LIB=\"$UMT_FORTAN_LIB\"'
+        files: '@BUILDPATH@/Makefile'
 
-echo "make_suolson:"
-echo "    type: 'build'"
-echo "    deps: ['make_umt']"
-echo "    openmp: true"
-echo "    target: 'SuOlsonTest UMT_FORTRAN_LIB=\"$UMT_FORTAN_LIB\"'"
-echo "    files: '@BUILDPATH@/Teton/Makefile'"
-echo ""
+
+make_suolson:
+    build:
+        depends_on: ['make_umt']
+        variants: ['openmp']
+        make:
+            target: 'SuOlsonTest UMT_FORTRAN_LIB=\"$UMT_FORTAN_LIB\"'
+        files: '@BUILDPATH@/Teton/Makefile'
+"
 
 #
 # THE TEMPLATE
 #
 
 
-echo "pcvst_: &suolson"
-echo "    deps: [ 'make_suolson' ]"
-echo "    chdir: './Teton'"
-echo "    bin: './Teton/SuOlsonTest'"
-echo ""
+echo ".template: &suolson
+    depends_on: [ 'make_suolson' ]
+    cwd: './Teton'
+    program: './Teton/SuOlsonTest'
+"
 
 #
 # THE CONFIGS
 #
 
-echo "run_suolson2:"
-echo "    herit: *suolson"
-echo "    n_mpi: [ 2 ]"
-echo "    args: \"problem2.cmg\""
-echo ""
+echo "run_suolson2:
+    run:
+        <<: *suolson
+        iterate:
+            n_mpi:
+                values: [ 2 ]
+            program:
+                args:
+                    values: 'problem2.cmg'
 
-echo "run_suolson27:"
-echo "    herit: *suolson"
-echo "    n_mpi: [ 27 ]"
-echo "    args: \"problem27.cmg\""
-echo ""
-
-echo "run_suolson32GRIDMPI:"
-echo "    herit: *suolson"
-echo "    n_mpi: [ 32 ]"
-echo "    args: \"grid_32MPI_12x12x12.cmg\""
-echo ""
-
-echo "run_suolson64:"
-echo "    herit: *suolson"
-echo "    n_mpi: [ 64 ]"
-echo "    args: \"problem64.cmg\""
-echo ""
+run_suolson27:
+    run:
+        <<: *suolson
+        iterate:
+            n_mpi:
+                values: [ 27 ]
+            program:
+                args:
+                    values: 'problem27.cmg'
 
 
-echo "run_suolson64MPI:"
-echo "    herit: *suolson"
-echo "    n_mpi: [ 64 ]"
-echo "    args: \"64MPI_12x12x12.out\""
-echo ""
+run_suolson32GRIDMPI:
+    run:
+        <<: *suolson
+        iterate:
+            n_mpi:
+                values: [ 32 ]
+            program:
+                args:
+                    values: 'grid_32MPI_12x12x12.cmg'
 
+run_suolson64:
+    run:
+        <<: *suolson
+        iterate:
+            n_mpi:
+                values: [ 64 ]
+            program:
+                args:
+                    values: 'problem64.cmg'
 
-echo "run_suolson64GRIDMPI:"
-echo "    herit: *suolson"
-echo "    n_mpi: [ 64 ]"
-echo "    args: \"grid_64MPI_12x12x12.cmg\""
-echo ""
+run_suolson64MPI:
+    run:
+        <<: *suolson
+        iterate:
+            n_mpi:
+                values: [ 64 ]
+            program:
+                args:
+                    values: '64MPI_12x12x12.out'
 
+run_suolson64GRIDMPI:
+    run:
+        <<: *suolson
+        iterate:
+            n_mpi:
+                values: [ 64 ]
+            program:
+                args:
+                   values: 'grid_64MPI_12x12x12.cmg'
 
-echo "run_suolson512GRIDMPI:"
-echo "    herit: *suolson"
-echo "    n_mpi: [ 512 ]"
-echo "    args: \"grid512MPI_12x12x12.cmg\""
-echo ""
+run_suolson512GRIDMPI:
+    run:
+        <<: *suolson
+        iterate:
+            n_mpi: 
+                values: [ 512 ]
+            program:
+                args:
+                    values: 'grid512MPI_12x12x12.cmg'
 
-echo "run_suolson2048GRIDMPI:"
-echo "    herit: *suolson"
-echo "    n_mpi: [ 2048 ]"
-echo "    args: \"grid_2048_12x12x12.cmg\""
-echo ""
-
-
+run_suolson2048GRIDMPI:
+    run:
+        <<: *suolson
+        iterate:
+            n_mpi:
+                values: [ 2048 ]
+            program:
+                args:
+                    values: 'grid_2048_12x12x12.cmg'
+"
 
 exit 0
