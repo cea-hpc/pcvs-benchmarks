@@ -28,8 +28,12 @@ do
 	cat <<EOF
 
 $name:
-  herit: *T$bin
-  args: "$name"
+  <<: *T$bin
+  run:
+    iterate:
+      program:
+        args:
+          values: "$name"
 EOF
 done < $pcvs_src_current/../IMB_LIST_OF_TESTS
 exit 0

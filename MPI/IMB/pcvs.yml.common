@@ -1,29 +1,35 @@
 compile_IMB:
-  type: "build"
-  files: "@BUILDPATH@/Makefile"
-  target: "all"
+  build:
+    files: "@BUILDPATH@/Makefile"
+    make:
+      target: "all"
 
-pcvst_IMB-MPI1: &TMPI1
-  deps: [ "compile_IMB" ]
-  bin: "IMB-MPI1"
-  herit: *GRPMPI
+.IMB-MPI1: &TMPI1
+  group: 'GRPMPI'
+  run:
+    depends_on: [ "compile_IMB" ]
+    program: "IMB-MPI1"
 
-pcvst_IMB-EXT: &TEXT
-  deps: [ "compile_IMB" ]
-  bin: "IMB-EXT"
-  herit: *GRPMPI
+.IMB-EXT: &TEXT
+  group: 'GRPMPI'
+  run:
+    depends_on: [ "compile_IMB" ]
+    program: "IMB-EXT"
 
-pcvst_IMB-IO: &TIO
-  deps: [ "compile_IMB" ]
-  bin: "IMB-IO"
-  herit: *GRPMPI
+.IMB-IO: &TIO
+  group: 'GRPMPI'
+  run:
+    depends_on: [ "compile_IMB" ]
+    program: "IMB-IO"
 
-pcvst_IMB-NBC: &TNBC
-  deps: [ "compile_IMB" ]
-  bin: "IMB-NBC"
-  herit: *GRPMPI
+.IMB-NBC: &TNBC
+  group: 'GRPMPI'
+  run:
+    depends_on: [ "compile_IMB" ]
+    program: "IMB-NBC"
 
-pcvst_IMB-RMA: &TRMA
-  deps: [ "compile_IMB" ]
-  bin: "IMB-RMA"
-  herit: *GRPMPI
+.IMB-RMA: &TRMA
+  group: 'GRPMPI'
+  run:
+    depends_on: [ "compile_IMB" ]
+    program: "IMB-RMA"
