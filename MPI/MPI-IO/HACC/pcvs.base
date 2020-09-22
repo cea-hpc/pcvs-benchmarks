@@ -1,12 +1,19 @@
 HACC_IO:
-        type  : "build"
-        target: "all"
-        files : "@BUILDPATH@/Makefile"
+  build:
+    make:
+     target: "all"
+    files : "@BUILDPATH@/Makefile"
 
 run_HACC_IO:
-        bin: "HACC_IO"
-        deps: [ "HACC_IO" ]
-        args: "30000000 @BUILDPATH@/out.dat"
-        herit: *GRPMPI
-        n_proc: [1, 2]
-        n_mpi : [4]
+  group: 'GRPMPI'
+  run:
+    program: "HACC_IO"
+    depends_on: [ "HACC_IO" ]
+    iterate:
+      n_mpi:
+         values: [4]
+      n_proc:
+         values: [1, 2]
+      program:
+        args:
+          values: "30000000 @BUILDPATH@/out.dat"

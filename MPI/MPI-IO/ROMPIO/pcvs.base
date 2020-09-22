@@ -1,12 +1,19 @@
 build_rompio:
-        target: ""
-        files: "@BUILDPATH@/src/Makefile"
-        type: "build"
+  build:
+    make:
+      target: ""
+    files: "@BUILDPATH@/src/Makefile"
 
 run_rompio:
-        herit: *GRPMPI
-        deps: [ "build_rompio" ]
-        n_proc: [1, 2]
-        n_mpi: [4]
-        bin: "src/rompio.x86_64.x"
-        args: "-fname @BUILDPATH@/out.dat  -size 1024 8192 65536 -cwrite -cread  -nw 50 -strided"
+  group: 'GRPMPI'
+  run:
+    depends_on: [ "build_rompio" ]
+    program: "src/rompio.x86_64.x"
+    iterate:
+        n_proc:
+          values: [1, 2]
+        n_mpi:
+          values: [4]
+        program:
+          args:
+            values: "-fname @BUILDPATH@/out.dat  -size 1024 8192 65536 -cwrite -cread  -nw 50 -strided"

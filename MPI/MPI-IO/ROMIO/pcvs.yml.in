@@ -1,120 +1,119 @@
-pcvst_t: &t
-    herit: *GRPMPI
-    type: 'complete'
+.template: &t
+    group: 'GRPMPI'
 
 aggregation1:
-    herit: *t
-    args: '-fname @BUILDPATH@/aggregation1.dat'
-    files: '@SRCPATH@/aggregation1.c'
+    <<: *t
+    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/aggregation1.dat'}}}}
+    build: {'files': '@SRCPATH@/aggregation1.c'}
 aggregation2:
-    herit: *t
-    args: '-fname @BUILDPATH@/aggregation2.dat'
-    files: '@SRCPATH@/aggregation2.c'
+    <<: *t
+    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/aggregation2.dat'}}}}
+    build: {'files': '@SRCPATH@/aggregation2.c'}
 async:
-    herit: *t
-    args: '-fname @BUILDPATH@/async.dat'
-    files: '@SRCPATH@/async.c'
+    <<: *t
+    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/async.dat'}}}}
+    build: {'files': '@SRCPATH@/async.c'}
 async-multiple:
-    herit: *t
-    args: '-fname @BUILDPATH@/async-multiple.dat'
-    files: '@SRCPATH@/async-multiple.c'
+    <<: *t
+    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/async-multiple.dat'}}}}
+    build: {'files': '@SRCPATH@/async-multiple.c'}
 atomicity:
-    herit: *t
-    args: '-fname @BUILDPATH@/atomicity.dat'
-    files: '@SRCPATH@/atomicity.c'
+    <<: *t
+    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/atomicity.dat'}}}}
+    build: {'files': '@SRCPATH@/atomicity.c'}
 big_extents:
-    herit: *t
-    args: '@BUILDPATH@/big_extents.dat'
-    files: '@SRCPATH@/big_extents.c'
+    <<: *t
+    run: {'iterate':{'program': {'args': {'values': '@BUILDPATH@/big_extents.dat'}}}}
+    build: {'files': '@SRCPATH@/big_extents.c'}
 coll_perf:
-    herit: *t
-    args: '-fname @BUILDPATH@/coll_perf.dat'
-    files: '@SRCPATH@/coll_perf.c'
+    <<: *t
+    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/coll_perf.dat'}}}}
+    build: {'files': '@SRCPATH@/coll_perf.c'}
 coll_test:
-    herit: *t
-    args: '-fname @BUILDPATH@/coll_test.dat'
-    files: '@SRCPATH@/coll_test.c'
+    <<: *t
+    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/coll_test.dat'}}}}
+    build: {'files': '@SRCPATH@/coll_test.c'}
 creat_excl:
-    herit: *t
-    files: '@SRCPATH@/creat_excl.c'
-    args: '-fname @BUILDPATH@/creat_excl.dat'
+    <<: *t
+    build: {'files': '@SRCPATH@/creat_excl.c'}
+    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/creat_excl.dat'}}}}
 darray_read:
-    herit: *t
-    files: '@SRCPATH@/darray_read.c'
-    args: '-fname @BUILDPATH@/darray_read.dat'
+    <<: *t
+    build: {'files': '@SRCPATH@/darray_read.c'}
+    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/darray_read.dat'}}}}
 error:
-    herit: *t
-    files: '@SRCPATH@/error.c'
-    args: '-fname @BUILDPATH@/error.dat'
+    <<: *t
+    build: {'files': '@SRCPATH@/error.c'}
+    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/error.dat'}}}}
 excl:
-    herit: *t
-    files: '@SRCPATH@/excl.c'
-    args: '-fname @BUILDPATH@/excl.dat'
+    <<: *t
+    build: {'files': '@SRCPATH@/excl.c'}
+    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/excl.dat'}}}}
 external32:
-    herit: *t
-    files: '@SRCPATH@/external32.c'
-    args: '-fname @BUILDPATH@/external32.dat'
+    <<: *t
+    build: {'files': '@SRCPATH@/external32.c'}
+    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/external32.dat'}}}}
 file_info:
-    herit: *t
-    files: '@SRCPATH@/file_info.c'
-    args: '-fname @BUILDPATH@/file_info.dat'
+    <<: *t
+    build: {'files': '@SRCPATH@/file_info.c'}
+    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/file_info.dat'}}}}
 hindexed:
-    herit: *t
-    files: '@SRCPATH@/hindexed.c'
-    args: '-fname @BUILDPATH@/hindexed.dat'
+    <<: *t
+    build: {'files': '@SRCPATH@/hindexed.c'}
+    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/hindexed.dat'}}}}
 i_noncontig:
-    herit: *t
-    files: '@SRCPATH@/i_noncontig.c'
-    args: '-fname @BUILDPATH@/i_noncontig.dat'
+    <<: *t
+    build: {'files': '@SRCPATH@/i_noncontig.c'}
+    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/i_noncontig.dat'}}}}
 large_array:
-    herit: *t
-    args: '-fname @BUILDPATH@/large_array.dat'
-    files: '@SRCPATH@/large_array.c'
+    <<: *t
+    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/large_array.dat'}}}}
+    build: {'files': '@SRCPATH@/large_array.c'}
 noncontig:
-    herit: *t
-    args: '-fname @BUILDPATH@/noncontig.dat'
-    files: '@SRCPATH@/noncontig.c'
+    <<: *t
+    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/noncontig.dat'}}}}
+    build: {'files': '@SRCPATH@/noncontig.c'}
 noncontig_coll2:
-    herit: *t
-    args: '-fname @BUILDPATH@/noncontig_coll2.dat'
-    files: '@SRCPATH@/noncontig_coll2.c'
+    <<: *t
+    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/noncontig_coll2.dat'}}}}
+    build: {'files': '@SRCPATH@/noncontig_coll2.c'}
 noncontig_coll:
-    herit: *t
-    args: '-fname @BUILDPATH@/noncontig_coll.dat'
-    files: '@SRCPATH@/noncontig_coll.c'
+    <<: *t
+    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/noncontig_coll.dat'}}}}
+    build: {'files': '@SRCPATH@/noncontig_coll.c'}
 ordered_fp:
-    herit: *t
-    args: '-fname @BUILDPATH@/ordered_fp.dat'
-    files: '@SRCPATH@/ordered_fp.c'
+    <<: *t
+    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/ordered_fp.dat'}}}}
+    build: {'files': '@SRCPATH@/ordered_fp.c'}
 perf:
-    herit: *t
-    args: '-fname @BUILDPATH@/perf.dat'
-    files: '@SRCPATH@/perf.c'
+    <<: *t
+    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/perf.dat'}}}}
+    build: {'files': '@SRCPATH@/perf.c'}
 psimple:
-    herit: *t
-    args: '-fname @BUILDPATH@/psimple.dat'
-    files: '@SRCPATH@/psimple.c'
+    <<: *t
+    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/psimple.dat'}}}}
+    build: {'files': '@SRCPATH@/psimple.c'}
 shared_fp:
-    herit: *t
-    args: '-fname @BUILDPATH@/shared_fp.dat'
-    files: '@SRCPATH@/shared_fp.c'
+    <<: *t
+    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/shared_fp.dat'}}}}
+    build: {'files': '@SRCPATH@/shared_fp.c'}
 simple:
-    herit: *t
-    args: '-fname @BUILDPATH@/simple.dat'
-    files: '@SRCPATH@/simple.c'
+    <<: *t
+    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/simple.dat'}}}}
+    build: {'files': '@SRCPATH@/simple.c'}
 split_coll:
-    herit: *t
-    files: '@SRCPATH@/split_coll.c'
-    args: '-fname @BUILDPATH@/split_coll.dat'
+    <<: *t
+    build: {'files': '@SRCPATH@/split_coll.c'}
+    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/split_coll.dat'}}}}
 status:
-    herit: *t
-    files: '@SRCPATH@/status.c'
-    args: '-fname @BUILDPATH@/status.dat'
+    <<: *t
+    build: {'files': '@SRCPATH@/status.c'}
+    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/status.dat'}}}}
 syshints:
-    herit: *t
-    files: '@SRCPATH@/syshints.c'
-    args: '-fname @BUILDPATH@/syshints.dat'
+    <<: *t
+    build: {'files': '@SRCPATH@/syshints.c'}
+    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/syshints.dat'}}}}
 types_with_zeros:
-    herit: *t
-    files: '@SRCPATH@/types_with_zeros.c'
-    args: '-fname @BUILDPATH@/types_with_zeros.dat'
+    <<: *t
+    build: {'files': '@SRCPATH@/types_with_zeros.c'}
+    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/types_with_zeros.dat'}}}}

@@ -1,29 +1,31 @@
 build_hpio:
-        type: "build"
-        target: "all"
-        files : "@BUILDPATH@/Makefile"
+  build:
+    make: { 'target': 'all'}
+    files : "@BUILDPATH@/Makefile"
 
 
-pcvst_hpio_test: &HPIOT
-        type: "run"
-        herit: *GRPMPI
-        deps: [ "build_hpio" ]
-        bin: "hpio"
-        n_proc: [1]
-        n_mpi: [4]
+.template: &HPIOT
+  group: 'GRPMPI'
+  run:
+    program: 'hpio'
+    depends_on: [ "build_hpio" ]
+    iterate:
+      n_proc: { 'values': [1]}
+      n_mpi: { 'values': [4]}
 
 test_cont_cont:
-        herit: *HPIOT
-        args: "-n 1000 -m 11 -b 111 -s 111 -v 2"
+  <<: *HPIOT
+  run: {'iterate': {'program': {'args': {'values': "-n 1000 -m 11 -b 111 -s 111 -v 2"}}}}
 
 test_noncont_cont:
-        herit: *HPIOT
-        args: "-n 0100 -m 11 -b 111 -s 111 -v 2"
+  <<: *HPIOT
+  run: {'iterate': {'program': {'args': {'values': "-n 0100 -m 11 -b 111 -s 111 -v 2"}}}}
 
 test_cont_noncont:
-        herit: *HPIOT
-        args: "-n 0010 -m 11 -b 100 -s 111 -v 2"
+  <<: *HPIOT
+  run: {'iterate': {'program': {'args': {'values': "-n 0010 -m 11 -b 100 -s 111 -v 2"}}}}
 
 test_noncont_noncont:
-        herit: *HPIOT
-        args: "-n 0001 -m 11 -b 100 -s 111 -v 2"
+  <<: *HPIOT
+  run: {'iterate': {'program': {'args': {'values': "-n 0001 -m 11 -b 100 -s 111 -v 2"}}}}
+
