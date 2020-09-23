@@ -1,103 +1,101 @@
-#! /usr/bin/perl
+#!/usr/bin/env python3
+import os
+import subprocess
+import re
+import sys
 
-use strict;
-use warnings;
+subdir = sys.argv[1] if len(sys.argv) >= 2 else ''
+cur_srcdir = os.path.join(os.environ['pcvs_src'], subdir)
+cur_bldir = os.path.join(os.environ['pcvs_testbuild'], subdir)
 
-my ($subdir) = @ARGV;
-my $pcvs_src_current=qq($ENV{pcvs_src}/$subdir);
-my $pcvs_build_current=qq($ENV{pcvs_testbuild}/$subdir);
+def process_file(filename):
+    try:
+        srcfile = os.path.join(cur_srcdir, filename)
+        bldfile = os.path.join(cur_bldir, filename)
+        if os.path.isfile(srcfile) and os.path.getsize(srcfile) > 0:
+            filepath = os.path.join(cur_srcdir, filename)
+        elif os.path.isfile(bldfile) and os.path.gesize(bldfile) > 0:
+            filepath = os.path.join(cur_bldir, filename)
+        else:
+            return
 
-# pre-make dependencies for slow NFS
-print STDOUT "dtpools:\n";
-print STDOUT "    type: 'build'\n";
-print STDOUT "    files: '\@BUILDPATH\@/build/dtpools/Makefile'\n";
-print STDOUT "    target: '-ik'\n";
-print STDOUT "    herit: *GRPMPI\n";
-print STDOUT "util:\n";
-print STDOUT "    type: 'build'\n";
-print STDOUT "    files: '\@BUILDPATH\@/build/util/Makefile'\n";
-print STDOUT "    target: '-ik'\n";
-print STDOUT "    herit: *GRPMPI\n";
+        prefix = filepath.replace(os.path.join(cur_bldir, 'build'), '')\
+                         .replace(cur_srcdir, '')\
+                         .replace('testlist', '')
+
+        with open(filepath, 'r') as th:
+            for line in th:
+                line = line.strip()
+                if line.startswith('#') or len(line) == 0:
+                    continue
+                program = line.split()[0]
+                args = line.split()[1:]
+                if len(args) > 0:
+                    print("""
+{escaped_prefix}{program}:
+    group: 'GRPMPI'
+    build:
+        depends_on: ['build_util_dir']
+        files: '@BUILDPATH@/build/{prefix}/Makefile'
+        make:
+            target: '{program}'
+    run:
+        program: 'build/{prefix}/{program}'
+        iterate: 
+            n_mpi':
+                'values': [ {mpi} ]
+                """.format(program=program,
+                           prefix=prefix,
+                           escaped_prefix=prefix.replace("/", "_"),
+                           mpi=args[0]))
+                elif (os.path.isdir(os.path.join(cur_srcdir, prefix, program))):
+                    process_file(os.path.join(cur_srcdir, prefix, program, 'testlist'))
+                else:
+                    raise IOError
+
+    except FileNotFoundError:
+        pass
 
 
-sub process_file
-{
-	my ($file) = @_;
-	
-	#-s means file with non-zero size: pick source testlist if the build one does not exist
-	$file = "$pcvs_build_current/build/$file" if(!-s $file and -s "$pcvs_build_current/build/$file" );
+if __name__ == '__main__':
+    compilers=""
+    for cc in [('CC', 'cc'),
+               ('CXX', 'cxx'),
+               ('F77', 'f77'),
+               ('FC', 'f90')]:
+        try:
+            compilers.append('{}={}'.format(
+                cc[0],
+                os.environ['pcvs_compiler_commands_{}'.format(cc[1])]
+                ))
+        except:
+            pass
 
-	#file not found here
-	return if(!-s $file);
+    try:
+        cmd = 'cp -r {src}/* {bld} && mkdir -p {d} && cd {d} && {cf} --disable-maintainer_mode --enable-strictmpi --enable-threads=multiple --enable-fortran=yes'.format(
+                src=cur_srcdir,
+                bld=cur_bldir,
+                d=os.path.join(cur_bldir, 'build'),
+                cf=os.path.join(cur_bldir, 'configure')
+            )
+       
+        subprocess.check_output(cmd, shell=True, stderr=subprocess.DEVNULL)
 
-	my $tree = $file;
-	$tree =~ s,$pcvs_build_current/build/,,;
-	$tree =~ s,$pcvs_build_current/,,;
-	$tree =~ s,$pcvs_src_current/,,;
-	$tree =~ s,testlist$,,g;
-	
-	open(my $fh, "<", $file) || warn("Abnormal: '$file' defined but not found !");
-	while(<$fh>)
-	{
-		my ($program, $nmpi) = ();
-		chomp $_; #remove trailing newlines
-		s/#.*//g; #remove comments
-		s/^ *//g; #remove leading spaces
-		s/ *$//g;  # remove trailing spaces
+        print("""
+build_util_dir:
+    group: 'GRPMPI'
+    build:
+        files: '@BUILDPATH@/build/util/Makefile'
+        make:
+            target: 'mtest.o mtest_datatype.o mtest_datatype_gen.o'
+        """)
 
-		my @list_args = split(/ +/, $_);
-
-		$program = $list_args[0];
-
-		next if (!defined $program); # skip empty lines
-
-		# if the line is a test
-		if(@list_args > 1)
-		{
-			$program = $list_args[0];
-			$nmpi = $list_args[1];
-			(my $tree_prefix = $tree) =~ s,/+,_,g;
-			#should we parse extra options ? maybe copy pasting from runtests.in
-			print STDOUT "${tree_prefix}${program}:\n";
-			print STDOUT "    deps: ['dtpools', 'util']\n";
-			print STDOUT "    type: 'complete'\n";
-			print STDOUT "    files: '\@BUILDPATH\@/build/$tree/Makefile'\n";
-			print STDOUT "    target: '$program'\n";
-			print STDOUT "    herit: *GRPMPI\n";
-			print STDOUT "    bin: 'build/$tree/$program'\n";
-			print STDOUT "    n_mpi: [ $nmpi ]\n";
-		}
-		# else if a directory
-		elsif(-d "$pcvs_build_current/$tree/$program")
-		{
-			process_file("$pcvs_build_current/$tree/$program/testlist");
-		}
-		else
-		{
-			die("Unexpected line '$_' in $file ! $pcvs_build_current/$tree/$program is not a dir");
-		}
-	}
-
-}
-
-# Run MPICH configure during setup...
-`cp -r $pcvs_src_current/* $pcvs_build_current/`;
-`mkdir -p $pcvs_build_current/build && cd $pcvs_build_current/build && $pcvs_build_current/configure --disable-maintainer_mode --enable-strict --enable-threads=multiple --enable-fortran=yes CC="$ENV{pcvs_compiler_commands_cc}" CXX="$ENV{pcvs_compiler_commands_cxx}" F77="$ENV{pcvs_compiler_commands_f77}" CFLAGS="$ENV{pcvs_compiler_cflags}" FC="$ENV{pcvs_compiler_commands_f90}" > /dev/null 2>&1`;
-#check for errors
-exit 1 if(($? >> 8) != 0);
-
-##### FROM HERE, We mimics RunList() and ProcessDir() MPICH functions from runtests.in
-
-# Open main testlist -> list directories to build
-open(my $main_fh, "<", "$pcvs_build_current/build/testlist") || exit 1;
-while(<$main_fh>)
-{
-	chomp;
-	s/#.*//g; #remove comments
-	s/^ *//g; #remove leading spaces
-	s/ *$//g;  # remove trailing spaces
-	next if ($_ eq "");
-	process_file("$_/testlist");
-}
-
-exit 0;
+        with open(os.path.join(cur_bldir, "build/testlist"), 'r') as fh:
+            for line in fh:
+                line = line.strip()
+                if line.startswith('#'):
+                    continue
+                process_file(os.path.join(line, 'testlist'))
+    except (FileNotFoundError, subprocess.CalledProcessError):
+        exit(40)
+exit(0)
