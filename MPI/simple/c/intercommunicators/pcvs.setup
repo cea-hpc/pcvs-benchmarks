@@ -3,16 +3,18 @@
 pcvs_src_current=$pcvs_src/$1
 #pcvs_build_current=$pcvs_testbuild/$1
 
-for t in `ls $pcvs_src_current`
+for t in `find $pcvs_src_current -name '*.c'`
 do
 	#remove extension
-	bin=`echo "$t" | perl -pe "s/\..*$//"`
+	bin=`echo "$t" | sed -Ee 's,.*/(.*)\..*$,\1,'`
 
 	#generate YAML entry
-	echo "$bin:"
-	echo "    type: 'complete'"
-	echo "    herit: *GRPMPI"
-	echo "    files: \"@SRCPATH@/$t\""
-	echo "    bin: $bin"
+	echo "$bin:
+    group: 'GRPMPI'
+    build:
+        files: '@SRCPATH@/$t'
+    run:
+        program: $bin
+"
 done
 exit 0
