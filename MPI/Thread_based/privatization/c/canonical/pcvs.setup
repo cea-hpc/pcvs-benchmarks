@@ -26,20 +26,24 @@ priv_canon_opt : $pcvs_src_current/a.c  $pcvs_src_current/b.c
 
 gen_makefile > $pcvs_build_current/Makefile
 echo '
-pcvst_t: &t
-     files: "@BUILDPATH@/Makefile"
-     type: "complete"
-     herit: *GRPMPI
-     n_proc: [1]
-
 non_optim:
-     herit: *t
-     target: "priv_canon"
-     bin: "priv_canon"
+  group: "GRPMPI"
+  build:
+    make: {"target": "priv_canon"}
+    files: "@BUILDPATH@/Makefile"
+  run:
+    program: "priv_canon"
+    iterate: {"n_proc": {"values": [1]}}
+
 
 optim_O3:
-     herit: *t
-     target: "priv_canon_opt"
-     bin: "priv_canon_opt"
+  group: "GRPMPI"
+  build:
+    files: "@BUILDPATH@/Makefile"
+    make:
+      target: "priv_canon_opt"
+  run:
+    program: "priv_canon_opt"
+    iterate: {"n_proc": {"values": [1]}}
 '
 exit 0

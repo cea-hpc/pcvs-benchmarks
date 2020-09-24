@@ -1,6 +1,8 @@
 array_ref:
-        type: "complete"
-        herit: *GRPMPI
-        files: "@SRCPATH@/a.c"
-        n_proc: [1]
+  group: 'GRPMPI'
+  build:
+    files: "@SRCPATH@/a.c"
+  run:
+    iterate:
+      n_proc: {"values": [1]}
 

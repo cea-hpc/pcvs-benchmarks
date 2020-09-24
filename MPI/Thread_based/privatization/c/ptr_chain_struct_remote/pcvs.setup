@@ -51,20 +51,26 @@ ptr_chain_struct_remote_tu_opt : $pcvs_src_current/a.c  libp.so
 
 gen_makefile > $pcvs_build_current/Makefile
 echo '
-pcvst_t: &t
-     files: "@BUILDPATH@/Makefile"
-     type: "complete"
-     herit: *GRPMPI
-     n_proc: [1]
-
 non_optim:
-     herit: *t
-     target: "ptr_chain_struct_remote"
-     bin: "ptr_chain_struct_remote"
+  group: "GRPMPI"
+  build:
+    files: "@BUILDPATH@/Makefile"
+    make:
+      target: "ptr_chain_struct_remote"
+  run:
+    program: "ptr_chain_struct_remote"
+    iterate:
+      n_proc: {"values": [1]}
 
 optim_O3:
-     herit: *t
-     target: "ptr_chain_struct_remote_opt"
-     bin: "ptr_chain_struct_remote_opt"
+  group: "GRPMPI"
+  build:
+    files: "@BUILDPATH@/Makefile"
+    make:
+      target: "ptr_chain_struct_remote_opt"
+  run:
+    program: "ptr_chain_struct_remote_opt"
+    iterate:
+      n_proc: {"values": [1]}
 '
 exit 0

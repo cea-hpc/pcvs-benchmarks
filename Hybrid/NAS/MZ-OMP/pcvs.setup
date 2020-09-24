@@ -12,11 +12,6 @@ echo "build_OMPNAS-MZ:
         make:
             target: 'suite'
         files: '@BUILDPATH@/Makefile'
-
-.template: &nas
-    group: 'GRPOMP'
-    run:
-        depends_on: [ 'build_OMPNAS-MZ' ]
 "
 
 # config/suite.def
@@ -39,8 +34,9 @@ build_benchs()
 			printf "$bench\t$class\n" >> $pcvs_build_current/config/suite.def
 
 			echo "$bench-$class:"
-			echo "    <<: *nas"
+			echo "    group: 'GRPOMP'"
 			echo "    run:"
+			echo "        depends_on: [ 'build_OMPNAS-MZ' ]"
 			echo "        program: 'bin/${bench}.${class}.x'"
 			
 			if test "x$class" = "xB"; then

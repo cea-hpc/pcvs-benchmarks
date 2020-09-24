@@ -12,11 +12,6 @@ echo "build_SerialNAS-MZ:
         make:
             target: 'suite'
         files: '@BUILDPATH@/Makefile'
-
-.template: &nas
-    group: 'GRPSERIAL'
-    run:
-        depends_on: [ 'build_SerialNAS-MZ' ]
 "
 
 # config/suite.def
@@ -40,7 +35,9 @@ build_benchs()
 
 			echo "$bench-$class:"
 			echo "    <<: *nas"
+			echo "    group: 'GRPSERIAL'"
 			echo "    run:"
+    			echo "        depends_on: [ 'build_SerialNAS-MZ' ]"
 			echo "        program: 'bin/${bench}.${class}.x'"
 			echo ""
 		done

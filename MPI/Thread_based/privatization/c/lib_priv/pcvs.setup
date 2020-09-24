@@ -30,20 +30,28 @@ priv_lib_opt : $pcvs_src_current/a.c  libp.so
 
 gen_makefile > $pcvs_build_current/Makefile
 echo '
-pcvst_t: &t
-     files: "@BUILDPATH@/Makefile"
-     type: "complete"
-     herit: *GRPMPI
-     n_proc: [1]
-
 non_optim:
-     herit: *t
-     target: "priv_lib"
-     bin: "priv_lib"
+  group: "GRPMPI"
+  build:
+    files: "@BUILDPATH@/Makefile"
+    make:
+      target: "priv_lib"
+  run:
+    program: "priv_lib"
+    iterate:
+      n_proc:
+        values: [1]
 
 optim_O3:
-     herit: *t
-     target: "priv_lib_opt"
-     bin: "priv_lib_opt"
+  group: "GRPMPI"
+  build:
+    files: "@BUILDPATH@/Makefile"
+    make:
+      target: "priv_lib_opt"
+  run:
+    program: "priv_lib_opt"
+    iterate:
+      n_proc:
+        values: [1]
 '
 exit 0

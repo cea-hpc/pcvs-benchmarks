@@ -26,21 +26,27 @@ priv_chain_opt : $pcvs_src_current/a.c  $pcvs_src_current/b.c $pcvs_src_current/
 
 gen_makefile > $pcvs_build_current/Makefile
 echo '
-pcvst_t: &t
-     files: "@BUILDPATH@/Makefile"
-     type: "complete"
-     herit: *GRPMPI
-     n_proc: [1]
-
 non_optim:
-     herit: *t
-     target: "priv_chain"
-     bin: "priv_chain"
+  group: "GRPMPI"
+  build:
+    files: "@BUILDPATH@/Makefile"
+    make:
+      target: "priv_chain"
+  run:
+    iterate:
+      n_proc: {"values": [1]}
+    program: "priv_chain"
 
 optim_O3:
-     herit: *t
-     target: "priv_chain_opt"
-     bin: "priv_chain_opt"
+  group: "GRPMPI"
+  build:
+    files: "@BUILDPATH@/Makefile"
+    make:
+      target: "priv_chain_opt"
+  run:
+    iterate:
+      n_proc: {"values": [1]}
+    program: "priv_chain_opt"
 '
 
 exit 0

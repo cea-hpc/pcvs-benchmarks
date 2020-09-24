@@ -12,11 +12,6 @@ echo "build_MPINAS-MZ:
         make:
             target: 'suite'
         files: '@BUILDPATH@/Makefile'
-
-.template: &nas
-    group: 'GRPMPI'
-    run:
-        depends_on: [ 'build_MPINAS-MZ' ]
 "
 
 # config/suite.def
@@ -45,8 +40,9 @@ build_benchs()
 				printf "$bench\t$class\t$mpi\n" >> $pcvs_build_current/config/suite.def
 
 				echo "$bench-$class.$mpi:"
-				echo "    <<: *nas"
+				echo "    group: 'GRPMPI'"
 				echo "    run:"
+				echo "        depends_on: [ 'build_MPINAS-MZ' ]"
 				echo "        program: 'bin/${bench}.${class}.$mpi'"
 				echo "        iterate:"
 				echo "            n_mpi:"

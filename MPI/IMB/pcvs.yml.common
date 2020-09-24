@@ -5,31 +5,21 @@ compile_IMB:
       target: "all"
 
 .IMB-MPI1: &TMPI1
-  group: 'GRPMPI'
-  run:
-    depends_on: [ "compile_IMB" ]
-    program: "IMB-MPI1"
+  depends_on: [ "compile_IMB" ]
+  program: "IMB-MPI1"
 
 .IMB-EXT: &TEXT
-  group: 'GRPMPI'
-  run:
-    depends_on: [ "compile_IMB" ]
-    program: "IMB-EXT"
+  depends_on: [ "compile_IMB" ]
+  program: "IMB-EXT"
 
 .IMB-IO: &TIO
-  group: 'GRPMPI'
-  run:
-    depends_on: [ "compile_IMB" ]
-    program: "IMB-IO"
+  depends_on: [ "compile_IMB" ]
+  program: "IMB-IO"
 
 .IMB-NBC: &TNBC
-  group: 'GRPMPI'
-  run:
-    depends_on: [ "compile_IMB" ]
-    program: "IMB-NBC"
+  depends_on: [ "compile_IMB" ]
+  program: "IMB-NBC"
 
 .IMB-RMA: &TRMA
-  group: 'GRPMPI'
-  run:
-    depends_on: [ "compile_IMB" ]
-    program: "IMB-RMA"
+  depends_on: [ "compile_IMB" ]
+  program: "IMB-RMA"

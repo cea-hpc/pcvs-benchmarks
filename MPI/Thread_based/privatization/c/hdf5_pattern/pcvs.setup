@@ -26,20 +26,26 @@ hdf5_pattern_opt : $pcvs_src_current/an.c  $pcvs_src_current/bn.c
 
 gen_makefile > $pcvs_build_current/Makefile
 echo '
-pcvst_t: &t
-     files: "@BUILDPATH@/Makefile"
-     type: "complete"
-     herit: *GRPMPI
-     n_proc: [1]
-
 non_optim:
-     herit: *t
-     target: "hdf5_pattern"
-     bin: "hdf5_pattern"
+  group: "GRPMPI"
+  build:
+    files: "@BUILDPATH@/Makefile"
+    make:
+      target: "hdf5_pattern"
+  run:
+    program: "hdf5_pattern"
+    iterate:
+      n_proc: {"values": [1]}
 
 optim_O3:
-     herit: *t
-     target: "hdf5_pattern_opt"
-     bin: "hdf5_pattern_opt"
+  group: "GRPMPI"
+  build:
+    files: "@BUILDPATH@/Makefile"
+    make:
+      target: "hdf5_pattern_opt"
+  run:
+    program: "hdf5_pattern_opt"
+    iterate:
+      n_proc: {"values": [1]}
 '
 exit 0

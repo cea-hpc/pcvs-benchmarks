@@ -1,5 +1,7 @@
 privatization:
-        herit: *GRPMPI
-        type: "complete"
-        n_proc: [1]
-        files: "@SRCPATH@/privatization.f90"
+  build:
+    files: "@SRCPATH@/privatization.f90"
+  group: "GRPMPI"
+  run:
+    iterate:
+      n_proc: {"values": [1]}

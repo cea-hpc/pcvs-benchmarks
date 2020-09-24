@@ -1,13 +1,18 @@
 pcvst_hls: &hls
-        type: "complete"
-        cargs: "-fhls"
-        n_proc: [1]
+  run:
+    iterate:
+      n_proc: {'values': [1]}
 
 hls_node:
-        herit: *hls
-        files: "@SRCPATH@/hls_node.f90"
+  <<: *hls
+  build:
+    cflags: "-fhls"
+    files: "@SRCPATH@/hls_node.f90"
 
 hls_single:
-        herit: *hls
-        files: "@SRCPATH@/hls_single.f90"
+  <<: *hls
+  build:
+    cflags: "-fhls"
+    files: "@SRCPATH@/hls_single.f90"
+
 
