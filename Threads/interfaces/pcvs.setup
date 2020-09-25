@@ -16,14 +16,16 @@ do
 
 	mkdir -p $pcvs_testbuild/$1/$dir_file;
 	echo "${dir_file}_${name}:"
-	echo "    type: 'complete'"
+	echo "  build:"
 	echo "    files: '@SRCPATH@/$dir_file/$src_file'"
-	echo "    cargs: '-I@SRCPATH@/include'"
-	echo "    bin: '$dir_file/$name'"
-	echo "    n_proc: ~"
-	echo "    n_mpi: ~"
-	echo "    n_omp: ~"
-	echo "    net: ~"
+	echo "    cflags: '-I@SRCPATH@/include'"
+	echo "    sources: {'binary': '$dir_file/$name'}"
+	echo "  run:"
+	echo "    iterate:"
+	echo "      n_proc: {'values': null}"
+	echo "      n_mpi: {'values': null}"
+	echo "      n_omp: {'values': null}"
+	echo "      net: {'values': null}"
 	echo ""
 done
 exit 0

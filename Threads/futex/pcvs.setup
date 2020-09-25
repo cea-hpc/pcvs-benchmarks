@@ -8,13 +8,16 @@ do
 	src_file=`basename ${f}`
 	name="`echo "$src_file" | perl -pe "s/\.[a-zA-Z0-9]+$//g"`"
 	echo "$name:"
-	echo "    type: 'complete'"
+	echo "  build:"
 	echo "    cargs: '-DSCTK_FUTEX_SUPPORTED'"
 	echo "    files: '@SRCPATH@/$src_file'"
-	echo "    n_proc: ~"
-	echo "    n_mpi: ~"
-	echo "    n_omp: ~"
-	echo "    net: ~"
+	echo "    sources: {'binary': '$name'}"
+	echo "  run:"
+	echo "    iterate:"
+	echo "      n_proc: {'values': null}"
+	echo "      n_mpi: {'values': null}"
+	echo "      n_omp: {'values': null}"
+	echo "      net: {'values': null}"
 	echo ""
 done
 exit 0

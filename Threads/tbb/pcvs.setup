@@ -7,16 +7,17 @@ my $pcvs_build_current="$ENV{pcvs_testbuild}/$prefix";
 
 #build a fake test to be sure libtbb_debug is available (needed to compile test)
 print STDOUT "dummy_test:\n";
-print STDOUT "    type: 'complete'\n";
+print STDOUT "  build:\n";
 print STDOUT "    files: '\@BUILDPATH\@/dummy_test.cpp'\n";
-print STDOUT "    cargs: '-ltbb_debug'\n"; # we need debug lib 
-print STDOUT "    herit: *GRPSERIAL\n";
+print STDOUT "    cflags: '-ltbb_debug'\n"; # we need debug lib 
+print STDOUT "  run: {'dummy': true}\n";
+print STDOUT "  group: 'GRPSERIAL'\n";
 
 #actually build the tests
 print STDOUT "build_testsuite:\n";
-print STDOUT "    deps: [ 'dummy_test' ]\n";
-print STDOUT "    type: 'build'\n";
-print STDOUT "    target: 'test compiler=pcvs run_cmd=\"echo building ||\"'\n";
+print STDOUT "  build:\n";
+print STDOUT "    depends_on: [ 'dummy_test' ]\n";
+print STDOUT "    make: {'target': 'test compiler=pcvs run_cmd=\"echo building ||\"'}\n";
 print STDOUT "    files: '\@BUILDPATH\@/Makefile'\n";
 
 #this command generates a lot of 'make' errors, but we don't care, we just want the list of tests to run
@@ -41,13 +42,16 @@ while(<$fh>)
 	(my $name = $bin) =~ s,^./|\.exe$,,g;
 
 	print STDOUT "$name:\n";
-	print STDOUT "    type: 'run'\n";
-	print STDOUT "    deps: [ 'build_testsuite' ]\n";
-	print STDOUT "    n_proc: ~\n";
-	print STDOUT "    net: ~\n";
-	print STDOUT "    n_mpi: [ '<=4' ]\n";
-	print STDOUT "    bin: 'build/${bdir}_debug/$bin'\n";
-	print STDOUT "    args: '".join(" ", @line[2..$#line])."'\n" if(@line > 2);
+	print STDOUT "  run:\n";
+	print STDOUT "    depends_on: [ 'build_testsuite' ]\n";
+	print STDOUT "    program: 'build/${bdir}_debug/$bin'\n";
+	print STDOUT "    iterate:\n";
+	print STDOUT "      n_proc: {'values':  null}\n";
+	print STDOUT "      net: {'values': null}\n";
+	print STDOUT "      n_mpi: {'values': [{'seq': {'to': 4}}]}\n";
+	if(@line > 2){
+		print STDOUT "      program: {'args': {'values': '".join(" ", @line[2..$#line])."'}}\n";
+	}
 	print STDOUT "\n";
 }
 
