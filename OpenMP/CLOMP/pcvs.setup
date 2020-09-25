@@ -9,16 +9,10 @@ clompi="clomp_mpi"
 cp -r $pcvs_src_current/* $pcvs_build_current/
 
 echo "build_clomp:"
-echo "    type: 'build'"
-echo "    target: 'pcvs'"
-echo "    openmp: true"
+echo "  build:"
+echo "    make: {'target': 'pcvs'}"
+echo "    variants: [ 'openmp' ]"
 echo "    files: '@BUILDPATH@/Makefile'"
-
-echo "pcvst_clomp: &clomp"
-echo "    deps: [ 'build_clomp' ]"
-echo "    type: 'run'"
-echo "    net: [ 'tcp' ]"
-echo ""
 
 # args are:
 # numThreads: Number of OpenMP threads to use (-1 for system default)
@@ -32,17 +26,16 @@ echo ""
 for part in 400 6400 640000; do
 	clomp_fixed_args="-1 -1 $part 10 32 1 100"
 	echo "omp_part$part:"
-	echo "    herit: *clomp"
-	echo "    n_proc: [1]"
-	echo "    n_mpi: [1]"
-	echo "    net: ~"
-	echo "    bin: '$clomp'"
-	echo "    args: '$clomp_fixed_args'"
+	echo "  group: 'GRPOMP'"
+	echo "  run:"
+	echo "    program: '$clomp'"
+	echo "    iterate: {'program': {'args': {'values': '$clomp_fixed_args'}}}"
 
 	echo "mixed_part${part}:"
-	echo "    herit: *clomp"
-	echo "    bin: '$clompi'"
-	echo "    args: '$clomp_fixed_args'"
+	echo "  group: 'GRPOMP'"
+	echo "  run:"
+	echo "    program: '$clompi'"
+	echo "    iterate: {'program': {'args': {'values': '$clomp_fixed_args'}}}"
 	echo ""
 done
 
