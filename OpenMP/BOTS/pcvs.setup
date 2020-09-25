@@ -33,68 +33,74 @@ EXTRA_LIBS=
 EOF
 
 echo "build_bots:"
-echo "    type: 'build'"
-echo "    target: ''"
+echo "  build:"
+echo "    make: {'target': ''}"
 echo "    files: '@BUILDPATH@/Makefile'"
-
-echo "pcvst_bots: &bots"
-echo "    type: 'run'"
-echo "    herit: *GRPOMP"
 
 for align in 'for' 'single'
 do
 	echo "alignment-$align:"
-	echo "    herit: *bots"
-	echo "    bin: 'bin/alignment.$pcvs_validation_pf_name.$align-omp-tasks'"
-	echo "    args: '-c -f @BUILDPATH@/inputs/alignment/prot.20.aa'"
+	echo "  group: 'GRPOMP'"
+        echo "  run:"
+	echo "    program: 'bin/alignment.$pcvs_validation_pf_name.$align-omp-tasks'"
+	echo "    iterate: {'program': {'args': {'values': { '-c -f @BUILDPATH@/inputs/alignment/prot.20.aa'}}}}"
 done
 
 echo "fft_1024x1024x8:"
-echo "    herit: *bots"
-echo "    bin: 'bin/fft.${pcvs_validation_pf_name}.omp-tasks'"
-echo "    args: '-c -n 8388608'"
+echo "  group: 'GRPOMP'"
+echo "  run:"
+echo "    program: 'bin/fft.${pcvs_validation_pf_name}.omp-tasks'"
+echo "    iterate: {'program': {'args': {'values': { '-c -n 8388608'}}}}"
 
 echo "fib_20:"
-echo "    herit: *bots"
-echo "    bin: 'bin/fib.${pcvs_validation_pf_name}.omp-tasks'"
-echo "    args: '-c -n 20'"
+echo "  group: 'GRPOMP'"
+echo "  run:"
+echo "    program: 'bin/fib.${pcvs_validation_pf_name}.omp-tasks'"
+echo "    iterate: {'program': {'args': {'values': { '-c -n 20'}}}}"
 
 echo "floorplan_input20:"
-echo "    herit: *bots"
-echo "    bin: 'bin/floorplan.${pcvs_validation_pf_name}.omp-tasks'"
-echo "    args: '-c -f @BUILDPATH@/inputs/flooplan/input.20'"
+echo "  group: 'GRPOMP'"
+echo "  run:"
+echo "    program: 'bin/floorplan.${pcvs_validation_pf_name}.omp-tasks'"
+echo "    iterate: {'program': {'args': {'values': { '-c -f @BUILDPATH@/inputs/flooplan/input.20'}}}}"
 
 echo "health_small:"
-echo "    herit: *bots"
-echo "    bin: 'bin/health.${pcvs_validation_pf_name}.omp-tasks'"
-echo "    args: '-c -f @BUILDPATH@/inputs/health/small.input'"
+echo "  group: 'GRPOMP'"
+echo "  run:"
+echo "    program: 'bin/health.${pcvs_validation_pf_name}.omp-tasks'"
+echo "    iterate: {'program': {'args': {'values': { '-c -f @BUILDPATH@/inputs/health/small.input'}}}}"
 
 echo "nqueens_14:"
-echo "    herit: *bots"
-echo "    bin: 'bin/nqueens.${pcvs_validation_pf_name}.omp-tasks'"
-echo "    args: '-c -n 14'"
+echo "  group: 'GRPOMP'"
+echo "  run:"
+echo "    program: 'bin/nqueens.${pcvs_validation_pf_name}.omp-tasks'"
+echo "    iterate: {'program': {'args': {'values': { '-c -n 14'}}}}"
 
 echo "sort_20:"
-echo "    herit: *bots"
-echo "    bin: 'bin/sort.${pcvs_validation_pf_name}.omp-tasks'"
-echo "    args: '-c -n 20'"
+echo "  group: 'GRPOMP'"
+echo "  run:"
+echo "    program: 'bin/sort.${pcvs_validation_pf_name}.omp-tasks'"
+echo "    iterate: {'program': {'args': {'values': { '-c -n 20'}}}}"
 
 for sparselu in 'for' 'single'
 do
 	echo "sparselu-${sparselu}_25:"
-	echo "    herit: *bots"
-	echo "    bin: 'bin/sparselu.${pcvs_validation_pf_name}.$sparselu-omp-tasks'"
-	echo "    args: '-c -n 25'"
+	echo "  group: 'GRPOMP'"
+	echo "  run:"
+	echo "    program: 'bin/sparselu.${pcvs_validation_pf_name}.$sparselu-omp-tasks'"
+	echo "    iterate: {'program': {'args': {'values': { '-c -n 25'}}}}"
 done
 
 echo "strassen_1024:"
-echo "    herit: *bots"
-echo "    bin: 'bin/strassen.${pcvs_validation_pf_name}.omp-tasks'"
-echo "    args: '-c -n 1024'"
+echo "  group: 'GRPOMP'"
+echo "  run:"
+echo "    program: 'bin/strassen.${pcvs_validation_pf_name}.omp-tasks'"
+echo "    iterate: {'program': {'args': {'values': { '-c -n 1024'}}}}"
 
 echo "uts_tiny:"
-echo "    herit: *bots"
-echo "    bin: 'bin/uts.${pcvs_validation_pf_name}.omp-tasks'"
-echo "    args: '-c -f @BUILDPATH@/inputs/uts/tiny.input'"
+echo "  group: 'GRPOMP'"
+echo "  run:"
+echo "    program: 'bin/uts.${pcvs_validation_pf_name}.omp-tasks'"
+echo "    iterate: {'program': {'args': {'values': { '-c -f @BUILDPATH@/inputs/uts/tiny.input'}}}}"
 
 exit 0
