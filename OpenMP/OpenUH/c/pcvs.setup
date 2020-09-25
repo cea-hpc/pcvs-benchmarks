@@ -3,13 +3,6 @@
 pcvs_src_current=$pcvs_src/$1
 pcvs_build_current=$pcvs_testbuild/$1
 
-echo '
-pcvst_tc: &tc
-    herit: *GRPOMP
-    type: "complete"
-    openmp: true
-'
-
 OLDIR=`pwd`
 #very bad, but we don't have any other transparent solutions
 cd $pcvs_src_current/..
@@ -24,9 +17,12 @@ do
 	PERL5LIB=$PWD perl ./template_parser_c.pl --test --crosstest $pcvs_src_current/${c_file}.c $pcvs_build_current/${c_file}.c || exit 1
 echo "
 $c_file:
-    herit: *tc
+  group: 'GRPOMP'
+  build:
     files: '@BUILDPATH@/${c_file}.c'
-    cargs: '-I@SRCPATH@/..'
+    cflags: '-I@SRCPATH@/..'
+  run:
+    program: '$c_file'
 "
 done < $pcvs_src_current/../testlist-c.txt
 
