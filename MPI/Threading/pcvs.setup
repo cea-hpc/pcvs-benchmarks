@@ -10,10 +10,12 @@ do
 	bin=`echo "$file" | perl -pe "s/\..*$//"`
 
 	#generate YAML entry
-	echo "$bin:"
-	echo "    type: 'complete'"
-	echo "    herit: *GRPMPI"
-	echo "    files: \"@SRCPATH@/$file\""
-	echo "    bin: $bin"
+	echo "$bin:
+  build:
+    files: '@SRCPATH@/$file'
+    binary: '$bin'
+  run:
+    program: '$bin'
+"
 done
 exit 0
