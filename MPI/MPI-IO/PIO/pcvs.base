@@ -12,7 +12,7 @@ pio_noncontig:
   run:
     program: "noncontig/noncontig"
     iterate:
-      << *PIOT
+      <<: *PIOT
       program:
         args:
           values: "-fname @BUILDPATH@/out.dat -veclen 16384 -elmtcount 1 -sfact 8  -all -loops 8 -ssize 128 -displs 8 -veccount 512"
@@ -25,7 +25,7 @@ pio_tile:
   run:
     program: "mpi-tile-io/mpi-tile-io"
     iterate:
-      << *PIOT
+      <<: *PIOT
       program:
         args:
           values: "--nr_tiles_x 2 --nr_tiles_y 2 --sz_tile_x 256 --sz_tile_y 256 --sz_element 10000 --filename @BUILDPATH@/out.dat --collective --write_file"

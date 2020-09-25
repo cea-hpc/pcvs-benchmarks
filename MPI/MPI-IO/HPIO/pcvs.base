@@ -5,38 +5,38 @@ build_hpio:
 
 
 .template: &HPIOT
-    program: 'hpio'
-    depends_on: [ "build_hpio" ]
+  program: 'hpio'
+  depends_on: [ "build_hpio" ]
 
 .template2: &HPIOT_it
-      n_proc: { 'values': [1]}
-      n_mpi: { 'values': [4]}
+  n_proc: { 'values': [1]}
+  n_mpi: { 'values': [4]}
 
 test_cont_cont:
   run:
     <<: *HPIOT
     iterate:
       <<: *HPIOT_it
-      program: {'args': {'values': "-n 1000 -m 11 -b 111 -s 111 -v 2"}}}}
+      program: {'args': {'values': "-n 1000 -m 11 -b 111 -s 111 -v 2"}}
 
 test_noncont_cont:
   run:
     <<: *HPIOT
     iterate:
       <<: *HPIOT_it
-      program: {'args': {'values': "-n 0100 -m 11 -b 111 -s 111 -v 2"}}}}
+      program: {'args': {'values': "-n 0100 -m 11 -b 111 -s 111 -v 2"}}
 
 test_cont_noncont:
   run:
     <<: *HPIOT
     iterate:
       <<: *HPIOT_it
-      program: {'args': {'values': "-n 0010 -m 11 -b 100 -s 111 -v 2"}}}}
+      program: {'args': {'values': "-n 0010 -m 11 -b 100 -s 111 -v 2"}}
 
 test_noncont_noncont:
   run:
     <<: *HPIOT
     iterate:
       <<: *HPIOT_it
-      program: {'args': {'values': "-n 0001 -m 11 -b 100 -s 111 -v 2"}}}}
+      program: {'args': {'values': "-n 0001 -m 11 -b 100 -s 111 -v 2"}}
 
