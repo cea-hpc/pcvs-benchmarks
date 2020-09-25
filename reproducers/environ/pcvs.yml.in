@@ -1,11 +1,14 @@
 .t: &t
-        herit: *GRPSERIAL
-        type: "complete"
+  group: 'GRPSERIAL'
+  run:
+   dummy: true
 
 test_env:
-        herit: *t
-        files: '@SRCPATH@/env.c'
+  <<: *t
+  build:
+    files: '@SRCPATH@/env.c'
 
 test_minife_args:
-        herit: *t
-        files: '@SRCPATH@/args.c'
+  <<: *t
+  build:
+    files: '@SRCPATH@/args.c'

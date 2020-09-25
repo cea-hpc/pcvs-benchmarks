@@ -1,38 +1,49 @@
 .t: &t
-    type: "complete"
+  group: 'GRPMPI'
+  run:
+    dummy: true
 
 all-reduce:
-    herit: *t
+  <<: *t
+  build:
     files: '@SRCPATH@/all-reduce.c'
 
 bug-ib:
-    herit: *t
+  <<: *t
+  build:
     files: '@SRCPATH@/bug-ib.c'
 
 bug-packed:
-    herit: *t
+  <<: *t
+  build:
     files: '@SRCPATH@/bug-packed.c'
 
 comm_dup:
-    herit: *t
+  <<: *t
+  build:
     files: '@SRCPATH@/comm_dup.c'
 
 deadlock:
-    herit: *t
+  <<: *t
+  build:
     files: '@SRCPATH@/deadlock.c'
 
 key:
-    herit: *t
+  <<: *t
+  build:
     files: '@SRCPATH@/key.c'
 
 main:
-    herit: *t
+  <<: *t
+  build:
     files: '@SRCPATH@/main.c'
 
 m:
-    herit: *t
+  <<: *t
+  build:
     files: '@SRCPATH@/m.f90'
 
 wave:
-    herit: *t
-    files: '@SRCPATH@/wave.c'
+  <<: *t
+  build:
+      files: '@SRCPATH@/wave.c'

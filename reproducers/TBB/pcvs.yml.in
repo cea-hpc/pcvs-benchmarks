@@ -1,13 +1,17 @@
 .t: &t
-        herit: *GRPSERIAL
-        type: "complete"
-        tbb: true
+  group: 'GRPSERIAL'
+  run:
+    dummy: true
 
 tbb_mixed_omp:
-        files: '@SRCPATH@/tbb_mixed_omp.cpp'
-        herit: *t
+  build:
+    files: '@SRCPATH@/tbb_mixed_omp.cpp'
+    variants: ['tbb']
+  <<: *t
 
 tbb_simple_parallel_for:
-        files: '@SRCPATH@/tbb_simple_parallel_for.cpp'
-        herit: *t
+  build:
+    files: '@SRCPATH@/tbb_simple_parallel_for.cpp'
+    variants: ['tbb']
+  <<: *t
 
