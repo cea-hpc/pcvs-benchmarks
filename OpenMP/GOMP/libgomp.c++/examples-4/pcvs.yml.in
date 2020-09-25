@@ -1,13 +1,16 @@
-pcvst_t: &t
-    type: 'complete'
-    herit: *GRPOMP
-    openmp: true
-
 declare_target-2:
-    herit: *t
-    files: "@SRCPATH@/declare_target-2.C"
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/declare_target-2.C'
+    variants: ['openmp']
+  run:
+    program: declare_target-2
 
 target_data-5:
-    herit: *t
-    files: "@SRCPATH@/target_data-5.C"
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target_data-5.C'
+    variants: ['openmp']
+  run:
+    program: target_data-5
 

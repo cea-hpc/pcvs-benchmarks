@@ -1,181 +1,352 @@
-pcvst_t: &t
-    type: 'complete'
-    herit: *GRPOMP
-    openmp: true
-
-array_sections-4:
-    herit: *t
-    files: "@SRCPATH@/array_sections-4.f90"
-
-task_dep-1:
-    herit: *t
-    files: "@SRCPATH@/task_dep-1.f90"
-
-device-3:
-    herit: *t
-    files: "@SRCPATH@/device-3.f90"
-
-simd-3:
-    herit: *t
-    files: "@SRCPATH@/simd-3.f90"
-
-device-2:
-    herit: *t
-    files: "@SRCPATH@/device-2.f90"
-
 declare_target-2:
-    herit: *t
-    files: "@SRCPATH@/declare_target-2.f90"
-
-teams-2:
-    herit: *t
-    files: "@SRCPATH@/teams-2.f90"
-
-declare_target-4:
-    herit: *t
-    files: "@SRCPATH@/declare_target-4.f90"
-
-target-4:
-    herit: *t
-    files: "@SRCPATH@/target-4.f90"
-
-device-1:
-    herit: *t
-    files: "@SRCPATH@/device-1.f90"
-
-async_target-1:
-    herit: *t
-    files: "@SRCPATH@/async_target-1.f90"
-
-teams-6:
-    herit: *t
-    files: "@SRCPATH@/teams-6.f90"
-
-declare_target-3:
-    herit: *t
-    files: "@SRCPATH@/declare_target-3.f90"
-
-simd-5:
-    herit: *t
-    files: "@SRCPATH@/simd-5.f90"
-
-target-2:
-    herit: *t
-    files: "@SRCPATH@/target-2.f90"
-
-target_data-7:
-    herit: *t
-    files: "@SRCPATH@/target_data-7.f90"
-
-target_data-2:
-    herit: *t
-    files: "@SRCPATH@/target_data-2.f90"
-
-declare_target-5:
-    herit: *t
-    files: "@SRCPATH@/declare_target-5.f90"
-
-teams-5:
-    herit: *t
-    files: "@SRCPATH@/teams-5.f90"
-
-target_update-2:
-    herit: *t
-    files: "@SRCPATH@/target_update-2.f90"
-
-simd-4:
-    herit: *t
-    files: "@SRCPATH@/simd-4.f90"
-
-simd-6:
-    herit: *t
-    files: "@SRCPATH@/simd-6.f90"
-
-declare_target-1:
-    herit: *t
-    files: "@SRCPATH@/declare_target-1.f90"
-
-task_dep-3:
-    herit: *t
-    files: "@SRCPATH@/task_dep-3.f90"
-
-teams-4:
-    herit: *t
-    files: "@SRCPATH@/teams-4.f90"
-
-task_dep-2:
-    herit: *t
-    files: "@SRCPATH@/task_dep-2.f90"
-
-simd-7:
-    herit: *t
-    files: "@SRCPATH@/simd-7.f90"
-
-simd-8:
-    herit: *t
-    files: "@SRCPATH@/simd-8.f90"
-
-target-5:
-    herit: *t
-    files: "@SRCPATH@/target-5.f90"
-
-async_target-2:
-    herit: *t
-    files: "@SRCPATH@/async_target-2.f90"
-
-target_update-1:
-    herit: *t
-    files: "@SRCPATH@/target_update-1.f90"
-
-target_data-5:
-    herit: *t
-    files: "@SRCPATH@/target_data-5.f90"
-
-target_data-1:
-    herit: *t
-    files: "@SRCPATH@/target_data-1.f90"
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/declare_target-2.f90'
+    variants: ['openmp']
+  run:
+    program: declare_target-2
 
 teams-3:
-    herit: *t
-    files: "@SRCPATH@/teams-3.f90"
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/teams-3.f90'
+    variants: ['openmp']
+  run:
+    program: teams-3
 
-task_dep-5:
-    herit: *t
-    files: "@SRCPATH@/task_dep-5.f90"
+task_dep-3:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/task_dep-3.f90'
+    variants: ['openmp']
+  run:
+    program: task_dep-3
 
-target-3:
-    herit: *t
-    files: "@SRCPATH@/target-3.f90"
+array_sections-4:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/array_sections-4.f90'
+    variants: ['openmp']
+  run:
+    program: array_sections-4
 
-target_data-4:
-    herit: *t
-    files: "@SRCPATH@/target_data-4.f90"
-
-target_data-3:
-    herit: *t
-    files: "@SRCPATH@/target_data-3.f90"
+target_update-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target_update-2.f90'
+    variants: ['openmp']
+  run:
+    program: target_update-2
 
 simd-1:
-    herit: *t
-    files: "@SRCPATH@/simd-1.f90"
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/simd-1.f90'
+    variants: ['openmp']
+  run:
+    program: simd-1
 
-target_data-6:
-    herit: *t
-    files: "@SRCPATH@/target_data-6.f90"
+device-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/device-1.f90'
+    variants: ['openmp']
+  run:
+    program: device-1
 
-simd-2:
-    herit: *t
-    files: "@SRCPATH@/simd-2.f90"
+teams-5:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/teams-5.f90'
+    variants: ['openmp']
+  run:
+    program: teams-5
 
-target-1:
-    herit: *t
-    files: "@SRCPATH@/target-1.f90"
+teams-6:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/teams-6.f90'
+    variants: ['openmp']
+  run:
+    program: teams-6
+
+device-3:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/device-3.f90'
+    variants: ['openmp']
+  run:
+    program: device-3
+
+target-5:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-5.f90'
+    variants: ['openmp']
+  run:
+    program: target-5
+
+task_dep-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/task_dep-2.f90'
+    variants: ['openmp']
+  run:
+    program: task_dep-2
+
+declare_target-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/declare_target-1.f90'
+    variants: ['openmp']
+  run:
+    program: declare_target-1
+
+declare_target-5:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/declare_target-5.f90'
+    variants: ['openmp']
+  run:
+    program: declare_target-5
+
+task_dep-5:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/task_dep-5.f90'
+    variants: ['openmp']
+  run:
+    program: task_dep-5
+
+teams-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/teams-2.f90'
+    variants: ['openmp']
+  run:
+    program: teams-2
+
+simd-5:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/simd-5.f90'
+    variants: ['openmp']
+  run:
+    program: simd-5
+
+simd-6:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/simd-6.f90'
+    variants: ['openmp']
+  run:
+    program: simd-6
+
+teams-4:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/teams-4.f90'
+    variants: ['openmp']
+  run:
+    program: teams-4
+
+simd-7:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/simd-7.f90'
+    variants: ['openmp']
+  run:
+    program: simd-7
+
+target_data-4:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target_data-4.f90'
+    variants: ['openmp']
+  run:
+    program: target_data-4
+
+simd-3:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/simd-3.f90'
+    variants: ['openmp']
+  run:
+    program: simd-3
+
+simd-8:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/simd-8.f90'
+    variants: ['openmp']
+  run:
+    program: simd-8
+
+async_target-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/async_target-2.f90'
+    variants: ['openmp']
+  run:
+    program: async_target-2
+
+declare_target-3:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/declare_target-3.f90'
+    variants: ['openmp']
+  run:
+    program: declare_target-3
+
+target-4:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-4.f90'
+    variants: ['openmp']
+  run:
+    program: target-4
+
+simd-4:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/simd-4.f90'
+    variants: ['openmp']
+  run:
+    program: simd-4
+
+target_data-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target_data-1.f90'
+    variants: ['openmp']
+  run:
+    program: target_data-1
 
 task_dep-4:
-    herit: *t
-    files: "@SRCPATH@/task_dep-4.f90"
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/task_dep-4.f90'
+    variants: ['openmp']
+  run:
+    program: task_dep-4
+
+task_dep-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/task_dep-1.f90'
+    variants: ['openmp']
+  run:
+    program: task_dep-1
+
+target_data-7:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target_data-7.f90'
+    variants: ['openmp']
+  run:
+    program: target_data-7
+
+target_data-5:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target_data-5.f90'
+    variants: ['openmp']
+  run:
+    program: target_data-5
+
+target_data-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target_data-2.f90'
+    variants: ['openmp']
+  run:
+    program: target_data-2
+
+target_data-3:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target_data-3.f90'
+    variants: ['openmp']
+  run:
+    program: target_data-3
+
+target-3:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-3.f90'
+    variants: ['openmp']
+  run:
+    program: target-3
+
+device-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/device-2.f90'
+    variants: ['openmp']
+  run:
+    program: device-2
 
 array_sections-3:
-    herit: *t
-    files: "@SRCPATH@/array_sections-3.f90"
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/array_sections-3.f90'
+    variants: ['openmp']
+  run:
+    program: array_sections-3
+
+target-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-2.f90'
+    variants: ['openmp']
+  run:
+    program: target-2
+
+target-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-1.f90'
+    variants: ['openmp']
+  run:
+    program: target-1
+
+declare_target-4:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/declare_target-4.f90'
+    variants: ['openmp']
+  run:
+    program: declare_target-4
+
+async_target-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/async_target-1.f90'
+    variants: ['openmp']
+  run:
+    program: async_target-1
+
+simd-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/simd-2.f90'
+    variants: ['openmp']
+  run:
+    program: simd-2
+
+target_update-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target_update-1.f90'
+    variants: ['openmp']
+  run:
+    program: target_update-1
+
+target_data-6:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target_data-6.f90'
+    variants: ['openmp']
+  run:
+    program: target_data-6
 

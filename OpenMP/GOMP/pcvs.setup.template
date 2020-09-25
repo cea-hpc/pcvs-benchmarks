@@ -10,22 +10,20 @@ pcvs_src_current=$pcvs_src
 pcvs_ext=$1
 #pcvs_build_current=$pcvs_testbuild/$1
 
-echo "pcvst_t: &t"
-echo "    type: 'complete'"
-echo "    herit: *GRPOMP"
-echo "    openmp: true"
-echo ""
-
 for t in `find $pcvs_src_current -maxdepth 1 -type f -regex ".*\.$pcvs_ext" | sed -e "s,$pcvs_src_current/,,g"`
 do
 	#remove extension
 	name=`echo "$t" | perl -pe "s/\.$pcvs_ext$//g"`
 
 	#generate YAML entry
-	echo "$name:"
-	echo "    herit: *t"
-	echo "    files: \"@SRCPATH@/$t\""
-	echo ""
+	echo "$name:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/$t'
+    variants: ['openmp']
+  run:
+    program: $name
+"
 done
 
 #commands run for GOMP:

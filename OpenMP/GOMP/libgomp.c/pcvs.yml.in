@@ -1,1181 +1,2352 @@
-pcvst_t: &t
-    type: 'complete'
-    herit: *GRPOMP
-    openmp: true
-
-pr66199-2:
-    herit: *t
-    files: "@SRCPATH@/pr66199-2.c"
-
-monotonic-1:
-    herit: *t
-    files: "@SRCPATH@/monotonic-1.c"
-
-depend-2:
-    herit: *t
-    files: "@SRCPATH@/depend-2.c"
-
-cancel-parallel-2:
-    herit: *t
-    files: "@SRCPATH@/cancel-parallel-2.c"
-
-target-1:
-    herit: *t
-    files: "@SRCPATH@/target-1.c"
-
-atomic-15:
-    herit: *t
-    files: "@SRCPATH@/atomic-15.c"
-
-target-29:
-    herit: *t
-    files: "@SRCPATH@/target-29.c"
-
-target-8:
-    herit: *t
-    files: "@SRCPATH@/target-8.c"
-
-omp-loop03:
-    herit: *t
-    files: "@SRCPATH@/omp-loop03.c"
-
-omp-single-3:
-    herit: *t
-    files: "@SRCPATH@/omp-single-3.c"
-
-cancel-taskgroup-1:
-    herit: *t
-    files: "@SRCPATH@/cancel-taskgroup-1.c"
-
-pr32362-3:
-    herit: *t
-    files: "@SRCPATH@/pr32362-3.c"
-
-target-19:
-    herit: *t
-    files: "@SRCPATH@/target-19.c"
-
-omp_orphan:
-    herit: *t
-    files: "@SRCPATH@/omp_orphan.c"
+loop-12:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/loop-12.c'
+    variants: ['openmp']
+  run:
+    program: loop-12
 
 pr29947-2:
-    herit: *t
-    files: "@SRCPATH@/pr29947-2.c"
-
-loop-3:
-    herit: *t
-    files: "@SRCPATH@/loop-3.c"
-
-depend-3:
-    herit: *t
-    files: "@SRCPATH@/depend-3.c"
-
-target-12:
-    herit: *t
-    files: "@SRCPATH@/target-12.c"
-
-omp-nested-1:
-    herit: *t
-    files: "@SRCPATH@/omp-nested-1.c"
-
-pr48591:
-    herit: *t
-    files: "@SRCPATH@/pr48591.c"
-
-atomic-16:
-    herit: *t
-    files: "@SRCPATH@/atomic-16.c"
-
-simd-13:
-    herit: *t
-    files: "@SRCPATH@/simd-13.c"
-
-pr64824:
-    herit: *t
-    files: "@SRCPATH@/pr64824.c"
-
-atomic-13:
-    herit: *t
-    files: "@SRCPATH@/atomic-13.c"
-
-omp-parallel-for:
-    herit: *t
-    files: "@SRCPATH@/omp-parallel-for.c"
-
-pr35130:
-    herit: *t
-    files: "@SRCPATH@/pr35130.c"
-
-atomic-17:
-    herit: *t
-    files: "@SRCPATH@/atomic-17.c"
-
-autopar-6:
-    herit: *t
-    files: "@SRCPATH@/autopar-6.c"
-
-simd-15:
-    herit: *t
-    files: "@SRCPATH@/simd-15.c"
-
-linear-1:
-    herit: *t
-    files: "@SRCPATH@/linear-1.c"
-
-atomic-12:
-    herit: *t
-    files: "@SRCPATH@/atomic-12.c"
-
-ordered-1:
-    herit: *t
-    files: "@SRCPATH@/ordered-1.c"
-
-target-20:
-    herit: *t
-    files: "@SRCPATH@/target-20.c"
-
-pr66199-4:
-    herit: *t
-    files: "@SRCPATH@/pr66199-4.c"
-
-taskloop-1:
-    herit: *t
-    files: "@SRCPATH@/taskloop-1.c"
-
-nestedfn-3:
-    herit: *t
-    files: "@SRCPATH@/nestedfn-3.c"
-
-doacross-2:
-    herit: *t
-    files: "@SRCPATH@/doacross-2.c"
-
-reduction-4:
-    herit: *t
-    files: "@SRCPATH@/reduction-4.c"
-
-pr58756:
-    herit: *t
-    files: "@SRCPATH@/pr58756.c"
-
-reduction-14:
-    herit: *t
-    files: "@SRCPATH@/reduction-14.c"
-
-omp_hello:
-    herit: *t
-    files: "@SRCPATH@/omp_hello.c"
-
-task-1:
-    herit: *t
-    files: "@SRCPATH@/task-1.c"
-
-taskloop-3:
-    herit: *t
-    files: "@SRCPATH@/taskloop-3.c"
-
-pr49897-1:
-    herit: *t
-    files: "@SRCPATH@/pr49897-1.c"
-
-nestedfn-5:
-    herit: *t
-    files: "@SRCPATH@/nestedfn-5.c"
-
-pr26943-3:
-    herit: *t
-    files: "@SRCPATH@/pr26943-3.c"
-
-task-3:
-    herit: *t
-    files: "@SRCPATH@/task-3.c"
-
-single-2:
-    herit: *t
-    files: "@SRCPATH@/single-2.c"
-
-pr26943-4:
-    herit: *t
-    files: "@SRCPATH@/pr26943-4.c"
-
-omp_reduction:
-    herit: *t
-    files: "@SRCPATH@/omp_reduction.c"
-
-cancel-for-2:
-    herit: *t
-    files: "@SRCPATH@/cancel-for-2.c"
-
-cancel-taskgroup-2:
-    herit: *t
-    files: "@SRCPATH@/cancel-taskgroup-2.c"
-
-target-22:
-    herit: *t
-    files: "@SRCPATH@/target-22.c"
-
-pr32468:
-    herit: *t
-    files: "@SRCPATH@/pr32468.c"
-
-pr38650:
-    herit: *t
-    files: "@SRCPATH@/pr38650.c"
-
-pr36802-2:
-    herit: *t
-    files: "@SRCPATH@/pr36802-2.c"
-
-pr39154:
-    herit: *t
-    files: "@SRCPATH@/pr39154.c"
-
-pr69805:
-    herit: *t
-    files: "@SRCPATH@/pr69805.c"
-
-pr64868:
-    herit: *t
-    files: "@SRCPATH@/pr64868.c"
-
-target-26:
-    herit: *t
-    files: "@SRCPATH@/target-26.c"
-
-pr36802-3:
-    herit: *t
-    files: "@SRCPATH@/pr36802-3.c"
-
-pr66199-8:
-    herit: *t
-    files: "@SRCPATH@/pr66199-8.c"
-
-nestedfn-2:
-    herit: *t
-    files: "@SRCPATH@/nestedfn-2.c"
-
-simd-5:
-    herit: *t
-    files: "@SRCPATH@/simd-5.c"
-
-doacross-3:
-    herit: *t
-    files: "@SRCPATH@/doacross-3.c"
-
-atomic-18:
-    herit: *t
-    files: "@SRCPATH@/atomic-18.c"
-
-reduction-9:
-    herit: *t
-    files: "@SRCPATH@/reduction-9.c"
-
-pr66199-1:
-    herit: *t
-    files: "@SRCPATH@/pr66199-1.c"
-
-pr66133:
-    herit: *t
-    files: "@SRCPATH@/pr66133.c"
-
-simd-12:
-    herit: *t
-    files: "@SRCPATH@/simd-12.c"
-
-reduction-7:
-    herit: *t
-    files: "@SRCPATH@/reduction-7.c"
-
-depend-5:
-    herit: *t
-    files: "@SRCPATH@/depend-5.c"
-
-depend-4:
-    herit: *t
-    files: "@SRCPATH@/depend-4.c"
-
-critical-1:
-    herit: *t
-    files: "@SRCPATH@/critical-1.c"
-
-thread-limit-3:
-    herit: *t
-    files: "@SRCPATH@/thread-limit-3.c"
-
-depend-6:
-    herit: *t
-    files: "@SRCPATH@/depend-6.c"
-
-reduction-2:
-    herit: *t
-    files: "@SRCPATH@/reduction-2.c"
-
-pr66199-9:
-    herit: *t
-    files: "@SRCPATH@/pr66199-9.c"
-
-pr66714:
-    herit: *t
-    files: "@SRCPATH@/pr66714.c"
-
-depend-10:
-    herit: *t
-    files: "@SRCPATH@/depend-10.c"
-
-autopar-8:
-    herit: *t
-    files: "@SRCPATH@/autopar-8.c"
-
-omp-loop01:
-    herit: *t
-    files: "@SRCPATH@/omp-loop01.c"
-
-loop-8:
-    herit: *t
-    files: "@SRCPATH@/loop-8.c"
-
-sections-1:
-    herit: *t
-    files: "@SRCPATH@/sections-1.c"
-
-vla-1:
-    herit: *t
-    files: "@SRCPATH@/vla-1.c"
-
-task-2:
-    herit: *t
-    files: "@SRCPATH@/task-2.c"
-
-simd-14:
-    herit: *t
-    files: "@SRCPATH@/simd-14.c"
-
-cancel-for-1:
-    herit: *t
-    files: "@SRCPATH@/cancel-for-1.c"
-
-atomic-3:
-    herit: *t
-    files: "@SRCPATH@/atomic-3.c"
-
-pr49897-2:
-    herit: *t
-    files: "@SRCPATH@/pr49897-2.c"
-
-uns-outer-4:
-    herit: *t
-    files: "@SRCPATH@/uns-outer-4.c"
-
-loop-4:
-    herit: *t
-    files: "@SRCPATH@/loop-4.c"
-
-nestedfn-6:
-    herit: *t
-    files: "@SRCPATH@/nestedfn-6.c"
-
-target-35:
-    herit: *t
-    files: "@SRCPATH@/target-35.c"
-
-depend-7:
-    herit: *t
-    files: "@SRCPATH@/depend-7.c"
-
-pr35625:
-    herit: *t
-    files: "@SRCPATH@/pr35625.c"
-
-omp-parallel-if:
-    herit: *t
-    files: "@SRCPATH@/omp-parallel-if.c"
-
-pr35196:
-    herit: *t
-    files: "@SRCPATH@/pr35196.c"
-
-cancel-parallel-3:
-    herit: *t
-    files: "@SRCPATH@/cancel-parallel-3.c"
-
-pr69110:
-    herit: *t
-    files: "@SRCPATH@/pr69110.c"
-
-depend-8:
-    herit: *t
-    files: "@SRCPATH@/depend-8.c"
-
-for-5:
-    herit: *t
-    files: "@SRCPATH@/for-5.c"
-
-nonmonotonic-2:
-    herit: *t
-    files: "@SRCPATH@/nonmonotonic-2.c"
-
-copyin-2:
-    herit: *t
-    files: "@SRCPATH@/copyin-2.c"
-
-pr46032:
-    herit: *t
-    files: "@SRCPATH@/pr46032.c"
-
-loop-12:
-    herit: *t
-    files: "@SRCPATH@/loop-12.c"
-
-loop-5:
-    herit: *t
-    files: "@SRCPATH@/loop-5.c"
-
-pr32362-1:
-    herit: *t
-    files: "@SRCPATH@/pr32362-1.c"
-
-target-10:
-    herit: *t
-    files: "@SRCPATH@/target-10.c"
-
-pr70680-2:
-    herit: *t
-    files: "@SRCPATH@/pr70680-2.c"
-
-static-chunk-size-one:
-    herit: *t
-    files: "@SRCPATH@/static-chunk-size-one.c"
-
-pr61200:
-    herit: *t
-    files: "@SRCPATH@/pr61200.c"
-
-sections-2:
-    herit: *t
-    files: "@SRCPATH@/sections-2.c"
-
-copyin-3:
-    herit: *t
-    files: "@SRCPATH@/copyin-3.c"
-
-parloops-exit-first-loop-alt-6:
-    herit: *t
-    files: "@SRCPATH@/parloops-exit-first-loop-alt-6.c"
-
-reduction-8:
-    herit: *t
-    files: "@SRCPATH@/reduction-8.c"
-
-atomic-2:
-    herit: *t
-    files: "@SRCPATH@/atomic-2.c"
-
-barrier-1:
-    herit: *t
-    files: "@SRCPATH@/barrier-1.c"
-
-parloops-exit-first-loop-alt-7:
-    herit: *t
-    files: "@SRCPATH@/parloops-exit-first-loop-alt-7.c"
-
-target-34:
-    herit: *t
-    files: "@SRCPATH@/target-34.c"
-
-omp_workshare3:
-    herit: *t
-    files: "@SRCPATH@/omp_workshare3.c"
-
-pr33880:
-    herit: *t
-    files: "@SRCPATH@/pr33880.c"
-
-pr39591-2:
-    herit: *t
-    files: "@SRCPATH@/pr39591-2.c"
-
-pr46193:
-    herit: *t
-    files: "@SRCPATH@/pr46193.c"
-
-pr26171:
-    herit: *t
-    files: "@SRCPATH@/pr26171.c"
-
-affinity-1:
-    herit: *t
-    files: "@SRCPATH@/affinity-1.c"
-
-pr32362-2:
-    herit: *t
-    files: "@SRCPATH@/pr32362-2.c"
-
-for-4:
-    herit: *t
-    files: "@SRCPATH@/for-4.c"
-
-pr52547:
-    herit: *t
-    files: "@SRCPATH@/pr52547.c"
-
-pr30494:
-    herit: *t
-    files: "@SRCPATH@/pr30494.c"
-
-atomic-10:
-    herit: *t
-    files: "@SRCPATH@/atomic-10.c"
-
-target-23:
-    herit: *t
-    files: "@SRCPATH@/target-23.c"
-
-taskgroup-1:
-    herit: *t
-    files: "@SRCPATH@/taskgroup-1.c"
-
-pr26943-2:
-    herit: *t
-    files: "@SRCPATH@/pr26943-2.c"
-
-target-critical-1:
-    herit: *t
-    files: "@SRCPATH@/target-critical-1.c"
-
-loop-14:
-    herit: *t
-    files: "@SRCPATH@/loop-14.c"
-
-loop-7:
-    herit: *t
-    files: "@SRCPATH@/loop-7.c"
-
-target-32:
-    herit: *t
-    files: "@SRCPATH@/target-32.c"
-
-pr36802-1:
-    herit: *t
-    files: "@SRCPATH@/pr36802-1.c"
-
-target-15:
-    herit: *t
-    files: "@SRCPATH@/target-15.c"
-
-simd-8:
-    herit: *t
-    files: "@SRCPATH@/simd-8.c"
-
-target-9:
-    herit: *t
-    files: "@SRCPATH@/target-9.c"
-
-task-4:
-    herit: *t
-    files: "@SRCPATH@/task-4.c"
-
-atomic-1:
-    herit: *t
-    files: "@SRCPATH@/atomic-1.c"
-
-ordered-5:
-    herit: *t
-    files: "@SRCPATH@/ordered-5.c"
-
-omp-nested-2:
-    herit: *t
-    files: "@SRCPATH@/omp-nested-2.c"
-
-loop-13:
-    herit: *t
-    files: "@SRCPATH@/loop-13.c"
-
-simd-9:
-    herit: *t
-    files: "@SRCPATH@/simd-9.c"
-
-loop-10:
-    herit: *t
-    files: "@SRCPATH@/loop-10.c"
-
-pr39591-3:
-    herit: *t
-    files: "@SRCPATH@/pr39591-3.c"
-
-shared-1:
-    herit: *t
-    files: "@SRCPATH@/shared-1.c"
-
-nested-2:
-    herit: *t
-    files: "@SRCPATH@/nested-2.c"
-
-cancel-sections-1:
-    herit: *t
-    files: "@SRCPATH@/cancel-sections-1.c"
-
-pr68960:
-    herit: *t
-    files: "@SRCPATH@/pr68960.c"
-
-reduction-3:
-    herit: *t
-    files: "@SRCPATH@/reduction-3.c"
-
-cancel-parallel-1:
-    herit: *t
-    files: "@SRCPATH@/cancel-parallel-1.c"
-
-pr64734:
-    herit: *t
-    files: "@SRCPATH@/pr64734.c"
-
-reduction-10:
-    herit: *t
-    files: "@SRCPATH@/reduction-10.c"
-
-autopar-7:
-    herit: *t
-    files: "@SRCPATH@/autopar-7.c"
-
-target-28:
-    herit: *t
-    files: "@SRCPATH@/target-28.c"
-
-collapse-1:
-    herit: *t
-    files: "@SRCPATH@/collapse-1.c"
-
-udr-3:
-    herit: *t
-    files: "@SRCPATH@/udr-3.c"
-
-autopar-4:
-    herit: *t
-    files: "@SRCPATH@/autopar-4.c"
-
-target-14:
-    herit: *t
-    files: "@SRCPATH@/target-14.c"
-
-loop-2:
-    herit: *t
-    files: "@SRCPATH@/loop-2.c"
-
-simd-17:
-    herit: *t
-    files: "@SRCPATH@/simd-17.c"
-
-pr66199-7:
-    herit: *t
-    files: "@SRCPATH@/pr66199-7.c"
-
-pr24455-1:
-    herit: *t
-    files: "@SRCPATH@/pr24455-1.c"
-
-critical-2:
-    herit: *t
-    files: "@SRCPATH@/critical-2.c"
-
-simd-6:
-    herit: *t
-    files: "@SRCPATH@/simd-6.c"
-
-lib-2:
-    herit: *t
-    files: "@SRCPATH@/lib-2.c"
-
-atomic-14:
-    herit: *t
-    files: "@SRCPATH@/atomic-14.c"
-
-monotonic-2:
-    herit: *t
-    files: "@SRCPATH@/monotonic-2.c"
-
-pr49898-1:
-    herit: *t
-    files: "@SRCPATH@/pr49898-1.c"
-
-for-2:
-    herit: *t
-    files: "@SRCPATH@/for-2.c"
-
-pr66199-3:
-    herit: *t
-    files: "@SRCPATH@/pr66199-3.c"
-
-for-1:
-    herit: *t
-    files: "@SRCPATH@/for-1.c"
-
-reduction-12:
-    herit: *t
-    files: "@SRCPATH@/reduction-12.c"
-
-for-6:
-    herit: *t
-    files: "@SRCPATH@/for-6.c"
-
-target-18:
-    herit: *t
-    files: "@SRCPATH@/target-18.c"
-
-autopar-2:
-    herit: *t
-    files: "@SRCPATH@/autopar-2.c"
-
-udr-2:
-    herit: *t
-    files: "@SRCPATH@/udr-2.c"
-
-atomic-4:
-    herit: *t
-    files: "@SRCPATH@/atomic-4.c"
-
-pr26943-1:
-    herit: *t
-    files: "@SRCPATH@/pr26943-1.c"
-
-loop-1:
-    herit: *t
-    files: "@SRCPATH@/loop-1.c"
-
-simd-4:
-    herit: *t
-    files: "@SRCPATH@/simd-4.c"
-
-ordered-2:
-    herit: *t
-    files: "@SRCPATH@/ordered-2.c"
-
-reduction-13:
-    herit: *t
-    files: "@SRCPATH@/reduction-13.c"
-
-target-16:
-    herit: *t
-    files: "@SRCPATH@/target-16.c"
-
-omp_matvec:
-    herit: *t
-    files: "@SRCPATH@/omp_matvec.c"
-
-omp_workshare1:
-    herit: *t
-    files: "@SRCPATH@/omp_workshare1.c"
-
-nestedfn-1:
-    herit: *t
-    files: "@SRCPATH@/nestedfn-1.c"
-
-collapse-2:
-    herit: *t
-    files: "@SRCPATH@/collapse-2.c"
-
-omp_workshare4:
-    herit: *t
-    files: "@SRCPATH@/omp_workshare4.c"
-
-loop-15:
-    herit: *t
-    files: "@SRCPATH@/loop-15.c"
-
-for-3:
-    herit: *t
-    files: "@SRCPATH@/for-3.c"
-
-thread-limit-2:
-    herit: *t
-    files: "@SRCPATH@/thread-limit-2.c"
-
-target-33:
-    herit: *t
-    files: "@SRCPATH@/target-33.c"
-
-omp-loop02:
-    herit: *t
-    files: "@SRCPATH@/omp-loop02.c"
-
-single-1:
-    herit: *t
-    files: "@SRCPATH@/single-1.c"
-
-priority:
-    herit: *t
-    files: "@SRCPATH@/priority.c"
-
-target-24:
-    herit: *t
-    files: "@SRCPATH@/target-24.c"
-
-simd-3:
-    herit: *t
-    files: "@SRCPATH@/simd-3.c"
-
-pr70680-1:
-    herit: *t
-    files: "@SRCPATH@/pr70680-1.c"
-
-target-27:
-    herit: *t
-    files: "@SRCPATH@/target-27.c"
-
-omp_workshare2:
-    herit: *t
-    files: "@SRCPATH@/omp_workshare2.c"
-
-target-31:
-    herit: *t
-    files: "@SRCPATH@/target-31.c"
-
-target-5:
-    herit: *t
-    files: "@SRCPATH@/target-5.c"
-
-target-4:
-    herit: *t
-    files: "@SRCPATH@/target-4.c"
-
-loop-6:
-    herit: *t
-    files: "@SRCPATH@/loop-6.c"
-
-loop-9:
-    herit: *t
-    files: "@SRCPATH@/loop-9.c"
-
-taskloop-2:
-    herit: *t
-    files: "@SRCPATH@/taskloop-2.c"
-
-simd-11:
-    herit: *t
-    files: "@SRCPATH@/simd-11.c"
-
-target-6:
-    herit: *t
-    files: "@SRCPATH@/target-6.c"
-
-taskloop-4:
-    herit: *t
-    files: "@SRCPATH@/taskloop-4.c"
-
-simd-7:
-    herit: *t
-    files: "@SRCPATH@/simd-7.c"
-
-shared-2:
-    herit: *t
-    files: "@SRCPATH@/shared-2.c"
-
-ordered-4:
-    herit: *t
-    files: "@SRCPATH@/ordered-4.c"
-
-atomic-11:
-    herit: *t
-    files: "@SRCPATH@/atomic-11.c"
-
-parallel-1:
-    herit: *t
-    files: "@SRCPATH@/parallel-1.c"
-
-target-7:
-    herit: *t
-    files: "@SRCPATH@/target-7.c"
-
-pr34513:
-    herit: *t
-    files: "@SRCPATH@/pr34513.c"
-
-simd-1:
-    herit: *t
-    files: "@SRCPATH@/simd-1.c"
-
-simd-16:
-    herit: *t
-    files: "@SRCPATH@/simd-16.c"
-
-pr66199-6:
-    herit: *t
-    files: "@SRCPATH@/pr66199-6.c"
-
-depend-1:
-    herit: *t
-    files: "@SRCPATH@/depend-1.c"
-
-pr42029:
-    herit: *t
-    files: "@SRCPATH@/pr42029.c"
-
-omp-single-2:
-    herit: *t
-    files: "@SRCPATH@/omp-single-2.c"
-
-pr43893:
-    herit: *t
-    files: "@SRCPATH@/pr43893.c"
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr29947-2.c'
+    variants: ['openmp']
+  run:
+    program: pr29947-2
 
 pr29947-1:
-    herit: *t
-    files: "@SRCPATH@/pr29947-1.c"
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr29947-1.c'
+    variants: ['openmp']
+  run:
+    program: pr29947-1
 
-lock-3:
-    herit: *t
-    files: "@SRCPATH@/lock-3.c"
-
-reduction-5:
-    herit: *t
-    files: "@SRCPATH@/reduction-5.c"
-
-parloops-exit-first-loop-alt-5:
-    herit: *t
-    files: "@SRCPATH@/parloops-exit-first-loop-alt-5.c"
-
-atomic-5:
-    herit: *t
-    files: "@SRCPATH@/atomic-5.c"
-
-target-21:
-    herit: *t
-    files: "@SRCPATH@/target-21.c"
-
-nested-1:
-    herit: *t
-    files: "@SRCPATH@/nested-1.c"
-
-nqueens-1:
-    herit: *t
-    files: "@SRCPATH@/nqueens-1.c"
-
-target-13:
-    herit: *t
-    files: "@SRCPATH@/target-13.c"
-
-simd-10:
-    herit: *t
-    files: "@SRCPATH@/simd-10.c"
-
-icv-1:
-    herit: *t
-    files: "@SRCPATH@/icv-1.c"
-
-lib-1:
-    herit: *t
-    files: "@SRCPATH@/lib-1.c"
+target-35:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-35.c'
+    variants: ['openmp']
+  run:
+    program: target-35
 
 pr42942:
-    herit: *t
-    files: "@SRCPATH@/pr42942.c"
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr42942.c'
+    variants: ['openmp']
+  run:
+    program: pr42942
 
-loop-11:
-    herit: *t
-    files: "@SRCPATH@/loop-11.c"
+cancel-for-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/cancel-for-1.c'
+    variants: ['openmp']
+  run:
+    program: cancel-for-1
 
-thread-limit-1:
-    herit: *t
-    files: "@SRCPATH@/thread-limit-1.c"
+nestedfn-6:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/nestedfn-6.c'
+    variants: ['openmp']
+  run:
+    program: nestedfn-6
 
-reduction-15:
-    herit: *t
-    files: "@SRCPATH@/reduction-15.c"
+target-18:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-18.c'
+    variants: ['openmp']
+  run:
+    program: target-18
 
-target-teams-1:
-    herit: *t
-    files: "@SRCPATH@/target-teams-1.c"
+omp-loop01:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/omp-loop01.c'
+    variants: ['openmp']
+  run:
+    program: omp-loop01
 
-autopar-3:
-    herit: *t
-    files: "@SRCPATH@/autopar-3.c"
+omp_workshare3:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/omp_workshare3.c'
+    variants: ['openmp']
+  run:
+    program: omp_workshare3
 
-collapse-3:
-    herit: *t
-    files: "@SRCPATH@/collapse-3.c"
+reduction-12:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/reduction-12.c'
+    variants: ['openmp']
+  run:
+    program: reduction-12
 
-sort-1:
-    herit: *t
-    files: "@SRCPATH@/sort-1.c"
+pr32362-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr32362-1.c'
+    variants: ['openmp']
+  run:
+    program: pr32362-1
 
-target-3:
-    herit: *t
-    files: "@SRCPATH@/target-3.c"
+simd-7:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/simd-7.c'
+    variants: ['openmp']
+  run:
+    program: simd-7
+
+autopar-6:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/autopar-6.c'
+    variants: ['openmp']
+  run:
+    program: autopar-6
 
 copyin-1:
-    herit: *t
-    files: "@SRCPATH@/copyin-1.c"
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/copyin-1.c'
+    variants: ['openmp']
+  run:
+    program: copyin-1
 
-private-1:
-    herit: *t
-    files: "@SRCPATH@/private-1.c"
+pr32362-3:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr32362-3.c'
+    variants: ['openmp']
+  run:
+    program: pr32362-3
 
-nestedfn-4:
-    herit: *t
-    files: "@SRCPATH@/nestedfn-4.c"
+pr33880:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr33880.c'
+    variants: ['openmp']
+  run:
+    program: pr33880
 
-omp-nested-3:
-    herit: *t
-    files: "@SRCPATH@/omp-nested-3.c"
+loop-7:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/loop-7.c'
+    variants: ['openmp']
+  run:
+    program: loop-7
 
-target-25:
-    herit: *t
-    files: "@SRCPATH@/target-25.c"
+autopar-7:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/autopar-7.c'
+    variants: ['openmp']
+  run:
+    program: autopar-7
 
-parloops-exit-first-loop-alt:
-    herit: *t
-    files: "@SRCPATH@/parloops-exit-first-loop-alt.c"
+linear-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/linear-1.c'
+    variants: ['openmp']
+  run:
+    program: linear-1
 
-task-5:
-    herit: *t
-    files: "@SRCPATH@/task-5.c"
+omp-nested-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/omp-nested-2.c'
+    variants: ['openmp']
+  run:
+    program: omp-nested-2
 
-target-17:
-    herit: *t
-    files: "@SRCPATH@/target-17.c"
+atomic-5:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/atomic-5.c'
+    variants: ['openmp']
+  run:
+    program: atomic-5
 
-parloops-exit-first-loop-alt-4:
-    herit: *t
-    files: "@SRCPATH@/parloops-exit-first-loop-alt-4.c"
+simd-3:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/simd-3.c'
+    variants: ['openmp']
+  run:
+    program: simd-3
 
-pr24455:
-    herit: *t
-    files: "@SRCPATH@/pr24455.c"
+atomic-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/atomic-1.c'
+    variants: ['openmp']
+  run:
+    program: atomic-1
 
-autopar-1:
-    herit: *t
-    files: "@SRCPATH@/autopar-1.c"
+reduction-5:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/reduction-5.c'
+    variants: ['openmp']
+  run:
+    program: reduction-5
 
-ordered-3:
-    herit: *t
-    files: "@SRCPATH@/ordered-3.c"
+taskloop-4:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/taskloop-4.c'
+    variants: ['openmp']
+  run:
+    program: taskloop-4
 
-omp-single-1:
-    herit: *t
-    files: "@SRCPATH@/omp-single-1.c"
-
-pr35549:
-    herit: *t
-    files: "@SRCPATH@/pr35549.c"
-
-autopar-5:
-    herit: *t
-    files: "@SRCPATH@/autopar-5.c"
-
-atomic-6:
-    herit: *t
-    files: "@SRCPATH@/atomic-6.c"
-
-reduction-1:
-    herit: *t
-    files: "@SRCPATH@/reduction-1.c"
-
-depend-9:
-    herit: *t
-    files: "@SRCPATH@/depend-9.c"
-
-reduction-6:
-    herit: *t
-    files: "@SRCPATH@/reduction-6.c"
+omp-parallel-for:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/omp-parallel-for.c'
+    variants: ['openmp']
+  run:
+    program: omp-parallel-for
 
 loop-16:
-    herit: *t
-    files: "@SRCPATH@/loop-16.c"
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/loop-16.c'
+    variants: ['openmp']
+  run:
+    program: loop-16
 
-pr39591-1:
-    herit: *t
-    files: "@SRCPATH@/pr39591-1.c"
+pr26943-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr26943-2.c'
+    variants: ['openmp']
+  run:
+    program: pr26943-2
 
-nested-3:
-    herit: *t
-    files: "@SRCPATH@/nested-3.c"
+reduction-9:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/reduction-9.c'
+    variants: ['openmp']
+  run:
+    program: reduction-9
 
-pr66199-5:
-    herit: *t
-    files: "@SRCPATH@/pr66199-5.c"
+target-21:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-21.c'
+    variants: ['openmp']
+  run:
+    program: target-21
 
-parloops-exit-first-loop-alt-2:
-    herit: *t
-    files: "@SRCPATH@/parloops-exit-first-loop-alt-2.c"
-
-nonmonotonic-1:
-    herit: *t
-    files: "@SRCPATH@/nonmonotonic-1.c"
-
-icv-2:
-    herit: *t
-    files: "@SRCPATH@/icv-2.c"
-
-parloops-exit-first-loop-alt-3:
-    herit: *t
-    files: "@SRCPATH@/parloops-exit-first-loop-alt-3.c"
-
-udr-1:
-    herit: *t
-    files: "@SRCPATH@/udr-1.c"
-
-target-2:
-    herit: *t
-    files: "@SRCPATH@/target-2.c"
-
-reduction-11:
-    herit: *t
-    files: "@SRCPATH@/reduction-11.c"
-
-shared-3:
-    herit: *t
-    files: "@SRCPATH@/shared-3.c"
-
-simd-2:
-    herit: *t
-    files: "@SRCPATH@/simd-2.c"
-
-doacross-1:
-    herit: *t
-    files: "@SRCPATH@/doacross-1.c"
-
-target-11:
-    herit: *t
-    files: "@SRCPATH@/target-11.c"
-
-pr46886:
-    herit: *t
-    files: "@SRCPATH@/pr46886.c"
+cancel-parallel-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/cancel-parallel-1.c'
+    variants: ['openmp']
+  run:
+    program: cancel-parallel-1
 
 target-30:
-    herit: *t
-    files: "@SRCPATH@/target-30.c"
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-30.c'
+    variants: ['openmp']
+  run:
+    program: target-30
 
-target-link-1:
-    herit: *t
-    files: "@SRCPATH@/target-link-1.c"
+atomic-18:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/atomic-18.c'
+    variants: ['openmp']
+  run:
+    program: atomic-18
 
-pr49898-2:
-    herit: *t
-    files: "@SRCPATH@/pr49898-2.c"
+atomic-14:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/atomic-14.c'
+    variants: ['openmp']
+  run:
+    program: atomic-14
 
-pr58392:
-    herit: *t
-    files: "@SRCPATH@/pr58392.c"
+pr42029:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr42029.c'
+    variants: ['openmp']
+  run:
+    program: pr42029
 
-lock-2:
-    herit: *t
-    files: "@SRCPATH@/lock-2.c"
+icv-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/icv-2.c'
+    variants: ['openmp']
+  run:
+    program: icv-2
+
+pr69805:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr69805.c'
+    variants: ['openmp']
+  run:
+    program: pr69805
+
+lib-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/lib-1.c'
+    variants: ['openmp']
+  run:
+    program: lib-1
+
+depend-4:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/depend-4.c'
+    variants: ['openmp']
+  run:
+    program: depend-4
+
+pr49897-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr49897-2.c'
+    variants: ['openmp']
+  run:
+    program: pr49897-2
 
 pr46032-2:
-    herit: *t
-    files: "@SRCPATH@/pr46032-2.c"
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr46032-2.c'
+    variants: ['openmp']
+  run:
+    program: pr46032-2
 
-debug-1:
-    herit: *t
-    files: "@SRCPATH@/debug-1.c"
+omp-parallel-if:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/omp-parallel-if.c'
+    variants: ['openmp']
+  run:
+    program: omp-parallel-if
+
+target-link-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-link-1.c'
+    variants: ['openmp']
+  run:
+    program: target-link-1
+
+pr58756:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr58756.c'
+    variants: ['openmp']
+  run:
+    program: pr58756
+
+atomic-16:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/atomic-16.c'
+    variants: ['openmp']
+  run:
+    program: atomic-16
+
+loop-9:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/loop-9.c'
+    variants: ['openmp']
+  run:
+    program: loop-9
+
+target-32:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-32.c'
+    variants: ['openmp']
+  run:
+    program: target-32
+
+depend-8:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/depend-8.c'
+    variants: ['openmp']
+  run:
+    program: depend-8
+
+target-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-1.c'
+    variants: ['openmp']
+  run:
+    program: target-1
+
+atomic-11:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/atomic-11.c'
+    variants: ['openmp']
+  run:
+    program: atomic-11
+
+pr66199-3:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr66199-3.c'
+    variants: ['openmp']
+  run:
+    program: pr66199-3
+
+taskloop-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/taskloop-2.c'
+    variants: ['openmp']
+  run:
+    program: taskloop-2
+
+pr34513:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr34513.c'
+    variants: ['openmp']
+  run:
+    program: pr34513
+
+omp_matvec:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/omp_matvec.c'
+    variants: ['openmp']
+  run:
+    program: omp_matvec
+
+loop-6:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/loop-6.c'
+    variants: ['openmp']
+  run:
+    program: loop-6
+
+cancel-taskgroup-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/cancel-taskgroup-1.c'
+    variants: ['openmp']
+  run:
+    program: cancel-taskgroup-1
+
+vla-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/vla-1.c'
+    variants: ['openmp']
+  run:
+    program: vla-1
+
+omp-nested-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/omp-nested-1.c'
+    variants: ['openmp']
+  run:
+    program: omp-nested-1
+
+taskloop-3:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/taskloop-3.c'
+    variants: ['openmp']
+  run:
+    program: taskloop-3
+
+parloops-exit-first-loop-alt:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/parloops-exit-first-loop-alt.c'
+    variants: ['openmp']
+  run:
+    program: parloops-exit-first-loop-alt
+
+priority:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/priority.c'
+    variants: ['openmp']
+  run:
+    program: priority
+
+simd-12:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/simd-12.c'
+    variants: ['openmp']
+  run:
+    program: simd-12
+
+for-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/for-1.c'
+    variants: ['openmp']
+  run:
+    program: for-1
+
+taskgroup-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/taskgroup-1.c'
+    variants: ['openmp']
+  run:
+    program: taskgroup-1
+
+pr66199-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr66199-1.c'
+    variants: ['openmp']
+  run:
+    program: pr66199-1
+
+doacross-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/doacross-2.c'
+    variants: ['openmp']
+  run:
+    program: doacross-2
+
+target-34:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-34.c'
+    variants: ['openmp']
+  run:
+    program: target-34
+
+udr-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/udr-1.c'
+    variants: ['openmp']
+  run:
+    program: udr-1
+
+pr48591:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr48591.c'
+    variants: ['openmp']
+  run:
+    program: pr48591
+
+loop-13:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/loop-13.c'
+    variants: ['openmp']
+  run:
+    program: loop-13
+
+atomic-12:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/atomic-12.c'
+    variants: ['openmp']
+  run:
+    program: atomic-12
+
+autopar-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/autopar-2.c'
+    variants: ['openmp']
+  run:
+    program: autopar-2
+
+target-27:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-27.c'
+    variants: ['openmp']
+  run:
+    program: target-27
+
+loop-14:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/loop-14.c'
+    variants: ['openmp']
+  run:
+    program: loop-14
 
 lock-1:
-    herit: *t
-    files: "@SRCPATH@/lock-1.c"
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/lock-1.c'
+    variants: ['openmp']
+  run:
+    program: lock-1
+
+omp-single-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/omp-single-1.c'
+    variants: ['openmp']
+  run:
+    program: omp-single-1
+
+nestedfn-5:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/nestedfn-5.c'
+    variants: ['openmp']
+  run:
+    program: nestedfn-5
+
+parloops-exit-first-loop-alt-5:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/parloops-exit-first-loop-alt-5.c'
+    variants: ['openmp']
+  run:
+    program: parloops-exit-first-loop-alt-5
+
+target-26:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-26.c'
+    variants: ['openmp']
+  run:
+    program: target-26
+
+target-12:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-12.c'
+    variants: ['openmp']
+  run:
+    program: target-12
+
+pr35549:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr35549.c'
+    variants: ['openmp']
+  run:
+    program: pr35549
+
+shared-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/shared-1.c'
+    variants: ['openmp']
+  run:
+    program: shared-1
+
+pr24455-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr24455-1.c'
+    variants: ['openmp']
+  run:
+    program: pr24455-1
+
+omp_reduction:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/omp_reduction.c'
+    variants: ['openmp']
+  run:
+    program: omp_reduction
+
+target-teams-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-teams-1.c'
+    variants: ['openmp']
+  run:
+    program: target-teams-1
+
+pr69110:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr69110.c'
+    variants: ['openmp']
+  run:
+    program: pr69110
+
+pr24455:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr24455.c'
+    variants: ['openmp']
+  run:
+    program: pr24455
+
+task-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/task-2.c'
+    variants: ['openmp']
+  run:
+    program: task-2
+
+thread-limit-3:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/thread-limit-3.c'
+    variants: ['openmp']
+  run:
+    program: thread-limit-3
+
+depend-3:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/depend-3.c'
+    variants: ['openmp']
+  run:
+    program: depend-3
+
+reduction-14:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/reduction-14.c'
+    variants: ['openmp']
+  run:
+    program: reduction-14
+
+cancel-parallel-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/cancel-parallel-2.c'
+    variants: ['openmp']
+  run:
+    program: cancel-parallel-2
+
+simd-9:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/simd-9.c'
+    variants: ['openmp']
+  run:
+    program: simd-9
+
+udr-3:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/udr-3.c'
+    variants: ['openmp']
+  run:
+    program: udr-3
+
+loop-11:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/loop-11.c'
+    variants: ['openmp']
+  run:
+    program: loop-11
+
+doacross-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/doacross-1.c'
+    variants: ['openmp']
+  run:
+    program: doacross-1
+
+parloops-exit-first-loop-alt-3:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/parloops-exit-first-loop-alt-3.c'
+    variants: ['openmp']
+  run:
+    program: parloops-exit-first-loop-alt-3
+
+omp-loop03:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/omp-loop03.c'
+    variants: ['openmp']
+  run:
+    program: omp-loop03
+
+pr49898-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr49898-1.c'
+    variants: ['openmp']
+  run:
+    program: pr49898-1
+
+loop-15:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/loop-15.c'
+    variants: ['openmp']
+  run:
+    program: loop-15
+
+monotonic-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/monotonic-1.c'
+    variants: ['openmp']
+  run:
+    program: monotonic-1
+
+reduction-10:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/reduction-10.c'
+    variants: ['openmp']
+  run:
+    program: reduction-10
+
+depend-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/depend-1.c'
+    variants: ['openmp']
+  run:
+    program: depend-1
+
+pr66714:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr66714.c'
+    variants: ['openmp']
+  run:
+    program: pr66714
+
+for-6:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/for-6.c'
+    variants: ['openmp']
+  run:
+    program: for-6
+
+sections-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/sections-2.c'
+    variants: ['openmp']
+  run:
+    program: sections-2
+
+autopar-4:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/autopar-4.c'
+    variants: ['openmp']
+  run:
+    program: autopar-4
+
+static-chunk-size-one:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/static-chunk-size-one.c'
+    variants: ['openmp']
+  run:
+    program: static-chunk-size-one
+
+omp_workshare2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/omp_workshare2.c'
+    variants: ['openmp']
+  run:
+    program: omp_workshare2
+
+omp_workshare1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/omp_workshare1.c'
+    variants: ['openmp']
+  run:
+    program: omp_workshare1
+
+pr66199-8:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr66199-8.c'
+    variants: ['openmp']
+  run:
+    program: pr66199-8
+
+target-20:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-20.c'
+    variants: ['openmp']
+  run:
+    program: target-20
+
+target-22:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-22.c'
+    variants: ['openmp']
+  run:
+    program: target-22
+
+depend-10:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/depend-10.c'
+    variants: ['openmp']
+  run:
+    program: depend-10
+
+target-10:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-10.c'
+    variants: ['openmp']
+  run:
+    program: target-10
+
+pr36802-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr36802-2.c'
+    variants: ['openmp']
+  run:
+    program: pr36802-2
+
+nestedfn-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/nestedfn-2.c'
+    variants: ['openmp']
+  run:
+    program: nestedfn-2
+
+pr35196:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr35196.c'
+    variants: ['openmp']
+  run:
+    program: pr35196
+
+simd-11:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/simd-11.c'
+    variants: ['openmp']
+  run:
+    program: simd-11
+
+pr64824:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr64824.c'
+    variants: ['openmp']
+  run:
+    program: pr64824
+
+omp_hello:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/omp_hello.c'
+    variants: ['openmp']
+  run:
+    program: omp_hello
+
+target-8:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-8.c'
+    variants: ['openmp']
+  run:
+    program: target-8
+
+simd-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/simd-1.c'
+    variants: ['openmp']
+  run:
+    program: simd-1
+
+target-9:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-9.c'
+    variants: ['openmp']
+  run:
+    program: target-9
+
+autopar-3:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/autopar-3.c'
+    variants: ['openmp']
+  run:
+    program: autopar-3
+
+omp_workshare4:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/omp_workshare4.c'
+    variants: ['openmp']
+  run:
+    program: omp_workshare4
+
+nqueens-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/nqueens-1.c'
+    variants: ['openmp']
+  run:
+    program: nqueens-1
+
+target-4:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-4.c'
+    variants: ['openmp']
+  run:
+    program: target-4
+
+pr38650:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr38650.c'
+    variants: ['openmp']
+  run:
+    program: pr38650
+
+target-29:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-29.c'
+    variants: ['openmp']
+  run:
+    program: target-29
+
+reduction-15:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/reduction-15.c'
+    variants: ['openmp']
+  run:
+    program: reduction-15
+
+reduction-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/reduction-1.c'
+    variants: ['openmp']
+  run:
+    program: reduction-1
+
+atomic-15:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/atomic-15.c'
+    variants: ['openmp']
+  run:
+    program: atomic-15
+
+simd-10:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/simd-10.c'
+    variants: ['openmp']
+  run:
+    program: simd-10
+
+reduction-13:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/reduction-13.c'
+    variants: ['openmp']
+  run:
+    program: reduction-13
+
+ordered-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/ordered-2.c'
+    variants: ['openmp']
+  run:
+    program: ordered-2
+
+icv-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/icv-1.c'
+    variants: ['openmp']
+  run:
+    program: icv-1
+
+critical-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/critical-1.c'
+    variants: ['openmp']
+  run:
+    program: critical-1
+
+single-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/single-1.c'
+    variants: ['openmp']
+  run:
+    program: single-1
+
+parloops-exit-first-loop-alt-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/parloops-exit-first-loop-alt-2.c'
+    variants: ['openmp']
+  run:
+    program: parloops-exit-first-loop-alt-2
+
+omp-nested-3:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/omp-nested-3.c'
+    variants: ['openmp']
+  run:
+    program: omp-nested-3
+
+depend-6:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/depend-6.c'
+    variants: ['openmp']
+  run:
+    program: depend-6
+
+pr30494:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr30494.c'
+    variants: ['openmp']
+  run:
+    program: pr30494
+
+target-25:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-25.c'
+    variants: ['openmp']
+  run:
+    program: target-25
+
+target-23:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-23.c'
+    variants: ['openmp']
+  run:
+    program: target-23
+
+loop-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/loop-2.c'
+    variants: ['openmp']
+  run:
+    program: loop-2
+
+cancel-parallel-3:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/cancel-parallel-3.c'
+    variants: ['openmp']
+  run:
+    program: cancel-parallel-3
+
+target-7:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-7.c'
+    variants: ['openmp']
+  run:
+    program: target-7
+
+uns-outer-4:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/uns-outer-4.c'
+    variants: ['openmp']
+  run:
+    program: uns-outer-4
+
+pr66199-5:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr66199-5.c'
+    variants: ['openmp']
+  run:
+    program: pr66199-5
+
+nonmonotonic-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/nonmonotonic-2.c'
+    variants: ['openmp']
+  run:
+    program: nonmonotonic-2
+
+copyin-3:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/copyin-3.c'
+    variants: ['openmp']
+  run:
+    program: copyin-3
+
+sections-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/sections-1.c'
+    variants: ['openmp']
+  run:
+    program: sections-1
+
+cancel-sections-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/cancel-sections-1.c'
+    variants: ['openmp']
+  run:
+    program: cancel-sections-1
+
+atomic-17:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/atomic-17.c'
+    variants: ['openmp']
+  run:
+    program: atomic-17
+
+shared-3:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/shared-3.c'
+    variants: ['openmp']
+  run:
+    program: shared-3
+
+nestedfn-3:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/nestedfn-3.c'
+    variants: ['openmp']
+  run:
+    program: nestedfn-3
+
+simd-16:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/simd-16.c'
+    variants: ['openmp']
+  run:
+    program: simd-16
+
+omp_orphan:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/omp_orphan.c'
+    variants: ['openmp']
+  run:
+    program: omp_orphan
+
+pr49898-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr49898-2.c'
+    variants: ['openmp']
+  run:
+    program: pr49898-2
+
+target-13:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-13.c'
+    variants: ['openmp']
+  run:
+    program: target-13
+
+shared-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/shared-2.c'
+    variants: ['openmp']
+  run:
+    program: shared-2
+
+target-33:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-33.c'
+    variants: ['openmp']
+  run:
+    program: target-33
+
+loop-8:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/loop-8.c'
+    variants: ['openmp']
+  run:
+    program: loop-8
+
+atomic-13:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/atomic-13.c'
+    variants: ['openmp']
+  run:
+    program: atomic-13
+
+simd-15:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/simd-15.c'
+    variants: ['openmp']
+  run:
+    program: simd-15
+
+ordered-3:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/ordered-3.c'
+    variants: ['openmp']
+  run:
+    program: ordered-3
+
+autopar-8:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/autopar-8.c'
+    variants: ['openmp']
+  run:
+    program: autopar-8
+
+parloops-exit-first-loop-alt-7:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/parloops-exit-first-loop-alt-7.c'
+    variants: ['openmp']
+  run:
+    program: parloops-exit-first-loop-alt-7
+
+target-16:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-16.c'
+    variants: ['openmp']
+  run:
+    program: target-16
+
+lock-3:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/lock-3.c'
+    variants: ['openmp']
+  run:
+    program: lock-3
+
+pr35625:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr35625.c'
+    variants: ['openmp']
+  run:
+    program: pr35625
+
+simd-17:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/simd-17.c'
+    variants: ['openmp']
+  run:
+    program: simd-17
+
+simd-6:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/simd-6.c'
+    variants: ['openmp']
+  run:
+    program: simd-6
+
+simd-8:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/simd-8.c'
+    variants: ['openmp']
+  run:
+    program: simd-8
+
+debug-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/debug-1.c'
+    variants: ['openmp']
+  run:
+    program: debug-1
+
+for-5:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/for-5.c'
+    variants: ['openmp']
+  run:
+    program: for-5
+
+copyin-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/copyin-2.c'
+    variants: ['openmp']
+  run:
+    program: copyin-2
+
+pr39154:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr39154.c'
+    variants: ['openmp']
+  run:
+    program: pr39154
+
+depend-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/depend-2.c'
+    variants: ['openmp']
+  run:
+    program: depend-2
+
+depend-9:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/depend-9.c'
+    variants: ['openmp']
+  run:
+    program: depend-9
+
+barrier-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/barrier-1.c'
+    variants: ['openmp']
+  run:
+    program: barrier-1
+
+ordered-5:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/ordered-5.c'
+    variants: ['openmp']
+  run:
+    program: ordered-5
+
+simd-4:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/simd-4.c'
+    variants: ['openmp']
+  run:
+    program: simd-4
+
+atomic-6:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/atomic-6.c'
+    variants: ['openmp']
+  run:
+    program: atomic-6
+
+pr64868:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr64868.c'
+    variants: ['openmp']
+  run:
+    program: pr64868
+
+target-3:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-3.c'
+    variants: ['openmp']
+  run:
+    program: target-3
+
+simd-14:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/simd-14.c'
+    variants: ['openmp']
+  run:
+    program: simd-14
+
+reduction-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/reduction-2.c'
+    variants: ['openmp']
+  run:
+    program: reduction-2
+
+collapse-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/collapse-1.c'
+    variants: ['openmp']
+  run:
+    program: collapse-1
+
+single-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/single-2.c'
+    variants: ['openmp']
+  run:
+    program: single-2
+
+pr70680-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr70680-2.c'
+    variants: ['openmp']
+  run:
+    program: pr70680-2
+
+pr66199-7:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr66199-7.c'
+    variants: ['openmp']
+  run:
+    program: pr66199-7
+
+omp-single-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/omp-single-2.c'
+    variants: ['openmp']
+  run:
+    program: omp-single-2
+
+atomic-4:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/atomic-4.c'
+    variants: ['openmp']
+  run:
+    program: atomic-4
+
+task-3:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/task-3.c'
+    variants: ['openmp']
+  run:
+    program: task-3
+
+simd-5:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/simd-5.c'
+    variants: ['openmp']
+  run:
+    program: simd-5
+
+pr26943-3:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr26943-3.c'
+    variants: ['openmp']
+  run:
+    program: pr26943-3
+
+nested-3:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/nested-3.c'
+    variants: ['openmp']
+  run:
+    program: nested-3
+
+for-3:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/for-3.c'
+    variants: ['openmp']
+  run:
+    program: for-3
+
+target-11:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-11.c'
+    variants: ['openmp']
+  run:
+    program: target-11
+
+target-14:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-14.c'
+    variants: ['openmp']
+  run:
+    program: target-14
+
+pr66199-4:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr66199-4.c'
+    variants: ['openmp']
+  run:
+    program: pr66199-4
+
+collapse-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/collapse-2.c'
+    variants: ['openmp']
+  run:
+    program: collapse-2
+
+depend-7:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/depend-7.c'
+    variants: ['openmp']
+  run:
+    program: depend-7
+
+pr36802-3:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr36802-3.c'
+    variants: ['openmp']
+  run:
+    program: pr36802-3
+
+doacross-3:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/doacross-3.c'
+    variants: ['openmp']
+  run:
+    program: doacross-3
+
+affinity-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/affinity-1.c'
+    variants: ['openmp']
+  run:
+    program: affinity-1
+
+lib-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/lib-2.c'
+    variants: ['openmp']
+  run:
+    program: lib-2
+
+cancel-for-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/cancel-for-2.c'
+    variants: ['openmp']
+  run:
+    program: cancel-for-2
 
 affinity-2:
-    herit: *t
-    files: "@SRCPATH@/affinity-2.c"
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/affinity-2.c'
+    variants: ['openmp']
+  run:
+    program: affinity-2
+
+omp-loop02:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/omp-loop02.c'
+    variants: ['openmp']
+  run:
+    program: omp-loop02
+
+pr26943-4:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr26943-4.c'
+    variants: ['openmp']
+  run:
+    program: pr26943-4
+
+parloops-exit-first-loop-alt-6:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/parloops-exit-first-loop-alt-6.c'
+    variants: ['openmp']
+  run:
+    program: parloops-exit-first-loop-alt-6
+
+nestedfn-4:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/nestedfn-4.c'
+    variants: ['openmp']
+  run:
+    program: nestedfn-4
+
+pr58392:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr58392.c'
+    variants: ['openmp']
+  run:
+    program: pr58392
+
+pr32468:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr32468.c'
+    variants: ['openmp']
+  run:
+    program: pr32468
+
+target-5:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-5.c'
+    variants: ['openmp']
+  run:
+    program: target-5
+
+target-15:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-15.c'
+    variants: ['openmp']
+  run:
+    program: target-15
+
+loop-5:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/loop-5.c'
+    variants: ['openmp']
+  run:
+    program: loop-5
+
+parallel-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/parallel-1.c'
+    variants: ['openmp']
+  run:
+    program: parallel-1
+
+thread-limit-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/thread-limit-1.c'
+    variants: ['openmp']
+  run:
+    program: thread-limit-1
+
+task-4:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/task-4.c'
+    variants: ['openmp']
+  run:
+    program: task-4
+
+pr39591-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr39591-2.c'
+    variants: ['openmp']
+  run:
+    program: pr39591-2
+
+target-28:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-28.c'
+    variants: ['openmp']
+  run:
+    program: target-28
+
+pr26171:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr26171.c'
+    variants: ['openmp']
+  run:
+    program: pr26171
+
+reduction-6:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/reduction-6.c'
+    variants: ['openmp']
+  run:
+    program: reduction-6
+
+pr66199-6:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr66199-6.c'
+    variants: ['openmp']
+  run:
+    program: pr66199-6
+
+autopar-5:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/autopar-5.c'
+    variants: ['openmp']
+  run:
+    program: autopar-5
+
+target-critical-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-critical-1.c'
+    variants: ['openmp']
+  run:
+    program: target-critical-1
+
+ordered-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/ordered-1.c'
+    variants: ['openmp']
+  run:
+    program: ordered-1
+
+critical-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/critical-2.c'
+    variants: ['openmp']
+  run:
+    program: critical-2
+
+for-4:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/for-4.c'
+    variants: ['openmp']
+  run:
+    program: for-4
+
+pr39591-3:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr39591-3.c'
+    variants: ['openmp']
+  run:
+    program: pr39591-3
+
+ordered-4:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/ordered-4.c'
+    variants: ['openmp']
+  run:
+    program: ordered-4
+
+nested-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/nested-2.c'
+    variants: ['openmp']
+  run:
+    program: nested-2
+
+lock-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/lock-2.c'
+    variants: ['openmp']
+  run:
+    program: lock-2
+
+pr43893:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr43893.c'
+    variants: ['openmp']
+  run:
+    program: pr43893
+
+target-17:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-17.c'
+    variants: ['openmp']
+  run:
+    program: target-17
+
+taskloop-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/taskloop-1.c'
+    variants: ['openmp']
+  run:
+    program: taskloop-1
+
+atomic-10:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/atomic-10.c'
+    variants: ['openmp']
+  run:
+    program: atomic-10
+
+pr35130:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr35130.c'
+    variants: ['openmp']
+  run:
+    program: pr35130
+
+task-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/task-1.c'
+    variants: ['openmp']
+  run:
+    program: task-1
+
+pr46193:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr46193.c'
+    variants: ['openmp']
+  run:
+    program: pr46193
+
+reduction-4:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/reduction-4.c'
+    variants: ['openmp']
+  run:
+    program: reduction-4
+
+pr46032:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr46032.c'
+    variants: ['openmp']
+  run:
+    program: pr46032
+
+omp-single-3:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/omp-single-3.c'
+    variants: ['openmp']
+  run:
+    program: omp-single-3
+
+cancel-taskgroup-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/cancel-taskgroup-2.c'
+    variants: ['openmp']
+  run:
+    program: cancel-taskgroup-2
+
+target-24:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-24.c'
+    variants: ['openmp']
+  run:
+    program: target-24
+
+autopar-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/autopar-1.c'
+    variants: ['openmp']
+  run:
+    program: autopar-1
+
+nested-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/nested-1.c'
+    variants: ['openmp']
+  run:
+    program: nested-1
+
+nonmonotonic-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/nonmonotonic-1.c'
+    variants: ['openmp']
+  run:
+    program: nonmonotonic-1
+
+depend-5:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/depend-5.c'
+    variants: ['openmp']
+  run:
+    program: depend-5
+
+pr39591-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr39591-1.c'
+    variants: ['openmp']
+  run:
+    program: pr39591-1
+
+task-5:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/task-5.c'
+    variants: ['openmp']
+  run:
+    program: task-5
+
+reduction-3:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/reduction-3.c'
+    variants: ['openmp']
+  run:
+    program: reduction-3
+
+loop-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/loop-1.c'
+    variants: ['openmp']
+  run:
+    program: loop-1
+
+pr36802-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr36802-1.c'
+    variants: ['openmp']
+  run:
+    program: pr36802-1
+
+pr49897-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr49897-1.c'
+    variants: ['openmp']
+  run:
+    program: pr49897-1
+
+private-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/private-1.c'
+    variants: ['openmp']
+  run:
+    program: private-1
+
+atomic-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/atomic-2.c'
+    variants: ['openmp']
+  run:
+    program: atomic-2
+
+nestedfn-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/nestedfn-1.c'
+    variants: ['openmp']
+  run:
+    program: nestedfn-1
+
+loop-10:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/loop-10.c'
+    variants: ['openmp']
+  run:
+    program: loop-10
+
+parloops-exit-first-loop-alt-4:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/parloops-exit-first-loop-alt-4.c'
+    variants: ['openmp']
+  run:
+    program: parloops-exit-first-loop-alt-4
+
+monotonic-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/monotonic-2.c'
+    variants: ['openmp']
+  run:
+    program: monotonic-2
+
+collapse-3:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/collapse-3.c'
+    variants: ['openmp']
+  run:
+    program: collapse-3
+
+target-19:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-19.c'
+    variants: ['openmp']
+  run:
+    program: target-19
+
+pr66199-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr66199-2.c'
+    variants: ['openmp']
+  run:
+    program: pr66199-2
+
+loop-4:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/loop-4.c'
+    variants: ['openmp']
+  run:
+    program: loop-4
+
+pr61200:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr61200.c'
+    variants: ['openmp']
+  run:
+    program: pr61200
+
+pr64734:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr64734.c'
+    variants: ['openmp']
+  run:
+    program: pr64734
+
+pr70680-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr70680-1.c'
+    variants: ['openmp']
+  run:
+    program: pr70680-1
+
+pr66199-9:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr66199-9.c'
+    variants: ['openmp']
+  run:
+    program: pr66199-9
+
+target-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-2.c'
+    variants: ['openmp']
+  run:
+    program: target-2
+
+pr52547:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr52547.c'
+    variants: ['openmp']
+  run:
+    program: pr52547
+
+pr32362-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr32362-2.c'
+    variants: ['openmp']
+  run:
+    program: pr32362-2
+
+for-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/for-2.c'
+    variants: ['openmp']
+  run:
+    program: for-2
+
+reduction-7:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/reduction-7.c'
+    variants: ['openmp']
+  run:
+    program: reduction-7
+
+target-6:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-6.c'
+    variants: ['openmp']
+  run:
+    program: target-6
+
+thread-limit-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/thread-limit-2.c'
+    variants: ['openmp']
+  run:
+    program: thread-limit-2
+
+pr46886:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr46886.c'
+    variants: ['openmp']
+  run:
+    program: pr46886
+
+pr68960:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr68960.c'
+    variants: ['openmp']
+  run:
+    program: pr68960
+
+target-31:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/target-31.c'
+    variants: ['openmp']
+  run:
+    program: target-31
+
+atomic-3:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/atomic-3.c'
+    variants: ['openmp']
+  run:
+    program: atomic-3
+
+udr-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/udr-2.c'
+    variants: ['openmp']
+  run:
+    program: udr-2
+
+simd-13:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/simd-13.c'
+    variants: ['openmp']
+  run:
+    program: simd-13
+
+reduction-8:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/reduction-8.c'
+    variants: ['openmp']
+  run:
+    program: reduction-8
+
+sort-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/sort-1.c'
+    variants: ['openmp']
+  run:
+    program: sort-1
+
+simd-2:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/simd-2.c'
+    variants: ['openmp']
+  run:
+    program: simd-2
+
+pr66133:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr66133.c'
+    variants: ['openmp']
+  run:
+    program: pr66133
+
+loop-3:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/loop-3.c'
+    variants: ['openmp']
+  run:
+    program: loop-3
+
+reduction-11:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/reduction-11.c'
+    variants: ['openmp']
+  run:
+    program: reduction-11
+
+pr26943-1:
+  group: 'GRPOMP'
+  build:
+    files: '@SRCPATH@/pr26943-1.c'
+    variants: ['openmp']
+  run:
+    program: pr26943-1
 
