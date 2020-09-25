@@ -14,9 +14,9 @@ mkdir -p $pcvs_build_current/util
 cp $pcvs_src_current/util/*.h $pcvs_build_current/util/
 
 echo "compile_osu_mpi:"
-echo "    type: 'build'"
+echo "  build:"
 echo "    files: '@BUILDPATH@/mpi/$group/Makefile'"
-echo "    target: 'all'"
+echo "    make: {'target': 'all'}"
 
 #add new tests here...
 for t in                      \
@@ -65,18 +65,15 @@ one-sided/osu_fop_latency       \
 group=`echo "$t" | cut -f1 -d'/'`
 bin=`echo "$t" | cut -f2 -d'/'`
 echo "${group}_${bin}:"
-echo "    type: 'run'"
-echo "    herit: *GRPMPI"
-echo "    bin: 'mpi/$group/$bin'"
-echo "    deps: [ \"compile_osu_mpi\" ]"
+echo "  group: 'GRPMPI'"
+echo "  run:"
+echo "    program: 'mpi/$group/$bin'"
+echo "    depends_on: [ 'compile_osu_mpi' ]"
 
 #please set special cases here...
 case $t in
-	startup/*)        ;;
-	pt2pt/osu_mbw_mr) echo "    n_mpi: ['>=2']" ;;
-	pt2pt/*)          echo "    n_mpi: [2]" ;;
-	collective/*)     echo "    n_mpi: ['>=2']" ;;
-	one-sided/*)      echo "    n_mpi: [2]" ;;
+	pt2pt/osu_mbw_mr|collective/*) echo "    iterate: {'n_mpi': {'values': [{op: 'seq', from: 2}]}}" ;;
+	pt2pt/*|one-sided/*)          echo "    iterate: {'n_mpi': {'values': [2]}}" ;;
 
 esac
 done
