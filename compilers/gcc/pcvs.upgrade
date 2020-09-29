@@ -6,7 +6,6 @@ use warnings;
 my %filetable;
 my $pwd;
 my $srcdir;
-my $internaldir;
 
 BEGIN {
 	die qw/You cannot invoke this script that way !/ if(__FILE__ =~ /-e/);
@@ -14,7 +13,6 @@ BEGIN {
 	$srcdir = `readlink -e \`dirname $0\``; chomp $srcdir;
 	$pwd = $srcdir;
 	$srcdir .= "/../..";
-	$internaldir = $srcdir."/build_scripts";
 }
 
 #third-party libs loading
@@ -85,6 +83,14 @@ sub build_hash_table {
 		my $src_name = basename($src);
 		my ($name, $cargs);
 		chomp @args;
+
+		# can't be that more compact ?
+		$name = $src_name;
+		$name =~s/\.[^\.]+$//;
+		$name = "test_${name}_$.";
+	
+		$file_content{$name}{build}{dummy} = 1;
+
 		if(!defined $filetable{$src})
 		{
 			# do greps and store it
@@ -92,47 +98,40 @@ sub build_hash_table {
 		}
 		if($type =~ /^executable$/)
 		{
-			$type = "complete";
+			$file_content{$name}{run}{dummy} = 1;
 		}
 		else
 		{
 			push @args, "-E" if ($type =~ /^preprocess$/);
 			push @args, "-S" if ($type =~ /^assembly$/);
 			push @args, "-c" if ($type =~ /^object$/);
-			$type = "build";
-
 		}
-
-		# can't be that more compact ?
-		$name = $src_name;
-		$name =~s/\.[^\.]+$//;
-		$name = "test_${name}_$.";
-	
 		$cargs = join(" ", @args);
-
-
 		$file_content{$name} = {
-			type  => "$type",
-			files => "\@ROOTPATH\@/compilers/gcc/$src",
-			cargs => "$cargs",
-			bin => "\"$out\"",
-			herit => 'GRPSERIAL_UNRESOLVED',
-			valscript => "\@ROOTPATH\@/compilers/gcc/tools/gcc-valscript.pl"
+			group => "GRPSERIAL",
+			build => {
+				files => "\@ROOTPATH\@/compilers/gcc/$src",
+				cflags => "$cargs",
+				sources => {
+					binary => "$out"
+				}
+			},
+			validate => {
+				script => {
+					path => "\@ROOTPATH\@/compilers/gcc/tools/gcc-valscript.pl"
+				}
+			},
 		};
+
 		$file_content{$name}{info} = $filetable{$src} if($filetable{$src});
-		$file_content{$name}{chdir} = "$out_dirname" if (grep {/-*-save-temps/} $cargs);
+		if (grep {/-*-save-temps/} $cargs)
+		{
+			$file_content{$name}{build}{cwd} = "$out_dirname";
+			$file_content{$name}{run}{cwd} = "$out_dirname";
+		}
 	}
 
 	DumpFile("$out_dirname/pcvs.yml.in", \%file_content) if (%file_content);
-	# We have to remove the first line w/ '---' starting the document
-	# because PCVS will later prepend content and these dashes will ignore this addition
-	# This is dirty and a complete parsing should be an option when trying to improve 
-	# it with more contents. For 'efficiency', we prefer to `cat` content instead of parsing 
-	# the file once more.
-	`sed -i 1d $out_dirname/pcvs.yml.in`;
-	# this is also a bad trick but if we put the asterisk in the $file_content above,
-	# the parser will surround the entry with quotes, making the inheritance buggy.
-	`sed -i -e 's/GRPSERIAL_UNRESOLVED/\*GRPSERIAL/g' $out_dirname/pcvs.yml.in`
 }
 
 sub check_tool
