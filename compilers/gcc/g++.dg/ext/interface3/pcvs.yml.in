@@ -1,92 +1,71 @@
-test_interface3a_2:
-  bin: '"interface3a.exe"'
-  cargs: ' -std=gnu++11 -I. -fno-inline'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/ext/interface3/interface3a.C'
-  herit: *GRPSERIAL
+---
+test_interface3a_1:
+  build:
+    cflags: ' -std=gnu++98 -I. -fno-inline'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/ext/interface3/interface3a.C'
+    sources:
+      binary: interface3a.exe
+  group: GRPSERIAL
   info: &1
     extraopts:
       - '"-I. -fno-inline"'
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_interface3a_2:
+  build:
+    cflags: ' -std=gnu++11 -I. -fno-inline'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/ext/interface3/interface3a.C'
+    sources:
+      binary: interface3a.exe
+  group: GRPSERIAL
+  info: *1
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_interface3a_3:
-  bin: '"interface3a.exe"'
-  cargs: ' -std=gnu++14 -I. -fno-inline'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/ext/interface3/interface3a.C'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++14 -I. -fno-inline'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/ext/interface3/interface3a.C'
+    sources:
+      binary: interface3a.exe
+  group: GRPSERIAL
   info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_interface3a_7:
-  bin: '"interface3a.exe"'
-  cargs: ' -std=gnu++98 -I. -fno-inline'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/ext/interface3/interface3a.C'
-  herit: *GRPSERIAL
-  info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_interface3a_8:
-  bin: '"interface3a.exe"'
-  cargs: ' -std=gnu++11 -I. -fno-inline'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/ext/interface3/interface3a.C'
-  herit: *GRPSERIAL
-  info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_interface3a_9:
-  bin: '"interface3a.exe"'
-  cargs: ' -std=gnu++14 -I. -fno-inline'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/ext/interface3/interface3a.C'
-  herit: *GRPSERIAL
-  info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_interface3b_10:
-  bin: '"interface3b.exe"'
-  cargs: ' -std=gnu++98 -fno-inline'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/ext/interface3/interface3b.C'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_interface3b_4:
+  build:
+    cflags: ' -std=gnu++98 -fno-inline'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/ext/interface3/interface3b.C'
+    sources:
+      binary: interface3b.exe
+  group: GRPSERIAL
   info: &2
     extraopts:
       - '"-fno-inline"'
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_interface3b_11:
-  bin: '"interface3b.exe"'
-  cargs: ' -std=gnu++11 -fno-inline'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/ext/interface3/interface3b.C'
-  herit: *GRPSERIAL
-  info: *2
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_interface3b_12:
-  bin: '"interface3b.exe"'
-  cargs: ' -std=gnu++14 -fno-inline'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/ext/interface3/interface3b.C'
-  herit: *GRPSERIAL
-  info: *2
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_interface3b_5:
-  bin: '"interface3b.exe"'
-  cargs: ' -std=gnu++11 -fno-inline'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/ext/interface3/interface3b.C'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++11 -fno-inline'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/ext/interface3/interface3b.C'
+    sources:
+      binary: interface3b.exe
+  group: GRPSERIAL
   info: *2
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_interface3b_6:
-  bin: '"interface3b.exe"'
-  cargs: ' -std=gnu++14 -fno-inline'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/ext/interface3/interface3b.C'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++14 -fno-inline'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/ext/interface3/interface3b.C'
+    sources:
+      binary: interface3b.exe
+  group: GRPSERIAL
   info: *2
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_interface3b_7:
-  bin: '"interface3b.exe"'
-  cargs: ' -std=gnu++98 -fno-inline'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/ext/interface3/interface3b.C'
-  herit: *GRPSERIAL
-  info: *2
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

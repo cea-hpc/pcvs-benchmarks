@@ -1,590 +1,339 @@
-test_atomic-load-int_117:
-  bin: '"atomic-load-int.exe"'
-  cargs: '  -O0 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-load-int.c'
-  herit: *GRPSERIAL
+---
+test_atomic-load-int_1:
+  build:
+    cflags: '  -O0 -g  '
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-load-int.c'
+    sources:
+      binary: atomic-load-int.exe
+  group: GRPSERIAL
   info: &1 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_atomic-load-int_2:
-  bin: '"atomic-load-int.exe"'
-  cargs: '  -O2 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-load-int.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2 -g  '
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-load-int.c'
+    sources:
+      binary: atomic-load-int.exe
+  group: GRPSERIAL
   info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_atomic-load-int_3:
-  bin: '"atomic-load-int.exe"'
-  cargs: '  -O3 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-load-int.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O3 -g  '
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-load-int.c'
+    sources:
+      binary: atomic-load-int.exe
+  group: GRPSERIAL
   info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic-load-int_37:
-  bin: '"atomic-load-int.exe"'
-  cargs: '  -O0 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-load-int.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic-load-int_38:
-  bin: '"atomic-load-int.exe"'
-  cargs: '  -O2 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-load-int.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic-load-int_39:
-  bin: '"atomic-load-int.exe"'
-  cargs: '  -O3 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-load-int.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic-load-longlong_119:
-  bin: '"atomic-load-longlong.exe"'
-  cargs: '  -O0 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-load-longlong.c'
-  herit: *GRPSERIAL
-  info: &2
-    extraopts:
-      - '""'
-      - '"-march=pentium" { target { { i?86-*-* x86_64-*-* } && ia32 } }'
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic-load-longlong_40:
-  bin: '"atomic-load-longlong.exe"'
-  cargs: '  -O0 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-load-longlong.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_atomic-load-short_4:
+  build:
+    cflags: '  -O0 -g  '
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-load-short.c'
+    sources:
+      binary: atomic-load-short.exe
+  group: GRPSERIAL
+  info: &2 {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_atomic-load-short_5:
+  build:
+    cflags: '  -O2 -g  '
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-load-short.c'
+    sources:
+      binary: atomic-load-short.exe
+  group: GRPSERIAL
   info: *2
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic-load-longlong_41:
-  bin: '"atomic-load-longlong.exe"'
-  cargs: '  -O2 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-load-longlong.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_atomic-load-short_6:
+  build:
+    cflags: '  -O3 -g  '
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-load-short.c'
+    sources:
+      binary: atomic-load-short.exe
+  group: GRPSERIAL
   info: *2
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic-load-longlong_42:
-  bin: '"atomic-load-longlong.exe"'
-  cargs: '  -O3 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-load-longlong.c'
-  herit: *GRPSERIAL
-  info: *2
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic-load-longlong_5:
-  bin: '"atomic-load-longlong.exe"'
-  cargs: '  -O2 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-load-longlong.c'
-  herit: *GRPSERIAL
-  info: *2
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic-load-longlong_6:
-  bin: '"atomic-load-longlong.exe"'
-  cargs: '  -O3 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-load-longlong.c'
-  herit: *GRPSERIAL
-  info: *2
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic-load-short_117:
-  bin: '"atomic-load-short.exe"'
-  cargs: '  -O0 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-load-short.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_atomic-other-int_7:
+  build:
+    cflags: '  -O0 -g  '
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-other-int.c'
+    sources:
+      binary: atomic-other-int.exe
+  group: GRPSERIAL
   info: &3 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic-load-short_43:
-  bin: '"atomic-load-short.exe"'
-  cargs: '  -O0 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-load-short.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_atomic-other-int_8:
+  build:
+    cflags: '  -O2 -g  '
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-other-int.c'
+    sources:
+      binary: atomic-other-int.exe
+  group: GRPSERIAL
   info: *3
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic-load-short_44:
-  bin: '"atomic-load-short.exe"'
-  cargs: '  -O2 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-load-short.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_atomic-other-int_9:
+  build:
+    cflags: '  -O3 -g  '
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-other-int.c'
+    sources:
+      binary: atomic-other-int.exe
+  group: GRPSERIAL
   info: *3
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic-load-short_45:
-  bin: '"atomic-load-short.exe"'
-  cargs: '  -O3 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-load-short.c'
-  herit: *GRPSERIAL
-  info: *3
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic-load-short_8:
-  bin: '"atomic-load-short.exe"'
-  cargs: '  -O2 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-load-short.c'
-  herit: *GRPSERIAL
-  info: *3
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic-load-short_9:
-  bin: '"atomic-load-short.exe"'
-  cargs: '  -O3 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-load-short.c'
-  herit: *GRPSERIAL
-  info: *3
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic-other-int_11:
-  bin: '"atomic-other-int.exe"'
-  cargs: '  -O2 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-other-int.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_atomic-other-short_10:
+  build:
+    cflags: '  -O0 -g  '
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-other-short.c'
+    sources:
+      binary: atomic-other-short.exe
+  group: GRPSERIAL
   info: &4 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic-other-int_119:
-  bin: '"atomic-other-int.exe"'
-  cargs: '  -O0 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-other-int.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_atomic-other-short_11:
+  build:
+    cflags: '  -O2 -g  '
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-other-short.c'
+    sources:
+      binary: atomic-other-short.exe
+  group: GRPSERIAL
   info: *4
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic-other-int_12:
-  bin: '"atomic-other-int.exe"'
-  cargs: '  -O3 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-other-int.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_atomic-other-short_12:
+  build:
+    cflags: '  -O3 -g  '
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-other-short.c'
+    sources:
+      binary: atomic-other-short.exe
+  group: GRPSERIAL
   info: *4
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic-other-int_46:
-  bin: '"atomic-other-int.exe"'
-  cargs: '  -O0 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-other-int.c'
-  herit: *GRPSERIAL
-  info: *4
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic-other-int_47:
-  bin: '"atomic-other-int.exe"'
-  cargs: '  -O2 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-other-int.c'
-  herit: *GRPSERIAL
-  info: *4
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic-other-int_48:
-  bin: '"atomic-other-int.exe"'
-  cargs: '  -O3 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-other-int.c'
-  herit: *GRPSERIAL
-  info: *4
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic-other-longlong_118:
-  bin: '"atomic-other-longlong.exe"'
-  cargs: '  -O0 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-other-longlong.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_speculative-store-2_13:
+  build:
+    cflags: '  -O0 -g  --param allow-store-data-races=0 -O2'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/speculative-store-2.c'
+    sources:
+      binary: speculative-store-2.exe
+  group: GRPSERIAL
   info: &5
     extraopts:
-      - '""'
-      - '"-march=pentium" { target { { i?86-*-* x86_64-*-* } && ia32 } }'
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic-other-longlong_14:
-  bin: '"atomic-other-longlong.exe"'
-  cargs: '  -O2 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-other-longlong.c'
-  herit: *GRPSERIAL
+      - '"--param allow-store-data-races=0 -O2"'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_speculative-store-2_14:
+  build:
+    cflags: '  -O2 -g  --param allow-store-data-races=0 -O2'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/speculative-store-2.c'
+    sources:
+      binary: speculative-store-2.exe
+  group: GRPSERIAL
   info: *5
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic-other-longlong_15:
-  bin: '"atomic-other-longlong.exe"'
-  cargs: '  -O3 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-other-longlong.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_speculative-store-2_15:
+  build:
+    cflags: '  -O3 -g  --param allow-store-data-races=0 -O2'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/speculative-store-2.c'
+    sources:
+      binary: speculative-store-2.exe
+  group: GRPSERIAL
   info: *5
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic-other-longlong_49:
-  bin: '"atomic-other-longlong.exe"'
-  cargs: '  -O0 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-other-longlong.c'
-  herit: *GRPSERIAL
-  info: *5
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic-other-longlong_50:
-  bin: '"atomic-other-longlong.exe"'
-  cargs: '  -O2 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-other-longlong.c'
-  herit: *GRPSERIAL
-  info: *5
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic-other-longlong_51:
-  bin: '"atomic-other-longlong.exe"'
-  cargs: '  -O3 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-other-longlong.c'
-  herit: *GRPSERIAL
-  info: *5
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic-other-short_117:
-  bin: '"atomic-other-short.exe"'
-  cargs: '  -O0 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-other-short.c'
-  herit: *GRPSERIAL
-  info: &6 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic-other-short_17:
-  bin: '"atomic-other-short.exe"'
-  cargs: '  -O2 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-other-short.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_speculative-store-3_16:
+  build:
+    cflags: '  -O0 -g  --param allow-store-data-races=0 -O2'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/speculative-store-3.c'
+    sources:
+      binary: speculative-store-3.exe
+  group: GRPSERIAL
+  info: &6
+    extraopts:
+      - '"--param allow-store-data-races=0 -O2"'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_speculative-store-3_17:
+  build:
+    cflags: '  -O2 -g  --param allow-store-data-races=0 -O2'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/speculative-store-3.c'
+    sources:
+      binary: speculative-store-3.exe
+  group: GRPSERIAL
   info: *6
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic-other-short_18:
-  bin: '"atomic-other-short.exe"'
-  cargs: '  -O3 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-other-short.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_speculative-store-3_18:
+  build:
+    cflags: '  -O3 -g  --param allow-store-data-races=0 -O2'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/speculative-store-3.c'
+    sources:
+      binary: speculative-store-3.exe
+  group: GRPSERIAL
   info: *6
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic-other-short_52:
-  bin: '"atomic-other-short.exe"'
-  cargs: '  -O0 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-other-short.c'
-  herit: *GRPSERIAL
-  info: *6
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic-other-short_53:
-  bin: '"atomic-other-short.exe"'
-  cargs: '  -O2 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-other-short.c'
-  herit: *GRPSERIAL
-  info: *6
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic-other-short_54:
-  bin: '"atomic-other-short.exe"'
-  cargs: '  -O3 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/atomic-other-short.c'
-  herit: *GRPSERIAL
-  info: *6
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_speculative-store-2_20:
-  bin: '"speculative-store-2.exe"'
-  cargs: '  -O2 -g  --param allow-store-data-races=0 -O2'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/speculative-store-2.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_speculative-store-4_19:
+  build:
+    cflags: '  -O0 -g  --param allow-store-data-races=0'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/speculative-store-4.c'
+    sources:
+      binary: speculative-store-4.exe
+  group: GRPSERIAL
   info: &7
     extraopts:
-      - '"--param allow-store-data-races=0 -O2"'
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_speculative-store-2_21:
-  bin: '"speculative-store-2.exe"'
-  cargs: '  -O3 -g  --param allow-store-data-races=0 -O2'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/speculative-store-2.c'
-  herit: *GRPSERIAL
+      - '"--param allow-store-data-races=0"'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_speculative-store-4_20:
+  build:
+    cflags: '  -O2 -g  --param allow-store-data-races=0'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/speculative-store-4.c'
+    sources:
+      binary: speculative-store-4.exe
+  group: GRPSERIAL
   info: *7
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_speculative-store-2_55:
-  bin: '"speculative-store-2.exe"'
-  cargs: '  -O0 -g  --param allow-store-data-races=0 -O2'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/speculative-store-2.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_speculative-store-4_21:
+  build:
+    cflags: '  -O3 -g  --param allow-store-data-races=0'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/speculative-store-4.c'
+    sources:
+      binary: speculative-store-4.exe
+  group: GRPSERIAL
   info: *7
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_speculative-store-2_56:
-  bin: '"speculative-store-2.exe"'
-  cargs: '  -O2 -g  --param allow-store-data-races=0 -O2'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/speculative-store-2.c'
-  herit: *GRPSERIAL
-  info: *7
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_speculative-store-2_57:
-  bin: '"speculative-store-2.exe"'
-  cargs: '  -O3 -g  --param allow-store-data-races=0 -O2'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/speculative-store-2.c'
-  herit: *GRPSERIAL
-  info: *7
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_speculative-store-2_74:
-  bin: '"speculative-store-2.exe"'
-  cargs: '  -O0 -g  --param allow-store-data-races=0 -O2'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/speculative-store-2.c'
-  herit: *GRPSERIAL
-  info: *7
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_speculative-store-3_23:
-  bin: '"speculative-store-3.exe"'
-  cargs: '  -O2 -g  --param allow-store-data-races=0 -O2'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/speculative-store-3.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_speculative-store_22:
+  build:
+    cflags: '  -O0 -g  --param allow-store-data-races=0'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/speculative-store.c'
+    sources:
+      binary: speculative-store.exe
+  group: GRPSERIAL
   info: &8
     extraopts:
-      - '"--param allow-store-data-races=0 -O2"'
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_speculative-store-3_24:
-  bin: '"speculative-store-3.exe"'
-  cargs: '  -O3 -g  --param allow-store-data-races=0 -O2'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/speculative-store-3.c'
-  herit: *GRPSERIAL
-  info: *8
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_speculative-store-3_58:
-  bin: '"speculative-store-3.exe"'
-  cargs: '  -O0 -g  --param allow-store-data-races=0 -O2'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/speculative-store-3.c'
-  herit: *GRPSERIAL
-  info: *8
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_speculative-store-3_59:
-  bin: '"speculative-store-3.exe"'
-  cargs: '  -O2 -g  --param allow-store-data-races=0 -O2'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/speculative-store-3.c'
-  herit: *GRPSERIAL
-  info: *8
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_speculative-store-3_60:
-  bin: '"speculative-store-3.exe"'
-  cargs: '  -O3 -g  --param allow-store-data-races=0 -O2'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/speculative-store-3.c'
-  herit: *GRPSERIAL
-  info: *8
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_speculative-store-3_71:
-  bin: '"speculative-store-3.exe"'
-  cargs: '  -O0 -g  --param allow-store-data-races=0 -O2'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/speculative-store-3.c'
-  herit: *GRPSERIAL
-  info: *8
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_speculative-store-4_26:
-  bin: '"speculative-store-4.exe"'
-  cargs: '  -O2 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/speculative-store-4.c'
-  herit: *GRPSERIAL
-  info: &9
-    extraopts:
       - '"--param allow-store-data-races=0"'
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_speculative-store-4_27:
-  bin: '"speculative-store-4.exe"'
-  cargs: '  -O3 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/speculative-store-4.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_speculative-store_23:
+  build:
+    cflags: '  -O2 -g  --param allow-store-data-races=0'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/speculative-store.c'
+    sources:
+      binary: speculative-store.exe
+  group: GRPSERIAL
+  info: *8
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_speculative-store_24:
+  build:
+    cflags: '  -O3 -g  --param allow-store-data-races=0'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/speculative-store.c'
+    sources:
+      binary: speculative-store.exe
+  group: GRPSERIAL
+  info: *8
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_strict-align-global_25:
+  build:
+    cflags: '  -O0 -g  '
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/strict-align-global.c'
+    sources:
+      binary: strict-align-global.exe
+  group: GRPSERIAL
+  info: &9 {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_strict-align-global_26:
+  build:
+    cflags: '  -O2 -g  '
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/strict-align-global.c'
+    sources:
+      binary: strict-align-global.exe
+  group: GRPSERIAL
   info: *9
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_speculative-store-4_54:
-  bin: '"speculative-store-4.exe"'
-  cargs: '  -O0 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/speculative-store-4.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_strict-align-global_27:
+  build:
+    cflags: '  -O3 -g  '
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/strict-align-global.c'
+    sources:
+      binary: strict-align-global.exe
+  group: GRPSERIAL
   info: *9
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_speculative-store-4_61:
-  bin: '"speculative-store-4.exe"'
-  cargs: '  -O0 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/speculative-store-4.c'
-  herit: *GRPSERIAL
-  info: *9
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_speculative-store-4_62:
-  bin: '"speculative-store-4.exe"'
-  cargs: '  -O2 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/speculative-store-4.c'
-  herit: *GRPSERIAL
-  info: *9
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_speculative-store-4_63:
-  bin: '"speculative-store-4.exe"'
-  cargs: '  -O3 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/speculative-store-4.c'
-  herit: *GRPSERIAL
-  info: *9
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_speculative-store_29:
-  bin: '"speculative-store.exe"'
-  cargs: '  -O2 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/speculative-store.c'
-  herit: *GRPSERIAL
-  info: &10
-    extraopts:
-      - '"--param allow-store-data-races=0"'
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_speculative-store_30:
-  bin: '"speculative-store.exe"'
-  cargs: '  -O3 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/speculative-store.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_subfields_28:
+  build:
+    cflags: '  -O0 -g  '
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/subfields.c'
+    sources:
+      binary: subfields.exe
+  group: GRPSERIAL
+  info: &10 {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_subfields_29:
+  build:
+    cflags: '  -O2 -g  '
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/subfields.c'
+    sources:
+      binary: subfields.exe
+  group: GRPSERIAL
   info: *10
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_speculative-store_58:
-  bin: '"speculative-store.exe"'
-  cargs: '  -O0 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/speculative-store.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_subfields_30:
+  build:
+    cflags: '  -O3 -g  '
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/subfields.c'
+    sources:
+      binary: subfields.exe
+  group: GRPSERIAL
   info: *10
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_speculative-store_64:
-  bin: '"speculative-store.exe"'
-  cargs: '  -O0 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/speculative-store.c'
-  herit: *GRPSERIAL
-  info: *10
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_speculative-store_65:
-  bin: '"speculative-store.exe"'
-  cargs: '  -O2 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/speculative-store.c'
-  herit: *GRPSERIAL
-  info: *10
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_speculative-store_66:
-  bin: '"speculative-store.exe"'
-  cargs: '  -O3 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/speculative-store.c'
-  herit: *GRPSERIAL
-  info: *10
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_strict-align-global_32:
-  bin: '"strict-align-global.exe"'
-  cargs: '  -O2 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/strict-align-global.c'
-  herit: *GRPSERIAL
-  info: &11 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_strict-align-global_33:
-  bin: '"strict-align-global.exe"'
-  cargs: '  -O3 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/strict-align-global.c'
-  herit: *GRPSERIAL
-  info: *11
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_strict-align-global_51:
-  bin: '"strict-align-global.exe"'
-  cargs: '  -O0 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/strict-align-global.c'
-  herit: *GRPSERIAL
-  info: *11
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_strict-align-global_67:
-  bin: '"strict-align-global.exe"'
-  cargs: '  -O0 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/strict-align-global.c'
-  herit: *GRPSERIAL
-  info: *11
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_strict-align-global_68:
-  bin: '"strict-align-global.exe"'
-  cargs: '  -O2 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/strict-align-global.c'
-  herit: *GRPSERIAL
-  info: *11
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_strict-align-global_69:
-  bin: '"strict-align-global.exe"'
-  cargs: '  -O3 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/strict-align-global.c'
-  herit: *GRPSERIAL
-  info: *11
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_subfields_35:
-  bin: '"subfields.exe"'
-  cargs: '  -O2 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/subfields.c'
-  herit: *GRPSERIAL
-  info: &12 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_subfields_36:
-  bin: '"subfields.exe"'
-  cargs: '  -O3 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/subfields.c'
-  herit: *GRPSERIAL
-  info: *12
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_subfields_70:
-  bin: '"subfields.exe"'
-  cargs: '  -O0 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/subfields.c'
-  herit: *GRPSERIAL
-  info: *12
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_subfields_71:
-  bin: '"subfields.exe"'
-  cargs: '  -O2 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/subfields.c'
-  herit: *GRPSERIAL
-  info: *12
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_subfields_72:
-  bin: '"subfields.exe"'
-  cargs: '  -O3 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/subfields.c'
-  herit: *GRPSERIAL
-  info: *12
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_subfields_92:
-  bin: '"subfields.exe"'
-  cargs: '  -O0 -g  '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/simulate-thread/subfields.c'
-  herit: *GRPSERIAL
-  info: *12
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

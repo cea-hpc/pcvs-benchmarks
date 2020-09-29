@@ -1,57 +1,45 @@
-test_acc_on_device-1_102:
-  bin: '"acc_on_device-1.s"'
-  cargs: -O -fopenacc -O -fdump-rtl-expand -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/acc_on_device-1.f95'
-  herit: *GRPSERIAL
-  info: &1 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_acc_on_device-1_21:
-  bin: '"acc_on_device-1.s"'
-  cargs: -O -fopenacc -O -fdump-rtl-expand -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/acc_on_device-1.f95'
-  herit: *GRPSERIAL
-  info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_acc_on_device-2-off_103:
-  bin: '"acc_on_device-2-off.s"'
-  cargs: -O -fopenacc -O -fdump-rtl-expand -fno-openacc -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/acc_on_device-2-off.f95'
-  herit: *GRPSERIAL
-  info: &2 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_acc_on_device-2-off_38:
-  bin: '"acc_on_device-2-off.s"'
-  cargs: -O -fopenacc -O -fdump-rtl-expand -fno-openacc -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/acc_on_device-2-off.f95'
-  herit: *GRPSERIAL
-  info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_acc_on_device-2_104:
-  bin: '"acc_on_device-2.s"'
-  cargs: -O -fopenacc -O -fdump-rtl-expand -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/acc_on_device-2.f95'
-  herit: *GRPSERIAL
-  info: &3 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_acc_on_device-2_39:
-  bin: '"acc_on_device-2.s"'
-  cargs: -O -fopenacc -O -fdump-rtl-expand -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/acc_on_device-2.f95'
-  herit: *GRPSERIAL
-  info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_array-reduction_105:
-  bin: '"array-reduction.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/array-reduction.f90'
-  herit: *GRPSERIAL
-  info: &4
+---
+test_acc_on_device-1_1:
+  build:
+    cflags: -O -fopenacc -O -fdump-rtl-expand -ffat-lto-objects -S
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/acc_on_device-1.f95'
+    sources:
+      binary: acc_on_device-1.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_acc_on_device-2-off_2:
+  build:
+    cflags: -O -fopenacc -O -fdump-rtl-expand -fno-openacc -ffat-lto-objects -S
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/acc_on_device-2-off.f95'
+    sources:
+      binary: acc_on_device-2-off.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_acc_on_device-2_3:
+  build:
+    cflags: -O -fopenacc -O -fdump-rtl-expand -ffat-lto-objects -S
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/acc_on_device-2.f95'
+    sources:
+      binary: acc_on_device-2.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_array-reduction_4:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/array-reduction.f90'
+    sources:
+      binary: array-reduction.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -125,22 +113,17 @@ test_array-reduction_105:
         ]*(Array 'a' is not permitted in reduction))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_array-reduction_74:
-  bin: '"array-reduction.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/array-reduction.f90'
-  herit: *GRPSERIAL
-  info: *4
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_assumed_106:
-  bin: '"assumed.s"'
-  cargs: '  -O  -fopenacc -fmax-errors=100 -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/assumed.f95'
-  herit: *GRPSERIAL
-  info: &5
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_assumed_5:
+  build:
+    cflags: '  -O  -fopenacc -fmax-errors=100 -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/assumed.f95'
+    sources:
+      binary: assumed.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -302,22 +285,17 @@ test_assumed_106:
         ]*(Array 'a' is not permitted in reduction" "" { target "*-*-*))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_assumed_50:
-  bin: '"assumed.s"'
-  cargs: '  -O  -fopenacc -fmax-errors=100 -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/assumed.f95'
-  herit: *GRPSERIAL
-  info: *5
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_asyncwait-1_107:
-  bin: '"asyncwait-1.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/asyncwait-1.f95'
-  herit: *GRPSERIAL
-  info: &6
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_asyncwait-1_6:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/asyncwait-1.f95'
+    sources:
+      binary: asyncwait-1.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -479,22 +457,17 @@ test_asyncwait-1_107:
         ]*(Unexpected \\\!\\\$ACC END PARALLEL))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_asyncwait-1_91:
-  bin: '"asyncwait-1.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/asyncwait-1.f95'
-  herit: *GRPSERIAL
-  info: *6
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_asyncwait-2_103:
-  bin: '"asyncwait-2.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/asyncwait-2.f95'
-  herit: *GRPSERIAL
-  info: &7
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_asyncwait-2_7:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/asyncwait-2.f95'
+    sources:
+      binary: asyncwait-2.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -688,22 +661,17 @@ test_asyncwait-2_103:
         ]*(Unexpected \\\!\\\$ACC END PARALLEL))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_asyncwait-2_108:
-  bin: '"asyncwait-2.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/asyncwait-2.f95'
-  herit: *GRPSERIAL
-  info: *7
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_asyncwait-3_109:
-  bin: '"asyncwait-3.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/asyncwait-3.f95'
-  herit: *GRPSERIAL
-  info: &8
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_asyncwait-3_8:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/asyncwait-3.f95'
+    sources:
+      binary: asyncwait-3.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -801,22 +769,17 @@ test_asyncwait-3_109:
         ]*(Unclassifiable OpenACC directive))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_asyncwait-3_41:
-  bin: '"asyncwait-3.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/asyncwait-3.f95'
-  herit: *GRPSERIAL
-  info: *8
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_asyncwait-4_110:
-  bin: '"asyncwait-4.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/asyncwait-4.f95'
-  herit: *GRPSERIAL
-  info: &9
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_asyncwait-4_9:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/asyncwait-4.f95'
+    sources:
+      binary: asyncwait-4.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -922,22 +885,17 @@ test_asyncwait-4_110:
         ]*(Unclassifiable OpenACC directive))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_asyncwait-4_41:
-  bin: '"asyncwait-4.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/asyncwait-4.f95'
-  herit: *GRPSERIAL
-  info: *9
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_branch_111:
-  bin: '"branch.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/branch.f95'
-  herit: *GRPSERIAL
-  info: &10
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_branch_10:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/branch.f95'
+    sources:
+      binary: branch.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -971,38 +929,28 @@ test_branch_111:
         ]*(Unexpected))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_branch_53:
-  bin: '"branch.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/branch.f95'
-  herit: *GRPSERIAL
-  info: *10
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_cache-1_112:
-  bin: '"cache-1.s"'
-  cargs: '  -O  -fopenacc -std=f2008 -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/cache-1.f95'
-  herit: *GRPSERIAL
-  info: &11 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_cache-1_16:
-  bin: '"cache-1.s"'
-  cargs: '  -O  -fopenacc -std=f2008 -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/cache-1.f95'
-  herit: *GRPSERIAL
-  info: *11
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_cache-2_113:
-  bin: '"cache-2.s"'
-  cargs: '  -O  -fopenacc -std=f2008 -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/cache-2.f95'
-  herit: *GRPSERIAL
-  info: &12
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_cache-1_11:
+  build:
+    cflags: '  -O  -fopenacc -std=f2008 -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/cache-1.f95'
+    sources:
+      binary: cache-1.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_cache-2_12:
+  build:
+    cflags: '  -O  -fopenacc -std=f2008 -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/cache-2.f95'
+    sources:
+      binary: cache-2.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -1020,22 +968,17 @@ test_cache-2_113:
         ]*(" "TODO))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_cache-2_12:
-  bin: '"cache-2.s"'
-  cargs: '  -O  -fopenacc -std=f2008 -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/cache-2.f95'
-  herit: *GRPSERIAL
-  info: *12
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_coarray_114:
-  bin: '"coarray.s"'
-  cargs: '  -O  -fopenacc -fcoarray=single -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/coarray.f95'
-  herit: *GRPSERIAL
-  info: &13
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_coarray_13:
+  build:
+    cflags: '  -O  -fopenacc -fcoarray=single -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/coarray.f95'
+    sources:
+      binary: coarray.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -1053,14 +996,17 @@ test_coarray_114:
         ]*(" "TODO))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_coarray_2_107:
-  bin: '"coarray_2.s"'
-  cargs: '  -O  -fopenacc -fcoarray=lib -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/coarray_2.f90'
-  herit: *GRPSERIAL
-  info: &14
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_coarray_2_14:
+  build:
+    cflags: '  -O  -fopenacc -fcoarray=lib -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/coarray_2.f90'
+    sources:
+      binary: coarray_2.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -1086,62 +1032,39 @@ test_coarray_2_107:
         ]*(Array 'a' is not permitted in reduction))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_coarray_2_115:
-  bin: '"coarray_2.s"'
-  cargs: '  -O  -fopenacc -fcoarray=lib -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/coarray_2.f90'
-  herit: *GRPSERIAL
-  info: *14
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_coarray_34:
-  bin: '"coarray.s"'
-  cargs: '  -O  -fopenacc -fcoarray=single -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/coarray.f95'
-  herit: *GRPSERIAL
-  info: *13
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_combined-directives_116:
-  bin: '"combined-directives.s"'
-  cargs: '  -O  -fopenacc -fdump-tree-gimple -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/combined-directives.f90'
-  herit: *GRPSERIAL
-  info: &15 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_combined-directives_150:
-  bin: '"combined-directives.s"'
-  cargs: '  -O  -fopenacc -fdump-tree-gimple -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/combined-directives.f90'
-  herit: *GRPSERIAL
-  info: *15
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_combined_loop_117:
-  bin: '"combined_loop.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/combined_loop.f90'
-  herit: *GRPSERIAL
-  info: &16 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_combined_loop_20:
-  bin: '"combined_loop.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/combined_loop.f90'
-  herit: *GRPSERIAL
-  info: *16
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_continuation-free-form_118:
-  bin: '"continuation-free-form.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/continuation-free-form.f95'
-  herit: *GRPSERIAL
-  info: &17
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_combined-directives_15:
+  build:
+    cflags: '  -O  -fopenacc -fdump-tree-gimple -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/combined-directives.f90'
+    sources:
+      binary: combined-directives.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_combined_loop_16:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/combined_loop.f90'
+    sources:
+      binary: combined_loop.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_continuation-free-form_17:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/continuation-free-form.f95'
+    sources:
+      binary: continuation-free-form.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -1151,22 +1074,17 @@ test_continuation-free-form_118:
         ]*(Unclassifiable OpenACC directive))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_continuation-free-form_23:
-  bin: '"continuation-free-form.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/continuation-free-form.f95'
-  herit: *GRPSERIAL
-  info: *17
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_cray-2_119:
-  bin: '"cray-2.s"'
-  cargs: '  -O  -fopenacc -fcray-pointer -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/cray-2.f95'
-  herit: *GRPSERIAL
-  info: &18
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_cray-2_18:
+  build:
+    cflags: '  -O  -fopenacc -fcray-pointer -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/cray-2.f95'
+    sources:
+      binary: cray-2.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -1272,22 +1190,17 @@ test_cray-2_119:
         ]*(" "TODO))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_cray-2_56:
-  bin: '"cray-2.s"'
-  cargs: '  -O  -fopenacc -fcray-pointer -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/cray-2.f95'
-  herit: *GRPSERIAL
-  info: *18
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_cray_120:
-  bin: '"cray.s"'
-  cargs: '  -O  -fopenacc -fcray-pointer -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/cray.f95'
-  herit: *GRPSERIAL
-  info: &19
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_cray_19:
+  build:
+    cflags: '  -O  -fopenacc -fcray-pointer -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/cray.f95'
+    sources:
+      binary: cray.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -1393,22 +1306,17 @@ test_cray_120:
         ]*(" "TODO))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_cray_55:
-  bin: '"cray.s"'
-  cargs: '  -O  -fopenacc -fcray-pointer -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/cray.f95'
-  herit: *GRPSERIAL
-  info: *19
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_critical_121:
-  bin: '"critical.s"'
-  cargs: '  -O  -fopenacc -fcoarray=single -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/critical.f95'
-  herit: *GRPSERIAL
-  info: &20
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_critical_20:
+  build:
+    cflags: '  -O  -fopenacc -fcoarray=single -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/critical.f95'
+    sources:
+      binary: critical.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -1426,22 +1334,17 @@ test_critical_121:
         ]*(OpenACC directive inside of))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_critical_27:
-  bin: '"critical.s"'
-  cargs: '  -O  -fopenacc -fcoarray=single -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/critical.f95'
-  herit: *GRPSERIAL
-  info: *20
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_data-clauses_122:
-  bin: '"data-clauses.s"'
-  cargs: '  -O  -fopenacc -fmax-errors=100 -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/data-clauses.f95'
-  herit: *GRPSERIAL
-  info: &21
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_data-clauses_21:
+  build:
+    cflags: '  -O  -fopenacc -fmax-errors=100 -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/data-clauses.f95'
+    sources:
+      binary: data-clauses.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -1971,38 +1874,28 @@ test_data-clauses_122:
         ]*(multiple clauses))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_data-clauses_259:
-  bin: '"data-clauses.s"'
-  cargs: '  -O  -fopenacc -fmax-errors=100 -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/data-clauses.f95'
-  herit: *GRPSERIAL
-  info: *21
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_data-tree_123:
-  bin: '"data-tree.s"'
-  cargs: '  -O  -fopenacc -fdump-tree-original -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/data-tree.f95'
-  herit: *GRPSERIAL
-  info: &22 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_data-tree_29:
-  bin: '"data-tree.s"'
-  cargs: '  -O  -fopenacc -fdump-tree-original -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/data-tree.f95'
-  herit: *GRPSERIAL
-  info: *22
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_declare-1_124:
-  bin: '"declare-1.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/declare-1.f95'
-  herit: *GRPSERIAL
-  info: &23
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_data-tree_22:
+  build:
+    cflags: '  -O  -fopenacc -fdump-tree-original -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/data-tree.f95'
+    sources:
+      binary: data-tree.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_declare-1_23:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/declare-1.f95'
+    sources:
+      binary: declare-1.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -2012,22 +1905,17 @@ test_declare-1_124:
         ]*(is not allowed))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_declare-1_16:
-  bin: '"declare-1.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/declare-1.f95'
-  herit: *GRPSERIAL
-  info: *23
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_declare-2_125:
-  bin: '"declare-2.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/declare-2.f95'
-  herit: *GRPSERIAL
-  info: &24
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_declare-2_24:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/declare-2.f95'
+    sources:
+      binary: declare-2.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -2173,22 +2061,17 @@ test_declare-2_125:
         ]*(present on multiple clauses))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_declare-2_71:
-  bin: '"declare-2.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/declare-2.f95'
-  herit: *GRPSERIAL
-  info: *24
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_default_126:
-  bin: '"default.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/default.f95'
-  herit: *GRPSERIAL
-  info: &25
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_default_25:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/default.f95'
+    sources:
+      binary: default.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -2238,38 +2121,28 @@ test_default_126:
         ]*(Unexpected))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_default_17:
-  bin: '"default.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/default.f95'
-  herit: *GRPSERIAL
-  info: *25
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_default_none_127:
-  bin: '"default_none.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/default_none.f95'
-  herit: *GRPSERIAL
-  info: &26 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_default_none_59:
-  bin: '"default_none.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/default_none.f95'
-  herit: *GRPSERIAL
-  info: *26
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_enter-exit-data_128:
-  bin: '"enter-exit-data.s"'
-  cargs: '  -O  -fopenacc -fmax-errors=100 -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/enter-exit-data.f95'
-  herit: *GRPSERIAL
-  info: &27
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_default_none_26:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/default_none.f95'
+    sources:
+      binary: default_none.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_enter-exit-data_27:
+  build:
+    cflags: '  -O  -fopenacc -fmax-errors=100 -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/enter-exit-data.f95'
+    sources:
+      binary: enter-exit-data.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -2631,22 +2504,17 @@ test_enter-exit-data_128:
         ]*(multiple clauses))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_enter-exit-data_88:
-  bin: '"enter-exit-data.s"'
-  cargs: '  -O  -fopenacc -fmax-errors=100 -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/enter-exit-data.f95'
-  herit: *GRPSERIAL
-  info: *27
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_firstprivate-1_11:
-  bin: '"firstprivate-1.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/firstprivate-1.f95'
-  herit: *GRPSERIAL
-  info: &28
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_firstprivate-1_28:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/firstprivate-1.f95'
+    sources:
+      binary: firstprivate-1.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -2664,38 +2532,28 @@ test_firstprivate-1_11:
         ]*(Unexpected !\\\$ACC END PARALLEL statement))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_firstprivate-1_129:
-  bin: '"firstprivate-1.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/firstprivate-1.f95'
-  herit: *GRPSERIAL
-  info: *28
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fixed-1_12:
-  bin: '"fixed-1.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/fixed-1.f'
-  herit: *GRPSERIAL
-  info: &29 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fixed-1_130:
-  bin: '"fixed-1.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/fixed-1.f'
-  herit: *GRPSERIAL
-  info: *29
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fixed-2_131:
-  bin: '"fixed-2.s"'
-  cargs: '  -O  -fopenacc -fmax-errors=100 -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/fixed-2.f'
-  herit: *GRPSERIAL
-  info: &30
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_fixed-1_29:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/fixed-1.f'
+    sources:
+      binary: fixed-1.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_fixed-2_30:
+  build:
+    cflags: '  -O  -fopenacc -fmax-errors=100 -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/fixed-2.f'
+    sources:
+      binary: fixed-2.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -2713,86 +2571,61 @@ test_fixed-2_131:
         ]*(Unexpected))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fixed-2_15:
-  bin: '"fixed-2.s"'
-  cargs: '  -O  -fopenacc -fmax-errors=100 -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/fixed-2.f'
-  herit: *GRPSERIAL
-  info: *30
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fixed-3_13:
-  bin: '"fixed-3.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/fixed-3.f'
-  herit: *GRPSERIAL
-  info: &31 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fixed-3_132:
-  bin: '"fixed-3.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/fixed-3.f'
-  herit: *GRPSERIAL
-  info: *31
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fixed-4_133:
-  bin: '"fixed-4.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/fixed-4.f'
-  herit: *GRPSERIAL
-  info: &32 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fixed-4_6:
-  bin: '"fixed-4.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/fixed-4.f'
-  herit: *GRPSERIAL
-  info: *32
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_gang-static_134:
-  bin: '"gang-static.s"'
-  cargs: '  -O  -fopenacc -fdump-tree-omplower -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/gang-static.f95'
-  herit: *GRPSERIAL
-  info: &33 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_gang-static_82:
-  bin: '"gang-static.s"'
-  cargs: '  -O  -fopenacc -fdump-tree-omplower -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/gang-static.f95'
-  herit: *GRPSERIAL
-  info: *33
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_host_data-tree_11:
-  bin: '"host_data-tree.s"'
-  cargs: '  -O  -fopenacc -fdump-tree-original -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/host_data-tree.f95'
-  herit: *GRPSERIAL
-  info: &34 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_host_data-tree_135:
-  bin: '"host_data-tree.s"'
-  cargs: '  -O  -fopenacc -fdump-tree-original -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/host_data-tree.f95'
-  herit: *GRPSERIAL
-  info: *34
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_if_136:
-  bin: '"if.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/if.f95'
-  herit: *GRPSERIAL
-  info: &35
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_fixed-3_31:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/fixed-3.f'
+    sources:
+      binary: fixed-3.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_fixed-4_32:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/fixed-4.f'
+    sources:
+      binary: fixed-4.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_gang-static_33:
+  build:
+    cflags: '  -O  -fopenacc -fdump-tree-omplower -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/gang-static.f95'
+    sources:
+      binary: gang-static.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_host_data-tree_34:
+  build:
+    cflags: '  -O  -fopenacc -fdump-tree-original -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/host_data-tree.f95'
+    sources:
+      binary: host_data-tree.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_if_35:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/if.f95'
+    sources:
+      binary: if.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -2914,262 +2747,182 @@ test_if_136:
         ]*(Unclassifiable OpenACC directive))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_if_52:
-  bin: '"if.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/if.f95'
-  herit: *GRPSERIAL
-  info: *35
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_kernels-alias-2_137:
-  bin: '"kernels-alias-2.s"'
-  cargs: '  -O  -fopenacc -O2 -fdump-tree-ealias-all -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-alias-2.f95'
-  herit: *GRPSERIAL
-  info: &36 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_kernels-alias-2_23:
-  bin: '"kernels-alias-2.s"'
-  cargs: '  -O  -fopenacc -O2 -fdump-tree-ealias-all -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-alias-2.f95'
-  herit: *GRPSERIAL
-  info: *36
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_kernels-alias-3_138:
-  bin: '"kernels-alias-3.s"'
-  cargs: '  -O  -fopenacc -O2 -fdump-tree-ealias-all -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-alias-3.f95'
-  herit: *GRPSERIAL
-  info: &37 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_kernels-alias-3_19:
-  bin: '"kernels-alias-3.s"'
-  cargs: '  -O  -fopenacc -O2 -fdump-tree-ealias-all -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-alias-3.f95'
-  herit: *GRPSERIAL
-  info: *37
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_kernels-alias-4_139:
-  bin: '"kernels-alias-4.s"'
-  cargs: '  -O  -fopenacc -O2 -fdump-tree-ealias-all -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-alias-4.f95'
-  herit: *GRPSERIAL
-  info: &38 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_kernels-alias-4_20:
-  bin: '"kernels-alias-4.s"'
-  cargs: '  -O  -fopenacc -O2 -fdump-tree-ealias-all -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-alias-4.f95'
-  herit: *GRPSERIAL
-  info: *38
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_kernels-alias_140:
-  bin: '"kernels-alias.s"'
-  cargs: '  -O  -fopenacc -O2 -fdump-tree-ealias-all -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-alias.f95'
-  herit: *GRPSERIAL
-  info: &39 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_kernels-alias_23:
-  bin: '"kernels-alias.s"'
-  cargs: '  -O  -fopenacc -O2 -fdump-tree-ealias-all -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-alias.f95'
-  herit: *GRPSERIAL
-  info: *39
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_kernels-loop-2_141:
-  bin: '"kernels-loop-2.s"'
-  cargs: '  -O  -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-loop-2.f95'
-  herit: *GRPSERIAL
-  info: &40 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_kernels-loop-2_44:
-  bin: '"kernels-loop-2.s"'
-  cargs: '  -O  -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-loop-2.f95'
-  herit: *GRPSERIAL
-  info: *40
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_kernels-loop-data-2_142:
-  bin: '"kernels-loop-data-2.s"'
-  cargs: '  -O  -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-loop-data-2.f95'
-  herit: *GRPSERIAL
-  info: &41 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_kernels-loop-data-2_50:
-  bin: '"kernels-loop-data-2.s"'
-  cargs: '  -O  -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-loop-data-2.f95'
-  herit: *GRPSERIAL
-  info: *41
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_kernels-loop-data-enter-exit-2_143:
-  bin: '"kernels-loop-data-enter-exit-2.s"'
-  cargs: '  -O  -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-loop-data-enter-exit-2.f95'
-  herit: *GRPSERIAL
-  info: &42 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_kernels-loop-data-enter-exit-2_50:
-  bin: '"kernels-loop-data-enter-exit-2.s"'
-  cargs: '  -O  -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-loop-data-enter-exit-2.f95'
-  herit: *GRPSERIAL
-  info: *42
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_kernels-loop-data-enter-exit_144:
-  bin: '"kernels-loop-data-enter-exit.s"'
-  cargs: '  -O  -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-loop-data-enter-exit.f95'
-  herit: *GRPSERIAL
-  info: &43 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_kernels-loop-data-enter-exit_48:
-  bin: '"kernels-loop-data-enter-exit.s"'
-  cargs: '  -O  -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-loop-data-enter-exit.f95'
-  herit: *GRPSERIAL
-  info: *43
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_kernels-loop-data-update_145:
-  bin: '"kernels-loop-data-update.s"'
-  cargs: '  -O  -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-loop-data-update.f95'
-  herit: *GRPSERIAL
-  info: &44 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_kernels-loop-data-update_47:
-  bin: '"kernels-loop-data-update.s"'
-  cargs: '  -O  -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-loop-data-update.f95'
-  herit: *GRPSERIAL
-  info: *44
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_kernels-loop-data_146:
-  bin: '"kernels-loop-data.s"'
-  cargs: '  -O  -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-loop-data.f95'
-  herit: *GRPSERIAL
-  info: &45 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_kernels-loop-data_48:
-  bin: '"kernels-loop-data.s"'
-  cargs: '  -O  -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-loop-data.f95'
-  herit: *GRPSERIAL
-  info: *45
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_kernels-loop-inner_147:
-  bin: '"kernels-loop-inner.s"'
-  cargs: '  -O  -fopenacc -O2 -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-loop-inner.f95'
-  herit: *GRPSERIAL
-  info: &46 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_kernels-loop-inner_22:
-  bin: '"kernels-loop-inner.s"'
-  cargs: '  -O  -fopenacc -O2 -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-loop-inner.f95'
-  herit: *GRPSERIAL
-  info: *46
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_kernels-loop-n_148:
-  bin: '"kernels-loop-n.s"'
-  cargs: '  -O  -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-loop-n.f95'
-  herit: *GRPSERIAL
-  info: &47 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_kernels-loop-n_41:
-  bin: '"kernels-loop-n.s"'
-  cargs: '  -O  -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-loop-n.f95'
-  herit: *GRPSERIAL
-  info: *47
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_kernels-loop_149:
-  bin: '"kernels-loop.s"'
-  cargs: '  -O  -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-loop.f95'
-  herit: *GRPSERIAL
-  info: &48 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_kernels-loop_38:
-  bin: '"kernels-loop.s"'
-  cargs: '  -O  -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-loop.f95'
-  herit: *GRPSERIAL
-  info: *48
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_kernels-loops-adjacent_150:
-  bin: '"kernels-loops-adjacent.s"'
-  cargs: '  -O  -fopenacc -O2 -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-loops-adjacent.f95'
-  herit: *GRPSERIAL
-  info: &49 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_kernels-loops-adjacent_18:
-  bin: '"kernels-loops-adjacent.s"'
-  cargs: '  -O  -fopenacc -O2 -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-loops-adjacent.f95'
-  herit: *GRPSERIAL
-  info: *49
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_kernels-tree_151:
-  bin: '"kernels-tree.s"'
-  cargs: '  -O  -fopenacc -fdump-tree-original -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-tree.f95'
-  herit: *GRPSERIAL
-  info: &50 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_kernels-tree_31:
-  bin: '"kernels-tree.s"'
-  cargs: '  -O  -fopenacc -fdump-tree-original -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-tree.f95'
-  herit: *GRPSERIAL
-  info: *50
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_list_115:
-  bin: '"list.s"'
-  cargs: '  -O  -fopenacc -fmax-errors=100 -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/list.f95'
-  herit: *GRPSERIAL
-  info: &51
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-2_36:
+  build:
+    cflags: '  -O  -fopenacc -O2 -fdump-tree-ealias-all -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-alias-2.f95'
+    sources:
+      binary: kernels-alias-2.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-3_37:
+  build:
+    cflags: '  -O  -fopenacc -O2 -fdump-tree-ealias-all -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-alias-3.f95'
+    sources:
+      binary: kernels-alias-3.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias-4_38:
+  build:
+    cflags: '  -O  -fopenacc -O2 -fdump-tree-ealias-all -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-alias-4.f95'
+    sources:
+      binary: kernels-alias-4.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-alias_39:
+  build:
+    cflags: '  -O  -fopenacc -O2 -fdump-tree-ealias-all -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-alias.f95'
+    sources:
+      binary: kernels-alias.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop-2_40:
+  build:
+    cflags: '  -O  -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-loop-2.f95'
+    sources:
+      binary: kernels-loop-2.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop-data-2_41:
+  build:
+    cflags: '  -O  -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-loop-data-2.f95'
+    sources:
+      binary: kernels-loop-data-2.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop-data-enter-exit-2_42:
+  build:
+    cflags: '  -O  -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-loop-data-enter-exit-2.f95'
+    sources:
+      binary: kernels-loop-data-enter-exit-2.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop-data-enter-exit_43:
+  build:
+    cflags: '  -O  -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-loop-data-enter-exit.f95'
+    sources:
+      binary: kernels-loop-data-enter-exit.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop-data-update_44:
+  build:
+    cflags: '  -O  -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-loop-data-update.f95'
+    sources:
+      binary: kernels-loop-data-update.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop-data_45:
+  build:
+    cflags: '  -O  -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-loop-data.f95'
+    sources:
+      binary: kernels-loop-data.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop-inner_46:
+  build:
+    cflags: '  -O  -fopenacc -O2 -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-loop-inner.f95'
+    sources:
+      binary: kernels-loop-inner.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop-n_47:
+  build:
+    cflags: '  -O  -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-loop-n.f95'
+    sources:
+      binary: kernels-loop-n.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loop_48:
+  build:
+    cflags: '  -O  -fopenacc -O2 -fdump-tree-parloops1-all -fdump-tree-optimized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-loop.f95'
+    sources:
+      binary: kernels-loop.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-loops-adjacent_49:
+  build:
+    cflags: '  -O  -fopenacc -O2 -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-loops-adjacent.f95'
+    sources:
+      binary: kernels-loops-adjacent.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_kernels-tree_50:
+  build:
+    cflags: '  -O  -fopenacc -fdump-tree-original -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/kernels-tree.f95'
+    sources:
+      binary: kernels-tree.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_list_51:
+  build:
+    cflags: '  -O  -fopenacc -fmax-errors=100 -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/list.f95'
+    sources:
+      binary: list.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -3371,22 +3124,17 @@ test_list_115:
         ]*(present on multiple clauses" "))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_list_152:
-  bin: '"list.s"'
-  cargs: '  -O  -fopenacc -fmax-errors=100 -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/list.f95'
-  herit: *GRPSERIAL
-  info: *51
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_literal_153:
-  bin: '"literal.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/literal.f95'
-  herit: *GRPSERIAL
-  info: &52
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_literal_52:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/literal.f95'
+    sources:
+      binary: literal.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -3508,22 +3256,17 @@ test_literal_153:
         ]*(Syntax error))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_literal_30:
-  bin: '"literal.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/literal.f95'
-  herit: *GRPSERIAL
-  info: *52
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_loop-1-2_154:
-  bin: '"loop-1-2.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/loop-1-2.f95'
-  herit: *GRPSERIAL
-  info: &53
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-1-2_53:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/loop-1-2.f95'
+    sources:
+      binary: loop-1-2.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -3710,22 +3453,17 @@ test_loop-1-2_154:
         ]*(Deleted feature: Loop variable at .1. must be integer" "))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_loop-1-2_176:
-  bin: '"loop-1-2.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/loop-1-2.f95'
-  herit: *GRPSERIAL
-  info: *53
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_loop-1_155:
-  bin: '"loop-1.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/loop-1.f95'
-  herit: *GRPSERIAL
-  info: &54
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-1_54:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/loop-1.f95'
+    sources:
+      binary: loop-1.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -3912,22 +3650,17 @@ test_loop-1_155:
         ]*(Deleted feature: Loop variable at .1. must be integer" "))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_loop-1_176:
-  bin: '"loop-1.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/loop-1.f95'
-  herit: *GRPSERIAL
-  info: *54
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_loop-2_156:
-  bin: '"loop-2.s"'
-  cargs: '  -O  -fopenacc -fmax-errors=100 -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/loop-2.f95'
-  herit: *GRPSERIAL
-  info: &55
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-2_55:
+  build:
+    cflags: '  -O  -fopenacc -fmax-errors=100 -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/loop-2.f95'
+    sources:
+      binary: loop-2.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -4538,22 +4271,17 @@ test_loop-2_156:
         ]*(must be positive))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_loop-2_649:
-  bin: '"loop-2.s"'
-  cargs: '  -O  -fopenacc -fmax-errors=100 -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/loop-2.f95'
-  herit: *GRPSERIAL
-  info: *55
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_loop-3-2_157:
-  bin: '"loop-3-2.s"'
-  cargs: '  -O  -fopenacc -std=f2008 -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/loop-3-2.f95'
-  herit: *GRPSERIAL
-  info: &56
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-3-2_56:
+  build:
+    cflags: '  -O  -fopenacc -std=f2008 -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/loop-3-2.f95'
+    sources:
+      binary: loop-3-2.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -4612,22 +4340,17 @@ test_loop-3-2_157:
         ]*(Redundant))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_loop-3-2_58:
-  bin: '"loop-3-2.s"'
-  cargs: '  -O  -fopenacc -std=f2008 -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/loop-3-2.f95'
-  herit: *GRPSERIAL
-  info: *56
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_loop-3_158:
-  bin: '"loop-3.s"'
-  cargs: '  -O  -fopenacc -std=f2008 -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/loop-3.f95'
-  herit: *GRPSERIAL
-  info: &57
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-3_57:
+  build:
+    cflags: '  -O  -fopenacc -std=f2008 -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/loop-3.f95'
+    sources:
+      binary: loop-3.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -4686,22 +4409,17 @@ test_loop-3_158:
         ]*(Redundant))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_loop-3_54:
-  bin: '"loop-3.s"'
-  cargs: '  -O  -fopenacc -std=f2008 -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/loop-3.f95'
-  herit: *GRPSERIAL
-  info: *57
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_loop-4_159:
-  bin: '"loop-4.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/loop-4.f95'
-  herit: *GRPSERIAL
-  info: &58
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-4_58:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/loop-4.f95'
+    sources:
+      binary: loop-4.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -4711,22 +4429,17 @@ test_loop-4_159:
         ]*(loop directive must be associated with an OpenACC compute region))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_loop-4_7:
-  bin: '"loop-4.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/loop-4.f95'
-  herit: *GRPSERIAL
-  info: *58
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_loop-5_160:
-  bin: '"loop-5.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/loop-5.f95'
-  herit: *GRPSERIAL
-  info: &59
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-5_59:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/loop-5.f95'
+    sources:
+      binary: loop-5.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -4857,22 +4570,17 @@ test_loop-5_160:
         ]*(must be positive))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_loop-5_357:
-  bin: '"loop-5.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/loop-5.f95'
-  herit: *GRPSERIAL
-  info: *59
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_loop-6_161:
-  bin: '"loop-6.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/loop-6.f95'
-  herit: *GRPSERIAL
-  info: &60
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-6_60:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/loop-6.f95'
+    sources:
+      binary: loop-6.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -4906,22 +4614,17 @@ test_loop-6_161:
         ]*(length arguments))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_loop-6_74:
-  bin: '"loop-6.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/loop-6.f95'
-  herit: *GRPSERIAL
-  info: *60
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_loop-7_122:
-  bin: '"loop-7.s"'
-  cargs: '  -O  -fopenacc -fmax-errors=100 -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/loop-7.f95'
-  herit: *GRPSERIAL
-  info: &61
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-7_61:
+  build:
+    cflags: '  -O  -fopenacc -fmax-errors=100 -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/loop-7.f95'
+    sources:
+      binary: loop-7.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -5051,38 +4754,28 @@ test_loop-7_122:
         ]*(Invalid character))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_loop-7_162:
-  bin: '"loop-7.s"'
-  cargs: '  -O  -fopenacc -fmax-errors=100 -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/loop-7.f95'
-  herit: *GRPSERIAL
-  info: *61
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_loop-tree-1_163:
-  bin: '"loop-tree-1.s"'
-  cargs: '  -O  -fopenacc -fdump-tree-original -fdump-tree-gimple -std=f2008 -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/loop-tree-1.f90'
-  herit: *GRPSERIAL
-  info: &62 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_loop-tree-1_47:
-  bin: '"loop-tree-1.s"'
-  cargs: '  -O  -fopenacc -fdump-tree-original -fdump-tree-gimple -std=f2008 -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/loop-tree-1.f90'
-  herit: *GRPSERIAL
-  info: *62
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_multi-clause_13:
-  bin: '"multi-clause.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/multi-clause.f90'
-  herit: *GRPSERIAL
-  info: &63
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_loop-tree-1_62:
+  build:
+    cflags: '  -O  -fopenacc -fdump-tree-original -fdump-tree-gimple -std=f2008 -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/loop-tree-1.f90'
+    sources:
+      binary: loop-tree-1.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_multi-clause_63:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/multi-clause.f90'
+    sources:
+      binary: multi-clause.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -5092,38 +4785,28 @@ test_multi-clause_13:
         ]*(Symbol 'j' present on multiple clauses))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_multi-clause_164:
-  bin: '"multi-clause.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/multi-clause.f90'
-  herit: *GRPSERIAL
-  info: *63
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_nested-function-1_165:
-  bin: '"nested-function-1.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/nested-function-1.f90'
-  herit: *GRPSERIAL
-  info: &64 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_nested-function-1_93:
-  bin: '"nested-function-1.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/nested-function-1.f90'
-  herit: *GRPSERIAL
-  info: *64
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_omp-fixed_166:
-  bin: '"omp-fixed.s"'
-  cargs: '  -O  -fopenacc -fopenmp -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/omp-fixed.f'
-  herit: *GRPSERIAL
-  info: &65
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nested-function-1_64:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/nested-function-1.f90'
+    sources:
+      binary: nested-function-1.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_omp-fixed_65:
+  build:
+    cflags: '  -O  -fopenacc -fopenmp -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/omp-fixed.f'
+    sources:
+      binary: omp-fixed.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -5149,22 +4832,17 @@ test_omp-fixed_166:
         ]*(Wrong OpenMP continuation))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_omp-fixed_32:
-  bin: '"omp-fixed.s"'
-  cargs: '  -O  -fopenacc -fopenmp -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/omp-fixed.f'
-  herit: *GRPSERIAL
-  info: *65
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_omp_167:
-  bin: '"omp.s"'
-  cargs: '  -O  -fopenacc -fopenmp -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/omp.f95'
-  herit: *GRPSERIAL
-  info: &66
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_omp_66:
+  build:
+    cflags: '  -O  -fopenacc -fopenmp -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/omp.f95'
+    sources:
+      binary: omp.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -5230,22 +4908,17 @@ test_omp_167:
         ]*(Wrong OpenMP continuation))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_omp_74:
-  bin: '"omp.s"'
-  cargs: '  -O  -fopenacc -fopenmp -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/omp.f95'
-  herit: *GRPSERIAL
-  info: *66
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_parallel-kernels-clauses_168:
-  bin: '"parallel-kernels-clauses.s"'
-  cargs: '  -O  -fopenacc -fmax-errors=100 -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/parallel-kernels-clauses.f95'
-  herit: *GRPSERIAL
-  info: &67
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_parallel-kernels-clauses_67:
+  build:
+    cflags: '  -O  -fopenacc -fmax-errors=100 -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/parallel-kernels-clauses.f95'
+    sources:
+      binary: parallel-kernels-clauses.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -5439,22 +5112,17 @@ test_parallel-kernels-clauses_168:
         ]*(INTEGER))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_parallel-kernels-clauses_96:
-  bin: '"parallel-kernels-clauses.s"'
-  cargs: '  -O  -fopenacc -fmax-errors=100 -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/parallel-kernels-clauses.f95'
-  herit: *GRPSERIAL
-  info: *67
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_parallel-kernels-regions_169:
-  bin: '"parallel-kernels-regions.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/parallel-kernels-regions.f95'
-  herit: *GRPSERIAL
-  info: &68
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_parallel-kernels-regions_68:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/parallel-kernels-regions.f95'
+    sources:
+      binary: parallel-kernels-regions.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -5472,38 +5140,28 @@ test_parallel-kernels-regions_169:
         ]*(.data. construct inside of .kernels. region))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_parallel-kernels-regions_55:
-  bin: '"parallel-kernels-regions.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/parallel-kernels-regions.f95'
-  herit: *GRPSERIAL
-  info: *68
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_parallel-tree_170:
-  bin: '"parallel-tree.s"'
-  cargs: '  -O  -fopenacc -fdump-tree-original -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/parallel-tree.f95'
-  herit: *GRPSERIAL
-  info: &69 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_parallel-tree_39:
-  bin: '"parallel-tree.s"'
-  cargs: '  -O  -fopenacc -fdump-tree-original -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/parallel-tree.f95'
-  herit: *GRPSERIAL
-  info: *69
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_parameter_171:
-  bin: '"parameter.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/parameter.f95'
-  herit: *GRPSERIAL
-  info: &70
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_parallel-tree_69:
+  build:
+    cflags: '  -O  -fopenacc -fdump-tree-original -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/parallel-tree.f95'
+    sources:
+      binary: parallel-tree.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_parameter_70:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/parameter.f95'
+    sources:
+      binary: parameter.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -5585,118 +5243,83 @@ test_parameter_171:
         ]*(not a variable))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_parameter_31:
-  bin: '"parameter.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/parameter.f95'
-  herit: *GRPSERIAL
-  info: *70
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr71704_172:
-  bin: '"pr71704.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/pr71704.f90'
-  herit: *GRPSERIAL
-  info: &71 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr71704_60:
-  bin: '"pr71704.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/pr71704.f90'
-  herit: *GRPSERIAL
-  info: *71
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr72743_15:
-  bin: '"pr72743.s"'
-  cargs: '  -O  -fopenacc -O2 -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/pr72743.f90'
-  herit: *GRPSERIAL
-  info: &72 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr72743_173:
-  bin: '"pr72743.s"'
-  cargs: '  -O  -fopenacc -O2 -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/pr72743.f90'
-  herit: *GRPSERIAL
-  info: *72
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr78027_174:
-  bin: '"pr78027.s"'
-  cargs: '  -O  -fopenacc -fopenmp -O2 -fdump-ipa-icf -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/pr78027.f90'
-  herit: *GRPSERIAL
-  info: &73 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr78027_20:
-  bin: '"pr78027.s"'
-  cargs: '  -O  -fopenacc -fopenmp -O2 -fdump-ipa-icf -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/pr78027.f90'
-  herit: *GRPSERIAL
-  info: *73
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_private-1_175:
-  bin: '"private-1.s"'
-  cargs: '  -O  -fopenacc -fdump-tree-omplower -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/private-1.f95'
-  herit: *GRPSERIAL
-  info: &74 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_private-1_37:
-  bin: '"private-1.s"'
-  cargs: '  -O  -fopenacc -fdump-tree-omplower -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/private-1.f95'
-  herit: *GRPSERIAL
-  info: *74
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_private-2_176:
-  bin: '"private-2.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/private-2.f95'
-  herit: *GRPSERIAL
-  info: &75 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_private-2_39:
-  bin: '"private-2.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/private-2.f95'
-  herit: *GRPSERIAL
-  info: *75
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_private-3_177:
-  bin: '"private-3.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/private-3.f95'
-  herit: *GRPSERIAL
-  info: &76 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_private-3_23:
-  bin: '"private-3.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/private-3.f95'
-  herit: *GRPSERIAL
-  info: *76
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pure-elemental-procedures_178:
-  bin: '"pure-elemental-procedures.s"'
-  cargs: '  -O  -fopenacc -std=f2008 -fcoarray=single -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/pure-elemental-procedures.f95'
-  herit: *GRPSERIAL
-  info: &77
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr71704_71:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/pr71704.f90'
+    sources:
+      binary: pr71704.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr72743_72:
+  build:
+    cflags: '  -O  -fopenacc -O2 -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/pr72743.f90'
+    sources:
+      binary: pr72743.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr78027_73:
+  build:
+    cflags: '  -O  -fopenacc -fopenmp -O2 -fdump-ipa-icf -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/pr78027.f90'
+    sources:
+      binary: pr78027.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_private-1_74:
+  build:
+    cflags: '  -O  -fopenacc -fdump-tree-omplower -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/private-1.f95'
+    sources:
+      binary: private-1.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_private-2_75:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/private-2.f95'
+    sources:
+      binary: private-2.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_private-3_76:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/private-3.f95'
+    sources:
+      binary: private-3.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pure-elemental-procedures_77:
+  build:
+    cflags: '  -O  -fopenacc -std=f2008 -fcoarray=single -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/pure-elemental-procedures.f95'
+    sources:
+      binary: pure-elemental-procedures.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -5738,38 +5361,28 @@ test_pure-elemental-procedures_178:
         ]*(CRITICAL block inside of))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pure-elemental-procedures_78:
-  bin: '"pure-elemental-procedures.s"'
-  cargs: '  -O  -fopenacc -std=f2008 -fcoarray=single -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/pure-elemental-procedures.f95'
-  herit: *GRPSERIAL
-  info: *77
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_reduction-2_179:
-  bin: '"reduction-2.s"'
-  cargs: '  -O  -fopenacc -fdump-tree-gimple -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/reduction-2.f95'
-  herit: *GRPSERIAL
-  info: &78 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_reduction-2_22:
-  bin: '"reduction-2.s"'
-  cargs: '  -O  -fopenacc -fdump-tree-gimple -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/reduction-2.f95'
-  herit: *GRPSERIAL
-  info: *78
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_reduction-3_10:
-  bin: '"reduction-3.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/reduction-3.f95'
-  herit: *GRPSERIAL
-  info: &79
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reduction-2_78:
+  build:
+    cflags: '  -O  -fopenacc -fdump-tree-gimple -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/reduction-2.f95'
+    sources:
+      binary: reduction-2.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reduction-3_79:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/reduction-3.f95'
+    sources:
+      binary: reduction-3.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -5787,22 +5400,17 @@ test_reduction-3_10:
         ]*(invalid private reduction on .i2.))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_reduction-3_180:
-  bin: '"reduction-3.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/reduction-3.f95'
-  herit: *GRPSERIAL
-  info: *79
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_reduction-promotions_181:
-  bin: '"reduction-promotions.s"'
-  cargs: '  -O  -fopenacc -fdump-tree-gimple -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/reduction-promotions.f90'
-  herit: *GRPSERIAL
-  info: &80
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reduction-promotions_80:
+  build:
+    cflags: '  -O  -fopenacc -fdump-tree-gimple -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/reduction-promotions.f90'
+    sources:
+      binary: reduction-promotions.s
+  group: GRPSERIAL
+  info:
     regex-warn:
       - |-
         (^|
@@ -5852,22 +5460,17 @@ test_reduction-promotions_181:
         ]*(incompatible data clause))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_reduction-promotions_46:
-  bin: '"reduction-promotions.s"'
-  cargs: '  -O  -fopenacc -fdump-tree-gimple -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/reduction-promotions.f90'
-  herit: *GRPSERIAL
-  info: *80
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_reduction_161:
-  bin: '"reduction.s"'
-  cargs: '  -O  -fopenacc -fmax-errors=100 -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/reduction.f95'
-  herit: *GRPSERIAL
-  info: &81
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reduction_81:
+  build:
+    cflags: '  -O  -fopenacc -fmax-errors=100 -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/reduction.f95'
+    sources:
+      binary: reduction.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -6349,22 +5952,17 @@ test_reduction_161:
         ]*(Array 'ta1' is not permitted in reduction" "" { target "*-*-*))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_reduction_182:
-  bin: '"reduction.s"'
-  cargs: '  -O  -fopenacc -fmax-errors=100 -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/reduction.f95'
-  herit: *GRPSERIAL
-  info: *81
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_routine-1_183:
-  bin: '"routine-1.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/routine-1.f90'
-  herit: *GRPSERIAL
-  info: &82
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_routine-1_82:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/routine-1.f90'
+    sources:
+      binary: routine-1.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -6398,22 +5996,17 @@ test_routine-1_183:
         ]*(Unexpected \\\!\\\$ACC ROUTINE))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_routine-1_37:
-  bin: '"routine-1.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/routine-1.f90'
-  herit: *GRPSERIAL
-  info: *82
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_routine-2_17:
-  bin: '"routine-2.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/routine-2.f90'
-  herit: *GRPSERIAL
-  info: &83
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_routine-2_83:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/routine-2.f90'
+    sources:
+      binary: routine-2.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -6423,38 +6016,28 @@ test_routine-2_17:
         ]*(Unexpected \\\!\\\$ACC ROUTINE))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_routine-2_184:
-  bin: '"routine-2.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/routine-2.f90'
-  herit: *GRPSERIAL
-  info: *83
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_routine-3_13:
-  bin: '"routine-3.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/routine-3.f90'
-  herit: *GRPSERIAL
-  info: &84 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_routine-3_185:
-  bin: '"routine-3.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/routine-3.f90'
-  herit: *GRPSERIAL
-  info: *84
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_routine-4_160:
-  bin: '"routine-4.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/routine-4.f90'
-  herit: *GRPSERIAL
-  info: &85
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_routine-3_84:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/routine-3.f90'
+    sources:
+      binary: routine-3.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_routine-4_85:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/routine-4.f90'
+    sources:
+      binary: routine-4.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -6513,22 +6096,17 @@ test_routine-4_160:
         ]*(insufficient partitioning))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_routine-4_186:
-  bin: '"routine-4.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/routine-4.f90'
-  herit: *GRPSERIAL
-  info: *85
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_routine-5_113:
-  bin: '"routine-5.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/routine-5.f90'
-  herit: *GRPSERIAL
-  info: &86
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_routine-5_86:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/routine-5.f90'
+    sources:
+      binary: routine-5.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -6587,22 +6165,17 @@ test_routine-5_113:
         ]*(insufficient partitioning))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_routine-5_187:
-  bin: '"routine-5.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/routine-5.f90'
-  herit: *GRPSERIAL
-  info: *86
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_routine-6_188:
-  bin: '"routine-6.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/routine-6.f90'
-  herit: *GRPSERIAL
-  info: &87
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_routine-6_87:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/routine-6.f90'
+    sources:
+      binary: routine-6.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -6660,22 +6233,17 @@ test_routine-6_188:
         ]*(Unclassifiable OpenACC directive))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_routine-6_96:
-  bin: '"routine-6.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/routine-6.f90'
-  herit: *GRPSERIAL
-  info: *87
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_sentinel-free-form_189:
-  bin: '"sentinel-free-form.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/sentinel-free-form.f95'
-  herit: *GRPSERIAL
-  info: &88
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_sentinel-free-form_88:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/sentinel-free-form.f95'
+    sources:
+      binary: sentinel-free-form.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -6702,22 +6270,17 @@ test_sentinel-free-form_189:
         ]*(followed by a space))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_sentinel-free-form_21:
-  bin: '"sentinel-free-form.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/sentinel-free-form.f95'
-  herit: *GRPSERIAL
-  info: *88
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_several-directives_190:
-  bin: '"several-directives.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/several-directives.f95'
-  herit: *GRPSERIAL
-  info: &89
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_several-directives_89:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/several-directives.f95'
+    sources:
+      binary: several-directives.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -6727,22 +6290,17 @@ test_several-directives_190:
         ]*(Unclassifiable OpenACC directive))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_several-directives_6:
-  bin: '"several-directives.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/several-directives.f95'
-  herit: *GRPSERIAL
-  info: *89
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_sie_191:
-  bin: '"sie.s"'
-  cargs: '  -O  -fopenacc -fmax-errors=100 -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/sie.f95'
-  herit: *GRPSERIAL
-  info: &90
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_sie_90:
+  build:
+    cflags: '  -O  -fopenacc -fmax-errors=100 -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/sie.f95'
+    sources:
+      binary: sie.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -7121,22 +6679,17 @@ test_sie_191:
         ]*(must be positive))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_sie_252:
-  bin: '"sie.s"'
-  cargs: '  -O  -fopenacc -fmax-errors=100 -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/sie.f95'
-  herit: *GRPSERIAL
-  info: *90
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_subarrays_192:
-  bin: '"subarrays.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/subarrays.f95'
-  herit: *GRPSERIAL
-  info: &91
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_subarrays_91:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/subarrays.f95'
+    sources:
+      binary: subarrays.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -7203,22 +6756,17 @@ test_subarrays_192:
         ]*(Lower array reference))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_subarrays_41:
-  bin: '"subarrays.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/subarrays.f95'
-  herit: *GRPSERIAL
-  info: *91
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_tile-1_193:
-  bin: '"tile-1.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/tile-1.f90'
-  herit: *GRPSERIAL
-  info: &92
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_tile-1_92:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/tile-1.f90'
+    sources:
+      binary: tile-1.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -7517,22 +7065,17 @@ test_tile-1_193:
         ]*(must be positive))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_tile-1_339:
-  bin: '"tile-1.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/tile-1.f90'
-  herit: *GRPSERIAL
-  info: *92
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_tile-2_194:
-  bin: '"tile-2.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/tile-2.f90'
-  herit: *GRPSERIAL
-  info: &93
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_tile-2_93:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/tile-2.f90'
+    sources:
+      binary: tile-2.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -7550,54 +7093,39 @@ test_tile-2_194:
         ]*(tiled loops don.t form rectangular))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_tile-2_21:
-  bin: '"tile-2.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/tile-2.f90'
-  herit: *GRPSERIAL
-  info: *93
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_tile-lowering_195:
-  bin: '"tile-lowering.s"'
-  cargs: '  -O  -fopenacc -fdump-tree-original -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/tile-lowering.f95'
-  herit: *GRPSERIAL
-  info: &94 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_tile-lowering_292:
-  bin: '"tile-lowering.s"'
-  cargs: '  -O  -fopenacc -fdump-tree-original -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/tile-lowering.f95'
-  herit: *GRPSERIAL
-  info: *94
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_uninit-copy-clause_196:
-  bin: '"uninit-copy-clause.s"'
-  cargs: '  -O  -fopenacc -Wuninitialized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/uninit-copy-clause.f95'
-  herit: *GRPSERIAL
-  info: &95 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_uninit-copy-clause_29:
-  bin: '"uninit-copy-clause.s"'
-  cargs: '  -O  -fopenacc -Wuninitialized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/uninit-copy-clause.f95'
-  herit: *GRPSERIAL
-  info: *95
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_uninit-dim-clause_17:
-  bin: '"uninit-dim-clause.s"'
-  cargs: '  -O  -fopenacc -Wuninitialized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/uninit-dim-clause.f95'
-  herit: *GRPSERIAL
-  info: &96
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_tile-lowering_94:
+  build:
+    cflags: '  -O  -fopenacc -fdump-tree-original -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/tile-lowering.f95'
+    sources:
+      binary: tile-lowering.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_uninit-copy-clause_95:
+  build:
+    cflags: '  -O  -fopenacc -Wuninitialized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/uninit-copy-clause.f95'
+    sources:
+      binary: uninit-copy-clause.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_uninit-dim-clause_96:
+  build:
+    cflags: '  -O  -fopenacc -Wuninitialized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/uninit-dim-clause.f95'
+    sources:
+      binary: uninit-dim-clause.s
+  group: GRPSERIAL
+  info:
     regex-warn:
       - |-
         (^|
@@ -7623,22 +7151,17 @@ test_uninit-dim-clause_17:
         ]*(is used uninitialized in this function))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_uninit-dim-clause_197:
-  bin: '"uninit-dim-clause.s"'
-  cargs: '  -O  -fopenacc -Wuninitialized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/uninit-dim-clause.f95'
-  herit: *GRPSERIAL
-  info: *96
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_uninit-firstprivate-clause_18:
-  bin: '"uninit-firstprivate-clause.s"'
-  cargs: '  -O  -fopenacc -Wuninitialized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/uninit-firstprivate-clause.f95'
-  herit: *GRPSERIAL
-  info: &97
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_uninit-firstprivate-clause_97:
+  build:
+    cflags: '  -O  -fopenacc -Wuninitialized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/uninit-firstprivate-clause.f95'
+    sources:
+      binary: uninit-firstprivate-clause.s
+  group: GRPSERIAL
+  info:
     regex-warn:
       - |-
         (^|
@@ -7648,22 +7171,17 @@ test_uninit-firstprivate-clause_18:
         ]*(is used uninitialized in this function))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_uninit-firstprivate-clause_198:
-  bin: '"uninit-firstprivate-clause.s"'
-  cargs: '  -O  -fopenacc -Wuninitialized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/uninit-firstprivate-clause.f95'
-  herit: *GRPSERIAL
-  info: *97
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_uninit-if-clause_199:
-  bin: '"uninit-if-clause.s"'
-  cargs: '  -O  -fopenacc -Wuninitialized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/uninit-if-clause.f95'
-  herit: *GRPSERIAL
-  info: &98
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_uninit-if-clause_98:
+  build:
+    cflags: '  -O  -fopenacc -Wuninitialized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/uninit-if-clause.f95'
+    sources:
+      binary: uninit-if-clause.s
+  group: GRPSERIAL
+  info:
     regex-warn:
       - |-
         (^|
@@ -7697,22 +7215,17 @@ test_uninit-if-clause_199:
         ]*(is used uninitialized in this function))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_uninit-if-clause_20:
-  bin: '"uninit-if-clause.s"'
-  cargs: '  -O  -fopenacc -Wuninitialized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/uninit-if-clause.f95'
-  herit: *GRPSERIAL
-  info: *98
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_uninit-use-device-clause_10:
-  bin: '"uninit-use-device-clause.s"'
-  cargs: '  -O  -fopenacc -Wuninitialized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/uninit-use-device-clause.f95'
-  herit: *GRPSERIAL
-  info: &99
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_uninit-use-device-clause_99:
+  build:
+    cflags: '  -O  -fopenacc -Wuninitialized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/uninit-use-device-clause.f95'
+    sources:
+      binary: uninit-use-device-clause.s
+  group: GRPSERIAL
+  info:
     regex-warn:
       - |-
         (^|
@@ -7722,22 +7235,17 @@ test_uninit-use-device-clause_10:
         ]*(is used uninitialized in this function))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_uninit-use-device-clause_200:
-  bin: '"uninit-use-device-clause.s"'
-  cargs: '  -O  -fopenacc -Wuninitialized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/uninit-use-device-clause.f95'
-  herit: *GRPSERIAL
-  info: *99
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_update_201:
-  bin: '"update.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/update.f95'
-  herit: *GRPSERIAL
-  info: &100
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_update_100:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/update.f95'
+    sources:
+      binary: update.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -7747,29 +7255,17 @@ test_update_201:
         ]*(must contain at least one 'device' or 'host' or 'self' clause))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_update_5:
-  bin: '"update.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/update.f95'
-  herit: *GRPSERIAL
-  info: *100
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_vector_length_11:
-  bin: '"vector_length.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/vector_length.f90'
-  herit: *GRPSERIAL
-  info: &101 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_vector_length_202:
-  bin: '"vector_length.s"'
-  cargs: '  -O  -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/vector_length.f90'
-  herit: *GRPSERIAL
-  info: *101
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vector_length_101:
+  build:
+    cflags: '  -O  -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/goacc/vector_length.f90'
+    sources:
+      binary: vector_length.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

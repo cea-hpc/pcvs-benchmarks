@@ -1,105 +1,78 @@
-test_conpr-1_20:
-  bin: '"./conpr-1.exe"'
-  cargs: ' '
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/special/conpr-1.C'
-  herit: *GRPSERIAL
-  info: &1 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_conpr-1_8:
-  bin: '"./conpr-1.exe"'
-  cargs: ' '
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/special/conpr-1.C'
-  herit: *GRPSERIAL
-  info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_conpr-2_23:
-  bin: '"./conpr-2.exe"'
-  cargs: ' '
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/special/conpr-2.C'
-  herit: *GRPSERIAL
-  info: &2 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_conpr-2_9:
-  bin: '"./conpr-2.exe"'
-  cargs: ' '
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/special/conpr-2.C'
-  herit: *GRPSERIAL
-  info: *2
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_conpr-3_10:
-  bin: '"./conpr-3.exe"'
-  cargs: ' '
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/special/conpr-3.C'
-  herit: *GRPSERIAL
-  info: &3 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_conpr-3_23:
-  bin: '"./conpr-3.exe"'
-  cargs: ' '
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/special/conpr-3.C'
-  herit: *GRPSERIAL
-  info: *3
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_conpr-4_11:
-  bin: '"./conpr-4.exe"'
-  cargs: ' '
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/special/conpr-4.C'
-  herit: *GRPSERIAL
-  info: &4 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_conpr-4_23:
-  bin: '"./conpr-4.exe"'
-  cargs: ' '
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/special/conpr-4.C'
-  herit: *GRPSERIAL
-  info: *4
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_initp1_12:
-  bin: '"./initp1.exe"'
-  cargs: ' '
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/special/initp1.C'
-  herit: *GRPSERIAL
-  info: &5 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_initp1_90:
-  bin: '"./initp1.exe"'
-  cargs: ' '
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/special/initp1.C'
-  herit: *GRPSERIAL
-  info: *5
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_initpri1_13:
-  bin: '"./initpri1.exe"'
-  cargs: ' '
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/special/initpri1.C'
-  herit: *GRPSERIAL
-  info: &6 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_initpri1_62:
-  bin: '"./initpri1.exe"'
-  cargs: ' '
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/special/initpri1.C'
-  herit: *GRPSERIAL
-  info: *6
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_initpri2_14:
-  bin: '"initpri2.s"'
-  cargs: '  -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/special/initpri2.C'
-  herit: *GRPSERIAL
-  info: &7
+---
+test_conpr-1_1:
+  build:
+    cflags: ' '
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/special/conpr-1.C'
+    sources:
+      binary: ./conpr-1.exe
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_conpr-2_2:
+  build:
+    cflags: ' '
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/special/conpr-2.C'
+    sources:
+      binary: ./conpr-2.exe
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_conpr-3_3:
+  build:
+    cflags: ' '
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/special/conpr-3.C'
+    sources:
+      binary: ./conpr-3.exe
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_conpr-4_4:
+  build:
+    cflags: ' '
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/special/conpr-4.C'
+    sources:
+      binary: ./conpr-4.exe
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_initp1_5:
+  build:
+    cflags: ' '
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/special/initp1.C'
+    sources:
+      binary: ./initp1.exe
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_initpri1_6:
+  build:
+    cflags: ' '
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/special/initpri1.C'
+    sources:
+      binary: ./initpri1.exe
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_initpri2_7:
+  build:
+    cflags: '  -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/special/initpri2.C'
+    sources:
+      binary: initpri2.s
+  group: GRPSERIAL
+  info:
     regex-err:
       - |-
         (^|
@@ -182,13 +155,6 @@ test_initpri2_14:
         ]*(reserved))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_initpri2_39:
-  bin: '"initpri2.s"'
-  cargs: '  -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/special/initpri2.C'
-  herit: *GRPSERIAL
-  info: *7
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

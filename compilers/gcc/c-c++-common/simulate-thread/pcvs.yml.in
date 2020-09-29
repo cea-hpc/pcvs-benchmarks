@@ -1,512 +1,271 @@
-test_bitfields-1_13:
-  bin: '"bitfields-1.exe"'
-  cargs: '  -O0 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-1.c'
-  herit: *GRPSERIAL
+---
+test_bitfields-1_1:
+  build:
+    cflags: '  -O0 -g  --param allow-store-data-races=0'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-1.c'
+    sources:
+      binary: bitfields-1.exe
+  group: GRPSERIAL
   info: &1
     extraopts:
       - '"--param allow-store-data-races=0"'
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfields-1_10:
+  build:
+    cflags: '  -O0 -g  --param allow-store-data-races=0'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-1.c'
+    sources:
+      binary: bitfields-1.exe
+  group: GRPSERIAL
+  info: *1
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfields-1_11:
+  build:
+    cflags: '  -O1 -g  --param allow-store-data-races=0'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-1.c'
+    sources:
+      binary: bitfields-1.exe
+  group: GRPSERIAL
+  info: *1
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfields-1_12:
+  build:
+    cflags: '  -O2 -g -std=c++98  --param allow-store-data-races=0'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-1.c'
+    sources:
+      binary: bitfields-1.exe
+  group: GRPSERIAL
+  info: *1
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfields-1_13:
+  build:
+    cflags: '  -O3 -g -std=c++11  --param allow-store-data-races=0'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-1.c'
+    sources:
+      binary: bitfields-1.exe
+  group: GRPSERIAL
+  info: *1
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_bitfields-1_14:
-  bin: '"bitfields-1.exe"'
-  cargs: '  -O1 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -Os -g  --param allow-store-data-races=0'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-1.c'
+    sources:
+      binary: bitfields-1.exe
+  group: GRPSERIAL
   info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-1_15:
-  bin: '"bitfields-1.exe"'
-  cargs: '  -O2 -g -std=c++98  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-1.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-1_16:
-  bin: '"bitfields-1.exe"'
-  cargs: '  -O3 -g -std=c++11  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-1.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-1_17:
-  bin: '"bitfields-1.exe"'
-  cargs: '  -Os -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-1.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_bitfields-1_2:
-  bin: '"bitfields-1.exe"'
-  cargs: '  -O2 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2 -g  --param allow-store-data-races=0'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-1.c'
+    sources:
+      binary: bitfields-1.exe
+  group: GRPSERIAL
   info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_bitfields-1_3:
-  bin: '"bitfields-1.exe"'
-  cargs: '  -O3 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O3 -g  --param allow-store-data-races=0'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-1.c'
+    sources:
+      binary: bitfields-1.exe
+  group: GRPSERIAL
   info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-1_33:
-  bin: '"bitfields-1.exe"'
-  cargs: '  -O0 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-1.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-1_34:
-  bin: '"bitfields-1.exe"'
-  cargs: '  -O2 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-1.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-1_35:
-  bin: '"bitfields-1.exe"'
-  cargs: '  -O3 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-1.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-1_45:
-  bin: '"bitfields-1.exe"'
-  cargs: '  -O0 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-1.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-1_46:
-  bin: '"bitfields-1.exe"'
-  cargs: '  -O1 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-1.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-1_47:
-  bin: '"bitfields-1.exe"'
-  cargs: '  -O2 -g -std=c++98  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-1.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-1_48:
-  bin: '"bitfields-1.exe"'
-  cargs: '  -O3 -g -std=c++11  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-1.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-1_49:
-  bin: '"bitfields-1.exe"'
-  cargs: '  -Os -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-1.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-1_71:
-  bin: '"bitfields-1.exe"'
-  cargs: '  -O0 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-1.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-2_18:
-  bin: '"bitfields-2.exe"'
-  cargs: '  -O0 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-2.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfields-3_15:
+  build:
+    cflags: '  -O0 -g  --param allow-store-data-races=0'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-3.c'
+    sources:
+      binary: bitfields-3.exe
+  group: GRPSERIAL
   info: &2
     extraopts:
       - '"--param allow-store-data-races=0"'
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-2_19:
-  bin: '"bitfields-2.exe"'
-  cargs: '  -O1 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-2.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfields-3_16:
+  build:
+    cflags: '  -O1 -g  --param allow-store-data-races=0'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-3.c'
+    sources:
+      binary: bitfields-3.exe
+  group: GRPSERIAL
   info: *2
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-2_20:
-  bin: '"bitfields-2.exe"'
-  cargs: '  -O2 -g -std=c++98  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-2.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfields-3_17:
+  build:
+    cflags: '  -O2 -g -std=c++98  --param allow-store-data-races=0'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-3.c'
+    sources:
+      binary: bitfields-3.exe
+  group: GRPSERIAL
   info: *2
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-2_21:
-  bin: '"bitfields-2.exe"'
-  cargs: '  -O3 -g -std=c++11  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-2.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfields-3_18:
+  build:
+    cflags: '  -O3 -g -std=c++11  --param allow-store-data-races=0'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-3.c'
+    sources:
+      binary: bitfields-3.exe
+  group: GRPSERIAL
   info: *2
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-2_22:
-  bin: '"bitfields-2.exe"'
-  cargs: '  -Os -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-2.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfields-3_19:
+  build:
+    cflags: '  -Os -g  --param allow-store-data-races=0'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-3.c'
+    sources:
+      binary: bitfields-3.exe
+  group: GRPSERIAL
   info: *2
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-2_36:
-  bin: '"bitfields-2.exe"'
-  cargs: '  -O0 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-2.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfields-3_4:
+  build:
+    cflags: '  -O0 -g  --param allow-store-data-races=0'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-3.c'
+    sources:
+      binary: bitfields-3.exe
+  group: GRPSERIAL
   info: *2
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-2_37:
-  bin: '"bitfields-2.exe"'
-  cargs: '  -O2 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-2.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfields-3_5:
+  build:
+    cflags: '  -O2 -g  --param allow-store-data-races=0'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-3.c'
+    sources:
+      binary: bitfields-3.exe
+  group: GRPSERIAL
   info: *2
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-2_38:
-  bin: '"bitfields-2.exe"'
-  cargs: '  -O3 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-2.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfields-3_6:
+  build:
+    cflags: '  -O3 -g  --param allow-store-data-races=0'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-3.c'
+    sources:
+      binary: bitfields-3.exe
+  group: GRPSERIAL
   info: *2
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-2_5:
-  bin: '"bitfields-2.exe"'
-  cargs: '  -O2 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-2.c'
-  herit: *GRPSERIAL
-  info: *2
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-2_50:
-  bin: '"bitfields-2.exe"'
-  cargs: '  -O0 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-2.c'
-  herit: *GRPSERIAL
-  info: *2
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-2_51:
-  bin: '"bitfields-2.exe"'
-  cargs: '  -O1 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-2.c'
-  herit: *GRPSERIAL
-  info: *2
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-2_52:
-  bin: '"bitfields-2.exe"'
-  cargs: '  -O2 -g -std=c++98  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-2.c'
-  herit: *GRPSERIAL
-  info: *2
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-2_53:
-  bin: '"bitfields-2.exe"'
-  cargs: '  -O3 -g -std=c++11  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-2.c'
-  herit: *GRPSERIAL
-  info: *2
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-2_54:
-  bin: '"bitfields-2.exe"'
-  cargs: '  -Os -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-2.c'
-  herit: *GRPSERIAL
-  info: *2
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-2_59:
-  bin: '"bitfields-2.exe"'
-  cargs: '  -O0 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-2.c'
-  herit: *GRPSERIAL
-  info: *2
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-2_6:
-  bin: '"bitfields-2.exe"'
-  cargs: '  -O3 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-2.c'
-  herit: *GRPSERIAL
-  info: *2
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-3_23:
-  bin: '"bitfields-3.exe"'
-  cargs: '  -O0 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-3.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfields-4_20:
+  build:
+    cflags: '  -O0 -g  --param allow-store-data-races=0'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-4.c'
+    sources:
+      binary: bitfields-4.exe
+  group: GRPSERIAL
   info: &3
     extraopts:
       - '"--param allow-store-data-races=0"'
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-3_24:
-  bin: '"bitfields-3.exe"'
-  cargs: '  -O1 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-3.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfields-4_21:
+  build:
+    cflags: '  -O1 -g  --param allow-store-data-races=0'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-4.c'
+    sources:
+      binary: bitfields-4.exe
+  group: GRPSERIAL
   info: *3
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-3_25:
-  bin: '"bitfields-3.exe"'
-  cargs: '  -O2 -g -std=c++98  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-3.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfields-4_22:
+  build:
+    cflags: '  -O2 -g -std=c++98  --param allow-store-data-races=0'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-4.c'
+    sources:
+      binary: bitfields-4.exe
+  group: GRPSERIAL
   info: *3
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-3_26:
-  bin: '"bitfields-3.exe"'
-  cargs: '  -O3 -g -std=c++11  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-3.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfields-4_23:
+  build:
+    cflags: '  -O3 -g -std=c++11  --param allow-store-data-races=0'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-4.c'
+    sources:
+      binary: bitfields-4.exe
+  group: GRPSERIAL
   info: *3
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-3_27:
-  bin: '"bitfields-3.exe"'
-  cargs: '  -Os -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-3.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfields-4_24:
+  build:
+    cflags: '  -Os -g  --param allow-store-data-races=0'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-4.c'
+    sources:
+      binary: bitfields-4.exe
+  group: GRPSERIAL
   info: *3
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-3_39:
-  bin: '"bitfields-3.exe"'
-  cargs: '  -O0 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-3.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfields-4_7:
+  build:
+    cflags: '  -O0 -g  --param allow-store-data-races=0'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-4.c'
+    sources:
+      binary: bitfields-4.exe
+  group: GRPSERIAL
   info: *3
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-3_40:
-  bin: '"bitfields-3.exe"'
-  cargs: '  -O2 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-3.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfields-4_8:
+  build:
+    cflags: '  -O2 -g  --param allow-store-data-races=0'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-4.c'
+    sources:
+      binary: bitfields-4.exe
+  group: GRPSERIAL
   info: *3
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-3_41:
-  bin: '"bitfields-3.exe"'
-  cargs: '  -O3 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-3.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfields-4_9:
+  build:
+    cflags: '  -O3 -g  --param allow-store-data-races=0'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-4.c'
+    sources:
+      binary: bitfields-4.exe
+  group: GRPSERIAL
   info: *3
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-3_55:
-  bin: '"bitfields-3.exe"'
-  cargs: '  -O0 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-3.c'
-  herit: *GRPSERIAL
-  info: *3
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-3_56:
-  bin: '"bitfields-3.exe"'
-  cargs: '  -O1 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-3.c'
-  herit: *GRPSERIAL
-  info: *3
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-3_57:
-  bin: '"bitfields-3.exe"'
-  cargs: '  -O2 -g -std=c++98  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-3.c'
-  herit: *GRPSERIAL
-  info: *3
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-3_58:
-  bin: '"bitfields-3.exe"'
-  cargs: '  -O3 -g -std=c++11  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-3.c'
-  herit: *GRPSERIAL
-  info: *3
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-3_59:
-  bin: '"bitfields-3.exe"'
-  cargs: '  -Os -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-3.c'
-  herit: *GRPSERIAL
-  info: *3
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-3_63:
-  bin: '"bitfields-3.exe"'
-  cargs: '  -O0 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-3.c'
-  herit: *GRPSERIAL
-  info: *3
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-3_8:
-  bin: '"bitfields-3.exe"'
-  cargs: '  -O2 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-3.c'
-  herit: *GRPSERIAL
-  info: *3
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-3_9:
-  bin: '"bitfields-3.exe"'
-  cargs: '  -O3 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-3.c'
-  herit: *GRPSERIAL
-  info: *3
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-4_11:
-  bin: '"bitfields-4.exe"'
-  cargs: '  -O2 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-4.c'
-  herit: *GRPSERIAL
-  info: &4
-    extraopts:
-      - '"--param allow-store-data-races=0"'
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-4_12:
-  bin: '"bitfields-4.exe"'
-  cargs: '  -O3 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-4.c'
-  herit: *GRPSERIAL
-  info: *4
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-4_28:
-  bin: '"bitfields-4.exe"'
-  cargs: '  -O0 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-4.c'
-  herit: *GRPSERIAL
-  info: *4
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-4_29:
-  bin: '"bitfields-4.exe"'
-  cargs: '  -O1 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-4.c'
-  herit: *GRPSERIAL
-  info: *4
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-4_30:
-  bin: '"bitfields-4.exe"'
-  cargs: '  -O2 -g -std=c++98  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-4.c'
-  herit: *GRPSERIAL
-  info: *4
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-4_31:
-  bin: '"bitfields-4.exe"'
-  cargs: '  -O3 -g -std=c++11  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-4.c'
-  herit: *GRPSERIAL
-  info: *4
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-4_32:
-  bin: '"bitfields-4.exe"'
-  cargs: '  -Os -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-4.c'
-  herit: *GRPSERIAL
-  info: *4
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-4_42:
-  bin: '"bitfields-4.exe"'
-  cargs: '  -O0 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-4.c'
-  herit: *GRPSERIAL
-  info: *4
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-4_43:
-  bin: '"bitfields-4.exe"'
-  cargs: '  -O2 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-4.c'
-  herit: *GRPSERIAL
-  info: *4
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-4_44:
-  bin: '"bitfields-4.exe"'
-  cargs: '  -O3 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-4.c'
-  herit: *GRPSERIAL
-  info: *4
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-4_60:
-  bin: '"bitfields-4.exe"'
-  cargs: '  -O0 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-4.c'
-  herit: *GRPSERIAL
-  info: *4
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-4_61:
-  bin: '"bitfields-4.exe"'
-  cargs: '  -O1 -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-4.c'
-  herit: *GRPSERIAL
-  info: *4
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-4_62:
-  bin: '"bitfields-4.exe"'
-  cargs: '  -O2 -g -std=c++98  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-4.c'
-  herit: *GRPSERIAL
-  info: *4
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-4_63:
-  bin: '"bitfields-4.exe"'
-  cargs: '  -O3 -g -std=c++11  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-4.c'
-  herit: *GRPSERIAL
-  info: *4
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfields-4_64:
-  bin: '"bitfields-4.exe"'
-  cargs: '  -Os -g  --param allow-store-data-races=0'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/simulate-thread/bitfields-4.c'
-  herit: *GRPSERIAL
-  info: *4
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

@@ -143,7 +143,6 @@ sub check_tool
 
 check_tool "runtest";
 
-#$ENV{PATH} = $pwd."/tools/bin:".$ENV{PATH};
 my $tmpdir = `mktemp -d`; chomp $tmpdir;
 
 my @tools=('gcc', 'g++', 'gfortran');
@@ -151,7 +150,7 @@ $ENV{PCVS_CATCH_RUNTEST} = "pcvs.raw";
 foreach(@tools)
 {
 	print "Building for $_ tool\n";
-	system("runtest --tool=$_ --objdir $tmpdir --outdir $tmpdir > /dev/null 2>&1");
+	system("runtest --tool=$_ --objdir $tmpdir --outdir $tmpdir --tool_exec $pwd/tools/bin/gcc > /dev/null 2>&1");
 }
 
 foreach(`find $pwd -type f -iname 'pcvs.raw'`)

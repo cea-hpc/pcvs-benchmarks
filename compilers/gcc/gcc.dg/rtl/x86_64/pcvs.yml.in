@@ -1,224 +1,160 @@
-test_dfinit_116:
-  bin: '"./dfinit.exe"'
-  cargs: -fdump-rtl-dfinit -ffat-lto-objects
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/dfinit.c'
-  herit: *GRPSERIAL
-  info: &1
+---
+test_dfinit_1:
+  build:
+    cflags: -fdump-rtl-dfinit -ffat-lto-objects
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/dfinit.c'
+    sources:
+      binary: ./dfinit.exe
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-fdump-rtl-dfinit"'
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_dfinit_14:
-  bin: '"./dfinit.exe"'
-  cargs: -fdump-rtl-dfinit -ffat-lto-objects
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/dfinit.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_different-structs_15:
-  bin: '"different-structs.s"'
-  cargs: '  -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/different-structs.c'
-  herit: *GRPSERIAL
-  info: &2 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_different-structs_81:
-  bin: '"different-structs.s"'
-  cargs: '  -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/different-structs.c'
-  herit: *GRPSERIAL
-  info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_final_133:
-  bin: '"final.s"'
-  cargs: -fdump-rtl-final -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/final.c'
-  herit: *GRPSERIAL
-  info: &3
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_different-structs_2:
+  build:
+    cflags: '  -S'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/different-structs.c'
+    sources:
+      binary: different-structs.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_final_3:
+  build:
+    cflags: -fdump-rtl-final -ffat-lto-objects -S
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/final.c'
+    sources:
+      binary: final.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-fdump-rtl-final"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_final_16:
-  bin: '"final.s"'
-  cargs: -fdump-rtl-final -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/final.c'
-  herit: *GRPSERIAL
-  info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_into-cfglayout_117:
-  bin: '"./into-cfglayout.exe"'
-  cargs: -fdump-rtl-into_cfglayout -ffat-lto-objects
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/into-cfglayout.c'
-  herit: *GRPSERIAL
-  info: &4
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_into-cfglayout_4:
+  build:
+    cflags: -fdump-rtl-into_cfglayout -ffat-lto-objects
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/into-cfglayout.c'
+    sources:
+      binary: ./into-cfglayout.exe
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-fdump-rtl-into_cfglayout"'
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_into-cfglayout_17:
-  bin: '"./into-cfglayout.exe"'
-  cargs: -fdump-rtl-into_cfglayout -ffat-lto-objects
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/into-cfglayout.c'
-  herit: *GRPSERIAL
-  info: *4
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_ira_111:
-  bin: '"./ira.exe"'
-  cargs: -fdump-rtl-ira -ffat-lto-objects
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/ira.c'
-  herit: *GRPSERIAL
-  info: &5
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ira_5:
+  build:
+    cflags: -fdump-rtl-ira -ffat-lto-objects
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/ira.c'
+    sources:
+      binary: ./ira.exe
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-fdump-rtl-ira"'
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_ira_18:
-  bin: '"./ira.exe"'
-  cargs: -fdump-rtl-ira -ffat-lto-objects
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/ira.c'
-  herit: *GRPSERIAL
-  info: *5
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pro_and_epilogue_110:
-  bin: '"pro_and_epilogue.s"'
-  cargs: -fdump-rtl-pro_and_epilogue -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/pro_and_epilogue.c'
-  herit: *GRPSERIAL
-  info: &6
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pro_and_epilogue_6:
+  build:
+    cflags: -fdump-rtl-pro_and_epilogue -ffat-lto-objects -S
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/pro_and_epilogue.c'
+    sources:
+      binary: pro_and_epilogue.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-fdump-rtl-pro_and_epilogue"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pro_and_epilogue_19:
-  bin: '"pro_and_epilogue.s"'
-  cargs: -fdump-rtl-pro_and_epilogue -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/pro_and_epilogue.c'
-  herit: *GRPSERIAL
-  info: *6
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_test-multiple-fns_105:
-  bin: '"./test-multiple-fns.exe"'
-  cargs: ' '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/test-multiple-fns.c'
-  herit: *GRPSERIAL
-  info: &7 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_test-multiple-fns_20:
-  bin: '"./test-multiple-fns.exe"'
-  cargs: ' '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/test-multiple-fns.c'
-  herit: *GRPSERIAL
-  info: *7
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_test-return-const.c.after-expand_21:
-  bin: '"./test-return-const.c.after-expand.exe"'
-  cargs: ' '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/test-return-const.c.after-expand.c'
-  herit: *GRPSERIAL
-  info: &8 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_test-return-const.c.after-expand_39:
-  bin: '"./test-return-const.c.after-expand.exe"'
-  cargs: ' '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/test-return-const.c.after-expand.c'
-  herit: *GRPSERIAL
-  info: *8
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_test-return-const.c.before-fwprop_22:
-  bin: '"./test-return-const.c.before-fwprop.exe"'
-  cargs: -fdump-rtl-fwprop1 -O2 -ffat-lto-objects
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/test-return-const.c.before-fwprop.c'
-  herit: *GRPSERIAL
-  info: &9
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_test-multiple-fns_7:
+  build:
+    cflags: ' '
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/test-multiple-fns.c'
+    sources:
+      binary: ./test-multiple-fns.exe
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_test-return-const.c.after-expand_8:
+  build:
+    cflags: ' '
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/test-return-const.c.after-expand.c'
+    sources:
+      binary: ./test-return-const.c.after-expand.exe
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_test-return-const.c.before-fwprop_9:
+  build:
+    cflags: -fdump-rtl-fwprop1 -O2 -ffat-lto-objects
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/test-return-const.c.before-fwprop.c'
+    sources:
+      binary: ./test-return-const.c.before-fwprop.exe
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-fdump-rtl-fwprop1 -O2"'
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_test-return-const.c.before-fwprop_42:
-  bin: '"./test-return-const.c.before-fwprop.exe"'
-  cargs: -fdump-rtl-fwprop1 -O2 -ffat-lto-objects
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/test-return-const.c.before-fwprop.c'
-  herit: *GRPSERIAL
-  info: *9
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_test-rtl_101:
-  bin: '"test-rtl.s"'
-  cargs: '  -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/test-rtl.c'
-  herit: *GRPSERIAL
-  info: &10 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_test-rtl_23:
-  bin: '"test-rtl.s"'
-  cargs: '  -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/test-rtl.c'
-  herit: *GRPSERIAL
-  info: *10
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_times-two.c.after-expand_24:
-  bin: '"./times-two.c.after-expand.exe"'
-  cargs: ' '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/times-two.c.after-expand.c'
-  herit: *GRPSERIAL
-  info: &11 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_times-two.c.after-expand_70:
-  bin: '"./times-two.c.after-expand.exe"'
-  cargs: ' '
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/times-two.c.after-expand.c'
-  herit: *GRPSERIAL
-  info: *11
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_times-two.c.before-df_25:
-  bin: '"times-two.c.before-df.s"'
-  cargs: -fdump-rtl-dfinit -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/times-two.c.before-df.c'
-  herit: *GRPSERIAL
-  info: &12
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_test-rtl_10:
+  build:
+    cflags: '  -S'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/test-rtl.c'
+    sources:
+      binary: test-rtl.s
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_times-two.c.after-expand_11:
+  build:
+    cflags: ' '
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/times-two.c.after-expand.c'
+    sources:
+      binary: ./times-two.c.after-expand.exe
+  group: GRPSERIAL
+  info: {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_times-two.c.before-df_12:
+  build:
+    cflags: -fdump-rtl-dfinit -ffat-lto-objects -S
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/times-two.c.before-df.c'
+    sources:
+      binary: times-two.c.before-df.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-fdump-rtl-dfinit"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_times-two.c.before-df_54:
-  bin: '"times-two.c.before-df.s"'
-  cargs: -fdump-rtl-dfinit -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/times-two.c.before-df.c'
-  herit: *GRPSERIAL
-  info: *12
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_vregs_112:
-  bin: '"./vregs.exe"'
-  cargs: -fdump-rtl-vregs -ffat-lto-objects
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/vregs.c'
-  herit: *GRPSERIAL
-  info: &13
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vregs_13:
+  build:
+    cflags: -fdump-rtl-vregs -ffat-lto-objects
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/vregs.c'
+    sources:
+      binary: ./vregs.exe
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-fdump-rtl-vregs"'
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_vregs_26:
-  bin: '"./vregs.exe"'
-  cargs: -fdump-rtl-vregs -ffat-lto-objects
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/rtl/x86_64/vregs.c'
-  herit: *GRPSERIAL
-  info: *13
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

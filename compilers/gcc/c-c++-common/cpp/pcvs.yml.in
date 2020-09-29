@@ -1,8 +1,11 @@
-test_diagnostic-pragma-1_11:
-  bin: '"diagnostic-pragma-1.s"'
-  cargs: ' -Wc++-compat   -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/diagnostic-pragma-1.c'
-  herit: *GRPSERIAL
+---
+test_diagnostic-pragma-1_1:
+  build:
+    cflags: ' -Wc++-compat   -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/diagnostic-pragma-1.c'
+    sources:
+      binary: diagnostic-pragma-1.s
+  group: GRPSERIAL
   info: &1
     regex-err:
       - |-
@@ -38,69 +41,49 @@ test_diagnostic-pragma-1_11:
         ]*(warn-c))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_diagnostic-pragma-1_119:
-  bin: '"diagnostic-pragma-1.s"'
-  cargs: ' -std=c++98  -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/diagnostic-pragma-1.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_diagnostic-pragma-1_120:
-  bin: '"diagnostic-pragma-1.s"'
-  cargs: ' -std=c++11  -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/diagnostic-pragma-1.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_diagnostic-pragma-1_121:
-  bin: '"diagnostic-pragma-1.s"'
-  cargs: ' -std=c++14  -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/diagnostic-pragma-1.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_diagnostic-pragma-1_25:
-  bin: '"diagnostic-pragma-1.s"'
-  cargs: ' -std=c++98  -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/diagnostic-pragma-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++98  -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/diagnostic-pragma-1.c'
+    sources:
+      binary: diagnostic-pragma-1.s
+  group: GRPSERIAL
   info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_diagnostic-pragma-1_26:
-  bin: '"diagnostic-pragma-1.s"'
-  cargs: ' -std=c++11  -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/diagnostic-pragma-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++11  -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/diagnostic-pragma-1.c'
+    sources:
+      binary: diagnostic-pragma-1.s
+  group: GRPSERIAL
   info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_diagnostic-pragma-1_27:
-  bin: '"diagnostic-pragma-1.s"'
-  cargs: ' -std=c++14  -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/diagnostic-pragma-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++14  -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/diagnostic-pragma-1.c'
+    sources:
+      binary: diagnostic-pragma-1.s
+  group: GRPSERIAL
   info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_diagnostic-pragma-1_95:
-  bin: '"diagnostic-pragma-1.s"'
-  cargs: ' -Wc++-compat   -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/diagnostic-pragma-1.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_normalize-3_122:
-  bin: '"normalize-3.i"'
-  cargs: ' -std=gnu++98 -Wnormalized=id -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/normalize-3.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_normalize-3_2:
+  build:
+    cflags: ' -Wc++-compat  -std=c99 -Wnormalized=id -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/normalize-3.c'
+    sources:
+      binary: normalize-3.i
+  group: GRPSERIAL
   info: &2
     extraopts:
       - '"-std=c99 -Wnormalized=id" { target c }'
@@ -186,599 +169,423 @@ test_normalize-3_122:
         ]*(not in NFC))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_normalize-3_123:
-  bin: '"normalize-3.i"'
-  cargs: ' -std=gnu++11 -Wnormalized=id -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/normalize-3.c'
-  herit: *GRPSERIAL
-  info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_normalize-3_124:
-  bin: '"normalize-3.i"'
-  cargs: ' -std=gnu++14 -Wnormalized=id -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/normalize-3.c'
-  herit: *GRPSERIAL
-  info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_normalize-3_28:
-  bin: '"normalize-3.i"'
-  cargs: ' -std=gnu++98 -Wnormalized=id -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/normalize-3.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++98 -Wnormalized=id -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/normalize-3.c'
+    sources:
+      binary: normalize-3.i
+  group: GRPSERIAL
   info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_normalize-3_29:
-  bin: '"normalize-3.i"'
-  cargs: ' -std=gnu++11 -Wnormalized=id -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/normalize-3.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++11 -Wnormalized=id -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/normalize-3.c'
+    sources:
+      binary: normalize-3.i
+  group: GRPSERIAL
   info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_normalize-3_30:
-  bin: '"normalize-3.i"'
-  cargs: ' -std=gnu++14 -Wnormalized=id -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/normalize-3.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++14 -Wnormalized=id -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/normalize-3.c'
+    sources:
+      binary: normalize-3.i
+  group: GRPSERIAL
   info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_normalize-3_35:
-  bin: '"normalize-3.i"'
-  cargs: ' -Wc++-compat  -std=c99 -Wnormalized=id -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/normalize-3.c'
-  herit: *GRPSERIAL
-  info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_normalize-3_96:
-  bin: '"normalize-3.i"'
-  cargs: ' -Wc++-compat  -std=c99 -Wnormalized=id -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/normalize-3.c'
-  herit: *GRPSERIAL
-  info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_openacc-define-1_125:
-  bin: '"openacc-define-1.i"'
-  cargs: ' -std=c++98  -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openacc-define-1.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_openacc-define-1_3:
+  build:
+    cflags: ' -Wc++-compat   -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openacc-define-1.c'
+    sources:
+      binary: openacc-define-1.i
+  group: GRPSERIAL
   info: &3 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_openacc-define-1_126:
-  bin: '"openacc-define-1.i"'
-  cargs: ' -std=c++11  -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openacc-define-1.c'
-  herit: *GRPSERIAL
-  info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_openacc-define-1_127:
-  bin: '"openacc-define-1.i"'
-  cargs: ' -std=c++14  -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openacc-define-1.c'
-  herit: *GRPSERIAL
-  info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_openacc-define-1_31:
-  bin: '"openacc-define-1.i"'
-  cargs: ' -std=c++98  -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openacc-define-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++98  -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openacc-define-1.c'
+    sources:
+      binary: openacc-define-1.i
+  group: GRPSERIAL
   info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_openacc-define-1_32:
-  bin: '"openacc-define-1.i"'
-  cargs: ' -std=c++11  -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openacc-define-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++11  -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openacc-define-1.c'
+    sources:
+      binary: openacc-define-1.i
+  group: GRPSERIAL
   info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_openacc-define-1_33:
-  bin: '"openacc-define-1.i"'
-  cargs: ' -std=c++14  -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openacc-define-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++14  -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openacc-define-1.c'
+    sources:
+      binary: openacc-define-1.i
+  group: GRPSERIAL
   info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_openacc-define-1_6:
-  bin: '"openacc-define-1.i"'
-  cargs: ' -Wc++-compat   -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openacc-define-1.c'
-  herit: *GRPSERIAL
-  info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_openacc-define-1_97:
-  bin: '"openacc-define-1.i"'
-  cargs: ' -Wc++-compat   -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openacc-define-1.c'
-  herit: *GRPSERIAL
-  info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_openacc-define-2_128:
-  bin: '"openacc-define-2.i"'
-  cargs: ' -std=gnu++98 -fno-openacc -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openacc-define-2.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_openacc-define-2_34:
+  build:
+    cflags: ' -std=gnu++98 -fno-openacc -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openacc-define-2.c'
+    sources:
+      binary: openacc-define-2.i
+  group: GRPSERIAL
   info: &4
     extraopts:
       - '"-fno-openacc"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_openacc-define-2_129:
-  bin: '"openacc-define-2.i"'
-  cargs: ' -std=gnu++11 -fno-openacc -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openacc-define-2.c'
-  herit: *GRPSERIAL
-  info: *4
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_openacc-define-2_130:
-  bin: '"openacc-define-2.i"'
-  cargs: ' -std=gnu++14 -fno-openacc -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openacc-define-2.c'
-  herit: *GRPSERIAL
-  info: *4
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_openacc-define-2_34:
-  bin: '"openacc-define-2.i"'
-  cargs: ' -std=gnu++98 -fno-openacc -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openacc-define-2.c'
-  herit: *GRPSERIAL
-  info: *4
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_openacc-define-2_35:
-  bin: '"openacc-define-2.i"'
-  cargs: ' -std=gnu++11 -fno-openacc -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openacc-define-2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++11 -fno-openacc -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openacc-define-2.c'
+    sources:
+      binary: openacc-define-2.i
+  group: GRPSERIAL
   info: *4
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_openacc-define-2_36:
-  bin: '"openacc-define-2.i"'
-  cargs: ' -std=gnu++14 -fno-openacc -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openacc-define-2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++14 -fno-openacc -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openacc-define-2.c'
+    sources:
+      binary: openacc-define-2.i
+  group: GRPSERIAL
   info: *4
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_openacc-define-2_7:
-  bin: '"openacc-define-2.i"'
-  cargs: ' -Wc++-compat  -fno-openacc -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openacc-define-2.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_openacc-define-2_4:
+  build:
+    cflags: ' -Wc++-compat  -fno-openacc -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openacc-define-2.c'
+    sources:
+      binary: openacc-define-2.i
+  group: GRPSERIAL
   info: *4
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_openacc-define-2_98:
-  bin: '"openacc-define-2.i"'
-  cargs: ' -Wc++-compat  -fno-openacc -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openacc-define-2.c'
-  herit: *GRPSERIAL
-  info: *4
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_openacc-define-3_11:
-  bin: '"openacc-define-3.i"'
-  cargs: ' -Wc++-compat  -fopenacc -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openacc-define-3.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_openacc-define-3_37:
+  build:
+    cflags: ' -std=gnu++98 -fopenacc -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openacc-define-3.c'
+    sources:
+      binary: openacc-define-3.i
+  group: GRPSERIAL
   info: &5
     extraopts:
       - '"-fopenacc"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_openacc-define-3_131:
-  bin: '"openacc-define-3.i"'
-  cargs: ' -std=gnu++98 -fopenacc -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openacc-define-3.c'
-  herit: *GRPSERIAL
-  info: *5
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_openacc-define-3_132:
-  bin: '"openacc-define-3.i"'
-  cargs: ' -std=gnu++11 -fopenacc -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openacc-define-3.c'
-  herit: *GRPSERIAL
-  info: *5
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_openacc-define-3_133:
-  bin: '"openacc-define-3.i"'
-  cargs: ' -std=gnu++14 -fopenacc -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openacc-define-3.c'
-  herit: *GRPSERIAL
-  info: *5
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_openacc-define-3_37:
-  bin: '"openacc-define-3.i"'
-  cargs: ' -std=gnu++98 -fopenacc -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openacc-define-3.c'
-  herit: *GRPSERIAL
-  info: *5
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_openacc-define-3_38:
-  bin: '"openacc-define-3.i"'
-  cargs: ' -std=gnu++11 -fopenacc -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openacc-define-3.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++11 -fopenacc -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openacc-define-3.c'
+    sources:
+      binary: openacc-define-3.i
+  group: GRPSERIAL
   info: *5
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_openacc-define-3_39:
-  bin: '"openacc-define-3.i"'
-  cargs: ' -std=gnu++14 -fopenacc -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openacc-define-3.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++14 -fopenacc -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openacc-define-3.c'
+    sources:
+      binary: openacc-define-3.i
+  group: GRPSERIAL
   info: *5
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_openacc-define-3_99:
-  bin: '"openacc-define-3.i"'
-  cargs: ' -Wc++-compat  -fopenacc -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openacc-define-3.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_openacc-define-3_5:
+  build:
+    cflags: ' -Wc++-compat  -fopenacc -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openacc-define-3.c'
+    sources:
+      binary: openacc-define-3.i
+  group: GRPSERIAL
   info: *5
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_openmp-define-1_100:
-  bin: '"openmp-define-1.i"'
-  cargs: ' -Wc++-compat   -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openmp-define-1.c'
-  herit: *GRPSERIAL
-  info: &6 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_openmp-define-1_134:
-  bin: '"openmp-define-1.i"'
-  cargs: ' -std=c++98  -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openmp-define-1.c'
-  herit: *GRPSERIAL
-  info: *6
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_openmp-define-1_135:
-  bin: '"openmp-define-1.i"'
-  cargs: ' -std=c++11  -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openmp-define-1.c'
-  herit: *GRPSERIAL
-  info: *6
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_openmp-define-1_136:
-  bin: '"openmp-define-1.i"'
-  cargs: ' -std=c++14  -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openmp-define-1.c'
-  herit: *GRPSERIAL
-  info: *6
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_openmp-define-1_40:
-  bin: '"openmp-define-1.i"'
-  cargs: ' -std=c++98  -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openmp-define-1.c'
-  herit: *GRPSERIAL
-  info: *6
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  build:
+    cflags: ' -std=c++98  -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openmp-define-1.c'
+    sources:
+      binary: openmp-define-1.i
+  group: GRPSERIAL
+  info: &6 {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_openmp-define-1_41:
-  bin: '"openmp-define-1.i"'
-  cargs: ' -std=c++11  -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openmp-define-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++11  -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openmp-define-1.c'
+    sources:
+      binary: openmp-define-1.i
+  group: GRPSERIAL
   info: *6
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_openmp-define-1_42:
-  bin: '"openmp-define-1.i"'
-  cargs: ' -std=c++14  -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openmp-define-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++14  -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openmp-define-1.c'
+    sources:
+      binary: openmp-define-1.i
+  group: GRPSERIAL
   info: *6
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_openmp-define-1_6:
-  bin: '"openmp-define-1.i"'
-  cargs: ' -Wc++-compat   -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openmp-define-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -Wc++-compat   -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openmp-define-1.c'
+    sources:
+      binary: openmp-define-1.i
+  group: GRPSERIAL
   info: *6
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_openmp-define-2_101:
-  bin: '"openmp-define-2.i"'
-  cargs: ' -Wc++-compat  -fno-openmp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openmp-define-2.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_openmp-define-2_43:
+  build:
+    cflags: ' -std=gnu++98 -fno-openmp -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openmp-define-2.c'
+    sources:
+      binary: openmp-define-2.i
+  group: GRPSERIAL
   info: &7
     extraopts:
       - '"-fno-openmp"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_openmp-define-2_137:
-  bin: '"openmp-define-2.i"'
-  cargs: ' -std=gnu++98 -fno-openmp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openmp-define-2.c'
-  herit: *GRPSERIAL
-  info: *7
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_openmp-define-2_138:
-  bin: '"openmp-define-2.i"'
-  cargs: ' -std=gnu++11 -fno-openmp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openmp-define-2.c'
-  herit: *GRPSERIAL
-  info: *7
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_openmp-define-2_139:
-  bin: '"openmp-define-2.i"'
-  cargs: ' -std=gnu++14 -fno-openmp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openmp-define-2.c'
-  herit: *GRPSERIAL
-  info: *7
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_openmp-define-2_43:
-  bin: '"openmp-define-2.i"'
-  cargs: ' -std=gnu++98 -fno-openmp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openmp-define-2.c'
-  herit: *GRPSERIAL
-  info: *7
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_openmp-define-2_44:
-  bin: '"openmp-define-2.i"'
-  cargs: ' -std=gnu++11 -fno-openmp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openmp-define-2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++11 -fno-openmp -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openmp-define-2.c'
+    sources:
+      binary: openmp-define-2.i
+  group: GRPSERIAL
   info: *7
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_openmp-define-2_45:
-  bin: '"openmp-define-2.i"'
-  cargs: ' -std=gnu++14 -fno-openmp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openmp-define-2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++14 -fno-openmp -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openmp-define-2.c'
+    sources:
+      binary: openmp-define-2.i
+  group: GRPSERIAL
   info: *7
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_openmp-define-2_7:
-  bin: '"openmp-define-2.i"'
-  cargs: ' -Wc++-compat  -fno-openmp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openmp-define-2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -Wc++-compat  -fno-openmp -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openmp-define-2.c'
+    sources:
+      binary: openmp-define-2.i
+  group: GRPSERIAL
   info: *7
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_openmp-define-3_102:
-  bin: '"openmp-define-3.i"'
-  cargs: ' -Wc++-compat  -fopenmp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openmp-define-3.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_openmp-define-3_46:
+  build:
+    cflags: ' -std=gnu++98 -fopenmp -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openmp-define-3.c'
+    sources:
+      binary: openmp-define-3.i
+  group: GRPSERIAL
   info: &8
     extraopts:
       - '"-fopenmp"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_openmp-define-3_11:
-  bin: '"openmp-define-3.i"'
-  cargs: ' -Wc++-compat  -fopenmp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openmp-define-3.c'
-  herit: *GRPSERIAL
-  info: *8
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_openmp-define-3_140:
-  bin: '"openmp-define-3.i"'
-  cargs: ' -std=gnu++98 -fopenmp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openmp-define-3.c'
-  herit: *GRPSERIAL
-  info: *8
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_openmp-define-3_141:
-  bin: '"openmp-define-3.i"'
-  cargs: ' -std=gnu++11 -fopenmp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openmp-define-3.c'
-  herit: *GRPSERIAL
-  info: *8
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_openmp-define-3_142:
-  bin: '"openmp-define-3.i"'
-  cargs: ' -std=gnu++14 -fopenmp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openmp-define-3.c'
-  herit: *GRPSERIAL
-  info: *8
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_openmp-define-3_46:
-  bin: '"openmp-define-3.i"'
-  cargs: ' -std=gnu++98 -fopenmp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openmp-define-3.c'
-  herit: *GRPSERIAL
-  info: *8
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_openmp-define-3_47:
-  bin: '"openmp-define-3.i"'
-  cargs: ' -std=gnu++11 -fopenmp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openmp-define-3.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++11 -fopenmp -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openmp-define-3.c'
+    sources:
+      binary: openmp-define-3.i
+  group: GRPSERIAL
   info: *8
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_openmp-define-3_48:
-  bin: '"openmp-define-3.i"'
-  cargs: ' -std=gnu++14 -fopenmp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openmp-define-3.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++14 -fopenmp -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openmp-define-3.c'
+    sources:
+      binary: openmp-define-3.i
+  group: GRPSERIAL
   info: *8
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr45457_103:
-  bin: '"pr45457.s"'
-  cargs: ' -Wc++-compat   -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr45457.c'
-  herit: *GRPSERIAL
-  info: &9 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr45457_143:
-  bin: '"pr45457.s"'
-  cargs: ' -std=c++98  -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr45457.c'
-  herit: *GRPSERIAL
-  info: *9
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr45457_144:
-  bin: '"pr45457.s"'
-  cargs: ' -std=c++11  -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr45457.c'
-  herit: *GRPSERIAL
-  info: *9
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr45457_145:
-  bin: '"pr45457.s"'
-  cargs: ' -std=c++14  -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr45457.c'
-  herit: *GRPSERIAL
-  info: *9
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr45457_18:
-  bin: '"pr45457.s"'
-  cargs: ' -Wc++-compat   -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr45457.c'
-  herit: *GRPSERIAL
-  info: *9
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_openmp-define-3_8:
+  build:
+    cflags: ' -Wc++-compat  -fopenmp -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/openmp-define-3.c'
+    sources:
+      binary: openmp-define-3.i
+  group: GRPSERIAL
+  info: *8
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr45457_49:
-  bin: '"pr45457.s"'
-  cargs: ' -std=c++98  -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr45457.c'
-  herit: *GRPSERIAL
-  info: *9
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  build:
+    cflags: ' -std=c++98  -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr45457.c'
+    sources:
+      binary: pr45457.s
+  group: GRPSERIAL
+  info: &9 {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr45457_50:
-  bin: '"pr45457.s"'
-  cargs: ' -std=c++11  -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr45457.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++11  -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr45457.c'
+    sources:
+      binary: pr45457.s
+  group: GRPSERIAL
   info: *9
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr45457_51:
-  bin: '"pr45457.s"'
-  cargs: ' -std=c++14  -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr45457.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++14  -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr45457.c'
+    sources:
+      binary: pr45457.s
+  group: GRPSERIAL
   info: *9
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr57580_104:
-  bin: '"pr57580.s"'
-  cargs: ' -Wc++-compat  -save-temps -S'
-  chdir: /home/adamj/Documents/projets/pcvs/compilers/gcc/c-c++-common/cpp
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr57580.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr45457_9:
+  build:
+    cflags: ' -Wc++-compat   -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr45457.c'
+    sources:
+      binary: pr45457.s
+  group: GRPSERIAL
+  info: *9
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr57580_10:
+  build:
+    cflags: ' -Wc++-compat  -save-temps -S'
+    cwd: /home/adamj/mnt/projects/pcvs/compilers/gcc/c-c++-common/cpp
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr57580.c'
+    sources:
+      binary: pr57580.s
+  group: GRPSERIAL
   info: &10
     extraopts:
       - '"-save-temps"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr57580_146:
-  bin: '"pr57580.s"'
-  cargs: ' -std=gnu++98 -save-temps -S'
-  chdir: /home/adamj/Documents/projets/pcvs/compilers/gcc/c-c++-common/cpp
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr57580.c'
-  herit: *GRPSERIAL
-  info: *10
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr57580_147:
-  bin: '"pr57580.s"'
-  cargs: ' -std=gnu++11 -save-temps -S'
-  chdir: /home/adamj/Documents/projets/pcvs/compilers/gcc/c-c++-common/cpp
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr57580.c'
-  herit: *GRPSERIAL
-  info: *10
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr57580_148:
-  bin: '"pr57580.s"'
-  cargs: ' -std=gnu++14 -save-temps -S'
-  chdir: /home/adamj/Documents/projets/pcvs/compilers/gcc/c-c++-common/cpp
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr57580.c'
-  herit: *GRPSERIAL
-  info: *10
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  run:
+    cwd: /home/adamj/mnt/projects/pcvs/compilers/gcc/c-c++-common/cpp
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr57580_52:
-  bin: '"pr57580.s"'
-  cargs: ' -std=gnu++98 -save-temps -S'
-  chdir: /home/adamj/Documents/projets/pcvs/compilers/gcc/c-c++-common/cpp
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr57580.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++98 -save-temps -S'
+    cwd: /home/adamj/mnt/projects/pcvs/compilers/gcc/c-c++-common/cpp
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr57580.c'
+    sources:
+      binary: pr57580.s
+  group: GRPSERIAL
   info: *10
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  run:
+    cwd: /home/adamj/mnt/projects/pcvs/compilers/gcc/c-c++-common/cpp
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr57580_53:
-  bin: '"pr57580.s"'
-  cargs: ' -std=gnu++11 -save-temps -S'
-  chdir: /home/adamj/Documents/projets/pcvs/compilers/gcc/c-c++-common/cpp
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr57580.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++11 -save-temps -S'
+    cwd: /home/adamj/mnt/projects/pcvs/compilers/gcc/c-c++-common/cpp
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr57580.c'
+    sources:
+      binary: pr57580.s
+  group: GRPSERIAL
   info: *10
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  run:
+    cwd: /home/adamj/mnt/projects/pcvs/compilers/gcc/c-c++-common/cpp
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr57580_54:
-  bin: '"pr57580.s"'
-  cargs: ' -std=gnu++14 -save-temps -S'
-  chdir: /home/adamj/Documents/projets/pcvs/compilers/gcc/c-c++-common/cpp
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr57580.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++14 -save-temps -S'
+    cwd: /home/adamj/mnt/projects/pcvs/compilers/gcc/c-c++-common/cpp
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr57580.c'
+    sources:
+      binary: pr57580.s
+  group: GRPSERIAL
   info: *10
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr57580_9:
-  bin: '"pr57580.s"'
-  cargs: ' -Wc++-compat  -save-temps -S'
-  chdir: /home/adamj/Documents/projets/pcvs/compilers/gcc/c-c++-common/cpp
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr57580.c'
-  herit: *GRPSERIAL
-  info: *10
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr58844-1_105:
-  bin: '"pr58844-1.s"'
-  cargs: ' -Wc++-compat  -ftrack-macro-expansion=0 -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr58844-1.c'
-  herit: *GRPSERIAL
+  run:
+    cwd: /home/adamj/mnt/projects/pcvs/compilers/gcc/c-c++-common/cpp
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr58844-1_11:
+  build:
+    cflags: ' -Wc++-compat  -ftrack-macro-expansion=0 -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr58844-1.c'
+    sources:
+      binary: pr58844-1.s
+  group: GRPSERIAL
   info: &11
     extraopts:
       - '"-ftrack-macro-expansion=0"'
@@ -791,69 +598,49 @@ test_pr58844-1_105:
         ]*(redefined))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr58844-1_149:
-  bin: '"pr58844-1.s"'
-  cargs: ' -std=gnu++98 -ftrack-macro-expansion=0 -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr58844-1.c'
-  herit: *GRPSERIAL
-  info: *11
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr58844-1_150:
-  bin: '"pr58844-1.s"'
-  cargs: ' -std=gnu++11 -ftrack-macro-expansion=0 -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr58844-1.c'
-  herit: *GRPSERIAL
-  info: *11
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr58844-1_151:
-  bin: '"pr58844-1.s"'
-  cargs: ' -std=gnu++14 -ftrack-macro-expansion=0 -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr58844-1.c'
-  herit: *GRPSERIAL
-  info: *11
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr58844-1_55:
-  bin: '"pr58844-1.s"'
-  cargs: ' -std=gnu++98 -ftrack-macro-expansion=0 -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr58844-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++98 -ftrack-macro-expansion=0 -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr58844-1.c'
+    sources:
+      binary: pr58844-1.s
+  group: GRPSERIAL
   info: *11
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr58844-1_56:
-  bin: '"pr58844-1.s"'
-  cargs: ' -std=gnu++11 -ftrack-macro-expansion=0 -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr58844-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++11 -ftrack-macro-expansion=0 -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr58844-1.c'
+    sources:
+      binary: pr58844-1.s
+  group: GRPSERIAL
   info: *11
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr58844-1_57:
-  bin: '"pr58844-1.s"'
-  cargs: ' -std=gnu++14 -ftrack-macro-expansion=0 -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr58844-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++14 -ftrack-macro-expansion=0 -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr58844-1.c'
+    sources:
+      binary: pr58844-1.s
+  group: GRPSERIAL
   info: *11
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr58844-1_8:
-  bin: '"pr58844-1.s"'
-  cargs: ' -Wc++-compat  -ftrack-macro-expansion=0 -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr58844-1.c'
-  herit: *GRPSERIAL
-  info: *11
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr58844-2_106:
-  bin: '"pr58844-2.s"'
-  cargs: ' -Wc++-compat  -ftrack-macro-expansion=2 -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr58844-2.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr58844-2_12:
+  build:
+    cflags: ' -Wc++-compat  -ftrack-macro-expansion=2 -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr58844-2.c'
+    sources:
+      binary: pr58844-2.s
+  group: GRPSERIAL
   info: &12
     extraopts:
       - '"-ftrack-macro-expansion=2"'
@@ -866,69 +653,49 @@ test_pr58844-2_106:
         ]*(redefined))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr58844-2_152:
-  bin: '"pr58844-2.s"'
-  cargs: ' -std=gnu++98 -ftrack-macro-expansion=2 -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr58844-2.c'
-  herit: *GRPSERIAL
-  info: *12
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr58844-2_153:
-  bin: '"pr58844-2.s"'
-  cargs: ' -std=gnu++11 -ftrack-macro-expansion=2 -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr58844-2.c'
-  herit: *GRPSERIAL
-  info: *12
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr58844-2_154:
-  bin: '"pr58844-2.s"'
-  cargs: ' -std=gnu++14 -ftrack-macro-expansion=2 -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr58844-2.c'
-  herit: *GRPSERIAL
-  info: *12
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr58844-2_58:
-  bin: '"pr58844-2.s"'
-  cargs: ' -std=gnu++98 -ftrack-macro-expansion=2 -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr58844-2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++98 -ftrack-macro-expansion=2 -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr58844-2.c'
+    sources:
+      binary: pr58844-2.s
+  group: GRPSERIAL
   info: *12
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr58844-2_59:
-  bin: '"pr58844-2.s"'
-  cargs: ' -std=gnu++11 -ftrack-macro-expansion=2 -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr58844-2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++11 -ftrack-macro-expansion=2 -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr58844-2.c'
+    sources:
+      binary: pr58844-2.s
+  group: GRPSERIAL
   info: *12
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr58844-2_60:
-  bin: '"pr58844-2.s"'
-  cargs: ' -std=gnu++14 -ftrack-macro-expansion=2 -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr58844-2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++14 -ftrack-macro-expansion=2 -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr58844-2.c'
+    sources:
+      binary: pr58844-2.s
+  group: GRPSERIAL
   info: *12
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr58844-2_8:
-  bin: '"pr58844-2.s"'
-  cargs: ' -Wc++-compat  -ftrack-macro-expansion=2 -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr58844-2.c'
-  herit: *GRPSERIAL
-  info: *12
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr60400_107:
-  bin: '"pr60400.s"'
-  cargs: ' -Wc++-compat  -trigraphs -Wtrigraphs -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr60400.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr60400_13:
+  build:
+    cflags: ' -Wc++-compat  -trigraphs -Wtrigraphs -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr60400.c'
+    sources:
+      binary: pr60400.s
+  group: GRPSERIAL
   info: &13
     extraopts:
       - '"-trigraphs -Wtrigraphs"'
@@ -981,263 +748,195 @@ test_pr60400_107:
         ]*(trigraph" "))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr60400_13:
-  bin: '"pr60400.s"'
-  cargs: ' -Wc++-compat  -trigraphs -Wtrigraphs -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr60400.c'
-  herit: *GRPSERIAL
-  info: *13
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr60400_155:
-  bin: '"pr60400.s"'
-  cargs: ' -std=gnu++98 -trigraphs -Wtrigraphs -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr60400.c'
-  herit: *GRPSERIAL
-  info: *13
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr60400_156:
-  bin: '"pr60400.s"'
-  cargs: ' -std=gnu++11 -trigraphs -Wtrigraphs -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr60400.c'
-  herit: *GRPSERIAL
-  info: *13
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr60400_157:
-  bin: '"pr60400.s"'
-  cargs: ' -std=gnu++14 -trigraphs -Wtrigraphs -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr60400.c'
-  herit: *GRPSERIAL
-  info: *13
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr60400_61:
-  bin: '"pr60400.s"'
-  cargs: ' -std=gnu++98 -trigraphs -Wtrigraphs -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr60400.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++98 -trigraphs -Wtrigraphs -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr60400.c'
+    sources:
+      binary: pr60400.s
+  group: GRPSERIAL
   info: *13
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr60400_62:
-  bin: '"pr60400.s"'
-  cargs: ' -std=gnu++11 -trigraphs -Wtrigraphs -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr60400.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++11 -trigraphs -Wtrigraphs -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr60400.c'
+    sources:
+      binary: pr60400.s
+  group: GRPSERIAL
   info: *13
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr60400_63:
-  bin: '"pr60400.s"'
-  cargs: ' -std=gnu++14 -trigraphs -Wtrigraphs -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr60400.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++14 -trigraphs -Wtrigraphs -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr60400.c'
+    sources:
+      binary: pr60400.s
+  group: GRPSERIAL
   info: *13
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr63831-1_108:
-  bin: '"pr63831-1.s"'
-  cargs: ' -Wc++-compat   -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr63831-1.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr63831-1_14:
+  build:
+    cflags: ' -Wc++-compat   -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr63831-1.c'
+    sources:
+      binary: pr63831-1.s
+  group: GRPSERIAL
   info: &14 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr63831-1_158:
-  bin: '"pr63831-1.s"'
-  cargs: ' -std=c++98  -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr63831-1.c'
-  herit: *GRPSERIAL
-  info: *14
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr63831-1_159:
-  bin: '"pr63831-1.s"'
-  cargs: ' -std=c++11  -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr63831-1.c'
-  herit: *GRPSERIAL
-  info: *14
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr63831-1_160:
-  bin: '"pr63831-1.s"'
-  cargs: ' -std=c++14  -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr63831-1.c'
-  herit: *GRPSERIAL
-  info: *14
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr63831-1_64:
-  bin: '"pr63831-1.s"'
-  cargs: ' -std=c++98  -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr63831-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++98  -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr63831-1.c'
+    sources:
+      binary: pr63831-1.s
+  group: GRPSERIAL
   info: *14
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr63831-1_65:
-  bin: '"pr63831-1.s"'
-  cargs: ' -std=c++11  -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr63831-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++11  -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr63831-1.c'
+    sources:
+      binary: pr63831-1.s
+  group: GRPSERIAL
   info: *14
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr63831-1_66:
-  bin: '"pr63831-1.s"'
-  cargs: ' -std=c++14  -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr63831-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++14  -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr63831-1.c'
+    sources:
+      binary: pr63831-1.s
+  group: GRPSERIAL
   info: *14
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr63831-2_109:
-  bin: '"pr63831-2.s"'
-  cargs: ' -Wc++-compat  -save-temps -S'
-  chdir: /home/adamj/Documents/projets/pcvs/compilers/gcc/c-c++-common/cpp
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr63831-2.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr63831-2_15:
+  build:
+    cflags: ' -Wc++-compat  -save-temps -S'
+    cwd: /home/adamj/mnt/projects/pcvs/compilers/gcc/c-c++-common/cpp
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr63831-2.c'
+    sources:
+      binary: pr63831-2.s
+  group: GRPSERIAL
   info: &15
     extraopts:
       - '"-save-temps"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr63831-2_161:
-  bin: '"pr63831-2.s"'
-  cargs: ' -std=gnu++98 -save-temps -S'
-  chdir: /home/adamj/Documents/projets/pcvs/compilers/gcc/c-c++-common/cpp
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr63831-2.c'
-  herit: *GRPSERIAL
-  info: *15
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr63831-2_162:
-  bin: '"pr63831-2.s"'
-  cargs: ' -std=gnu++11 -save-temps -S'
-  chdir: /home/adamj/Documents/projets/pcvs/compilers/gcc/c-c++-common/cpp
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr63831-2.c'
-  herit: *GRPSERIAL
-  info: *15
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr63831-2_163:
-  bin: '"pr63831-2.s"'
-  cargs: ' -std=gnu++14 -save-temps -S'
-  chdir: /home/adamj/Documents/projets/pcvs/compilers/gcc/c-c++-common/cpp
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr63831-2.c'
-  herit: *GRPSERIAL
-  info: *15
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr63831-2_6:
-  bin: '"pr63831-2.s"'
-  cargs: ' -Wc++-compat  -save-temps -S'
-  chdir: /home/adamj/Documents/projets/pcvs/compilers/gcc/c-c++-common/cpp
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr63831-2.c'
-  herit: *GRPSERIAL
-  info: *15
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  run:
+    cwd: /home/adamj/mnt/projects/pcvs/compilers/gcc/c-c++-common/cpp
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr63831-2_67:
-  bin: '"pr63831-2.s"'
-  cargs: ' -std=gnu++98 -save-temps -S'
-  chdir: /home/adamj/Documents/projets/pcvs/compilers/gcc/c-c++-common/cpp
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr63831-2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++98 -save-temps -S'
+    cwd: /home/adamj/mnt/projects/pcvs/compilers/gcc/c-c++-common/cpp
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr63831-2.c'
+    sources:
+      binary: pr63831-2.s
+  group: GRPSERIAL
   info: *15
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  run:
+    cwd: /home/adamj/mnt/projects/pcvs/compilers/gcc/c-c++-common/cpp
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr63831-2_68:
-  bin: '"pr63831-2.s"'
-  cargs: ' -std=gnu++11 -save-temps -S'
-  chdir: /home/adamj/Documents/projets/pcvs/compilers/gcc/c-c++-common/cpp
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr63831-2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++11 -save-temps -S'
+    cwd: /home/adamj/mnt/projects/pcvs/compilers/gcc/c-c++-common/cpp
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr63831-2.c'
+    sources:
+      binary: pr63831-2.s
+  group: GRPSERIAL
   info: *15
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  run:
+    cwd: /home/adamj/mnt/projects/pcvs/compilers/gcc/c-c++-common/cpp
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr63831-2_69:
-  bin: '"pr63831-2.s"'
-  cargs: ' -std=gnu++14 -save-temps -S'
-  chdir: /home/adamj/Documents/projets/pcvs/compilers/gcc/c-c++-common/cpp
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr63831-2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++14 -save-temps -S'
+    cwd: /home/adamj/mnt/projects/pcvs/compilers/gcc/c-c++-common/cpp
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr63831-2.c'
+    sources:
+      binary: pr63831-2.s
+  group: GRPSERIAL
   info: *15
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr65238-1_110:
-  bin: '"./pr65238-1.exe"'
-  cargs: ' -Wc++-compat  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr65238-1.c'
-  herit: *GRPSERIAL
+  run:
+    cwd: /home/adamj/mnt/projects/pcvs/compilers/gcc/c-c++-common/cpp
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr65238-1_16:
+  build:
+    cflags: ' -Wc++-compat  '
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr65238-1.c'
+    sources:
+      binary: ./pr65238-1.exe
+  group: GRPSERIAL
   info: &16 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr65238-1_164:
-  bin: '"./pr65238-1.exe"'
-  cargs: ' -std=c++98 '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr65238-1.c'
-  herit: *GRPSERIAL
-  info: *16
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr65238-1_165:
-  bin: '"./pr65238-1.exe"'
-  cargs: ' -std=c++11 '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr65238-1.c'
-  herit: *GRPSERIAL
-  info: *16
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr65238-1_166:
-  bin: '"./pr65238-1.exe"'
-  cargs: ' -std=c++14 '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr65238-1.c'
-  herit: *GRPSERIAL
-  info: *16
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr65238-1_53:
-  bin: '"./pr65238-1.exe"'
-  cargs: ' -Wc++-compat  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr65238-1.c'
-  herit: *GRPSERIAL
-  info: *16
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr65238-1_70:
-  bin: '"./pr65238-1.exe"'
-  cargs: ' -std=c++98 '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr65238-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++98 '
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr65238-1.c'
+    sources:
+      binary: ./pr65238-1.exe
+  group: GRPSERIAL
   info: *16
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr65238-1_71:
-  bin: '"./pr65238-1.exe"'
-  cargs: ' -std=c++11 '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr65238-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++11 '
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr65238-1.c'
+    sources:
+      binary: ./pr65238-1.exe
+  group: GRPSERIAL
   info: *16
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr65238-1_72:
-  bin: '"./pr65238-1.exe"'
-  cargs: ' -std=c++14 '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr65238-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++14 '
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/pr65238-1.c'
+    sources:
+      binary: ./pr65238-1.exe
+  group: GRPSERIAL
   info: *16
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_ucnid-2011-1_111:
-  bin: '"ucnid-2011-1.i"'
-  cargs: ' -Wc++-compat  -std=c11 -pedantic -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/ucnid-2011-1.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ucnid-2011-1_17:
+  build:
+    cflags: ' -Wc++-compat  -std=c11 -pedantic -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/ucnid-2011-1.c'
+    sources:
+      binary: ucnid-2011-1.i
+  group: GRPSERIAL
   info: &17
     extraopts:
       - '"-std=c11 -pedantic" { target c }'
@@ -1260,37 +959,27 @@ test_ucnid-2011-1_111:
         ]*(not in NFC))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_ucnid-2011-1_15:
-  bin: '"ucnid-2011-1.i"'
-  cargs: ' -Wc++-compat  -std=c11 -pedantic -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/ucnid-2011-1.c'
-  herit: *GRPSERIAL
-  info: *17
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_ucnid-2011-1_167:
-  bin: '"ucnid-2011-1.i"'
-  cargs: '  -std=c++11 -pedantic -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/ucnid-2011-1.c'
-  herit: *GRPSERIAL
-  info: *17
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ucnid-2011-1_73:
-  bin: '"ucnid-2011-1.i"'
-  cargs: '  -std=c++11 -pedantic -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/ucnid-2011-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -std=c++11 -pedantic -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/ucnid-2011-1.c'
+    sources:
+      binary: ucnid-2011-1.i
+  group: GRPSERIAL
   info: *17
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_warning-directive-1_112:
-  bin: '"warning-directive-1.i"'
-  cargs: ' -Wc++-compat  -std=gnu99 -fdiagnostics-show-option -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-1.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_warning-directive-1_18:
+  build:
+    cflags: ' -Wc++-compat  -std=gnu99 -fdiagnostics-show-option -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-1.c'
+    sources:
+      binary: warning-directive-1.i
+  group: GRPSERIAL
   info: &18
     extraopts:
       - '"-std=gnu99 -fdiagnostics-show-option" { target c }'
@@ -1304,69 +993,49 @@ test_warning-directive-1_112:
         ]*(\"Printed\" .-Wcpp.))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_warning-directive-1_168:
-  bin: '"warning-directive-1.i"'
-  cargs: ' -std=gnu++98 -fdiagnostics-show-option -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-1.c'
-  herit: *GRPSERIAL
-  info: *18
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_warning-directive-1_169:
-  bin: '"warning-directive-1.i"'
-  cargs: ' -std=gnu++11 -fdiagnostics-show-option -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-1.c'
-  herit: *GRPSERIAL
-  info: *18
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_warning-directive-1_170:
-  bin: '"warning-directive-1.i"'
-  cargs: ' -std=gnu++14 -fdiagnostics-show-option -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-1.c'
-  herit: *GRPSERIAL
-  info: *18
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_warning-directive-1_4:
-  bin: '"warning-directive-1.i"'
-  cargs: ' -Wc++-compat  -std=gnu99 -fdiagnostics-show-option -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-1.c'
-  herit: *GRPSERIAL
-  info: *18
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_warning-directive-1_74:
-  bin: '"warning-directive-1.i"'
-  cargs: ' -std=gnu++98 -fdiagnostics-show-option -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++98 -fdiagnostics-show-option -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-1.c'
+    sources:
+      binary: warning-directive-1.i
+  group: GRPSERIAL
   info: *18
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_warning-directive-1_75:
-  bin: '"warning-directive-1.i"'
-  cargs: ' -std=gnu++11 -fdiagnostics-show-option -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++11 -fdiagnostics-show-option -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-1.c'
+    sources:
+      binary: warning-directive-1.i
+  group: GRPSERIAL
   info: *18
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_warning-directive-1_76:
-  bin: '"warning-directive-1.i"'
-  cargs: ' -std=gnu++14 -fdiagnostics-show-option -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++14 -fdiagnostics-show-option -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-1.c'
+    sources:
+      binary: warning-directive-1.i
+  group: GRPSERIAL
   info: *18
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_warning-directive-2_113:
-  bin: '"warning-directive-2.i"'
-  cargs: ' -Wc++-compat  -std=gnu99 -fdiagnostics-show-option -Werror=cpp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-2.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_warning-directive-2_19:
+  build:
+    cflags: ' -Wc++-compat  -std=gnu99 -fdiagnostics-show-option -Werror=cpp -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-2.c'
+    sources:
+      binary: warning-directive-2.i
+  group: GRPSERIAL
   info: &19
     extraopts:
       - '"-std=gnu99 -fdiagnostics-show-option -Werror=cpp" { target c }'
@@ -1380,69 +1049,49 @@ test_warning-directive-2_113:
         ]*(\"Printed\" .-Werror=cpp.))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_warning-directive-2_171:
-  bin: '"warning-directive-2.i"'
-  cargs: ' -std=gnu++98 -fdiagnostics-show-option -Werror=cpp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-2.c'
-  herit: *GRPSERIAL
-  info: *19
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_warning-directive-2_172:
-  bin: '"warning-directive-2.i"'
-  cargs: ' -std=gnu++11 -fdiagnostics-show-option -Werror=cpp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-2.c'
-  herit: *GRPSERIAL
-  info: *19
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_warning-directive-2_173:
-  bin: '"warning-directive-2.i"'
-  cargs: ' -std=gnu++14 -fdiagnostics-show-option -Werror=cpp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-2.c'
-  herit: *GRPSERIAL
-  info: *19
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_warning-directive-2_5:
-  bin: '"warning-directive-2.i"'
-  cargs: ' -Wc++-compat  -std=gnu99 -fdiagnostics-show-option -Werror=cpp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-2.c'
-  herit: *GRPSERIAL
-  info: *19
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_warning-directive-2_77:
-  bin: '"warning-directive-2.i"'
-  cargs: ' -std=gnu++98 -fdiagnostics-show-option -Werror=cpp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++98 -fdiagnostics-show-option -Werror=cpp -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-2.c'
+    sources:
+      binary: warning-directive-2.i
+  group: GRPSERIAL
   info: *19
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_warning-directive-2_78:
-  bin: '"warning-directive-2.i"'
-  cargs: ' -std=gnu++11 -fdiagnostics-show-option -Werror=cpp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++11 -fdiagnostics-show-option -Werror=cpp -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-2.c'
+    sources:
+      binary: warning-directive-2.i
+  group: GRPSERIAL
   info: *19
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_warning-directive-2_79:
-  bin: '"warning-directive-2.i"'
-  cargs: ' -std=gnu++14 -fdiagnostics-show-option -Werror=cpp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++14 -fdiagnostics-show-option -Werror=cpp -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-2.c'
+    sources:
+      binary: warning-directive-2.i
+  group: GRPSERIAL
   info: *19
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_warning-directive-3_114:
-  bin: '"warning-directive-3.i"'
-  cargs: ' -Wc++-compat  -std=gnu99 -fdiagnostics-show-option -Werror -Wno-error=cpp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-3.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_warning-directive-3_20:
+  build:
+    cflags: ' -Wc++-compat  -std=gnu99 -fdiagnostics-show-option -Werror -Wno-error=cpp -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-3.c'
+    sources:
+      binary: warning-directive-3.i
+  group: GRPSERIAL
   info: &20
     extraopts:
       - '"-std=gnu99 -fdiagnostics-show-option -Werror -Wno-error=cpp" { target c }'
@@ -1456,136 +1105,96 @@ test_warning-directive-3_114:
         ]*(\"Printed\" .-Wcpp.))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_warning-directive-3_174:
-  bin: '"warning-directive-3.i"'
-  cargs: ' -std=gnu++98 -fdiagnostics-show-option -Werror -Wno-error=cpp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-3.c'
-  herit: *GRPSERIAL
-  info: *20
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_warning-directive-3_175:
-  bin: '"warning-directive-3.i"'
-  cargs: ' -std=gnu++11 -fdiagnostics-show-option -Werror -Wno-error=cpp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-3.c'
-  herit: *GRPSERIAL
-  info: *20
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_warning-directive-3_176:
-  bin: '"warning-directive-3.i"'
-  cargs: ' -std=gnu++14 -fdiagnostics-show-option -Werror -Wno-error=cpp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-3.c'
-  herit: *GRPSERIAL
-  info: *20
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_warning-directive-3_4:
-  bin: '"warning-directive-3.i"'
-  cargs: ' -Wc++-compat  -std=gnu99 -fdiagnostics-show-option -Werror -Wno-error=cpp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-3.c'
-  herit: *GRPSERIAL
-  info: *20
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_warning-directive-3_80:
-  bin: '"warning-directive-3.i"'
-  cargs: ' -std=gnu++98 -fdiagnostics-show-option -Werror -Wno-error=cpp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-3.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++98 -fdiagnostics-show-option -Werror -Wno-error=cpp -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-3.c'
+    sources:
+      binary: warning-directive-3.i
+  group: GRPSERIAL
   info: *20
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_warning-directive-3_81:
-  bin: '"warning-directive-3.i"'
-  cargs: ' -std=gnu++11 -fdiagnostics-show-option -Werror -Wno-error=cpp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-3.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++11 -fdiagnostics-show-option -Werror -Wno-error=cpp -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-3.c'
+    sources:
+      binary: warning-directive-3.i
+  group: GRPSERIAL
   info: *20
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_warning-directive-3_82:
-  bin: '"warning-directive-3.i"'
-  cargs: ' -std=gnu++14 -fdiagnostics-show-option -Werror -Wno-error=cpp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-3.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++14 -fdiagnostics-show-option -Werror -Wno-error=cpp -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-3.c'
+    sources:
+      binary: warning-directive-3.i
+  group: GRPSERIAL
   info: *20
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_warning-directive-4_115:
-  bin: '"warning-directive-4.i"'
-  cargs: ' -Wc++-compat  -std=gnu99 -fdiagnostics-show-option -Wno-cpp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-4.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_warning-directive-4_21:
+  build:
+    cflags: ' -Wc++-compat  -std=gnu99 -fdiagnostics-show-option -Wno-cpp -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-4.c'
+    sources:
+      binary: warning-directive-4.i
+  group: GRPSERIAL
   info: &21
     extraopts:
       - '"-std=gnu99 -fdiagnostics-show-option -Wno-cpp" { target c }'
       - '"-fdiagnostics-show-option -Wno-cpp" { target c++ }'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_warning-directive-4_177:
-  bin: '"warning-directive-4.i"'
-  cargs: ' -std=gnu++98 -fdiagnostics-show-option -Wno-cpp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-4.c'
-  herit: *GRPSERIAL
-  info: *21
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_warning-directive-4_178:
-  bin: '"warning-directive-4.i"'
-  cargs: ' -std=gnu++11 -fdiagnostics-show-option -Wno-cpp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-4.c'
-  herit: *GRPSERIAL
-  info: *21
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_warning-directive-4_179:
-  bin: '"warning-directive-4.i"'
-  cargs: ' -std=gnu++14 -fdiagnostics-show-option -Wno-cpp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-4.c'
-  herit: *GRPSERIAL
-  info: *21
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_warning-directive-4_4:
-  bin: '"warning-directive-4.i"'
-  cargs: ' -Wc++-compat  -std=gnu99 -fdiagnostics-show-option -Wno-cpp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-4.c'
-  herit: *GRPSERIAL
-  info: *21
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_warning-directive-4_83:
-  bin: '"warning-directive-4.i"'
-  cargs: ' -std=gnu++98 -fdiagnostics-show-option -Wno-cpp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-4.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++98 -fdiagnostics-show-option -Wno-cpp -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-4.c'
+    sources:
+      binary: warning-directive-4.i
+  group: GRPSERIAL
   info: *21
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_warning-directive-4_84:
-  bin: '"warning-directive-4.i"'
-  cargs: ' -std=gnu++11 -fdiagnostics-show-option -Wno-cpp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-4.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++11 -fdiagnostics-show-option -Wno-cpp -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-4.c'
+    sources:
+      binary: warning-directive-4.i
+  group: GRPSERIAL
   info: *21
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_warning-directive-4_85:
-  bin: '"warning-directive-4.i"'
-  cargs: ' -std=gnu++14 -fdiagnostics-show-option -Wno-cpp -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-4.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++14 -fdiagnostics-show-option -Wno-cpp -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-directive-4.c'
+    sources:
+      binary: warning-directive-4.i
+  group: GRPSERIAL
   info: *21
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_warning-zero-in-literals-1_116:
-  bin: '"warning-zero-in-literals-1.i"'
-  cargs: ' -Wc++-compat   -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-zero-in-literals-1.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_warning-zero-in-literals-1_22:
+  build:
+    cflags: ' -Wc++-compat   -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-zero-in-literals-1.c'
+    sources:
+      binary: warning-zero-in-literals-1.i
+  group: GRPSERIAL
   info: &22
     regex-warn:
       - |-
@@ -1628,135 +1237,95 @@ test_warning-zero-in-literals-1_116:
         ]*(null character))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_warning-zero-in-literals-1_180:
-  bin: '"warning-zero-in-literals-1.i"'
-  cargs: ' -std=c++98  -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-zero-in-literals-1.c'
-  herit: *GRPSERIAL
-  info: *22
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_warning-zero-in-literals-1_181:
-  bin: '"warning-zero-in-literals-1.i"'
-  cargs: ' -std=c++11  -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-zero-in-literals-1.c'
-  herit: *GRPSERIAL
-  info: *22
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_warning-zero-in-literals-1_182:
-  bin: '"warning-zero-in-literals-1.i"'
-  cargs: ' -std=c++14  -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-zero-in-literals-1.c'
-  herit: *GRPSERIAL
-  info: *22
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_warning-zero-in-literals-1_7:
-  bin: '"warning-zero-in-literals-1.i"'
-  cargs: ' -Wc++-compat   -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-zero-in-literals-1.c'
-  herit: *GRPSERIAL
-  info: *22
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_warning-zero-in-literals-1_86:
-  bin: '"warning-zero-in-literals-1.i"'
-  cargs: ' -std=c++98  -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-zero-in-literals-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++98  -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-zero-in-literals-1.c'
+    sources:
+      binary: warning-zero-in-literals-1.i
+  group: GRPSERIAL
   info: *22
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_warning-zero-in-literals-1_87:
-  bin: '"warning-zero-in-literals-1.i"'
-  cargs: ' -std=c++11  -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-zero-in-literals-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++11  -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-zero-in-literals-1.c'
+    sources:
+      binary: warning-zero-in-literals-1.i
+  group: GRPSERIAL
   info: *22
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_warning-zero-in-literals-1_88:
-  bin: '"warning-zero-in-literals-1.i"'
-  cargs: ' -std=c++14  -E'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-zero-in-literals-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++14  -E'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-zero-in-literals-1.c'
+    sources:
+      binary: warning-zero-in-literals-1.i
+  group: GRPSERIAL
   info: *22
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_warning-zero-location-2_10:
-  bin: '"warning-zero-location-2.s"'
-  cargs: ' -Wc++-compat  -D _GNU_SOURCE -fdiagnostics-show-caret -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-zero-location-2.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_warning-zero-location-2_23:
+  build:
+    cflags: ' -Wc++-compat  -D _GNU_SOURCE -fdiagnostics-show-caret -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-zero-location-2.c'
+    sources:
+      binary: warning-zero-location-2.s
+  group: GRPSERIAL
   info: &23
     extraopts:
       - '"-D _GNU_SOURCE -fdiagnostics-show-caret"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_warning-zero-location-2_117:
-  bin: '"warning-zero-location-2.s"'
-  cargs: ' -Wc++-compat  -D _GNU_SOURCE -fdiagnostics-show-caret -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-zero-location-2.c'
-  herit: *GRPSERIAL
-  info: *23
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_warning-zero-location-2_183:
-  bin: '"warning-zero-location-2.s"'
-  cargs: ' -std=gnu++98 -D _GNU_SOURCE -fdiagnostics-show-caret -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-zero-location-2.c'
-  herit: *GRPSERIAL
-  info: *23
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_warning-zero-location-2_184:
-  bin: '"warning-zero-location-2.s"'
-  cargs: ' -std=gnu++11 -D _GNU_SOURCE -fdiagnostics-show-caret -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-zero-location-2.c'
-  herit: *GRPSERIAL
-  info: *23
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_warning-zero-location-2_185:
-  bin: '"warning-zero-location-2.s"'
-  cargs: ' -std=gnu++14 -D _GNU_SOURCE -fdiagnostics-show-caret -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-zero-location-2.c'
-  herit: *GRPSERIAL
-  info: *23
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_warning-zero-location-2_89:
-  bin: '"warning-zero-location-2.s"'
-  cargs: ' -std=gnu++98 -D _GNU_SOURCE -fdiagnostics-show-caret -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-zero-location-2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++98 -D _GNU_SOURCE -fdiagnostics-show-caret -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-zero-location-2.c'
+    sources:
+      binary: warning-zero-location-2.s
+  group: GRPSERIAL
   info: *23
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_warning-zero-location-2_90:
-  bin: '"warning-zero-location-2.s"'
-  cargs: ' -std=gnu++11 -D _GNU_SOURCE -fdiagnostics-show-caret -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-zero-location-2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++11 -D _GNU_SOURCE -fdiagnostics-show-caret -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-zero-location-2.c'
+    sources:
+      binary: warning-zero-location-2.s
+  group: GRPSERIAL
   info: *23
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_warning-zero-location-2_91:
-  bin: '"warning-zero-location-2.s"'
-  cargs: ' -std=gnu++14 -D _GNU_SOURCE -fdiagnostics-show-caret -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-zero-location-2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++14 -D _GNU_SOURCE -fdiagnostics-show-caret -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-zero-location-2.c'
+    sources:
+      binary: warning-zero-location-2.s
+  group: GRPSERIAL
   info: *23
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_warning-zero-location_118:
-  bin: '"warning-zero-location.s"'
-  cargs: ' -Wc++-compat  -D _GNU_SOURCE -fdiagnostics-show-caret -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-zero-location.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_warning-zero-location_24:
+  build:
+    cflags: ' -Wc++-compat  -D _GNU_SOURCE -fdiagnostics-show-caret -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-zero-location.c'
+    sources:
+      binary: warning-zero-location.s
+  group: GRPSERIAL
   info: &24
     extraopts:
       - '"-D _GNU_SOURCE -fdiagnostics-show-caret"'
@@ -1769,61 +1338,39 @@ test_warning-zero-location_118:
         ]*(redefined))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_warning-zero-location_186:
-  bin: '"warning-zero-location.s"'
-  cargs: ' -std=gnu++98 -D _GNU_SOURCE -fdiagnostics-show-caret -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-zero-location.c'
-  herit: *GRPSERIAL
-  info: *24
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_warning-zero-location_187:
-  bin: '"warning-zero-location.s"'
-  cargs: ' -std=gnu++11 -D _GNU_SOURCE -fdiagnostics-show-caret -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-zero-location.c'
-  herit: *GRPSERIAL
-  info: *24
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_warning-zero-location_188:
-  bin: '"warning-zero-location.s"'
-  cargs: ' -std=gnu++14 -D _GNU_SOURCE -fdiagnostics-show-caret -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-zero-location.c'
-  herit: *GRPSERIAL
-  info: *24
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_warning-zero-location_8:
-  bin: '"warning-zero-location.s"'
-  cargs: ' -Wc++-compat  -D _GNU_SOURCE -fdiagnostics-show-caret -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-zero-location.c'
-  herit: *GRPSERIAL
-  info: *24
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_warning-zero-location_92:
-  bin: '"warning-zero-location.s"'
-  cargs: ' -std=gnu++98 -D _GNU_SOURCE -fdiagnostics-show-caret -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-zero-location.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++98 -D _GNU_SOURCE -fdiagnostics-show-caret -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-zero-location.c'
+    sources:
+      binary: warning-zero-location.s
+  group: GRPSERIAL
   info: *24
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_warning-zero-location_93:
-  bin: '"warning-zero-location.s"'
-  cargs: ' -std=gnu++11 -D _GNU_SOURCE -fdiagnostics-show-caret -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-zero-location.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++11 -D _GNU_SOURCE -fdiagnostics-show-caret -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-zero-location.c'
+    sources:
+      binary: warning-zero-location.s
+  group: GRPSERIAL
   info: *24
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_warning-zero-location_94:
-  bin: '"warning-zero-location.s"'
-  cargs: ' -std=gnu++14 -D _GNU_SOURCE -fdiagnostics-show-caret -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-zero-location.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++14 -D _GNU_SOURCE -fdiagnostics-show-caret -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/cpp/warning-zero-location.c'
+    sources:
+      binary: warning-zero-location.s
+  group: GRPSERIAL
   info: *24
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

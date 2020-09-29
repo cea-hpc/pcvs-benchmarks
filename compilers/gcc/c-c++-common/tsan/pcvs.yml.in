@@ -1,1560 +1,1079 @@
-test_atomic_stack_100:
-  bin: '"./atomic_stack.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/atomic_stack.c'
-  herit: *GRPSERIAL
+---
+test_atomic_stack_1:
+  build:
+    cflags: '  -O0  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/atomic_stack.c'
+    sources:
+      binary: atomic_stack.exe
+  group: GRPSERIAL
   info: &1 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic_stack_148:
-  bin: '"./atomic_stack.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/atomic_stack.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic_stack_149:
-  bin: '"./atomic_stack.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/atomic_stack.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_atomic_stack_2:
-  bin: '"./atomic_stack.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/atomic_stack.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/atomic_stack.c'
+    sources:
+      binary: atomic_stack.exe
+  group: GRPSERIAL
   info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic_stack_35:
-  bin: '"./atomic_stack.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/atomic_stack.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_atomic_stack_50:
-  bin: '"./atomic_stack.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/atomic_stack.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O0  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/atomic_stack.c'
+    sources:
+      binary: atomic_stack.exe
+  group: GRPSERIAL
   info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_atomic_stack_51:
-  bin: '"./atomic_stack.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/atomic_stack.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/atomic_stack.c'
+    sources:
+      binary: atomic_stack.exe
+  group: GRPSERIAL
   info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic_stack_99:
-  bin: '"./atomic_stack.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/atomic_stack.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfield_race_101:
-  bin: '"./bitfield_race.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/bitfield_race.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_bitfield_race_3:
+  build:
+    cflags: '  -O0  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/bitfield_race.c'
+    sources:
+      binary: bitfield_race.exe
+  group: GRPSERIAL
   info: &2 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfield_race_102:
-  bin: '"./bitfield_race.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/bitfield_race.c'
-  herit: *GRPSERIAL
-  info: *2
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfield_race_150:
-  bin: '"./bitfield_race.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/bitfield_race.c'
-  herit: *GRPSERIAL
-  info: *2
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfield_race_151:
-  bin: '"./bitfield_race.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/bitfield_race.c'
-  herit: *GRPSERIAL
-  info: *2
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_bitfield_race_30:
-  bin: '"./bitfield_race.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/bitfield_race.c'
-  herit: *GRPSERIAL
-  info: *2
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_bitfield_race_4:
-  bin: '"./bitfield_race.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/bitfield_race.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/bitfield_race.c'
+    sources:
+      binary: bitfield_race.exe
+  group: GRPSERIAL
   info: *2
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_bitfield_race_52:
-  bin: '"./bitfield_race.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/bitfield_race.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O0  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/bitfield_race.c'
+    sources:
+      binary: bitfield_race.exe
+  group: GRPSERIAL
   info: *2
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_bitfield_race_53:
-  bin: '"./bitfield_race.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/bitfield_race.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/bitfield_race.c'
+    sources:
+      binary: bitfield_race.exe
+  group: GRPSERIAL
   info: *2
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fd_pipe_race_103:
-  bin: '"./fd_pipe_race.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/fd_pipe_race.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_fd_pipe_race_5:
+  build:
+    cflags: '  -O0  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/fd_pipe_race.c'
+    sources:
+      binary: fd_pipe_race.exe
+  group: GRPSERIAL
   info: &3 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fd_pipe_race_104:
-  bin: '"./fd_pipe_race.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/fd_pipe_race.c'
-  herit: *GRPSERIAL
-  info: *3
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fd_pipe_race_152:
-  bin: '"./fd_pipe_race.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/fd_pipe_race.c'
-  herit: *GRPSERIAL
-  info: *3
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fd_pipe_race_153:
-  bin: '"./fd_pipe_race.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/fd_pipe_race.c'
-  herit: *GRPSERIAL
-  info: *3
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fd_pipe_race_41:
-  bin: '"./fd_pipe_race.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/fd_pipe_race.c'
-  herit: *GRPSERIAL
-  info: *3
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_fd_pipe_race_54:
-  bin: '"./fd_pipe_race.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/fd_pipe_race.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O0  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/fd_pipe_race.c'
+    sources:
+      binary: fd_pipe_race.exe
+  group: GRPSERIAL
   info: *3
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_fd_pipe_race_55:
-  bin: '"./fd_pipe_race.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/fd_pipe_race.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/fd_pipe_race.c'
+    sources:
+      binary: fd_pipe_race.exe
+  group: GRPSERIAL
   info: *3
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_fd_pipe_race_6:
-  bin: '"./fd_pipe_race.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/fd_pipe_race.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/fd_pipe_race.c'
+    sources:
+      binary: fd_pipe_race.exe
+  group: GRPSERIAL
   info: *3
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_free_race2_10:
-  bin: '"./free_race2.exe"'
-  cargs: '  -O2  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/free_race2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  '
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/free_race2.c'
+    sources:
+      binary: free_race2.exe
+  group: GRPSERIAL
   info: &4 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_free_race2_107:
-  bin: '"./free_race2.exe"'
-  cargs: '  -O0  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/free_race2.c'
-  herit: *GRPSERIAL
-  info: *4
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_free_race2_108:
-  bin: '"./free_race2.exe"'
-  cargs: '  -O2  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/free_race2.c'
-  herit: *GRPSERIAL
-  info: *4
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_free_race2_156:
-  bin: '"./free_race2.exe"'
-  cargs: '  -O0  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/free_race2.c'
-  herit: *GRPSERIAL
-  info: *4
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_free_race2_157:
-  bin: '"./free_race2.exe"'
-  cargs: '  -O2  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/free_race2.c'
-  herit: *GRPSERIAL
-  info: *4
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_free_race2_28:
-  bin: '"./free_race2.exe"'
-  cargs: '  -O0  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/free_race2.c'
-  herit: *GRPSERIAL
-  info: *4
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_free_race2_58:
-  bin: '"./free_race2.exe"'
-  cargs: '  -O0  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/free_race2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O0  '
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/free_race2.c'
+    sources:
+      binary: free_race2.exe
+  group: GRPSERIAL
   info: *4
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_free_race2_59:
-  bin: '"./free_race2.exe"'
-  cargs: '  -O2  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/free_race2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  '
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/free_race2.c'
+    sources:
+      binary: free_race2.exe
+  group: GRPSERIAL
   info: *4
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_free_race_105:
-  bin: '"./free_race.exe"'
-  cargs: '  -O0  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/free_race.c'
-  herit: *GRPSERIAL
-  info: &5 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_free_race_106:
-  bin: '"./free_race.exe"'
-  cargs: '  -O2  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/free_race.c'
-  herit: *GRPSERIAL
-  info: *5
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_free_race_154:
-  bin: '"./free_race.exe"'
-  cargs: '  -O0  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/free_race.c'
-  herit: *GRPSERIAL
-  info: *5
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_free_race_155:
-  bin: '"./free_race.exe"'
-  cargs: '  -O2  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/free_race.c'
-  herit: *GRPSERIAL
-  info: *5
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_free_race_27:
-  bin: '"./free_race.exe"'
-  cargs: '  -O0  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/free_race.c'
-  herit: *GRPSERIAL
-  info: *5
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_free_race2_9:
+  build:
+    cflags: '  -O0  '
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/free_race2.c'
+    sources:
+      binary: free_race2.exe
+  group: GRPSERIAL
+  info: *4
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_free_race_56:
-  bin: '"./free_race.exe"'
-  cargs: '  -O0  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/free_race.c'
-  herit: *GRPSERIAL
-  info: *5
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  build:
+    cflags: '  -O0  '
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/free_race.c'
+    sources:
+      binary: free_race.exe
+  group: GRPSERIAL
+  info: &5 {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_free_race_57:
-  bin: '"./free_race.exe"'
-  cargs: '  -O2  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/free_race.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  '
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/free_race.c'
+    sources:
+      binary: free_race.exe
+  group: GRPSERIAL
   info: *5
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_free_race_7:
+  build:
+    cflags: '  -O0  '
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/free_race.c'
+    sources:
+      binary: free_race.exe
+  group: GRPSERIAL
+  info: *5
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_free_race_8:
-  bin: '"./free_race.exe"'
-  cargs: '  -O2  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/free_race.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  '
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/free_race.c'
+    sources:
+      binary: free_race.exe
+  group: GRPSERIAL
   info: *5
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_mutexset1_109:
-  bin: '"./mutexset1.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/mutexset1.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mutexset1_11:
+  build:
+    cflags: '  -O0  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/mutexset1.c'
+    sources:
+      binary: mutexset1.exe
+  group: GRPSERIAL
   info: &6 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_mutexset1_110:
-  bin: '"./mutexset1.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/mutexset1.c'
-  herit: *GRPSERIAL
-  info: *6
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_mutexset1_12:
-  bin: '"./mutexset1.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/mutexset1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/mutexset1.c'
+    sources:
+      binary: mutexset1.exe
+  group: GRPSERIAL
   info: *6
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_mutexset1_158:
-  bin: '"./mutexset1.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/mutexset1.c'
-  herit: *GRPSERIAL
-  info: *6
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_mutexset1_159:
-  bin: '"./mutexset1.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/mutexset1.c'
-  herit: *GRPSERIAL
-  info: *6
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_mutexset1_43:
-  bin: '"./mutexset1.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/mutexset1.c'
-  herit: *GRPSERIAL
-  info: *6
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_mutexset1_60:
-  bin: '"./mutexset1.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/mutexset1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O0  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/mutexset1.c'
+    sources:
+      binary: mutexset1.exe
+  group: GRPSERIAL
   info: *6
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_mutexset1_61:
-  bin: '"./mutexset1.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/mutexset1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/mutexset1.c'
+    sources:
+      binary: mutexset1.exe
+  group: GRPSERIAL
   info: *6
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr65400-1_111:
-  bin: '"./pr65400-1.exe"'
-  cargs: '  -O0  -fno-omit-frame-pointer -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr65400-1.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr65400-1_13:
+  build:
+    cflags: '  -O0  -fno-omit-frame-pointer -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr65400-1.c'
+    sources:
+      binary: pr65400-1.exe
+  group: GRPSERIAL
   info: &7 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr65400-1_112:
-  bin: '"./pr65400-1.exe"'
-  cargs: '  -O2  -fno-omit-frame-pointer -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr65400-1.c'
-  herit: *GRPSERIAL
-  info: *7
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr65400-1_14:
-  bin: '"./pr65400-1.exe"'
-  cargs: '  -O2  -fno-omit-frame-pointer -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr65400-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  -fno-omit-frame-pointer -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr65400-1.c'
+    sources:
+      binary: pr65400-1.exe
+  group: GRPSERIAL
   info: *7
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr65400-1_160:
-  bin: '"./pr65400-1.exe"'
-  cargs: '  -O0  -fno-omit-frame-pointer -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr65400-1.c'
-  herit: *GRPSERIAL
-  info: *7
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr65400-1_161:
-  bin: '"./pr65400-1.exe"'
-  cargs: '  -O2  -fno-omit-frame-pointer -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr65400-1.c'
-  herit: *GRPSERIAL
-  info: *7
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr65400-1_62:
-  bin: '"./pr65400-1.exe"'
-  cargs: '  -O0  -fno-omit-frame-pointer -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr65400-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O0  -fno-omit-frame-pointer -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr65400-1.c'
+    sources:
+      binary: pr65400-1.exe
+  group: GRPSERIAL
   info: *7
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr65400-1_63:
-  bin: '"./pr65400-1.exe"'
-  cargs: '  -O2  -fno-omit-frame-pointer -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr65400-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  -fno-omit-frame-pointer -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr65400-1.c'
+    sources:
+      binary: pr65400-1.exe
+  group: GRPSERIAL
   info: *7
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr65400-1_85:
-  bin: '"./pr65400-1.exe"'
-  cargs: '  -O0  -fno-omit-frame-pointer -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr65400-1.c'
-  herit: *GRPSERIAL
-  info: *7
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr65400-2_10:
-  bin: '"pr65400-2.s"'
-  cargs: '  -O0   -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr65400-2.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr65400-2_15:
+  build:
+    cflags: '  -O0   -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr65400-2.c'
+    sources:
+      binary: pr65400-2.s
+  group: GRPSERIAL
   info: &8 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr65400-2_113:
-  bin: '"pr65400-2.s"'
-  cargs: '  -O0   -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr65400-2.c'
-  herit: *GRPSERIAL
-  info: *8
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr65400-2_114:
-  bin: '"pr65400-2.s"'
-  cargs: '  -O2   -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr65400-2.c'
-  herit: *GRPSERIAL
-  info: *8
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr65400-2_16:
-  bin: '"pr65400-2.s"'
-  cargs: '  -O2   -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr65400-2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2   -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr65400-2.c'
+    sources:
+      binary: pr65400-2.s
+  group: GRPSERIAL
   info: *8
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr65400-2_162:
-  bin: '"pr65400-2.s"'
-  cargs: '  -O0   -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr65400-2.c'
-  herit: *GRPSERIAL
-  info: *8
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr65400-2_163:
-  bin: '"pr65400-2.s"'
-  cargs: '  -O2   -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr65400-2.c'
-  herit: *GRPSERIAL
-  info: *8
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr65400-2_64:
-  bin: '"pr65400-2.s"'
-  cargs: '  -O0   -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr65400-2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O0   -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr65400-2.c'
+    sources:
+      binary: pr65400-2.s
+  group: GRPSERIAL
   info: *8
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr65400-2_65:
-  bin: '"pr65400-2.s"'
-  cargs: '  -O2   -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr65400-2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2   -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr65400-2.c'
+    sources:
+      binary: pr65400-2.s
+  group: GRPSERIAL
   info: *8
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr65400-3_115:
-  bin: '"./pr65400-3.exe"'
-  cargs: '  -O0  -fno-omit-frame-pointer -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr65400-3.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr65400-3_17:
+  build:
+    cflags: '  -O0  -fno-omit-frame-pointer -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr65400-3.c'
+    sources:
+      binary: pr65400-3.exe
+  group: GRPSERIAL
   info: &9 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr65400-3_116:
-  bin: '"./pr65400-3.exe"'
-  cargs: '  -O2  -fno-omit-frame-pointer -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr65400-3.c'
-  herit: *GRPSERIAL
-  info: *9
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr65400-3_164:
-  bin: '"./pr65400-3.exe"'
-  cargs: '  -O0  -fno-omit-frame-pointer -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr65400-3.c'
-  herit: *GRPSERIAL
-  info: *9
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr65400-3_165:
-  bin: '"./pr65400-3.exe"'
-  cargs: '  -O2  -fno-omit-frame-pointer -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr65400-3.c'
-  herit: *GRPSERIAL
-  info: *9
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr65400-3_18:
-  bin: '"./pr65400-3.exe"'
-  cargs: '  -O2  -fno-omit-frame-pointer -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr65400-3.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  -fno-omit-frame-pointer -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr65400-3.c'
+    sources:
+      binary: pr65400-3.exe
+  group: GRPSERIAL
   info: *9
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr65400-3_66:
-  bin: '"./pr65400-3.exe"'
-  cargs: '  -O0  -fno-omit-frame-pointer -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr65400-3.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O0  -fno-omit-frame-pointer -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr65400-3.c'
+    sources:
+      binary: pr65400-3.exe
+  group: GRPSERIAL
   info: *9
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr65400-3_67:
-  bin: '"./pr65400-3.exe"'
-  cargs: '  -O2  -fno-omit-frame-pointer -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr65400-3.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  -fno-omit-frame-pointer -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr65400-3.c'
+    sources:
+      binary: pr65400-3.exe
+  group: GRPSERIAL
   info: *9
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr65400-3_75:
-  bin: '"./pr65400-3.exe"'
-  cargs: '  -O0  -fno-omit-frame-pointer -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr65400-3.c'
-  herit: *GRPSERIAL
-  info: *9
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr68260_117:
-  bin: '"./pr68260.exe"'
-  cargs: '  -O0  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr68260.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr68260_19:
+  build:
+    cflags: '  -O0  '
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr68260.c'
+    sources:
+      binary: pr68260.exe
+  group: GRPSERIAL
   info: &10 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr68260_118:
-  bin: '"./pr68260.exe"'
-  cargs: '  -O2  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr68260.c'
-  herit: *GRPSERIAL
-  info: *10
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr68260_166:
-  bin: '"./pr68260.exe"'
-  cargs: '  -O0  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr68260.c'
-  herit: *GRPSERIAL
-  info: *10
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr68260_167:
-  bin: '"./pr68260.exe"'
-  cargs: '  -O2  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr68260.c'
-  herit: *GRPSERIAL
-  info: *10
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr68260_20:
-  bin: '"./pr68260.exe"'
-  cargs: '  -O2  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr68260.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  '
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr68260.c'
+    sources:
+      binary: pr68260.exe
+  group: GRPSERIAL
   info: *10
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr68260_28:
-  bin: '"./pr68260.exe"'
-  cargs: '  -O0  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr68260.c'
-  herit: *GRPSERIAL
-  info: *10
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr68260_68:
-  bin: '"./pr68260.exe"'
-  cargs: '  -O0  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr68260.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O0  '
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr68260.c'
+    sources:
+      binary: pr68260.exe
+  group: GRPSERIAL
   info: *10
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr68260_69:
-  bin: '"./pr68260.exe"'
-  cargs: '  -O2  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr68260.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  '
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/pr68260.c'
+    sources:
+      binary: pr68260.exe
+  group: GRPSERIAL
   info: *10
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_race_on_barrier2_121:
-  bin: '"./race_on_barrier2.exe"'
-  cargs: '  -O0  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_barrier2.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_race_on_barrier2_23:
+  build:
+    cflags: '  -O0  '
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_barrier2.c'
+    sources:
+      binary: race_on_barrier2.exe
+  group: GRPSERIAL
   info: &11 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_race_on_barrier2_122:
-  bin: '"./race_on_barrier2.exe"'
-  cargs: '  -O2  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_barrier2.c'
-  herit: *GRPSERIAL
-  info: *11
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_race_on_barrier2_170:
-  bin: '"./race_on_barrier2.exe"'
-  cargs: '  -O0  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_barrier2.c'
-  herit: *GRPSERIAL
-  info: *11
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_race_on_barrier2_171:
-  bin: '"./race_on_barrier2.exe"'
-  cargs: '  -O2  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_barrier2.c'
-  herit: *GRPSERIAL
-  info: *11
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_race_on_barrier2_24:
-  bin: '"./race_on_barrier2.exe"'
-  cargs: '  -O2  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_barrier2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  '
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_barrier2.c'
+    sources:
+      binary: race_on_barrier2.exe
+  group: GRPSERIAL
   info: *11
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_race_on_barrier2_32:
-  bin: '"./race_on_barrier2.exe"'
-  cargs: '  -O0  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_barrier2.c'
-  herit: *GRPSERIAL
-  info: *11
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_race_on_barrier2_72:
-  bin: '"./race_on_barrier2.exe"'
-  cargs: '  -O0  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_barrier2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O0  '
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_barrier2.c'
+    sources:
+      binary: race_on_barrier2.exe
+  group: GRPSERIAL
   info: *11
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_race_on_barrier2_73:
-  bin: '"./race_on_barrier2.exe"'
-  cargs: '  -O2  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_barrier2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  '
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_barrier2.c'
+    sources:
+      binary: race_on_barrier2.exe
+  group: GRPSERIAL
   info: *11
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_race_on_barrier_119:
-  bin: '"./race_on_barrier.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_barrier.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_race_on_barrier_21:
+  build:
+    cflags: '  -O0  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_barrier.c'
+    sources:
+      binary: race_on_barrier.exe
+  group: GRPSERIAL
   info: &12 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_race_on_barrier_120:
-  bin: '"./race_on_barrier.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_barrier.c'
-  herit: *GRPSERIAL
-  info: *12
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_race_on_barrier_168:
-  bin: '"./race_on_barrier.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_barrier.c'
-  herit: *GRPSERIAL
-  info: *12
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_race_on_barrier_169:
-  bin: '"./race_on_barrier.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_barrier.c'
-  herit: *GRPSERIAL
-  info: *12
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_race_on_barrier_22:
-  bin: '"./race_on_barrier.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_barrier.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_barrier.c'
+    sources:
+      binary: race_on_barrier.exe
+  group: GRPSERIAL
   info: *12
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_race_on_barrier_34:
-  bin: '"./race_on_barrier.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_barrier.c'
-  herit: *GRPSERIAL
-  info: *12
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_race_on_barrier_70:
-  bin: '"./race_on_barrier.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_barrier.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O0  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_barrier.c'
+    sources:
+      binary: race_on_barrier.exe
+  group: GRPSERIAL
   info: *12
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_race_on_barrier_71:
-  bin: '"./race_on_barrier.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_barrier.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_barrier.c'
+    sources:
+      binary: race_on_barrier.exe
+  group: GRPSERIAL
   info: *12
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_race_on_mutex2_125:
-  bin: '"./race_on_mutex2.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_mutex2.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_race_on_mutex2_27:
+  build:
+    cflags: '  -O0  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_mutex2.c'
+    sources:
+      binary: race_on_mutex2.exe
+  group: GRPSERIAL
   info: &13 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_race_on_mutex2_126:
-  bin: '"./race_on_mutex2.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_mutex2.c'
-  herit: *GRPSERIAL
-  info: *13
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_race_on_mutex2_174:
-  bin: '"./race_on_mutex2.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_mutex2.c'
-  herit: *GRPSERIAL
-  info: *13
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_race_on_mutex2_175:
-  bin: '"./race_on_mutex2.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_mutex2.c'
-  herit: *GRPSERIAL
-  info: *13
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_race_on_mutex2_28:
-  bin: '"./race_on_mutex2.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_mutex2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_mutex2.c'
+    sources:
+      binary: race_on_mutex2.exe
+  group: GRPSERIAL
   info: *13
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_race_on_mutex2_76:
-  bin: '"./race_on_mutex2.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_mutex2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O0  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_mutex2.c'
+    sources:
+      binary: race_on_mutex2.exe
+  group: GRPSERIAL
   info: *13
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_race_on_mutex2_77:
-  bin: '"./race_on_mutex2.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_mutex2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_mutex2.c'
+    sources:
+      binary: race_on_mutex2.exe
+  group: GRPSERIAL
   info: *13
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_race_on_mutex_123:
-  bin: '"./race_on_mutex.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_mutex.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_race_on_mutex_25:
+  build:
+    cflags: '  -O0  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_mutex.c'
+    sources:
+      binary: race_on_mutex.exe
+  group: GRPSERIAL
   info: &14 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_race_on_mutex_124:
-  bin: '"./race_on_mutex.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_mutex.c'
-  herit: *GRPSERIAL
-  info: *14
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_race_on_mutex_172:
-  bin: '"./race_on_mutex.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_mutex.c'
-  herit: *GRPSERIAL
-  info: *14
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_race_on_mutex_173:
-  bin: '"./race_on_mutex.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_mutex.c'
-  herit: *GRPSERIAL
-  info: *14
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_race_on_mutex_26:
-  bin: '"./race_on_mutex.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_mutex.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_mutex.c'
+    sources:
+      binary: race_on_mutex.exe
+  group: GRPSERIAL
   info: *14
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_race_on_mutex_45:
-  bin: '"./race_on_mutex.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_mutex.c'
-  herit: *GRPSERIAL
-  info: *14
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_race_on_mutex_74:
-  bin: '"./race_on_mutex.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_mutex.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O0  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_mutex.c'
+    sources:
+      binary: race_on_mutex.exe
+  group: GRPSERIAL
   info: *14
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_race_on_mutex_75:
-  bin: '"./race_on_mutex.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_mutex.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/race_on_mutex.c'
+    sources:
+      binary: race_on_mutex.exe
+  group: GRPSERIAL
   info: *14
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_sanitize-thread-macro_12:
-  bin: '"sanitize-thread-macro.s"'
-  cargs: '  -O0   -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/sanitize-thread-macro.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_sanitize-thread-macro_29:
+  build:
+    cflags: '  -O0   -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/sanitize-thread-macro.c'
+    sources:
+      binary: sanitize-thread-macro.s
+  group: GRPSERIAL
   info: &15 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_sanitize-thread-macro_127:
-  bin: '"sanitize-thread-macro.s"'
-  cargs: '  -O0   -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/sanitize-thread-macro.c'
-  herit: *GRPSERIAL
-  info: *15
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_sanitize-thread-macro_176:
-  bin: '"sanitize-thread-macro.s"'
-  cargs: '  -O0   -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/sanitize-thread-macro.c'
-  herit: *GRPSERIAL
-  info: *15
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_sanitize-thread-macro_78:
-  bin: '"sanitize-thread-macro.s"'
-  cargs: '  -O0   -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/sanitize-thread-macro.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O0   -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/sanitize-thread-macro.c'
+    sources:
+      binary: sanitize-thread-macro.s
+  group: GRPSERIAL
   info: *15
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_simple_race_128:
-  bin: '"./simple_race.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/simple_race.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_simple_race_30:
+  build:
+    cflags: '  -O0  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/simple_race.c'
+    sources:
+      binary: simple_race.exe
+  group: GRPSERIAL
   info: &16 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_simple_race_129:
-  bin: '"./simple_race.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/simple_race.c'
-  herit: *GRPSERIAL
-  info: *16
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_simple_race_177:
-  bin: '"./simple_race.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/simple_race.c'
-  herit: *GRPSERIAL
-  info: *16
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_simple_race_178:
-  bin: '"./simple_race.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/simple_race.c'
-  herit: *GRPSERIAL
-  info: *16
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_simple_race_31:
-  bin: '"./simple_race.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/simple_race.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/simple_race.c'
+    sources:
+      binary: simple_race.exe
+  group: GRPSERIAL
   info: *16
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_simple_race_55:
-  bin: '"./simple_race.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/simple_race.c'
-  herit: *GRPSERIAL
-  info: *16
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_simple_race_79:
-  bin: '"./simple_race.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/simple_race.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O0  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/simple_race.c'
+    sources:
+      binary: simple_race.exe
+  group: GRPSERIAL
   info: *16
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_simple_race_80:
-  bin: '"./simple_race.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/simple_race.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/simple_race.c'
+    sources:
+      binary: simple_race.exe
+  group: GRPSERIAL
   info: *16
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_simple_stack_130:
-  bin: '"./simple_stack.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/simple_stack.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_simple_stack_32:
+  build:
+    cflags: '  -O0  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/simple_stack.c'
+    sources:
+      binary: simple_stack.exe
+  group: GRPSERIAL
   info: &17 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_simple_stack_131:
-  bin: '"./simple_stack.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/simple_stack.c'
-  herit: *GRPSERIAL
-  info: *17
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_simple_stack_179:
-  bin: '"./simple_stack.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/simple_stack.c'
-  herit: *GRPSERIAL
-  info: *17
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_simple_stack_180:
-  bin: '"./simple_stack.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/simple_stack.c'
-  herit: *GRPSERIAL
-  info: *17
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_simple_stack_33:
-  bin: '"./simple_stack.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/simple_stack.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/simple_stack.c'
+    sources:
+      binary: simple_stack.exe
+  group: GRPSERIAL
   info: *17
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_simple_stack_68:
-  bin: '"./simple_stack.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/simple_stack.c'
-  herit: *GRPSERIAL
-  info: *17
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_simple_stack_81:
-  bin: '"./simple_stack.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/simple_stack.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O0  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/simple_stack.c'
+    sources:
+      binary: simple_stack.exe
+  group: GRPSERIAL
   info: *17
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_simple_stack_82:
-  bin: '"./simple_stack.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/simple_stack.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/simple_stack.c'
+    sources:
+      binary: simple_stack.exe
+  group: GRPSERIAL
   info: *17
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_sleep_sync_132:
-  bin: '"./sleep_sync.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/sleep_sync.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_sleep_sync_34:
+  build:
+    cflags: '  -O0  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/sleep_sync.c'
+    sources:
+      binary: sleep_sync.exe
+  group: GRPSERIAL
   info: &18 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_sleep_sync_133:
-  bin: '"./sleep_sync.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/sleep_sync.c'
-  herit: *GRPSERIAL
-  info: *18
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_sleep_sync_181:
-  bin: '"./sleep_sync.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/sleep_sync.c'
-  herit: *GRPSERIAL
-  info: *18
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_sleep_sync_182:
-  bin: '"./sleep_sync.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/sleep_sync.c'
-  herit: *GRPSERIAL
-  info: *18
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_sleep_sync_35:
-  bin: '"./sleep_sync.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/sleep_sync.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/sleep_sync.c'
+    sources:
+      binary: sleep_sync.exe
+  group: GRPSERIAL
   info: *18
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_sleep_sync_36:
-  bin: '"./sleep_sync.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/sleep_sync.c'
-  herit: *GRPSERIAL
-  info: *18
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_sleep_sync_83:
-  bin: '"./sleep_sync.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/sleep_sync.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O0  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/sleep_sync.c'
+    sources:
+      binary: sleep_sync.exe
+  group: GRPSERIAL
   info: *18
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_sleep_sync_84:
-  bin: '"./sleep_sync.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/sleep_sync.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/sleep_sync.c'
+    sources:
+      binary: sleep_sync.exe
+  group: GRPSERIAL
   info: *18
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_step_134:
-  bin: '"step.s"'
-  cargs: -O0 -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/step.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_step_36:
+  build:
+    cflags: -O0 -ffat-lto-objects -S
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/step.c'
+    sources:
+      binary: step.s
+  group: GRPSERIAL
   info: &19 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_step_135:
-  bin: '"step.s"'
-  cargs: -O2 -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/step.c'
-  herit: *GRPSERIAL
-  info: *19
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_step_15:
-  bin: '"step.s"'
-  cargs: -O0 -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/step.c'
-  herit: *GRPSERIAL
-  info: *19
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_step_183:
-  bin: '"step.s"'
-  cargs: -O0 -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/step.c'
-  herit: *GRPSERIAL
-  info: *19
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_step_184:
-  bin: '"step.s"'
-  cargs: -O2 -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/step.c'
-  herit: *GRPSERIAL
-  info: *19
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_step_37:
-  bin: '"step.s"'
-  cargs: -O2 -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/step.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: -O2 -ffat-lto-objects -S
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/step.c'
+    sources:
+      binary: step.s
+  group: GRPSERIAL
   info: *19
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_step_85:
-  bin: '"step.s"'
-  cargs: -O0 -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/step.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: -O0 -ffat-lto-objects -S
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/step.c'
+    sources:
+      binary: step.s
+  group: GRPSERIAL
   info: *19
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_step_86:
-  bin: '"step.s"'
-  cargs: -O2 -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/step.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: -O2 -ffat-lto-objects -S
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/step.c'
+    sources:
+      binary: step.s
+  group: GRPSERIAL
   info: *19
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_thread_leak1_138:
-  bin: '"./thread_leak1.exe"'
-  cargs: '  -O0  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/thread_leak1.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_leak1_40:
+  build:
+    cflags: '  -O0  '
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/thread_leak1.c'
+    sources:
+      binary: thread_leak1.exe
+  group: GRPSERIAL
   info: &20 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_thread_leak1_139:
-  bin: '"./thread_leak1.exe"'
-  cargs: '  -O2  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/thread_leak1.c'
-  herit: *GRPSERIAL
-  info: *20
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_thread_leak1_18:
-  bin: '"./thread_leak1.exe"'
-  cargs: '  -O0  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/thread_leak1.c'
-  herit: *GRPSERIAL
-  info: *20
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_thread_leak1_187:
-  bin: '"./thread_leak1.exe"'
-  cargs: '  -O0  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/thread_leak1.c'
-  herit: *GRPSERIAL
-  info: *20
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_thread_leak1_188:
-  bin: '"./thread_leak1.exe"'
-  cargs: '  -O2  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/thread_leak1.c'
-  herit: *GRPSERIAL
-  info: *20
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_thread_leak1_41:
-  bin: '"./thread_leak1.exe"'
-  cargs: '  -O2  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/thread_leak1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  '
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/thread_leak1.c'
+    sources:
+      binary: thread_leak1.exe
+  group: GRPSERIAL
   info: *20
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_thread_leak1_89:
-  bin: '"./thread_leak1.exe"'
-  cargs: '  -O0  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/thread_leak1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O0  '
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/thread_leak1.c'
+    sources:
+      binary: thread_leak1.exe
+  group: GRPSERIAL
   info: *20
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_thread_leak1_90:
-  bin: '"./thread_leak1.exe"'
-  cargs: '  -O2  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/thread_leak1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  '
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/thread_leak1.c'
+    sources:
+      binary: thread_leak1.exe
+  group: GRPSERIAL
   info: *20
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_thread_leak2_140:
-  bin: '"./thread_leak2.exe"'
-  cargs: '  -O0  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/thread_leak2.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_leak2_42:
+  build:
+    cflags: '  -O0  '
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/thread_leak2.c'
+    sources:
+      binary: thread_leak2.exe
+  group: GRPSERIAL
   info: &21 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_thread_leak2_141:
-  bin: '"./thread_leak2.exe"'
-  cargs: '  -O2  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/thread_leak2.c'
-  herit: *GRPSERIAL
-  info: *21
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_thread_leak2_189:
-  bin: '"./thread_leak2.exe"'
-  cargs: '  -O0  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/thread_leak2.c'
-  herit: *GRPSERIAL
-  info: *21
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_thread_leak2_190:
-  bin: '"./thread_leak2.exe"'
-  cargs: '  -O2  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/thread_leak2.c'
-  herit: *GRPSERIAL
-  info: *21
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_thread_leak2_21:
-  bin: '"./thread_leak2.exe"'
-  cargs: '  -O0  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/thread_leak2.c'
-  herit: *GRPSERIAL
-  info: *21
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_thread_leak2_43:
-  bin: '"./thread_leak2.exe"'
-  cargs: '  -O2  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/thread_leak2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  '
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/thread_leak2.c'
+    sources:
+      binary: thread_leak2.exe
+  group: GRPSERIAL
   info: *21
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_thread_leak2_91:
-  bin: '"./thread_leak2.exe"'
-  cargs: '  -O0  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/thread_leak2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O0  '
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/thread_leak2.c'
+    sources:
+      binary: thread_leak2.exe
+  group: GRPSERIAL
   info: *21
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_thread_leak2_92:
-  bin: '"./thread_leak2.exe"'
-  cargs: '  -O2  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/thread_leak2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  '
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/thread_leak2.c'
+    sources:
+      binary: thread_leak2.exe
+  group: GRPSERIAL
   info: *21
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_thread_leak_136:
-  bin: '"./thread_leak.exe"'
-  cargs: '  -O0  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/thread_leak.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_thread_leak_38:
+  build:
+    cflags: '  -O0  '
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/thread_leak.c'
+    sources:
+      binary: thread_leak.exe
+  group: GRPSERIAL
   info: &22 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_thread_leak_137:
-  bin: '"./thread_leak.exe"'
-  cargs: '  -O2  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/thread_leak.c'
-  herit: *GRPSERIAL
-  info: *22
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_thread_leak_16:
-  bin: '"./thread_leak.exe"'
-  cargs: '  -O0  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/thread_leak.c'
-  herit: *GRPSERIAL
-  info: *22
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_thread_leak_185:
-  bin: '"./thread_leak.exe"'
-  cargs: '  -O0  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/thread_leak.c'
-  herit: *GRPSERIAL
-  info: *22
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_thread_leak_186:
-  bin: '"./thread_leak.exe"'
-  cargs: '  -O2  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/thread_leak.c'
-  herit: *GRPSERIAL
-  info: *22
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_thread_leak_39:
-  bin: '"./thread_leak.exe"'
-  cargs: '  -O2  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/thread_leak.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  '
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/thread_leak.c'
+    sources:
+      binary: thread_leak.exe
+  group: GRPSERIAL
   info: *22
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_thread_leak_87:
-  bin: '"./thread_leak.exe"'
-  cargs: '  -O0  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/thread_leak.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O0  '
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/thread_leak.c'
+    sources:
+      binary: thread_leak.exe
+  group: GRPSERIAL
   info: *22
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_thread_leak_88:
-  bin: '"./thread_leak.exe"'
-  cargs: '  -O2  '
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/thread_leak.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  '
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/thread_leak.c'
+    sources:
+      binary: thread_leak.exe
+  group: GRPSERIAL
   info: *22
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_tiny_race_142:
-  bin: '"./tiny_race.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/tiny_race.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_tiny_race_44:
+  build:
+    cflags: '  -O0  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/tiny_race.c'
+    sources:
+      binary: tiny_race.exe
+  group: GRPSERIAL
   info: &23 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_tiny_race_143:
-  bin: '"./tiny_race.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/tiny_race.c'
-  herit: *GRPSERIAL
-  info: *23
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_tiny_race_191:
-  bin: '"./tiny_race.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/tiny_race.c'
-  herit: *GRPSERIAL
-  info: *23
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_tiny_race_192:
-  bin: '"./tiny_race.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/tiny_race.c'
-  herit: *GRPSERIAL
-  info: *23
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_tiny_race_26:
-  bin: '"./tiny_race.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/tiny_race.c'
-  herit: *GRPSERIAL
-  info: *23
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_tiny_race_45:
-  bin: '"./tiny_race.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/tiny_race.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/tiny_race.c'
+    sources:
+      binary: tiny_race.exe
+  group: GRPSERIAL
   info: *23
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_tiny_race_93:
-  bin: '"./tiny_race.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/tiny_race.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O0  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/tiny_race.c'
+    sources:
+      binary: tiny_race.exe
+  group: GRPSERIAL
   info: *23
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_tiny_race_94:
-  bin: '"./tiny_race.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/tiny_race.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/tiny_race.c'
+    sources:
+      binary: tiny_race.exe
+  group: GRPSERIAL
   info: *23
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_tls_race_144:
-  bin: '"./tls_race.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/tls_race.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_tls_race_46:
+  build:
+    cflags: '  -O0  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/tls_race.c'
+    sources:
+      binary: tls_race.exe
+  group: GRPSERIAL
   info: &24 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_tls_race_145:
-  bin: '"./tls_race.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/tls_race.c'
-  herit: *GRPSERIAL
-  info: *24
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_tls_race_193:
-  bin: '"./tls_race.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/tls_race.c'
-  herit: *GRPSERIAL
-  info: *24
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_tls_race_194:
-  bin: '"./tls_race.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/tls_race.c'
-  herit: *GRPSERIAL
-  info: *24
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_tls_race_26:
-  bin: '"./tls_race.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/tls_race.c'
-  herit: *GRPSERIAL
-  info: *24
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_tls_race_47:
-  bin: '"./tls_race.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/tls_race.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/tls_race.c'
+    sources:
+      binary: tls_race.exe
+  group: GRPSERIAL
   info: *24
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_tls_race_95:
-  bin: '"./tls_race.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/tls_race.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O0  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/tls_race.c'
+    sources:
+      binary: tls_race.exe
+  group: GRPSERIAL
   info: *24
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_tls_race_96:
-  bin: '"./tls_race.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/tls_race.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/tls_race.c'
+    sources:
+      binary: tls_race.exe
+  group: GRPSERIAL
   info: *24
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_write_in_reader_lock_146:
-  bin: '"./write_in_reader_lock.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/write_in_reader_lock.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_write_in_reader_lock_48:
+  build:
+    cflags: '  -O0  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/write_in_reader_lock.c'
+    sources:
+      binary: write_in_reader_lock.exe
+  group: GRPSERIAL
   info: &25 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_write_in_reader_lock_147:
-  bin: '"./write_in_reader_lock.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/write_in_reader_lock.c'
-  herit: *GRPSERIAL
-  info: *25
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_write_in_reader_lock_195:
-  bin: '"./write_in_reader_lock.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/write_in_reader_lock.c'
-  herit: *GRPSERIAL
-  info: *25
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_write_in_reader_lock_196:
-  bin: '"./write_in_reader_lock.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/write_in_reader_lock.c'
-  herit: *GRPSERIAL
-  info: *25
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_write_in_reader_lock_40:
-  bin: '"./write_in_reader_lock.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/write_in_reader_lock.c'
-  herit: *GRPSERIAL
-  info: *25
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_write_in_reader_lock_49:
-  bin: '"./write_in_reader_lock.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/write_in_reader_lock.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/write_in_reader_lock.c'
+    sources:
+      binary: write_in_reader_lock.exe
+  group: GRPSERIAL
   info: *25
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_write_in_reader_lock_97:
-  bin: '"./write_in_reader_lock.exe"'
-  cargs: '  -O0  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/write_in_reader_lock.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O0  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/write_in_reader_lock.c'
+    sources:
+      binary: write_in_reader_lock.exe
+  group: GRPSERIAL
   info: *25
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_write_in_reader_lock_98:
-  bin: '"./write_in_reader_lock.exe"'
-  cargs: '  -O2  -ldl'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/write_in_reader_lock.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  -ldl'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/tsan/write_in_reader_lock.c'
+    sources:
+      binary: write_in_reader_lock.exe
+  group: GRPSERIAL
   info: *25
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

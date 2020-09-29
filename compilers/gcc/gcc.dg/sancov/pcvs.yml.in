@@ -1,512 +1,361 @@
-test_basic0_2:
-  bin: '"basic0.s"'
-  cargs: '  -O1  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic0.c'
-  herit: *GRPSERIAL
+---
+test_basic0_1:
+  build:
+    cflags: '  -O0  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic0.c'
+    sources:
+      binary: basic0.s
+  group: GRPSERIAL
   info: &1
     extraopts:
       - '"-fsanitize-coverage=trace-pc -fdump-tree-optimized"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_basic0_2:
+  build:
+    cflags: '  -O1  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic0.c'
+    sources:
+      binary: basic0.s
+  group: GRPSERIAL
+  info: *1
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_basic0_3:
-  bin: '"basic0.s"'
-  cargs: '  -O2  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic0.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic0.c'
+    sources:
+      binary: basic0.s
+  group: GRPSERIAL
   info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_basic0_33:
-  bin: '"basic0.s"'
-  cargs: '  -O0  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic0.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_basic0_34:
-  bin: '"basic0.s"'
-  cargs: '  -O1  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic0.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_basic0_35:
-  bin: '"basic0.s"'
-  cargs: '  -O2  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic0.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_basic0_36:
-  bin: '"basic0.s"'
-  cargs: '  -O3  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic0.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_basic0_37:
-  bin: '"basic0.s"'
-  cargs: '  -O0 -g  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic0.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_basic0_38:
-  bin: '"basic0.s"'
-  cargs: '  -O1 -g  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic0.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_basic0_39:
-  bin: '"basic0.s"'
-  cargs: '  -O2 -g  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic0.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_basic0_4:
-  bin: '"basic0.s"'
-  cargs: '  -O3  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic0.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O3  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic0.c'
+    sources:
+      binary: basic0.s
+  group: GRPSERIAL
   info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_basic0_40:
-  bin: '"basic0.s"'
-  cargs: '  -O3 -g  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic0.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_basic0_5:
-  bin: '"basic0.s"'
-  cargs: '  -O0 -g  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic0.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O0 -g  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic0.c'
+    sources:
+      binary: basic0.s
+  group: GRPSERIAL
   info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_basic0_6:
-  bin: '"basic0.s"'
-  cargs: '  -O1 -g  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic0.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O1 -g  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic0.c'
+    sources:
+      binary: basic0.s
+  group: GRPSERIAL
   info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_basic0_7:
-  bin: '"basic0.s"'
-  cargs: '  -O2 -g  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic0.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2 -g  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic0.c'
+    sources:
+      binary: basic0.s
+  group: GRPSERIAL
   info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_basic0_8:
-  bin: '"basic0.s"'
-  cargs: '  -O3 -g  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic0.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O3 -g  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic0.c'
+    sources:
+      binary: basic0.s
+  group: GRPSERIAL
   info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_basic0_9:
-  bin: '"basic0.s"'
-  cargs: '  -O0  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic0.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_basic1_10:
-  bin: '"basic1.s"'
-  cargs: '  -O1  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O1  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic1.c'
+    sources:
+      binary: basic1.s
+  group: GRPSERIAL
   info: &2
     extraopts:
       - '"-fsanitize-coverage=trace-pc -fdump-tree-optimized"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_basic1_11:
-  bin: '"basic1.s"'
-  cargs: '  -O2  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic1.c'
+    sources:
+      binary: basic1.s
+  group: GRPSERIAL
   info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_basic1_12:
-  bin: '"basic1.s"'
-  cargs: '  -O3  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O3  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic1.c'
+    sources:
+      binary: basic1.s
+  group: GRPSERIAL
   info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_basic1_13:
-  bin: '"basic1.s"'
-  cargs: '  -O0 -g  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O0 -g  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic1.c'
+    sources:
+      binary: basic1.s
+  group: GRPSERIAL
   info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_basic1_14:
-  bin: '"basic1.s"'
-  cargs: '  -O1 -g  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O1 -g  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic1.c'
+    sources:
+      binary: basic1.s
+  group: GRPSERIAL
   info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_basic1_15:
-  bin: '"basic1.s"'
-  cargs: '  -O2 -g  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2 -g  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic1.c'
+    sources:
+      binary: basic1.s
+  group: GRPSERIAL
   info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_basic1_16:
-  bin: '"basic1.s"'
-  cargs: '  -O3 -g  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O3 -g  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic1.c'
+    sources:
+      binary: basic1.s
+  group: GRPSERIAL
   info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_basic1_41:
-  bin: '"basic1.s"'
-  cargs: '  -O0  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic1.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_basic1_9:
+  build:
+    cflags: '  -O0  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic1.c'
+    sources:
+      binary: basic1.s
+  group: GRPSERIAL
   info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_basic1_42:
-  bin: '"basic1.s"'
-  cargs: '  -O1  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic1.c'
-  herit: *GRPSERIAL
-  info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_basic1_43:
-  bin: '"basic1.s"'
-  cargs: '  -O2  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic1.c'
-  herit: *GRPSERIAL
-  info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_basic1_44:
-  bin: '"basic1.s"'
-  cargs: '  -O3  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic1.c'
-  herit: *GRPSERIAL
-  info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_basic1_45:
-  bin: '"basic1.s"'
-  cargs: '  -O0 -g  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic1.c'
-  herit: *GRPSERIAL
-  info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_basic1_46:
-  bin: '"basic1.s"'
-  cargs: '  -O1 -g  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic1.c'
-  herit: *GRPSERIAL
-  info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_basic1_47:
-  bin: '"basic1.s"'
-  cargs: '  -O2 -g  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic1.c'
-  herit: *GRPSERIAL
-  info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_basic1_48:
-  bin: '"basic1.s"'
-  cargs: '  -O3 -g  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic1.c'
-  herit: *GRPSERIAL
-  info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_basic2_14:
-  bin: '"basic2.s"'
-  cargs: '  -O0  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic2.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_basic2_17:
+  build:
+    cflags: '  -O0  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic2.c'
+    sources:
+      binary: basic2.s
+  group: GRPSERIAL
   info: &3
     extraopts:
       - '"-fsanitize-coverage=trace-pc -fdump-tree-optimized"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_basic2_18:
-  bin: '"basic2.s"'
-  cargs: '  -O1  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O1  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic2.c'
+    sources:
+      binary: basic2.s
+  group: GRPSERIAL
   info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_basic2_19:
-  bin: '"basic2.s"'
-  cargs: '  -O2  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic2.c'
+    sources:
+      binary: basic2.s
+  group: GRPSERIAL
   info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_basic2_20:
-  bin: '"basic2.s"'
-  cargs: '  -O3  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O3  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic2.c'
+    sources:
+      binary: basic2.s
+  group: GRPSERIAL
   info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_basic2_21:
-  bin: '"basic2.s"'
-  cargs: '  -O0 -g  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O0 -g  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic2.c'
+    sources:
+      binary: basic2.s
+  group: GRPSERIAL
   info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_basic2_22:
-  bin: '"basic2.s"'
-  cargs: '  -O1 -g  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O1 -g  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic2.c'
+    sources:
+      binary: basic2.s
+  group: GRPSERIAL
   info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_basic2_23:
-  bin: '"basic2.s"'
-  cargs: '  -O2 -g  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2 -g  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic2.c'
+    sources:
+      binary: basic2.s
+  group: GRPSERIAL
   info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_basic2_24:
-  bin: '"basic2.s"'
-  cargs: '  -O3 -g  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic2.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O3 -g  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic2.c'
+    sources:
+      binary: basic2.s
+  group: GRPSERIAL
   info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_basic2_49:
-  bin: '"basic2.s"'
-  cargs: '  -O0  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic2.c'
-  herit: *GRPSERIAL
-  info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_basic2_50:
-  bin: '"basic2.s"'
-  cargs: '  -O1  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic2.c'
-  herit: *GRPSERIAL
-  info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_basic2_51:
-  bin: '"basic2.s"'
-  cargs: '  -O2  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic2.c'
-  herit: *GRPSERIAL
-  info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_basic2_52:
-  bin: '"basic2.s"'
-  cargs: '  -O3  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic2.c'
-  herit: *GRPSERIAL
-  info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_basic2_53:
-  bin: '"basic2.s"'
-  cargs: '  -O0 -g  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic2.c'
-  herit: *GRPSERIAL
-  info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_basic2_54:
-  bin: '"basic2.s"'
-  cargs: '  -O1 -g  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic2.c'
-  herit: *GRPSERIAL
-  info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_basic2_55:
-  bin: '"basic2.s"'
-  cargs: '  -O2 -g  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic2.c'
-  herit: *GRPSERIAL
-  info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_basic2_56:
-  bin: '"basic2.s"'
-  cargs: '  -O3 -g  -fsanitize-coverage=trace-pc -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/basic2.c'
-  herit: *GRPSERIAL
-  info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr80444_26:
-  bin: '"pr80444.s"'
-  cargs: '  -O1  -fsanitize-coverage=trace-pc -fcompare-debug -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/pr80444.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr80444_25:
+  build:
+    cflags: '  -O0  -fsanitize-coverage=trace-pc -fcompare-debug -S'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/pr80444.c'
+    sources:
+      binary: pr80444.s
+  group: GRPSERIAL
   info: &4
     extraopts:
       - '"-fsanitize-coverage=trace-pc -fcompare-debug"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr80444_26:
+  build:
+    cflags: '  -O1  -fsanitize-coverage=trace-pc -fcompare-debug -S'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/pr80444.c'
+    sources:
+      binary: pr80444.s
+  group: GRPSERIAL
+  info: *4
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr80444_27:
-  bin: '"pr80444.s"'
-  cargs: '  -O2  -fsanitize-coverage=trace-pc -fcompare-debug -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/pr80444.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2  -fsanitize-coverage=trace-pc -fcompare-debug -S'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/pr80444.c'
+    sources:
+      binary: pr80444.s
+  group: GRPSERIAL
   info: *4
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr80444_28:
-  bin: '"pr80444.s"'
-  cargs: '  -O3  -fsanitize-coverage=trace-pc -fcompare-debug -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/pr80444.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O3  -fsanitize-coverage=trace-pc -fcompare-debug -S'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/pr80444.c'
+    sources:
+      binary: pr80444.s
+  group: GRPSERIAL
   info: *4
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr80444_29:
-  bin: '"pr80444.s"'
-  cargs: '  -O0 -g  -fsanitize-coverage=trace-pc -fcompare-debug -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/pr80444.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O0 -g  -fsanitize-coverage=trace-pc -fcompare-debug -S'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/pr80444.c'
+    sources:
+      binary: pr80444.s
+  group: GRPSERIAL
   info: *4
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr80444_30:
-  bin: '"pr80444.s"'
-  cargs: '  -O1 -g  -fsanitize-coverage=trace-pc -fcompare-debug -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/pr80444.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O1 -g  -fsanitize-coverage=trace-pc -fcompare-debug -S'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/pr80444.c'
+    sources:
+      binary: pr80444.s
+  group: GRPSERIAL
   info: *4
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr80444_31:
-  bin: '"pr80444.s"'
-  cargs: '  -O2 -g  -fsanitize-coverage=trace-pc -fcompare-debug -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/pr80444.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O2 -g  -fsanitize-coverage=trace-pc -fcompare-debug -S'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/pr80444.c'
+    sources:
+      binary: pr80444.s
+  group: GRPSERIAL
   info: *4
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr80444_32:
-  bin: '"pr80444.s"'
-  cargs: '  -O3 -g  -fsanitize-coverage=trace-pc -fcompare-debug -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/pr80444.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: '  -O3 -g  -fsanitize-coverage=trace-pc -fcompare-debug -S'
+    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/pr80444.c'
+    sources:
+      binary: pr80444.s
+  group: GRPSERIAL
   info: *4
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr80444_57:
-  bin: '"pr80444.s"'
-  cargs: '  -O0  -fsanitize-coverage=trace-pc -fcompare-debug -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/pr80444.c'
-  herit: *GRPSERIAL
-  info: *4
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr80444_58:
-  bin: '"pr80444.s"'
-  cargs: '  -O1  -fsanitize-coverage=trace-pc -fcompare-debug -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/pr80444.c'
-  herit: *GRPSERIAL
-  info: *4
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr80444_59:
-  bin: '"pr80444.s"'
-  cargs: '  -O2  -fsanitize-coverage=trace-pc -fcompare-debug -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/pr80444.c'
-  herit: *GRPSERIAL
-  info: *4
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr80444_60:
-  bin: '"pr80444.s"'
-  cargs: '  -O3  -fsanitize-coverage=trace-pc -fcompare-debug -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/pr80444.c'
-  herit: *GRPSERIAL
-  info: *4
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr80444_61:
-  bin: '"pr80444.s"'
-  cargs: '  -O0 -g  -fsanitize-coverage=trace-pc -fcompare-debug -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/pr80444.c'
-  herit: *GRPSERIAL
-  info: *4
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr80444_62:
-  bin: '"pr80444.s"'
-  cargs: '  -O1 -g  -fsanitize-coverage=trace-pc -fcompare-debug -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/pr80444.c'
-  herit: *GRPSERIAL
-  info: *4
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr80444_63:
-  bin: '"pr80444.s"'
-  cargs: '  -O2 -g  -fsanitize-coverage=trace-pc -fcompare-debug -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/pr80444.c'
-  herit: *GRPSERIAL
-  info: *4
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr80444_64:
-  bin: '"pr80444.s"'
-  cargs: '  -O3 -g  -fsanitize-coverage=trace-pc -fcompare-debug -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/pr80444.c'
-  herit: *GRPSERIAL
-  info: *4
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr80444_9:
-  bin: '"pr80444.s"'
-  cargs: '  -O0  -fsanitize-coverage=trace-pc -fcompare-debug -S'
-  files: '@ROOTPATH@/compilers/gcc/./gcc.dg/sancov/pr80444.c'
-  herit: *GRPSERIAL
-  info: *4
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

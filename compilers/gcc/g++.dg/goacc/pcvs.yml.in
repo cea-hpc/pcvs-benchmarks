@@ -1,8 +1,11 @@
-test_data-1_2:
-  bin: '"data-1.s"'
-  cargs: ' -std=c++11 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/data-1.C'
-  herit: *GRPSERIAL
+---
+test_data-1_1:
+  build:
+    cflags: ' -std=c++98 -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/data-1.C'
+    sources:
+      binary: data-1.s
+  group: GRPSERIAL
   info: &1
     regex-err:
       - |-
@@ -149,53 +152,38 @@ test_data-1_2:
         ]*(has no data movement clause" "))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_data-1_22:
-  bin: '"data-1.s"'
-  cargs: ' -std=c++98 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/data-1.C'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_data-1_2:
+  build:
+    cflags: ' -std=c++11 -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/data-1.C'
+    sources:
+      binary: data-1.s
+  group: GRPSERIAL
   info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_data-1_23:
-  bin: '"data-1.s"'
-  cargs: ' -std=c++11 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/data-1.C'
-  herit: *GRPSERIAL
-  info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_data-1_24:
-  bin: '"data-1.s"'
-  cargs: ' -std=c++14 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/data-1.C'
-  herit: *GRPSERIAL
-  info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_data-1_3:
-  bin: '"data-1.s"'
-  cargs: ' -std=c++14 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/data-1.C'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++14 -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/data-1.C'
+    sources:
+      binary: data-1.s
+  group: GRPSERIAL
   info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_data-1_39:
-  bin: '"data-1.s"'
-  cargs: ' -std=c++98 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/data-1.C'
-  herit: *GRPSERIAL
-  info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_deviceptr-1_25:
-  bin: '"deviceptr-1.s"'
-  cargs: ' -std=c++98 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/deviceptr-1.C'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_deviceptr-1_4:
+  build:
+    cflags: ' -std=c++98 -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/deviceptr-1.C'
+    sources:
+      binary: deviceptr-1.s
+  group: GRPSERIAL
   info: &2
     regex-err:
       - |-
@@ -214,149 +202,104 @@ test_deviceptr-1_25:
         ]*(is not a pointer))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_deviceptr-1_26:
-  bin: '"deviceptr-1.s"'
-  cargs: ' -std=c++11 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/deviceptr-1.C'
-  herit: *GRPSERIAL
-  info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_deviceptr-1_27:
-  bin: '"deviceptr-1.s"'
-  cargs: ' -std=c++14 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/deviceptr-1.C'
-  herit: *GRPSERIAL
-  info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_deviceptr-1_38:
-  bin: '"deviceptr-1.s"'
-  cargs: ' -std=c++98 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/deviceptr-1.C'
-  herit: *GRPSERIAL
-  info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_deviceptr-1_5:
-  bin: '"deviceptr-1.s"'
-  cargs: ' -std=c++11 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/deviceptr-1.C'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++11 -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/deviceptr-1.C'
+    sources:
+      binary: deviceptr-1.s
+  group: GRPSERIAL
   info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_deviceptr-1_6:
-  bin: '"deviceptr-1.s"'
-  cargs: ' -std=c++14 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/deviceptr-1.C'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++14 -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/deviceptr-1.C'
+    sources:
+      binary: deviceptr-1.s
+  group: GRPSERIAL
   info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_reference_28:
-  bin: '"reference.s"'
-  cargs: ' -std=c++98 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/reference.C'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_reference_7:
+  build:
+    cflags: ' -std=c++98 -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/reference.C'
+    sources:
+      binary: reference.s
+  group: GRPSERIAL
   info: &3 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_reference_29:
-  bin: '"reference.s"'
-  cargs: ' -std=c++11 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/reference.C'
-  herit: *GRPSERIAL
-  info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_reference_30:
-  bin: '"reference.s"'
-  cargs: ' -std=c++14 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/reference.C'
-  herit: *GRPSERIAL
-  info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_reference_39:
-  bin: '"reference.s"'
-  cargs: ' -std=c++98 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/reference.C'
-  herit: *GRPSERIAL
-  info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_reference_8:
-  bin: '"reference.s"'
-  cargs: ' -std=c++11 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/reference.C'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++11 -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/reference.C'
+    sources:
+      binary: reference.s
+  group: GRPSERIAL
   info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_reference_9:
-  bin: '"reference.s"'
-  cargs: ' -std=c++14 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/reference.C'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++14 -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/reference.C'
+    sources:
+      binary: reference.s
+  group: GRPSERIAL
   info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_routine-1_11:
-  bin: '"routine-1.s"'
-  cargs: ' -std=c++11 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/routine-1.C'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_routine-1_10:
+  build:
+    cflags: ' -std=c++98 -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/routine-1.C'
+    sources:
+      binary: routine-1.s
+  group: GRPSERIAL
   info: &4 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_routine-1_11:
+  build:
+    cflags: ' -std=c++11 -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/routine-1.C'
+    sources:
+      binary: routine-1.s
+  group: GRPSERIAL
+  info: *4
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_routine-1_12:
-  bin: '"routine-1.s"'
-  cargs: ' -std=c++14 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/routine-1.C'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++14 -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/routine-1.C'
+    sources:
+      binary: routine-1.s
+  group: GRPSERIAL
   info: *4
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_routine-1_13:
-  bin: '"routine-1.s"'
-  cargs: ' -std=c++98 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/routine-1.C'
-  herit: *GRPSERIAL
-  info: *4
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_routine-1_31:
-  bin: '"routine-1.s"'
-  cargs: ' -std=c++98 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/routine-1.C'
-  herit: *GRPSERIAL
-  info: *4
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_routine-1_32:
-  bin: '"routine-1.s"'
-  cargs: ' -std=c++11 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/routine-1.C'
-  herit: *GRPSERIAL
-  info: *4
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_routine-1_33:
-  bin: '"routine-1.s"'
-  cargs: ' -std=c++14 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/routine-1.C'
-  herit: *GRPSERIAL
-  info: *4
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_routine-2_14:
-  bin: '"routine-2.s"'
-  cargs: ' -std=c++11 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/routine-2.C'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_routine-2_13:
+  build:
+    cflags: ' -std=c++98 -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/routine-2.C'
+    sources:
+      binary: routine-2.s
+  group: GRPSERIAL
   info: &5
     regex-err:
       - |-
@@ -383,93 +326,71 @@ test_routine-2_14:
         ]*(names a set of overloads))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_routine-2_14:
+  build:
+    cflags: ' -std=c++11 -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/routine-2.C'
+    sources:
+      binary: routine-2.s
+  group: GRPSERIAL
+  info: *5
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_routine-2_15:
-  bin: '"routine-2.s"'
-  cargs: ' -std=c++14 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/routine-2.C'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++14 -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/routine-2.C'
+    sources:
+      binary: routine-2.s
+  group: GRPSERIAL
   info: *5
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_routine-2_34:
-  bin: '"routine-2.s"'
-  cargs: ' -std=c++98 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/routine-2.C'
-  herit: *GRPSERIAL
-  info: *5
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_routine-2_35:
-  bin: '"routine-2.s"'
-  cargs: ' -std=c++11 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/routine-2.C'
-  herit: *GRPSERIAL
-  info: *5
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_routine-2_36:
-  bin: '"routine-2.s"'
-  cargs: ' -std=c++14 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/routine-2.C'
-  herit: *GRPSERIAL
-  info: *5
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template_142:
-  bin: '"template.s"'
-  cargs: ' -std=c++98 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/template.C'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_template_16:
+  build:
+    cflags: ' -std=c++98 -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/template.C'
+    sources:
+      binary: template.s
+  group: GRPSERIAL
   info: &6 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_template_17:
-  bin: '"template.s"'
-  cargs: ' -std=c++11 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/template.C'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++11 -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/template.C'
+    sources:
+      binary: template.s
+  group: GRPSERIAL
   info: *6
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_template_18:
-  bin: '"template.s"'
-  cargs: ' -std=c++14 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/template.C'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++14 -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/template.C'
+    sources:
+      binary: template.s
+  group: GRPSERIAL
   info: *6
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template_37:
-  bin: '"template.s"'
-  cargs: ' -std=c++98 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/template.C'
-  herit: *GRPSERIAL
-  info: *6
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template_38:
-  bin: '"template.s"'
-  cargs: ' -std=c++11 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/template.C'
-  herit: *GRPSERIAL
-  info: *6
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template_39:
-  bin: '"template.s"'
-  cargs: ' -std=c++14 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/template.C'
-  herit: *GRPSERIAL
-  info: *6
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_tile-1_16:
-  bin: '"tile-1.s"'
-  cargs: ' -std=c++98 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/tile-1.C'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_tile-1_19:
+  build:
+    cflags: ' -std=c++98 -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/tile-1.C'
+    sources:
+      binary: tile-1.s
+  group: GRPSERIAL
   info: &7
     regex-err:
       - |-
@@ -480,45 +401,28 @@ test_tile-1_16:
         ]*())[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_tile-1_20:
-  bin: '"tile-1.s"'
-  cargs: ' -std=c++11 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/tile-1.C'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++11 -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/tile-1.C'
+    sources:
+      binary: tile-1.s
+  group: GRPSERIAL
   info: *7
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_tile-1_21:
-  bin: '"tile-1.s"'
-  cargs: ' -std=c++14 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/tile-1.C'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++14 -fopenacc -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/tile-1.C'
+    sources:
+      binary: tile-1.s
+  group: GRPSERIAL
   info: *7
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_tile-1_40:
-  bin: '"tile-1.s"'
-  cargs: ' -std=c++98 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/tile-1.C'
-  herit: *GRPSERIAL
-  info: *7
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_tile-1_41:
-  bin: '"tile-1.s"'
-  cargs: ' -std=c++11 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/tile-1.C'
-  herit: *GRPSERIAL
-  info: *7
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_tile-1_42:
-  bin: '"tile-1.s"'
-  cargs: ' -std=c++14 -fopenacc -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/tile-1.C'
-  herit: *GRPSERIAL
-  info: *7
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

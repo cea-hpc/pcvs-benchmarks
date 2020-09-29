@@ -1,9 +1,12 @@
-test_alias-decl-42_18:
-  bin: '"alias-decl-42.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/regress/alias-decl-42.C'
-  herit: *GRPSERIAL
-  info: &1
+---
+test_alias-decl-42_1:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/regress/alias-decl-42.C'
+    sources:
+      binary: alias-decl-42.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -15,13 +18,6 @@ test_alias-decl-42_18:
         ]*(too many))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_alias-decl-42_2:
-  bin: '"alias-decl-42.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/regress/alias-decl-42.C'
-  herit: *GRPSERIAL
-  info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

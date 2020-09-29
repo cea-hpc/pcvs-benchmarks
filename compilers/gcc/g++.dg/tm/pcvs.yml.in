@@ -1,8 +1,11 @@
-test_20100429_15:
-  bin: '"20100429.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/20100429.C'
-  herit: *GRPSERIAL
+---
+test_20100429_1:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/20100429.C'
+    sources:
+      binary: 20100429.s
+  group: GRPSERIAL
   info: &1
     extraopts:
       - '"-fgnu-tm"'
@@ -15,253 +18,178 @@ test_20100429_15:
         ]*(unsafe function call 'int foo\\(int\\)'))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_20100429_2:
-  bin: '"20100429.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/20100429.C'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/20100429.C'
+    sources:
+      binary: 20100429.s
+  group: GRPSERIAL
   info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_20100429_209:
-  bin: '"20100429.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/20100429.C'
-  herit: *GRPSERIAL
-  info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_20100429_210:
-  bin: '"20100429.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/20100429.C'
-  herit: *GRPSERIAL
-  info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_20100429_211:
-  bin: '"20100429.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/20100429.C'
-  herit: *GRPSERIAL
-  info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_20100429_3:
-  bin: '"20100429.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/20100429.C'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/20100429.C'
+    sources:
+      binary: 20100429.s
+  group: GRPSERIAL
   info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_20100727_212:
-  bin: '"20100727.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/20100727.C'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_20100727_4:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/20100727.C'
+    sources:
+      binary: 20100727.s
+  group: GRPSERIAL
   info: &2
     extraopts:
       - '"-fgnu-tm"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_20100727_213:
-  bin: '"20100727.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/20100727.C'
-  herit: *GRPSERIAL
-  info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_20100727_214:
-  bin: '"20100727.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/20100727.C'
-  herit: *GRPSERIAL
-  info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_20100727_5:
-  bin: '"20100727.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/20100727.C'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/20100727.C'
+    sources:
+      binary: 20100727.s
+  group: GRPSERIAL
   info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_20100727_6:
-  bin: '"20100727.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/20100727.C'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/20100727.C'
+    sources:
+      binary: 20100727.s
+  group: GRPSERIAL
   info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_20100727_796:
-  bin: '"20100727.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/20100727.C'
-  herit: *GRPSERIAL
-  info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_alias_20:
-  bin: '"alias.s"'
-  cargs: -std=gnu++98 -fgnu-tm -O0 -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/alias.C'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_alias_7:
+  build:
+    cflags: -std=gnu++98 -fgnu-tm -O0 -ffat-lto-objects -S
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/alias.C'
+    sources:
+      binary: alias.s
+  group: GRPSERIAL
   info: &3
     extraopts:
       - '"-fgnu-tm -O0"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_alias_215:
-  bin: '"alias.s"'
-  cargs: -std=gnu++98 -fgnu-tm -O0 -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/alias.C'
-  herit: *GRPSERIAL
-  info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_alias_216:
-  bin: '"alias.s"'
-  cargs: -std=gnu++11 -fgnu-tm -O0 -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/alias.C'
-  herit: *GRPSERIAL
-  info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_alias_217:
-  bin: '"alias.s"'
-  cargs: -std=gnu++14 -fgnu-tm -O0 -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/alias.C'
-  herit: *GRPSERIAL
-  info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_alias_8:
-  bin: '"alias.s"'
-  cargs: -std=gnu++11 -fgnu-tm -O0 -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/alias.C'
-  herit: *GRPSERIAL
+  build:
+    cflags: -std=gnu++11 -fgnu-tm -O0 -ffat-lto-objects -S
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/alias.C'
+    sources:
+      binary: alias.s
+  group: GRPSERIAL
   info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_alias_9:
-  bin: '"alias.s"'
-  cargs: -std=gnu++14 -fgnu-tm -O0 -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/alias.C'
-  herit: *GRPSERIAL
+  build:
+    cflags: -std=gnu++14 -fgnu-tm -O0 -ffat-lto-objects -S
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/alias.C'
+    sources:
+      binary: alias.s
+  group: GRPSERIAL
   info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_attrib-2_11:
-  bin: '"attrib-2.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -fdump-tree-optimized-asmname -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/attrib-2.C'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_attrib-2_10:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -fdump-tree-optimized-asmname -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/attrib-2.C'
+    sources:
+      binary: attrib-2.s
+  group: GRPSERIAL
   info: &4
     extraopts:
       - '"-fgnu-tm -fdump-tree-optimized-asmname"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_attrib-2_11:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -fdump-tree-optimized-asmname -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/attrib-2.C'
+    sources:
+      binary: attrib-2.s
+  group: GRPSERIAL
+  info: *4
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_attrib-2_12:
-  bin: '"attrib-2.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -fdump-tree-optimized-asmname -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/attrib-2.C'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -fdump-tree-optimized-asmname -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/attrib-2.C'
+    sources:
+      binary: attrib-2.s
+  group: GRPSERIAL
   info: *4
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_attrib-2_21:
-  bin: '"attrib-2.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -fdump-tree-optimized-asmname -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/attrib-2.C'
-  herit: *GRPSERIAL
-  info: *4
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_attrib-2_218:
-  bin: '"attrib-2.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -fdump-tree-optimized-asmname -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/attrib-2.C'
-  herit: *GRPSERIAL
-  info: *4
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_attrib-2_219:
-  bin: '"attrib-2.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -fdump-tree-optimized-asmname -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/attrib-2.C'
-  herit: *GRPSERIAL
-  info: *4
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_attrib-2_220:
-  bin: '"attrib-2.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -fdump-tree-optimized-asmname -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/attrib-2.C'
-  herit: *GRPSERIAL
-  info: *4
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_attrib-3_14:
-  bin: '"attrib-3.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -fdump-tree-optimized-asmname -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/attrib-3.C'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_attrib-3_13:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -fdump-tree-optimized-asmname -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/attrib-3.C'
+    sources:
+      binary: attrib-3.s
+  group: GRPSERIAL
   info: &5
     extraopts:
       - '"-fgnu-tm -fdump-tree-optimized-asmname"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_attrib-3_14:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -fdump-tree-optimized-asmname -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/attrib-3.C'
+    sources:
+      binary: attrib-3.s
+  group: GRPSERIAL
+  info: *5
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_attrib-3_15:
-  bin: '"attrib-3.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -fdump-tree-optimized-asmname -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/attrib-3.C'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -fdump-tree-optimized-asmname -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/attrib-3.C'
+    sources:
+      binary: attrib-3.s
+  group: GRPSERIAL
   info: *5
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_attrib-3_221:
-  bin: '"attrib-3.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -fdump-tree-optimized-asmname -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/attrib-3.C'
-  herit: *GRPSERIAL
-  info: *5
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_attrib-3_222:
-  bin: '"attrib-3.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -fdump-tree-optimized-asmname -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/attrib-3.C'
-  herit: *GRPSERIAL
-  info: *5
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_attrib-3_223:
-  bin: '"attrib-3.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -fdump-tree-optimized-asmname -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/attrib-3.C'
-  herit: *GRPSERIAL
-  info: *5
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_attrib-3_32:
-  bin: '"attrib-3.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -fdump-tree-optimized-asmname -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/attrib-3.C'
-  herit: *GRPSERIAL
-  info: *5
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_attrib-4_17:
-  bin: '"attrib-4.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/attrib-4.C'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_attrib-4_16:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/attrib-4.C'
+    sources:
+      binary: attrib-4.s
+  group: GRPSERIAL
   info: &6
     extraopts:
       - '"-fgnu-tm"'
@@ -306,103 +234,73 @@ test_attrib-4_17:
         ]*(.transaction_safe. overriding .transaction_pure.))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_attrib-4_17:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/attrib-4.C'
+    sources:
+      binary: attrib-4.s
+  group: GRPSERIAL
+  info: *6
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_attrib-4_18:
-  bin: '"attrib-4.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/attrib-4.C'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/attrib-4.C'
+    sources:
+      binary: attrib-4.s
+  group: GRPSERIAL
   info: *6
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_attrib-4_224:
-  bin: '"attrib-4.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/attrib-4.C'
-  herit: *GRPSERIAL
-  info: *6
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_attrib-4_225:
-  bin: '"attrib-4.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/attrib-4.C'
-  herit: *GRPSERIAL
-  info: *6
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_attrib-4_226:
-  bin: '"attrib-4.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/attrib-4.C'
-  herit: *GRPSERIAL
-  info: *6
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_attrib-4_48:
-  bin: '"attrib-4.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/attrib-4.C'
-  herit: *GRPSERIAL
-  info: *6
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_cgraph_edge_20:
-  bin: '"cgraph_edge.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O3 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/cgraph_edge.C'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_cgraph_edge_19:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -O3 -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/cgraph_edge.C'
+    sources:
+      binary: cgraph_edge.s
+  group: GRPSERIAL
   info: &7
     extraopts:
       - '"-fgnu-tm -O3"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_cgraph_edge_20:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -O3 -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/cgraph_edge.C'
+    sources:
+      binary: cgraph_edge.s
+  group: GRPSERIAL
+  info: *7
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_cgraph_edge_21:
-  bin: '"cgraph_edge.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O3 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/cgraph_edge.C'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -O3 -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/cgraph_edge.C'
+    sources:
+      binary: cgraph_edge.s
+  group: GRPSERIAL
   info: *7
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_cgraph_edge_227:
-  bin: '"cgraph_edge.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -O3 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/cgraph_edge.C'
-  herit: *GRPSERIAL
-  info: *7
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_cgraph_edge_228:
-  bin: '"cgraph_edge.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O3 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/cgraph_edge.C'
-  herit: *GRPSERIAL
-  info: *7
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_cgraph_edge_229:
-  bin: '"cgraph_edge.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O3 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/cgraph_edge.C'
-  herit: *GRPSERIAL
-  info: *7
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_cgraph_edge_33:
-  bin: '"cgraph_edge.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -O3 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/cgraph_edge.C'
-  herit: *GRPSERIAL
-  info: *7
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_composite1_14:
-  bin: '"composite1.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/composite1.C'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_composite1_22:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/composite1.C'
+    sources:
+      binary: composite1.s
+  group: GRPSERIAL
   info: &8
     extraopts:
       - -fgnu-tm
@@ -415,54 +313,39 @@ test_composite1_14:
         ]*())[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_composite1_23:
-  bin: '"composite1.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/composite1.C'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/composite1.C'
+    sources:
+      binary: composite1.s
+  group: GRPSERIAL
   info: *8
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_composite1_230:
-  bin: '"composite1.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/composite1.C'
-  herit: *GRPSERIAL
-  info: *8
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_composite1_231:
-  bin: '"composite1.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/composite1.C'
-  herit: *GRPSERIAL
-  info: *8
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_composite1_232:
-  bin: '"composite1.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/composite1.C'
-  herit: *GRPSERIAL
-  info: *8
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_composite1_24:
-  bin: '"composite1.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/composite1.C'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/composite1.C'
+    sources:
+      binary: composite1.s
+  group: GRPSERIAL
   info: *8
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_dynamic1_13:
-  bin: '"dynamic1.s"'
-  cargs: '  -fgnu-tm -std=c++14 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/dynamic1.C'
-  herit: *GRPSERIAL
-  info: &9
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_dynamic1_25:
+  build:
+    cflags: '  -fgnu-tm -std=c++14 -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/dynamic1.C'
+    sources:
+      binary: dynamic1.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-fgnu-tm -std=c++14"'
     regex-err:
@@ -490,22 +373,17 @@ test_dynamic1_13:
         ]*(virtual))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_dynamic1_233:
-  bin: '"dynamic1.s"'
-  cargs: '  -fgnu-tm -std=c++14 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/dynamic1.C'
-  herit: *GRPSERIAL
-  info: *9
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_dynamic2_17:
-  bin: '"dynamic2.s"'
-  cargs: '  -fgnu-tm -std=c++14 -O2 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/dynamic2.C'
-  herit: *GRPSERIAL
-  info: &10
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_dynamic2_26:
+  build:
+    cflags: '  -fgnu-tm -std=c++14 -O2 -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/dynamic2.C'
+    sources:
+      binary: dynamic2.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-fgnu-tm -std=c++14 -O2"'
     regex-err:
@@ -517,72 +395,52 @@ test_dynamic2_17:
         ]*(unsafe))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_dynamic2_234:
-  bin: '"dynamic2.s"'
-  cargs: '  -fgnu-tm -std=c++14 -O2 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/dynamic2.C'
-  herit: *GRPSERIAL
-  info: *10
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fatomic-1_10:
-  bin: '"fatomic-1.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/fatomic-1.C'
-  herit: *GRPSERIAL
-  info: &11
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_fatomic-1_27:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/fatomic-1.C'
+    sources:
+      binary: fatomic-1.s
+  group: GRPSERIAL
+  info: &9
     extraopts:
       - '"-fgnu-tm"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fatomic-1_235:
-  bin: '"fatomic-1.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/fatomic-1.C'
-  herit: *GRPSERIAL
-  info: *11
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fatomic-1_236:
-  bin: '"fatomic-1.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/fatomic-1.C'
-  herit: *GRPSERIAL
-  info: *11
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fatomic-1_237:
-  bin: '"fatomic-1.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/fatomic-1.C'
-  herit: *GRPSERIAL
-  info: *11
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_fatomic-1_28:
-  bin: '"fatomic-1.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/fatomic-1.C'
-  herit: *GRPSERIAL
-  info: *11
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/fatomic-1.C'
+    sources:
+      binary: fatomic-1.s
+  group: GRPSERIAL
+  info: *9
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_fatomic-1_29:
-  bin: '"fatomic-1.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/fatomic-1.C'
-  herit: *GRPSERIAL
-  info: *11
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_inherit1_11:
-  bin: '"inherit1.s"'
-  cargs: '  -std=c++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/inherit1.C'
-  herit: *GRPSERIAL
-  info: &12
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/fatomic-1.C'
+    sources:
+      binary: fatomic-1.s
+  group: GRPSERIAL
+  info: *9
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_inherit1_30:
+  build:
+    cflags: '  -std=c++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/inherit1.C'
+    sources:
+      binary: inherit1.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++14 -fgnu-tm"'
     regex-err:
@@ -594,22 +452,17 @@ test_inherit1_11:
         ]*(" "B::f() is transaction_safe))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_inherit1_238:
-  bin: '"inherit1.s"'
-  cargs: '  -std=c++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/inherit1.C'
-  herit: *GRPSERIAL
-  info: *12
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_inherit2_239:
-  bin: '"inherit2.s"'
-  cargs: '  -std=c++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/inherit2.C'
-  herit: *GRPSERIAL
-  info: &13
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_inherit2_31:
+  build:
+    cflags: '  -std=c++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/inherit2.C'
+    sources:
+      binary: inherit2.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++14 -fgnu-tm"'
     regex-err:
@@ -629,22 +482,17 @@ test_inherit2_239:
         ]*(" "destructor of D2 is not transaction-safe))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_inherit2_33:
-  bin: '"inherit2.s"'
-  cargs: '  -std=c++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/inherit2.C'
-  herit: *GRPSERIAL
-  info: *13
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_jump1_23:
-  bin: '"jump1.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/jump1.C'
-  herit: *GRPSERIAL
-  info: &14
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_jump1_32:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/jump1.C'
+    sources:
+      binary: jump1.s
+  group: GRPSERIAL
+  info: &10
     extraopts:
       - '"-fgnu-tm"'
     regex-err:
@@ -665,54 +513,39 @@ test_jump1_23:
         ]*(statement will never be executed))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_jump1_240:
-  bin: '"jump1.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/jump1.C'
-  herit: *GRPSERIAL
-  info: *14
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_jump1_241:
-  bin: '"jump1.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/jump1.C'
-  herit: *GRPSERIAL
-  info: *14
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_jump1_242:
-  bin: '"jump1.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/jump1.C'
-  herit: *GRPSERIAL
-  info: *14
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_jump1_33:
-  bin: '"jump1.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/jump1.C'
-  herit: *GRPSERIAL
-  info: *14
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/jump1.C'
+    sources:
+      binary: jump1.s
+  group: GRPSERIAL
+  info: *10
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_jump1_34:
-  bin: '"jump1.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/jump1.C'
-  herit: *GRPSERIAL
-  info: *14
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_keyword1_243:
-  bin: '"keyword1.s"'
-  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/keyword1.C'
-  herit: *GRPSERIAL
-  info: &15
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/jump1.C'
+    sources:
+      binary: jump1.s
+  group: GRPSERIAL
+  info: *10
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_keyword1_35:
+  build:
+    cflags: ' -std=c++98  -pedantic-errors -Wno-long-long -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/keyword1.C'
+    sources:
+      binary: keyword1.s
+  group: GRPSERIAL
+  info: &11
     regex-err:
       - |-
         (^|
@@ -746,54 +579,39 @@ test_keyword1_243:
         ]*(not declared))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_keyword1_244:
-  bin: '"keyword1.s"'
-  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/keyword1.C'
-  herit: *GRPSERIAL
-  info: *15
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_keyword1_245:
-  bin: '"keyword1.s"'
-  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/keyword1.C'
-  herit: *GRPSERIAL
-  info: *15
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_keyword1_36:
-  bin: '"keyword1.s"'
-  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/keyword1.C'
-  herit: *GRPSERIAL
-  info: *15
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  build:
+    cflags: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/keyword1.C'
+    sources:
+      binary: keyword1.s
+  group: GRPSERIAL
+  info: *11
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_keyword1_37:
-  bin: '"keyword1.s"'
-  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/keyword1.C'
-  herit: *GRPSERIAL
-  info: *15
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_keyword1_9:
-  bin: '"keyword1.s"'
-  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/keyword1.C'
-  herit: *GRPSERIAL
-  info: *15
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_lambda1_10:
-  bin: '"lambda1.s"'
-  cargs: '  -fgnu-tm -std=c++14 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/lambda1.C'
-  herit: *GRPSERIAL
-  info: &16
+  build:
+    cflags: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/keyword1.C'
+    sources:
+      binary: keyword1.s
+  group: GRPSERIAL
+  info: *11
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_lambda1_38:
+  build:
+    cflags: '  -fgnu-tm -std=c++14 -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/lambda1.C'
+    sources:
+      binary: lambda1.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-fgnu-tm -std=c++14"'
     regex-err:
@@ -805,22 +623,17 @@ test_lambda1_10:
         ]*(transaction_safe))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_lambda1_246:
-  bin: '"lambda1.s"'
-  cargs: '  -fgnu-tm -std=c++14 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/lambda1.C'
-  herit: *GRPSERIAL
-  info: *16
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_lambda2_247:
-  bin: '"lambda2.s"'
-  cargs: '  -fgnu-tm -std=c++14 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/lambda2.C'
-  herit: *GRPSERIAL
-  info: &17
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_lambda2_39:
+  build:
+    cflags: '  -fgnu-tm -std=c++14 -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/lambda2.C'
+    sources:
+      binary: lambda2.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-fgnu-tm -std=c++14"'
     regex-err:
@@ -832,306 +645,216 @@ test_lambda2_247:
         ]*(unsafe))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_lambda2_9:
-  bin: '"lambda2.s"'
-  cargs: '  -fgnu-tm -std=c++14 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/lambda2.C'
-  herit: *GRPSERIAL
-  info: *17
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_macro1_248:
-  bin: '"macro1.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/macro1.C'
-  herit: *GRPSERIAL
-  info: &18
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_macro1_40:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/macro1.C'
+    sources:
+      binary: macro1.s
+  group: GRPSERIAL
+  info: &12
     extraopts:
       - -fgnu-tm
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_macro1_249:
-  bin: '"macro1.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/macro1.C'
-  herit: *GRPSERIAL
-  info: *18
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_macro1_250:
-  bin: '"macro1.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/macro1.C'
-  herit: *GRPSERIAL
-  info: *18
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_macro1_41:
-  bin: '"macro1.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/macro1.C'
-  herit: *GRPSERIAL
-  info: *18
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/macro1.C'
+    sources:
+      binary: macro1.s
+  group: GRPSERIAL
+  info: *12
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_macro1_42:
-  bin: '"macro1.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/macro1.C'
-  herit: *GRPSERIAL
-  info: *18
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_macro1_5:
-  bin: '"macro1.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/macro1.C'
-  herit: *GRPSERIAL
-  info: *18
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_mangle1_18:
-  bin: '"mangle1.s"'
-  cargs: -std=gnu++98 -fgnu-tm -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/mangle1.C'
-  herit: *GRPSERIAL
-  info: &19
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/macro1.C'
+    sources:
+      binary: macro1.s
+  group: GRPSERIAL
+  info: *12
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_mangle1_43:
+  build:
+    cflags: -std=gnu++98 -fgnu-tm -ffat-lto-objects -S
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/mangle1.C'
+    sources:
+      binary: mangle1.s
+  group: GRPSERIAL
+  info: &13
     extraopts:
       - -fgnu-tm
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_mangle1_251:
-  bin: '"mangle1.s"'
-  cargs: -std=gnu++98 -fgnu-tm -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/mangle1.C'
-  herit: *GRPSERIAL
-  info: *19
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_mangle1_252:
-  bin: '"mangle1.s"'
-  cargs: -std=gnu++11 -fgnu-tm -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/mangle1.C'
-  herit: *GRPSERIAL
-  info: *19
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_mangle1_253:
-  bin: '"mangle1.s"'
-  cargs: -std=gnu++14 -fgnu-tm -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/mangle1.C'
-  herit: *GRPSERIAL
-  info: *19
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_mangle1_44:
-  bin: '"mangle1.s"'
-  cargs: -std=gnu++11 -fgnu-tm -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/mangle1.C'
-  herit: *GRPSERIAL
-  info: *19
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  build:
+    cflags: -std=gnu++11 -fgnu-tm -ffat-lto-objects -S
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/mangle1.C'
+    sources:
+      binary: mangle1.s
+  group: GRPSERIAL
+  info: *13
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_mangle1_45:
-  bin: '"mangle1.s"'
-  cargs: -std=gnu++14 -fgnu-tm -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/mangle1.C'
-  herit: *GRPSERIAL
-  info: *19
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_nested-1_22:
-  bin: '"nested-1.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/nested-1.C'
-  herit: *GRPSERIAL
-  info: &20
+  build:
+    cflags: -std=gnu++14 -fgnu-tm -ffat-lto-objects -S
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/mangle1.C'
+    sources:
+      binary: mangle1.s
+  group: GRPSERIAL
+  info: *13
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nested-1_46:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/nested-1.C'
+    sources:
+      binary: nested-1.s
+  group: GRPSERIAL
+  info: &14
     extraopts:
       - '"-fgnu-tm"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_nested-1_254:
-  bin: '"nested-1.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/nested-1.C'
-  herit: *GRPSERIAL
-  info: *20
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_nested-1_255:
-  bin: '"nested-1.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/nested-1.C'
-  herit: *GRPSERIAL
-  info: *20
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_nested-1_256:
-  bin: '"nested-1.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/nested-1.C'
-  herit: *GRPSERIAL
-  info: *20
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_nested-1_47:
-  bin: '"nested-1.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/nested-1.C'
-  herit: *GRPSERIAL
-  info: *20
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/nested-1.C'
+    sources:
+      binary: nested-1.s
+  group: GRPSERIAL
+  info: *14
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_nested-1_48:
-  bin: '"nested-1.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/nested-1.C'
-  herit: *GRPSERIAL
-  info: *20
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_nested-2_257:
-  bin: '"nested-2.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -O -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/nested-2.C'
-  herit: *GRPSERIAL
-  info: &21
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/nested-1.C'
+    sources:
+      binary: nested-1.s
+  group: GRPSERIAL
+  info: *14
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nested-2_49:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -O -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/nested-2.C'
+    sources:
+      binary: nested-2.s
+  group: GRPSERIAL
+  info: &15
     extraopts:
       - '"-fgnu-tm -O"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_nested-2_258:
-  bin: '"nested-2.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/nested-2.C'
-  herit: *GRPSERIAL
-  info: *21
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_nested-2_259:
-  bin: '"nested-2.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/nested-2.C'
-  herit: *GRPSERIAL
-  info: *21
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_nested-2_41:
-  bin: '"nested-2.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -O -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/nested-2.C'
-  herit: *GRPSERIAL
-  info: *21
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_nested-2_50:
-  bin: '"nested-2.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/nested-2.C'
-  herit: *GRPSERIAL
-  info: *21
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -O -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/nested-2.C'
+    sources:
+      binary: nested-2.s
+  group: GRPSERIAL
+  info: *15
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_nested-2_51:
-  bin: '"nested-2.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/nested-2.C'
-  herit: *GRPSERIAL
-  info: *21
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_nested-3_260:
-  bin: '"nested-3.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -O0 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/nested-3.C'
-  herit: *GRPSERIAL
-  info: &22
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -O -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/nested-2.C'
+    sources:
+      binary: nested-2.s
+  group: GRPSERIAL
+  info: *15
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nested-3_52:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -O0 -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/nested-3.C'
+    sources:
+      binary: nested-3.s
+  group: GRPSERIAL
+  info: &16
     extraopts:
       - '"-fgnu-tm -O0"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_nested-3_261:
-  bin: '"nested-3.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O0 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/nested-3.C'
-  herit: *GRPSERIAL
-  info: *22
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_nested-3_262:
-  bin: '"nested-3.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O0 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/nested-3.C'
-  herit: *GRPSERIAL
-  info: *22
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_nested-3_43:
-  bin: '"nested-3.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -O0 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/nested-3.C'
-  herit: *GRPSERIAL
-  info: *22
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_nested-3_53:
-  bin: '"nested-3.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O0 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/nested-3.C'
-  herit: *GRPSERIAL
-  info: *22
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -O0 -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/nested-3.C'
+    sources:
+      binary: nested-3.s
+  group: GRPSERIAL
+  info: *16
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_nested-3_54:
-  bin: '"nested-3.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O0 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/nested-3.C'
-  herit: *GRPSERIAL
-  info: *22
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_noexcept-1_263:
-  bin: '"noexcept-1.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O -fdump-tree-tmmark -fdump-tree-tmlower -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-1.C'
-  herit: *GRPSERIAL
-  info: &23
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -O0 -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/nested-3.C'
+    sources:
+      binary: nested-3.s
+  group: GRPSERIAL
+  info: *16
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_noexcept-1_55:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -O -fdump-tree-tmmark -fdump-tree-tmlower -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-1.C'
+    sources:
+      binary: noexcept-1.s
+  group: GRPSERIAL
+  info: &17
     extraopts:
       - '"-fgnu-tm -O -fdump-tree-tmmark -fdump-tree-tmlower"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_noexcept-1_264:
-  bin: '"noexcept-1.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O -fdump-tree-tmmark -fdump-tree-tmlower -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-1.C'
-  herit: *GRPSERIAL
-  info: *23
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_noexcept-1_36:
-  bin: '"noexcept-1.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O -fdump-tree-tmmark -fdump-tree-tmlower -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-1.C'
-  herit: *GRPSERIAL
-  info: *23
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_noexcept-1_56:
-  bin: '"noexcept-1.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O -fdump-tree-tmmark -fdump-tree-tmlower -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-1.C'
-  herit: *GRPSERIAL
-  info: *23
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_noexcept-2_20:
-  bin: '"noexcept-2.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-2.C'
-  herit: *GRPSERIAL
-  info: &24
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -O -fdump-tree-tmmark -fdump-tree-tmlower -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-1.C'
+    sources:
+      binary: noexcept-1.s
+  group: GRPSERIAL
+  info: *17
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_noexcept-2_57:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-2.C'
+    sources:
+      binary: noexcept-2.s
+  group: GRPSERIAL
+  info: &18
     extraopts:
       - '"-fgnu-tm"'
     regex-err:
@@ -1167,174 +890,124 @@ test_noexcept-2_20:
         ]*(not a constant))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_noexcept-2_265:
-  bin: '"noexcept-2.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-2.C'
-  herit: *GRPSERIAL
-  info: *24
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_noexcept-2_266:
-  bin: '"noexcept-2.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-2.C'
-  herit: *GRPSERIAL
-  info: *24
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_noexcept-2_58:
-  bin: '"noexcept-2.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-2.C'
-  herit: *GRPSERIAL
-  info: *24
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_noexcept-3_267:
-  bin: '"noexcept-3.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O -fdump-tree-tmmark -fdump-tree-tmlower -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-3.C'
-  herit: *GRPSERIAL
-  info: &25
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-2.C'
+    sources:
+      binary: noexcept-2.s
+  group: GRPSERIAL
+  info: *18
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_noexcept-3_59:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -O -fdump-tree-tmmark -fdump-tree-tmlower -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-3.C'
+    sources:
+      binary: noexcept-3.s
+  group: GRPSERIAL
+  info: &19
     extraopts:
       - '"-fgnu-tm -O -fdump-tree-tmmark -fdump-tree-tmlower"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_noexcept-3_268:
-  bin: '"noexcept-3.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O -fdump-tree-tmmark -fdump-tree-tmlower -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-3.C'
-  herit: *GRPSERIAL
-  info: *25
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_noexcept-3_38:
-  bin: '"noexcept-3.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O -fdump-tree-tmmark -fdump-tree-tmlower -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-3.C'
-  herit: *GRPSERIAL
-  info: *25
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_noexcept-3_60:
-  bin: '"noexcept-3.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O -fdump-tree-tmmark -fdump-tree-tmlower -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-3.C'
-  herit: *GRPSERIAL
-  info: *25
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_noexcept-4_269:
-  bin: '"noexcept-4.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O -fdump-tree-tmmark -fdump-tree-tmlower -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-4.C'
-  herit: *GRPSERIAL
-  info: &26
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -O -fdump-tree-tmmark -fdump-tree-tmlower -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-3.C'
+    sources:
+      binary: noexcept-3.s
+  group: GRPSERIAL
+  info: *19
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_noexcept-4_61:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -O -fdump-tree-tmmark -fdump-tree-tmlower -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-4.C'
+    sources:
+      binary: noexcept-4.s
+  group: GRPSERIAL
+  info: &20
     extraopts:
       - '"-fgnu-tm -O -fdump-tree-tmmark -fdump-tree-tmlower"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_noexcept-4_270:
-  bin: '"noexcept-4.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O -fdump-tree-tmmark -fdump-tree-tmlower -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-4.C'
-  herit: *GRPSERIAL
-  info: *26
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_noexcept-4_33:
-  bin: '"noexcept-4.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O -fdump-tree-tmmark -fdump-tree-tmlower -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-4.C'
-  herit: *GRPSERIAL
-  info: *26
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_noexcept-4_62:
-  bin: '"noexcept-4.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O -fdump-tree-tmmark -fdump-tree-tmlower -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-4.C'
-  herit: *GRPSERIAL
-  info: *26
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_noexcept-5_19:
-  bin: '"noexcept-5.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O -fdump-tree-tmmark -fdump-tree-tmlower -Wno-terminate -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-5.C'
-  herit: *GRPSERIAL
-  info: &27
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -O -fdump-tree-tmmark -fdump-tree-tmlower -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-4.C'
+    sources:
+      binary: noexcept-4.s
+  group: GRPSERIAL
+  info: *20
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_noexcept-5_63:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -O -fdump-tree-tmmark -fdump-tree-tmlower -Wno-terminate -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-5.C'
+    sources:
+      binary: noexcept-5.s
+  group: GRPSERIAL
+  info: &21
     extraopts:
       - '"-fgnu-tm -O -fdump-tree-tmmark -fdump-tree-tmlower -Wno-terminate"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_noexcept-5_271:
-  bin: '"noexcept-5.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O -fdump-tree-tmmark -fdump-tree-tmlower -Wno-terminate -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-5.C'
-  herit: *GRPSERIAL
-  info: *27
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_noexcept-5_272:
-  bin: '"noexcept-5.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O -fdump-tree-tmmark -fdump-tree-tmlower -Wno-terminate -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-5.C'
-  herit: *GRPSERIAL
-  info: *27
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_noexcept-5_64:
-  bin: '"noexcept-5.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O -fdump-tree-tmmark -fdump-tree-tmlower -Wno-terminate -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-5.C'
-  herit: *GRPSERIAL
-  info: *27
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_noexcept-6_22:
-  bin: '"noexcept-6.s"'
-  cargs: ' -std=gnu++11 -fno-exceptions -fgnu-tm -O -fdump-tree-tmlower -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-6.C'
-  herit: *GRPSERIAL
-  info: &28
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -O -fdump-tree-tmmark -fdump-tree-tmlower -Wno-terminate -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-5.C'
+    sources:
+      binary: noexcept-5.s
+  group: GRPSERIAL
+  info: *21
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_noexcept-6_65:
+  build:
+    cflags: ' -std=gnu++11 -fno-exceptions -fgnu-tm -O -fdump-tree-tmlower -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-6.C'
+    sources:
+      binary: noexcept-6.s
+  group: GRPSERIAL
+  info: &22
     extraopts:
       - '"-fno-exceptions -fgnu-tm -O -fdump-tree-tmlower"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_noexcept-6_273:
-  bin: '"noexcept-6.s"'
-  cargs: ' -std=gnu++11 -fno-exceptions -fgnu-tm -O -fdump-tree-tmlower -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-6.C'
-  herit: *GRPSERIAL
-  info: *28
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_noexcept-6_274:
-  bin: '"noexcept-6.s"'
-  cargs: ' -std=gnu++14 -fno-exceptions -fgnu-tm -O -fdump-tree-tmlower -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-6.C'
-  herit: *GRPSERIAL
-  info: *28
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_noexcept-6_66:
-  bin: '"noexcept-6.s"'
-  cargs: ' -std=gnu++14 -fno-exceptions -fgnu-tm -O -fdump-tree-tmlower -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-6.C'
-  herit: *GRPSERIAL
-  info: *28
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_noexcept-7_275:
-  bin: '"noexcept-7.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-7.C'
-  herit: *GRPSERIAL
-  info: &29
+  build:
+    cflags: ' -std=gnu++14 -fno-exceptions -fgnu-tm -O -fdump-tree-tmlower -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-6.C'
+    sources:
+      binary: noexcept-6.s
+  group: GRPSERIAL
+  info: *22
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_noexcept-7_67:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-7.C'
+    sources:
+      binary: noexcept-7.s
+  group: GRPSERIAL
+  info: &23
     extraopts:
       - '"-fgnu-tm"'
     regex-warn:
@@ -1346,104 +1019,74 @@ test_noexcept-7_275:
         ]*(terminate))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_noexcept-7_276:
-  bin: '"noexcept-7.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-7.C'
-  herit: *GRPSERIAL
-  info: *29
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_noexcept-7_277:
-  bin: '"noexcept-7.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-7.C'
-  herit: *GRPSERIAL
-  info: *29
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_noexcept-7_68:
-  bin: '"noexcept-7.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-7.C'
-  herit: *GRPSERIAL
-  info: *29
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-7.C'
+    sources:
+      binary: noexcept-7.s
+  group: GRPSERIAL
+  info: *23
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_noexcept-7_69:
-  bin: '"noexcept-7.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-7.C'
-  herit: *GRPSERIAL
-  info: *29
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_noexcept-7_7:
-  bin: '"noexcept-7.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-7.C'
-  herit: *GRPSERIAL
-  info: *29
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_opt-1_278:
-  bin: '"opt-1.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -O -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/opt-1.C'
-  herit: *GRPSERIAL
-  info: &30
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/noexcept-7.C'
+    sources:
+      binary: noexcept-7.s
+  group: GRPSERIAL
+  info: *23
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_opt-1_70:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -O -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/opt-1.C'
+    sources:
+      binary: opt-1.s
+  group: GRPSERIAL
+  info: &24
     extraopts:
       - '"-fgnu-tm -O"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_opt-1_279:
-  bin: '"opt-1.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/opt-1.C'
-  herit: *GRPSERIAL
-  info: *30
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_opt-1_280:
-  bin: '"opt-1.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/opt-1.C'
-  herit: *GRPSERIAL
-  info: *30
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_opt-1_71:
-  bin: '"opt-1.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/opt-1.C'
-  herit: *GRPSERIAL
-  info: *30
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -O -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/opt-1.C'
+    sources:
+      binary: opt-1.s
+  group: GRPSERIAL
+  info: *24
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_opt-1_72:
-  bin: '"opt-1.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/opt-1.C'
-  herit: *GRPSERIAL
-  info: *30
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_opt-1_9:
-  bin: '"opt-1.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -O -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/opt-1.C'
-  herit: *GRPSERIAL
-  info: *30
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_overload1_281:
-  bin: '"overload1.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/overload1.C'
-  herit: *GRPSERIAL
-  info: &31
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -O -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/opt-1.C'
+    sources:
+      binary: opt-1.s
+  group: GRPSERIAL
+  info: *24
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_overload1_73:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/overload1.C'
+    sources:
+      binary: overload1.s
+  group: GRPSERIAL
+  info: &25
     extraopts:
       - '"-fgnu-tm"'
     regex-err:
@@ -1455,454 +1098,319 @@ test_overload1_281:
         ]*())[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_overload1_282:
-  bin: '"overload1.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/overload1.C'
-  herit: *GRPSERIAL
-  info: *31
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_overload1_283:
-  bin: '"overload1.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/overload1.C'
-  herit: *GRPSERIAL
-  info: *31
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_overload1_6:
-  bin: '"overload1.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/overload1.C'
-  herit: *GRPSERIAL
-  info: *31
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_overload1_74:
-  bin: '"overload1.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/overload1.C'
-  herit: *GRPSERIAL
-  info: *31
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/overload1.C'
+    sources:
+      binary: overload1.s
+  group: GRPSERIAL
+  info: *25
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_overload1_75:
-  bin: '"overload1.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/overload1.C'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/overload1.C'
+    sources:
+      binary: overload1.s
+  group: GRPSERIAL
+  info: *25
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_overload2_76:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/overload2.C'
+    sources:
+      binary: overload2.s
+  group: GRPSERIAL
+  info: &26
+    extraopts:
+      - '"-fgnu-tm"'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_overload2_77:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/overload2.C'
+    sources:
+      binary: overload2.s
+  group: GRPSERIAL
+  info: *26
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_overload2_78:
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/overload2.C'
+    sources:
+      binary: overload2.s
+  group: GRPSERIAL
+  info: *26
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr45940-2_79:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -O1 -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr45940-2.C'
+    sources:
+      binary: pr45940-2.s
+  group: GRPSERIAL
+  info: &27
+    extraopts:
+      - '"-fgnu-tm -O1"'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr45940-2_80:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -O1 -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr45940-2.C'
+    sources:
+      binary: pr45940-2.s
+  group: GRPSERIAL
+  info: *27
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr45940-2_81:
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -O1 -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr45940-2.C'
+    sources:
+      binary: pr45940-2.s
+  group: GRPSERIAL
+  info: *27
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr45940-3_82:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -O0 -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr45940-3.C'
+    sources:
+      binary: pr45940-3.s
+  group: GRPSERIAL
+  info: &28
+    extraopts:
+      - '"-fgnu-tm -O0"'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr45940-3_83:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -O0 -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr45940-3.C'
+    sources:
+      binary: pr45940-3.s
+  group: GRPSERIAL
+  info: *28
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr45940-3_84:
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -O0 -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr45940-3.C'
+    sources:
+      binary: pr45940-3.s
+  group: GRPSERIAL
+  info: *28
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr45940-4_85:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -O1 -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr45940-4.C'
+    sources:
+      binary: pr45940-4.s
+  group: GRPSERIAL
+  info: &29
+    extraopts:
+      - '"-fgnu-tm -O1"'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr45940-4_86:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -O1 -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr45940-4.C'
+    sources:
+      binary: pr45940-4.s
+  group: GRPSERIAL
+  info: *29
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr45940-4_87:
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -O1 -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr45940-4.C'
+    sources:
+      binary: pr45940-4.s
+  group: GRPSERIAL
+  info: *29
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr45940_88:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -O0 -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr45940.C'
+    sources:
+      binary: pr45940.s
+  group: GRPSERIAL
+  info: &30
+    extraopts:
+      - '"-fgnu-tm -O0"'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr45940_89:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -O0 -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr45940.C'
+    sources:
+      binary: pr45940.s
+  group: GRPSERIAL
+  info: *30
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr45940_90:
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -O0 -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr45940.C'
+    sources:
+      binary: pr45940.s
+  group: GRPSERIAL
+  info: *30
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46269_91:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46269.C'
+    sources:
+      binary: pr46269.s
+  group: GRPSERIAL
+  info: &31
+    extraopts:
+      - '"-fgnu-tm"'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46269_92:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46269.C'
+    sources:
+      binary: pr46269.s
+  group: GRPSERIAL
   info: *31
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_overload2_284:
-  bin: '"overload2.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/overload2.C'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46269_93:
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46269.C'
+    sources:
+      binary: pr46269.s
+  group: GRPSERIAL
+  info: *31
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46270_94:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46270.C'
+    sources:
+      binary: pr46270.s
+  group: GRPSERIAL
   info: &32
     extraopts:
       - '"-fgnu-tm"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_overload2_285:
-  bin: '"overload2.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/overload2.C'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46270_95:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46270.C'
+    sources:
+      binary: pr46270.s
+  group: GRPSERIAL
   info: *32
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_overload2_286:
-  bin: '"overload2.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/overload2.C'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46270_96:
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46270.C'
+    sources:
+      binary: pr46270.s
+  group: GRPSERIAL
   info: *32
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_overload2_77:
-  bin: '"overload2.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/overload2.C'
-  herit: *GRPSERIAL
-  info: *32
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_overload2_78:
-  bin: '"overload2.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/overload2.C'
-  herit: *GRPSERIAL
-  info: *32
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_overload2_9:
-  bin: '"overload2.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/overload2.C'
-  herit: *GRPSERIAL
-  info: *32
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr45940-2_287:
-  bin: '"pr45940-2.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -O1 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr45940-2.C'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46300_97:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46300.C'
+    sources:
+      binary: pr46300.s
+  group: GRPSERIAL
   info: &33
     extraopts:
-      - '"-fgnu-tm -O1"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr45940-2_288:
-  bin: '"pr45940-2.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O1 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr45940-2.C'
-  herit: *GRPSERIAL
-  info: *33
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr45940-2_289:
-  bin: '"pr45940-2.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O1 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr45940-2.C'
-  herit: *GRPSERIAL
-  info: *33
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr45940-2_30:
-  bin: '"pr45940-2.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -O1 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr45940-2.C'
-  herit: *GRPSERIAL
-  info: *33
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr45940-2_80:
-  bin: '"pr45940-2.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O1 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr45940-2.C'
-  herit: *GRPSERIAL
-  info: *33
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr45940-2_81:
-  bin: '"pr45940-2.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O1 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr45940-2.C'
-  herit: *GRPSERIAL
-  info: *33
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr45940-3_290:
-  bin: '"pr45940-3.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -O0 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr45940-3.C'
-  herit: *GRPSERIAL
-  info: &34
-    extraopts:
-      - '"-fgnu-tm -O0"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr45940-3_291:
-  bin: '"pr45940-3.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O0 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr45940-3.C'
-  herit: *GRPSERIAL
-  info: *34
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr45940-3_292:
-  bin: '"pr45940-3.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O0 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr45940-3.C'
-  herit: *GRPSERIAL
-  info: *34
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr45940-3_69:
-  bin: '"pr45940-3.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -O0 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr45940-3.C'
-  herit: *GRPSERIAL
-  info: *34
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr45940-3_83:
-  bin: '"pr45940-3.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O0 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr45940-3.C'
-  herit: *GRPSERIAL
-  info: *34
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr45940-3_84:
-  bin: '"pr45940-3.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O0 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr45940-3.C'
-  herit: *GRPSERIAL
-  info: *34
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr45940-4_293:
-  bin: '"pr45940-4.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -O1 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr45940-4.C'
-  herit: *GRPSERIAL
-  info: &35
-    extraopts:
-      - '"-fgnu-tm -O1"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr45940-4_294:
-  bin: '"pr45940-4.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O1 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr45940-4.C'
-  herit: *GRPSERIAL
-  info: *35
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr45940-4_295:
-  bin: '"pr45940-4.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O1 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr45940-4.C'
-  herit: *GRPSERIAL
-  info: *35
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr45940-4_69:
-  bin: '"pr45940-4.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -O1 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr45940-4.C'
-  herit: *GRPSERIAL
-  info: *35
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr45940-4_86:
-  bin: '"pr45940-4.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O1 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr45940-4.C'
-  herit: *GRPSERIAL
-  info: *35
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr45940-4_87:
-  bin: '"pr45940-4.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O1 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr45940-4.C'
-  herit: *GRPSERIAL
-  info: *35
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr45940_296:
-  bin: '"pr45940.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -O0 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr45940.C'
-  herit: *GRPSERIAL
-  info: &36
-    extraopts:
-      - '"-fgnu-tm -O0"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr45940_297:
-  bin: '"pr45940.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O0 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr45940.C'
-  herit: *GRPSERIAL
-  info: *36
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr45940_298:
-  bin: '"pr45940.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O0 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr45940.C'
-  herit: *GRPSERIAL
-  info: *36
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr45940_30:
-  bin: '"pr45940.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -O0 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr45940.C'
-  herit: *GRPSERIAL
-  info: *36
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr45940_89:
-  bin: '"pr45940.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O0 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr45940.C'
-  herit: *GRPSERIAL
-  info: *36
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr45940_90:
-  bin: '"pr45940.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O0 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr45940.C'
-  herit: *GRPSERIAL
-  info: *36
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46269_29:
-  bin: '"pr46269.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46269.C'
-  herit: *GRPSERIAL
-  info: &37
-    extraopts:
       - '"-fgnu-tm"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46269_299:
-  bin: '"pr46269.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46269.C'
-  herit: *GRPSERIAL
-  info: *37
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46269_300:
-  bin: '"pr46269.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46269.C'
-  herit: *GRPSERIAL
-  info: *37
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46269_301:
-  bin: '"pr46269.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46269.C'
-  herit: *GRPSERIAL
-  info: *37
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46269_92:
-  bin: '"pr46269.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46269.C'
-  herit: *GRPSERIAL
-  info: *37
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46269_93:
-  bin: '"pr46269.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46269.C'
-  herit: *GRPSERIAL
-  info: *37
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46270_27:
-  bin: '"pr46270.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46270.C'
-  herit: *GRPSERIAL
-  info: &38
-    extraopts:
-      - '"-fgnu-tm"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46270_302:
-  bin: '"pr46270.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46270.C'
-  herit: *GRPSERIAL
-  info: *38
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46270_303:
-  bin: '"pr46270.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46270.C'
-  herit: *GRPSERIAL
-  info: *38
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46270_304:
-  bin: '"pr46270.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46270.C'
-  herit: *GRPSERIAL
-  info: *38
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46270_95:
-  bin: '"pr46270.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46270.C'
-  herit: *GRPSERIAL
-  info: *38
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46270_96:
-  bin: '"pr46270.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46270.C'
-  herit: *GRPSERIAL
-  info: *38
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46300_305:
-  bin: '"pr46300.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46300.C'
-  herit: *GRPSERIAL
-  info: &39
-    extraopts:
-      - '"-fgnu-tm"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46300_306:
-  bin: '"pr46300.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46300.C'
-  herit: *GRPSERIAL
-  info: *39
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46300_307:
-  bin: '"pr46300.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46300.C'
-  herit: *GRPSERIAL
-  info: *39
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46300_8:
-  bin: '"pr46300.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46300.C'
-  herit: *GRPSERIAL
-  info: *39
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr46300_98:
-  bin: '"pr46300.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46300.C'
-  herit: *GRPSERIAL
-  info: *39
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46300.C'
+    sources:
+      binary: pr46300.s
+  group: GRPSERIAL
+  info: *33
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr46300_99:
-  bin: '"pr46300.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46300.C'
-  herit: *GRPSERIAL
-  info: *39
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46567_101:
-  bin: '"pr46567.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O2 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46567.C'
-  herit: *GRPSERIAL
-  info: &40
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46300.C'
+    sources:
+      binary: pr46300.s
+  group: GRPSERIAL
+  info: *33
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46567_100:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -O2 -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46567.C'
+    sources:
+      binary: pr46567.s
+  group: GRPSERIAL
+  info: &34
     extraopts:
       - '"-fgnu-tm -O2"'
     regex-warn:
@@ -1922,252 +1430,177 @@ test_pr46567_101:
         ]*(deprecated" "))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46567_101:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -O2 -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46567.C'
+    sources:
+      binary: pr46567.s
+  group: GRPSERIAL
+  info: *34
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr46567_102:
-  bin: '"pr46567.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O2 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46567.C'
-  herit: *GRPSERIAL
-  info: *40
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46567_2684:
-  bin: '"pr46567.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -O2 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46567.C'
-  herit: *GRPSERIAL
-  info: *40
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46567_308:
-  bin: '"pr46567.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -O2 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46567.C'
-  herit: *GRPSERIAL
-  info: *40
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46567_309:
-  bin: '"pr46567.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O2 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46567.C'
-  herit: *GRPSERIAL
-  info: *40
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46567_310:
-  bin: '"pr46567.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O2 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46567.C'
-  herit: *GRPSERIAL
-  info: *40
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -O2 -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46567.C'
+    sources:
+      binary: pr46567.s
+  group: GRPSERIAL
+  info: *34
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46646_103:
+  build:
+    cflags: ' -std=gnu++98  -pedantic-errors -Wno-long-long -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46646.C'
+    sources:
+      binary: pr46646.s
+  group: GRPSERIAL
+  info: &35 {}
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr46646_104:
-  bin: '"pr46646.s"'
-  cargs: ' -std=gnu++11  -pedantic-errors -Wno-long-long -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46646.C'
-  herit: *GRPSERIAL
-  info: &41 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  build:
+    cflags: ' -std=gnu++11  -pedantic-errors -Wno-long-long -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46646.C'
+    sources:
+      binary: pr46646.s
+  group: GRPSERIAL
+  info: *35
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr46646_105:
-  bin: '"pr46646.s"'
-  cargs: ' -std=gnu++14  -pedantic-errors -Wno-long-long -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46646.C'
-  herit: *GRPSERIAL
-  info: *41
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46646_311:
-  bin: '"pr46646.s"'
-  cargs: ' -std=gnu++98  -pedantic-errors -Wno-long-long -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46646.C'
-  herit: *GRPSERIAL
-  info: *41
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46646_312:
-  bin: '"pr46646.s"'
-  cargs: ' -std=gnu++11  -pedantic-errors -Wno-long-long -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46646.C'
-  herit: *GRPSERIAL
-  info: *41
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46646_313:
-  bin: '"pr46646.s"'
-  cargs: ' -std=gnu++14  -pedantic-errors -Wno-long-long -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46646.C'
-  herit: *GRPSERIAL
-  info: *41
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46646_890:
-  bin: '"pr46646.s"'
-  cargs: ' -std=gnu++98  -pedantic-errors -Wno-long-long -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46646.C'
-  herit: *GRPSERIAL
-  info: *41
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  build:
+    cflags: ' -std=gnu++14  -pedantic-errors -Wno-long-long -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46646.C'
+    sources:
+      binary: pr46646.s
+  group: GRPSERIAL
+  info: *35
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46653_106:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -O -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46653.C'
+    sources:
+      binary: pr46653.s
+  group: GRPSERIAL
+  info: &36
+    extraopts:
+      - '"-fgnu-tm -O"'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr46653_107:
-  bin: '"pr46653.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46653.C'
-  herit: *GRPSERIAL
-  info: &42
-    extraopts:
-      - '"-fgnu-tm -O"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -O -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46653.C'
+    sources:
+      binary: pr46653.s
+  group: GRPSERIAL
+  info: *36
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr46653_108:
-  bin: '"pr46653.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46653.C'
-  herit: *GRPSERIAL
-  info: *42
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46653_18:
-  bin: '"pr46653.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -O -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46653.C'
-  herit: *GRPSERIAL
-  info: *42
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46653_314:
-  bin: '"pr46653.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -O -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46653.C'
-  herit: *GRPSERIAL
-  info: *42
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46653_315:
-  bin: '"pr46653.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46653.C'
-  herit: *GRPSERIAL
-  info: *42
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46653_316:
-  bin: '"pr46653.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46653.C'
-  herit: *GRPSERIAL
-  info: *42
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46714_110:
-  bin: '"pr46714.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46714.C'
-  herit: *GRPSERIAL
-  info: &43
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -O -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46653.C'
+    sources:
+      binary: pr46653.s
+  group: GRPSERIAL
+  info: *36
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46714_109:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -O -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46714.C'
+    sources:
+      binary: pr46714.s
+  group: GRPSERIAL
+  info: &37
     extraopts:
       - '"-fgnu-tm -O"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46714_110:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -O -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46714.C'
+    sources:
+      binary: pr46714.s
+  group: GRPSERIAL
+  info: *37
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr46714_111:
-  bin: '"pr46714.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46714.C'
-  herit: *GRPSERIAL
-  info: *43
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46714_14:
-  bin: '"pr46714.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -O -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46714.C'
-  herit: *GRPSERIAL
-  info: *43
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46714_317:
-  bin: '"pr46714.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -O -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46714.C'
-  herit: *GRPSERIAL
-  info: *43
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46714_318:
-  bin: '"pr46714.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46714.C'
-  herit: *GRPSERIAL
-  info: *43
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46714_319:
-  bin: '"pr46714.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46714.C'
-  herit: *GRPSERIAL
-  info: *43
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46941_113:
-  bin: '"pr46941.s"'
-  cargs: -std=gnu++11 -fgnu-tm -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46941.C'
-  herit: *GRPSERIAL
-  info: &44
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -O -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46714.C'
+    sources:
+      binary: pr46714.s
+  group: GRPSERIAL
+  info: *37
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46941_112:
+  build:
+    cflags: -std=gnu++98 -fgnu-tm -ffat-lto-objects -S
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46941.C'
+    sources:
+      binary: pr46941.s
+  group: GRPSERIAL
+  info: &38
     extraopts:
       - '"-fgnu-tm"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr46941_113:
+  build:
+    cflags: -std=gnu++11 -fgnu-tm -ffat-lto-objects -S
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46941.C'
+    sources:
+      binary: pr46941.s
+  group: GRPSERIAL
+  info: *38
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr46941_114:
-  bin: '"pr46941.s"'
-  cargs: -std=gnu++14 -fgnu-tm -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46941.C'
-  herit: *GRPSERIAL
-  info: *44
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46941_320:
-  bin: '"pr46941.s"'
-  cargs: -std=gnu++98 -fgnu-tm -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46941.C'
-  herit: *GRPSERIAL
-  info: *44
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46941_321:
-  bin: '"pr46941.s"'
-  cargs: -std=gnu++11 -fgnu-tm -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46941.C'
-  herit: *GRPSERIAL
-  info: *44
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46941_322:
-  bin: '"pr46941.s"'
-  cargs: -std=gnu++14 -fgnu-tm -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46941.C'
-  herit: *GRPSERIAL
-  info: *44
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr46941_37:
-  bin: '"pr46941.s"'
-  cargs: -std=gnu++98 -fgnu-tm -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46941.C'
-  herit: *GRPSERIAL
-  info: *44
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47340_116:
-  bin: '"pr47340.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47340.C'
-  herit: *GRPSERIAL
-  info: &45
+  build:
+    cflags: -std=gnu++14 -fgnu-tm -ffat-lto-objects -S
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr46941.C'
+    sources:
+      binary: pr46941.s
+  group: GRPSERIAL
+  info: *38
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr47340_115:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47340.C'
+    sources:
+      binary: pr47340.s
+  group: GRPSERIAL
+  info: &39
     extraopts:
       - '"-fgnu-tm"'
     regex-warn:
@@ -2179,304 +1612,179 @@ test_pr47340_116:
         ]*(deprecated" "))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr47340_116:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47340.C'
+    sources:
+      binary: pr47340.s
+  group: GRPSERIAL
+  info: *39
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr47340_117:
-  bin: '"pr47340.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47340.C'
-  herit: *GRPSERIAL
-  info: *45
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47340_15:
-  bin: '"pr47340.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47340.C'
-  herit: *GRPSERIAL
-  info: *45
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47340_323:
-  bin: '"pr47340.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47340.C'
-  herit: *GRPSERIAL
-  info: *45
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47340_324:
-  bin: '"pr47340.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47340.C'
-  herit: *GRPSERIAL
-  info: *45
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47340_325:
-  bin: '"pr47340.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47340.C'
-  herit: *GRPSERIAL
-  info: *45
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47530-2_119:
-  bin: '"pr47530-2.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O2 -fno-inline -fdump-tree-tmedge -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47530-2.C'
-  herit: *GRPSERIAL
-  info: &46
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47340.C'
+    sources:
+      binary: pr47340.s
+  group: GRPSERIAL
+  info: *39
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr47530-2_118:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -O2 -fno-inline -fdump-tree-tmedge -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47530-2.C'
+    sources:
+      binary: pr47530-2.s
+  group: GRPSERIAL
+  info: &40
     extraopts:
       - '"-fgnu-tm -O2 -fno-inline -fdump-tree-tmedge"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr47530-2_119:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -O2 -fno-inline -fdump-tree-tmedge -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47530-2.C'
+    sources:
+      binary: pr47530-2.s
+  group: GRPSERIAL
+  info: *40
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr47530-2_120:
-  bin: '"pr47530-2.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O2 -fno-inline -fdump-tree-tmedge -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47530-2.C'
-  herit: *GRPSERIAL
-  info: *46
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47530-2_326:
-  bin: '"pr47530-2.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -O2 -fno-inline -fdump-tree-tmedge -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47530-2.C'
-  herit: *GRPSERIAL
-  info: *46
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47530-2_327:
-  bin: '"pr47530-2.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O2 -fno-inline -fdump-tree-tmedge -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47530-2.C'
-  herit: *GRPSERIAL
-  info: *46
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47530-2_328:
-  bin: '"pr47530-2.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O2 -fno-inline -fdump-tree-tmedge -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47530-2.C'
-  herit: *GRPSERIAL
-  info: *46
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47530-2_38:
-  bin: '"pr47530-2.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -O2 -fno-inline -fdump-tree-tmedge -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47530-2.C'
-  herit: *GRPSERIAL
-  info: *46
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47530_122:
-  bin: '"pr47530.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O2 -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47530.C'
-  herit: *GRPSERIAL
-  info: &47
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -O2 -fno-inline -fdump-tree-tmedge -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47530-2.C'
+    sources:
+      binary: pr47530-2.s
+  group: GRPSERIAL
+  info: *40
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr47530_121:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -O2 -fdump-tree-optimized -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47530.C'
+    sources:
+      binary: pr47530.s
+  group: GRPSERIAL
+  info: &41
     extraopts:
       - '"-fgnu-tm -O2 -fdump-tree-optimized"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr47530_122:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -O2 -fdump-tree-optimized -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47530.C'
+    sources:
+      binary: pr47530.s
+  group: GRPSERIAL
+  info: *41
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr47530_123:
-  bin: '"pr47530.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O2 -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47530.C'
-  herit: *GRPSERIAL
-  info: *47
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47530_329:
-  bin: '"pr47530.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -O2 -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47530.C'
-  herit: *GRPSERIAL
-  info: *47
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47530_330:
-  bin: '"pr47530.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O2 -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47530.C'
-  herit: *GRPSERIAL
-  info: *47
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47530_331:
-  bin: '"pr47530.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O2 -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47530.C'
-  herit: *GRPSERIAL
-  info: *47
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47530_79:
-  bin: '"pr47530.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -O2 -fdump-tree-optimized -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47530.C'
-  herit: *GRPSERIAL
-  info: *47
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -O2 -fdump-tree-optimized -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47530.C'
+    sources:
+      binary: pr47530.s
+  group: GRPSERIAL
+  info: *41
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr47554_124:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47554.C'
+    sources:
+      binary: pr47554.s
+  group: GRPSERIAL
+  info: &42
+    extraopts:
+      - '"-fgnu-tm"'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr47554_125:
-  bin: '"pr47554.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47554.C'
-  herit: *GRPSERIAL
-  info: &48
-    extraopts:
-      - '"-fgnu-tm"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47554.C'
+    sources:
+      binary: pr47554.s
+  group: GRPSERIAL
+  info: *42
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_pr47554_126:
-  bin: '"pr47554.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47554.C'
-  herit: *GRPSERIAL
-  info: *48
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47554_27:
-  bin: '"pr47554.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47554.C'
-  herit: *GRPSERIAL
-  info: *48
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47554_332:
-  bin: '"pr47554.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47554.C'
-  herit: *GRPSERIAL
-  info: *48
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47554_333:
-  bin: '"pr47554.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47554.C'
-  herit: *GRPSERIAL
-  info: *48
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47554_334:
-  bin: '"pr47554.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47554.C'
-  herit: *GRPSERIAL
-  info: *48
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47573_128:
-  bin: '"pr47573.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47573.C'
-  herit: *GRPSERIAL
-  info: &49
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47554.C'
+    sources:
+      binary: pr47554.s
+  group: GRPSERIAL
+  info: *42
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr47746_127:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47746.C'
+    sources:
+      binary: pr47746.s
+  group: GRPSERIAL
+  info: &43
     extraopts:
       - '"-fgnu-tm"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47573_129:
-  bin: '"pr47573.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47573.C'
-  herit: *GRPSERIAL
-  info: *49
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47573_28:
-  bin: '"pr47573.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47573.C'
-  herit: *GRPSERIAL
-  info: *49
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47573_335:
-  bin: '"pr47573.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47573.C'
-  herit: *GRPSERIAL
-  info: *49
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47573_336:
-  bin: '"pr47573.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47573.C'
-  herit: *GRPSERIAL
-  info: *49
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47573_337:
-  bin: '"pr47573.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47573.C'
-  herit: *GRPSERIAL
-  info: *49
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47746_131:
-  bin: '"pr47746.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47746.C'
-  herit: *GRPSERIAL
-  info: &50
-    extraopts:
-      - '"-fgnu-tm"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47746_132:
-  bin: '"pr47746.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47746.C'
-  herit: *GRPSERIAL
-  info: *50
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47746_28:
-  bin: '"pr47746.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47746.C'
-  herit: *GRPSERIAL
-  info: *50
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47746_338:
-  bin: '"pr47746.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47746.C'
-  herit: *GRPSERIAL
-  info: *50
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47746_339:
-  bin: '"pr47746.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47746.C'
-  herit: *GRPSERIAL
-  info: *50
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47746_340:
-  bin: '"pr47746.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47746.C'
-  herit: *GRPSERIAL
-  info: *50
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47747_134:
-  bin: '"pr47747.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47747.C'
-  herit: *GRPSERIAL
-  info: &51
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr47746_128:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47746.C'
+    sources:
+      binary: pr47746.s
+  group: GRPSERIAL
+  info: *43
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr47746_129:
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47746.C'
+    sources:
+      binary: pr47746.s
+  group: GRPSERIAL
+  info: *43
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr47747_130:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -O -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47747.C'
+    sources:
+      binary: pr47747.s
+  group: GRPSERIAL
+  info: &44
     extraopts:
       - '"-fgnu-tm -O"'
     regex-err:
@@ -2488,254 +1796,179 @@ test_pr47747_134:
         ]*(InputStream::readUint32))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47747_135:
-  bin: '"pr47747.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47747.C'
-  herit: *GRPSERIAL
-  info: *51
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47747_21:
-  bin: '"pr47747.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -O -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47747.C'
-  herit: *GRPSERIAL
-  info: *51
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47747_341:
-  bin: '"pr47747.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -O -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47747.C'
-  herit: *GRPSERIAL
-  info: *51
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47747_342:
-  bin: '"pr47747.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47747.C'
-  herit: *GRPSERIAL
-  info: *51
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr47747_343:
-  bin: '"pr47747.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47747.C'
-  herit: *GRPSERIAL
-  info: *51
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr51212_137:
-  bin: '"pr51212.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -fnon-call-exceptions -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51212.C'
-  herit: *GRPSERIAL
-  info: &52
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr47747_131:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -O -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47747.C'
+    sources:
+      binary: pr47747.s
+  group: GRPSERIAL
+  info: *44
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr47747_132:
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -O -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr47747.C'
+    sources:
+      binary: pr47747.s
+  group: GRPSERIAL
+  info: *44
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr51212_133:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -fnon-call-exceptions -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51212.C'
+    sources:
+      binary: pr51212.s
+  group: GRPSERIAL
+  info: &45
     extraopts:
       - '"-fgnu-tm -fnon-call-exceptions"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr51212_138:
-  bin: '"pr51212.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -fnon-call-exceptions -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51212.C'
-  herit: *GRPSERIAL
-  info: *52
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr51212_19:
-  bin: '"pr51212.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -fnon-call-exceptions -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51212.C'
-  herit: *GRPSERIAL
-  info: *52
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr51212_344:
-  bin: '"pr51212.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -fnon-call-exceptions -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51212.C'
-  herit: *GRPSERIAL
-  info: *52
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr51212_345:
-  bin: '"pr51212.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -fnon-call-exceptions -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51212.C'
-  herit: *GRPSERIAL
-  info: *52
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr51212_346:
-  bin: '"pr51212.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -fnon-call-exceptions -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51212.C'
-  herit: *GRPSERIAL
-  info: *52
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr51411-2_140:
-  bin: '"pr51411-2.s"'
-  cargs: -std=gnu++11 -fgnu-tm -O0 -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51411-2.C'
-  herit: *GRPSERIAL
-  info: &53
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr51212_134:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -fnon-call-exceptions -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51212.C'
+    sources:
+      binary: pr51212.s
+  group: GRPSERIAL
+  info: *45
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr51212_135:
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -fnon-call-exceptions -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51212.C'
+    sources:
+      binary: pr51212.s
+  group: GRPSERIAL
+  info: *45
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr51411-2_136:
+  build:
+    cflags: -std=gnu++98 -fgnu-tm -O0 -ffat-lto-objects -S
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51411-2.C'
+    sources:
+      binary: pr51411-2.s
+  group: GRPSERIAL
+  info: &46
     extraopts:
       - '"-fgnu-tm -O0"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr51411-2_141:
-  bin: '"pr51411-2.s"'
-  cargs: -std=gnu++14 -fgnu-tm -O0 -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51411-2.C'
-  herit: *GRPSERIAL
-  info: *53
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr51411-2_347:
-  bin: '"pr51411-2.s"'
-  cargs: -std=gnu++98 -fgnu-tm -O0 -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51411-2.C'
-  herit: *GRPSERIAL
-  info: *53
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr51411-2_348:
-  bin: '"pr51411-2.s"'
-  cargs: -std=gnu++11 -fgnu-tm -O0 -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51411-2.C'
-  herit: *GRPSERIAL
-  info: *53
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr51411-2_349:
-  bin: '"pr51411-2.s"'
-  cargs: -std=gnu++14 -fgnu-tm -O0 -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51411-2.C'
-  herit: *GRPSERIAL
-  info: *53
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr51411-2_50:
-  bin: '"pr51411-2.s"'
-  cargs: -std=gnu++98 -fgnu-tm -O0 -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51411-2.C'
-  herit: *GRPSERIAL
-  info: *53
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr51411_143:
-  bin: '"pr51411.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51411.C'
-  herit: *GRPSERIAL
-  info: &54
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr51411-2_137:
+  build:
+    cflags: -std=gnu++11 -fgnu-tm -O0 -ffat-lto-objects -S
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51411-2.C'
+    sources:
+      binary: pr51411-2.s
+  group: GRPSERIAL
+  info: *46
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr51411-2_138:
+  build:
+    cflags: -std=gnu++14 -fgnu-tm -O0 -ffat-lto-objects -S
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51411-2.C'
+    sources:
+      binary: pr51411-2.s
+  group: GRPSERIAL
+  info: *46
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr51411_139:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -O -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51411.C'
+    sources:
+      binary: pr51411.s
+  group: GRPSERIAL
+  info: &47
     extraopts:
       - '"-fgnu-tm -O"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr51411_144:
-  bin: '"pr51411.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51411.C'
-  herit: *GRPSERIAL
-  info: *54
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr51411_350:
-  bin: '"pr51411.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -O -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51411.C'
-  herit: *GRPSERIAL
-  info: *54
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr51411_351:
-  bin: '"pr51411.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51411.C'
-  herit: *GRPSERIAL
-  info: *54
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr51411_352:
-  bin: '"pr51411.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51411.C'
-  herit: *GRPSERIAL
-  info: *54
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr51411_7:
-  bin: '"pr51411.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -O -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51411.C'
-  herit: *GRPSERIAL
-  info: *54
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr51516_146:
-  bin: '"pr51516.s"'
-  cargs: -std=gnu++11 -fgnu-tm -fdump-tree-optimized -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51516.C'
-  herit: *GRPSERIAL
-  info: &55
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr51411_140:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -O -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51411.C'
+    sources:
+      binary: pr51411.s
+  group: GRPSERIAL
+  info: *47
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr51411_141:
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -O -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51411.C'
+    sources:
+      binary: pr51411.s
+  group: GRPSERIAL
+  info: *47
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr51516_142:
+  build:
+    cflags: -std=gnu++98 -fgnu-tm -fdump-tree-optimized -ffat-lto-objects -S
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51516.C'
+    sources:
+      binary: pr51516.s
+  group: GRPSERIAL
+  info: &48
     extraopts:
       - '"-fgnu-tm -fdump-tree-optimized"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr51516_147:
-  bin: '"pr51516.s"'
-  cargs: -std=gnu++14 -fgnu-tm -fdump-tree-optimized -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51516.C'
-  herit: *GRPSERIAL
-  info: *55
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr51516_20:
-  bin: '"pr51516.s"'
-  cargs: -std=gnu++98 -fgnu-tm -fdump-tree-optimized -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51516.C'
-  herit: *GRPSERIAL
-  info: *55
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr51516_353:
-  bin: '"pr51516.s"'
-  cargs: -std=gnu++98 -fgnu-tm -fdump-tree-optimized -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51516.C'
-  herit: *GRPSERIAL
-  info: *55
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr51516_354:
-  bin: '"pr51516.s"'
-  cargs: -std=gnu++11 -fgnu-tm -fdump-tree-optimized -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51516.C'
-  herit: *GRPSERIAL
-  info: *55
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr51516_355:
-  bin: '"pr51516.s"'
-  cargs: -std=gnu++14 -fgnu-tm -fdump-tree-optimized -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51516.C'
-  herit: *GRPSERIAL
-  info: *55
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr51928_149:
-  bin: '"pr51928.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51928.C'
-  herit: *GRPSERIAL
-  info: &56
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr51516_143:
+  build:
+    cflags: -std=gnu++11 -fgnu-tm -fdump-tree-optimized -ffat-lto-objects -S
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51516.C'
+    sources:
+      binary: pr51516.s
+  group: GRPSERIAL
+  info: *48
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr51516_144:
+  build:
+    cflags: -std=gnu++14 -fgnu-tm -fdump-tree-optimized -ffat-lto-objects -S
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51516.C'
+    sources:
+      binary: pr51516.s
+  group: GRPSERIAL
+  info: *48
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr51928_145:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51928.C'
+    sources:
+      binary: pr51928.s
+  group: GRPSERIAL
+  info: &49
     extraopts:
       - '"-fgnu-tm"'
     regex-err:
@@ -2747,172 +1980,122 @@ test_pr51928_149:
         ]*('<anonymous>' has incomplete type))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr51928_150:
-  bin: '"pr51928.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51928.C'
-  herit: *GRPSERIAL
-  info: *56
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr51928_16:
-  bin: '"pr51928.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51928.C'
-  herit: *GRPSERIAL
-  info: *56
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr51928_356:
-  bin: '"pr51928.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51928.C'
-  herit: *GRPSERIAL
-  info: *56
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr51928_357:
-  bin: '"pr51928.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51928.C'
-  herit: *GRPSERIAL
-  info: *56
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr51928_358:
-  bin: '"pr51928.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51928.C'
-  herit: *GRPSERIAL
-  info: *56
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr56419_13:
-  bin: '"pr56419.s"'
-  cargs: -std=gnu++98 -fgnu-tm -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr56419.C'
-  herit: *GRPSERIAL
-  info: &57
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr51928_146:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51928.C'
+    sources:
+      binary: pr51928.s
+  group: GRPSERIAL
+  info: *49
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr51928_147:
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr51928.C'
+    sources:
+      binary: pr51928.s
+  group: GRPSERIAL
+  info: *49
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr56419_148:
+  build:
+    cflags: -std=gnu++98 -fgnu-tm -ffat-lto-objects -S
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr56419.C'
+    sources:
+      binary: pr56419.s
+  group: GRPSERIAL
+  info: &50
     extraopts:
       - '"-fgnu-tm"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr56419_152:
-  bin: '"pr56419.s"'
-  cargs: -std=gnu++11 -fgnu-tm -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr56419.C'
-  herit: *GRPSERIAL
-  info: *57
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr56419_153:
-  bin: '"pr56419.s"'
-  cargs: -std=gnu++14 -fgnu-tm -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr56419.C'
-  herit: *GRPSERIAL
-  info: *57
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr56419_359:
-  bin: '"pr56419.s"'
-  cargs: -std=gnu++98 -fgnu-tm -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr56419.C'
-  herit: *GRPSERIAL
-  info: *57
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr56419_360:
-  bin: '"pr56419.s"'
-  cargs: -std=gnu++11 -fgnu-tm -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr56419.C'
-  herit: *GRPSERIAL
-  info: *57
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr56419_361:
-  bin: '"pr56419.s"'
-  cargs: -std=gnu++14 -fgnu-tm -ffat-lto-objects -S
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr56419.C'
-  herit: *GRPSERIAL
-  info: *57
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr58516_155:
-  bin: '"pr58516.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr58516.C'
-  herit: *GRPSERIAL
-  info: &58
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr56419_149:
+  build:
+    cflags: -std=gnu++11 -fgnu-tm -ffat-lto-objects -S
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr56419.C'
+    sources:
+      binary: pr56419.s
+  group: GRPSERIAL
+  info: *50
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr56419_150:
+  build:
+    cflags: -std=gnu++14 -fgnu-tm -ffat-lto-objects -S
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr56419.C'
+    sources:
+      binary: pr56419.s
+  group: GRPSERIAL
+  info: *50
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr58516_151:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr58516.C'
+    sources:
+      binary: pr58516.s
+  group: GRPSERIAL
+  info: &51
     extraopts:
       - '"-fgnu-tm"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr58516_362:
-  bin: '"pr58516.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr58516.C'
-  herit: *GRPSERIAL
-  info: *58
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr58516_363:
-  bin: '"pr58516.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr58516.C'
-  herit: *GRPSERIAL
-  info: *58
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr58516_7:
-  bin: '"pr58516.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr58516.C'
-  herit: *GRPSERIAL
-  info: *58
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr58635-1_14:
-  bin: '"pr58635-1.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr58635-1.C'
-  herit: *GRPSERIAL
-  info: &59
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr58516_152:
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr58516.C'
+    sources:
+      binary: pr58516.s
+  group: GRPSERIAL
+  info: *51
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr58635-1_153:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr58635-1.C'
+    sources:
+      binary: pr58635-1.s
+  group: GRPSERIAL
+  info: &52
     extraopts:
       - '"-fgnu-tm"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr58635-1_157:
-  bin: '"pr58635-1.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr58635-1.C'
-  herit: *GRPSERIAL
-  info: *59
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr58635-1_364:
-  bin: '"pr58635-1.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr58635-1.C'
-  herit: *GRPSERIAL
-  info: *59
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr58635-1_365:
-  bin: '"pr58635-1.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr58635-1.C'
-  herit: *GRPSERIAL
-  info: *59
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr58635-2_159:
-  bin: '"pr58635-2.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr58635-2.C'
-  herit: *GRPSERIAL
-  info: &60
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr58635-1_154:
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr58635-1.C'
+    sources:
+      binary: pr58635-1.s
+  group: GRPSERIAL
+  info: *52
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr58635-2_155:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr58635-2.C'
+    sources:
+      binary: pr58635-2.s
+  group: GRPSERIAL
+  info: &53
     extraopts:
       - '"-fgnu-tm"'
     regex-err:
@@ -2924,138 +2107,98 @@ test_pr58635-2_159:
         ]*(was not declared in this scope))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr58635-2_366:
-  bin: '"pr58635-2.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr58635-2.C'
-  herit: *GRPSERIAL
-  info: *60
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr58635-2_367:
-  bin: '"pr58635-2.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr58635-2.C'
-  herit: *GRPSERIAL
-  info: *60
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr58635-2_8:
-  bin: '"pr58635-2.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr58635-2.C'
-  herit: *GRPSERIAL
-  info: *60
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr60004_10:
-  bin: '"pr60004.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr60004.C'
-  herit: *GRPSERIAL
-  info: &61
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr58635-2_156:
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr58635-2.C'
+    sources:
+      binary: pr58635-2.s
+  group: GRPSERIAL
+  info: *53
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr60004_157:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr60004.C'
+    sources:
+      binary: pr60004.s
+  group: GRPSERIAL
+  info: &54
     extraopts:
       - '"-fgnu-tm"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr60004_161:
-  bin: '"pr60004.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr60004.C'
-  herit: *GRPSERIAL
-  info: *61
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr60004_162:
-  bin: '"pr60004.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr60004.C'
-  herit: *GRPSERIAL
-  info: *61
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr60004_368:
-  bin: '"pr60004.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr60004.C'
-  herit: *GRPSERIAL
-  info: *61
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr60004_369:
-  bin: '"pr60004.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr60004.C'
-  herit: *GRPSERIAL
-  info: *61
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr60004_370:
-  bin: '"pr60004.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr60004.C'
-  herit: *GRPSERIAL
-  info: *61
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr67811_11:
-  bin: '"pr67811.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr67811.C'
-  herit: *GRPSERIAL
-  info: &62
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr60004_158:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr60004.C'
+    sources:
+      binary: pr60004.s
+  group: GRPSERIAL
+  info: *54
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr60004_159:
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr60004.C'
+    sources:
+      binary: pr60004.s
+  group: GRPSERIAL
+  info: *54
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr67811_160:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr67811.C'
+    sources:
+      binary: pr67811.s
+  group: GRPSERIAL
+  info: &55
     extraopts:
       - '"-fgnu-tm"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr67811_164:
-  bin: '"pr67811.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr67811.C'
-  herit: *GRPSERIAL
-  info: *62
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr67811_165:
-  bin: '"pr67811.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr67811.C'
-  herit: *GRPSERIAL
-  info: *62
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr67811_371:
-  bin: '"pr67811.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr67811.C'
-  herit: *GRPSERIAL
-  info: *62
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr67811_372:
-  bin: '"pr67811.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr67811.C'
-  herit: *GRPSERIAL
-  info: *62
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr67811_373:
-  bin: '"pr67811.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr67811.C'
-  herit: *GRPSERIAL
-  info: *62
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr70266_167:
-  bin: '"pr70266.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr70266.C'
-  herit: *GRPSERIAL
-  info: &63
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr67811_161:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr67811.C'
+    sources:
+      binary: pr67811.s
+  group: GRPSERIAL
+  info: *55
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr67811_162:
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr67811.C'
+    sources:
+      binary: pr67811.s
+  group: GRPSERIAL
+  info: *55
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr70266_163:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr70266.C'
+    sources:
+      binary: pr70266.s
+  group: GRPSERIAL
+  info: &56
     extraopts:
       - '"-fgnu-tm"'
     regex-err:
@@ -3067,72 +2210,52 @@ test_pr70266_167:
         ]*(cannot resolve))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr70266_374:
-  bin: '"pr70266.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr70266.C'
-  herit: *GRPSERIAL
-  info: *63
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr70266_375:
-  bin: '"pr70266.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr70266.C'
-  herit: *GRPSERIAL
-  info: *63
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr70266_8:
-  bin: '"pr70266.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr70266.C'
-  herit: *GRPSERIAL
-  info: *63
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr71909_169:
-  bin: '"pr71909.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr71909.C'
-  herit: *GRPSERIAL
-  info: &64
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr70266_164:
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr70266.C'
+    sources:
+      binary: pr70266.s
+  group: GRPSERIAL
+  info: *56
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr71909_165:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr71909.C'
+    sources:
+      binary: pr71909.s
+  group: GRPSERIAL
+  info: &57
     extraopts:
       - '"-fgnu-tm"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr71909_18:
-  bin: '"pr71909.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr71909.C'
-  herit: *GRPSERIAL
-  info: *64
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr71909_376:
-  bin: '"pr71909.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr71909.C'
-  herit: *GRPSERIAL
-  info: *64
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr71909_377:
-  bin: '"pr71909.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr71909.C'
-  herit: *GRPSERIAL
-  info: *64
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr80059-2_13:
-  bin: '"pr80059-2.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr80059-2.C'
-  herit: *GRPSERIAL
-  info: &65
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr71909_166:
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr71909.C'
+    sources:
+      binary: pr71909.s
+  group: GRPSERIAL
+  info: *57
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr80059-2_167:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr80059-2.C'
+    sources:
+      binary: pr80059-2.s
+  group: GRPSERIAL
+  info: &58
     extraopts:
       - '"-fgnu-tm"'
     regex-err:
@@ -3144,38 +2267,28 @@ test_pr80059-2_13:
         ]*(is not a constant expression))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr80059-2_171:
-  bin: '"pr80059-2.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr80059-2.C'
-  herit: *GRPSERIAL
-  info: *65
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr80059-2_378:
-  bin: '"pr80059-2.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr80059-2.C'
-  herit: *GRPSERIAL
-  info: *65
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr80059-2_379:
-  bin: '"pr80059-2.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr80059-2.C'
-  herit: *GRPSERIAL
-  info: *65
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr80059_13:
-  bin: '"pr80059.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr80059.C'
-  herit: *GRPSERIAL
-  info: &66
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr80059-2_168:
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr80059-2.C'
+    sources:
+      binary: pr80059-2.s
+  group: GRPSERIAL
+  info: *58
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr80059_169:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr80059.C'
+    sources:
+      binary: pr80059.s
+  group: GRPSERIAL
+  info: &59
     extraopts:
       - '"-fgnu-tm"'
     regex-err:
@@ -3187,38 +2300,28 @@ test_pr80059_13:
         ]*(is not a constant expression))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr80059_173:
-  bin: '"pr80059.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr80059.C'
-  herit: *GRPSERIAL
-  info: *66
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr80059_380:
-  bin: '"pr80059.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr80059.C'
-  herit: *GRPSERIAL
-  info: *66
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr80059_381:
-  bin: '"pr80059.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr80059.C'
-  herit: *GRPSERIAL
-  info: *66
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pretty-print1_175:
-  bin: '"pretty-print1.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pretty-print1.C'
-  herit: *GRPSERIAL
-  info: &67
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr80059_170:
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pr80059.C'
+    sources:
+      binary: pr80059.s
+  group: GRPSERIAL
+  info: *59
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pretty-print1_171:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pretty-print1.C'
+    sources:
+      binary: pretty-print1.s
+  group: GRPSERIAL
+  info: &60
     extraopts:
       - '"-fgnu-tm"'
     regex-err:
@@ -3230,54 +2333,39 @@ test_pretty-print1_175:
         ]*(void \\(\\*\\)\\(\\) transaction_safe))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pretty-print1_176:
-  bin: '"pretty-print1.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pretty-print1.C'
-  herit: *GRPSERIAL
-  info: *67
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pretty-print1_382:
-  bin: '"pretty-print1.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pretty-print1.C'
-  herit: *GRPSERIAL
-  info: *67
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pretty-print1_383:
-  bin: '"pretty-print1.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pretty-print1.C'
-  herit: *GRPSERIAL
-  info: *67
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pretty-print1_384:
-  bin: '"pretty-print1.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pretty-print1.C'
-  herit: *GRPSERIAL
-  info: *67
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pretty-print1_6:
-  bin: '"pretty-print1.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pretty-print1.C'
-  herit: *GRPSERIAL
-  info: *67
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_static_cast1_178:
-  bin: '"static_cast1.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/static_cast1.C'
-  herit: *GRPSERIAL
-  info: &68
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pretty-print1_172:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pretty-print1.C'
+    sources:
+      binary: pretty-print1.s
+  group: GRPSERIAL
+  info: *60
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pretty-print1_173:
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/pretty-print1.C'
+    sources:
+      binary: pretty-print1.s
+  group: GRPSERIAL
+  info: *60
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_static_cast1_174:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/static_cast1.C'
+    sources:
+      binary: static_cast1.s
+  group: GRPSERIAL
+  info: &61
     extraopts:
       - '"-fgnu-tm"'
     regex-err:
@@ -3289,222 +2377,157 @@ test_static_cast1_178:
         ]*(static_cast))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_static_cast1_179:
-  bin: '"static_cast1.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/static_cast1.C'
-  herit: *GRPSERIAL
-  info: *68
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_static_cast1_385:
-  bin: '"static_cast1.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/static_cast1.C'
-  herit: *GRPSERIAL
-  info: *68
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_static_cast1_386:
-  bin: '"static_cast1.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/static_cast1.C'
-  herit: *GRPSERIAL
-  info: *68
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_static_cast1_387:
-  bin: '"static_cast1.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/static_cast1.C'
-  herit: *GRPSERIAL
-  info: *68
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_static_cast1_9:
-  bin: '"static_cast1.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/static_cast1.C'
-  herit: *GRPSERIAL
-  info: *68
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_sync1_15:
-  bin: '"sync1.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/sync1.C'
-  herit: *GRPSERIAL
-  info: &69
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_static_cast1_175:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/static_cast1.C'
+    sources:
+      binary: static_cast1.s
+  group: GRPSERIAL
+  info: *61
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_static_cast1_176:
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/static_cast1.C'
+    sources:
+      binary: static_cast1.s
+  group: GRPSERIAL
+  info: *61
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_sync1_177:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/sync1.C'
+    sources:
+      binary: sync1.s
+  group: GRPSERIAL
+  info: &62
     extraopts:
       - -fgnu-tm
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_sync1_181:
-  bin: '"sync1.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/sync1.C'
-  herit: *GRPSERIAL
-  info: *69
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_sync1_182:
-  bin: '"sync1.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/sync1.C'
-  herit: *GRPSERIAL
-  info: *69
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_sync1_388:
-  bin: '"sync1.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/sync1.C'
-  herit: *GRPSERIAL
-  info: *69
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_sync1_389:
-  bin: '"sync1.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/sync1.C'
-  herit: *GRPSERIAL
-  info: *69
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_sync1_390:
-  bin: '"sync1.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/sync1.C'
-  herit: *GRPSERIAL
-  info: *69
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_sync2_184:
-  bin: '"sync2.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -fdump-tree-optimized-asmname -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/sync2.C'
-  herit: *GRPSERIAL
-  info: &70
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_sync1_178:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/sync1.C'
+    sources:
+      binary: sync1.s
+  group: GRPSERIAL
+  info: *62
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_sync1_179:
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/sync1.C'
+    sources:
+      binary: sync1.s
+  group: GRPSERIAL
+  info: *62
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_sync2_180:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -fdump-tree-optimized-asmname -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/sync2.C'
+    sources:
+      binary: sync2.s
+  group: GRPSERIAL
+  info: &63
     extraopts:
       - '"-fgnu-tm -fdump-tree-optimized-asmname"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_sync2_21:
-  bin: '"sync2.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -fdump-tree-optimized-asmname -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/sync2.C'
-  herit: *GRPSERIAL
-  info: *70
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_sync2_391:
-  bin: '"sync2.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -fdump-tree-optimized-asmname -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/sync2.C'
-  herit: *GRPSERIAL
-  info: *70
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_sync2_392:
-  bin: '"sync2.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -fdump-tree-optimized-asmname -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/sync2.C'
-  herit: *GRPSERIAL
-  info: *70
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-1_186:
-  bin: '"template-1.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O -fdump-tree-tmmark -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/template-1.C'
-  herit: *GRPSERIAL
-  info: &71
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_sync2_181:
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -fdump-tree-optimized-asmname -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/sync2.C'
+    sources:
+      binary: sync2.s
+  group: GRPSERIAL
+  info: *63
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_template-1_182:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -O -fdump-tree-tmmark -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/template-1.C'
+    sources:
+      binary: template-1.s
+  group: GRPSERIAL
+  info: &64
     extraopts:
       - '"-fgnu-tm -O -fdump-tree-tmmark"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-1_187:
-  bin: '"template-1.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O -fdump-tree-tmmark -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/template-1.C'
-  herit: *GRPSERIAL
-  info: *71
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-1_35:
-  bin: '"template-1.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -O -fdump-tree-tmmark -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/template-1.C'
-  herit: *GRPSERIAL
-  info: *71
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-1_393:
-  bin: '"template-1.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -O -fdump-tree-tmmark -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/template-1.C'
-  herit: *GRPSERIAL
-  info: *71
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-1_394:
-  bin: '"template-1.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O -fdump-tree-tmmark -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/template-1.C'
-  herit: *GRPSERIAL
-  info: *71
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-1_395:
-  bin: '"template-1.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O -fdump-tree-tmmark -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/template-1.C'
-  herit: *GRPSERIAL
-  info: *71
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-2_189:
-  bin: '"template-2.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O -fdump-tree-tmmark -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/template-2.C'
-  herit: *GRPSERIAL
-  info: &72
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_template-1_183:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -O -fdump-tree-tmmark -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/template-1.C'
+    sources:
+      binary: template-1.s
+  group: GRPSERIAL
+  info: *64
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_template-1_184:
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -O -fdump-tree-tmmark -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/template-1.C'
+    sources:
+      binary: template-1.s
+  group: GRPSERIAL
+  info: *64
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_template-2_185:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -O -fdump-tree-tmmark -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/template-2.C'
+    sources:
+      binary: template-2.s
+  group: GRPSERIAL
+  info: &65
     extraopts:
       - '"-fgnu-tm -O -fdump-tree-tmmark"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-2_21:
-  bin: '"template-2.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O -fdump-tree-tmmark -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/template-2.C'
-  herit: *GRPSERIAL
-  info: *72
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-2_396:
-  bin: '"template-2.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O -fdump-tree-tmmark -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/template-2.C'
-  herit: *GRPSERIAL
-  info: *72
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-2_397:
-  bin: '"template-2.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O -fdump-tree-tmmark -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/template-2.C'
-  herit: *GRPSERIAL
-  info: *72
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-3_15:
-  bin: '"template-3.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/template-3.C'
-  herit: *GRPSERIAL
-  info: &73
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_template-2_186:
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -O -fdump-tree-tmmark -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/template-2.C'
+    sources:
+      binary: template-2.s
+  group: GRPSERIAL
+  info: *65
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_template-3_187:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/template-3.C'
+    sources:
+      binary: template-3.s
+  group: GRPSERIAL
+  info: &66
     extraopts:
       - '"-fgnu-tm"'
     regex-err:
@@ -3516,104 +2539,74 @@ test_template-3_15:
         ]*(double))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-3_191:
-  bin: '"template-3.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/template-3.C'
-  herit: *GRPSERIAL
-  info: *73
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-3_192:
-  bin: '"template-3.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/template-3.C'
-  herit: *GRPSERIAL
-  info: *73
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-3_398:
-  bin: '"template-3.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/template-3.C'
-  herit: *GRPSERIAL
-  info: *73
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-3_399:
-  bin: '"template-3.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/template-3.C'
-  herit: *GRPSERIAL
-  info: *73
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-3_400:
-  bin: '"template-3.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/template-3.C'
-  herit: *GRPSERIAL
-  info: *73
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-4_13:
-  bin: '"template-4.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/template-4.C'
-  herit: *GRPSERIAL
-  info: &74
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_template-3_188:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/template-3.C'
+    sources:
+      binary: template-3.s
+  group: GRPSERIAL
+  info: *66
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_template-3_189:
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/template-3.C'
+    sources:
+      binary: template-3.s
+  group: GRPSERIAL
+  info: *66
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_template-4_190:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/template-4.C'
+    sources:
+      binary: template-4.s
+  group: GRPSERIAL
+  info: &67
     extraopts:
       - '"-fgnu-tm"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-4_194:
-  bin: '"template-4.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/template-4.C'
-  herit: *GRPSERIAL
-  info: *74
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-4_195:
-  bin: '"template-4.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/template-4.C'
-  herit: *GRPSERIAL
-  info: *74
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-4_401:
-  bin: '"template-4.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/template-4.C'
-  herit: *GRPSERIAL
-  info: *74
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-4_402:
-  bin: '"template-4.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/template-4.C'
-  herit: *GRPSERIAL
-  info: *74
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-4_403:
-  bin: '"template-4.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/template-4.C'
-  herit: *GRPSERIAL
-  info: *74
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-5_12:
-  bin: '"template-5.s"'
-  cargs: '  -fgnu-tm -std=c++11 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/template-5.C'
-  herit: *GRPSERIAL
-  info: &75
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_template-4_191:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/template-4.C'
+    sources:
+      binary: template-4.s
+  group: GRPSERIAL
+  info: *67
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_template-4_192:
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/template-4.C'
+    sources:
+      binary: template-4.s
+  group: GRPSERIAL
+  info: *67
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_template-5_193:
+  build:
+    cflags: '  -fgnu-tm -std=c++11 -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/template-5.C'
+    sources:
+      binary: template-5.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-fgnu-tm -std=c++11"'
     regex-err:
@@ -3625,22 +2618,17 @@ test_template-5_12:
         ]*(incomplete))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-5_404:
-  bin: '"template-5.s"'
-  cargs: '  -fgnu-tm -std=c++11 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/template-5.C'
-  herit: *GRPSERIAL
-  info: *75
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_unsafe1_15:
-  bin: '"unsafe1.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/unsafe1.C'
-  herit: *GRPSERIAL
-  info: &76
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_unsafe1_194:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/unsafe1.C'
+    sources:
+      binary: unsafe1.s
+  group: GRPSERIAL
+  info: &68
     extraopts:
       - -fgnu-tm
     regex-err:
@@ -3652,54 +2640,39 @@ test_unsafe1_15:
         ]*(unsafe" "invocation of unsafe destructor))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_unsafe1_198:
-  bin: '"unsafe1.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/unsafe1.C'
-  herit: *GRPSERIAL
-  info: *76
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_unsafe1_199:
-  bin: '"unsafe1.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/unsafe1.C'
-  herit: *GRPSERIAL
-  info: *76
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_unsafe1_405:
-  bin: '"unsafe1.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/unsafe1.C'
-  herit: *GRPSERIAL
-  info: *76
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_unsafe1_406:
-  bin: '"unsafe1.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/unsafe1.C'
-  herit: *GRPSERIAL
-  info: *76
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_unsafe1_407:
-  bin: '"unsafe1.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/unsafe1.C'
-  herit: *GRPSERIAL
-  info: *76
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_unsafe2_13:
-  bin: '"unsafe2.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/unsafe2.C'
-  herit: *GRPSERIAL
-  info: &77
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_unsafe1_195:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/unsafe1.C'
+    sources:
+      binary: unsafe1.s
+  group: GRPSERIAL
+  info: *68
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_unsafe1_196:
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/unsafe1.C'
+    sources:
+      binary: unsafe1.s
+  group: GRPSERIAL
+  info: *68
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_unsafe2_197:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/unsafe2.C'
+    sources:
+      binary: unsafe2.s
+  group: GRPSERIAL
+  info: &69
     extraopts:
       - -fgnu-tm
     regex-err:
@@ -3711,104 +2684,74 @@ test_unsafe2_13:
         ]*(unsafe))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_unsafe2_201:
-  bin: '"unsafe2.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/unsafe2.C'
-  herit: *GRPSERIAL
-  info: *77
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_unsafe2_202:
-  bin: '"unsafe2.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/unsafe2.C'
-  herit: *GRPSERIAL
-  info: *77
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_unsafe2_408:
-  bin: '"unsafe2.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/unsafe2.C'
-  herit: *GRPSERIAL
-  info: *77
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_unsafe2_409:
-  bin: '"unsafe2.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/unsafe2.C'
-  herit: *GRPSERIAL
-  info: *77
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_unsafe2_410:
-  bin: '"unsafe2.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/unsafe2.C'
-  herit: *GRPSERIAL
-  info: *77
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_vector-1_15:
-  bin: '"vector-1.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -O3 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/vector-1.C'
-  herit: *GRPSERIAL
-  info: &78
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_unsafe2_198:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/unsafe2.C'
+    sources:
+      binary: unsafe2.s
+  group: GRPSERIAL
+  info: *69
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_unsafe2_199:
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/unsafe2.C'
+    sources:
+      binary: unsafe2.s
+  group: GRPSERIAL
+  info: *69
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vector-1_200:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -O3 -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/vector-1.C'
+    sources:
+      binary: vector-1.s
+  group: GRPSERIAL
+  info: &70
     extraopts:
       - '"-fgnu-tm -O3"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_vector-1_204:
-  bin: '"vector-1.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O3 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/vector-1.C'
-  herit: *GRPSERIAL
-  info: *78
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_vector-1_205:
-  bin: '"vector-1.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O3 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/vector-1.C'
-  herit: *GRPSERIAL
-  info: *78
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_vector-1_411:
-  bin: '"vector-1.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -O3 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/vector-1.C'
-  herit: *GRPSERIAL
-  info: *78
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_vector-1_412:
-  bin: '"vector-1.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -O3 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/vector-1.C'
-  herit: *GRPSERIAL
-  info: *78
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_vector-1_413:
-  bin: '"vector-1.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -O3 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/vector-1.C'
-  herit: *GRPSERIAL
-  info: *78
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_wrap-2_16:
-  bin: '"wrap-2.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -ftrack-macro-expansion=0 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/wrap-2.C'
-  herit: *GRPSERIAL
-  info: &79
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vector-1_201:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -O3 -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/vector-1.C'
+    sources:
+      binary: vector-1.s
+  group: GRPSERIAL
+  info: *70
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_vector-1_202:
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -O3 -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/vector-1.C'
+    sources:
+      binary: vector-1.s
+  group: GRPSERIAL
+  info: *70
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_wrap-2_203:
+  build:
+    cflags: ' -std=gnu++98 -fgnu-tm -ftrack-macro-expansion=0 -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/wrap-2.C'
+    sources:
+      binary: wrap-2.s
+  group: GRPSERIAL
+  info: &71
     extraopts:
       - '"-fgnu-tm -ftrack-macro-expansion=0"'
     regex-err:
@@ -3860,45 +2803,28 @@ test_wrap-2_16:
         ]*(is not compatible))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_wrap-2_207:
-  bin: '"wrap-2.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -ftrack-macro-expansion=0 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/wrap-2.C'
-  herit: *GRPSERIAL
-  info: *79
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_wrap-2_208:
-  bin: '"wrap-2.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -ftrack-macro-expansion=0 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/wrap-2.C'
-  herit: *GRPSERIAL
-  info: *79
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_wrap-2_414:
-  bin: '"wrap-2.s"'
-  cargs: ' -std=gnu++98 -fgnu-tm -ftrack-macro-expansion=0 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/wrap-2.C'
-  herit: *GRPSERIAL
-  info: *79
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_wrap-2_415:
-  bin: '"wrap-2.s"'
-  cargs: ' -std=gnu++11 -fgnu-tm -ftrack-macro-expansion=0 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/wrap-2.C'
-  herit: *GRPSERIAL
-  info: *79
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_wrap-2_416:
-  bin: '"wrap-2.s"'
-  cargs: ' -std=gnu++14 -fgnu-tm -ftrack-macro-expansion=0 -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/wrap-2.C'
-  herit: *GRPSERIAL
-  info: *79
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_wrap-2_204:
+  build:
+    cflags: ' -std=gnu++11 -fgnu-tm -ftrack-macro-expansion=0 -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/wrap-2.C'
+    sources:
+      binary: wrap-2.s
+  group: GRPSERIAL
+  info: *71
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_wrap-2_205:
+  build:
+    cflags: ' -std=gnu++14 -fgnu-tm -ftrack-macro-expansion=0 -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/tm/wrap-2.C'
+    sources:
+      binary: wrap-2.s
+  group: GRPSERIAL
+  info: *71
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

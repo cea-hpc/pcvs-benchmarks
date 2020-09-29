@@ -1,72 +1,55 @@
-test_nesting-1_11:
-  bin: '"nesting-1.s"'
-  cargs: ' -std=c++98 -fopenacc -fopenmp -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-1.c'
-  herit: *GRPSERIAL
+---
+test_nesting-1_1:
+  build:
+    cflags: ' -fopenacc -fopenmp -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-1.c'
+    sources:
+      binary: nesting-1.s
+  group: GRPSERIAL
   info: &1 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_nesting-1_12:
-  bin: '"nesting-1.s"'
-  cargs: ' -std=c++11 -fopenacc -fopenmp -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-1.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_nesting-1_13:
-  bin: '"nesting-1.s"'
-  cargs: ' -std=c++14 -fopenacc -fopenmp -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-1.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_nesting-1_3:
-  bin: '"nesting-1.s"'
-  cargs: ' -std=c++98 -fopenacc -fopenmp -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++98 -fopenacc -fopenmp -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-1.c'
+    sources:
+      binary: nesting-1.s
+  group: GRPSERIAL
   info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_nesting-1_4:
-  bin: '"nesting-1.s"'
-  cargs: ' -std=c++11 -fopenacc -fopenmp -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++11 -fopenacc -fopenmp -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-1.c'
+    sources:
+      binary: nesting-1.s
+  group: GRPSERIAL
   info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_nesting-1_46:
-  bin: '"nesting-1.s"'
-  cargs: ' -fopenacc -fopenmp -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-1.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_nesting-1_5:
-  bin: '"nesting-1.s"'
-  cargs: ' -std=c++14 -fopenacc -fopenmp -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++14 -fopenacc -fopenmp -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-1.c'
+    sources:
+      binary: nesting-1.s
+  group: GRPSERIAL
   info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_nesting-1_9:
-  bin: '"nesting-1.s"'
-  cargs: ' -fopenacc -fopenmp -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-1.c'
-  herit: *GRPSERIAL
-  info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_nesting-fail-1_10:
-  bin: '"nesting-fail-1.s"'
-  cargs: ' -fopenacc -fopenmp -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-fail-1.c'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_nesting-fail-1_2:
+  build:
+    cflags: ' -fopenacc -fopenmp -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-fail-1.c'
+    sources:
+      binary: nesting-fail-1.s
+  group: GRPSERIAL
   info: &2
     regex-err:
       - |-
@@ -933,61 +916,39 @@ test_nesting-fail-1_10:
         ]*(non-OpenACC construct inside of OpenACC routine))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_nesting-fail-1_14:
-  bin: '"nesting-fail-1.s"'
-  cargs: ' -std=c++98 -fopenacc -fopenmp -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-fail-1.c'
-  herit: *GRPSERIAL
-  info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_nesting-fail-1_15:
-  bin: '"nesting-fail-1.s"'
-  cargs: ' -std=c++11 -fopenacc -fopenmp -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-fail-1.c'
-  herit: *GRPSERIAL
-  info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_nesting-fail-1_16:
-  bin: '"nesting-fail-1.s"'
-  cargs: ' -std=c++14 -fopenacc -fopenmp -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-fail-1.c'
-  herit: *GRPSERIAL
-  info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_nesting-fail-1_445:
-  bin: '"nesting-fail-1.s"'
-  cargs: ' -fopenacc -fopenmp -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-fail-1.c'
-  herit: *GRPSERIAL
-  info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_nesting-fail-1_6:
-  bin: '"nesting-fail-1.s"'
-  cargs: ' -std=c++98 -fopenacc -fopenmp -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-fail-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++98 -fopenacc -fopenmp -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-fail-1.c'
+    sources:
+      binary: nesting-fail-1.s
+  group: GRPSERIAL
   info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_nesting-fail-1_7:
-  bin: '"nesting-fail-1.s"'
-  cargs: ' -std=c++11 -fopenacc -fopenmp -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-fail-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++11 -fopenacc -fopenmp -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-fail-1.c'
+    sources:
+      binary: nesting-fail-1.s
+  group: GRPSERIAL
   info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_nesting-fail-1_8:
-  bin: '"nesting-fail-1.s"'
-  cargs: ' -std=c++14 -fopenacc -fopenmp -S'
-  files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-fail-1.c'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++14 -fopenacc -fopenmp -S'
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-fail-1.c'
+    sources:
+      binary: nesting-fail-1.s
+  group: GRPSERIAL
   info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

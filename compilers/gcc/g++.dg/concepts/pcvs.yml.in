@@ -1,45 +1,38 @@
-test_alias1_144:
-  bin: '"alias1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/alias1.C'
-  herit: *GRPSERIAL
-  info: &1
+---
+test_alias1_1:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/alias1.C'
+    sources:
+      binary: alias1.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_alias1_15:
-  bin: '"alias1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/alias1.C'
-  herit: *GRPSERIAL
-  info: *1
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_alias2_13:
-  bin: '"alias2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/alias2.C'
-  herit: *GRPSERIAL
-  info: &2
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_alias2_2:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/alias2.C'
+    sources:
+      binary: alias2.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_alias2_145:
-  bin: '"alias2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/alias2.C'
-  herit: *GRPSERIAL
-  info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_alias3_13:
-  bin: '"alias3.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/alias3.C'
-  herit: *GRPSERIAL
-  info: &3
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_alias3_3:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/alias3.C'
+    sources:
+      binary: alias3.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -51,22 +44,17 @@ test_alias3_13:
         ]*(constraint|invalid))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_alias3_146:
-  bin: '"alias3.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/alias3.C'
-  herit: *GRPSERIAL
-  info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_alias4_147:
-  bin: '"alias4.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/alias4.C'
-  herit: *GRPSERIAL
-  info: &4
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_alias4_4:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/alias4.C'
+    sources:
+      binary: alias4.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -78,22 +66,17 @@ test_alias4_147:
         ]*(" "))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_alias4_19:
-  bin: '"alias4.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/alias4.C'
-  herit: *GRPSERIAL
-  info: *4
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_auto1_148:
-  bin: '"auto1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/auto1.C'
-  herit: *GRPSERIAL
-  info: &5
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_auto1_5:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/auto1.C'
+    sources:
+      binary: auto1.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -121,22 +104,17 @@ test_auto1_148:
         ]*())[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_auto1_27:
-  bin: '"auto1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/auto1.C'
-  herit: *GRPSERIAL
-  info: *5
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_auto3_12:
-  bin: '"auto3.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/auto3.C'
-  herit: *GRPSERIAL
-  info: &6
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_auto3_6:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/auto3.C'
+    sources:
+      binary: auto3.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -148,22 +126,17 @@ test_auto3_12:
         ]*())[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_auto3_149:
-  bin: '"auto3.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/auto3.C'
-  herit: *GRPSERIAL
-  info: *6
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_class-deduction1_150:
-  bin: '"class-deduction1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/class-deduction1.C'
-  herit: *GRPSERIAL
-  info: &7
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_class-deduction1_7:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/class-deduction1.C'
+    sources:
+      binary: class-deduction1.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -175,40 +148,30 @@ test_class-deduction1_150:
         ]*())[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_class-deduction1_17:
-  bin: '"class-deduction1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/class-deduction1.C'
-  herit: *GRPSERIAL
-  info: *7
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_class1_14:
-  bin: '"class1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/class1.C'
-  herit: *GRPSERIAL
-  info: &8
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_class1_9:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/class1.C'
+    sources:
+      binary: class1.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_class1_152:
-  bin: '"class1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/class1.C'
-  herit: *GRPSERIAL
-  info: *8
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_class2_14:
-  bin: '"class2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/class2.C'
-  herit: *GRPSERIAL
-  info: &9
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_class2_10:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/class2.C'
+    sources:
+      binary: class2.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -220,76 +183,56 @@ test_class2_14:
         ]*(constraint|invalid))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_class2_153:
-  bin: '"class2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/class2.C'
-  herit: *GRPSERIAL
-  info: *9
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_class3_14:
-  bin: '"class3.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/class3.C'
-  herit: *GRPSERIAL
-  info: &10
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_class3_11:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/class3.C'
+    sources:
+      binary: class3.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_class3_154:
-  bin: '"class3.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/class3.C'
-  herit: *GRPSERIAL
-  info: *10
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_class4_155:
-  bin: '"class4.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/class4.C'
-  herit: *GRPSERIAL
-  info: &11
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_class4_12:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/class4.C'
+    sources:
+      binary: class4.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_class4_21:
-  bin: '"class4.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/class4.C'
-  herit: *GRPSERIAL
-  info: *11
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_class5_156:
-  bin: '"class5.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/class5.C'
-  herit: *GRPSERIAL
-  info: &12
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_class5_13:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/class5.C'
+    sources:
+      binary: class5.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_class5_26:
-  bin: '"class5.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/class5.C'
-  herit: *GRPSERIAL
-  info: *12
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_class6_157:
-  bin: '"class6.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/class6.C'
-  herit: *GRPSERIAL
-  info: &13
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_class6_14:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/class6.C'
+    sources:
+      binary: class6.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -309,40 +252,30 @@ test_class6_157:
         ]*(constraint|invalid))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_class6_18:
-  bin: '"class6.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/class6.C'
-  herit: *GRPSERIAL
-  info: *13
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_class_151:
-  bin: '"class.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/class.C'
-  herit: *GRPSERIAL
-  info: &14
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_class_8:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/class.C'
+    sources:
+      binary: class.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_class_52:
-  bin: '"class.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/class.C'
-  herit: *GRPSERIAL
-  info: *14
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_constrained-parm_13:
-  bin: '"constrained-parm.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/constrained-parm.C'
-  herit: *GRPSERIAL
-  info: &15
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_constrained-parm_15:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/constrained-parm.C'
+    sources:
+      binary: constrained-parm.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -410,22 +343,17 @@ test_constrained-parm_13:
         ]*(invalid))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_constrained-parm_158:
-  bin: '"constrained-parm.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/constrained-parm.C'
-  herit: *GRPSERIAL
-  info: *15
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_decl-diagnose_159:
-  bin: '"decl-diagnose.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/decl-diagnose.C'
-  herit: *GRPSERIAL
-  info: &16
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_decl-diagnose_16:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/decl-diagnose.C'
+    sources:
+      binary: decl-diagnose.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -549,40 +477,30 @@ test_decl-diagnose_159:
         ]*(static data member))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_decl-diagnose_33:
-  bin: '"decl-diagnose.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/decl-diagnose.C'
-  herit: *GRPSERIAL
-  info: *16
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_deduction-constraint1_12:
-  bin: '"deduction-constraint1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/deduction-constraint1.C'
-  herit: *GRPSERIAL
-  info: &17
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_deduction-constraint1_17:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/deduction-constraint1.C'
+    sources:
+      binary: deduction-constraint1.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_deduction-constraint1_160:
-  bin: '"deduction-constraint1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/deduction-constraint1.C'
-  herit: *GRPSERIAL
-  info: *17
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_diagnostic1_161:
-  bin: '"diagnostic1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/diagnostic1.C'
-  herit: *GRPSERIAL
-  info: &18
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_diagnostic1_18:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/diagnostic1.C'
+    sources:
+      binary: diagnostic1.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -602,40 +520,30 @@ test_diagnostic1_161:
         ]*())[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_diagnostic1_30:
-  bin: '"diagnostic1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/diagnostic1.C'
-  herit: *GRPSERIAL
-  info: *18
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_disjunction1_162:
-  bin: '"disjunction1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/disjunction1.C'
-  herit: *GRPSERIAL
-  info: &19
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_disjunction1_19:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/disjunction1.C'
+    sources:
+      binary: disjunction1.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_disjunction1_59:
-  bin: '"disjunction1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/disjunction1.C'
-  herit: *GRPSERIAL
-  info: *19
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_dr1430_163:
-  bin: '"dr1430.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/dr1430.C'
-  herit: *GRPSERIAL
-  info: &20
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_dr1430_20:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/dr1430.C'
+    sources:
+      binary: dr1430.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -671,112 +579,82 @@ test_dr1430_163:
         ]*(cannot call))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_dr1430_42:
-  bin: '"dr1430.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/dr1430.C'
-  herit: *GRPSERIAL
-  info: *20
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_equiv2_165:
-  bin: '"./equiv2.exe"'
-  cargs: '  -std=c++1z -fconcepts'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/equiv2.C'
-  herit: *GRPSERIAL
-  info: &21
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_equiv2_22:
+  build:
+    cflags: '  -std=c++1z -fconcepts'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/equiv2.C'
+    sources:
+      binary: ./equiv2.exe
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_equiv2_29:
-  bin: '"./equiv2.exe"'
-  cargs: '  -std=c++1z -fconcepts'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/equiv2.C'
-  herit: *GRPSERIAL
-  info: *21
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_equiv_164:
-  bin: '"equiv.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/equiv.C'
-  herit: *GRPSERIAL
-  info: &22
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_equiv_21:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/equiv.C'
+    sources:
+      binary: equiv.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_equiv_34:
-  bin: '"equiv.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/equiv.C'
-  herit: *GRPSERIAL
-  info: *22
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_explicit-inst1_166:
-  bin: '"explicit-inst1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/explicit-inst1.C'
-  herit: *GRPSERIAL
-  info: &23
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_explicit-inst1_23:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/explicit-inst1.C'
+    sources:
+      binary: explicit-inst1.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_explicit-inst1_21:
-  bin: '"explicit-inst1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/explicit-inst1.C'
-  herit: *GRPSERIAL
-  info: *23
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_explicit-inst2_167:
-  bin: '"explicit-inst2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/explicit-inst2.C'
-  herit: *GRPSERIAL
-  info: &24
-    extraopts:
-      - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_explicit-inst2_24:
-  bin: '"explicit-inst2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/explicit-inst2.C'
-  herit: *GRPSERIAL
-  info: *24
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_explicit-inst3_168:
-  bin: '"explicit-inst3.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/explicit-inst3.C'
-  herit: *GRPSERIAL
-  info: &25
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/explicit-inst2.C'
+    sources:
+      binary: explicit-inst2.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_explicit-inst3_27:
-  bin: '"explicit-inst3.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/explicit-inst3.C'
-  herit: *GRPSERIAL
-  info: *25
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_explicit-inst4_169:
-  bin: '"explicit-inst4.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/explicit-inst4.C'
-  herit: *GRPSERIAL
-  info: &26
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_explicit-inst3_25:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/explicit-inst3.C'
+    sources:
+      binary: explicit-inst3.s
+  group: GRPSERIAL
+  info:
+    extraopts:
+      - '"-std=c++1z -fconcepts"'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_explicit-inst4_26:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/explicit-inst4.C'
+    sources:
+      binary: explicit-inst4.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -788,58 +666,43 @@ test_explicit-inst4_169:
         ]*(match))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_explicit-inst4_17:
-  bin: '"explicit-inst4.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/explicit-inst4.C'
-  herit: *GRPSERIAL
-  info: *26
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_explicit-spec1_170:
-  bin: '"./explicit-spec1.exe"'
-  cargs: '  -std=c++1z -fconcepts'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/explicit-spec1.C'
-  herit: *GRPSERIAL
-  info: &27
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_explicit-spec1_27:
+  build:
+    cflags: '  -std=c++1z -fconcepts'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/explicit-spec1.C'
+    sources:
+      binary: ./explicit-spec1.exe
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_explicit-spec1_32:
-  bin: '"./explicit-spec1.exe"'
-  cargs: '  -std=c++1z -fconcepts'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/explicit-spec1.C'
-  herit: *GRPSERIAL
-  info: *27
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_explicit-spec2_13:
-  bin: '"explicit-spec2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/explicit-spec2.C'
-  herit: *GRPSERIAL
-  info: &28
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_explicit-spec2_28:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/explicit-spec2.C'
+    sources:
+      binary: explicit-spec2.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_explicit-spec2_171:
-  bin: '"explicit-spec2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/explicit-spec2.C'
-  herit: *GRPSERIAL
-  info: *28
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_explicit-spec3_13:
-  bin: '"explicit-spec3.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/explicit-spec3.C'
-  herit: *GRPSERIAL
-  info: &29
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_explicit-spec3_29:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/explicit-spec3.C'
+    sources:
+      binary: explicit-spec3.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -851,40 +714,30 @@ test_explicit-spec3_13:
         ]*(constraint))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_explicit-spec3_172:
-  bin: '"explicit-spec3.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/explicit-spec3.C'
-  herit: *GRPSERIAL
-  info: *29
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_explicit-spec4_173:
-  bin: '"./explicit-spec4.exe"'
-  cargs: '  -std=c++1z -fconcepts'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/explicit-spec4.C'
-  herit: *GRPSERIAL
-  info: &30
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_explicit-spec4_30:
+  build:
+    cflags: '  -std=c++1z -fconcepts'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/explicit-spec4.C'
+    sources:
+      binary: ./explicit-spec4.exe
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_explicit-spec4_51:
-  bin: '"./explicit-spec4.exe"'
-  cargs: '  -std=c++1z -fconcepts'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/explicit-spec4.C'
-  herit: *GRPSERIAL
-  info: *30
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_explicit-spec5_174:
-  bin: '"explicit-spec5.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/explicit-spec5.C'
-  herit: *GRPSERIAL
-  info: &31
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_explicit-spec5_31:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/explicit-spec5.C'
+    sources:
+      binary: explicit-spec5.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -896,40 +749,30 @@ test_explicit-spec5_174:
         ]*(match))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_explicit-spec5_21:
-  bin: '"explicit-spec5.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/explicit-spec5.C'
-  herit: *GRPSERIAL
-  info: *31
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_explicit-spec6_175:
-  bin: '"explicit-spec6.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/explicit-spec6.C'
-  herit: *GRPSERIAL
-  info: &32
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_explicit-spec6_32:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/explicit-spec6.C'
+    sources:
+      binary: explicit-spec6.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_explicit-spec6_18:
-  bin: '"explicit-spec6.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/explicit-spec6.C'
-  herit: *GRPSERIAL
-  info: *32
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_expression2_177:
-  bin: '"expression2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/expression2.C'
-  herit: *GRPSERIAL
-  info: &33
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_expression2_34:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/expression2.C'
+    sources:
+      binary: expression2.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -965,22 +808,17 @@ test_expression2_177:
         ]*())[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_expression2_42:
-  bin: '"expression2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/expression2.C'
-  herit: *GRPSERIAL
-  info: *33
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_expression3_178:
-  bin: '"expression3.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/expression3.C'
-  herit: *GRPSERIAL
-  info: &34
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_expression3_35:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/expression3.C'
+    sources:
+      binary: expression3.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -1000,58 +838,43 @@ test_expression3_178:
         ]*(failed))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_expression3_23:
-  bin: '"expression3.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/expression3.C'
-  herit: *GRPSERIAL
-  info: *34
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_expression_176:
-  bin: '"./expression.exe"'
-  cargs: '  -std=c++1z -fconcepts'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/expression.C'
-  herit: *GRPSERIAL
-  info: &35
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_expression_33:
+  build:
+    cflags: '  -std=c++1z -fconcepts'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/expression.C'
+    sources:
+      binary: ./expression.exe
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_expression_20:
-  bin: '"./expression.exe"'
-  cargs: '  -std=c++1z -fconcepts'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/expression.C'
-  herit: *GRPSERIAL
-  info: *35
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_feature-macro_179:
-  bin: '"feature-macro.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/feature-macro.C'
-  herit: *GRPSERIAL
-  info: &36
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_feature-macro_36:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/feature-macro.C'
+    sources:
+      binary: feature-macro.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_feature-macro_5:
-  bin: '"feature-macro.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/feature-macro.C'
-  herit: *GRPSERIAL
-  info: *36
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fn-concept1_180:
-  bin: '"fn-concept1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/fn-concept1.C'
-  herit: *GRPSERIAL
-  info: &37
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_fn-concept1_37:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/fn-concept1.C'
+    sources:
+      binary: fn-concept1.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -1063,22 +886,17 @@ test_fn-concept1_180:
         ]*(multiple statements))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fn-concept1_9:
-  bin: '"fn-concept1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/fn-concept1.C'
-  herit: *GRPSERIAL
-  info: *37
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fn-concept2_181:
-  bin: '"fn-concept2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/fn-concept2.C'
-  herit: *GRPSERIAL
-  info: &38
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_fn-concept2_38:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/fn-concept2.C'
+    sources:
+      binary: fn-concept2.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -1098,22 +916,17 @@ test_fn-concept2_181:
         ]*(return type))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fn-concept2_7:
-  bin: '"fn-concept2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/fn-concept2.C'
-  herit: *GRPSERIAL
-  info: *38
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fn10_183:
-  bin: '"fn10.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/fn10.C'
-  herit: *GRPSERIAL
-  info: &39
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_fn10_40:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/fn10.C'
+    sources:
+      binary: fn10.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -1125,40 +938,30 @@ test_fn10_183:
         ]*(no match))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fn10_92:
-  bin: '"fn10.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/fn10.C'
-  herit: *GRPSERIAL
-  info: *39
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fn1_182:
-  bin: '"fn1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/fn1.C'
-  herit: *GRPSERIAL
-  info: &40
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_fn1_39:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/fn1.C'
+    sources:
+      binary: fn1.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fn1_25:
-  bin: '"fn1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/fn1.C'
-  herit: *GRPSERIAL
-  info: *40
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fn2_18:
-  bin: '"fn2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/fn2.C'
-  herit: *GRPSERIAL
-  info: &41
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_fn2_41:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/fn2.C'
+    sources:
+      binary: fn2.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -1178,40 +981,30 @@ test_fn2_18:
         ]*(cannot call))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fn2_184:
-  bin: '"fn2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/fn2.C'
-  herit: *GRPSERIAL
-  info: *41
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fn3_185:
-  bin: '"./fn3.exe"'
-  cargs: '  -std=c++1z -fconcepts'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/fn3.C'
-  herit: *GRPSERIAL
-  info: &42
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_fn3_42:
+  build:
+    cflags: '  -std=c++1z -fconcepts'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/fn3.C'
+    sources:
+      binary: ./fn3.exe
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fn3_25:
-  bin: '"./fn3.exe"'
-  cargs: '  -std=c++1z -fconcepts'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/fn3.C'
-  herit: *GRPSERIAL
-  info: *42
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fn4_17:
-  bin: '"fn4.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/fn4.C'
-  herit: *GRPSERIAL
-  info: &43
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_fn4_43:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/fn4.C'
+    sources:
+      binary: fn4.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -1223,22 +1016,17 @@ test_fn4_17:
         ]*(matching))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fn4_186:
-  bin: '"fn4.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/fn4.C'
-  herit: *GRPSERIAL
-  info: *43
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fn5_187:
-  bin: '"fn5.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/fn5.C'
-  herit: *GRPSERIAL
-  info: &44
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_fn5_44:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/fn5.C'
+    sources:
+      binary: fn5.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -1274,22 +1062,17 @@ test_fn5_187:
         ]*(cannot))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fn5_23:
-  bin: '"fn5.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/fn5.C'
-  herit: *GRPSERIAL
-  info: *44
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fn6_16:
-  bin: '"fn6.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/fn6.C'
-  herit: *GRPSERIAL
-  info: &45
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_fn6_45:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/fn6.C'
+    sources:
+      binary: fn6.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -1301,40 +1084,30 @@ test_fn6_16:
         ]*(redefinition))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fn6_188:
-  bin: '"fn6.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/fn6.C'
-  herit: *GRPSERIAL
-  info: *45
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fn7_189:
-  bin: '"fn7.exe"'
-  cargs: '  -std=c++1z -fconcepts'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/fn7.C'
-  herit: *GRPSERIAL
-  info: &46
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_fn7_46:
+  build:
+    cflags: '  -std=c++1z -fconcepts'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/fn7.C'
+    sources:
+      binary: fn7.exe
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fn7_8:
-  bin: '"fn7.exe"'
-  cargs: '  -std=c++1z -fconcepts'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/fn7.C'
-  herit: *GRPSERIAL
-  info: *46
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fn8_190:
-  bin: '"fn8.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/fn8.C'
-  herit: *GRPSERIAL
-  info: &47
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_fn8_47:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/fn8.C'
+    sources:
+      binary: fn8.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -1394,40 +1167,30 @@ test_fn8_190:
         ]*(no matches))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fn8_27:
-  bin: '"fn8.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/fn8.C'
-  herit: *GRPSERIAL
-  info: *47
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fn9_191:
-  bin: '"./fn9.exe"'
-  cargs: '  -std=c++1z -fconcepts'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/fn9.C'
-  herit: *GRPSERIAL
-  info: &48
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_fn9_48:
+  build:
+    cflags: '  -std=c++1z -fconcepts'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/fn9.C'
+    sources:
+      binary: ./fn9.exe
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fn9_35:
-  bin: '"./fn9.exe"'
-  cargs: '  -std=c++1z -fconcepts'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/fn9.C'
-  herit: *GRPSERIAL
-  info: *48
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_friend1_192:
-  bin: '"friend1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/friend1.C'
-  herit: *GRPSERIAL
-  info: &49
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_friend1_49:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/friend1.C'
+    sources:
+      binary: friend1.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -1463,22 +1226,17 @@ test_friend1_192:
         ]*(no match))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_friend1_34:
-  bin: '"friend1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/friend1.C'
-  herit: *GRPSERIAL
-  info: *49
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_friend2_193:
-  bin: '"friend2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/friend2.C'
-  herit: *GRPSERIAL
-  info: &50
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_friend2_50:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/friend2.C'
+    sources:
+      binary: friend2.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -1490,22 +1248,17 @@ test_friend2_193:
         ]*(constraint failure))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_friend2_20:
-  bin: '"friend2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/friend2.C'
-  herit: *GRPSERIAL
-  info: *50
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_generic-fn-err_194:
-  bin: '"generic-fn-err.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/generic-fn-err.C'
-  herit: *GRPSERIAL
-  info: &51
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_generic-fn-err_51:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/generic-fn-err.C'
+    sources:
+      binary: generic-fn-err.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -1565,40 +1318,30 @@ test_generic-fn-err_194:
         ]*(matching))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_generic-fn-err_49:
-  bin: '"generic-fn-err.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/generic-fn-err.C'
-  herit: *GRPSERIAL
-  info: *51
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_generic-fn_157:
-  bin: '"./generic-fn.exe"'
-  cargs: '  -std=c++1z -fconcepts'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/generic-fn.C'
-  herit: *GRPSERIAL
-  info: &52
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_generic-fn_52:
+  build:
+    cflags: '  -std=c++1z -fconcepts'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/generic-fn.C'
+    sources:
+      binary: ./generic-fn.exe
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_generic-fn_195:
-  bin: '"./generic-fn.exe"'
-  cargs: '  -std=c++1z -fconcepts'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/generic-fn.C'
-  herit: *GRPSERIAL
-  info: *52
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_iconv1_196:
-  bin: '"iconv1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/iconv1.C'
-  herit: *GRPSERIAL
-  info: &53
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_iconv1_53:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/iconv1.C'
+    sources:
+      binary: iconv1.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -1618,40 +1361,30 @@ test_iconv1_196:
         ]*(assert))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_iconv1_20:
-  bin: '"iconv1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/iconv1.C'
-  herit: *GRPSERIAL
-  info: *53
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_inherit-ctor1_197:
-  bin: '"inherit-ctor1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/inherit-ctor1.C'
-  herit: *GRPSERIAL
-  info: &54
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_inherit-ctor1_54:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/inherit-ctor1.C'
+    sources:
+      binary: inherit-ctor1.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_inherit-ctor1_22:
-  bin: '"inherit-ctor1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/inherit-ctor1.C'
-  herit: *GRPSERIAL
-  info: *54
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_inherit-ctor2_18:
-  bin: '"inherit-ctor2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/inherit-ctor2.C'
-  herit: *GRPSERIAL
-  info: &55
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_inherit-ctor2_55:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/inherit-ctor2.C'
+    sources:
+      binary: inherit-ctor2.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -1671,40 +1404,30 @@ test_inherit-ctor2_18:
         ]*(deleted function))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_inherit-ctor2_198:
-  bin: '"inherit-ctor2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/inherit-ctor2.C'
-  herit: *GRPSERIAL
-  info: *55
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_inherit-ctor3_199:
-  bin: '"inherit-ctor3.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/inherit-ctor3.C'
-  herit: *GRPSERIAL
-  info: &56
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_inherit-ctor3_56:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/inherit-ctor3.C'
+    sources:
+      binary: inherit-ctor3.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_inherit-ctor3_21:
-  bin: '"inherit-ctor3.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/inherit-ctor3.C'
-  herit: *GRPSERIAL
-  info: *56
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_inherit-ctor4_18:
-  bin: '"inherit-ctor4.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/inherit-ctor4.C'
-  herit: *GRPSERIAL
-  info: &57
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_inherit-ctor4_57:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/inherit-ctor4.C'
+    sources:
+      binary: inherit-ctor4.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -1716,76 +1439,56 @@ test_inherit-ctor4_18:
         ]*(no matching function))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_inherit-ctor4_200:
-  bin: '"inherit-ctor4.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/inherit-ctor4.C'
-  herit: *GRPSERIAL
-  info: *57
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_intro1_201:
-  bin: '"intro1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/intro1.C'
-  herit: *GRPSERIAL
-  info: &58
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_intro1_58:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/intro1.C'
+    sources:
+      binary: intro1.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_intro1_38:
-  bin: '"intro1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/intro1.C'
-  herit: *GRPSERIAL
-  info: *58
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_intro2_202:
-  bin: '"./intro2.exe"'
-  cargs: '  -std=c++1z -fconcepts'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/intro2.C'
-  herit: *GRPSERIAL
-  info: &59
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_intro2_59:
+  build:
+    cflags: '  -std=c++1z -fconcepts'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/intro2.C'
+    sources:
+      binary: ./intro2.exe
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_intro2_27:
-  bin: '"./intro2.exe"'
-  cargs: '  -std=c++1z -fconcepts'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/intro2.C'
-  herit: *GRPSERIAL
-  info: *59
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_intro3_17:
-  bin: '"intro3.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/intro3.C'
-  herit: *GRPSERIAL
-  info: &60
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_intro3_60:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/intro3.C'
+    sources:
+      binary: intro3.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_intro3_203:
-  bin: '"intro3.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/intro3.C'
-  herit: *GRPSERIAL
-  info: *60
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_intro4_204:
-  bin: '"intro4.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/intro4.C'
-  herit: *GRPSERIAL
-  info: &61
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_intro4_61:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/intro4.C'
+    sources:
+      binary: intro4.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -1837,76 +1540,56 @@ test_intro4_204:
         ]*(no matching))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_intro4_32:
-  bin: '"intro4.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/intro4.C'
-  herit: *GRPSERIAL
-  info: *61
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_intro5_15:
-  bin: '"intro5.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/intro5.C'
-  herit: *GRPSERIAL
-  info: &62
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_intro5_62:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/intro5.C'
+    sources:
+      binary: intro5.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_intro5_205:
-  bin: '"intro5.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/intro5.C'
-  herit: *GRPSERIAL
-  info: *62
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_intro6_12:
-  bin: '"intro6.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/intro6.C'
-  herit: *GRPSERIAL
-  info: &63
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_intro6_63:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/intro6.C'
+    sources:
+      binary: intro6.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_intro6_206:
-  bin: '"intro6.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/intro6.C'
-  herit: *GRPSERIAL
-  info: *63
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_intro7_13:
-  bin: '"intro7.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/intro7.C'
-  herit: *GRPSERIAL
-  info: &64
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_intro7_64:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/intro7.C'
+    sources:
+      binary: intro7.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_intro7_207:
-  bin: '"intro7.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/intro7.C'
-  herit: *GRPSERIAL
-  info: *64
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_member-concept_208:
-  bin: '"member-concept.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/member-concept.C'
-  herit: *GRPSERIAL
-  info: &65
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_member-concept_65:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/member-concept.C'
+    sources:
+      binary: member-concept.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -1926,22 +1609,17 @@ test_member-concept_208:
         ]*(a concept cannot be a member function))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_member-concept_9:
-  bin: '"member-concept.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/member-concept.C'
-  herit: *GRPSERIAL
-  info: *65
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_memfun-err_209:
-  bin: '"memfun-err.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/memfun-err.C'
-  herit: *GRPSERIAL
-  info: &66
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_memfun-err_66:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/memfun-err.C'
+    sources:
+      binary: memfun-err.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -1985,220 +1663,160 @@ test_memfun-err_209:
         ]*(matching))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_memfun-err_37:
-  bin: '"memfun-err.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/memfun-err.C'
-  herit: *GRPSERIAL
-  info: *66
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_memfun2_21:
-  bin: '"memfun2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/memfun2.C'
-  herit: *GRPSERIAL
-  info: &67
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_memfun2_68:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/memfun2.C'
+    sources:
+      binary: memfun2.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_memfun2_211:
-  bin: '"memfun2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/memfun2.C'
-  herit: *GRPSERIAL
-  info: *67
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_memfun_112:
-  bin: '"memfun.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/memfun.C'
-  herit: *GRPSERIAL
-  info: &68
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_memfun_67:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/memfun.C'
+    sources:
+      binary: memfun.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_memfun_210:
-  bin: '"memfun.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/memfun.C'
-  herit: *GRPSERIAL
-  info: *68
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_memtmpl1_15:
-  bin: '"memtmpl1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/memtmpl1.C'
-  herit: *GRPSERIAL
-  info: &69
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_memtmpl1_69:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/memtmpl1.C'
+    sources:
+      binary: memtmpl1.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_memtmpl1_212:
-  bin: '"memtmpl1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/memtmpl1.C'
-  herit: *GRPSERIAL
-  info: *69
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_partial-concept-id1_213:
-  bin: '"partial-concept-id1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/partial-concept-id1.C'
-  herit: *GRPSERIAL
-  info: &70
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_partial-concept-id1_70:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/partial-concept-id1.C'
+    sources:
+      binary: partial-concept-id1.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_partial-concept-id1_33:
-  bin: '"partial-concept-id1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/partial-concept-id1.C'
-  herit: *GRPSERIAL
-  info: *70
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_partial-concept-id2_15:
-  bin: '"partial-concept-id2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/partial-concept-id2.C'
-  herit: *GRPSERIAL
-  info: &71
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_partial-concept-id2_71:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/partial-concept-id2.C'
+    sources:
+      binary: partial-concept-id2.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_partial-concept-id2_214:
-  bin: '"partial-concept-id2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/partial-concept-id2.C'
-  herit: *GRPSERIAL
-  info: *71
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_partial-spec2_216:
-  bin: '"partial-spec2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/partial-spec2.C'
-  herit: *GRPSERIAL
-  info: &72
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_partial-spec2_73:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/partial-spec2.C'
+    sources:
+      binary: partial-spec2.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_partial-spec2_32:
-  bin: '"partial-spec2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/partial-spec2.C'
-  herit: *GRPSERIAL
-  info: *72
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_partial-spec3_217:
-  bin: '"partial-spec3.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/partial-spec3.C'
-  herit: *GRPSERIAL
-  info: &73
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_partial-spec3_74:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/partial-spec3.C'
+    sources:
+      binary: partial-spec3.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_partial-spec3_7:
-  bin: '"partial-spec3.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/partial-spec3.C'
-  herit: *GRPSERIAL
-  info: *73
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_partial-spec4_218:
-  bin: '"partial-spec4.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/partial-spec4.C'
-  herit: *GRPSERIAL
-  info: &74
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_partial-spec4_75:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/partial-spec4.C'
+    sources:
+      binary: partial-spec4.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_partial-spec4_49:
-  bin: '"partial-spec4.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/partial-spec4.C'
-  herit: *GRPSERIAL
-  info: *74
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_partial-spec5_12:
-  bin: '"partial-spec5.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/partial-spec5.C'
-  herit: *GRPSERIAL
-  info: &75
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_partial-spec5_76:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/partial-spec5.C'
+    sources:
+      binary: partial-spec5.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_partial-spec5_219:
-  bin: '"partial-spec5.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/partial-spec5.C'
-  herit: *GRPSERIAL
-  info: *75
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_partial-spec6_220:
-  bin: '"partial-spec6.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/partial-spec6.C'
-  herit: *GRPSERIAL
-  info: &76
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_partial-spec6_77:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/partial-spec6.C'
+    sources:
+      binary: partial-spec6.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_partial-spec6_24:
-  bin: '"partial-spec6.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/partial-spec6.C'
-  herit: *GRPSERIAL
-  info: *76
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_partial-spec_15:
-  bin: '"partial-spec.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/partial-spec.C'
-  herit: *GRPSERIAL
-  info: &77
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_partial-spec_72:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/partial-spec.C'
+    sources:
+      binary: partial-spec.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_partial-spec_215:
-  bin: '"partial-spec.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/partial-spec.C'
-  herit: *GRPSERIAL
-  info: *77
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_placeholder1_221:
-  bin: '"placeholder1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/placeholder1.C'
-  herit: *GRPSERIAL
-  info: &78
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_placeholder1_78:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/placeholder1.C'
+    sources:
+      binary: placeholder1.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -2210,22 +1828,17 @@ test_placeholder1_221:
         ]*(does not satisfy|is_same))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_placeholder1_34:
-  bin: '"placeholder1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/placeholder1.C'
-  herit: *GRPSERIAL
-  info: *78
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_placeholder2_222:
-  bin: '"placeholder2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/placeholder2.C'
-  herit: *GRPSERIAL
-  info: &79
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_placeholder2_79:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/placeholder2.C'
+    sources:
+      binary: placeholder2.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -2245,22 +1858,17 @@ test_placeholder2_222:
         ]*(cannot call))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_placeholder2_32:
-  bin: '"placeholder2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/placeholder2.C'
-  herit: *GRPSERIAL
-  info: *79
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_placeholder3_17:
-  bin: '"placeholder3.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/placeholder3.C'
-  herit: *GRPSERIAL
-  info: &80
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_placeholder3_80:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/placeholder3.C'
+    sources:
+      binary: placeholder3.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -2272,22 +1880,17 @@ test_placeholder3_17:
         ]*())[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_placeholder3_223:
-  bin: '"placeholder3.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/placeholder3.C'
-  herit: *GRPSERIAL
-  info: *80
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_placeholder4_20:
-  bin: '"placeholder4.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/placeholder4.C'
-  herit: *GRPSERIAL
-  info: &81
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_placeholder4_81:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/placeholder4.C'
+    sources:
+      binary: placeholder4.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -2299,22 +1902,17 @@ test_placeholder4_20:
         ]*())[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_placeholder4_224:
-  bin: '"placeholder4.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/placeholder4.C'
-  herit: *GRPSERIAL
-  info: *81
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_placeholder5_17:
-  bin: '"placeholder5.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/placeholder5.C'
-  herit: *GRPSERIAL
-  info: &82
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_placeholder5_82:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/placeholder5.C'
+    sources:
+      binary: placeholder5.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -2326,22 +1924,17 @@ test_placeholder5_17:
         ]*())[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_placeholder5_225:
-  bin: '"placeholder5.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/placeholder5.C'
-  herit: *GRPSERIAL
-  info: *82
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_placeholder6_10:
-  bin: '"placeholder6.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/placeholder6.C'
-  herit: *GRPSERIAL
-  info: &83
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_placeholder6_83:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/placeholder6.C'
+    sources:
+      binary: placeholder6.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -2353,40 +1946,30 @@ test_placeholder6_10:
         ]*())[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_placeholder6_226:
-  bin: '"placeholder6.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/placeholder6.C'
-  herit: *GRPSERIAL
-  info: *83
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr65552_19:
-  bin: '"pr65552.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/pr65552.C'
-  herit: *GRPSERIAL
-  info: &84
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr65552_84:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/pr65552.C'
+    sources:
+      binary: pr65552.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr65552_227:
-  bin: '"pr65552.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/pr65552.C'
-  herit: *GRPSERIAL
-  info: *84
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr65575_228:
-  bin: '"pr65575.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/pr65575.C'
-  herit: *GRPSERIAL
-  info: &85
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr65575_85:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/pr65575.C'
+    sources:
+      binary: pr65575.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -2422,94 +2005,69 @@ test_pr65575_228:
         ]*(cannot call))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr65575_23:
-  bin: '"pr65575.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/pr65575.C'
-  herit: *GRPSERIAL
-  info: *85
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr65634_19:
-  bin: '"pr65634.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/pr65634.C'
-  herit: *GRPSERIAL
-  info: &86
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr65634_86:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/pr65634.C'
+    sources:
+      binary: pr65634.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr65634_229:
-  bin: '"pr65634.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/pr65634.C'
-  herit: *GRPSERIAL
-  info: *86
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr65636_10:
-  bin: '"pr65636.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/pr65636.C'
-  herit: *GRPSERIAL
-  info: &87
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr65636_87:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/pr65636.C'
+    sources:
+      binary: pr65636.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr65636_230:
-  bin: '"pr65636.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/pr65636.C'
-  herit: *GRPSERIAL
-  info: *87
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr65681_106:
-  bin: '"pr65681.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/pr65681.C'
-  herit: *GRPSERIAL
-  info: &88
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr65681_88:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/pr65681.C'
+    sources:
+      binary: pr65681.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr65681_231:
-  bin: '"pr65681.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/pr65681.C'
-  herit: *GRPSERIAL
-  info: *88
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr65848_232:
-  bin: '"pr65848.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/pr65848.C'
-  herit: *GRPSERIAL
-  info: &89
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr65848_89:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/pr65848.C'
+    sources:
+      binary: pr65848.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr65848_75:
-  bin: '"pr65848.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/pr65848.C'
-  herit: *GRPSERIAL
-  info: *89
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr65854_233:
-  bin: '"pr65854.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/pr65854.C'
-  herit: *GRPSERIAL
-  info: &90
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr65854_90:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/pr65854.C'
+    sources:
+      binary: pr65854.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -2521,94 +2079,69 @@ test_pr65854_233:
         ]*(cannot call function))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr65854_24:
-  bin: '"pr65854.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/pr65854.C'
-  herit: *GRPSERIAL
-  info: *90
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr66091_19:
-  bin: '"pr66091.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/pr66091.C'
-  herit: *GRPSERIAL
-  info: &91
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr66091_91:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/pr66091.C'
+    sources:
+      binary: pr66091.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr66091_234:
-  bin: '"pr66091.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/pr66091.C'
-  herit: *GRPSERIAL
-  info: *91
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr67249_235:
-  bin: '"pr67249.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/pr67249.C'
-  herit: *GRPSERIAL
-  info: &92
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr67249_92:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/pr67249.C'
+    sources:
+      binary: pr67249.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr67249_5:
-  bin: '"pr67249.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/pr67249.C'
-  herit: *GRPSERIAL
-  info: *92
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr68434_21:
-  bin: '"pr68434.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/pr68434.C'
-  herit: *GRPSERIAL
-  info: &93
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr68434_93:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/pr68434.C'
+    sources:
+      binary: pr68434.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr68434_236:
-  bin: '"pr68434.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/pr68434.C'
-  herit: *GRPSERIAL
-  info: *93
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr68683_237:
-  bin: '"pr68683.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/pr68683.C'
-  herit: *GRPSERIAL
-  info: &94
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_pr68683_94:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/pr68683.C'
+    sources:
+      binary: pr68683.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_pr68683_24:
-  bin: '"pr68683.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/pr68683.C'
-  herit: *GRPSERIAL
-  info: *94
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req-neg1_10:
-  bin: '"req-neg1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req-neg1.C'
-  herit: *GRPSERIAL
-  info: &95
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_req-neg1_95:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req-neg1.C'
+    sources:
+      binary: req-neg1.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -2660,22 +2193,17 @@ test_req-neg1_10:
         ]*(type-id))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req-neg1_238:
-  bin: '"req-neg1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req-neg1.C'
-  herit: *GRPSERIAL
-  info: *95
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req10_18:
-  bin: '"req10.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req10.C'
-  herit: *GRPSERIAL
-  info: &96
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_req10_97:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req10.C'
+    sources:
+      binary: req10.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -2687,22 +2215,17 @@ test_req10_18:
         ]*(failed))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req10_240:
-  bin: '"req10.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req10.C'
-  herit: *GRPSERIAL
-  info: *96
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req11_241:
-  bin: '"req11.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req11.C'
-  herit: *GRPSERIAL
-  info: &97
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_req11_98:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req11.C'
+    sources:
+      binary: req11.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -2714,166 +2237,121 @@ test_req11_241:
         ]*(cannot call))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req11_28:
-  bin: '"req11.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req11.C'
-  herit: *GRPSERIAL
-  info: *97
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req12_242:
-  bin: '"req12.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req12.C'
-  herit: *GRPSERIAL
-  info: &98
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_req12_99:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req12.C'
+    sources:
+      binary: req12.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req12_25:
-  bin: '"req12.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req12.C'
-  herit: *GRPSERIAL
-  info: *98
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req13_13:
-  bin: '"req13.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req13.C'
-  herit: *GRPSERIAL
-  info: &99
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_req13_100:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req13.C'
+    sources:
+      binary: req13.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req13_243:
-  bin: '"req13.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req13.C'
-  herit: *GRPSERIAL
-  info: *99
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req14_14:
-  bin: '"req14.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req14.C'
-  herit: *GRPSERIAL
-  info: &100
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_req14_101:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req14.C'
+    sources:
+      binary: req14.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req14_244:
-  bin: '"req14.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req14.C'
-  herit: *GRPSERIAL
-  info: *100
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req15_21:
-  bin: '"req15.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req15.C'
-  herit: *GRPSERIAL
-  info: &101
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_req15_102:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req15.C'
+    sources:
+      binary: req15.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req15_245:
-  bin: '"req15.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req15.C'
-  herit: *GRPSERIAL
-  info: *101
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req16_19:
-  bin: '"req16.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req16.C'
-  herit: *GRPSERIAL
-  info: &102
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_req16_103:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req16.C'
+    sources:
+      binary: req16.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req16_246:
-  bin: '"req16.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req16.C'
-  herit: *GRPSERIAL
-  info: *102
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req17_20:
-  bin: '"req17.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req17.C'
-  herit: *GRPSERIAL
-  info: &103
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_req17_104:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req17.C'
+    sources:
+      binary: req17.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req17_247:
-  bin: '"req17.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req17.C'
-  herit: *GRPSERIAL
-  info: *103
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req18_17:
-  bin: '"req18.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req18.C'
-  herit: *GRPSERIAL
-  info: &104
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_req18_105:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req18.C'
+    sources:
+      binary: req18.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req18_248:
-  bin: '"req18.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req18.C'
-  herit: *GRPSERIAL
-  info: *104
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req19_13:
-  bin: '"req19.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req19.C'
-  herit: *GRPSERIAL
-  info: &105
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_req19_106:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req19.C'
+    sources:
+      binary: req19.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req19_249:
-  bin: '"req19.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req19.C'
-  herit: *GRPSERIAL
-  info: *105
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req1_239:
-  bin: '"req1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req1.C'
-  herit: *GRPSERIAL
-  info: &106
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_req1_96:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req1.C'
+    sources:
+      binary: req1.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -2901,40 +2379,30 @@ test_req1_239:
         ]*(constraint failure))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req1_29:
-  bin: '"req1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req1.C'
-  herit: *GRPSERIAL
-  info: *106
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req20_20:
-  bin: '"req20.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req20.C'
-  herit: *GRPSERIAL
-  info: &107
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_req20_108:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req20.C'
+    sources:
+      binary: req20.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req20_251:
-  bin: '"req20.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req20.C'
-  herit: *GRPSERIAL
-  info: *107
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req2_19:
-  bin: '"req2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req2.C'
-  herit: *GRPSERIAL
-  info: &108
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_req2_107:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req2.C'
+    sources:
+      binary: req2.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -2954,40 +2422,30 @@ test_req2_19:
         ]*(cannot call))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req2_250:
-  bin: '"req2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req2.C'
-  herit: *GRPSERIAL
-  info: *108
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req3_17:
-  bin: '"./req3.exe"'
-  cargs: '  -std=c++1z -fconcepts'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req3.C'
-  herit: *GRPSERIAL
-  info: &109
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_req3_109:
+  build:
+    cflags: '  -std=c++1z -fconcepts'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req3.C'
+    sources:
+      binary: ./req3.exe
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req3_252:
-  bin: '"./req3.exe"'
-  cargs: '  -std=c++1z -fconcepts'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req3.C'
-  herit: *GRPSERIAL
-  info: *109
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req4_18:
-  bin: '"req4.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req4.C'
-  herit: *GRPSERIAL
-  info: &110
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_req4_110:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req4.C'
+    sources:
+      binary: req4.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -2999,22 +2457,17 @@ test_req4_18:
         ]*(cannot call|uses overloaded operator))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req4_253:
-  bin: '"req4.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req4.C'
-  herit: *GRPSERIAL
-  info: *110
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req5_18:
-  bin: '"req5.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req5.C'
-  herit: *GRPSERIAL
-  info: &111
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_req5_111:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req5.C'
+    sources:
+      binary: req5.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -3026,22 +2479,17 @@ test_req5_18:
         ]*(cannot call|uses overloaded operator))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req5_254:
-  bin: '"req5.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req5.C'
-  herit: *GRPSERIAL
-  info: *111
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req6_18:
-  bin: '"req6.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req6.C'
-  herit: *GRPSERIAL
-  info: &112
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_req6_112:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req6.C'
+    sources:
+      binary: req6.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -3053,22 +2501,17 @@ test_req6_18:
         ]*(does not have|cannot call))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req6_255:
-  bin: '"req6.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req6.C'
-  herit: *GRPSERIAL
-  info: *112
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req7_24:
-  bin: '"req7.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req7.C'
-  herit: *GRPSERIAL
-  info: &113
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_req7_113:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req7.C'
+    sources:
+      binary: req7.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -3080,76 +2523,56 @@ test_req7_24:
         ]*(not|bool))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req7_256:
-  bin: '"req7.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req7.C'
-  herit: *GRPSERIAL
-  info: *113
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req8_17:
-  bin: '"req8.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req8.C'
-  herit: *GRPSERIAL
-  info: &114
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_req8_114:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req8.C'
+    sources:
+      binary: req8.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req8_257:
-  bin: '"req8.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req8.C'
-  herit: *GRPSERIAL
-  info: *114
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req9_24:
-  bin: '"req9.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req9.C'
-  herit: *GRPSERIAL
-  info: &115
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_req9_115:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req9.C'
+    sources:
+      binary: req9.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_req9_258:
-  bin: '"req9.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/req9.C'
-  herit: *GRPSERIAL
-  info: *115
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-parm10_17:
-  bin: '"template-parm10.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-parm10.C'
-  herit: *GRPSERIAL
-  info: &116
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_template-parm10_117:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-parm10.C'
+    sources:
+      binary: template-parm10.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-parm10_260:
-  bin: '"template-parm10.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-parm10.C'
-  herit: *GRPSERIAL
-  info: *116
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-parm11_18:
-  bin: '"template-parm11.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-parm11.C'
-  herit: *GRPSERIAL
-  info: &117
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_template-parm11_118:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-parm11.C'
+    sources:
+      binary: template-parm11.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -3161,58 +2584,43 @@ test_template-parm11_18:
         ]*(cannot call))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-parm11_261:
-  bin: '"template-parm11.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-parm11.C'
-  herit: *GRPSERIAL
-  info: *117
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-parm12_20:
-  bin: '"template-parm12.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-parm12.C'
-  herit: *GRPSERIAL
-  info: &118
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_template-parm12_119:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-parm12.C'
+    sources:
+      binary: template-parm12.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-parm12_262:
-  bin: '"template-parm12.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-parm12.C'
-  herit: *GRPSERIAL
-  info: *118
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-parm1_259:
-  bin: '"template-parm1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-parm1.C'
-  herit: *GRPSERIAL
-  info: &119
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_template-parm1_116:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-parm1.C'
+    sources:
+      binary: template-parm1.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-parm1_34:
-  bin: '"template-parm1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-parm1.C'
-  herit: *GRPSERIAL
-  info: *119
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-parm2_23:
-  bin: '"template-parm2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-parm2.C'
-  herit: *GRPSERIAL
-  info: &120
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_template-parm2_120:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-parm2.C'
+    sources:
+      binary: template-parm2.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -3240,40 +2648,30 @@ test_template-parm2_23:
         ]*(constraint failure|invalid type))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-parm2_263:
-  bin: '"template-parm2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-parm2.C'
-  herit: *GRPSERIAL
-  info: *120
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-parm3_264:
-  bin: '"template-parm3.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-parm3.C'
-  herit: *GRPSERIAL
-  info: &121
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_template-parm3_121:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-parm3.C'
+    sources:
+      binary: template-parm3.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-parm3_28:
-  bin: '"template-parm3.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-parm3.C'
-  herit: *GRPSERIAL
-  info: *121
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-parm4_20:
-  bin: '"template-parm4.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-parm4.C'
-  herit: *GRPSERIAL
-  info: &122
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_template-parm4_122:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-parm4.C'
+    sources:
+      binary: template-parm4.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -3301,22 +2699,17 @@ test_template-parm4_20:
         ]*(constraint failure|invalid type))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-parm4_265:
-  bin: '"template-parm4.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-parm4.C'
-  herit: *GRPSERIAL
-  info: *122
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-parm5_19:
-  bin: '"template-parm5.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-parm5.C'
-  herit: *GRPSERIAL
-  info: &123
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_template-parm5_123:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-parm5.C'
+    sources:
+      binary: template-parm5.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -3368,40 +2761,30 @@ test_template-parm5_19:
         ]*(default argument))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-parm5_266:
-  bin: '"template-parm5.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-parm5.C'
-  herit: *GRPSERIAL
-  info: *123
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-parm6_267:
-  bin: '"template-parm6.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-parm6.C'
-  herit: *GRPSERIAL
-  info: &124
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_template-parm6_124:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-parm6.C'
+    sources:
+      binary: template-parm6.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-parm6_41:
-  bin: '"template-parm6.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-parm6.C'
-  herit: *GRPSERIAL
-  info: *124
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-parm7_268:
-  bin: '"template-parm7.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-parm7.C'
-  herit: *GRPSERIAL
-  info: &125
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_template-parm7_125:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-parm7.C'
+    sources:
+      binary: template-parm7.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -3437,40 +2820,30 @@ test_template-parm7_268:
         ]*(variadic constraint))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-parm7_44:
-  bin: '"template-parm7.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-parm7.C'
-  herit: *GRPSERIAL
-  info: *125
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-parm8_21:
-  bin: '"template-parm8.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-parm8.C'
-  herit: *GRPSERIAL
-  info: &126
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_template-parm8_126:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-parm8.C'
+    sources:
+      binary: template-parm8.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-parm8_269:
-  bin: '"template-parm8.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-parm8.C'
-  herit: *GRPSERIAL
-  info: *126
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-parm9_18:
-  bin: '"template-parm9.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-parm9.C'
-  herit: *GRPSERIAL
-  info: &127
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_template-parm9_127:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-parm9.C'
+    sources:
+      binary: template-parm9.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -3490,40 +2863,30 @@ test_template-parm9_18:
         ]*(constraint mismatch|invalid type))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-parm9_270:
-  bin: '"template-parm9.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-parm9.C'
-  herit: *GRPSERIAL
-  info: *127
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-template-parm1_271:
-  bin: '"template-template-parm1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-template-parm1.C'
-  herit: *GRPSERIAL
-  info: &128
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_template-template-parm1_128:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-template-parm1.C'
+    sources:
+      binary: template-template-parm1.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_template-template-parm1_56:
-  bin: '"template-template-parm1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/template-template-parm1.C'
-  herit: *GRPSERIAL
-  info: *128
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_traits1_272:
-  bin: '"traits1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/traits1.C'
-  herit: *GRPSERIAL
-  info: &129
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_traits1_129:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/traits1.C'
+    sources:
+      binary: traits1.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -3663,22 +3026,17 @@ test_traits1_272:
         ]*(cannot call))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_traits1_97:
-  bin: '"traits1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/traits1.C'
-  herit: *GRPSERIAL
-  info: *129
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_traits2_273:
-  bin: '"traits2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/traits2.C'
-  herit: *GRPSERIAL
-  info: &130
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_traits2_130:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/traits2.C'
+    sources:
+      binary: traits2.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -3818,40 +3176,30 @@ test_traits2_273:
         ]*(cannot call))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_traits2_98:
-  bin: '"traits2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/traits2.C'
-  herit: *GRPSERIAL
-  info: *130
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_var-concept1_26:
-  bin: '"var-concept1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/var-concept1.C'
-  herit: *GRPSERIAL
-  info: &131
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_var-concept1_131:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/var-concept1.C'
+    sources:
+      binary: var-concept1.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_var-concept1_274:
-  bin: '"var-concept1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/var-concept1.C'
-  herit: *GRPSERIAL
-  info: *131
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_var-concept2_17:
-  bin: '"var-concept2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/var-concept2.C'
-  herit: *GRPSERIAL
-  info: &132
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_var-concept2_132:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/var-concept2.C'
+    sources:
+      binary: var-concept2.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -3871,22 +3219,17 @@ test_var-concept2_17:
         ]*(cannot call))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_var-concept2_275:
-  bin: '"var-concept2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/var-concept2.C'
-  herit: *GRPSERIAL
-  info: *132
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_var-concept3_22:
-  bin: '"var-concept3.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/var-concept3.C'
-  herit: *GRPSERIAL
-  info: &133
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_var-concept3_133:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/var-concept3.C'
+    sources:
+      binary: var-concept3.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -3922,22 +3265,17 @@ test_var-concept3_22:
         ]*())[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_var-concept3_276:
-  bin: '"var-concept3.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/var-concept3.C'
-  herit: *GRPSERIAL
-  info: *133
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_var-concept4_19:
-  bin: '"var-concept4.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/var-concept4.C'
-  herit: *GRPSERIAL
-  info: &134
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_var-concept4_134:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/var-concept4.C'
+    sources:
+      binary: var-concept4.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -3965,22 +3303,17 @@ test_var-concept4_19:
         ]*(non-template variable))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_var-concept4_277:
-  bin: '"var-concept4.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/var-concept4.C'
-  herit: *GRPSERIAL
-  info: *134
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_var-concept5_14:
-  bin: '"var-concept5.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/var-concept5.C'
-  herit: *GRPSERIAL
-  info: &135
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_var-concept5_135:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/var-concept5.C'
+    sources:
+      binary: var-concept5.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -4000,22 +3333,17 @@ test_var-concept5_14:
         ]*(expected|not a type))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_var-concept5_278:
-  bin: '"var-concept5.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/var-concept5.C'
-  herit: *GRPSERIAL
-  info: *135
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_var-concept6_279:
-  bin: '"var-concept6.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/var-concept6.C'
-  herit: *GRPSERIAL
-  info: &136
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_var-concept6_136:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/var-concept6.C'
+    sources:
+      binary: var-concept6.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -4027,22 +3355,17 @@ test_var-concept6_279:
         ]*(bool))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_var-concept6_4:
-  bin: '"var-concept6.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/var-concept6.C'
-  herit: *GRPSERIAL
-  info: *136
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_var-templ1_16:
-  bin: '"var-templ1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/var-templ1.C'
-  herit: *GRPSERIAL
-  info: &137
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_var-templ1_137:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/var-templ1.C'
+    sources:
+      binary: var-templ1.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
     regex-err:
@@ -4054,94 +3377,69 @@ test_var-templ1_16:
         ]*(invalid))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_var-templ1_280:
-  bin: '"var-templ1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/var-templ1.C'
-  herit: *GRPSERIAL
-  info: *137
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_var-templ2_17:
-  bin: '"var-templ2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/var-templ2.C'
-  herit: *GRPSERIAL
-  info: &138
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_var-templ2_138:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/var-templ2.C'
+    sources:
+      binary: var-templ2.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_var-templ2_281:
-  bin: '"var-templ2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/var-templ2.C'
-  herit: *GRPSERIAL
-  info: *138
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_var-templ3_12:
-  bin: '"var-templ3.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/var-templ3.C'
-  herit: *GRPSERIAL
-  info: &139
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_var-templ3_139:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/var-templ3.C'
+    sources:
+      binary: var-templ3.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_var-templ3_282:
-  bin: '"var-templ3.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/var-templ3.C'
-  herit: *GRPSERIAL
-  info: *139
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_variadic1_25:
-  bin: '"variadic1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/variadic1.C'
-  herit: *GRPSERIAL
-  info: &140
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_variadic1_140:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/variadic1.C'
+    sources:
+      binary: variadic1.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_variadic1_283:
-  bin: '"variadic1.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/variadic1.C'
-  herit: *GRPSERIAL
-  info: *140
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_variadic2_16:
-  bin: '"variadic2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/variadic2.C'
-  herit: *GRPSERIAL
-  info: &141
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_variadic2_141:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/variadic2.C'
+    sources:
+      binary: variadic2.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_variadic2_284:
-  bin: '"variadic2.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/variadic2.C'
-  herit: *GRPSERIAL
-  info: *141
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_variadic3_285:
-  bin: '"variadic3.s"'
-  cargs: ' -std=gnu++14 -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/variadic3.C'
-  herit: *GRPSERIAL
-  info: &142
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_variadic3_142:
+  build:
+    cflags: ' -std=gnu++14 -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/variadic3.C'
+    sources:
+      binary: variadic3.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-fconcepts"'
     regex-err:
@@ -4153,31 +3451,19 @@ test_variadic3_285:
         ]*(parameter pack))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_variadic3_8:
-  bin: '"variadic3.s"'
-  cargs: ' -std=gnu++14 -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/variadic3.C'
-  herit: *GRPSERIAL
-  info: *142
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_variadic4_20:
-  bin: '"variadic4.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/variadic4.C'
-  herit: *GRPSERIAL
-  info: &143
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_variadic4_143:
+  build:
+    cflags: '  -std=c++1z -fconcepts -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/variadic4.C'
+    sources:
+      binary: variadic4.s
+  group: GRPSERIAL
+  info:
     extraopts:
       - '"-std=c++1z -fconcepts"'
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_variadic4_286:
-  bin: '"variadic4.s"'
-  cargs: '  -std=c++1z -fconcepts -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/variadic4.C'
-  herit: *GRPSERIAL
-  info: *143
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

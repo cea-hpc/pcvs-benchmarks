@@ -1,160 +1,111 @@
-test_dr1511-1_11:
-  bin: '"./dr1511-1.exe"'
-  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/DRs/dr1511-1.C'
-  herit: *GRPSERIAL
+---
+test_dr1511-1_1:
+  build:
+    cflags: ' -std=c++98  -pedantic-errors -Wno-long-long'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/DRs/dr1511-1.C'
+    sources:
+      binary: ./dr1511-1.exe
+  group: GRPSERIAL
   info: &1 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_dr1511-1_12:
-  bin: '"./dr1511-1.exe"'
-  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/DRs/dr1511-1.C'
-  herit: *GRPSERIAL
-  info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_dr1511-1_13:
-  bin: '"./dr1511-1.exe"'
-  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/DRs/dr1511-1.C'
-  herit: *GRPSERIAL
-  info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_dr1511-1_2:
-  bin: '"./dr1511-1.exe"'
-  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/DRs/dr1511-1.C'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++11  -pedantic-errors -Wno-long-long'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/DRs/dr1511-1.C'
+    sources:
+      binary: ./dr1511-1.exe
+  group: GRPSERIAL
   info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_dr1511-1_3:
-  bin: '"./dr1511-1.exe"'
-  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/DRs/dr1511-1.C'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++14  -pedantic-errors -Wno-long-long'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/DRs/dr1511-1.C'
+    sources:
+      binary: ./dr1511-1.exe
+  group: GRPSERIAL
   info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_dr1511-1_38:
-  bin: '"./dr1511-1.exe"'
-  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/DRs/dr1511-1.C'
-  herit: *GRPSERIAL
-  info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_dr1511-2_14:
-  bin: '"dr1511-2.s"'
-  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/DRs/dr1511-2.C'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_dr1511-2_4:
+  build:
+    cflags: ' -std=c++98  -pedantic-errors -Wno-long-long -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/DRs/dr1511-2.C'
+    sources:
+      binary: dr1511-2.s
+  group: GRPSERIAL
   info: &2 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_dr1511-2_15:
-  bin: '"dr1511-2.s"'
-  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/DRs/dr1511-2.C'
-  herit: *GRPSERIAL
-  info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_dr1511-2_16:
-  bin: '"dr1511-2.s"'
-  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/DRs/dr1511-2.C'
-  herit: *GRPSERIAL
-  info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_dr1511-2_24:
-  bin: '"dr1511-2.s"'
-  cargs: ' -std=c++98  -pedantic-errors -Wno-long-long -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/DRs/dr1511-2.C'
-  herit: *GRPSERIAL
-  info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_dr1511-2_5:
-  bin: '"dr1511-2.s"'
-  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/DRs/dr1511-2.C'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++11  -pedantic-errors -Wno-long-long -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/DRs/dr1511-2.C'
+    sources:
+      binary: dr1511-2.s
+  group: GRPSERIAL
   info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_dr1511-2_6:
-  bin: '"dr1511-2.s"'
-  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/DRs/dr1511-2.C'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++14  -pedantic-errors -Wno-long-long -S'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/DRs/dr1511-2.C'
+    sources:
+      binary: dr1511-2.s
+  group: GRPSERIAL
   info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_dr2137-1_17:
-  bin: '"./dr2137-1.exe"'
-  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/DRs/dr2137-1.C'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_dr2137-1_7:
+  build:
+    cflags: ' -std=c++11  -pedantic-errors -Wno-long-long'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/DRs/dr2137-1.C'
+    sources:
+      binary: ./dr2137-1.exe
+  group: GRPSERIAL
   info: &3 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_dr2137-1_18:
-  bin: '"./dr2137-1.exe"'
-  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/DRs/dr2137-1.C'
-  herit: *GRPSERIAL
-  info: *3
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_dr2137-1_20:
-  bin: '"./dr2137-1.exe"'
-  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/DRs/dr2137-1.C'
-  herit: *GRPSERIAL
-  info: *3
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_dr2137-1_8:
-  bin: '"./dr2137-1.exe"'
-  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/DRs/dr2137-1.C'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++14  -pedantic-errors -Wno-long-long'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/DRs/dr2137-1.C'
+    sources:
+      binary: ./dr2137-1.exe
+  group: GRPSERIAL
   info: *3
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_dr2137-2_10:
-  bin: '"dr2137-2.exe"'
-  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/DRs/dr2137-2.C'
-  herit: *GRPSERIAL
+  build:
+    cflags: ' -std=c++14  -pedantic-errors -Wno-long-long'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/DRs/dr2137-2.C'
+    sources:
+      binary: dr2137-2.exe
+  group: GRPSERIAL
   info: &4 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_dr2137-2_19:
-  bin: '"dr2137-2.exe"'
-  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/DRs/dr2137-2.C'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_dr2137-2_9:
+  build:
+    cflags: ' -std=c++11  -pedantic-errors -Wno-long-long'
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/DRs/dr2137-2.C'
+    sources:
+      binary: dr2137-2.exe
+  group: GRPSERIAL
   info: *4
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_dr2137-2_20:
-  bin: '"dr2137-2.exe"'
-  cargs: ' -std=c++14  -pedantic-errors -Wno-long-long'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/DRs/dr2137-2.C'
-  herit: *GRPSERIAL
-  info: *4
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_dr2137-2_21:
-  bin: '"dr2137-2.exe"'
-  cargs: ' -std=c++11  -pedantic-errors -Wno-long-long'
-  files: '@ROOTPATH@/compilers/gcc/./g++.dg/DRs/dr2137-2.C'
-  herit: *GRPSERIAL
-  info: *4
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'

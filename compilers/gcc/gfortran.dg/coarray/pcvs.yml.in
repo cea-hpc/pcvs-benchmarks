@@ -1,520 +1,363 @@
-test_alloc_comp_1_113:
-  bin: '"./alloc_comp_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/alloc_comp_1.f90'
-  herit: *GRPSERIAL
+---
+test_alloc_comp_1_1:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/alloc_comp_1.f90'
+    sources:
+      binary: ./alloc_comp_1.exe
+  group: GRPSERIAL
   info: &1 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_alloc_comp_1_114:
-  bin: '"./alloc_comp_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/alloc_comp_1.f90'
-  herit: *GRPSERIAL
-  info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_alloc_comp_1_16:
-  bin: '"./alloc_comp_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/alloc_comp_1.f90'
-  herit: *GRPSERIAL
-  info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_alloc_comp_1_2:
-  bin: '"./alloc_comp_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/alloc_comp_1.f90'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/alloc_comp_1.f90'
+    sources:
+      binary: ./alloc_comp_1.exe
+  group: GRPSERIAL
   info: *1
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_alloc_comp_2_115:
-  bin: '"alloc_comp_2.s"'
-  cargs: -fcoarray=single  -O2  -latomic  -S
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/alloc_comp_2.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_alloc_comp_2_3:
+  build:
+    cflags: -fcoarray=single  -O2  -latomic  -S
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/alloc_comp_2.f90'
+    sources:
+      binary: alloc_comp_2.s
+  group: GRPSERIAL
   info: &2 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_alloc_comp_2_116:
-  bin: '"alloc_comp_2.s"'
-  cargs: -fcoarray=lib  -O2  -lcaf_single -latomic  -S
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/alloc_comp_2.f90'
-  herit: *GRPSERIAL
-  info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_alloc_comp_2_19:
-  bin: '"alloc_comp_2.s"'
-  cargs: -fcoarray=single  -O2  -latomic  -S
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/alloc_comp_2.f90'
-  herit: *GRPSERIAL
-  info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_alloc_comp_2_4:
-  bin: '"alloc_comp_2.s"'
-  cargs: -fcoarray=lib  -O2  -lcaf_single -latomic  -S
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/alloc_comp_2.f90'
-  herit: *GRPSERIAL
+  build:
+    cflags: -fcoarray=lib  -O2  -lcaf_single -latomic  -S
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/alloc_comp_2.f90'
+    sources:
+      binary: alloc_comp_2.s
+  group: GRPSERIAL
   info: *2
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_alloc_comp_3_117:
-  bin: '"alloc_comp_3.s"'
-  cargs: -fcoarray=single  -O2  -latomic  -S
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/alloc_comp_3.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_alloc_comp_3_5:
+  build:
+    cflags: -fcoarray=single  -O2  -latomic  -S
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/alloc_comp_3.f90'
+    sources:
+      binary: alloc_comp_3.s
+  group: GRPSERIAL
   info: &3 {}
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_alloc_comp_3_118:
-  bin: '"alloc_comp_3.s"'
-  cargs: -fcoarray=lib  -O2  -lcaf_single -latomic  -S
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/alloc_comp_3.f90'
-  herit: *GRPSERIAL
-  info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_alloc_comp_3_23:
-  bin: '"alloc_comp_3.s"'
-  cargs: -fcoarray=single  -O2  -latomic  -S
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/alloc_comp_3.f90'
-  herit: *GRPSERIAL
-  info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_alloc_comp_3_6:
-  bin: '"alloc_comp_3.s"'
-  cargs: -fcoarray=lib  -O2  -lcaf_single -latomic  -S
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/alloc_comp_3.f90'
-  herit: *GRPSERIAL
+  build:
+    cflags: -fcoarray=lib  -O2  -lcaf_single -latomic  -S
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/alloc_comp_3.f90'
+    sources:
+      binary: alloc_comp_3.s
+  group: GRPSERIAL
   info: *3
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_alloc_comp_4_119:
-  bin: '"./alloc_comp_4.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/alloc_comp_4.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_alloc_comp_4_7:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/alloc_comp_4.f90'
+    sources:
+      binary: ./alloc_comp_4.exe
+  group: GRPSERIAL
   info: &4 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_alloc_comp_4_120:
-  bin: '"./alloc_comp_4.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/alloc_comp_4.f90'
-  herit: *GRPSERIAL
-  info: *4
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_alloc_comp_4_21:
-  bin: '"./alloc_comp_4.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/alloc_comp_4.f90'
-  herit: *GRPSERIAL
-  info: *4
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_alloc_comp_4_8:
-  bin: '"./alloc_comp_4.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/alloc_comp_4.f90'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/alloc_comp_4.f90'
+    sources:
+      binary: ./alloc_comp_4.exe
+  group: GRPSERIAL
   info: *4
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_alloc_comp_5_10:
-  bin: '"./alloc_comp_5.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/alloc_comp_5.f90'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/alloc_comp_5.f90'
+    sources:
+      binary: ./alloc_comp_5.exe
+  group: GRPSERIAL
   info: &5 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_alloc_comp_5_121:
-  bin: '"./alloc_comp_5.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/alloc_comp_5.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_alloc_comp_5_9:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/alloc_comp_5.f90'
+    sources:
+      binary: ./alloc_comp_5.exe
+  group: GRPSERIAL
   info: *5
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_alloc_comp_5_122:
-  bin: '"./alloc_comp_5.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/alloc_comp_5.f90'
-  herit: *GRPSERIAL
-  info: *5
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_alloc_comp_5_17:
-  bin: '"./alloc_comp_5.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/alloc_comp_5.f90'
-  herit: *GRPSERIAL
-  info: *5
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_allocate_errgmsg_12:
-  bin: '"./allocate_errgmsg.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/allocate_errgmsg.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_allocate_errgmsg_11:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/allocate_errgmsg.f90'
+    sources:
+      binary: ./allocate_errgmsg.exe
+  group: GRPSERIAL
   info: &6 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_allocate_errgmsg_123:
-  bin: '"./allocate_errgmsg.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/allocate_errgmsg.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_allocate_errgmsg_12:
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/allocate_errgmsg.f90'
+    sources:
+      binary: ./allocate_errgmsg.exe
+  group: GRPSERIAL
   info: *6
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_allocate_errgmsg_124:
-  bin: '"./allocate_errgmsg.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/allocate_errgmsg.f90'
-  herit: *GRPSERIAL
-  info: *6
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_allocate_errgmsg_36:
-  bin: '"./allocate_errgmsg.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/allocate_errgmsg.f90'
-  herit: *GRPSERIAL
-  info: *6
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic_1_125:
-  bin: '"./atomic_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/atomic_1.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_atomic_1_13:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/atomic_1.f90'
+    sources:
+      binary: ./atomic_1.exe
+  group: GRPSERIAL
   info: &7 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic_1_126:
-  bin: '"./atomic_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/atomic_1.f90'
-  herit: *GRPSERIAL
-  info: *7
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_atomic_1_14:
-  bin: '"./atomic_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/atomic_1.f90'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/atomic_1.f90'
+    sources:
+      binary: ./atomic_1.exe
+  group: GRPSERIAL
   info: *7
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic_1_27:
-  bin: '"./atomic_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/atomic_1.f90'
-  herit: *GRPSERIAL
-  info: *7
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic_2_127:
-  bin: '"./atomic_2.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/atomic_2.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_atomic_2_15:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/atomic_2.f90'
+    sources:
+      binary: ./atomic_2.exe
+  group: GRPSERIAL
   info: &8 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic_2_128:
-  bin: '"./atomic_2.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/atomic_2.f90'
-  herit: *GRPSERIAL
-  info: *8
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_atomic_2_16:
-  bin: '"./atomic_2.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/atomic_2.f90'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/atomic_2.f90'
+    sources:
+      binary: ./atomic_2.exe
+  group: GRPSERIAL
   info: *8
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_atomic_2_653:
-  bin: '"./atomic_2.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/atomic_2.f90'
-  herit: *GRPSERIAL
-  info: *8
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_codimension_129:
-  bin: '"./codimension.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/codimension.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_codimension_17:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/codimension.f90'
+    sources:
+      binary: ./codimension.exe
+  group: GRPSERIAL
   info: &9 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_codimension_130:
-  bin: '"./codimension.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/codimension.f90'
-  herit: *GRPSERIAL
-  info: *9
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_codimension_18:
-  bin: '"./codimension.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/codimension.f90'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/codimension.f90'
+    sources:
+      binary: ./codimension.exe
+  group: GRPSERIAL
   info: *9
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_codimension_2_131:
-  bin: '"codimension_2.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/codimension_2.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_codimension_2_19:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/codimension_2.f90'
+    sources:
+      binary: codimension_2.exe
+  group: GRPSERIAL
   info: &10 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_codimension_2_132:
-  bin: '"codimension_2.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/codimension_2.f90'
-  herit: *GRPSERIAL
-  info: *10
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_codimension_2_14:
-  bin: '"codimension_2.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/codimension_2.f90'
-  herit: *GRPSERIAL
-  info: *10
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_codimension_2_20:
-  bin: '"codimension_2.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/codimension_2.f90'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/codimension_2.f90'
+    sources:
+      binary: codimension_2.exe
+  group: GRPSERIAL
   info: *10
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_codimension_49:
-  bin: '"./codimension.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/codimension.f90'
-  herit: *GRPSERIAL
-  info: *9
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_coindexed_1_133:
-  bin: '"./coindexed_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/coindexed_1.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_coindexed_1_21:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/coindexed_1.f90'
+    sources:
+      binary: ./coindexed_1.exe
+  group: GRPSERIAL
   info: &11 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_coindexed_1_134:
-  bin: '"./coindexed_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/coindexed_1.f90'
-  herit: *GRPSERIAL
-  info: *11
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_coindexed_1_1459:
-  bin: '"./coindexed_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/coindexed_1.f90'
-  herit: *GRPSERIAL
-  info: *11
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_coindexed_1_22:
-  bin: '"./coindexed_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/coindexed_1.f90'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/coindexed_1.f90'
+    sources:
+      binary: ./coindexed_1.exe
+  group: GRPSERIAL
   info: *11
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_collectives_1_135:
-  bin: '"./collectives_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/collectives_1.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_collectives_1_23:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/collectives_1.f90'
+    sources:
+      binary: ./collectives_1.exe
+  group: GRPSERIAL
   info: &12 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_collectives_1_136:
-  bin: '"./collectives_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/collectives_1.f90'
-  herit: *GRPSERIAL
-  info: *12
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_collectives_1_24:
-  bin: '"./collectives_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/collectives_1.f90'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/collectives_1.f90'
+    sources:
+      binary: ./collectives_1.exe
+  group: GRPSERIAL
   info: *12
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_collectives_1_44:
-  bin: '"./collectives_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/collectives_1.f90'
-  herit: *GRPSERIAL
-  info: *12
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_collectives_2_137:
-  bin: '"./collectives_2.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/collectives_2.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_collectives_2_25:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/collectives_2.f90'
+    sources:
+      binary: ./collectives_2.exe
+  group: GRPSERIAL
   info: &13 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_collectives_2_138:
-  bin: '"./collectives_2.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/collectives_2.f90'
-  herit: *GRPSERIAL
-  info: *13
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_collectives_2_26:
-  bin: '"./collectives_2.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/collectives_2.f90'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/collectives_2.f90'
+    sources:
+      binary: ./collectives_2.exe
+  group: GRPSERIAL
   info: *13
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_collectives_2_76:
-  bin: '"./collectives_2.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/collectives_2.f90'
-  herit: *GRPSERIAL
-  info: *13
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_collectives_3_136:
-  bin: '"./collectives_3.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/collectives_3.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_collectives_3_27:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/collectives_3.f90'
+    sources:
+      binary: ./collectives_3.exe
+  group: GRPSERIAL
   info: &14 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_collectives_3_139:
-  bin: '"./collectives_3.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/collectives_3.f90'
-  herit: *GRPSERIAL
-  info: *14
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_collectives_3_140:
-  bin: '"./collectives_3.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/collectives_3.f90'
-  herit: *GRPSERIAL
-  info: *14
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_collectives_3_28:
-  bin: '"./collectives_3.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/collectives_3.f90'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/collectives_3.f90'
+    sources:
+      binary: ./collectives_3.exe
+  group: GRPSERIAL
   info: *14
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_collectives_4_141:
-  bin: '"./collectives_4.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/collectives_4.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_collectives_4_29:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/collectives_4.f90'
+    sources:
+      binary: ./collectives_4.exe
+  group: GRPSERIAL
   info: &15 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_collectives_4_142:
-  bin: '"./collectives_4.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/collectives_4.f90'
-  herit: *GRPSERIAL
-  info: *15
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_collectives_4_24:
-  bin: '"./collectives_4.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/collectives_4.f90'
-  herit: *GRPSERIAL
-  info: *15
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_collectives_4_30:
-  bin: '"./collectives_4.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/collectives_4.f90'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/collectives_4.f90'
+    sources:
+      binary: ./collectives_4.exe
+  group: GRPSERIAL
   info: *15
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_cosubscript_1_143:
-  bin: '"./cosubscript_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/cosubscript_1.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_cosubscript_1_31:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/cosubscript_1.f90'
+    sources:
+      binary: ./cosubscript_1.exe
+  group: GRPSERIAL
   info: &16 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_cosubscript_1_144:
-  bin: '"./cosubscript_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/cosubscript_1.f90'
-  herit: *GRPSERIAL
-  info: *16
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_cosubscript_1_32:
-  bin: '"./cosubscript_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/cosubscript_1.f90'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/cosubscript_1.f90'
+    sources:
+      binary: ./cosubscript_1.exe
+  group: GRPSERIAL
   info: *16
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_cosubscript_1_66:
-  bin: '"./cosubscript_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/cosubscript_1.f90'
-  herit: *GRPSERIAL
-  info: *16
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_data_1_11:
-  bin: '"data_1.s"'
-  cargs: -fcoarray=single  -O2  -latomic  -S
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/data_1.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_data_1_33:
+  build:
+    cflags: -fcoarray=single  -O2  -latomic  -S
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/data_1.f90'
+    sources:
+      binary: data_1.s
+  group: GRPSERIAL
   info: &17
     regex-err:
       - |-
@@ -533,197 +376,137 @@ test_data_1_11:
         ]*(cannot have a coindex))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_data_1_145:
-  bin: '"data_1.s"'
-  cargs: -fcoarray=single  -O2  -latomic  -S
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/data_1.f90'
-  herit: *GRPSERIAL
-  info: *17
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_data_1_146:
-  bin: '"data_1.s"'
-  cargs: -fcoarray=lib  -O2  -lcaf_single -latomic  -S
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/data_1.f90'
-  herit: *GRPSERIAL
-  info: *17
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_data_1_34:
-  bin: '"data_1.s"'
-  cargs: -fcoarray=lib  -O2  -lcaf_single -latomic  -S
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/data_1.f90'
-  herit: *GRPSERIAL
+  build:
+    cflags: -fcoarray=lib  -O2  -lcaf_single -latomic  -S
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/data_1.f90'
+    sources:
+      binary: data_1.s
+  group: GRPSERIAL
   info: *17
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_dummy_1_147:
-  bin: '"./dummy_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/dummy_1.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_dummy_1_35:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/dummy_1.f90'
+    sources:
+      binary: ./dummy_1.exe
+  group: GRPSERIAL
   info: &18 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_dummy_1_148:
-  bin: '"./dummy_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/dummy_1.f90'
-  herit: *GRPSERIAL
-  info: *18
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_dummy_1_36:
-  bin: '"./dummy_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/dummy_1.f90'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/dummy_1.f90'
+    sources:
+      binary: ./dummy_1.exe
+  group: GRPSERIAL
   info: *18
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_dummy_1_70:
-  bin: '"./dummy_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/dummy_1.f90'
-  herit: *GRPSERIAL
-  info: *18
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_event_1_149:
-  bin: '"./event_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/event_1.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_event_1_37:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/event_1.f90'
+    sources:
+      binary: ./event_1.exe
+  group: GRPSERIAL
   info: &19 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_event_1_150:
-  bin: '"./event_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/event_1.f90'
-  herit: *GRPSERIAL
-  info: *19
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_event_1_38:
-  bin: '"./event_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/event_1.f90'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/event_1.f90'
+    sources:
+      binary: ./event_1.exe
+  group: GRPSERIAL
   info: *19
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_event_1_51:
-  bin: '"./event_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/event_1.f90'
-  herit: *GRPSERIAL
-  info: *19
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_event_2_151:
-  bin: '"./event_2.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/event_2.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_event_2_39:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/event_2.f90'
+    sources:
+      binary: ./event_2.exe
+  group: GRPSERIAL
   info: &20 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_event_2_152:
-  bin: '"./event_2.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/event_2.f90'
-  herit: *GRPSERIAL
-  info: *20
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_event_2_40:
-  bin: '"./event_2.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/event_2.f90'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/event_2.f90'
+    sources:
+      binary: ./event_2.exe
+  group: GRPSERIAL
   info: *20
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_event_2_89:
-  bin: '"./event_2.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/event_2.f90'
-  herit: *GRPSERIAL
-  info: *20
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_event_3_153:
-  bin: '"./event_3.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/event_3.f08'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_event_3_41:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/event_3.f08'
+    sources:
+      binary: ./event_3.exe
+  group: GRPSERIAL
   info: &21 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_event_3_154:
-  bin: '"./event_3.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/event_3.f08'
-  herit: *GRPSERIAL
-  info: *21
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_event_3_20:
-  bin: '"./event_3.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/event_3.f08'
-  herit: *GRPSERIAL
-  info: *21
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_event_3_42:
-  bin: '"./event_3.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/event_3.f08'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/event_3.f08'
+    sources:
+      binary: ./event_3.exe
+  group: GRPSERIAL
   info: *21
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_event_4_12:
-  bin: '"./event_4.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/event_4.f08'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_event_4_43:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/event_4.f08'
+    sources:
+      binary: ./event_4.exe
+  group: GRPSERIAL
   info: &22 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_event_4_155:
-  bin: '"./event_4.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/event_4.f08'
-  herit: *GRPSERIAL
-  info: *22
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_event_4_156:
-  bin: '"./event_4.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/event_4.f08'
-  herit: *GRPSERIAL
-  info: *22
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_event_4_44:
-  bin: '"./event_4.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/event_4.f08'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/event_4.f08'
+    sources:
+      binary: ./event_4.exe
+  group: GRPSERIAL
   info: *22
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fail_image_1_10:
-  bin: '"fail_image_1.s"'
-  cargs: -fcoarray=single  -O2  -latomic  -S
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/fail_image_1.f08'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_fail_image_1_45:
+  build:
+    cflags: -fcoarray=single  -O2  -latomic  -S
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/fail_image_1.f08'
+    sources:
+      binary: fail_image_1.s
+  group: GRPSERIAL
   info: &23
     regex-err:
       - |-
@@ -734,69 +517,49 @@ test_fail_image_1_10:
         ]*(Syntax error in FAIL IMAGE statement at \\(1\\)))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fail_image_1_157:
-  bin: '"fail_image_1.s"'
-  cargs: -fcoarray=single  -O2  -latomic  -S
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/fail_image_1.f08'
-  herit: *GRPSERIAL
-  info: *23
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fail_image_1_158:
-  bin: '"fail_image_1.s"'
-  cargs: -fcoarray=lib  -O2  -lcaf_single -latomic  -S
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/fail_image_1.f08'
-  herit: *GRPSERIAL
-  info: *23
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_fail_image_1_46:
-  bin: '"fail_image_1.s"'
-  cargs: -fcoarray=lib  -O2  -lcaf_single -latomic  -S
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/fail_image_1.f08'
-  herit: *GRPSERIAL
+  build:
+    cflags: -fcoarray=lib  -O2  -lcaf_single -latomic  -S
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/fail_image_1.f08'
+    sources:
+      binary: fail_image_1.s
+  group: GRPSERIAL
   info: *23
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fail_image_2_10:
-  bin: '"./fail_image_2.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/fail_image_2.f08'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_fail_image_2_47:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/fail_image_2.f08'
+    sources:
+      binary: ./fail_image_2.exe
+  group: GRPSERIAL
   info: &24 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fail_image_2_159:
-  bin: '"./fail_image_2.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/fail_image_2.f08'
-  herit: *GRPSERIAL
-  info: *24
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_fail_image_2_160:
-  bin: '"./fail_image_2.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/fail_image_2.f08'
-  herit: *GRPSERIAL
-  info: *24
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_fail_image_2_48:
-  bin: '"./fail_image_2.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/fail_image_2.f08'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/fail_image_2.f08'
+    sources:
+      binary: ./fail_image_2.exe
+  group: GRPSERIAL
   info: *24
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_failed_images_1_161:
-  bin: '"failed_images_1.s"'
-  cargs: -fcoarray=single  -O2  -latomic  -S
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/failed_images_1.f08'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_failed_images_1_49:
+  build:
+    cflags: -fcoarray=single  -O2  -latomic  -S
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/failed_images_1.f08'
+    sources:
+      binary: failed_images_1.s
+  group: GRPSERIAL
   info: &25
     regex-err:
       - |-
@@ -839,199 +602,139 @@ test_failed_images_1_161:
         ]*('kind' argument of 'failed_images' intrinsic at \\\(1\\\) shall specify a valid integer kind))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_failed_images_1_162:
-  bin: '"failed_images_1.s"'
-  cargs: -fcoarray=lib  -O2  -lcaf_single -latomic  -S
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/failed_images_1.f08'
-  herit: *GRPSERIAL
-  info: *25
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_failed_images_1_20:
-  bin: '"failed_images_1.s"'
-  cargs: -fcoarray=single  -O2  -latomic  -S
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/failed_images_1.f08'
-  herit: *GRPSERIAL
-  info: *25
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_failed_images_1_50:
-  bin: '"failed_images_1.s"'
-  cargs: -fcoarray=lib  -O2  -lcaf_single -latomic  -S
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/failed_images_1.f08'
-  herit: *GRPSERIAL
+  build:
+    cflags: -fcoarray=lib  -O2  -lcaf_single -latomic  -S
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/failed_images_1.f08'
+    sources:
+      binary: failed_images_1.s
+  group: GRPSERIAL
   info: *25
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_failed_images_2_163:
-  bin: '"./failed_images_2.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/failed_images_2.f08'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_failed_images_2_51:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/failed_images_2.f08'
+    sources:
+      binary: ./failed_images_2.exe
+  group: GRPSERIAL
   info: &26 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_failed_images_2_164:
-  bin: '"./failed_images_2.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/failed_images_2.f08'
-  herit: *GRPSERIAL
-  info: *26
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_failed_images_2_17:
-  bin: '"./failed_images_2.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/failed_images_2.f08'
-  herit: *GRPSERIAL
-  info: *26
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_failed_images_2_52:
-  bin: '"./failed_images_2.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/failed_images_2.f08'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/failed_images_2.f08'
+    sources:
+      binary: ./failed_images_2.exe
+  group: GRPSERIAL
   info: *26
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_get_array_165:
-  bin: '"./get_array.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/get_array.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_get_array_53:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/get_array.f90'
+    sources:
+      binary: ./get_array.exe
+  group: GRPSERIAL
   info: &27 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_get_array_166:
-  bin: '"./get_array.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/get_array.f90'
-  herit: *GRPSERIAL
-  info: *27
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_get_array_288:
-  bin: '"./get_array.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/get_array.f90'
-  herit: *GRPSERIAL
-  info: *27
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_get_array_54:
-  bin: '"./get_array.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/get_array.f90'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/get_array.f90'
+    sources:
+      binary: ./get_array.exe
+  group: GRPSERIAL
   info: *27
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_image_index_1_167:
-  bin: '"./image_index_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/image_index_1.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_image_index_1_55:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/image_index_1.f90'
+    sources:
+      binary: ./image_index_1.exe
+  group: GRPSERIAL
   info: &28 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_image_index_1_168:
-  bin: '"./image_index_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/image_index_1.f90'
-  herit: *GRPSERIAL
-  info: *28
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_image_index_1_56:
-  bin: '"./image_index_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/image_index_1.f90'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/image_index_1.f90'
+    sources:
+      binary: ./image_index_1.exe
+  group: GRPSERIAL
   info: *28
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_image_index_1_99:
-  bin: '"./image_index_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/image_index_1.f90'
-  herit: *GRPSERIAL
-  info: *28
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_image_index_2_169:
-  bin: '"./image_index_2.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/image_index_2.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_image_index_2_57:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/image_index_2.f90'
+    sources:
+      binary: ./image_index_2.exe
+  group: GRPSERIAL
   info: &29 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_image_index_2_170:
-  bin: '"./image_index_2.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/image_index_2.f90'
-  herit: *GRPSERIAL
-  info: *29
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_image_index_2_58:
-  bin: '"./image_index_2.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/image_index_2.f90'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/image_index_2.f90'
+    sources:
+      binary: ./image_index_2.exe
+  group: GRPSERIAL
   info: *29
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_image_index_2_76:
-  bin: '"./image_index_2.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/image_index_2.f90'
-  herit: *GRPSERIAL
-  info: *29
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_image_index_3_103:
-  bin: '"./image_index_3.exe"'
-  cargs: -fcoarray=single  -O2  -latomic -fdefault-integer-8
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/image_index_3.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_image_index_3_59:
+  build:
+    cflags: -fcoarray=single  -O2  -latomic -fdefault-integer-8
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/image_index_3.f90'
+    sources:
+      binary: ./image_index_3.exe
+  group: GRPSERIAL
   info: &30
     extraopts:
       - '"-fdefault-integer-8"'
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_image_index_3_171:
-  bin: '"./image_index_3.exe"'
-  cargs: -fcoarray=single  -O2  -latomic -fdefault-integer-8
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/image_index_3.f90'
-  herit: *GRPSERIAL
-  info: *30
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_image_index_3_172:
-  bin: '"./image_index_3.exe"'
-  cargs: -fcoarray=lib  -O2  -lcaf_single -latomic -fdefault-integer-8
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/image_index_3.f90'
-  herit: *GRPSERIAL
-  info: *30
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_image_index_3_60:
-  bin: '"./image_index_3.exe"'
-  cargs: -fcoarray=lib  -O2  -lcaf_single -latomic -fdefault-integer-8
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/image_index_3.f90'
-  herit: *GRPSERIAL
+  build:
+    cflags: -fcoarray=lib  -O2  -lcaf_single -latomic -fdefault-integer-8
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/image_index_3.f90'
+    sources:
+      binary: ./image_index_3.exe
+  group: GRPSERIAL
   info: *30
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_image_status_1_173:
-  bin: '"image_status_1.s"'
-  cargs: -fcoarray=single  -O2  -latomic  -S
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/image_status_1.f08'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_image_status_1_61:
+  build:
+    cflags: -fcoarray=single  -O2  -latomic  -S
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/image_status_1.f08'
+    sources:
+      binary: image_status_1.s
+  group: GRPSERIAL
   info: &31
     regex-err:
       - |-
@@ -1090,613 +793,423 @@ test_image_status_1_173:
         ]*(Missing actual argument 'image' in call to 'image_status' at \\(1\\)))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_image_status_1_174:
-  bin: '"image_status_1.s"'
-  cargs: -fcoarray=lib  -O2  -lcaf_single -latomic  -S
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/image_status_1.f08'
-  herit: *GRPSERIAL
-  info: *31
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_image_status_1_26:
-  bin: '"image_status_1.s"'
-  cargs: -fcoarray=single  -O2  -latomic  -S
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/image_status_1.f08'
-  herit: *GRPSERIAL
-  info: *31
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_image_status_1_62:
-  bin: '"image_status_1.s"'
-  cargs: -fcoarray=lib  -O2  -lcaf_single -latomic  -S
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/image_status_1.f08'
-  herit: *GRPSERIAL
+  build:
+    cflags: -fcoarray=lib  -O2  -lcaf_single -latomic  -S
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/image_status_1.f08'
+    sources:
+      binary: image_status_1.s
+  group: GRPSERIAL
   info: *31
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_image_status_2_12:
-  bin: '"./image_status_2.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/image_status_2.f08'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_image_status_2_63:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/image_status_2.f08'
+    sources:
+      binary: ./image_status_2.exe
+  group: GRPSERIAL
   info: &32 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_image_status_2_175:
-  bin: '"./image_status_2.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/image_status_2.f08'
-  herit: *GRPSERIAL
-  info: *32
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_image_status_2_176:
-  bin: '"./image_status_2.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/image_status_2.f08'
-  herit: *GRPSERIAL
-  info: *32
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_image_status_2_64:
-  bin: '"./image_status_2.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/image_status_2.f08'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/image_status_2.f08'
+    sources:
+      binary: ./image_status_2.exe
+  group: GRPSERIAL
   info: *32
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_lib_realloc_1_177:
-  bin: '"./lib_realloc_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/lib_realloc_1.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_lib_realloc_1_65:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/lib_realloc_1.f90'
+    sources:
+      binary: ./lib_realloc_1.exe
+  group: GRPSERIAL
   info: &33 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_lib_realloc_1_178:
-  bin: '"./lib_realloc_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/lib_realloc_1.f90'
-  herit: *GRPSERIAL
-  info: *33
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_lib_realloc_1_29:
-  bin: '"./lib_realloc_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/lib_realloc_1.f90'
-  herit: *GRPSERIAL
-  info: *33
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_lib_realloc_1_66:
-  bin: '"./lib_realloc_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/lib_realloc_1.f90'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/lib_realloc_1.f90'
+    sources:
+      binary: ./lib_realloc_1.exe
+  group: GRPSERIAL
   info: *33
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_lock_1_179:
-  bin: '"./lock_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/lock_1.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_lock_1_67:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/lock_1.f90'
+    sources:
+      binary: ./lock_1.exe
+  group: GRPSERIAL
   info: &34 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_lock_1_180:
-  bin: '"./lock_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/lock_1.f90'
-  herit: *GRPSERIAL
-  info: *34
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_lock_1_32:
-  bin: '"./lock_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/lock_1.f90'
-  herit: *GRPSERIAL
-  info: *34
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_lock_1_68:
-  bin: '"./lock_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/lock_1.f90'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/lock_1.f90'
+    sources:
+      binary: ./lock_1.exe
+  group: GRPSERIAL
   info: *34
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_lock_2_181:
-  bin: '"./lock_2.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/lock_2.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_lock_2_69:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/lock_2.f90'
+    sources:
+      binary: ./lock_2.exe
+  group: GRPSERIAL
   info: &35 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_lock_2_182:
-  bin: '"./lock_2.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/lock_2.f90'
-  herit: *GRPSERIAL
-  info: *35
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_lock_2_70:
-  bin: '"./lock_2.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/lock_2.f90'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/lock_2.f90'
+    sources:
+      binary: ./lock_2.exe
+  group: GRPSERIAL
   info: *35
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_lock_2_89:
-  bin: '"./lock_2.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/lock_2.f90'
-  herit: *GRPSERIAL
-  info: *35
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_move_alloc_1_183:
-  bin: '"./move_alloc_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/move_alloc_1.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_move_alloc_1_71:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/move_alloc_1.f90'
+    sources:
+      binary: ./move_alloc_1.exe
+  group: GRPSERIAL
   info: &36 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_move_alloc_1_184:
-  bin: '"./move_alloc_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/move_alloc_1.f90'
-  herit: *GRPSERIAL
-  info: *36
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_move_alloc_1_24:
-  bin: '"./move_alloc_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/move_alloc_1.f90'
-  herit: *GRPSERIAL
-  info: *36
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_move_alloc_1_72:
-  bin: '"./move_alloc_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/move_alloc_1.f90'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/move_alloc_1.f90'
+    sources:
+      binary: ./move_alloc_1.exe
+  group: GRPSERIAL
   info: *36
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_poly_run_1_185:
-  bin: '"./poly_run_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/poly_run_1.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_poly_run_1_73:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/poly_run_1.f90'
+    sources:
+      binary: ./poly_run_1.exe
+  group: GRPSERIAL
   info: &37 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_poly_run_1_186:
-  bin: '"./poly_run_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/poly_run_1.f90'
-  herit: *GRPSERIAL
-  info: *37
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_poly_run_1_51:
-  bin: '"./poly_run_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/poly_run_1.f90'
-  herit: *GRPSERIAL
-  info: *37
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_poly_run_1_74:
-  bin: '"./poly_run_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/poly_run_1.f90'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/poly_run_1.f90'
+    sources:
+      binary: ./poly_run_1.exe
+  group: GRPSERIAL
   info: *37
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_poly_run_2_187:
-  bin: '"./poly_run_2.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/poly_run_2.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_poly_run_2_75:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/poly_run_2.f90'
+    sources:
+      binary: ./poly_run_2.exe
+  group: GRPSERIAL
   info: &38 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_poly_run_2_188:
-  bin: '"./poly_run_2.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/poly_run_2.f90'
-  herit: *GRPSERIAL
-  info: *38
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_poly_run_2_39:
-  bin: '"./poly_run_2.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/poly_run_2.f90'
-  herit: *GRPSERIAL
-  info: *38
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_poly_run_2_76:
-  bin: '"./poly_run_2.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/poly_run_2.f90'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/poly_run_2.f90'
+    sources:
+      binary: ./poly_run_2.exe
+  group: GRPSERIAL
   info: *38
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_poly_run_3_189:
-  bin: '"./poly_run_3.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/poly_run_3.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_poly_run_3_77:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/poly_run_3.f90'
+    sources:
+      binary: ./poly_run_3.exe
+  group: GRPSERIAL
   info: &39 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_poly_run_3_190:
-  bin: '"./poly_run_3.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/poly_run_3.f90'
-  herit: *GRPSERIAL
-  info: *39
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_poly_run_3_39:
-  bin: '"./poly_run_3.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/poly_run_3.f90'
-  herit: *GRPSERIAL
-  info: *39
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_poly_run_3_78:
-  bin: '"./poly_run_3.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/poly_run_3.f90'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/poly_run_3.f90'
+    sources:
+      binary: ./poly_run_3.exe
+  group: GRPSERIAL
   info: *39
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_ptr_comp_1_191:
-  bin: '"./ptr_comp_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/ptr_comp_1.f08'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ptr_comp_1_79:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/ptr_comp_1.f08'
+    sources:
+      binary: ./ptr_comp_1.exe
+  group: GRPSERIAL
   info: &40 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_ptr_comp_1_192:
-  bin: '"./ptr_comp_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/ptr_comp_1.f08'
-  herit: *GRPSERIAL
-  info: *40
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_ptr_comp_1_36:
-  bin: '"./ptr_comp_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/ptr_comp_1.f08'
-  herit: *GRPSERIAL
-  info: *40
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ptr_comp_1_80:
-  bin: '"./ptr_comp_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/ptr_comp_1.f08'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/ptr_comp_1.f08'
+    sources:
+      binary: ./ptr_comp_1.exe
+  group: GRPSERIAL
   info: *40
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_ptr_comp_2_193:
-  bin: '"./ptr_comp_2.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/ptr_comp_2.f08'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ptr_comp_2_81:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/ptr_comp_2.f08'
+    sources:
+      binary: ./ptr_comp_2.exe
+  group: GRPSERIAL
   info: &41 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_ptr_comp_2_194:
-  bin: '"./ptr_comp_2.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/ptr_comp_2.f08'
-  herit: *GRPSERIAL
-  info: *41
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_ptr_comp_2_36:
-  bin: '"./ptr_comp_2.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/ptr_comp_2.f08'
-  herit: *GRPSERIAL
-  info: *41
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ptr_comp_2_82:
-  bin: '"./ptr_comp_2.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/ptr_comp_2.f08'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/ptr_comp_2.f08'
+    sources:
+      binary: ./ptr_comp_2.exe
+  group: GRPSERIAL
   info: *41
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_ptr_comp_3_195:
-  bin: '"./ptr_comp_3.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/ptr_comp_3.f08'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ptr_comp_3_83:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/ptr_comp_3.f08'
+    sources:
+      binary: ./ptr_comp_3.exe
+  group: GRPSERIAL
   info: &42 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_ptr_comp_3_196:
-  bin: '"./ptr_comp_3.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/ptr_comp_3.f08'
-  herit: *GRPSERIAL
-  info: *42
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_ptr_comp_3_22:
-  bin: '"./ptr_comp_3.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/ptr_comp_3.f08'
-  herit: *GRPSERIAL
-  info: *42
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ptr_comp_3_84:
-  bin: '"./ptr_comp_3.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/ptr_comp_3.f08'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/ptr_comp_3.f08'
+    sources:
+      binary: ./ptr_comp_3.exe
+  group: GRPSERIAL
   info: *42
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_ptr_comp_4_197:
-  bin: '"./ptr_comp_4.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/ptr_comp_4.f08'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_ptr_comp_4_85:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/ptr_comp_4.f08'
+    sources:
+      binary: ./ptr_comp_4.exe
+  group: GRPSERIAL
   info: &43 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_ptr_comp_4_198:
-  bin: '"./ptr_comp_4.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/ptr_comp_4.f08'
-  herit: *GRPSERIAL
-  info: *43
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_ptr_comp_4_20:
-  bin: '"./ptr_comp_4.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/ptr_comp_4.f08'
-  herit: *GRPSERIAL
-  info: *43
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_ptr_comp_4_86:
-  bin: '"./ptr_comp_4.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/ptr_comp_4.f08'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/ptr_comp_4.f08'
+    sources:
+      binary: ./ptr_comp_4.exe
+  group: GRPSERIAL
   info: *43
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_registering_1_199:
-  bin: '"./registering_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/registering_1.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_registering_1_87:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/registering_1.f90'
+    sources:
+      binary: ./registering_1.exe
+  group: GRPSERIAL
   info: &44 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_registering_1_200:
-  bin: '"./registering_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/registering_1.f90'
-  herit: *GRPSERIAL
-  info: *44
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_registering_1_41:
-  bin: '"./registering_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/registering_1.f90'
-  herit: *GRPSERIAL
-  info: *44
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_registering_1_88:
-  bin: '"./registering_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/registering_1.f90'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/registering_1.f90'
+    sources:
+      binary: ./registering_1.exe
+  group: GRPSERIAL
   info: *44
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_scalar_alloc_1_201:
-  bin: '"./scalar_alloc_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/scalar_alloc_1.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scalar_alloc_1_89:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/scalar_alloc_1.f90'
+    sources:
+      binary: ./scalar_alloc_1.exe
+  group: GRPSERIAL
   info: &45 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_scalar_alloc_1_202:
-  bin: '"./scalar_alloc_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/scalar_alloc_1.f90'
-  herit: *GRPSERIAL
-  info: *45
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_scalar_alloc_1_68:
-  bin: '"./scalar_alloc_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/scalar_alloc_1.f90'
-  herit: *GRPSERIAL
-  info: *45
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_scalar_alloc_1_90:
-  bin: '"./scalar_alloc_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/scalar_alloc_1.f90'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/scalar_alloc_1.f90'
+    sources:
+      binary: ./scalar_alloc_1.exe
+  group: GRPSERIAL
   info: *45
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_scalar_alloc_2_203:
-  bin: '"./scalar_alloc_2.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/scalar_alloc_2.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_scalar_alloc_2_91:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/scalar_alloc_2.f90'
+    sources:
+      binary: ./scalar_alloc_2.exe
+  group: GRPSERIAL
   info: &46 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_scalar_alloc_2_204:
-  bin: '"./scalar_alloc_2.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/scalar_alloc_2.f90'
-  herit: *GRPSERIAL
-  info: *46
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_scalar_alloc_2_60:
-  bin: '"./scalar_alloc_2.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/scalar_alloc_2.f90'
-  herit: *GRPSERIAL
-  info: *46
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_scalar_alloc_2_92:
-  bin: '"./scalar_alloc_2.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/scalar_alloc_2.f90'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/scalar_alloc_2.f90'
+    sources:
+      binary: ./scalar_alloc_2.exe
+  group: GRPSERIAL
   info: *46
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_send_array_205:
-  bin: '"./send_array.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/send_array.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_send_array_93:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/send_array.f90'
+    sources:
+      binary: ./send_array.exe
+  group: GRPSERIAL
   info: &47 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_send_array_206:
-  bin: '"./send_array.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/send_array.f90'
-  herit: *GRPSERIAL
-  info: *47
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_send_array_407:
-  bin: '"./send_array.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/send_array.f90'
-  herit: *GRPSERIAL
-  info: *47
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_send_array_94:
-  bin: '"./send_array.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/send_array.f90'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/send_array.f90'
+    sources:
+      binary: ./send_array.exe
+  group: GRPSERIAL
   info: *47
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_send_char_array_1_207:
-  bin: '"./send_char_array_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/send_char_array_1.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_send_char_array_1_95:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/send_char_array_1.f90'
+    sources:
+      binary: ./send_char_array_1.exe
+  group: GRPSERIAL
   info: &48 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_send_char_array_1_208:
-  bin: '"./send_char_array_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/send_char_array_1.f90'
-  herit: *GRPSERIAL
-  info: *48
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_send_char_array_1_54:
-  bin: '"./send_char_array_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/send_char_array_1.f90'
-  herit: *GRPSERIAL
-  info: *48
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_send_char_array_1_96:
-  bin: '"./send_char_array_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/send_char_array_1.f90'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/send_char_array_1.f90'
+    sources:
+      binary: ./send_char_array_1.exe
+  group: GRPSERIAL
   info: *48
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_sendget_array_209:
-  bin: '"./sendget_array.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/sendget_array.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_sendget_array_97:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/sendget_array.f90'
+    sources:
+      binary: ./sendget_array.exe
+  group: GRPSERIAL
   info: &49 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_sendget_array_210:
-  bin: '"./sendget_array.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/sendget_array.f90'
-  herit: *GRPSERIAL
-  info: *49
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_sendget_array_288:
-  bin: '"./sendget_array.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/sendget_array.f90'
-  herit: *GRPSERIAL
-  info: *49
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_sendget_array_98:
-  bin: '"./sendget_array.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/sendget_array.f90'
-  herit: *GRPSERIAL
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/sendget_array.f90'
+    sources:
+      binary: ./sendget_array.exe
+  group: GRPSERIAL
   info: *49
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
 test_stopped_images_1_100:
-  bin: '"stopped_images_1.s"'
-  cargs: -fcoarray=lib  -O2  -lcaf_single -latomic  -S
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/stopped_images_1.f08'
-  herit: *GRPSERIAL
+  build:
+    cflags: -fcoarray=lib  -O2  -lcaf_single -latomic  -S
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/stopped_images_1.f08'
+    sources:
+      binary: stopped_images_1.s
+  group: GRPSERIAL
   info: &50
     regex-err:
       - |-
@@ -1739,223 +1252,151 @@ test_stopped_images_1_100:
         ]*('kind' argument of 'stopped_images' intrinsic at \\\(1\\\) shall specify a valid integer kind))[^
         ]*
         ?)+
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_stopped_images_1_20:
-  bin: '"stopped_images_1.s"'
-  cargs: -fcoarray=single  -O2  -latomic  -S
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/stopped_images_1.f08'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_stopped_images_1_99:
+  build:
+    cflags: -fcoarray=single  -O2  -latomic  -S
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/stopped_images_1.f08'
+    sources:
+      binary: stopped_images_1.s
+  group: GRPSERIAL
   info: *50
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_stopped_images_1_211:
-  bin: '"stopped_images_1.s"'
-  cargs: -fcoarray=single  -O2  -latomic  -S
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/stopped_images_1.f08'
-  herit: *GRPSERIAL
-  info: *50
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_stopped_images_1_212:
-  bin: '"stopped_images_1.s"'
-  cargs: -fcoarray=lib  -O2  -lcaf_single -latomic  -S
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/stopped_images_1.f08'
-  herit: *GRPSERIAL
-  info: *50
-  type: build
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_stopped_images_2_102:
-  bin: '"./stopped_images_2.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/stopped_images_2.f08'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_stopped_images_2_101:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/stopped_images_2.f08'
+    sources:
+      binary: ./stopped_images_2.exe
+  group: GRPSERIAL
   info: &51 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_stopped_images_2_17:
-  bin: '"./stopped_images_2.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/stopped_images_2.f08'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_stopped_images_2_102:
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/stopped_images_2.f08'
+    sources:
+      binary: ./stopped_images_2.exe
+  group: GRPSERIAL
   info: *51
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_stopped_images_2_213:
-  bin: '"./stopped_images_2.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/stopped_images_2.f08'
-  herit: *GRPSERIAL
-  info: *51
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_stopped_images_2_214:
-  bin: '"./stopped_images_2.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/stopped_images_2.f08'
-  herit: *GRPSERIAL
-  info: *51
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_subobject_1_104:
-  bin: '"./subobject_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/subobject_1.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_subobject_1_103:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/subobject_1.f90'
+    sources:
+      binary: ./subobject_1.exe
+  group: GRPSERIAL
   info: &52 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_subobject_1_215:
-  bin: '"./subobject_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/subobject_1.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_subobject_1_104:
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/subobject_1.f90'
+    sources:
+      binary: ./subobject_1.exe
+  group: GRPSERIAL
   info: *52
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_subobject_1_216:
-  bin: '"./subobject_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/subobject_1.f90'
-  herit: *GRPSERIAL
-  info: *52
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_subobject_1_43:
-  bin: '"./subobject_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/subobject_1.f90'
-  herit: *GRPSERIAL
-  info: *52
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_sync_1_106:
-  bin: '"./sync_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/sync_1.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_sync_1_105:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/sync_1.f90'
+    sources:
+      binary: ./sync_1.exe
+  group: GRPSERIAL
   info: &53 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_sync_1_217:
-  bin: '"./sync_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/sync_1.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_sync_1_106:
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/sync_1.f90'
+    sources:
+      binary: ./sync_1.exe
+  group: GRPSERIAL
   info: *53
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_sync_1_218:
-  bin: '"./sync_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/sync_1.f90'
-  herit: *GRPSERIAL
-  info: *53
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_sync_1_64:
-  bin: '"./sync_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/sync_1.f90'
-  herit: *GRPSERIAL
-  info: *53
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_sync_3_108:
-  bin: '"./sync_3.exe"'
-  cargs: -fcoarray=lib  -O2  -lcaf_single -latomic -fcheck=all
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/sync_3.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_sync_3_107:
+  build:
+    cflags: -fcoarray=single  -O2  -latomic -fcheck=all
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/sync_3.f90'
+    sources:
+      binary: ./sync_3.exe
+  group: GRPSERIAL
   info: &54
     extraopts:
       - '"-fcheck=all"'
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_sync_3_219:
-  bin: '"./sync_3.exe"'
-  cargs: -fcoarray=single  -O2  -latomic -fcheck=all
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/sync_3.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_sync_3_108:
+  build:
+    cflags: -fcoarray=lib  -O2  -lcaf_single -latomic -fcheck=all
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/sync_3.f90'
+    sources:
+      binary: ./sync_3.exe
+  group: GRPSERIAL
   info: *54
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_sync_3_220:
-  bin: '"./sync_3.exe"'
-  cargs: -fcoarray=lib  -O2  -lcaf_single -latomic -fcheck=all
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/sync_3.f90'
-  herit: *GRPSERIAL
-  info: *54
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_sync_3_75:
-  bin: '"./sync_3.exe"'
-  cargs: -fcoarray=single  -O2  -latomic -fcheck=all
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/sync_3.f90'
-  herit: *GRPSERIAL
-  info: *54
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_this_image_1_110:
-  bin: '"./this_image_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/this_image_1.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_this_image_1_109:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/this_image_1.f90'
+    sources:
+      binary: ./this_image_1.exe
+  group: GRPSERIAL
   info: &55 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_this_image_1_196:
-  bin: '"./this_image_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/this_image_1.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_this_image_1_110:
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/this_image_1.f90'
+    sources:
+      binary: ./this_image_1.exe
+  group: GRPSERIAL
   info: *55
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_this_image_1_221:
-  bin: '"./this_image_1.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/this_image_1.f90'
-  herit: *GRPSERIAL
-  info: *55
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_this_image_1_222:
-  bin: '"./this_image_1.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/this_image_1.f90'
-  herit: *GRPSERIAL
-  info: *55
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_this_image_2_112:
-  bin: '"./this_image_2.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/this_image_2.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_this_image_2_111:
+  build:
+    cflags: '-fcoarray=single  -O2  -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/this_image_2.f90'
+    sources:
+      binary: ./this_image_2.exe
+  group: GRPSERIAL
   info: &56 {}
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_this_image_2_125:
-  bin: '"./this_image_2.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/this_image_2.f90'
-  herit: *GRPSERIAL
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+test_this_image_2_112:
+  build:
+    cflags: '-fcoarray=lib  -O2  -lcaf_single -latomic '
+    files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/this_image_2.f90'
+    sources:
+      binary: ./this_image_2.exe
+  group: GRPSERIAL
   info: *56
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_this_image_2_223:
-  bin: '"./this_image_2.exe"'
-  cargs: '-fcoarray=single  -O2  -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/this_image_2.f90'
-  herit: *GRPSERIAL
-  info: *56
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
-test_this_image_2_224:
-  bin: '"./this_image_2.exe"'
-  cargs: '-fcoarray=lib  -O2  -lcaf_single -latomic '
-  files: '@ROOTPATH@/compilers/gcc/./gfortran.dg/coarray/this_image_2.f90'
-  herit: *GRPSERIAL
-  info: *56
-  type: complete
-  valscript: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
+  validate:
+    script:
+      path: '@ROOTPATH@/compilers/gcc/tools/gcc-valscript.pl'
