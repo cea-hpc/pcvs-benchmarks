@@ -36,7 +36,7 @@ build_benchs()
 			echo "$bench-$class:"
 			echo "    group: 'GRPOMP'"
 			echo "    run:"
-			echo "        depends_on: [ 'build_OMPNAS-MZ' ]"
+			echo "        depends_on: {'test':  [ 'build_OMPNAS-MZ' ]}"
 			echo "        program: 'bin/${bench}.${class}.x'"
 			
 			if test "x$class" = "xB"; then

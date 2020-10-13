@@ -10,13 +10,13 @@ print STDOUT "dummy_test:\n";
 print STDOUT "  build:\n";
 print STDOUT "    files: '\@BUILDPATH\@/dummy_test.cpp'\n";
 print STDOUT "    cflags: '-ltbb_debug'\n"; # we need debug lib 
-print STDOUT "  run: {'dummy': true}\n";
+print STDOUT "  run: {'cwd': '.'}\n";
 print STDOUT "  group: 'GRPSERIAL'\n";
 
 #actually build the tests
 print STDOUT "build_testsuite:\n";
 print STDOUT "  build:\n";
-print STDOUT "    depends_on: [ 'dummy_test' ]\n";
+print STDOUT "    depends_on: {'test':  [ 'dummy_test' ]}\n";
 print STDOUT "    make: {'target': 'test compiler=pcvs run_cmd=\"echo building ||\"'}\n";
 print STDOUT "    files: '\@BUILDPATH\@/Makefile'\n";
 
@@ -43,7 +43,7 @@ while(<$fh>)
 
 	print STDOUT "$name:\n";
 	print STDOUT "  run:\n";
-	print STDOUT "    depends_on: [ 'build_testsuite' ]\n";
+	print STDOUT "    depends_on: {'test':  [ 'build_testsuite' ]}\n";
 	print STDOUT "    program: 'build/${bdir}_debug/$bin'\n";
 	print STDOUT "    iterate:\n";
 	print STDOUT "      n_proc: {'values':  null}\n";

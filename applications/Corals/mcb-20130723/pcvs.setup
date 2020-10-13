@@ -34,7 +34,7 @@ emit_mcb_test()
 	echo "#$NUMBERMPI $MPIX $MPIY"
 	echo "run_mcb_$NUMBERMPI:
     run:
-        depends_on: [ 'make_mcb' ]
+        depends_on: {'test':  [ 'make_mcb' ]}
         program: 'src/MCBenchmark.exe'
         iterate:
             n_mpi:

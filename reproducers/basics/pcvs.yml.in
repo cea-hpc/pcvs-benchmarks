@@ -10,37 +10,37 @@ nomacro:
 # These tests inject macro which has to be a valid condition (replace an if() condition)
 cmacro_simple:
   build:
-    depends_on: [ "nomacro" ]
+    depends_on: {'test':  [ "nomacro" ]}
     <<: *build_nodes
     cflags: -DC_ARG=1
 
 cmacro_spaces:
   build:
-    depends_on: [ "nomacro" ]
+    depends_on: {'test':  [ "nomacro" ]}
     <<: *build_nodes
     cflags: -DC_ARG="1 \> 0"
 
 cmacro_spaces_multicmd:
   build:
-    depends_on: [ "nomacro" ]
+    depends_on: {'test':  [ "nomacro" ]}
     <<: *build_nodes
     cflags: -DC_ARG="1 \> 0 && 4 \> 0"
 
 cmacro_escape:
   build:
-    depends_on: [ "nomacro" ]
+    depends_on: {'test':  [ "nomacro" ]}
     <<: *build_nodes
     cflags: -DC_ARG="\"str\" != NULL"
 
 cmacro_escape_multicmd1:
   build:
-    depends_on: [ "nomacro" ]
+    depends_on: {'test':  [ "nomacro" ]}
     <<: *build_nodes
     cflags: -DC_ARG="\"str\" != NULL && \"Hello\"[0] == 'H' "
 
 cmacro_escape_multicmd2:
   build:
-    depends_on: [ "nomacro" ]
+    depends_on: {'test':  [ "nomacro" ]}
     <<: *build_nodes
     cflags: -DC_ARG=" (printf(\"%s\", \"buffer\"), \"Hello\"[0] == 'H') "
 
@@ -49,43 +49,43 @@ cmacro_escape_multicmd2:
 # buggy patterns like ';' are on purpose
 smacro_simple:
   build:
-    depends_on: [ "nomacro" ]
+    depends_on: {'test':  [ "nomacro" ]}
     <<: *build_nodes
     #create the C string --> 1
     cflags: -DS_ARG=\"1\"
 
 smacro_spaces1:
   build:
-    depends_on: [ "nomacro" ]
+    depends_on: {'test':  [ "nomacro" ]}
     <<: *build_nodes
     cflags: -DS_ARG="\"Hello, World ! \""
 
 smacro_spaces2:
   build:
-    depends_on: [ "nomacro" ]
+    depends_on: {'test':  [ "nomacro" ]}
     <<: *build_nodes
     cflags: -DS_ARG="\"Hello; /* World ! */\""
 
 smacro_escape1:
   build:
-    depends_on: [ "nomacro" ]
+    depends_on: {'test':  [ "nomacro" ]}
     <<: *build_nodes
     cflags: -DS_ARG="\"\\\"str\\\" is a quoted string\""
 
 smacro_escape2:
   build:
-    depends_on: [ "nomacro" ]
+    depends_on: {'test':  [ "nomacro" ]}
     <<: *build_nodes
     cflags: -DS_ARG="\"\\\"str1 && str2\\\"'s an quoted string; with weird patterns\""
 
 smacro_double_escape1:
   build:
-    depends_on: [ "nomacro" ]
+    depends_on: {'test':  [ "nomacro" ]}
     <<: *build_nodes
     cflags: -DS_ARG="\"\\\\\\\"str\\\\\\\" is an escaped string\""
 
 smacro_double_escape2:
   build:
-    depends_on: [ "nomacro" ]
+    depends_on: {'test':  [ "nomacro" ]}
     <<: *build_nodes
     cflags: -DS_ARG="\"\\\\\\\"str1; -> str2\\\\\\\" is an escaped string; with weird patterns !!\""

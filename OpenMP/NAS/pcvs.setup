@@ -35,8 +35,8 @@ build_benchs()
 			echo "$bench-$class:"
 			echo "  group: 'GRPOMP'"
 			echo "  run:"
-			echo "    depends_on: ['build_OMPNAS' ]"
-			echo "    bin: 'bin/${bench}.${class}.x'"
+			echo "    depends_on: {'test':  ['build_OMPNAS' ]}"
+			echo "    program: 'bin/${bench}.${class}.x'"
 			
 			if test "x$class" = "xB"; then
 				echo "    iterate: { 'n_omp': { 'values': [{seq: {'from': 8}}] }}"

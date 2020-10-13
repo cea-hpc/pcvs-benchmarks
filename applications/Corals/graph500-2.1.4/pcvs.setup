@@ -11,8 +11,8 @@ cp -r $pcvs_src_current/* $pcvs_build_current
 
 echo "
 graph500omp:
+    group: 'GRPOMP'
     build:
-        group: 'GRPOMP'
         files: '@BUILDPATH@/Makefile'
         variants: [ 'openmp' ]
         make:
@@ -70,7 +70,7 @@ do
 	echo "run_${GT}:
     group: 'GRPMPI'
     run:
-        depends_on: [ 'make_graphmpi' ]
+        depends_on: {'test':  [ 'make_graphmpi' ]}
         program: 'mpi/${GT}'
         iterate:
            n_mpi:
