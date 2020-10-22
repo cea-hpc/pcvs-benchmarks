@@ -10,14 +10,14 @@ cp -r $pcvs_src_current/* $pcvs_build_current
 
 COMP_TYPE="gfortran"
 
-$pcvs_compiler_commands_f77 -show | grep "ifort" > /dev/null
+$pcvs_compiler_commands_f77 -show 2> /dev/null | grep -q "ifort"
 
 if test "x$?" = "x0"; then
 	echo "#ifort DETECTED"
 	COMP_TYPE="ifort"
 fi
 
-$pcvs_compiler_commands_f77 -show | grep "gfortran" > /dev/null
+$pcvs_compiler_commands_f77 -show 2> /dev/null | grep "gfortran"
 
 if test "x$?" != "x0"; then
 	if test "$COMP_TYPE" = "gfortran"; then
