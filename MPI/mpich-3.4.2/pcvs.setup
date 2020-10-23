@@ -72,13 +72,16 @@ if __name__ == '__main__':
             pass
 
     try:
-        cmd = 'cp -r {src}/* {bld} && mkdir -p {d} && cd {d} && {cf} --disable-maintainer_mode --enable-strictmpi --enable-threads=multiple --enable-fortran=yes'.format(
-                src=cur_srcdir,
-                bld=cur_bldir,
-                d=os.path.join(cur_bldir, 'build'),
-                cf=os.path.join(cur_bldir, 'configure')
-            )
-       
+        cmd = 'cp -r {}/* {}'.format(cur_srdir, cur_bldir) + \
+            '&& mkdir -p {} '.format(os.path.join(cur_bldir, 'build')) + \
+            '&& cd {} '.format(os.path.join(cur_bldir, 'build')) + \
+            '&& {} '.format(os.path.join(cur_srcdir, 'configure')) + \
+              '--disable-maintainer_mode --enable-strictmpi ' + \
+              '--enable-threads=multiple --enable-fortran=yes ' \
+              'CC="{}" '.format(os.environ["pcvs_compiler_commands_cc"]) + \
+              'CXX="{}" '.format(os.environ["pcvs_compiler_commands_cxx"]) + \
+              'F77="{}" '.format(os.environ["pcvs_compiler_commands_f77"]) + \
+              'FC="{} "'.format(os.environ["pcvs_compiler_commands_f90"])
         subprocess.check_output(cmd, shell=True, stderr=subprocess.DEVNULL)
 
         print("""
