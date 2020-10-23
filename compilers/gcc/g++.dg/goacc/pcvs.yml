@@ -1,0 +1,900 @@
+test_data-1_1:
+  build:
+    cflags: "-std=c++98 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/data-1.C'
+    sources:
+      binary: data-1.s
+  group: GRPSERIAL
+  validate:
+    match:
+      L11:
+        expect: true
+        expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L12:
+        expect: true
+        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L13:
+        expect: true
+        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("has no data movement
+          clause")[^\n]*\n?)+'
+      L14:
+        expect: true
+        expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("has no data movement
+          clause")[^\n]*\n?)+'
+      L15:
+        expect: true
+        expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L16:
+        expect: true
+        expr: '(^|\n)([^\n]+:16:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L25:
+        expect: true
+        expr: '(^|\n)([^\n]+:25:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''#pragma
+          acc\'' clause before \''\\\\\\(\'' token")[^\n]*\n?)+'
+      L26:
+        expect: true
+        expr: '(^|\n)([^\n]+:26:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''\\\\\\)\''
+          before \''\\\\\\(\'' token")[^\n]*\n?)+'
+      L30:
+        expect: true
+        expr: '(^|\n)([^\n]+:30:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L31:
+        expect: true
+        expr: '(^|\n)([^\n]+:31:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L32:
+        expect: true
+        expr: '(^|\n)([^\n]+:32:[^\n]*[0-9]+: (fatal )?error:[^\n]*("has no data movement
+          clause")[^\n]*\n?)+'
+      L33:
+        expect: true
+        expr: '(^|\n)([^\n]+:33:[^\n]*[0-9]+: (fatal )?error:[^\n]*("has no data movement
+          clause")[^\n]*\n?)+'
+      L34:
+        expect: true
+        expr: '(^|\n)([^\n]+:34:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L35:
+        expect: true
+        expr: '(^|\n)([^\n]+:35:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L38:
+        expect: true
+        expr: '(^|\n)([^\n]+:38:[^\n]*[0-9]+: (fatal )?error:[^\n]*("has no data movement
+          clause")[^\n]*\n?)+'
+      L39:
+        expect: true
+        expr: '(^|\n)([^\n]+:39:[^\n]*[0-9]+: (fatal )?error:[^\n]*("has no data movement
+          clause")[^\n]*\n?)+'
+      L6:
+        expect: true
+        expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''#pragma
+          acc\'' clause before \''\\\\\\(\'' token")[^\n]*\n?)+'
+      L7:
+        expect: true
+        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''\\\\\\)\''
+          before \''\\\\\\(\'' token")[^\n]*\n?)+'
+test_data-1_2:
+  build:
+    cflags: "-std=c++11 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/data-1.C'
+    sources:
+      binary: data-1.s
+  group: GRPSERIAL
+  validate:
+    match:
+      L11:
+        expect: true
+        expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L12:
+        expect: true
+        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L13:
+        expect: true
+        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("has no data movement
+          clause")[^\n]*\n?)+'
+      L14:
+        expect: true
+        expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("has no data movement
+          clause")[^\n]*\n?)+'
+      L15:
+        expect: true
+        expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L16:
+        expect: true
+        expr: '(^|\n)([^\n]+:16:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L25:
+        expect: true
+        expr: '(^|\n)([^\n]+:25:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''#pragma
+          acc\'' clause before \''\\\\\\(\'' token")[^\n]*\n?)+'
+      L26:
+        expect: true
+        expr: '(^|\n)([^\n]+:26:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''\\\\\\)\''
+          before \''\\\\\\(\'' token")[^\n]*\n?)+'
+      L30:
+        expect: true
+        expr: '(^|\n)([^\n]+:30:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L31:
+        expect: true
+        expr: '(^|\n)([^\n]+:31:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L32:
+        expect: true
+        expr: '(^|\n)([^\n]+:32:[^\n]*[0-9]+: (fatal )?error:[^\n]*("has no data movement
+          clause")[^\n]*\n?)+'
+      L33:
+        expect: true
+        expr: '(^|\n)([^\n]+:33:[^\n]*[0-9]+: (fatal )?error:[^\n]*("has no data movement
+          clause")[^\n]*\n?)+'
+      L34:
+        expect: true
+        expr: '(^|\n)([^\n]+:34:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L35:
+        expect: true
+        expr: '(^|\n)([^\n]+:35:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L38:
+        expect: true
+        expr: '(^|\n)([^\n]+:38:[^\n]*[0-9]+: (fatal )?error:[^\n]*("has no data movement
+          clause")[^\n]*\n?)+'
+      L39:
+        expect: true
+        expr: '(^|\n)([^\n]+:39:[^\n]*[0-9]+: (fatal )?error:[^\n]*("has no data movement
+          clause")[^\n]*\n?)+'
+      L6:
+        expect: true
+        expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''#pragma
+          acc\'' clause before \''\\\\\\(\'' token")[^\n]*\n?)+'
+      L7:
+        expect: true
+        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''\\\\\\)\''
+          before \''\\\\\\(\'' token")[^\n]*\n?)+'
+test_data-1_22:
+  build:
+    cflags: "-std=c++98 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/data-1.C'
+    sources:
+      binary: data-1.s
+  group: GRPSERIAL
+  validate:
+    match:
+      L11:
+        expect: true
+        expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L12:
+        expect: true
+        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L13:
+        expect: true
+        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("has no data movement
+          clause")[^\n]*\n?)+'
+      L14:
+        expect: true
+        expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("has no data movement
+          clause")[^\n]*\n?)+'
+      L15:
+        expect: true
+        expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L16:
+        expect: true
+        expr: '(^|\n)([^\n]+:16:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L25:
+        expect: true
+        expr: '(^|\n)([^\n]+:25:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''#pragma
+          acc\'' clause before \''\\\\\\(\'' token")[^\n]*\n?)+'
+      L26:
+        expect: true
+        expr: '(^|\n)([^\n]+:26:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''\\\\\\)\''
+          before \''\\\\\\(\'' token")[^\n]*\n?)+'
+      L30:
+        expect: true
+        expr: '(^|\n)([^\n]+:30:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L31:
+        expect: true
+        expr: '(^|\n)([^\n]+:31:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L32:
+        expect: true
+        expr: '(^|\n)([^\n]+:32:[^\n]*[0-9]+: (fatal )?error:[^\n]*("has no data movement
+          clause")[^\n]*\n?)+'
+      L33:
+        expect: true
+        expr: '(^|\n)([^\n]+:33:[^\n]*[0-9]+: (fatal )?error:[^\n]*("has no data movement
+          clause")[^\n]*\n?)+'
+      L34:
+        expect: true
+        expr: '(^|\n)([^\n]+:34:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L35:
+        expect: true
+        expr: '(^|\n)([^\n]+:35:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L38:
+        expect: true
+        expr: '(^|\n)([^\n]+:38:[^\n]*[0-9]+: (fatal )?error:[^\n]*("has no data movement
+          clause")[^\n]*\n?)+'
+      L39:
+        expect: true
+        expr: '(^|\n)([^\n]+:39:[^\n]*[0-9]+: (fatal )?error:[^\n]*("has no data movement
+          clause")[^\n]*\n?)+'
+      L6:
+        expect: true
+        expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''#pragma
+          acc\'' clause before \''\\\\\\(\'' token")[^\n]*\n?)+'
+      L7:
+        expect: true
+        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''\\\\\\)\''
+          before \''\\\\\\(\'' token")[^\n]*\n?)+'
+test_data-1_23:
+  build:
+    cflags: "-std=c++11 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/data-1.C'
+    sources:
+      binary: data-1.s
+  group: GRPSERIAL
+  validate:
+    match:
+      L11:
+        expect: true
+        expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L12:
+        expect: true
+        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L13:
+        expect: true
+        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("has no data movement
+          clause")[^\n]*\n?)+'
+      L14:
+        expect: true
+        expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("has no data movement
+          clause")[^\n]*\n?)+'
+      L15:
+        expect: true
+        expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L16:
+        expect: true
+        expr: '(^|\n)([^\n]+:16:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L25:
+        expect: true
+        expr: '(^|\n)([^\n]+:25:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''#pragma
+          acc\'' clause before \''\\\\\\(\'' token")[^\n]*\n?)+'
+      L26:
+        expect: true
+        expr: '(^|\n)([^\n]+:26:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''\\\\\\)\''
+          before \''\\\\\\(\'' token")[^\n]*\n?)+'
+      L30:
+        expect: true
+        expr: '(^|\n)([^\n]+:30:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L31:
+        expect: true
+        expr: '(^|\n)([^\n]+:31:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L32:
+        expect: true
+        expr: '(^|\n)([^\n]+:32:[^\n]*[0-9]+: (fatal )?error:[^\n]*("has no data movement
+          clause")[^\n]*\n?)+'
+      L33:
+        expect: true
+        expr: '(^|\n)([^\n]+:33:[^\n]*[0-9]+: (fatal )?error:[^\n]*("has no data movement
+          clause")[^\n]*\n?)+'
+      L34:
+        expect: true
+        expr: '(^|\n)([^\n]+:34:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L35:
+        expect: true
+        expr: '(^|\n)([^\n]+:35:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L38:
+        expect: true
+        expr: '(^|\n)([^\n]+:38:[^\n]*[0-9]+: (fatal )?error:[^\n]*("has no data movement
+          clause")[^\n]*\n?)+'
+      L39:
+        expect: true
+        expr: '(^|\n)([^\n]+:39:[^\n]*[0-9]+: (fatal )?error:[^\n]*("has no data movement
+          clause")[^\n]*\n?)+'
+      L6:
+        expect: true
+        expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''#pragma
+          acc\'' clause before \''\\\\\\(\'' token")[^\n]*\n?)+'
+      L7:
+        expect: true
+        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''\\\\\\)\''
+          before \''\\\\\\(\'' token")[^\n]*\n?)+'
+test_data-1_24:
+  build:
+    cflags: "-std=c++14 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/data-1.C'
+    sources:
+      binary: data-1.s
+  group: GRPSERIAL
+  validate:
+    match:
+      L11:
+        expect: true
+        expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L12:
+        expect: true
+        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L13:
+        expect: true
+        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("has no data movement
+          clause")[^\n]*\n?)+'
+      L14:
+        expect: true
+        expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("has no data movement
+          clause")[^\n]*\n?)+'
+      L15:
+        expect: true
+        expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L16:
+        expect: true
+        expr: '(^|\n)([^\n]+:16:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L25:
+        expect: true
+        expr: '(^|\n)([^\n]+:25:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''#pragma
+          acc\'' clause before \''\\\\\\(\'' token")[^\n]*\n?)+'
+      L26:
+        expect: true
+        expr: '(^|\n)([^\n]+:26:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''\\\\\\)\''
+          before \''\\\\\\(\'' token")[^\n]*\n?)+'
+      L30:
+        expect: true
+        expr: '(^|\n)([^\n]+:30:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L31:
+        expect: true
+        expr: '(^|\n)([^\n]+:31:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L32:
+        expect: true
+        expr: '(^|\n)([^\n]+:32:[^\n]*[0-9]+: (fatal )?error:[^\n]*("has no data movement
+          clause")[^\n]*\n?)+'
+      L33:
+        expect: true
+        expr: '(^|\n)([^\n]+:33:[^\n]*[0-9]+: (fatal )?error:[^\n]*("has no data movement
+          clause")[^\n]*\n?)+'
+      L34:
+        expect: true
+        expr: '(^|\n)([^\n]+:34:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L35:
+        expect: true
+        expr: '(^|\n)([^\n]+:35:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L38:
+        expect: true
+        expr: '(^|\n)([^\n]+:38:[^\n]*[0-9]+: (fatal )?error:[^\n]*("has no data movement
+          clause")[^\n]*\n?)+'
+      L39:
+        expect: true
+        expr: '(^|\n)([^\n]+:39:[^\n]*[0-9]+: (fatal )?error:[^\n]*("has no data movement
+          clause")[^\n]*\n?)+'
+      L6:
+        expect: true
+        expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''#pragma
+          acc\'' clause before \''\\\\\\(\'' token")[^\n]*\n?)+'
+      L7:
+        expect: true
+        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''\\\\\\)\''
+          before \''\\\\\\(\'' token")[^\n]*\n?)+'
+test_data-1_3:
+  build:
+    cflags: "-std=c++14 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/data-1.C'
+    sources:
+      binary: data-1.s
+  group: GRPSERIAL
+  validate:
+    match:
+      L11:
+        expect: true
+        expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L12:
+        expect: true
+        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L13:
+        expect: true
+        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("has no data movement
+          clause")[^\n]*\n?)+'
+      L14:
+        expect: true
+        expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("has no data movement
+          clause")[^\n]*\n?)+'
+      L15:
+        expect: true
+        expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L16:
+        expect: true
+        expr: '(^|\n)([^\n]+:16:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L25:
+        expect: true
+        expr: '(^|\n)([^\n]+:25:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''#pragma
+          acc\'' clause before \''\\\\\\(\'' token")[^\n]*\n?)+'
+      L26:
+        expect: true
+        expr: '(^|\n)([^\n]+:26:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''\\\\\\)\''
+          before \''\\\\\\(\'' token")[^\n]*\n?)+'
+      L30:
+        expect: true
+        expr: '(^|\n)([^\n]+:30:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L31:
+        expect: true
+        expr: '(^|\n)([^\n]+:31:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L32:
+        expect: true
+        expr: '(^|\n)([^\n]+:32:[^\n]*[0-9]+: (fatal )?error:[^\n]*("has no data movement
+          clause")[^\n]*\n?)+'
+      L33:
+        expect: true
+        expr: '(^|\n)([^\n]+:33:[^\n]*[0-9]+: (fatal )?error:[^\n]*("has no data movement
+          clause")[^\n]*\n?)+'
+      L34:
+        expect: true
+        expr: '(^|\n)([^\n]+:34:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L35:
+        expect: true
+        expr: '(^|\n)([^\n]+:35:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''data\''
+          after")[^\n]*\n?)+'
+      L38:
+        expect: true
+        expr: '(^|\n)([^\n]+:38:[^\n]*[0-9]+: (fatal )?error:[^\n]*("has no data movement
+          clause")[^\n]*\n?)+'
+      L39:
+        expect: true
+        expr: '(^|\n)([^\n]+:39:[^\n]*[0-9]+: (fatal )?error:[^\n]*("has no data movement
+          clause")[^\n]*\n?)+'
+      L6:
+        expect: true
+        expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''#pragma
+          acc\'' clause before \''\\\\\\(\'' token")[^\n]*\n?)+'
+      L7:
+        expect: true
+        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected \''\\\\\\)\''
+          before \''\\\\\\(\'' token")[^\n]*\n?)+'
+test_deviceptr-1_25:
+  build:
+    cflags: "-std=c++98 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/deviceptr-1.C'
+    sources:
+      binary: deviceptr-1.s
+  group: GRPSERIAL
+  validate:
+    match:
+      L21:
+        expect: true
+        expr: '(^|\n)([^\n]+:21:[^\n]*[0-9]+: (fatal )?error:[^\n]*("is not a pointer")[^\n]*\n?)+'
+      L36:
+        expect: true
+        expr: '(^|\n)([^\n]+:36:[^\n]*[0-9]+: (fatal )?error:[^\n]*("is not a pointer")[^\n]*\n?)+'
+test_deviceptr-1_26:
+  build:
+    cflags: "-std=c++11 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/deviceptr-1.C'
+    sources:
+      binary: deviceptr-1.s
+  group: GRPSERIAL
+  validate:
+    match:
+      L21:
+        expect: true
+        expr: '(^|\n)([^\n]+:21:[^\n]*[0-9]+: (fatal )?error:[^\n]*("is not a pointer")[^\n]*\n?)+'
+      L36:
+        expect: true
+        expr: '(^|\n)([^\n]+:36:[^\n]*[0-9]+: (fatal )?error:[^\n]*("is not a pointer")[^\n]*\n?)+'
+test_deviceptr-1_27:
+  build:
+    cflags: "-std=c++14 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/deviceptr-1.C'
+    sources:
+      binary: deviceptr-1.s
+  group: GRPSERIAL
+  validate:
+    match:
+      L21:
+        expect: true
+        expr: '(^|\n)([^\n]+:21:[^\n]*[0-9]+: (fatal )?error:[^\n]*("is not a pointer")[^\n]*\n?)+'
+      L36:
+        expect: true
+        expr: '(^|\n)([^\n]+:36:[^\n]*[0-9]+: (fatal )?error:[^\n]*("is not a pointer")[^\n]*\n?)+'
+test_deviceptr-1_4:
+  build:
+    cflags: "-std=c++98 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/deviceptr-1.C'
+    sources:
+      binary: deviceptr-1.s
+  group: GRPSERIAL
+  validate:
+    match:
+      L21:
+        expect: true
+        expr: '(^|\n)([^\n]+:21:[^\n]*[0-9]+: (fatal )?error:[^\n]*("is not a pointer")[^\n]*\n?)+'
+      L36:
+        expect: true
+        expr: '(^|\n)([^\n]+:36:[^\n]*[0-9]+: (fatal )?error:[^\n]*("is not a pointer")[^\n]*\n?)+'
+test_deviceptr-1_5:
+  build:
+    cflags: "-std=c++11 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/deviceptr-1.C'
+    sources:
+      binary: deviceptr-1.s
+  group: GRPSERIAL
+  validate:
+    match:
+      L21:
+        expect: true
+        expr: '(^|\n)([^\n]+:21:[^\n]*[0-9]+: (fatal )?error:[^\n]*("is not a pointer")[^\n]*\n?)+'
+      L36:
+        expect: true
+        expr: '(^|\n)([^\n]+:36:[^\n]*[0-9]+: (fatal )?error:[^\n]*("is not a pointer")[^\n]*\n?)+'
+test_deviceptr-1_6:
+  build:
+    cflags: "-std=c++14 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/deviceptr-1.C'
+    sources:
+      binary: deviceptr-1.s
+  group: GRPSERIAL
+  validate:
+    match:
+      L21:
+        expect: true
+        expr: '(^|\n)([^\n]+:21:[^\n]*[0-9]+: (fatal )?error:[^\n]*("is not a pointer")[^\n]*\n?)+'
+      L36:
+        expect: true
+        expr: '(^|\n)([^\n]+:36:[^\n]*[0-9]+: (fatal )?error:[^\n]*("is not a pointer")[^\n]*\n?)+'
+test_reference_28:
+  build:
+    cflags: "-std=c++98 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/reference.C'
+    sources:
+      binary: reference.s
+  group: GRPSERIAL
+test_reference_29:
+  build:
+    cflags: "-std=c++11 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/reference.C'
+    sources:
+      binary: reference.s
+  group: GRPSERIAL
+test_reference_30:
+  build:
+    cflags: "-std=c++14 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/reference.C'
+    sources:
+      binary: reference.s
+  group: GRPSERIAL
+test_reference_7:
+  build:
+    cflags: "-std=c++98 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/reference.C'
+    sources:
+      binary: reference.s
+  group: GRPSERIAL
+test_reference_8:
+  build:
+    cflags: "-std=c++11 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/reference.C'
+    sources:
+      binary: reference.s
+  group: GRPSERIAL
+test_reference_9:
+  build:
+    cflags: "-std=c++14 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/reference.C'
+    sources:
+      binary: reference.s
+  group: GRPSERIAL
+test_routine-1_10:
+  build:
+    cflags: "-std=c++98 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/routine-1.C'
+    sources:
+      binary: routine-1.s
+  group: GRPSERIAL
+test_routine-1_11:
+  build:
+    cflags: "-std=c++11 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/routine-1.C'
+    sources:
+      binary: routine-1.s
+  group: GRPSERIAL
+test_routine-1_12:
+  build:
+    cflags: "-std=c++14 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/routine-1.C'
+    sources:
+      binary: routine-1.s
+  group: GRPSERIAL
+test_routine-1_31:
+  build:
+    cflags: "-std=c++98 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/routine-1.C'
+    sources:
+      binary: routine-1.s
+  group: GRPSERIAL
+test_routine-1_32:
+  build:
+    cflags: "-std=c++11 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/routine-1.C'
+    sources:
+      binary: routine-1.s
+  group: GRPSERIAL
+test_routine-1_33:
+  build:
+    cflags: "-std=c++14 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/routine-1.C'
+    sources:
+      binary: routine-1.s
+  group: GRPSERIAL
+test_routine-2_13:
+  build:
+    cflags: "-std=c++98 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/routine-2.C'
+    sources:
+      binary: routine-2.s
+  group: GRPSERIAL
+  validate:
+    match:
+      L13:
+        expect: true
+        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("names a set of
+          overloads")[^\n]*\n?)+'
+      L18:
+        expect: true
+        expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("names a set of
+          overloads")[^\n]*\n?)+'
+      L5:
+        expect: true
+        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("names a set of
+          overloads")[^\n]*\n?)+'
+test_routine-2_14:
+  build:
+    cflags: "-std=c++11 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/routine-2.C'
+    sources:
+      binary: routine-2.s
+  group: GRPSERIAL
+  validate:
+    match:
+      L13:
+        expect: true
+        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("names a set of
+          overloads")[^\n]*\n?)+'
+      L18:
+        expect: true
+        expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("names a set of
+          overloads")[^\n]*\n?)+'
+      L5:
+        expect: true
+        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("names a set of
+          overloads")[^\n]*\n?)+'
+test_routine-2_15:
+  build:
+    cflags: "-std=c++14 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/routine-2.C'
+    sources:
+      binary: routine-2.s
+  group: GRPSERIAL
+  validate:
+    match:
+      L13:
+        expect: true
+        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("names a set of
+          overloads")[^\n]*\n?)+'
+      L18:
+        expect: true
+        expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("names a set of
+          overloads")[^\n]*\n?)+'
+      L5:
+        expect: true
+        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("names a set of
+          overloads")[^\n]*\n?)+'
+test_routine-2_34:
+  build:
+    cflags: "-std=c++98 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/routine-2.C'
+    sources:
+      binary: routine-2.s
+  group: GRPSERIAL
+  validate:
+    match:
+      L13:
+        expect: true
+        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("names a set of
+          overloads")[^\n]*\n?)+'
+      L18:
+        expect: true
+        expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("names a set of
+          overloads")[^\n]*\n?)+'
+      L5:
+        expect: true
+        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("names a set of
+          overloads")[^\n]*\n?)+'
+test_routine-2_35:
+  build:
+    cflags: "-std=c++11 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/routine-2.C'
+    sources:
+      binary: routine-2.s
+  group: GRPSERIAL
+  validate:
+    match:
+      L13:
+        expect: true
+        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("names a set of
+          overloads")[^\n]*\n?)+'
+      L18:
+        expect: true
+        expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("names a set of
+          overloads")[^\n]*\n?)+'
+      L5:
+        expect: true
+        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("names a set of
+          overloads")[^\n]*\n?)+'
+test_routine-2_36:
+  build:
+    cflags: "-std=c++14 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/routine-2.C'
+    sources:
+      binary: routine-2.s
+  group: GRPSERIAL
+  validate:
+    match:
+      L13:
+        expect: true
+        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("names a set of
+          overloads")[^\n]*\n?)+'
+      L18:
+        expect: true
+        expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("names a set of
+          overloads")[^\n]*\n?)+'
+      L5:
+        expect: true
+        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("names a set of
+          overloads")[^\n]*\n?)+'
+test_template_16:
+  build:
+    cflags: "-std=c++98 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/template.C'
+    sources:
+      binary: template.s
+  group: GRPSERIAL
+test_template_17:
+  build:
+    cflags: "-std=c++11 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/template.C'
+    sources:
+      binary: template.s
+  group: GRPSERIAL
+test_template_18:
+  build:
+    cflags: "-std=c++14 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/template.C'
+    sources:
+      binary: template.s
+  group: GRPSERIAL
+test_template_37:
+  build:
+    cflags: "-std=c++98 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/template.C'
+    sources:
+      binary: template.s
+  group: GRPSERIAL
+test_template_38:
+  build:
+    cflags: "-std=c++11 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/template.C'
+    sources:
+      binary: template.s
+  group: GRPSERIAL
+test_template_39:
+  build:
+    cflags: "-std=c++14 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/template.C'
+    sources:
+      binary: template.s
+  group: GRPSERIAL
+test_tile-1_19:
+  build:
+    cflags: "-std=c++98 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/tile-1.C'
+    sources:
+      binary: tile-1.s
+  group: GRPSERIAL
+  validate:
+    match:
+      L7:
+        expect: true
+        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
+test_tile-1_20:
+  build:
+    cflags: "-std=c++11 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/tile-1.C'
+    sources:
+      binary: tile-1.s
+  group: GRPSERIAL
+  validate:
+    match:
+      L7:
+        expect: true
+        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
+test_tile-1_21:
+  build:
+    cflags: "-std=c++14 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/tile-1.C'
+    sources:
+      binary: tile-1.s
+  group: GRPSERIAL
+  validate:
+    match:
+      L7:
+        expect: true
+        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
+test_tile-1_40:
+  build:
+    cflags: "-std=c++98 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/tile-1.C'
+    sources:
+      binary: tile-1.s
+  group: GRPSERIAL
+  validate:
+    match:
+      L7:
+        expect: true
+        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
+test_tile-1_41:
+  build:
+    cflags: "-std=c++11 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/tile-1.C'
+    sources:
+      binary: tile-1.s
+  group: GRPSERIAL
+  validate:
+    match:
+      L7:
+        expect: true
+        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
+test_tile-1_42:
+  build:
+    cflags: "-std=c++14 -fopenacc\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/goacc/tile-1.C'
+    sources:
+      binary: tile-1.s
+  group: GRPSERIAL
+  validate:
+    match:
+      L7:
+        expect: true
+        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'

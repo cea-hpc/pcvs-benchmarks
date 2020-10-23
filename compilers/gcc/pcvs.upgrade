@@ -1,163 +1,171 @@
-#!/usr/bin/env perl
+#!/usr/bin/env python3
+import shutil
+import copy
+from addict import Dict
+import tempfile
+import sys
+import subprocess
+import yaml
+import os
+import re
 
-use strict;
-use warnings;
 
-my %filetable;
-my $pwd;
-my $srcdir;
+def err_exit(message="", rc=1):
+    print("Error: {}".format(message))
+    sys.exit(rc)
 
-BEGIN {
-	die qw/You cannot invoke this script that way !/ if(__FILE__ =~ /-e/);
-	# this is used to dynamically set Perl module path.
-	$srcdir = `readlink -e \`dirname $0\``; chomp $srcdir;
-	$pwd = $srcdir;
-	$srcdir .= "/../..";
-}
 
-#third-party libs loading
-use lib "$srcdir/build_scripts/modules";
+def load_src_file(path):
+    """
+    Parse a single source file and load any significant dejaGnu rules to build a test.
+    This implies dg-error & dg-warning (dg-opions is also extracted to add extra cflags)
+    """
+    d = Dict()
 
-use File::Basename;
-use Data::Dumper;
-use JSON;
-use YAML qw(DumpFile);
+    # this re matches any string like:
+    # <line_number> {dg-<rule> <args>}
+    # where:
+    # * line_numer is added when parsing the file
+    # * rule is one of ['error', 'warning', 'option'] (for now)
+    # * args is anything following the rule. This args may be shrunk to fit exactly the first
+    #   argument after the rule (ex: 'dg-error "converted" "token" may be restricted to 'converted')
+    dg_rule = re.compile('([0-9]+)[ \t]+.*{[ \t]+dg-([-a-z]+)[ \t]+(.*)[ \t]+}[^}]*(\n|$)')
+    with open(path, 'rb') as fh:
+        for num, line in enumerate(fh):
+            # count from 1
+            num += 1
+            g = dg_rule.match("{} {}".format(num, line))
+            if g:
+                numline = g.group(1)
+                rule = g.group(2)
+                args = g.group(3)
 
-sub retrieve_file_specs {
-	my ($file) = @_;
-	open my $fh, "<", $file;
-	my %annotations;
-	while(<$fh>)
-	{
-		if("$. $_" =~ /([0-9]+)[ \t]+.*{[ \t]+dg-([-a-z]+)[ \t]+(.*)[ \t]+}[^}]*(\n|$)/ )
-		{
-			my @line = ($1, $2, $3);
-			#create an array of line infos (array of arrays)
-			if($line[1] =~ /^options$/)
-			{
-				push @{$annotations{"extraopts"}}, $line[2];
-			}
-			elsif($line[1] =~ /^error$/)
-			{
-				$line[2] =~ s/^"(.*)"(.*)$/$1/;
-				my $pattern = "[0-9]+: (fatal )?error:[^\n]*($line[2])";
-				my $linenum = $line[0];
-				push @{$annotations{"regex-err"}}, "(^|\n)([^\n]+(:$linenum:)[^\n]*($pattern)[^\n]*\n?)+";
-			}
-			elsif($line[1] =~ /^warning$/)
-			{
-				$line[2] =~ s/^"(.*)"(.*)$/$1/;
-				my $pattern = "[0-9]+: warning:[^\n]*($line[2])";
-				my $linenum = $line[0];
-				push @{$annotations{"regex-warn"}}, "(^|\n)([^\n]+(:$linenum:)[^\n]*($pattern)[^\n]*\n?)+";
-			}
-			elsif($line[1] =~ /^bogus$/)
-			{
-			}
-			elsif($line[1] =~ /^build$/)
-			{
-			}
-			elsif($line[1] =~ /^excess-errors$/)
-			{
-			}
-			elsif($line[1] =~ /^output$/)
-			{
-			}
-			elsif($line[1] =~ /^final$/)
-			{
-			}
-		}
-	}
-	#push the 2D array as a value in the hashtable
-	$filetable{$file} = \%annotations;
-}
+                if rule == 'options':
+                    d.build.cflags = args
+                elif rule == 'error':
+                    # this RE allow the 'args' field to be restrained to the significant argument:
+                    # the next one just after the rule
+                    args = re.match('^("[^"]*"|[^ ])*.*$', args).group(1)
 
-sub build_hash_table {
-	my ($filename) = @_;
-	my $out_dirname = dirname($filename);
-	my %file_content;
-	open(my $fh, "<", $filename) or die "issue: $!";
-	while(<$fh>)
-	{
-		my ($type, $src, $out, @args )  = split / /, $_;
-		my $src_name = basename($src);
-		my ($name, $cargs);
-		chomp @args;
+                    # now, for the rule 'error', build what GCC would print when encountering this error
+                    # this is only the end of the line containing the error
+                    gcc_rule = r"[0-9]+: (fatal )?error:[^\n]*({})".format(args)
 
-		# can't be that more compact ?
-		$name = $src_name;
-		$name =~s/\.[^\.]+$//;
-		$name = "test_${name}_$.";
-	
-		$file_content{$name}{build}{dummy} = 1;
+                    # register the complete matching regex under the PCVS YAML format
+                    d.validate.match['L{}'.format(numline)].expr = r"(^|\n)([^\n]+:{l}:[^\n]*{p}[^\n]*\n?)+".format(l=numline, p=gcc_rule)
+                    d.validate.match['L{}'.format(numline)].expect=True
 
-		if(!defined $filetable{$src})
-		{
-			# do greps and store it
-			retrieve_file_specs($src);
-		}
-		if($type =~ /^executable$/)
-		{
-			$file_content{$name}{run}{dummy} = 1;
-		}
-		else
-		{
-			push @args, "-E" if ($type =~ /^preprocess$/);
-			push @args, "-S" if ($type =~ /^assembly$/);
-			push @args, "-c" if ($type =~ /^object$/);
-		}
-		$cargs = join(" ", @args);
-		$file_content{$name} = {
-			group => "GRPSERIAL",
-			build => {
-				files => "\@ROOTPATH\@/compilers/gcc/$src",
-				cflags => "$cargs",
-				sources => {
-					binary => "$out"
-				}
-			},
-			validate => {
-				script => {
-					path => "\@ROOTPATH\@/compilers/gcc/tools/gcc-valscript.pl"
-				}
-			},
-		};
+                elif rule == 'warning':
+                    # this RE allow the 'args' field to be restrained to the significant argument:
+                    # the next one just after the rule
+                    args = re.match('^("[^"]*"|[^ ])*.*$', args).group(1)
 
-		$file_content{$name}{info} = $filetable{$src} if($filetable{$src});
-		if (grep {/-*-save-temps/} $cargs)
-		{
-			$file_content{$name}{build}{cwd} = "$out_dirname";
-			$file_content{$name}{run}{cwd} = "$out_dirname";
-		}
-	}
+                    # now, for the rule 'error', build what GCC would print when encountering this error
+                    # this is only the end of the line containing the error
+                    gcc_rule = r"[0-9]+: warning:[^\n]*({})".format(args)
 
-	DumpFile("$out_dirname/pcvs.yml.in", \%file_content) if (%file_content);
-}
+                    # register the complete matching regex under the PCVS YAML format
+                    d.validate.match['L{}'.format(numline)].expr = r"(^|\n)([^\n]+(:{l}:)[^\n]*{p}[^\n]*\n?)+".format(l=numline, p=gcc_rule)
+                    d.validate.match['L{}'.format(numline)].expect=True
+                # TODO: other rules ?
 
-sub check_tool
-{
-	my ($tool_name) = @_;
-	my $tpath = qx/which $tool_name/;
-	die qw('$tool_name' not found or not executable) unless ($tpath);
-}
+    return d
 
-check_tool "runtest";
 
-my $tmpdir = `mktemp -d`; chomp $tmpdir;
+file_dict = dict()
 
-my @tools=('gcc', 'g++', 'gfortran');
-$ENV{PCVS_CATCH_RUNTEST} = "pcvs.raw";
-foreach(@tools)
-{
-	print "Building for $_ tool\n";
-	system("runtest --tool=$_ --objdir $tmpdir --outdir $tmpdir --tool_exec $pwd/tools/bin/gcc > /dev/null 2>&1");
-}
 
-foreach(`find $pwd -type f -iname 'pcvs.raw'`)
-{
-	chomp;
-	print "Generation for $_\n";
-	build_hash_table($_);
-}
+def load_raw_file(filename):
+    """
+    In pcvs.raw files, a source files may appear multiple times (variadic parameters)
+    but parsing the file to extract dejaGnu patterns (dg-*), is done once per source file
+    this variable memorizes this information.
+    """
+    global file_dict
+    outpath = os.path.dirname(filename)
 
-system("rm -rf $tmpdir");
+    # this represent the YAML mapping done for the current YAML file
+    outfile_dict = Dict()
+    
+    # browse the pcvs.raw file line per line.
+    # enumerate(file_handler) returns both the line number and the line string
+    # (+1 is required as enumerate() starts from line '0')
+    with open(filename, 'r') as fh:
+        for numline, line in enumerate(fh):
+            numline += 1
+
+            # a single line looks like:
+            # <kind> <source_file> <exe_name> [<extra_cflags>]
+            # 'kind' may be one of ['preprocess', 'assembly', 'object' or 'executable']
+            kind, src_file, exe_name, flags = line.split(' ', 3)
+
+            # if source file has never been loaded yet
+            if src_file not in file_dict:
+                file_dict[src_file] = load_src_file(src_file)
+
+            # clone as we may need to update it
+            node = copy.deepcopy(file_dict[src_file])
+
+            if kind == 'executable':
+                node.run.cwd = '.'
+            elif kind == 'preprocess':
+                flags += ' -E'
+            elif kind == 'assembly':
+                flags += ' -S'
+            elif kind == 'object':
+                flags += ' -c'
+
+            node.build.cflags = flags.strip()
+            node.build.files = "@ROOTPATH@/compilers/gcc/{}".format(src_file)
+            node.build.sources.binary = exe_name.strip()
+            node.group = 'GRPSERIAL'
+            if 'save-temps' in flags:
+                node.build.cwd = outpath
+                node.run.cwd = outpath
+
+            # test name is based on source file basename witout the extension
+            # then suffixed by the line number the regex applies
+            nodename = "test_{}_{}".format(
+                    os.path.splitext(os.path.basename(src_file))[0],
+                    numline)
+            outfile_dict[nodename] = node
+
+    # dump the whole file. one pcvs.raw -> one pcvs.yml.in
+    with open(os.path.join(outpath, 'pcvs.yml'), 'w') as fh:
+        yaml.dump(outfile_dict.to_dict(), fh)
+
+
+
+######## MAIN #########
+
+# load runtest
+path = shutil.which('runtest')
+if path is None:
+    err_exit("'runtest' program not found!")
+
+# set this env var to enable test logging (in the given file)
+os.environ['PCVS_CATCH_RUNTEST'] = "pcvs.raw"
+
+# execute runtests to build test command lines
+for tool in ['gcc', 'g++', 'gfortran']:
+    print('Run tests for {}'.format(tool))
+    with tempfile.TemporaryDirectory() as tmpdir:
+        proc = subprocess.Popen(
+                '{path} --tool={tool} --objdir={tmp} --outdir={tmp} --tool_exec={cmd}'.format(
+                    tool=tool,
+                    path=path,
+                    tmp=tmpdir,
+                    cmd=os.path.join(os.getcwd(), "tools/bin/gcc")
+                ),
+                shell=True,
+                stderr=subprocess.PIPE,
+                stdout=subprocess.DEVNULL
+              )
+        proc.communicate()
+
+# now process pcvs.raw files to build tests
+for root, dirs, files in os.walk(os.getcwd()):
+    for f in files:
+        if f == 'pcvs.raw':
+            print('processing {}'.format(os.path.join(root, f)))
+            load_raw_file(os.path.join(root, f))

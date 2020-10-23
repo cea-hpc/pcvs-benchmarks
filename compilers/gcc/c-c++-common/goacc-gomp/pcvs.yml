@@ -1,0 +1,4032 @@
+test_nesting-1_1:
+  build:
+    cflags: "-fopenacc -fopenmp\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-1.c'
+    sources:
+      binary: nesting-1.s
+  group: GRPSERIAL
+test_nesting-1_11:
+  build:
+    cflags: "-fopenacc -fopenmp\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-1.c'
+    sources:
+      binary: nesting-1.s
+  group: GRPSERIAL
+test_nesting-1_13:
+  build:
+    cflags: "-std=c++98 -fopenacc -fopenmp\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-1.c'
+    sources:
+      binary: nesting-1.s
+  group: GRPSERIAL
+test_nesting-1_14:
+  build:
+    cflags: "-std=c++11 -fopenacc -fopenmp\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-1.c'
+    sources:
+      binary: nesting-1.s
+  group: GRPSERIAL
+test_nesting-1_15:
+  build:
+    cflags: "-std=c++14 -fopenacc -fopenmp\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-1.c'
+    sources:
+      binary: nesting-1.s
+  group: GRPSERIAL
+test_nesting-1_3:
+  build:
+    cflags: "-fopenacc -fopenmp\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-1.c'
+    sources:
+      binary: nesting-1.s
+  group: GRPSERIAL
+test_nesting-1_5:
+  build:
+    cflags: "-std=c++98 -fopenacc -fopenmp\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-1.c'
+    sources:
+      binary: nesting-1.s
+  group: GRPSERIAL
+test_nesting-1_6:
+  build:
+    cflags: "-std=c++11 -fopenacc -fopenmp\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-1.c'
+    sources:
+      binary: nesting-1.s
+  group: GRPSERIAL
+test_nesting-1_7:
+  build:
+    cflags: "-std=c++14 -fopenacc -fopenmp\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-1.c'
+    sources:
+      binary: nesting-1.s
+  group: GRPSERIAL
+test_nesting-fail-1_10:
+  build:
+    cflags: "-std=c++14 -fopenacc -fopenmp\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-fail-1.c'
+    sources:
+      binary: nesting-fail-1.s
+  group: GRPSERIAL
+  validate:
+    match:
+      L100:
+        expect: true
+        expr: '(^|\n)([^\n]+:100:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L101:
+        expect: true
+        expr: '(^|\n)([^\n]+:101:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L102:
+        expect: true
+        expr: '(^|\n)([^\n]+:102:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L103:
+        expect: true
+        expr: '(^|\n)([^\n]+:103:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L11:
+        expect: true
+        expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L110:
+        expect: true
+        expr: '(^|\n)([^\n]+:110:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L112:
+        expect: true
+        expr: '(^|\n)([^\n]+:112:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L114:
+        expect: true
+        expr: '(^|\n)([^\n]+:114:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L116:
+        expect: true
+        expr: '(^|\n)([^\n]+:116:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L117:
+        expect: true
+        expr: '(^|\n)([^\n]+:117:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L118:
+        expect: true
+        expr: '(^|\n)([^\n]+:118:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L119:
+        expect: true
+        expr: '(^|\n)([^\n]+:119:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L126:
+        expect: true
+        expr: '(^|\n)([^\n]+:126:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L128:
+        expect: true
+        expr: '(^|\n)([^\n]+:128:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L13:
+        expect: true
+        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L130:
+        expect: true
+        expr: '(^|\n)([^\n]+:130:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L132:
+        expect: true
+        expr: '(^|\n)([^\n]+:132:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L133:
+        expect: true
+        expr: '(^|\n)([^\n]+:133:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L134:
+        expect: true
+        expr: '(^|\n)([^\n]+:134:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L135:
+        expect: true
+        expr: '(^|\n)([^\n]+:135:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L142:
+        expect: true
+        expr: '(^|\n)([^\n]+:142:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L144:
+        expect: true
+        expr: '(^|\n)([^\n]+:144:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L146:
+        expect: true
+        expr: '(^|\n)([^\n]+:146:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L148:
+        expect: true
+        expr: '(^|\n)([^\n]+:148:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L149:
+        expect: true
+        expr: '(^|\n)([^\n]+:149:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L15:
+        expect: true
+        expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L150:
+        expect: true
+        expr: '(^|\n)([^\n]+:150:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L151:
+        expect: true
+        expr: '(^|\n)([^\n]+:151:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L158:
+        expect: true
+        expr: '(^|\n)([^\n]+:158:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .parallel.
+          construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L16:
+        expect: true
+        expr: '(^|\n)([^\n]+:16:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L160:
+        expect: true
+        expr: '(^|\n)([^\n]+:160:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .kernels.
+          construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L162:
+        expect: true
+        expr: '(^|\n)([^\n]+:162:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .data.
+          construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L164:
+        expect: true
+        expr: '(^|\n)([^\n]+:164:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .update.
+          construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L165:
+        expect: true
+        expr: '(^|\n)([^\n]+:165:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .enter/exit
+          data. construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L166:
+        expect: true
+        expr: '(^|\n)([^\n]+:166:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .enter/exit
+          data. construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L167:
+        expect: true
+        expr: '(^|\n)([^\n]+:167:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L17:
+        expect: true
+        expr: '(^|\n)([^\n]+:17:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L178:
+        expect: true
+        expr: '(^|\n)([^\n]+:178:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L18:
+        expect: true
+        expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L184:
+        expect: true
+        expr: '(^|\n)([^\n]+:184:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L191:
+        expect: true
+        expr: '(^|\n)([^\n]+:191:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L199:
+        expect: true
+        expr: '(^|\n)([^\n]+:199:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L205:
+        expect: true
+        expr: '(^|\n)([^\n]+:205:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L211:
+        expect: true
+        expr: '(^|\n)([^\n]+:211:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L217:
+        expect: true
+        expr: '(^|\n)([^\n]+:217:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L223:
+        expect: true
+        expr: '(^|\n)([^\n]+:223:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L229:
+        expect: true
+        expr: '(^|\n)([^\n]+:229:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L231:
+        expect: true
+        expr: '(^|\n)([^\n]+:231:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L233:
+        expect: true
+        expr: '(^|\n)([^\n]+:233:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L242:
+        expect: true
+        expr: '(^|\n)([^\n]+:242:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L248:
+        expect: true
+        expr: '(^|\n)([^\n]+:248:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L255:
+        expect: true
+        expr: '(^|\n)([^\n]+:255:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L26:
+        expect: true
+        expr: '(^|\n)([^\n]+:26:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L263:
+        expect: true
+        expr: '(^|\n)([^\n]+:263:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L269:
+        expect: true
+        expr: '(^|\n)([^\n]+:269:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L275:
+        expect: true
+        expr: '(^|\n)([^\n]+:275:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L28:
+        expect: true
+        expr: '(^|\n)([^\n]+:28:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L281:
+        expect: true
+        expr: '(^|\n)([^\n]+:281:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L287:
+        expect: true
+        expr: '(^|\n)([^\n]+:287:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L293:
+        expect: true
+        expr: '(^|\n)([^\n]+:293:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L295:
+        expect: true
+        expr: '(^|\n)([^\n]+:295:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L297:
+        expect: true
+        expr: '(^|\n)([^\n]+:297:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L30:
+        expect: true
+        expr: '(^|\n)([^\n]+:30:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L306:
+        expect: true
+        expr: '(^|\n)([^\n]+:306:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L312:
+        expect: true
+        expr: '(^|\n)([^\n]+:312:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L319:
+        expect: true
+        expr: '(^|\n)([^\n]+:319:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L32:
+        expect: true
+        expr: '(^|\n)([^\n]+:32:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L327:
+        expect: true
+        expr: '(^|\n)([^\n]+:327:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L33:
+        expect: true
+        expr: '(^|\n)([^\n]+:33:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L333:
+        expect: true
+        expr: '(^|\n)([^\n]+:333:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L339:
+        expect: true
+        expr: '(^|\n)([^\n]+:339:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L34:
+        expect: true
+        expr: '(^|\n)([^\n]+:34:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L345:
+        expect: true
+        expr: '(^|\n)([^\n]+:345:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L35:
+        expect: true
+        expr: '(^|\n)([^\n]+:35:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L351:
+        expect: true
+        expr: '(^|\n)([^\n]+:351:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L357:
+        expect: true
+        expr: '(^|\n)([^\n]+:357:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L359:
+        expect: true
+        expr: '(^|\n)([^\n]+:359:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L361:
+        expect: true
+        expr: '(^|\n)([^\n]+:361:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L372:
+        expect: true
+        expr: '(^|\n)([^\n]+:372:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L379:
+        expect: true
+        expr: '(^|\n)([^\n]+:379:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L387:
+        expect: true
+        expr: '(^|\n)([^\n]+:387:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L396:
+        expect: true
+        expr: '(^|\n)([^\n]+:396:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L403:
+        expect: true
+        expr: '(^|\n)([^\n]+:403:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L410:
+        expect: true
+        expr: '(^|\n)([^\n]+:410:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L417:
+        expect: true
+        expr: '(^|\n)([^\n]+:417:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L424:
+        expect: true
+        expr: '(^|\n)([^\n]+:424:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L43:
+        expect: true
+        expr: '(^|\n)([^\n]+:43:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L431:
+        expect: true
+        expr: '(^|\n)([^\n]+:431:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L433:
+        expect: true
+        expr: '(^|\n)([^\n]+:433:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L435:
+        expect: true
+        expr: '(^|\n)([^\n]+:435:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L443:
+        expect: true
+        expr: '(^|\n)([^\n]+:443:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L48:
+        expect: true
+        expr: '(^|\n)([^\n]+:48:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L53:
+        expect: true
+        expr: '(^|\n)([^\n]+:53:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L58:
+        expect: true
+        expr: '(^|\n)([^\n]+:58:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L62:
+        expect: true
+        expr: '(^|\n)([^\n]+:62:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L66:
+        expect: true
+        expr: '(^|\n)([^\n]+:66:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L70:
+        expect: true
+        expr: '(^|\n)([^\n]+:70:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L78:
+        expect: true
+        expr: '(^|\n)([^\n]+:78:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L80:
+        expect: true
+        expr: '(^|\n)([^\n]+:80:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L82:
+        expect: true
+        expr: '(^|\n)([^\n]+:82:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L84:
+        expect: true
+        expr: '(^|\n)([^\n]+:84:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L85:
+        expect: true
+        expr: '(^|\n)([^\n]+:85:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L86:
+        expect: true
+        expr: '(^|\n)([^\n]+:86:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L87:
+        expect: true
+        expr: '(^|\n)([^\n]+:87:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L9:
+        expect: true
+        expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L94:
+        expect: true
+        expr: '(^|\n)([^\n]+:94:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L96:
+        expect: true
+        expr: '(^|\n)([^\n]+:96:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L98:
+        expect: true
+        expr: '(^|\n)([^\n]+:98:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+test_nesting-fail-1_12:
+  build:
+    cflags: "-fopenacc -fopenmp\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-fail-1.c'
+    sources:
+      binary: nesting-fail-1.s
+  group: GRPSERIAL
+  validate:
+    match:
+      L100:
+        expect: true
+        expr: '(^|\n)([^\n]+:100:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L101:
+        expect: true
+        expr: '(^|\n)([^\n]+:101:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L102:
+        expect: true
+        expr: '(^|\n)([^\n]+:102:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L103:
+        expect: true
+        expr: '(^|\n)([^\n]+:103:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L11:
+        expect: true
+        expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L110:
+        expect: true
+        expr: '(^|\n)([^\n]+:110:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L112:
+        expect: true
+        expr: '(^|\n)([^\n]+:112:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L114:
+        expect: true
+        expr: '(^|\n)([^\n]+:114:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L116:
+        expect: true
+        expr: '(^|\n)([^\n]+:116:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L117:
+        expect: true
+        expr: '(^|\n)([^\n]+:117:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L118:
+        expect: true
+        expr: '(^|\n)([^\n]+:118:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L119:
+        expect: true
+        expr: '(^|\n)([^\n]+:119:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L126:
+        expect: true
+        expr: '(^|\n)([^\n]+:126:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L128:
+        expect: true
+        expr: '(^|\n)([^\n]+:128:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L13:
+        expect: true
+        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L130:
+        expect: true
+        expr: '(^|\n)([^\n]+:130:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L132:
+        expect: true
+        expr: '(^|\n)([^\n]+:132:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L133:
+        expect: true
+        expr: '(^|\n)([^\n]+:133:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L134:
+        expect: true
+        expr: '(^|\n)([^\n]+:134:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L135:
+        expect: true
+        expr: '(^|\n)([^\n]+:135:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L142:
+        expect: true
+        expr: '(^|\n)([^\n]+:142:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L144:
+        expect: true
+        expr: '(^|\n)([^\n]+:144:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L146:
+        expect: true
+        expr: '(^|\n)([^\n]+:146:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L148:
+        expect: true
+        expr: '(^|\n)([^\n]+:148:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L149:
+        expect: true
+        expr: '(^|\n)([^\n]+:149:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L15:
+        expect: true
+        expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L150:
+        expect: true
+        expr: '(^|\n)([^\n]+:150:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L151:
+        expect: true
+        expr: '(^|\n)([^\n]+:151:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L158:
+        expect: true
+        expr: '(^|\n)([^\n]+:158:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .parallel.
+          construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L16:
+        expect: true
+        expr: '(^|\n)([^\n]+:16:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L160:
+        expect: true
+        expr: '(^|\n)([^\n]+:160:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .kernels.
+          construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L162:
+        expect: true
+        expr: '(^|\n)([^\n]+:162:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .data.
+          construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L164:
+        expect: true
+        expr: '(^|\n)([^\n]+:164:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .update.
+          construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L165:
+        expect: true
+        expr: '(^|\n)([^\n]+:165:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .enter/exit
+          data. construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L166:
+        expect: true
+        expr: '(^|\n)([^\n]+:166:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .enter/exit
+          data. construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L167:
+        expect: true
+        expr: '(^|\n)([^\n]+:167:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L17:
+        expect: true
+        expr: '(^|\n)([^\n]+:17:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L178:
+        expect: true
+        expr: '(^|\n)([^\n]+:178:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L18:
+        expect: true
+        expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L184:
+        expect: true
+        expr: '(^|\n)([^\n]+:184:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L191:
+        expect: true
+        expr: '(^|\n)([^\n]+:191:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L199:
+        expect: true
+        expr: '(^|\n)([^\n]+:199:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L205:
+        expect: true
+        expr: '(^|\n)([^\n]+:205:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L211:
+        expect: true
+        expr: '(^|\n)([^\n]+:211:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L217:
+        expect: true
+        expr: '(^|\n)([^\n]+:217:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L223:
+        expect: true
+        expr: '(^|\n)([^\n]+:223:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L229:
+        expect: true
+        expr: '(^|\n)([^\n]+:229:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L231:
+        expect: true
+        expr: '(^|\n)([^\n]+:231:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L233:
+        expect: true
+        expr: '(^|\n)([^\n]+:233:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L242:
+        expect: true
+        expr: '(^|\n)([^\n]+:242:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L248:
+        expect: true
+        expr: '(^|\n)([^\n]+:248:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L255:
+        expect: true
+        expr: '(^|\n)([^\n]+:255:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L26:
+        expect: true
+        expr: '(^|\n)([^\n]+:26:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L263:
+        expect: true
+        expr: '(^|\n)([^\n]+:263:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L269:
+        expect: true
+        expr: '(^|\n)([^\n]+:269:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L275:
+        expect: true
+        expr: '(^|\n)([^\n]+:275:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L28:
+        expect: true
+        expr: '(^|\n)([^\n]+:28:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L281:
+        expect: true
+        expr: '(^|\n)([^\n]+:281:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L287:
+        expect: true
+        expr: '(^|\n)([^\n]+:287:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L293:
+        expect: true
+        expr: '(^|\n)([^\n]+:293:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L295:
+        expect: true
+        expr: '(^|\n)([^\n]+:295:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L297:
+        expect: true
+        expr: '(^|\n)([^\n]+:297:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L30:
+        expect: true
+        expr: '(^|\n)([^\n]+:30:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L306:
+        expect: true
+        expr: '(^|\n)([^\n]+:306:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L312:
+        expect: true
+        expr: '(^|\n)([^\n]+:312:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L319:
+        expect: true
+        expr: '(^|\n)([^\n]+:319:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L32:
+        expect: true
+        expr: '(^|\n)([^\n]+:32:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L327:
+        expect: true
+        expr: '(^|\n)([^\n]+:327:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L33:
+        expect: true
+        expr: '(^|\n)([^\n]+:33:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L333:
+        expect: true
+        expr: '(^|\n)([^\n]+:333:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L339:
+        expect: true
+        expr: '(^|\n)([^\n]+:339:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L34:
+        expect: true
+        expr: '(^|\n)([^\n]+:34:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L345:
+        expect: true
+        expr: '(^|\n)([^\n]+:345:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L35:
+        expect: true
+        expr: '(^|\n)([^\n]+:35:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L351:
+        expect: true
+        expr: '(^|\n)([^\n]+:351:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L357:
+        expect: true
+        expr: '(^|\n)([^\n]+:357:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L359:
+        expect: true
+        expr: '(^|\n)([^\n]+:359:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L361:
+        expect: true
+        expr: '(^|\n)([^\n]+:361:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L372:
+        expect: true
+        expr: '(^|\n)([^\n]+:372:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L379:
+        expect: true
+        expr: '(^|\n)([^\n]+:379:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L387:
+        expect: true
+        expr: '(^|\n)([^\n]+:387:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L396:
+        expect: true
+        expr: '(^|\n)([^\n]+:396:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L403:
+        expect: true
+        expr: '(^|\n)([^\n]+:403:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L410:
+        expect: true
+        expr: '(^|\n)([^\n]+:410:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L417:
+        expect: true
+        expr: '(^|\n)([^\n]+:417:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L424:
+        expect: true
+        expr: '(^|\n)([^\n]+:424:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L43:
+        expect: true
+        expr: '(^|\n)([^\n]+:43:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L431:
+        expect: true
+        expr: '(^|\n)([^\n]+:431:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L433:
+        expect: true
+        expr: '(^|\n)([^\n]+:433:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L435:
+        expect: true
+        expr: '(^|\n)([^\n]+:435:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L443:
+        expect: true
+        expr: '(^|\n)([^\n]+:443:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L48:
+        expect: true
+        expr: '(^|\n)([^\n]+:48:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L53:
+        expect: true
+        expr: '(^|\n)([^\n]+:53:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L58:
+        expect: true
+        expr: '(^|\n)([^\n]+:58:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L62:
+        expect: true
+        expr: '(^|\n)([^\n]+:62:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L66:
+        expect: true
+        expr: '(^|\n)([^\n]+:66:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L70:
+        expect: true
+        expr: '(^|\n)([^\n]+:70:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L78:
+        expect: true
+        expr: '(^|\n)([^\n]+:78:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L80:
+        expect: true
+        expr: '(^|\n)([^\n]+:80:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L82:
+        expect: true
+        expr: '(^|\n)([^\n]+:82:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L84:
+        expect: true
+        expr: '(^|\n)([^\n]+:84:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L85:
+        expect: true
+        expr: '(^|\n)([^\n]+:85:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L86:
+        expect: true
+        expr: '(^|\n)([^\n]+:86:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L87:
+        expect: true
+        expr: '(^|\n)([^\n]+:87:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L9:
+        expect: true
+        expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L94:
+        expect: true
+        expr: '(^|\n)([^\n]+:94:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L96:
+        expect: true
+        expr: '(^|\n)([^\n]+:96:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L98:
+        expect: true
+        expr: '(^|\n)([^\n]+:98:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+test_nesting-fail-1_16:
+  build:
+    cflags: "-std=c++98 -fopenacc -fopenmp\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-fail-1.c'
+    sources:
+      binary: nesting-fail-1.s
+  group: GRPSERIAL
+  validate:
+    match:
+      L100:
+        expect: true
+        expr: '(^|\n)([^\n]+:100:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L101:
+        expect: true
+        expr: '(^|\n)([^\n]+:101:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L102:
+        expect: true
+        expr: '(^|\n)([^\n]+:102:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L103:
+        expect: true
+        expr: '(^|\n)([^\n]+:103:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L11:
+        expect: true
+        expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L110:
+        expect: true
+        expr: '(^|\n)([^\n]+:110:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L112:
+        expect: true
+        expr: '(^|\n)([^\n]+:112:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L114:
+        expect: true
+        expr: '(^|\n)([^\n]+:114:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L116:
+        expect: true
+        expr: '(^|\n)([^\n]+:116:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L117:
+        expect: true
+        expr: '(^|\n)([^\n]+:117:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L118:
+        expect: true
+        expr: '(^|\n)([^\n]+:118:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L119:
+        expect: true
+        expr: '(^|\n)([^\n]+:119:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L126:
+        expect: true
+        expr: '(^|\n)([^\n]+:126:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L128:
+        expect: true
+        expr: '(^|\n)([^\n]+:128:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L13:
+        expect: true
+        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L130:
+        expect: true
+        expr: '(^|\n)([^\n]+:130:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L132:
+        expect: true
+        expr: '(^|\n)([^\n]+:132:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L133:
+        expect: true
+        expr: '(^|\n)([^\n]+:133:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L134:
+        expect: true
+        expr: '(^|\n)([^\n]+:134:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L135:
+        expect: true
+        expr: '(^|\n)([^\n]+:135:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L142:
+        expect: true
+        expr: '(^|\n)([^\n]+:142:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L144:
+        expect: true
+        expr: '(^|\n)([^\n]+:144:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L146:
+        expect: true
+        expr: '(^|\n)([^\n]+:146:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L148:
+        expect: true
+        expr: '(^|\n)([^\n]+:148:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L149:
+        expect: true
+        expr: '(^|\n)([^\n]+:149:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L15:
+        expect: true
+        expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L150:
+        expect: true
+        expr: '(^|\n)([^\n]+:150:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L151:
+        expect: true
+        expr: '(^|\n)([^\n]+:151:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L158:
+        expect: true
+        expr: '(^|\n)([^\n]+:158:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .parallel.
+          construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L16:
+        expect: true
+        expr: '(^|\n)([^\n]+:16:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L160:
+        expect: true
+        expr: '(^|\n)([^\n]+:160:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .kernels.
+          construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L162:
+        expect: true
+        expr: '(^|\n)([^\n]+:162:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .data.
+          construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L164:
+        expect: true
+        expr: '(^|\n)([^\n]+:164:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .update.
+          construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L165:
+        expect: true
+        expr: '(^|\n)([^\n]+:165:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .enter/exit
+          data. construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L166:
+        expect: true
+        expr: '(^|\n)([^\n]+:166:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .enter/exit
+          data. construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L167:
+        expect: true
+        expr: '(^|\n)([^\n]+:167:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L17:
+        expect: true
+        expr: '(^|\n)([^\n]+:17:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L178:
+        expect: true
+        expr: '(^|\n)([^\n]+:178:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L18:
+        expect: true
+        expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L184:
+        expect: true
+        expr: '(^|\n)([^\n]+:184:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L191:
+        expect: true
+        expr: '(^|\n)([^\n]+:191:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L199:
+        expect: true
+        expr: '(^|\n)([^\n]+:199:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L205:
+        expect: true
+        expr: '(^|\n)([^\n]+:205:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L211:
+        expect: true
+        expr: '(^|\n)([^\n]+:211:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L217:
+        expect: true
+        expr: '(^|\n)([^\n]+:217:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L223:
+        expect: true
+        expr: '(^|\n)([^\n]+:223:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L229:
+        expect: true
+        expr: '(^|\n)([^\n]+:229:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L231:
+        expect: true
+        expr: '(^|\n)([^\n]+:231:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L233:
+        expect: true
+        expr: '(^|\n)([^\n]+:233:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L242:
+        expect: true
+        expr: '(^|\n)([^\n]+:242:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L248:
+        expect: true
+        expr: '(^|\n)([^\n]+:248:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L255:
+        expect: true
+        expr: '(^|\n)([^\n]+:255:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L26:
+        expect: true
+        expr: '(^|\n)([^\n]+:26:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L263:
+        expect: true
+        expr: '(^|\n)([^\n]+:263:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L269:
+        expect: true
+        expr: '(^|\n)([^\n]+:269:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L275:
+        expect: true
+        expr: '(^|\n)([^\n]+:275:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L28:
+        expect: true
+        expr: '(^|\n)([^\n]+:28:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L281:
+        expect: true
+        expr: '(^|\n)([^\n]+:281:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L287:
+        expect: true
+        expr: '(^|\n)([^\n]+:287:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L293:
+        expect: true
+        expr: '(^|\n)([^\n]+:293:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L295:
+        expect: true
+        expr: '(^|\n)([^\n]+:295:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L297:
+        expect: true
+        expr: '(^|\n)([^\n]+:297:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L30:
+        expect: true
+        expr: '(^|\n)([^\n]+:30:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L306:
+        expect: true
+        expr: '(^|\n)([^\n]+:306:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L312:
+        expect: true
+        expr: '(^|\n)([^\n]+:312:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L319:
+        expect: true
+        expr: '(^|\n)([^\n]+:319:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L32:
+        expect: true
+        expr: '(^|\n)([^\n]+:32:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L327:
+        expect: true
+        expr: '(^|\n)([^\n]+:327:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L33:
+        expect: true
+        expr: '(^|\n)([^\n]+:33:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L333:
+        expect: true
+        expr: '(^|\n)([^\n]+:333:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L339:
+        expect: true
+        expr: '(^|\n)([^\n]+:339:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L34:
+        expect: true
+        expr: '(^|\n)([^\n]+:34:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L345:
+        expect: true
+        expr: '(^|\n)([^\n]+:345:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L35:
+        expect: true
+        expr: '(^|\n)([^\n]+:35:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L351:
+        expect: true
+        expr: '(^|\n)([^\n]+:351:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L357:
+        expect: true
+        expr: '(^|\n)([^\n]+:357:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L359:
+        expect: true
+        expr: '(^|\n)([^\n]+:359:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L361:
+        expect: true
+        expr: '(^|\n)([^\n]+:361:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L372:
+        expect: true
+        expr: '(^|\n)([^\n]+:372:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L379:
+        expect: true
+        expr: '(^|\n)([^\n]+:379:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L387:
+        expect: true
+        expr: '(^|\n)([^\n]+:387:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L396:
+        expect: true
+        expr: '(^|\n)([^\n]+:396:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L403:
+        expect: true
+        expr: '(^|\n)([^\n]+:403:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L410:
+        expect: true
+        expr: '(^|\n)([^\n]+:410:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L417:
+        expect: true
+        expr: '(^|\n)([^\n]+:417:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L424:
+        expect: true
+        expr: '(^|\n)([^\n]+:424:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L43:
+        expect: true
+        expr: '(^|\n)([^\n]+:43:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L431:
+        expect: true
+        expr: '(^|\n)([^\n]+:431:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L433:
+        expect: true
+        expr: '(^|\n)([^\n]+:433:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L435:
+        expect: true
+        expr: '(^|\n)([^\n]+:435:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L443:
+        expect: true
+        expr: '(^|\n)([^\n]+:443:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L48:
+        expect: true
+        expr: '(^|\n)([^\n]+:48:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L53:
+        expect: true
+        expr: '(^|\n)([^\n]+:53:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L58:
+        expect: true
+        expr: '(^|\n)([^\n]+:58:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L62:
+        expect: true
+        expr: '(^|\n)([^\n]+:62:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L66:
+        expect: true
+        expr: '(^|\n)([^\n]+:66:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L70:
+        expect: true
+        expr: '(^|\n)([^\n]+:70:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L78:
+        expect: true
+        expr: '(^|\n)([^\n]+:78:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L80:
+        expect: true
+        expr: '(^|\n)([^\n]+:80:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L82:
+        expect: true
+        expr: '(^|\n)([^\n]+:82:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L84:
+        expect: true
+        expr: '(^|\n)([^\n]+:84:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L85:
+        expect: true
+        expr: '(^|\n)([^\n]+:85:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L86:
+        expect: true
+        expr: '(^|\n)([^\n]+:86:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L87:
+        expect: true
+        expr: '(^|\n)([^\n]+:87:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L9:
+        expect: true
+        expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L94:
+        expect: true
+        expr: '(^|\n)([^\n]+:94:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L96:
+        expect: true
+        expr: '(^|\n)([^\n]+:96:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L98:
+        expect: true
+        expr: '(^|\n)([^\n]+:98:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+test_nesting-fail-1_17:
+  build:
+    cflags: "-std=c++11 -fopenacc -fopenmp\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-fail-1.c'
+    sources:
+      binary: nesting-fail-1.s
+  group: GRPSERIAL
+  validate:
+    match:
+      L100:
+        expect: true
+        expr: '(^|\n)([^\n]+:100:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L101:
+        expect: true
+        expr: '(^|\n)([^\n]+:101:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L102:
+        expect: true
+        expr: '(^|\n)([^\n]+:102:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L103:
+        expect: true
+        expr: '(^|\n)([^\n]+:103:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L11:
+        expect: true
+        expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L110:
+        expect: true
+        expr: '(^|\n)([^\n]+:110:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L112:
+        expect: true
+        expr: '(^|\n)([^\n]+:112:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L114:
+        expect: true
+        expr: '(^|\n)([^\n]+:114:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L116:
+        expect: true
+        expr: '(^|\n)([^\n]+:116:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L117:
+        expect: true
+        expr: '(^|\n)([^\n]+:117:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L118:
+        expect: true
+        expr: '(^|\n)([^\n]+:118:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L119:
+        expect: true
+        expr: '(^|\n)([^\n]+:119:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L126:
+        expect: true
+        expr: '(^|\n)([^\n]+:126:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L128:
+        expect: true
+        expr: '(^|\n)([^\n]+:128:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L13:
+        expect: true
+        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L130:
+        expect: true
+        expr: '(^|\n)([^\n]+:130:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L132:
+        expect: true
+        expr: '(^|\n)([^\n]+:132:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L133:
+        expect: true
+        expr: '(^|\n)([^\n]+:133:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L134:
+        expect: true
+        expr: '(^|\n)([^\n]+:134:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L135:
+        expect: true
+        expr: '(^|\n)([^\n]+:135:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L142:
+        expect: true
+        expr: '(^|\n)([^\n]+:142:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L144:
+        expect: true
+        expr: '(^|\n)([^\n]+:144:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L146:
+        expect: true
+        expr: '(^|\n)([^\n]+:146:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L148:
+        expect: true
+        expr: '(^|\n)([^\n]+:148:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L149:
+        expect: true
+        expr: '(^|\n)([^\n]+:149:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L15:
+        expect: true
+        expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L150:
+        expect: true
+        expr: '(^|\n)([^\n]+:150:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L151:
+        expect: true
+        expr: '(^|\n)([^\n]+:151:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L158:
+        expect: true
+        expr: '(^|\n)([^\n]+:158:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .parallel.
+          construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L16:
+        expect: true
+        expr: '(^|\n)([^\n]+:16:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L160:
+        expect: true
+        expr: '(^|\n)([^\n]+:160:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .kernels.
+          construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L162:
+        expect: true
+        expr: '(^|\n)([^\n]+:162:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .data.
+          construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L164:
+        expect: true
+        expr: '(^|\n)([^\n]+:164:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .update.
+          construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L165:
+        expect: true
+        expr: '(^|\n)([^\n]+:165:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .enter/exit
+          data. construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L166:
+        expect: true
+        expr: '(^|\n)([^\n]+:166:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .enter/exit
+          data. construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L167:
+        expect: true
+        expr: '(^|\n)([^\n]+:167:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L17:
+        expect: true
+        expr: '(^|\n)([^\n]+:17:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L178:
+        expect: true
+        expr: '(^|\n)([^\n]+:178:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L18:
+        expect: true
+        expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L184:
+        expect: true
+        expr: '(^|\n)([^\n]+:184:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L191:
+        expect: true
+        expr: '(^|\n)([^\n]+:191:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L199:
+        expect: true
+        expr: '(^|\n)([^\n]+:199:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L205:
+        expect: true
+        expr: '(^|\n)([^\n]+:205:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L211:
+        expect: true
+        expr: '(^|\n)([^\n]+:211:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L217:
+        expect: true
+        expr: '(^|\n)([^\n]+:217:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L223:
+        expect: true
+        expr: '(^|\n)([^\n]+:223:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L229:
+        expect: true
+        expr: '(^|\n)([^\n]+:229:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L231:
+        expect: true
+        expr: '(^|\n)([^\n]+:231:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L233:
+        expect: true
+        expr: '(^|\n)([^\n]+:233:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L242:
+        expect: true
+        expr: '(^|\n)([^\n]+:242:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L248:
+        expect: true
+        expr: '(^|\n)([^\n]+:248:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L255:
+        expect: true
+        expr: '(^|\n)([^\n]+:255:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L26:
+        expect: true
+        expr: '(^|\n)([^\n]+:26:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L263:
+        expect: true
+        expr: '(^|\n)([^\n]+:263:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L269:
+        expect: true
+        expr: '(^|\n)([^\n]+:269:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L275:
+        expect: true
+        expr: '(^|\n)([^\n]+:275:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L28:
+        expect: true
+        expr: '(^|\n)([^\n]+:28:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L281:
+        expect: true
+        expr: '(^|\n)([^\n]+:281:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L287:
+        expect: true
+        expr: '(^|\n)([^\n]+:287:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L293:
+        expect: true
+        expr: '(^|\n)([^\n]+:293:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L295:
+        expect: true
+        expr: '(^|\n)([^\n]+:295:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L297:
+        expect: true
+        expr: '(^|\n)([^\n]+:297:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L30:
+        expect: true
+        expr: '(^|\n)([^\n]+:30:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L306:
+        expect: true
+        expr: '(^|\n)([^\n]+:306:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L312:
+        expect: true
+        expr: '(^|\n)([^\n]+:312:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L319:
+        expect: true
+        expr: '(^|\n)([^\n]+:319:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L32:
+        expect: true
+        expr: '(^|\n)([^\n]+:32:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L327:
+        expect: true
+        expr: '(^|\n)([^\n]+:327:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L33:
+        expect: true
+        expr: '(^|\n)([^\n]+:33:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L333:
+        expect: true
+        expr: '(^|\n)([^\n]+:333:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L339:
+        expect: true
+        expr: '(^|\n)([^\n]+:339:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L34:
+        expect: true
+        expr: '(^|\n)([^\n]+:34:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L345:
+        expect: true
+        expr: '(^|\n)([^\n]+:345:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L35:
+        expect: true
+        expr: '(^|\n)([^\n]+:35:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L351:
+        expect: true
+        expr: '(^|\n)([^\n]+:351:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L357:
+        expect: true
+        expr: '(^|\n)([^\n]+:357:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L359:
+        expect: true
+        expr: '(^|\n)([^\n]+:359:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L361:
+        expect: true
+        expr: '(^|\n)([^\n]+:361:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L372:
+        expect: true
+        expr: '(^|\n)([^\n]+:372:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L379:
+        expect: true
+        expr: '(^|\n)([^\n]+:379:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L387:
+        expect: true
+        expr: '(^|\n)([^\n]+:387:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L396:
+        expect: true
+        expr: '(^|\n)([^\n]+:396:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L403:
+        expect: true
+        expr: '(^|\n)([^\n]+:403:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L410:
+        expect: true
+        expr: '(^|\n)([^\n]+:410:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L417:
+        expect: true
+        expr: '(^|\n)([^\n]+:417:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L424:
+        expect: true
+        expr: '(^|\n)([^\n]+:424:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L43:
+        expect: true
+        expr: '(^|\n)([^\n]+:43:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L431:
+        expect: true
+        expr: '(^|\n)([^\n]+:431:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L433:
+        expect: true
+        expr: '(^|\n)([^\n]+:433:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L435:
+        expect: true
+        expr: '(^|\n)([^\n]+:435:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L443:
+        expect: true
+        expr: '(^|\n)([^\n]+:443:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L48:
+        expect: true
+        expr: '(^|\n)([^\n]+:48:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L53:
+        expect: true
+        expr: '(^|\n)([^\n]+:53:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L58:
+        expect: true
+        expr: '(^|\n)([^\n]+:58:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L62:
+        expect: true
+        expr: '(^|\n)([^\n]+:62:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L66:
+        expect: true
+        expr: '(^|\n)([^\n]+:66:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L70:
+        expect: true
+        expr: '(^|\n)([^\n]+:70:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L78:
+        expect: true
+        expr: '(^|\n)([^\n]+:78:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L80:
+        expect: true
+        expr: '(^|\n)([^\n]+:80:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L82:
+        expect: true
+        expr: '(^|\n)([^\n]+:82:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L84:
+        expect: true
+        expr: '(^|\n)([^\n]+:84:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L85:
+        expect: true
+        expr: '(^|\n)([^\n]+:85:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L86:
+        expect: true
+        expr: '(^|\n)([^\n]+:86:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L87:
+        expect: true
+        expr: '(^|\n)([^\n]+:87:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L9:
+        expect: true
+        expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L94:
+        expect: true
+        expr: '(^|\n)([^\n]+:94:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L96:
+        expect: true
+        expr: '(^|\n)([^\n]+:96:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L98:
+        expect: true
+        expr: '(^|\n)([^\n]+:98:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+test_nesting-fail-1_18:
+  build:
+    cflags: "-std=c++14 -fopenacc -fopenmp\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-fail-1.c'
+    sources:
+      binary: nesting-fail-1.s
+  group: GRPSERIAL
+  validate:
+    match:
+      L100:
+        expect: true
+        expr: '(^|\n)([^\n]+:100:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L101:
+        expect: true
+        expr: '(^|\n)([^\n]+:101:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L102:
+        expect: true
+        expr: '(^|\n)([^\n]+:102:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L103:
+        expect: true
+        expr: '(^|\n)([^\n]+:103:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L11:
+        expect: true
+        expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L110:
+        expect: true
+        expr: '(^|\n)([^\n]+:110:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L112:
+        expect: true
+        expr: '(^|\n)([^\n]+:112:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L114:
+        expect: true
+        expr: '(^|\n)([^\n]+:114:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L116:
+        expect: true
+        expr: '(^|\n)([^\n]+:116:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L117:
+        expect: true
+        expr: '(^|\n)([^\n]+:117:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L118:
+        expect: true
+        expr: '(^|\n)([^\n]+:118:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L119:
+        expect: true
+        expr: '(^|\n)([^\n]+:119:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L126:
+        expect: true
+        expr: '(^|\n)([^\n]+:126:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L128:
+        expect: true
+        expr: '(^|\n)([^\n]+:128:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L13:
+        expect: true
+        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L130:
+        expect: true
+        expr: '(^|\n)([^\n]+:130:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L132:
+        expect: true
+        expr: '(^|\n)([^\n]+:132:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L133:
+        expect: true
+        expr: '(^|\n)([^\n]+:133:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L134:
+        expect: true
+        expr: '(^|\n)([^\n]+:134:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L135:
+        expect: true
+        expr: '(^|\n)([^\n]+:135:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L142:
+        expect: true
+        expr: '(^|\n)([^\n]+:142:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L144:
+        expect: true
+        expr: '(^|\n)([^\n]+:144:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L146:
+        expect: true
+        expr: '(^|\n)([^\n]+:146:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L148:
+        expect: true
+        expr: '(^|\n)([^\n]+:148:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L149:
+        expect: true
+        expr: '(^|\n)([^\n]+:149:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L15:
+        expect: true
+        expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L150:
+        expect: true
+        expr: '(^|\n)([^\n]+:150:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L151:
+        expect: true
+        expr: '(^|\n)([^\n]+:151:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L158:
+        expect: true
+        expr: '(^|\n)([^\n]+:158:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .parallel.
+          construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L16:
+        expect: true
+        expr: '(^|\n)([^\n]+:16:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L160:
+        expect: true
+        expr: '(^|\n)([^\n]+:160:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .kernels.
+          construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L162:
+        expect: true
+        expr: '(^|\n)([^\n]+:162:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .data.
+          construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L164:
+        expect: true
+        expr: '(^|\n)([^\n]+:164:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .update.
+          construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L165:
+        expect: true
+        expr: '(^|\n)([^\n]+:165:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .enter/exit
+          data. construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L166:
+        expect: true
+        expr: '(^|\n)([^\n]+:166:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .enter/exit
+          data. construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L167:
+        expect: true
+        expr: '(^|\n)([^\n]+:167:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L17:
+        expect: true
+        expr: '(^|\n)([^\n]+:17:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L178:
+        expect: true
+        expr: '(^|\n)([^\n]+:178:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L18:
+        expect: true
+        expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L184:
+        expect: true
+        expr: '(^|\n)([^\n]+:184:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L191:
+        expect: true
+        expr: '(^|\n)([^\n]+:191:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L199:
+        expect: true
+        expr: '(^|\n)([^\n]+:199:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L205:
+        expect: true
+        expr: '(^|\n)([^\n]+:205:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L211:
+        expect: true
+        expr: '(^|\n)([^\n]+:211:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L217:
+        expect: true
+        expr: '(^|\n)([^\n]+:217:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L223:
+        expect: true
+        expr: '(^|\n)([^\n]+:223:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L229:
+        expect: true
+        expr: '(^|\n)([^\n]+:229:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L231:
+        expect: true
+        expr: '(^|\n)([^\n]+:231:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L233:
+        expect: true
+        expr: '(^|\n)([^\n]+:233:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L242:
+        expect: true
+        expr: '(^|\n)([^\n]+:242:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L248:
+        expect: true
+        expr: '(^|\n)([^\n]+:248:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L255:
+        expect: true
+        expr: '(^|\n)([^\n]+:255:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L26:
+        expect: true
+        expr: '(^|\n)([^\n]+:26:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L263:
+        expect: true
+        expr: '(^|\n)([^\n]+:263:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L269:
+        expect: true
+        expr: '(^|\n)([^\n]+:269:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L275:
+        expect: true
+        expr: '(^|\n)([^\n]+:275:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L28:
+        expect: true
+        expr: '(^|\n)([^\n]+:28:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L281:
+        expect: true
+        expr: '(^|\n)([^\n]+:281:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L287:
+        expect: true
+        expr: '(^|\n)([^\n]+:287:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L293:
+        expect: true
+        expr: '(^|\n)([^\n]+:293:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L295:
+        expect: true
+        expr: '(^|\n)([^\n]+:295:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L297:
+        expect: true
+        expr: '(^|\n)([^\n]+:297:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L30:
+        expect: true
+        expr: '(^|\n)([^\n]+:30:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L306:
+        expect: true
+        expr: '(^|\n)([^\n]+:306:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L312:
+        expect: true
+        expr: '(^|\n)([^\n]+:312:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L319:
+        expect: true
+        expr: '(^|\n)([^\n]+:319:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L32:
+        expect: true
+        expr: '(^|\n)([^\n]+:32:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L327:
+        expect: true
+        expr: '(^|\n)([^\n]+:327:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L33:
+        expect: true
+        expr: '(^|\n)([^\n]+:33:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L333:
+        expect: true
+        expr: '(^|\n)([^\n]+:333:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L339:
+        expect: true
+        expr: '(^|\n)([^\n]+:339:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L34:
+        expect: true
+        expr: '(^|\n)([^\n]+:34:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L345:
+        expect: true
+        expr: '(^|\n)([^\n]+:345:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L35:
+        expect: true
+        expr: '(^|\n)([^\n]+:35:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L351:
+        expect: true
+        expr: '(^|\n)([^\n]+:351:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L357:
+        expect: true
+        expr: '(^|\n)([^\n]+:357:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L359:
+        expect: true
+        expr: '(^|\n)([^\n]+:359:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L361:
+        expect: true
+        expr: '(^|\n)([^\n]+:361:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L372:
+        expect: true
+        expr: '(^|\n)([^\n]+:372:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L379:
+        expect: true
+        expr: '(^|\n)([^\n]+:379:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L387:
+        expect: true
+        expr: '(^|\n)([^\n]+:387:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L396:
+        expect: true
+        expr: '(^|\n)([^\n]+:396:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L403:
+        expect: true
+        expr: '(^|\n)([^\n]+:403:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L410:
+        expect: true
+        expr: '(^|\n)([^\n]+:410:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L417:
+        expect: true
+        expr: '(^|\n)([^\n]+:417:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L424:
+        expect: true
+        expr: '(^|\n)([^\n]+:424:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L43:
+        expect: true
+        expr: '(^|\n)([^\n]+:43:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L431:
+        expect: true
+        expr: '(^|\n)([^\n]+:431:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L433:
+        expect: true
+        expr: '(^|\n)([^\n]+:433:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L435:
+        expect: true
+        expr: '(^|\n)([^\n]+:435:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L443:
+        expect: true
+        expr: '(^|\n)([^\n]+:443:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L48:
+        expect: true
+        expr: '(^|\n)([^\n]+:48:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L53:
+        expect: true
+        expr: '(^|\n)([^\n]+:53:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L58:
+        expect: true
+        expr: '(^|\n)([^\n]+:58:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L62:
+        expect: true
+        expr: '(^|\n)([^\n]+:62:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L66:
+        expect: true
+        expr: '(^|\n)([^\n]+:66:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L70:
+        expect: true
+        expr: '(^|\n)([^\n]+:70:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L78:
+        expect: true
+        expr: '(^|\n)([^\n]+:78:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L80:
+        expect: true
+        expr: '(^|\n)([^\n]+:80:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L82:
+        expect: true
+        expr: '(^|\n)([^\n]+:82:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L84:
+        expect: true
+        expr: '(^|\n)([^\n]+:84:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L85:
+        expect: true
+        expr: '(^|\n)([^\n]+:85:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L86:
+        expect: true
+        expr: '(^|\n)([^\n]+:86:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L87:
+        expect: true
+        expr: '(^|\n)([^\n]+:87:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L9:
+        expect: true
+        expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L94:
+        expect: true
+        expr: '(^|\n)([^\n]+:94:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L96:
+        expect: true
+        expr: '(^|\n)([^\n]+:96:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L98:
+        expect: true
+        expr: '(^|\n)([^\n]+:98:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+test_nesting-fail-1_2:
+  build:
+    cflags: "-fopenacc -fopenmp\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-fail-1.c'
+    sources:
+      binary: nesting-fail-1.s
+  group: GRPSERIAL
+  validate:
+    match:
+      L100:
+        expect: true
+        expr: '(^|\n)([^\n]+:100:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L101:
+        expect: true
+        expr: '(^|\n)([^\n]+:101:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L102:
+        expect: true
+        expr: '(^|\n)([^\n]+:102:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L103:
+        expect: true
+        expr: '(^|\n)([^\n]+:103:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L11:
+        expect: true
+        expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L110:
+        expect: true
+        expr: '(^|\n)([^\n]+:110:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L112:
+        expect: true
+        expr: '(^|\n)([^\n]+:112:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L114:
+        expect: true
+        expr: '(^|\n)([^\n]+:114:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L116:
+        expect: true
+        expr: '(^|\n)([^\n]+:116:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L117:
+        expect: true
+        expr: '(^|\n)([^\n]+:117:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L118:
+        expect: true
+        expr: '(^|\n)([^\n]+:118:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L119:
+        expect: true
+        expr: '(^|\n)([^\n]+:119:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L126:
+        expect: true
+        expr: '(^|\n)([^\n]+:126:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L128:
+        expect: true
+        expr: '(^|\n)([^\n]+:128:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L13:
+        expect: true
+        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L130:
+        expect: true
+        expr: '(^|\n)([^\n]+:130:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L132:
+        expect: true
+        expr: '(^|\n)([^\n]+:132:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L133:
+        expect: true
+        expr: '(^|\n)([^\n]+:133:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L134:
+        expect: true
+        expr: '(^|\n)([^\n]+:134:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L135:
+        expect: true
+        expr: '(^|\n)([^\n]+:135:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L142:
+        expect: true
+        expr: '(^|\n)([^\n]+:142:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L144:
+        expect: true
+        expr: '(^|\n)([^\n]+:144:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L146:
+        expect: true
+        expr: '(^|\n)([^\n]+:146:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L148:
+        expect: true
+        expr: '(^|\n)([^\n]+:148:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L149:
+        expect: true
+        expr: '(^|\n)([^\n]+:149:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L15:
+        expect: true
+        expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L150:
+        expect: true
+        expr: '(^|\n)([^\n]+:150:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L151:
+        expect: true
+        expr: '(^|\n)([^\n]+:151:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L158:
+        expect: true
+        expr: '(^|\n)([^\n]+:158:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .parallel.
+          construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L16:
+        expect: true
+        expr: '(^|\n)([^\n]+:16:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L160:
+        expect: true
+        expr: '(^|\n)([^\n]+:160:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .kernels.
+          construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L162:
+        expect: true
+        expr: '(^|\n)([^\n]+:162:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .data.
+          construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L164:
+        expect: true
+        expr: '(^|\n)([^\n]+:164:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .update.
+          construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L165:
+        expect: true
+        expr: '(^|\n)([^\n]+:165:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .enter/exit
+          data. construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L166:
+        expect: true
+        expr: '(^|\n)([^\n]+:166:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .enter/exit
+          data. construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L167:
+        expect: true
+        expr: '(^|\n)([^\n]+:167:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L17:
+        expect: true
+        expr: '(^|\n)([^\n]+:17:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L178:
+        expect: true
+        expr: '(^|\n)([^\n]+:178:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L18:
+        expect: true
+        expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L184:
+        expect: true
+        expr: '(^|\n)([^\n]+:184:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L191:
+        expect: true
+        expr: '(^|\n)([^\n]+:191:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L199:
+        expect: true
+        expr: '(^|\n)([^\n]+:199:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L205:
+        expect: true
+        expr: '(^|\n)([^\n]+:205:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L211:
+        expect: true
+        expr: '(^|\n)([^\n]+:211:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L217:
+        expect: true
+        expr: '(^|\n)([^\n]+:217:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L223:
+        expect: true
+        expr: '(^|\n)([^\n]+:223:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L229:
+        expect: true
+        expr: '(^|\n)([^\n]+:229:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L231:
+        expect: true
+        expr: '(^|\n)([^\n]+:231:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L233:
+        expect: true
+        expr: '(^|\n)([^\n]+:233:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L242:
+        expect: true
+        expr: '(^|\n)([^\n]+:242:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L248:
+        expect: true
+        expr: '(^|\n)([^\n]+:248:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L255:
+        expect: true
+        expr: '(^|\n)([^\n]+:255:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L26:
+        expect: true
+        expr: '(^|\n)([^\n]+:26:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L263:
+        expect: true
+        expr: '(^|\n)([^\n]+:263:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L269:
+        expect: true
+        expr: '(^|\n)([^\n]+:269:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L275:
+        expect: true
+        expr: '(^|\n)([^\n]+:275:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L28:
+        expect: true
+        expr: '(^|\n)([^\n]+:28:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L281:
+        expect: true
+        expr: '(^|\n)([^\n]+:281:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L287:
+        expect: true
+        expr: '(^|\n)([^\n]+:287:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L293:
+        expect: true
+        expr: '(^|\n)([^\n]+:293:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L295:
+        expect: true
+        expr: '(^|\n)([^\n]+:295:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L297:
+        expect: true
+        expr: '(^|\n)([^\n]+:297:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L30:
+        expect: true
+        expr: '(^|\n)([^\n]+:30:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L306:
+        expect: true
+        expr: '(^|\n)([^\n]+:306:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L312:
+        expect: true
+        expr: '(^|\n)([^\n]+:312:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L319:
+        expect: true
+        expr: '(^|\n)([^\n]+:319:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L32:
+        expect: true
+        expr: '(^|\n)([^\n]+:32:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L327:
+        expect: true
+        expr: '(^|\n)([^\n]+:327:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L33:
+        expect: true
+        expr: '(^|\n)([^\n]+:33:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L333:
+        expect: true
+        expr: '(^|\n)([^\n]+:333:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L339:
+        expect: true
+        expr: '(^|\n)([^\n]+:339:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L34:
+        expect: true
+        expr: '(^|\n)([^\n]+:34:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L345:
+        expect: true
+        expr: '(^|\n)([^\n]+:345:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L35:
+        expect: true
+        expr: '(^|\n)([^\n]+:35:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L351:
+        expect: true
+        expr: '(^|\n)([^\n]+:351:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L357:
+        expect: true
+        expr: '(^|\n)([^\n]+:357:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L359:
+        expect: true
+        expr: '(^|\n)([^\n]+:359:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L361:
+        expect: true
+        expr: '(^|\n)([^\n]+:361:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L372:
+        expect: true
+        expr: '(^|\n)([^\n]+:372:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L379:
+        expect: true
+        expr: '(^|\n)([^\n]+:379:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L387:
+        expect: true
+        expr: '(^|\n)([^\n]+:387:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L396:
+        expect: true
+        expr: '(^|\n)([^\n]+:396:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L403:
+        expect: true
+        expr: '(^|\n)([^\n]+:403:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L410:
+        expect: true
+        expr: '(^|\n)([^\n]+:410:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L417:
+        expect: true
+        expr: '(^|\n)([^\n]+:417:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L424:
+        expect: true
+        expr: '(^|\n)([^\n]+:424:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L43:
+        expect: true
+        expr: '(^|\n)([^\n]+:43:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L431:
+        expect: true
+        expr: '(^|\n)([^\n]+:431:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L433:
+        expect: true
+        expr: '(^|\n)([^\n]+:433:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L435:
+        expect: true
+        expr: '(^|\n)([^\n]+:435:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L443:
+        expect: true
+        expr: '(^|\n)([^\n]+:443:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L48:
+        expect: true
+        expr: '(^|\n)([^\n]+:48:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L53:
+        expect: true
+        expr: '(^|\n)([^\n]+:53:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L58:
+        expect: true
+        expr: '(^|\n)([^\n]+:58:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L62:
+        expect: true
+        expr: '(^|\n)([^\n]+:62:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L66:
+        expect: true
+        expr: '(^|\n)([^\n]+:66:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L70:
+        expect: true
+        expr: '(^|\n)([^\n]+:70:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L78:
+        expect: true
+        expr: '(^|\n)([^\n]+:78:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L80:
+        expect: true
+        expr: '(^|\n)([^\n]+:80:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L82:
+        expect: true
+        expr: '(^|\n)([^\n]+:82:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L84:
+        expect: true
+        expr: '(^|\n)([^\n]+:84:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L85:
+        expect: true
+        expr: '(^|\n)([^\n]+:85:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L86:
+        expect: true
+        expr: '(^|\n)([^\n]+:86:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L87:
+        expect: true
+        expr: '(^|\n)([^\n]+:87:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L9:
+        expect: true
+        expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L94:
+        expect: true
+        expr: '(^|\n)([^\n]+:94:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L96:
+        expect: true
+        expr: '(^|\n)([^\n]+:96:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L98:
+        expect: true
+        expr: '(^|\n)([^\n]+:98:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+test_nesting-fail-1_4:
+  build:
+    cflags: "-fopenacc -fopenmp\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-fail-1.c'
+    sources:
+      binary: nesting-fail-1.s
+  group: GRPSERIAL
+  validate:
+    match:
+      L100:
+        expect: true
+        expr: '(^|\n)([^\n]+:100:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L101:
+        expect: true
+        expr: '(^|\n)([^\n]+:101:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L102:
+        expect: true
+        expr: '(^|\n)([^\n]+:102:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L103:
+        expect: true
+        expr: '(^|\n)([^\n]+:103:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L11:
+        expect: true
+        expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L110:
+        expect: true
+        expr: '(^|\n)([^\n]+:110:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L112:
+        expect: true
+        expr: '(^|\n)([^\n]+:112:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L114:
+        expect: true
+        expr: '(^|\n)([^\n]+:114:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L116:
+        expect: true
+        expr: '(^|\n)([^\n]+:116:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L117:
+        expect: true
+        expr: '(^|\n)([^\n]+:117:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L118:
+        expect: true
+        expr: '(^|\n)([^\n]+:118:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L119:
+        expect: true
+        expr: '(^|\n)([^\n]+:119:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L126:
+        expect: true
+        expr: '(^|\n)([^\n]+:126:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L128:
+        expect: true
+        expr: '(^|\n)([^\n]+:128:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L13:
+        expect: true
+        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L130:
+        expect: true
+        expr: '(^|\n)([^\n]+:130:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L132:
+        expect: true
+        expr: '(^|\n)([^\n]+:132:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L133:
+        expect: true
+        expr: '(^|\n)([^\n]+:133:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L134:
+        expect: true
+        expr: '(^|\n)([^\n]+:134:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L135:
+        expect: true
+        expr: '(^|\n)([^\n]+:135:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L142:
+        expect: true
+        expr: '(^|\n)([^\n]+:142:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L144:
+        expect: true
+        expr: '(^|\n)([^\n]+:144:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L146:
+        expect: true
+        expr: '(^|\n)([^\n]+:146:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L148:
+        expect: true
+        expr: '(^|\n)([^\n]+:148:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L149:
+        expect: true
+        expr: '(^|\n)([^\n]+:149:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L15:
+        expect: true
+        expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L150:
+        expect: true
+        expr: '(^|\n)([^\n]+:150:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L151:
+        expect: true
+        expr: '(^|\n)([^\n]+:151:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L158:
+        expect: true
+        expr: '(^|\n)([^\n]+:158:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .parallel.
+          construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L16:
+        expect: true
+        expr: '(^|\n)([^\n]+:16:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L160:
+        expect: true
+        expr: '(^|\n)([^\n]+:160:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .kernels.
+          construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L162:
+        expect: true
+        expr: '(^|\n)([^\n]+:162:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .data.
+          construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L164:
+        expect: true
+        expr: '(^|\n)([^\n]+:164:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .update.
+          construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L165:
+        expect: true
+        expr: '(^|\n)([^\n]+:165:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .enter/exit
+          data. construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L166:
+        expect: true
+        expr: '(^|\n)([^\n]+:166:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .enter/exit
+          data. construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L167:
+        expect: true
+        expr: '(^|\n)([^\n]+:167:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L17:
+        expect: true
+        expr: '(^|\n)([^\n]+:17:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L178:
+        expect: true
+        expr: '(^|\n)([^\n]+:178:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L18:
+        expect: true
+        expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L184:
+        expect: true
+        expr: '(^|\n)([^\n]+:184:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L191:
+        expect: true
+        expr: '(^|\n)([^\n]+:191:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L199:
+        expect: true
+        expr: '(^|\n)([^\n]+:199:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L205:
+        expect: true
+        expr: '(^|\n)([^\n]+:205:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L211:
+        expect: true
+        expr: '(^|\n)([^\n]+:211:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L217:
+        expect: true
+        expr: '(^|\n)([^\n]+:217:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L223:
+        expect: true
+        expr: '(^|\n)([^\n]+:223:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L229:
+        expect: true
+        expr: '(^|\n)([^\n]+:229:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L231:
+        expect: true
+        expr: '(^|\n)([^\n]+:231:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L233:
+        expect: true
+        expr: '(^|\n)([^\n]+:233:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L242:
+        expect: true
+        expr: '(^|\n)([^\n]+:242:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L248:
+        expect: true
+        expr: '(^|\n)([^\n]+:248:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L255:
+        expect: true
+        expr: '(^|\n)([^\n]+:255:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L26:
+        expect: true
+        expr: '(^|\n)([^\n]+:26:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L263:
+        expect: true
+        expr: '(^|\n)([^\n]+:263:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L269:
+        expect: true
+        expr: '(^|\n)([^\n]+:269:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L275:
+        expect: true
+        expr: '(^|\n)([^\n]+:275:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L28:
+        expect: true
+        expr: '(^|\n)([^\n]+:28:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L281:
+        expect: true
+        expr: '(^|\n)([^\n]+:281:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L287:
+        expect: true
+        expr: '(^|\n)([^\n]+:287:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L293:
+        expect: true
+        expr: '(^|\n)([^\n]+:293:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L295:
+        expect: true
+        expr: '(^|\n)([^\n]+:295:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L297:
+        expect: true
+        expr: '(^|\n)([^\n]+:297:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L30:
+        expect: true
+        expr: '(^|\n)([^\n]+:30:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L306:
+        expect: true
+        expr: '(^|\n)([^\n]+:306:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L312:
+        expect: true
+        expr: '(^|\n)([^\n]+:312:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L319:
+        expect: true
+        expr: '(^|\n)([^\n]+:319:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L32:
+        expect: true
+        expr: '(^|\n)([^\n]+:32:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L327:
+        expect: true
+        expr: '(^|\n)([^\n]+:327:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L33:
+        expect: true
+        expr: '(^|\n)([^\n]+:33:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L333:
+        expect: true
+        expr: '(^|\n)([^\n]+:333:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L339:
+        expect: true
+        expr: '(^|\n)([^\n]+:339:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L34:
+        expect: true
+        expr: '(^|\n)([^\n]+:34:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L345:
+        expect: true
+        expr: '(^|\n)([^\n]+:345:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L35:
+        expect: true
+        expr: '(^|\n)([^\n]+:35:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L351:
+        expect: true
+        expr: '(^|\n)([^\n]+:351:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L357:
+        expect: true
+        expr: '(^|\n)([^\n]+:357:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L359:
+        expect: true
+        expr: '(^|\n)([^\n]+:359:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L361:
+        expect: true
+        expr: '(^|\n)([^\n]+:361:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L372:
+        expect: true
+        expr: '(^|\n)([^\n]+:372:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L379:
+        expect: true
+        expr: '(^|\n)([^\n]+:379:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L387:
+        expect: true
+        expr: '(^|\n)([^\n]+:387:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L396:
+        expect: true
+        expr: '(^|\n)([^\n]+:396:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L403:
+        expect: true
+        expr: '(^|\n)([^\n]+:403:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L410:
+        expect: true
+        expr: '(^|\n)([^\n]+:410:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L417:
+        expect: true
+        expr: '(^|\n)([^\n]+:417:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L424:
+        expect: true
+        expr: '(^|\n)([^\n]+:424:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L43:
+        expect: true
+        expr: '(^|\n)([^\n]+:43:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L431:
+        expect: true
+        expr: '(^|\n)([^\n]+:431:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L433:
+        expect: true
+        expr: '(^|\n)([^\n]+:433:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L435:
+        expect: true
+        expr: '(^|\n)([^\n]+:435:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L443:
+        expect: true
+        expr: '(^|\n)([^\n]+:443:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L48:
+        expect: true
+        expr: '(^|\n)([^\n]+:48:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L53:
+        expect: true
+        expr: '(^|\n)([^\n]+:53:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L58:
+        expect: true
+        expr: '(^|\n)([^\n]+:58:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L62:
+        expect: true
+        expr: '(^|\n)([^\n]+:62:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L66:
+        expect: true
+        expr: '(^|\n)([^\n]+:66:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L70:
+        expect: true
+        expr: '(^|\n)([^\n]+:70:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L78:
+        expect: true
+        expr: '(^|\n)([^\n]+:78:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L80:
+        expect: true
+        expr: '(^|\n)([^\n]+:80:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L82:
+        expect: true
+        expr: '(^|\n)([^\n]+:82:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L84:
+        expect: true
+        expr: '(^|\n)([^\n]+:84:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L85:
+        expect: true
+        expr: '(^|\n)([^\n]+:85:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L86:
+        expect: true
+        expr: '(^|\n)([^\n]+:86:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L87:
+        expect: true
+        expr: '(^|\n)([^\n]+:87:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L9:
+        expect: true
+        expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L94:
+        expect: true
+        expr: '(^|\n)([^\n]+:94:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L96:
+        expect: true
+        expr: '(^|\n)([^\n]+:96:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L98:
+        expect: true
+        expr: '(^|\n)([^\n]+:98:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+test_nesting-fail-1_8:
+  build:
+    cflags: "-std=c++98 -fopenacc -fopenmp\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-fail-1.c'
+    sources:
+      binary: nesting-fail-1.s
+  group: GRPSERIAL
+  validate:
+    match:
+      L100:
+        expect: true
+        expr: '(^|\n)([^\n]+:100:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L101:
+        expect: true
+        expr: '(^|\n)([^\n]+:101:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L102:
+        expect: true
+        expr: '(^|\n)([^\n]+:102:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L103:
+        expect: true
+        expr: '(^|\n)([^\n]+:103:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L11:
+        expect: true
+        expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L110:
+        expect: true
+        expr: '(^|\n)([^\n]+:110:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L112:
+        expect: true
+        expr: '(^|\n)([^\n]+:112:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L114:
+        expect: true
+        expr: '(^|\n)([^\n]+:114:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L116:
+        expect: true
+        expr: '(^|\n)([^\n]+:116:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L117:
+        expect: true
+        expr: '(^|\n)([^\n]+:117:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L118:
+        expect: true
+        expr: '(^|\n)([^\n]+:118:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L119:
+        expect: true
+        expr: '(^|\n)([^\n]+:119:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L126:
+        expect: true
+        expr: '(^|\n)([^\n]+:126:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L128:
+        expect: true
+        expr: '(^|\n)([^\n]+:128:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L13:
+        expect: true
+        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L130:
+        expect: true
+        expr: '(^|\n)([^\n]+:130:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L132:
+        expect: true
+        expr: '(^|\n)([^\n]+:132:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L133:
+        expect: true
+        expr: '(^|\n)([^\n]+:133:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L134:
+        expect: true
+        expr: '(^|\n)([^\n]+:134:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L135:
+        expect: true
+        expr: '(^|\n)([^\n]+:135:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L142:
+        expect: true
+        expr: '(^|\n)([^\n]+:142:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L144:
+        expect: true
+        expr: '(^|\n)([^\n]+:144:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L146:
+        expect: true
+        expr: '(^|\n)([^\n]+:146:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L148:
+        expect: true
+        expr: '(^|\n)([^\n]+:148:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L149:
+        expect: true
+        expr: '(^|\n)([^\n]+:149:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L15:
+        expect: true
+        expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L150:
+        expect: true
+        expr: '(^|\n)([^\n]+:150:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L151:
+        expect: true
+        expr: '(^|\n)([^\n]+:151:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L158:
+        expect: true
+        expr: '(^|\n)([^\n]+:158:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .parallel.
+          construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L16:
+        expect: true
+        expr: '(^|\n)([^\n]+:16:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L160:
+        expect: true
+        expr: '(^|\n)([^\n]+:160:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .kernels.
+          construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L162:
+        expect: true
+        expr: '(^|\n)([^\n]+:162:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .data.
+          construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L164:
+        expect: true
+        expr: '(^|\n)([^\n]+:164:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .update.
+          construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L165:
+        expect: true
+        expr: '(^|\n)([^\n]+:165:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .enter/exit
+          data. construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L166:
+        expect: true
+        expr: '(^|\n)([^\n]+:166:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .enter/exit
+          data. construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L167:
+        expect: true
+        expr: '(^|\n)([^\n]+:167:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L17:
+        expect: true
+        expr: '(^|\n)([^\n]+:17:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L178:
+        expect: true
+        expr: '(^|\n)([^\n]+:178:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L18:
+        expect: true
+        expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L184:
+        expect: true
+        expr: '(^|\n)([^\n]+:184:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L191:
+        expect: true
+        expr: '(^|\n)([^\n]+:191:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L199:
+        expect: true
+        expr: '(^|\n)([^\n]+:199:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L205:
+        expect: true
+        expr: '(^|\n)([^\n]+:205:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L211:
+        expect: true
+        expr: '(^|\n)([^\n]+:211:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L217:
+        expect: true
+        expr: '(^|\n)([^\n]+:217:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L223:
+        expect: true
+        expr: '(^|\n)([^\n]+:223:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L229:
+        expect: true
+        expr: '(^|\n)([^\n]+:229:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L231:
+        expect: true
+        expr: '(^|\n)([^\n]+:231:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L233:
+        expect: true
+        expr: '(^|\n)([^\n]+:233:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L242:
+        expect: true
+        expr: '(^|\n)([^\n]+:242:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L248:
+        expect: true
+        expr: '(^|\n)([^\n]+:248:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L255:
+        expect: true
+        expr: '(^|\n)([^\n]+:255:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L26:
+        expect: true
+        expr: '(^|\n)([^\n]+:26:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L263:
+        expect: true
+        expr: '(^|\n)([^\n]+:263:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L269:
+        expect: true
+        expr: '(^|\n)([^\n]+:269:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L275:
+        expect: true
+        expr: '(^|\n)([^\n]+:275:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L28:
+        expect: true
+        expr: '(^|\n)([^\n]+:28:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L281:
+        expect: true
+        expr: '(^|\n)([^\n]+:281:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L287:
+        expect: true
+        expr: '(^|\n)([^\n]+:287:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L293:
+        expect: true
+        expr: '(^|\n)([^\n]+:293:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L295:
+        expect: true
+        expr: '(^|\n)([^\n]+:295:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L297:
+        expect: true
+        expr: '(^|\n)([^\n]+:297:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L30:
+        expect: true
+        expr: '(^|\n)([^\n]+:30:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L306:
+        expect: true
+        expr: '(^|\n)([^\n]+:306:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L312:
+        expect: true
+        expr: '(^|\n)([^\n]+:312:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L319:
+        expect: true
+        expr: '(^|\n)([^\n]+:319:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L32:
+        expect: true
+        expr: '(^|\n)([^\n]+:32:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L327:
+        expect: true
+        expr: '(^|\n)([^\n]+:327:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L33:
+        expect: true
+        expr: '(^|\n)([^\n]+:33:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L333:
+        expect: true
+        expr: '(^|\n)([^\n]+:333:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L339:
+        expect: true
+        expr: '(^|\n)([^\n]+:339:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L34:
+        expect: true
+        expr: '(^|\n)([^\n]+:34:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L345:
+        expect: true
+        expr: '(^|\n)([^\n]+:345:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L35:
+        expect: true
+        expr: '(^|\n)([^\n]+:35:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L351:
+        expect: true
+        expr: '(^|\n)([^\n]+:351:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L357:
+        expect: true
+        expr: '(^|\n)([^\n]+:357:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L359:
+        expect: true
+        expr: '(^|\n)([^\n]+:359:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L361:
+        expect: true
+        expr: '(^|\n)([^\n]+:361:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L372:
+        expect: true
+        expr: '(^|\n)([^\n]+:372:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L379:
+        expect: true
+        expr: '(^|\n)([^\n]+:379:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L387:
+        expect: true
+        expr: '(^|\n)([^\n]+:387:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L396:
+        expect: true
+        expr: '(^|\n)([^\n]+:396:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L403:
+        expect: true
+        expr: '(^|\n)([^\n]+:403:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L410:
+        expect: true
+        expr: '(^|\n)([^\n]+:410:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L417:
+        expect: true
+        expr: '(^|\n)([^\n]+:417:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L424:
+        expect: true
+        expr: '(^|\n)([^\n]+:424:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L43:
+        expect: true
+        expr: '(^|\n)([^\n]+:43:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L431:
+        expect: true
+        expr: '(^|\n)([^\n]+:431:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L433:
+        expect: true
+        expr: '(^|\n)([^\n]+:433:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L435:
+        expect: true
+        expr: '(^|\n)([^\n]+:435:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L443:
+        expect: true
+        expr: '(^|\n)([^\n]+:443:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L48:
+        expect: true
+        expr: '(^|\n)([^\n]+:48:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L53:
+        expect: true
+        expr: '(^|\n)([^\n]+:53:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L58:
+        expect: true
+        expr: '(^|\n)([^\n]+:58:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L62:
+        expect: true
+        expr: '(^|\n)([^\n]+:62:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L66:
+        expect: true
+        expr: '(^|\n)([^\n]+:66:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L70:
+        expect: true
+        expr: '(^|\n)([^\n]+:70:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L78:
+        expect: true
+        expr: '(^|\n)([^\n]+:78:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L80:
+        expect: true
+        expr: '(^|\n)([^\n]+:80:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L82:
+        expect: true
+        expr: '(^|\n)([^\n]+:82:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L84:
+        expect: true
+        expr: '(^|\n)([^\n]+:84:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L85:
+        expect: true
+        expr: '(^|\n)([^\n]+:85:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L86:
+        expect: true
+        expr: '(^|\n)([^\n]+:86:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L87:
+        expect: true
+        expr: '(^|\n)([^\n]+:87:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L9:
+        expect: true
+        expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L94:
+        expect: true
+        expr: '(^|\n)([^\n]+:94:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L96:
+        expect: true
+        expr: '(^|\n)([^\n]+:96:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L98:
+        expect: true
+        expr: '(^|\n)([^\n]+:98:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+test_nesting-fail-1_9:
+  build:
+    cflags: "-std=c++11 -fopenacc -fopenmp\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./c-c++-common/goacc-gomp/nesting-fail-1.c'
+    sources:
+      binary: nesting-fail-1.s
+  group: GRPSERIAL
+  validate:
+    match:
+      L100:
+        expect: true
+        expr: '(^|\n)([^\n]+:100:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L101:
+        expect: true
+        expr: '(^|\n)([^\n]+:101:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L102:
+        expect: true
+        expr: '(^|\n)([^\n]+:102:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L103:
+        expect: true
+        expr: '(^|\n)([^\n]+:103:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L11:
+        expect: true
+        expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L110:
+        expect: true
+        expr: '(^|\n)([^\n]+:110:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L112:
+        expect: true
+        expr: '(^|\n)([^\n]+:112:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L114:
+        expect: true
+        expr: '(^|\n)([^\n]+:114:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L116:
+        expect: true
+        expr: '(^|\n)([^\n]+:116:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L117:
+        expect: true
+        expr: '(^|\n)([^\n]+:117:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L118:
+        expect: true
+        expr: '(^|\n)([^\n]+:118:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L119:
+        expect: true
+        expr: '(^|\n)([^\n]+:119:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L126:
+        expect: true
+        expr: '(^|\n)([^\n]+:126:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L128:
+        expect: true
+        expr: '(^|\n)([^\n]+:128:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L13:
+        expect: true
+        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L130:
+        expect: true
+        expr: '(^|\n)([^\n]+:130:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L132:
+        expect: true
+        expr: '(^|\n)([^\n]+:132:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L133:
+        expect: true
+        expr: '(^|\n)([^\n]+:133:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L134:
+        expect: true
+        expr: '(^|\n)([^\n]+:134:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L135:
+        expect: true
+        expr: '(^|\n)([^\n]+:135:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L142:
+        expect: true
+        expr: '(^|\n)([^\n]+:142:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L144:
+        expect: true
+        expr: '(^|\n)([^\n]+:144:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L146:
+        expect: true
+        expr: '(^|\n)([^\n]+:146:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L148:
+        expect: true
+        expr: '(^|\n)([^\n]+:148:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L149:
+        expect: true
+        expr: '(^|\n)([^\n]+:149:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L15:
+        expect: true
+        expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L150:
+        expect: true
+        expr: '(^|\n)([^\n]+:150:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L151:
+        expect: true
+        expr: '(^|\n)([^\n]+:151:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L158:
+        expect: true
+        expr: '(^|\n)([^\n]+:158:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .parallel.
+          construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L16:
+        expect: true
+        expr: '(^|\n)([^\n]+:16:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L160:
+        expect: true
+        expr: '(^|\n)([^\n]+:160:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .kernels.
+          construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L162:
+        expect: true
+        expr: '(^|\n)([^\n]+:162:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .data.
+          construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L164:
+        expect: true
+        expr: '(^|\n)([^\n]+:164:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .update.
+          construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L165:
+        expect: true
+        expr: '(^|\n)([^\n]+:165:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .enter/exit
+          data. construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L166:
+        expect: true
+        expr: '(^|\n)([^\n]+:166:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC .enter/exit
+          data. construct inside of OpenMP .target. region")[^\n]*\n?)+'
+      L167:
+        expect: true
+        expr: '(^|\n)([^\n]+:167:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L17:
+        expect: true
+        expr: '(^|\n)([^\n]+:17:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L178:
+        expect: true
+        expr: '(^|\n)([^\n]+:178:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L18:
+        expect: true
+        expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L184:
+        expect: true
+        expr: '(^|\n)([^\n]+:184:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L191:
+        expect: true
+        expr: '(^|\n)([^\n]+:191:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L199:
+        expect: true
+        expr: '(^|\n)([^\n]+:199:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L205:
+        expect: true
+        expr: '(^|\n)([^\n]+:205:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L211:
+        expect: true
+        expr: '(^|\n)([^\n]+:211:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L217:
+        expect: true
+        expr: '(^|\n)([^\n]+:217:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L223:
+        expect: true
+        expr: '(^|\n)([^\n]+:223:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L229:
+        expect: true
+        expr: '(^|\n)([^\n]+:229:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L231:
+        expect: true
+        expr: '(^|\n)([^\n]+:231:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L233:
+        expect: true
+        expr: '(^|\n)([^\n]+:233:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L242:
+        expect: true
+        expr: '(^|\n)([^\n]+:242:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L248:
+        expect: true
+        expr: '(^|\n)([^\n]+:248:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L255:
+        expect: true
+        expr: '(^|\n)([^\n]+:255:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L26:
+        expect: true
+        expr: '(^|\n)([^\n]+:26:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L263:
+        expect: true
+        expr: '(^|\n)([^\n]+:263:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L269:
+        expect: true
+        expr: '(^|\n)([^\n]+:269:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L275:
+        expect: true
+        expr: '(^|\n)([^\n]+:275:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L28:
+        expect: true
+        expr: '(^|\n)([^\n]+:28:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L281:
+        expect: true
+        expr: '(^|\n)([^\n]+:281:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L287:
+        expect: true
+        expr: '(^|\n)([^\n]+:287:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L293:
+        expect: true
+        expr: '(^|\n)([^\n]+:293:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L295:
+        expect: true
+        expr: '(^|\n)([^\n]+:295:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L297:
+        expect: true
+        expr: '(^|\n)([^\n]+:297:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L30:
+        expect: true
+        expr: '(^|\n)([^\n]+:30:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L306:
+        expect: true
+        expr: '(^|\n)([^\n]+:306:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L312:
+        expect: true
+        expr: '(^|\n)([^\n]+:312:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L319:
+        expect: true
+        expr: '(^|\n)([^\n]+:319:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L32:
+        expect: true
+        expr: '(^|\n)([^\n]+:32:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L327:
+        expect: true
+        expr: '(^|\n)([^\n]+:327:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L33:
+        expect: true
+        expr: '(^|\n)([^\n]+:33:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L333:
+        expect: true
+        expr: '(^|\n)([^\n]+:333:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L339:
+        expect: true
+        expr: '(^|\n)([^\n]+:339:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L34:
+        expect: true
+        expr: '(^|\n)([^\n]+:34:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L345:
+        expect: true
+        expr: '(^|\n)([^\n]+:345:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L35:
+        expect: true
+        expr: '(^|\n)([^\n]+:35:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L351:
+        expect: true
+        expr: '(^|\n)([^\n]+:351:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L357:
+        expect: true
+        expr: '(^|\n)([^\n]+:357:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L359:
+        expect: true
+        expr: '(^|\n)([^\n]+:359:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L361:
+        expect: true
+        expr: '(^|\n)([^\n]+:361:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC region")[^\n]*\n?)+'
+      L372:
+        expect: true
+        expr: '(^|\n)([^\n]+:372:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L379:
+        expect: true
+        expr: '(^|\n)([^\n]+:379:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L387:
+        expect: true
+        expr: '(^|\n)([^\n]+:387:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L396:
+        expect: true
+        expr: '(^|\n)([^\n]+:396:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L403:
+        expect: true
+        expr: '(^|\n)([^\n]+:403:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L410:
+        expect: true
+        expr: '(^|\n)([^\n]+:410:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L417:
+        expect: true
+        expr: '(^|\n)([^\n]+:417:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L424:
+        expect: true
+        expr: '(^|\n)([^\n]+:424:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L43:
+        expect: true
+        expr: '(^|\n)([^\n]+:43:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L431:
+        expect: true
+        expr: '(^|\n)([^\n]+:431:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L433:
+        expect: true
+        expr: '(^|\n)([^\n]+:433:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L435:
+        expect: true
+        expr: '(^|\n)([^\n]+:435:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L443:
+        expect: true
+        expr: '(^|\n)([^\n]+:443:[^\n]*[0-9]+: (fatal )?error:[^\n]*("non-OpenACC
+          construct inside of OpenACC routine")[^\n]*\n?)+'
+      L48:
+        expect: true
+        expr: '(^|\n)([^\n]+:48:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L53:
+        expect: true
+        expr: '(^|\n)([^\n]+:53:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L58:
+        expect: true
+        expr: '(^|\n)([^\n]+:58:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L62:
+        expect: true
+        expr: '(^|\n)([^\n]+:62:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L66:
+        expect: true
+        expr: '(^|\n)([^\n]+:66:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L70:
+        expect: true
+        expr: '(^|\n)([^\n]+:70:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L78:
+        expect: true
+        expr: '(^|\n)([^\n]+:78:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L80:
+        expect: true
+        expr: '(^|\n)([^\n]+:80:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L82:
+        expect: true
+        expr: '(^|\n)([^\n]+:82:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L84:
+        expect: true
+        expr: '(^|\n)([^\n]+:84:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L85:
+        expect: true
+        expr: '(^|\n)([^\n]+:85:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L86:
+        expect: true
+        expr: '(^|\n)([^\n]+:86:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L87:
+        expect: true
+        expr: '(^|\n)([^\n]+:87:[^\n]*[0-9]+: (fatal )?error:[^\n]*("loop directive
+          must be associated with an OpenACC compute region")[^\n]*\n?)+'
+      L9:
+        expect: true
+        expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L94:
+        expect: true
+        expr: '(^|\n)([^\n]+:94:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L96:
+        expect: true
+        expr: '(^|\n)([^\n]+:96:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'
+      L98:
+        expect: true
+        expr: '(^|\n)([^\n]+:98:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OpenACC construct
+          inside of non-OpenACC region")[^\n]*\n?)+'

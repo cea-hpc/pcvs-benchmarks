@@ -1,0 +1,24 @@
+test_alias-decl-42_1:
+  build:
+    cflags: "-std=c++1z -fconcepts\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/regress/alias-decl-42.C'
+    sources:
+      binary: alias-decl-42.s
+  group: GRPSERIAL
+  validate:
+    match:
+      L18:
+        expect: true
+        expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("too many")[^\n]*\n?)+'
+test_alias-decl-42_2:
+  build:
+    cflags: "-std=c++1z -fconcepts\n -S"
+    files: '@ROOTPATH@/compilers/gcc/./g++.dg/concepts/regress/alias-decl-42.C'
+    sources:
+      binary: alias-decl-42.s
+  group: GRPSERIAL
+  validate:
+    match:
+      L18:
+        expect: true
+        expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("too many")[^\n]*\n?)+'
