@@ -86,7 +86,7 @@ C
       DOUBLE PRECISION LASTPRINT
 
       INTEGER MPI_STATUS(MPI_STATUS_SIZE), SEND_REQUEST, RECV_REQUEST
-      INTEGER MPI_COUNT
+      INTEGER MY_COUNT
 
       LOGICAL MPI_FLAG
 
@@ -277,7 +277,7 @@ C
 
                   CALL MPITEST_INT_TO_STR(LOOPCNT, INT_STR, INT_STR_LEN)
                   CALL MPITEST_INT_TO_STR(RCNT, INT_STR1, INT_STR_LEN1)
-                  CALL MPI_GET_COUNT(MPI_STATUS, MPI_INTEGER, MPI_COUNT,
+                  CALL MPI_GET_COUNT(MPI_STATUS, MPI_INTEGER, MY_COUNT,
      $                               IERR)
 
                   IF (IERR .NE. MPI_SUCCESS) THEN
@@ -290,7 +290,7 @@ C
                   CALL MPITEST_INT_TO_STR(MPI_STATUS(MPI_SOURCE),
      $                                    INT_STR2, INT_STR_LEN2)
 
-                  CALL MPITEST_INT_TO_STR(MPI_COUNT, INT_STR3,
+                  CALL MPITEST_INT_TO_STR(MY_COUNT, INT_STR3,
      $                                    INT_STR_LEN3)
 
                   INFOBUF = 'loop ' // INT_STR(1:INT_STR_LEN)
