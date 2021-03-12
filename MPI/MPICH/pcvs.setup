@@ -46,6 +46,7 @@ sub process_file
 			#should we parse extra options ? maybe copy pasting from runtests.in
 			print STDOUT "${tree_prefix}${program}:\n";
 			print STDOUT "    type: 'complete'\n";
+			print STDOUT "    deps: ['utils']\n";
 			print STDOUT "    files: '\@BUILDPATH\@/build/$tree/Makefile'\n";
 			print STDOUT "    target: '$program'\n";
 			print STDOUT "    herit: *GRPMPI\n";
@@ -71,6 +72,13 @@ sub process_file
 exit 1 if(($? >> 8) != 0);
 
 ##### FROM HERE, We mimics RunList() and ProcessDir() MPICH functions from runtests.in
+
+# To avoid concurrent build (including rm/mv of .deps which is an issue for slow NFS) make mtest compiled once
+			print STDOUT "utils:\n";
+			print STDOUT "    type: 'build'\n";
+			print STDOUT "    files: '\@BUILDPATH\@/build/util/Makefile'\n";
+			print STDOUT "    target: 'mtest.o mtest_datatype.o mtest_datatype_gen.o'\n";
+			print STDOUT "    herit: *GRPMPI\n";
 
 # Open main testlist -> list directories to build
 open(my $main_fh, "<", "$pcvs_build_current/build/testlist") || exit 1;
