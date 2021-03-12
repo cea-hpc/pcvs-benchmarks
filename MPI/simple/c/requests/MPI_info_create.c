@@ -1,4 +1,5 @@
 #include <mpi.h>
+#include <stdio.h>
 
 
 int main( int argc, char **argv )
@@ -22,13 +23,6 @@ int main( int argc, char **argv )
 			printf("Error creating an MPI_Info\n");
 			abort();
 		}
-
-		/* Check unique numbering */
-		if( (int)(info[i]) != i )
-		{
-			abort();
-		}
-
 	}
 	
 	MPI_Finalize();
