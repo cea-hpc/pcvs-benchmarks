@@ -31,6 +31,7 @@ int cancel_fn( void *extra_state, int complete )
 	return MPI_SUCCESS;
 }
 
+int completed_called = 0;
 void * progress_func( void * preq )
 {
 	MPI_Request * req = (MPI_Request *) preq;
@@ -38,6 +39,7 @@ void * progress_func( void * preq )
 	sleep(1);
 
 	MPI_Grequest_complete( *req );	
+	completed_called = 1;
 
 	pthread_exit( NULL );
 }
@@ -64,7 +66,7 @@ int main( int argc, char **argv )
 		abort();
 	}
 	
-	if( free_called != 1 )
+	if( completed_called  && free_called != 1 )
 	{
 		printf("Error free was not called!\n");
 		abort();
