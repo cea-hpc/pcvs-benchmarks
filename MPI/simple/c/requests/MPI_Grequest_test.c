@@ -11,6 +11,7 @@ int query_fn(  void * extra_state, MPI_Status * status )
 
 pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 int free_called = 0;
+int completed_called = 0;
 
 int free_fn( void * extra_state )
 {
@@ -35,6 +36,7 @@ void * progress_func( void * preq )
 	sleep(1);
 
 	MPI_Grequest_complete( *req );	
+	completed_called = 1;
 
 	pthread_exit( NULL );
 }
@@ -56,6 +58,7 @@ int main( int argc, char **argv )
 	
 	int flag = 0;
 	
+	while( !completed_called ); /* query and free functions are called only after completion */
 	while( !flag )
 	{
 		MPI_Test( &my_req, &flag, &status );
