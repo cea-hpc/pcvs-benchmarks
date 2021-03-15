@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
 #include <mpi.h>
 #include <pthread.h>
 
