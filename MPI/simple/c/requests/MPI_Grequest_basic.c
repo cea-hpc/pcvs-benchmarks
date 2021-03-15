@@ -23,6 +23,7 @@ int cancel_fn( void *extra_state, int complete )
 	return MPI_SUCCESS;
 }
 
+int completed_called = 0;
 void * progress_func( void * preq )
 {
 	MPI_Request * req = (MPI_Request *) preq;
@@ -30,6 +31,7 @@ void * progress_func( void * preq )
 	sleep(1);
 
 	MPI_Grequest_complete( *req );	
+	completed_called = 1;
 
 	pthread_exit( NULL );
 }
@@ -47,6 +49,7 @@ int main( int argc, char **argv )
 	pthread_create( &progress, NULL, progress_func, (void *)&my_req);
 
 	MPI_Status status;
+	while( !completed_called ); /* query and free functions are called only after completion */
 	MPI_Wait( &my_req, &status );
 
 	if(!query_called||!free_called )
