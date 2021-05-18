@@ -1,7 +1,7 @@
 test_Wbad-function-cast-1_1:
   build:
-    cflags: "-Wbad-function-cast\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/Wbad-function-cast-1.c'
+    cflags: -Wbad-function-cast -S
+    files: compilers/gcc/./gcc.dg/dfp/Wbad-function-cast-1.c
     sources:
       binary: Wbad-function-cast-1.s
   group: GRPSERIAL
@@ -35,165 +35,10 @@ test_Wbad-function-cast-1_1:
         expect: true
         expr: '(^|\n)([^\n]+(:43:)[^\n]*[0-9]+: warning:[^\n]*("cast from function
           call of type \''complex double\'' to non-matching type \''_Decimal32\''")[^\n]*\n?)+'
-test_Wbad-function-cast-1_101:
-  build:
-    cflags: "-Wbad-function-cast\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/Wbad-function-cast-1.c'
-    sources:
-      binary: Wbad-function-cast-1.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L37:
-        expect: true
-        expr: '(^|\n)([^\n]+(:37:)[^\n]*[0-9]+: warning:[^\n]*("cast from function
-          call of type \''int\'' to non-matching type \''_Decimal32\''")[^\n]*\n?)+'
-      L38:
-        expect: true
-        expr: '(^|\n)([^\n]+(:38:)[^\n]*[0-9]+: warning:[^\n]*("cast from function
-          call of type \''char\'' to non-matching type \''_Decimal64\''")[^\n]*\n?)+'
-      L39:
-        expect: true
-        expr: '(^|\n)([^\n]+(:39:)[^\n]*[0-9]+: warning:[^\n]*("cast from function
-          call of type \''long int\'' to non-matching type \''_Decimal128\''")[^\n]*\n?)+'
-      L40:
-        expect: true
-        expr: '(^|\n)([^\n]+(:40:)[^\n]*[0-9]+: warning:[^\n]*("cast from function
-          call of type \''_Decimal32\'' to non-matching type \''int\''")[^\n]*\n?)+'
-      L41:
-        expect: true
-        expr: '(^|\n)([^\n]+(:41:)[^\n]*[0-9]+: warning:[^\n]*("cast from function
-          call of type \''_Decimal64\'' to non-matching type \''long int\''")[^\n]*\n?)+'
-      L42:
-        expect: true
-        expr: '(^|\n)([^\n]+(:42:)[^\n]*[0-9]+: warning:[^\n]*("cast from function
-          call of type \''_Decimal128\'' to non-matching type \''long int\''")[^\n]*\n?)+'
-      L43:
-        expect: true
-        expr: '(^|\n)([^\n]+(:43:)[^\n]*[0-9]+: warning:[^\n]*("cast from function
-          call of type \''complex double\'' to non-matching type \''_Decimal32\''")[^\n]*\n?)+'
-test_Wbad-function-cast-1_51:
-  build:
-    cflags: "-Wbad-function-cast\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/Wbad-function-cast-1.c'
-    sources:
-      binary: Wbad-function-cast-1.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L37:
-        expect: true
-        expr: '(^|\n)([^\n]+(:37:)[^\n]*[0-9]+: warning:[^\n]*("cast from function
-          call of type \''int\'' to non-matching type \''_Decimal32\''")[^\n]*\n?)+'
-      L38:
-        expect: true
-        expr: '(^|\n)([^\n]+(:38:)[^\n]*[0-9]+: warning:[^\n]*("cast from function
-          call of type \''char\'' to non-matching type \''_Decimal64\''")[^\n]*\n?)+'
-      L39:
-        expect: true
-        expr: '(^|\n)([^\n]+(:39:)[^\n]*[0-9]+: warning:[^\n]*("cast from function
-          call of type \''long int\'' to non-matching type \''_Decimal128\''")[^\n]*\n?)+'
-      L40:
-        expect: true
-        expr: '(^|\n)([^\n]+(:40:)[^\n]*[0-9]+: warning:[^\n]*("cast from function
-          call of type \''_Decimal32\'' to non-matching type \''int\''")[^\n]*\n?)+'
-      L41:
-        expect: true
-        expr: '(^|\n)([^\n]+(:41:)[^\n]*[0-9]+: warning:[^\n]*("cast from function
-          call of type \''_Decimal64\'' to non-matching type \''long int\''")[^\n]*\n?)+'
-      L42:
-        expect: true
-        expr: '(^|\n)([^\n]+(:42:)[^\n]*[0-9]+: warning:[^\n]*("cast from function
-          call of type \''_Decimal128\'' to non-matching type \''long int\''")[^\n]*\n?)+'
-      L43:
-        expect: true
-        expr: '(^|\n)([^\n]+(:43:)[^\n]*[0-9]+: warning:[^\n]*("cast from function
-          call of type \''complex double\'' to non-matching type \''_Decimal32\''")[^\n]*\n?)+'
-test_Wtraditional-conversion-2_102:
-  build:
-    cflags: "-Wtraditional-conversion\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/Wtraditional-conversion-2.c'
-    sources:
-      binary: Wtraditional-conversion-2.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L28:
-        expect: true
-        expr: '(^|\n)([^\n]+(:28:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
-          of \''fsi\'' as integer rather than floating due to prototype")[^\n]*\n?)+'
-      L29:
-        expect: true
-        expr: '(^|\n)([^\n]+(:29:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
-          of \''x.fsi\'' as integer rather than floating due to prototype")[^\n]*\n?)+'
-      L30:
-        expect: true
-        expr: '(^|\n)([^\n]+(:30:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
-          of \''fsi\'' as integer rather than floating due to prototype")[^\n]*\n?)+'
-      L31:
-        expect: true
-        expr: '(^|\n)([^\n]+(:31:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
-          of \''x.fsi\'' as integer rather than floating due to prototype")[^\n]*\n?)+'
-      L32:
-        expect: true
-        expr: '(^|\n)([^\n]+(:32:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
-          of \''fsi\'' as integer rather than floating due to prototype")[^\n]*\n?)+'
-      L33:
-        expect: true
-        expr: '(^|\n)([^\n]+(:33:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
-          of \''x.fsi\'' as integer rather than floating due to prototype")[^\n]*\n?)+'
-      L34:
-        expect: true
-        expr: '(^|\n)([^\n]+(:34:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
-          of \''fd32\'' as floating rather than integer due to prototype")[^\n]*\n?)+'
-      L35:
-        expect: true
-        expr: '(^|\n)([^\n]+(:35:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
-          of \''x.fd32\'' as floating rather than integer due to prototype")[^\n]*\n?)+'
-      L36:
-        expect: true
-        expr: '(^|\n)([^\n]+(:36:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
-          of \''fd64\'' as floating rather than integer due to prototype")[^\n]*\n?)+'
-      L37:
-        expect: true
-        expr: '(^|\n)([^\n]+(:37:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
-          of \''x.fd64\'' as floating rather than integer due to prototype")[^\n]*\n?)+'
-      L38:
-        expect: true
-        expr: '(^|\n)([^\n]+(:38:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
-          of \''fd128\'' as floating rather than integer due to prototype")[^\n]*\n?)+'
-      L39:
-        expect: true
-        expr: '(^|\n)([^\n]+(:39:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
-          of \''x.fd128\'' as floating rather than integer due to prototype")[^\n]*\n?)+'
-      L40:
-        expect: true
-        expr: '(^|\n)([^\n]+(:40:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
-          of \''fd32\'' as \''_Decimal32\'' rather than \''double\'' due to prototype")[^\n]*\n?)+'
-      L41:
-        expect: true
-        expr: '(^|\n)([^\n]+(:41:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
-          of \''x.fd32\'' as \''_Decimal32\'' rather than \''double\'' due to prototype")[^\n]*\n?)+'
-      L42:
-        expect: true
-        expr: '(^|\n)([^\n]+(:42:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
-          of \''fd64\'' as \''_Decimal64\'' rather than \''double\'' due to prototype")[^\n]*\n?)+'
-      L43:
-        expect: true
-        expr: '(^|\n)([^\n]+(:43:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
-          of \''x.fd64\'' as \''_Decimal64\'' rather than \''double\'' due to prototype")[^\n]*\n?)+'
-      L44:
-        expect: true
-        expr: '(^|\n)([^\n]+(:44:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
-          of \''fd128\'' as \''_Decimal128\'' rather than \''double\'' due to prototype")[^\n]*\n?)+'
-      L45:
-        expect: true
-        expr: '(^|\n)([^\n]+(:45:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
-          of \''x.fd128\'' as \''_Decimal128\'' rather than \''double\'' due to prototype")[^\n]*\n?)+'
 test_Wtraditional-conversion-2_2:
   build:
-    cflags: "-Wtraditional-conversion\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/Wtraditional-conversion-2.c'
+    cflags: -Wtraditional-conversion -S
+    files: compilers/gcc/./gcc.dg/dfp/Wtraditional-conversion-2.c
     sources:
       binary: Wtraditional-conversion-2.s
   group: GRPSERIAL
@@ -271,104 +116,10 @@ test_Wtraditional-conversion-2_2:
         expect: true
         expr: '(^|\n)([^\n]+(:45:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
           of \''x.fd128\'' as \''_Decimal128\'' rather than \''double\'' due to prototype")[^\n]*\n?)+'
-test_Wtraditional-conversion-2_52:
-  build:
-    cflags: "-Wtraditional-conversion\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/Wtraditional-conversion-2.c'
-    sources:
-      binary: Wtraditional-conversion-2.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L28:
-        expect: true
-        expr: '(^|\n)([^\n]+(:28:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
-          of \''fsi\'' as integer rather than floating due to prototype")[^\n]*\n?)+'
-      L29:
-        expect: true
-        expr: '(^|\n)([^\n]+(:29:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
-          of \''x.fsi\'' as integer rather than floating due to prototype")[^\n]*\n?)+'
-      L30:
-        expect: true
-        expr: '(^|\n)([^\n]+(:30:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
-          of \''fsi\'' as integer rather than floating due to prototype")[^\n]*\n?)+'
-      L31:
-        expect: true
-        expr: '(^|\n)([^\n]+(:31:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
-          of \''x.fsi\'' as integer rather than floating due to prototype")[^\n]*\n?)+'
-      L32:
-        expect: true
-        expr: '(^|\n)([^\n]+(:32:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
-          of \''fsi\'' as integer rather than floating due to prototype")[^\n]*\n?)+'
-      L33:
-        expect: true
-        expr: '(^|\n)([^\n]+(:33:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
-          of \''x.fsi\'' as integer rather than floating due to prototype")[^\n]*\n?)+'
-      L34:
-        expect: true
-        expr: '(^|\n)([^\n]+(:34:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
-          of \''fd32\'' as floating rather than integer due to prototype")[^\n]*\n?)+'
-      L35:
-        expect: true
-        expr: '(^|\n)([^\n]+(:35:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
-          of \''x.fd32\'' as floating rather than integer due to prototype")[^\n]*\n?)+'
-      L36:
-        expect: true
-        expr: '(^|\n)([^\n]+(:36:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
-          of \''fd64\'' as floating rather than integer due to prototype")[^\n]*\n?)+'
-      L37:
-        expect: true
-        expr: '(^|\n)([^\n]+(:37:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
-          of \''x.fd64\'' as floating rather than integer due to prototype")[^\n]*\n?)+'
-      L38:
-        expect: true
-        expr: '(^|\n)([^\n]+(:38:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
-          of \''fd128\'' as floating rather than integer due to prototype")[^\n]*\n?)+'
-      L39:
-        expect: true
-        expr: '(^|\n)([^\n]+(:39:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
-          of \''x.fd128\'' as floating rather than integer due to prototype")[^\n]*\n?)+'
-      L40:
-        expect: true
-        expr: '(^|\n)([^\n]+(:40:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
-          of \''fd32\'' as \''_Decimal32\'' rather than \''double\'' due to prototype")[^\n]*\n?)+'
-      L41:
-        expect: true
-        expr: '(^|\n)([^\n]+(:41:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
-          of \''x.fd32\'' as \''_Decimal32\'' rather than \''double\'' due to prototype")[^\n]*\n?)+'
-      L42:
-        expect: true
-        expr: '(^|\n)([^\n]+(:42:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
-          of \''fd64\'' as \''_Decimal64\'' rather than \''double\'' due to prototype")[^\n]*\n?)+'
-      L43:
-        expect: true
-        expr: '(^|\n)([^\n]+(:43:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
-          of \''x.fd64\'' as \''_Decimal64\'' rather than \''double\'' due to prototype")[^\n]*\n?)+'
-      L44:
-        expect: true
-        expr: '(^|\n)([^\n]+(:44:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
-          of \''fd128\'' as \''_Decimal128\'' rather than \''double\'' due to prototype")[^\n]*\n?)+'
-      L45:
-        expect: true
-        expr: '(^|\n)([^\n]+(:45:)[^\n]*[0-9]+: warning:[^\n]*("passing argument 1
-          of \''x.fd128\'' as \''_Decimal128\'' rather than \''double\'' due to prototype")[^\n]*\n?)+'
-test_builtin-complex_103:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/builtin-complex.c'
-    sources:
-      binary: builtin-complex.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L9:
-        expect: true
-        expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not of real binary
-          floating-point type")[^\n]*\n?)+'
 test_builtin-complex_3:
   build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/builtin-complex.c'
+    cflags: -std=gnu99 -S
+    files: compilers/gcc/./gcc.dg/dfp/builtin-complex.c
     sources:
       binary: builtin-complex.s
   group: GRPSERIAL
@@ -378,100 +129,10 @@ test_builtin-complex_3:
         expect: true
         expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not of real binary
           floating-point type")[^\n]*\n?)+'
-test_builtin-complex_53:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/builtin-complex.c'
-    sources:
-      binary: builtin-complex.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L9:
-        expect: true
-        expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not of real binary
-          floating-point type")[^\n]*\n?)+'
-test_cast-bad_104:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/cast-bad.c'
-    sources:
-      binary: cast-bad.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L20:
-        expect: true
-        expr: '(^|\n)([^\n]+:20:[^\n]*[0-9]+: (fatal )?error:[^\n]*("cast specifies
-          array type")[^\n]*\n?)+'
-      L21:
-        expect: true
-        expr: '(^|\n)([^\n]+:21:[^\n]*[0-9]+: (fatal )?error:[^\n]*("cast specifies
-          function type")[^\n]*\n?)+'
-      L22:
-        expect: true
-        expr: '(^|\n)([^\n]+:22:[^\n]*[0-9]+: (fatal )?error:[^\n]*("cast specifies
-          array type")[^\n]*\n?)+'
-      L23:
-        expect: true
-        expr: '(^|\n)([^\n]+:23:[^\n]*[0-9]+: (fatal )?error:[^\n]*("cast specifies
-          function type")[^\n]*\n?)+'
-      L24:
-        expect: true
-        expr: '(^|\n)([^\n]+:24:[^\n]*[0-9]+: (fatal )?error:[^\n]*("cast specifies
-          array type")[^\n]*\n?)+'
-      L25:
-        expect: true
-        expr: '(^|\n)([^\n]+:25:[^\n]*[0-9]+: (fatal )?error:[^\n]*("cast specifies
-          function type")[^\n]*\n?)+'
-      L27:
-        expect: true
-        expr: '(^|\n)([^\n]+:27:[^\n]*[0-9]+: (fatal )?error:[^\n]*("conversion to
-          non-scalar type requested")[^\n]*\n?)+'
-      L29:
-        expect: true
-        expr: '(^|\n)([^\n]+:29:[^\n]*[0-9]+: (fatal )?error:[^\n]*("conversion to
-          non-scalar type requested")[^\n]*\n?)+'
-      L30:
-        expect: true
-        expr: '(^|\n)([^\n]+:30:[^\n]*[0-9]+: (fatal )?error:[^\n]*("cast to union
-          type from type not present in union")[^\n]*\n?)+'
-      L31:
-        expect: true
-        expr: '(^|\n)([^\n]+:31:[^\n]*[0-9]+: (fatal )?error:[^\n]*("conversion to
-          non-scalar type requested")[^\n]*\n?)+'
-      L32:
-        expect: true
-        expr: '(^|\n)([^\n]+:32:[^\n]*[0-9]+: (fatal )?error:[^\n]*("cast to union
-          type from type not present in union")[^\n]*\n?)+'
-      L34:
-        expect: true
-        expr: '(^|\n)([^\n]+:34:[^\n]*[0-9]+: (fatal )?error:[^\n]*("aggregate value
-          used where a float was expected")[^\n]*\n?)+'
-      L35:
-        expect: true
-        expr: '(^|\n)([^\n]+:35:[^\n]*[0-9]+: (fatal )?error:[^\n]*("aggregate value
-          used where a float was expected")[^\n]*\n?)+'
-      L36:
-        expect: true
-        expr: '(^|\n)([^\n]+:36:[^\n]*[0-9]+: (fatal )?error:[^\n]*("aggregate value
-          used where a float was expected")[^\n]*\n?)+'
-      L37:
-        expect: true
-        expr: '(^|\n)([^\n]+:37:[^\n]*[0-9]+: (fatal )?error:[^\n]*("aggregate value
-          used where a float was expected")[^\n]*\n?)+'
-      L38:
-        expect: true
-        expr: '(^|\n)([^\n]+:38:[^\n]*[0-9]+: (fatal )?error:[^\n]*("aggregate value
-          used where a float was expected")[^\n]*\n?)+'
-      L39:
-        expect: true
-        expr: '(^|\n)([^\n]+:39:[^\n]*[0-9]+: (fatal )?error:[^\n]*("aggregate value
-          used where a float was expected")[^\n]*\n?)+'
 test_cast-bad_4:
   build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/cast-bad.c'
+    cflags: -std=gnu99 -S
+    files: compilers/gcc/./gcc.dg/dfp/cast-bad.c
     sources:
       binary: cast-bad.s
   group: GRPSERIAL
@@ -545,120 +206,10 @@ test_cast-bad_4:
         expect: true
         expr: '(^|\n)([^\n]+:39:[^\n]*[0-9]+: (fatal )?error:[^\n]*("aggregate value
           used where a float was expected")[^\n]*\n?)+'
-test_cast-bad_54:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/cast-bad.c'
-    sources:
-      binary: cast-bad.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L20:
-        expect: true
-        expr: '(^|\n)([^\n]+:20:[^\n]*[0-9]+: (fatal )?error:[^\n]*("cast specifies
-          array type")[^\n]*\n?)+'
-      L21:
-        expect: true
-        expr: '(^|\n)([^\n]+:21:[^\n]*[0-9]+: (fatal )?error:[^\n]*("cast specifies
-          function type")[^\n]*\n?)+'
-      L22:
-        expect: true
-        expr: '(^|\n)([^\n]+:22:[^\n]*[0-9]+: (fatal )?error:[^\n]*("cast specifies
-          array type")[^\n]*\n?)+'
-      L23:
-        expect: true
-        expr: '(^|\n)([^\n]+:23:[^\n]*[0-9]+: (fatal )?error:[^\n]*("cast specifies
-          function type")[^\n]*\n?)+'
-      L24:
-        expect: true
-        expr: '(^|\n)([^\n]+:24:[^\n]*[0-9]+: (fatal )?error:[^\n]*("cast specifies
-          array type")[^\n]*\n?)+'
-      L25:
-        expect: true
-        expr: '(^|\n)([^\n]+:25:[^\n]*[0-9]+: (fatal )?error:[^\n]*("cast specifies
-          function type")[^\n]*\n?)+'
-      L27:
-        expect: true
-        expr: '(^|\n)([^\n]+:27:[^\n]*[0-9]+: (fatal )?error:[^\n]*("conversion to
-          non-scalar type requested")[^\n]*\n?)+'
-      L29:
-        expect: true
-        expr: '(^|\n)([^\n]+:29:[^\n]*[0-9]+: (fatal )?error:[^\n]*("conversion to
-          non-scalar type requested")[^\n]*\n?)+'
-      L30:
-        expect: true
-        expr: '(^|\n)([^\n]+:30:[^\n]*[0-9]+: (fatal )?error:[^\n]*("cast to union
-          type from type not present in union")[^\n]*\n?)+'
-      L31:
-        expect: true
-        expr: '(^|\n)([^\n]+:31:[^\n]*[0-9]+: (fatal )?error:[^\n]*("conversion to
-          non-scalar type requested")[^\n]*\n?)+'
-      L32:
-        expect: true
-        expr: '(^|\n)([^\n]+:32:[^\n]*[0-9]+: (fatal )?error:[^\n]*("cast to union
-          type from type not present in union")[^\n]*\n?)+'
-      L34:
-        expect: true
-        expr: '(^|\n)([^\n]+:34:[^\n]*[0-9]+: (fatal )?error:[^\n]*("aggregate value
-          used where a float was expected")[^\n]*\n?)+'
-      L35:
-        expect: true
-        expr: '(^|\n)([^\n]+:35:[^\n]*[0-9]+: (fatal )?error:[^\n]*("aggregate value
-          used where a float was expected")[^\n]*\n?)+'
-      L36:
-        expect: true
-        expr: '(^|\n)([^\n]+:36:[^\n]*[0-9]+: (fatal )?error:[^\n]*("aggregate value
-          used where a float was expected")[^\n]*\n?)+'
-      L37:
-        expect: true
-        expr: '(^|\n)([^\n]+:37:[^\n]*[0-9]+: (fatal )?error:[^\n]*("aggregate value
-          used where a float was expected")[^\n]*\n?)+'
-      L38:
-        expect: true
-        expr: '(^|\n)([^\n]+:38:[^\n]*[0-9]+: (fatal )?error:[^\n]*("aggregate value
-          used where a float was expected")[^\n]*\n?)+'
-      L39:
-        expect: true
-        expr: '(^|\n)([^\n]+:39:[^\n]*[0-9]+: (fatal )?error:[^\n]*("aggregate value
-          used where a float was expected")[^\n]*\n?)+'
-test_composite-type_105:
-  build:
-    cflags: "-O -Wall -ftrack-macro-expansion=0\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/composite-type.c'
-    sources:
-      binary: composite-type.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L36:
-        expect: true
-        expr: '(^|\n)([^\n]+:36:[^\n]*[0-9]+: (fatal )?error:[^\n]*("incompatible
-          types when assigning to type \''\\[^\\n\\]*\'' from type \''\\[^\\n\\]*\''")[^\n]*\n?)+'
-      L40:
-        expect: true
-        expr: '(^|\n)([^\n]+:40:[^\n]*[0-9]+: (fatal )?error:[^\n]*("incompatible
-          types when assigning to type \''\\[^\\n\\]*\'' from type \''\\[^\\n\\]*\''")[^\n]*\n?)+'
-      L44:
-        expect: true
-        expr: '(^|\n)([^\n]+:44:[^\n]*[0-9]+: (fatal )?error:[^\n]*("incompatible
-          types when assigning to type \''\\[^\\n\\]*\'' from type \''\\[^\\n\\]*\''")[^\n]*\n?)+'
-      L50:
-        expect: true
-        expr: '(^|\n)([^\n]+(:50:)[^\n]*[0-9]+: warning:[^\n]*("incompatible pointer
-          type")[^\n]*\n?)+'
-      L51:
-        expect: true
-        expr: '(^|\n)([^\n]+(:51:)[^\n]*[0-9]+: warning:[^\n]*("incompatible pointer
-          type")[^\n]*\n?)+'
-      L52:
-        expect: true
-        expr: '(^|\n)([^\n]+(:52:)[^\n]*[0-9]+: warning:[^\n]*("incompatible pointer
-          type")[^\n]*\n?)+'
 test_composite-type_5:
   build:
-    cflags: "-O -Wall -ftrack-macro-expansion=0\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/composite-type.c'
+    cflags: -O -Wall -ftrack-macro-expansion=0 -S
+    files: compilers/gcc/./gcc.dg/dfp/composite-type.c
     sources:
       binary: composite-type.s
   group: GRPSERIAL
@@ -688,97 +239,10 @@ test_composite-type_5:
         expect: true
         expr: '(^|\n)([^\n]+(:52:)[^\n]*[0-9]+: warning:[^\n]*("incompatible pointer
           type")[^\n]*\n?)+'
-test_composite-type_55:
-  build:
-    cflags: "-O -Wall -ftrack-macro-expansion=0\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/composite-type.c'
-    sources:
-      binary: composite-type.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L36:
-        expect: true
-        expr: '(^|\n)([^\n]+:36:[^\n]*[0-9]+: (fatal )?error:[^\n]*("incompatible
-          types when assigning to type \''\\[^\\n\\]*\'' from type \''\\[^\\n\\]*\''")[^\n]*\n?)+'
-      L40:
-        expect: true
-        expr: '(^|\n)([^\n]+:40:[^\n]*[0-9]+: (fatal )?error:[^\n]*("incompatible
-          types when assigning to type \''\\[^\\n\\]*\'' from type \''\\[^\\n\\]*\''")[^\n]*\n?)+'
-      L44:
-        expect: true
-        expr: '(^|\n)([^\n]+:44:[^\n]*[0-9]+: (fatal )?error:[^\n]*("incompatible
-          types when assigning to type \''\\[^\\n\\]*\'' from type \''\\[^\\n\\]*\''")[^\n]*\n?)+'
-      L50:
-        expect: true
-        expr: '(^|\n)([^\n]+(:50:)[^\n]*[0-9]+: warning:[^\n]*("incompatible pointer
-          type")[^\n]*\n?)+'
-      L51:
-        expect: true
-        expr: '(^|\n)([^\n]+(:51:)[^\n]*[0-9]+: warning:[^\n]*("incompatible pointer
-          type")[^\n]*\n?)+'
-      L52:
-        expect: true
-        expr: '(^|\n)([^\n]+(:52:)[^\n]*[0-9]+: warning:[^\n]*("incompatible pointer
-          type")[^\n]*\n?)+'
-test_constants-c99_106:
-  build:
-    cflags: "-std=c99 -Wno-overflow\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/constants-c99.c'
-    sources:
-      binary: constants-c99.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L10:
-        expect: true
-        expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L11:
-        expect: true
-        expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L12:
-        expect: true
-        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L9:
-        expect: true
-        expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-test_constants-c99_56:
-  build:
-    cflags: "-std=c99 -Wno-overflow\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/constants-c99.c'
-    sources:
-      binary: constants-c99.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L10:
-        expect: true
-        expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L11:
-        expect: true
-        expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L12:
-        expect: true
-        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L9:
-        expect: true
-        expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
 test_constants-c99_6:
   build:
-    cflags: "-std=c99 -Wno-overflow\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/constants-c99.c'
+    cflags: -std=c99 -Wno-overflow -S
+    files: compilers/gcc/./gcc.dg/dfp/constants-c99.c
     sources:
       binary: constants-c99.s
   group: GRPSERIAL
@@ -802,64 +266,10 @@ test_constants-c99_6:
       L9:
         expect: true
         expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-test_constants-hex_107:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/constants-hex.c'
-    sources:
-      binary: constants-hex.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L10:
-        expect: true
-        expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid suffix")[^\n]*\n?)+'
-      L11:
-        expect: true
-        expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid suffix")[^\n]*\n?)+'
-      L12:
-        expect: true
-        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid suffix")[^\n]*\n?)+'
-      L13:
-        expect: true
-        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid suffix")[^\n]*\n?)+'
-      L14:
-        expect: true
-        expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid suffix")[^\n]*\n?)+'
-      L9:
-        expect: true
-        expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid suffix")[^\n]*\n?)+'
-test_constants-hex_57:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/constants-hex.c'
-    sources:
-      binary: constants-hex.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L10:
-        expect: true
-        expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid suffix")[^\n]*\n?)+'
-      L11:
-        expect: true
-        expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid suffix")[^\n]*\n?)+'
-      L12:
-        expect: true
-        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid suffix")[^\n]*\n?)+'
-      L13:
-        expect: true
-        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid suffix")[^\n]*\n?)+'
-      L14:
-        expect: true
-        expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid suffix")[^\n]*\n?)+'
-      L9:
-        expect: true
-        expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid suffix")[^\n]*\n?)+'
 test_constants-hex_7:
   build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/constants-hex.c'
+    cflags: -std=gnu99 -S
+    files: compilers/gcc/./gcc.dg/dfp/constants-hex.c
     sources:
       binary: constants-hex.s
   group: GRPSERIAL
@@ -883,74 +293,10 @@ test_constants-hex_7:
       L9:
         expect: true
         expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid suffix")[^\n]*\n?)+'
-test_constants-pedantic_108:
-  build:
-    cflags: "-pedantic\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/constants-pedantic.c'
-    sources:
-      binary: constants-pedantic.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L10:
-        expect: true
-        expr: '(^|\n)([^\n]+(:10:)[^\n]*[0-9]+: warning:[^\n]*("GCC extension|ISO
-          C")[^\n]*\n?)+'
-      L11:
-        expect: true
-        expr: '(^|\n)([^\n]+(:11:)[^\n]*[0-9]+: warning:[^\n]*("GCC extension|ISO
-          C")[^\n]*\n?)+'
-      L12:
-        expect: true
-        expr: '(^|\n)([^\n]+(:12:)[^\n]*[0-9]+: warning:[^\n]*("GCC extension|ISO
-          C")[^\n]*\n?)+'
-      L13:
-        expect: true
-        expr: '(^|\n)([^\n]+(:13:)[^\n]*[0-9]+: warning:[^\n]*("GCC extension|ISO
-          C")[^\n]*\n?)+'
-      L14:
-        expect: true
-        expr: '(^|\n)([^\n]+(:14:)[^\n]*[0-9]+: warning:[^\n]*("GCC extension|ISO
-          C")[^\n]*\n?)+'
-      L9:
-        expect: true
-        expr: '(^|\n)([^\n]+(:9:)[^\n]*[0-9]+: warning:[^\n]*("GCC extension|ISO C")[^\n]*\n?)+'
-test_constants-pedantic_58:
-  build:
-    cflags: "-pedantic\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/constants-pedantic.c'
-    sources:
-      binary: constants-pedantic.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L10:
-        expect: true
-        expr: '(^|\n)([^\n]+(:10:)[^\n]*[0-9]+: warning:[^\n]*("GCC extension|ISO
-          C")[^\n]*\n?)+'
-      L11:
-        expect: true
-        expr: '(^|\n)([^\n]+(:11:)[^\n]*[0-9]+: warning:[^\n]*("GCC extension|ISO
-          C")[^\n]*\n?)+'
-      L12:
-        expect: true
-        expr: '(^|\n)([^\n]+(:12:)[^\n]*[0-9]+: warning:[^\n]*("GCC extension|ISO
-          C")[^\n]*\n?)+'
-      L13:
-        expect: true
-        expr: '(^|\n)([^\n]+(:13:)[^\n]*[0-9]+: warning:[^\n]*("GCC extension|ISO
-          C")[^\n]*\n?)+'
-      L14:
-        expect: true
-        expr: '(^|\n)([^\n]+(:14:)[^\n]*[0-9]+: warning:[^\n]*("GCC extension|ISO
-          C")[^\n]*\n?)+'
-      L9:
-        expect: true
-        expr: '(^|\n)([^\n]+(:9:)[^\n]*[0-9]+: warning:[^\n]*("GCC extension|ISO C")[^\n]*\n?)+'
 test_constants-pedantic_8:
   build:
-    cflags: "-pedantic\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/constants-pedantic.c'
+    cflags: -pedantic -S
+    files: compilers/gcc/./gcc.dg/dfp/constants-pedantic.c
     sources:
       binary: constants-pedantic.s
   group: GRPSERIAL
@@ -979,265 +325,89 @@ test_constants-pedantic_8:
       L9:
         expect: true
         expr: '(^|\n)([^\n]+(:9:)[^\n]*[0-9]+: warning:[^\n]*("GCC extension|ISO C")[^\n]*\n?)+'
-test_constants_109:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/constants.c'
-    sources:
-      binary: constants.s
-  group: GRPSERIAL
-test_constants_59:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/constants.c'
-    sources:
-      binary: constants.s
-  group: GRPSERIAL
 test_constants_9:
   build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/constants.c'
+    cflags: -std=gnu99 -S
+    files: compilers/gcc/./gcc.dg/dfp/constants.c
     sources:
       binary: constants.s
   group: GRPSERIAL
 test_convert-complex_10:
   build:
-    cflags: "-O3\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/convert-complex.c'
-    sources:
-      binary: convert-complex.s
-  group: GRPSERIAL
-test_convert-complex_110:
-  build:
-    cflags: "-O3\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/convert-complex.c'
-    sources:
-      binary: convert-complex.s
-  group: GRPSERIAL
-test_convert-complex_60:
-  build:
-    cflags: "-O3\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/convert-complex.c'
+    cflags: -O3 -S
+    files: compilers/gcc/./gcc.dg/dfp/convert-complex.c
     sources:
       binary: convert-complex.s
   group: GRPSERIAL
 test_convert-dfp-round-thread_11:
   build:
     cflags: -std=gnu99 -D_GNU_SOURCE -pthread
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/convert-dfp-round-thread.c'
+    files: compilers/gcc/./gcc.dg/dfp/convert-dfp-round-thread.c
     sources:
       binary: ./convert-dfp-round-thread.exe
   group: GRPSERIAL
   run:
     cwd: .
-test_convert-dfp-round-thread_111:
-  build:
-    cflags: -std=gnu99 -D_GNU_SOURCE -pthread
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/convert-dfp-round-thread.c'
-    sources:
-      binary: ./convert-dfp-round-thread.exe
-  group: GRPSERIAL
-  run:
-    cwd: .
-test_convert-dfp-round-thread_61:
-  build:
-    cflags: -std=gnu99 -D_GNU_SOURCE -pthread
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/convert-dfp-round-thread.c'
-    sources:
-      binary: ./convert-dfp-round-thread.exe
-  group: GRPSERIAL
-  run:
-    cwd: .
-test_ctypes_112:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/ctypes.c'
-    sources:
-      binary: ctypes.s
-  group: GRPSERIAL
 test_ctypes_12:
   build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/ctypes.c'
+    cflags: -std=gnu99 -S
+    files: compilers/gcc/./gcc.dg/dfp/ctypes.c
     sources:
       binary: ctypes.s
-  group: GRPSERIAL
-test_ctypes_62:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/ctypes.c'
-    sources:
-      binary: ctypes.s
-  group: GRPSERIAL
-test_ddmode-ice_113:
-  build:
-    cflags: "-O1\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/ddmode-ice.c'
-    sources:
-      binary: ddmode-ice.s
   group: GRPSERIAL
 test_ddmode-ice_13:
   build:
-    cflags: "-O1\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/ddmode-ice.c'
+    cflags: -O1 -S
+    files: compilers/gcc/./gcc.dg/dfp/ddmode-ice.c
     sources:
       binary: ddmode-ice.s
-  group: GRPSERIAL
-test_ddmode-ice_63:
-  build:
-    cflags: "-O1\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/ddmode-ice.c'
-    sources:
-      binary: ddmode-ice.s
-  group: GRPSERIAL
-test_dec-eval-method-2_114:
-  build:
-    cflags: "-D__STDC_WANT_DEC_FP__\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/dec-eval-method-2.c'
-    sources:
-      binary: dec-eval-method-2.s
   group: GRPSERIAL
 test_dec-eval-method-2_14:
   build:
-    cflags: "-D__STDC_WANT_DEC_FP__\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/dec-eval-method-2.c'
+    cflags: -D__STDC_WANT_DEC_FP__ -S
+    files: compilers/gcc/./gcc.dg/dfp/dec-eval-method-2.c
     sources:
       binary: dec-eval-method-2.s
-  group: GRPSERIAL
-test_dec-eval-method-2_64:
-  build:
-    cflags: "-D__STDC_WANT_DEC_FP__\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/dec-eval-method-2.c'
-    sources:
-      binary: dec-eval-method-2.s
-  group: GRPSERIAL
-test_dec-eval-method_115:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/dec-eval-method.c'
-    sources:
-      binary: dec-eval-method.s
   group: GRPSERIAL
 test_dec-eval-method_15:
   build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/dec-eval-method.c'
+    cflags: -std=gnu99 -S
+    files: compilers/gcc/./gcc.dg/dfp/dec-eval-method.c
     sources:
       binary: dec-eval-method.s
-  group: GRPSERIAL
-test_dec-eval-method_65:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/dec-eval-method.c'
-    sources:
-      binary: dec-eval-method.s
-  group: GRPSERIAL
-test_decfloat-constants_116:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/decfloat-constants.c'
-    sources:
-      binary: decfloat-constants.s
   group: GRPSERIAL
 test_decfloat-constants_16:
   build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/decfloat-constants.c'
+    cflags: -std=gnu99 -S
+    files: compilers/gcc/./gcc.dg/dfp/decfloat-constants.c
     sources:
       binary: decfloat-constants.s
-  group: GRPSERIAL
-test_decfloat-constants_66:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/decfloat-constants.c'
-    sources:
-      binary: decfloat-constants.s
-  group: GRPSERIAL
-test_fe-convert-2_117:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/fe-convert-2.c'
-    sources:
-      binary: fe-convert-2.s
   group: GRPSERIAL
 test_fe-convert-2_17:
   build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/fe-convert-2.c'
+    cflags: -std=gnu99 -S
+    files: compilers/gcc/./gcc.dg/dfp/fe-convert-2.c
     sources:
       binary: fe-convert-2.s
-  group: GRPSERIAL
-test_fe-convert-2_67:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/fe-convert-2.c'
-    sources:
-      binary: fe-convert-2.s
-  group: GRPSERIAL
-test_fe-convert-3_118:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/fe-convert-3.c'
-    sources:
-      binary: fe-convert-3.s
   group: GRPSERIAL
 test_fe-convert-3_18:
   build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/fe-convert-3.c'
+    cflags: -std=gnu99 -S
+    files: compilers/gcc/./gcc.dg/dfp/fe-convert-3.c
     sources:
       binary: fe-convert-3.s
-  group: GRPSERIAL
-test_fe-convert-3_68:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/fe-convert-3.c'
-    sources:
-      binary: fe-convert-3.s
-  group: GRPSERIAL
-test_float-constant-double_119:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/float-constant-double.c'
-    sources:
-      binary: float-constant-double.s
   group: GRPSERIAL
 test_float-constant-double_19:
   build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/float-constant-double.c'
+    cflags: -std=gnu99 -S
+    files: compilers/gcc/./gcc.dg/dfp/float-constant-double.c
     sources:
       binary: float-constant-double.s
   group: GRPSERIAL
-test_float-constant-double_69:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/float-constant-double.c'
-    sources:
-      binary: float-constant-double.s
-  group: GRPSERIAL
-test_floatn_120:
-  build:
-    cflags: -S
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/floatn.c'
-    sources:
-      binary: floatn.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L17:
-        expect: true
-        expr: '(^|\n)([^\n]+:17:[^\n]*[0-9]+: (fatal )?error:[^\n]*("mix operands")[^\n]*\n?)+'
-      L18:
-        expect: true
-        expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("mix operands")[^\n]*\n?)+'
-      L19:
-        expect: true
-        expr: '(^|\n)([^\n]+:19:[^\n]*[0-9]+: (fatal )?error:[^\n]*("mix operands")[^\n]*\n?)+'
 test_floatn_20:
   build:
-    cflags: -S
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/floatn.c'
+    cflags: ' -S'
+    files: compilers/gcc/./gcc.dg/dfp/floatn.c
     sources:
       binary: floatn.s
   group: GRPSERIAL
@@ -1252,84 +422,12 @@ test_floatn_20:
       L19:
         expect: true
         expr: '(^|\n)([^\n]+:19:[^\n]*[0-9]+: (fatal )?error:[^\n]*("mix operands")[^\n]*\n?)+'
-test_floatn_70:
-  build:
-    cflags: -S
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/floatn.c'
-    sources:
-      binary: floatn.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L17:
-        expect: true
-        expr: '(^|\n)([^\n]+:17:[^\n]*[0-9]+: (fatal )?error:[^\n]*("mix operands")[^\n]*\n?)+'
-      L18:
-        expect: true
-        expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("mix operands")[^\n]*\n?)+'
-      L19:
-        expect: true
-        expr: '(^|\n)([^\n]+:19:[^\n]*[0-9]+: (fatal )?error:[^\n]*("mix operands")[^\n]*\n?)+'
-test_keywords-c89_121:
-  build:
-    cflags: "-std=c89\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/keywords-c89.c'
-    sources:
-      binary: keywords-c89.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
 test_keywords-c89_21:
   build:
-    cflags: "-std=c89\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/keywords-c89.c'
+    cflags: -std=c89 -S
+    files: compilers/gcc/./gcc.dg/dfp/keywords-c89.c
     sources:
       binary: keywords-c89.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-test_keywords-c89_71:
-  build:
-    cflags: "-std=c89\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/keywords-c89.c'
-    sources:
-      binary: keywords-c89.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-test_keywords-c99_122:
-  build:
-    cflags: "-std=c99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/keywords-c99.c'
-    sources:
-      binary: keywords-c99.s
   group: GRPSERIAL
   validate:
     match:
@@ -1344,8 +442,8 @@ test_keywords-c99_122:
         expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
 test_keywords-c99_22:
   build:
-    cflags: "-std=c99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/keywords-c99.c'
+    cflags: -std=c99 -S
+    files: compilers/gcc/./gcc.dg/dfp/keywords-c99.c
     sources:
       binary: keywords-c99.s
   group: GRPSERIAL
@@ -1360,67 +458,17 @@ test_keywords-c99_22:
       L8:
         expect: true
         expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-test_keywords-c99_72:
-  build:
-    cflags: "-std=c99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/keywords-c99.c'
-    sources:
-      binary: keywords-c99.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-test_keywords-ignored-c99_123:
-  build:
-    cflags: "-std=c99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/keywords-ignored-c99.c'
-    sources:
-      binary: keywords-ignored-c99.s
-  group: GRPSERIAL
 test_keywords-ignored-c99_23:
   build:
-    cflags: "-std=c99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/keywords-ignored-c99.c'
+    cflags: -std=c99 -S
+    files: compilers/gcc/./gcc.dg/dfp/keywords-ignored-c99.c
     sources:
       binary: keywords-ignored-c99.s
   group: GRPSERIAL
-test_keywords-ignored-c99_73:
-  build:
-    cflags: "-std=c99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/keywords-ignored-c99.c'
-    sources:
-      binary: keywords-ignored-c99.s
-  group: GRPSERIAL
-test_keywords-pedantic_124:
-  build:
-    cflags: "-pedantic\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/keywords-pedantic.c'
-    sources:
-      binary: keywords-pedantic.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+(:6:)[^\n]*[0-9]+: warning:[^\n]*("GCC extension|ISO C")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+(:7:)[^\n]*[0-9]+: warning:[^\n]*("GCC extension|ISO C")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+(:8:)[^\n]*[0-9]+: warning:[^\n]*("GCC extension|ISO C")[^\n]*\n?)+'
 test_keywords-pedantic_24:
   build:
-    cflags: "-pedantic\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/keywords-pedantic.c'
+    cflags: -pedantic -S
+    files: compilers/gcc/./gcc.dg/dfp/keywords-pedantic.c
     sources:
       binary: keywords-pedantic.s
   group: GRPSERIAL
@@ -1435,46 +483,10 @@ test_keywords-pedantic_24:
       L8:
         expect: true
         expr: '(^|\n)([^\n]+(:8:)[^\n]*[0-9]+: warning:[^\n]*("GCC extension|ISO C")[^\n]*\n?)+'
-test_keywords-pedantic_74:
-  build:
-    cflags: "-pedantic\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/keywords-pedantic.c'
-    sources:
-      binary: keywords-pedantic.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+(:6:)[^\n]*[0-9]+: warning:[^\n]*("GCC extension|ISO C")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+(:7:)[^\n]*[0-9]+: warning:[^\n]*("GCC extension|ISO C")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+(:8:)[^\n]*[0-9]+: warning:[^\n]*("GCC extension|ISO C")[^\n]*\n?)+'
-test_keywords-reserved_125:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/keywords-reserved.c'
-    sources:
-      binary: keywords-reserved.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L14:
-        expect: true
-        expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L15:
-        expect: true
-        expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
 test_keywords-reserved_25:
   build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/keywords-reserved.c'
+    cflags: -std=gnu99 -S
+    files: compilers/gcc/./gcc.dg/dfp/keywords-reserved.c
     sources:
       binary: keywords-reserved.s
   group: GRPSERIAL
@@ -1489,109 +501,10 @@ test_keywords-reserved_25:
       L7:
         expect: true
         expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-test_keywords-reserved_75:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/keywords-reserved.c'
-    sources:
-      binary: keywords-reserved.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L14:
-        expect: true
-        expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L15:
-        expect: true
-        expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-test_operator-bitwise_126:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/operator-bitwise.c'
-    sources:
-      binary: operator-bitwise.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L37:
-        expect: true
-        expr: '(^|\n)([^\n]+:37:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
-          to binary")[^\n]*\n?)+'
-      L38:
-        expect: true
-        expr: '(^|\n)([^\n]+:38:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
-          to binary")[^\n]*\n?)+'
-      L39:
-        expect: true
-        expr: '(^|\n)([^\n]+:39:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
-          to binary")[^\n]*\n?)+'
-      L40:
-        expect: true
-        expr: '(^|\n)([^\n]+:40:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
-          to binary")[^\n]*\n?)+'
-      L41:
-        expect: true
-        expr: '(^|\n)([^\n]+:41:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
-          to binary")[^\n]*\n?)+'
-      L42:
-        expect: true
-        expr: '(^|\n)([^\n]+:42:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
-          to binary")[^\n]*\n?)+'
-      L44:
-        expect: true
-        expr: '(^|\n)([^\n]+:44:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
-          to binary")[^\n]*\n?)+'
-      L45:
-        expect: true
-        expr: '(^|\n)([^\n]+:45:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
-          to binary")[^\n]*\n?)+'
-      L46:
-        expect: true
-        expr: '(^|\n)([^\n]+:46:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
-          to binary")[^\n]*\n?)+'
-      L52:
-        expect: true
-        expr: '(^|\n)([^\n]+:52:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
-          to binary")[^\n]*\n?)+'
-      L53:
-        expect: true
-        expr: '(^|\n)([^\n]+:53:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
-          to binary")[^\n]*\n?)+'
-      L54:
-        expect: true
-        expr: '(^|\n)([^\n]+:54:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
-          to binary")[^\n]*\n?)+'
-      L56:
-        expect: true
-        expr: '(^|\n)([^\n]+:56:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
-          to binary")[^\n]*\n?)+'
-      L57:
-        expect: true
-        expr: '(^|\n)([^\n]+:57:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
-          to binary")[^\n]*\n?)+'
-      L58:
-        expect: true
-        expr: '(^|\n)([^\n]+:58:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
-          to binary")[^\n]*\n?)+'
-      L60:
-        expect: true
-        expr: '(^|\n)([^\n]+:60:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
-          to binary")[^\n]*\n?)+'
-      L61:
-        expect: true
-        expr: '(^|\n)([^\n]+:61:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
-          to binary")[^\n]*\n?)+'
-      L62:
-        expect: true
-        expr: '(^|\n)([^\n]+:62:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
-          to binary")[^\n]*\n?)+'
 test_operator-bitwise_26:
   build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/operator-bitwise.c'
+    cflags: -std=gnu99 -S
+    files: compilers/gcc/./gcc.dg/dfp/operator-bitwise.c
     sources:
       binary: operator-bitwise.s
   group: GRPSERIAL
@@ -1669,271 +582,66 @@ test_operator-bitwise_26:
         expect: true
         expr: '(^|\n)([^\n]+:62:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
           to binary")[^\n]*\n?)+'
-test_operator-bitwise_76:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/operator-bitwise.c'
-    sources:
-      binary: operator-bitwise.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L37:
-        expect: true
-        expr: '(^|\n)([^\n]+:37:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
-          to binary")[^\n]*\n?)+'
-      L38:
-        expect: true
-        expr: '(^|\n)([^\n]+:38:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
-          to binary")[^\n]*\n?)+'
-      L39:
-        expect: true
-        expr: '(^|\n)([^\n]+:39:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
-          to binary")[^\n]*\n?)+'
-      L40:
-        expect: true
-        expr: '(^|\n)([^\n]+:40:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
-          to binary")[^\n]*\n?)+'
-      L41:
-        expect: true
-        expr: '(^|\n)([^\n]+:41:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
-          to binary")[^\n]*\n?)+'
-      L42:
-        expect: true
-        expr: '(^|\n)([^\n]+:42:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
-          to binary")[^\n]*\n?)+'
-      L44:
-        expect: true
-        expr: '(^|\n)([^\n]+:44:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
-          to binary")[^\n]*\n?)+'
-      L45:
-        expect: true
-        expr: '(^|\n)([^\n]+:45:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
-          to binary")[^\n]*\n?)+'
-      L46:
-        expect: true
-        expr: '(^|\n)([^\n]+:46:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
-          to binary")[^\n]*\n?)+'
-      L52:
-        expect: true
-        expr: '(^|\n)([^\n]+:52:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
-          to binary")[^\n]*\n?)+'
-      L53:
-        expect: true
-        expr: '(^|\n)([^\n]+:53:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
-          to binary")[^\n]*\n?)+'
-      L54:
-        expect: true
-        expr: '(^|\n)([^\n]+:54:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
-          to binary")[^\n]*\n?)+'
-      L56:
-        expect: true
-        expr: '(^|\n)([^\n]+:56:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
-          to binary")[^\n]*\n?)+'
-      L57:
-        expect: true
-        expr: '(^|\n)([^\n]+:57:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
-          to binary")[^\n]*\n?)+'
-      L58:
-        expect: true
-        expr: '(^|\n)([^\n]+:58:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
-          to binary")[^\n]*\n?)+'
-      L60:
-        expect: true
-        expr: '(^|\n)([^\n]+:60:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
-          to binary")[^\n]*\n?)+'
-      L61:
-        expect: true
-        expr: '(^|\n)([^\n]+:61:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
-          to binary")[^\n]*\n?)+'
-      L62:
-        expect: true
-        expr: '(^|\n)([^\n]+:62:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid operands
-          to binary")[^\n]*\n?)+'
-test_pr31344_127:
-  build:
-    cflags: "-O\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr31344.c'
-    sources:
-      binary: pr31344.s
-  group: GRPSERIAL
 test_pr31344_27:
   build:
-    cflags: "-O\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr31344.c'
+    cflags: -O -S
+    files: compilers/gcc/./gcc.dg/dfp/pr31344.c
     sources:
       binary: pr31344.s
-  group: GRPSERIAL
-test_pr31344_77:
-  build:
-    cflags: "-O\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr31344.c'
-    sources:
-      binary: pr31344.s
-  group: GRPSERIAL
-test_pr37435_128:
-  build:
-    cflags: "-O2 -fPIC\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr37435.c'
-    sources:
-      binary: pr37435.s
   group: GRPSERIAL
 test_pr37435_28:
   build:
-    cflags: "-O2 -fPIC\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr37435.c'
+    cflags: -O2 -fPIC -S
+    files: compilers/gcc/./gcc.dg/dfp/pr37435.c
     sources:
       binary: pr37435.s
-  group: GRPSERIAL
-test_pr37435_78:
-  build:
-    cflags: "-O2 -fPIC\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr37435.c'
-    sources:
-      binary: pr37435.s
-  group: GRPSERIAL
-test_pr41049_129:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr41049.c'
-    sources:
-      binary: pr41049.s
   group: GRPSERIAL
 test_pr41049_29:
   build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr41049.c'
+    cflags: -std=gnu99 -S
+    files: compilers/gcc/./gcc.dg/dfp/pr41049.c
     sources:
       binary: pr41049.s
-  group: GRPSERIAL
-test_pr41049_79:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr41049.c'
-    sources:
-      binary: pr41049.s
-  group: GRPSERIAL
-test_pr48204_130:
-  build:
-    cflags: "-O -fno-tree-ccp -fno-tree-dominator-opts -fno-tree-fre -g\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr48204.c'
-    sources:
-      binary: pr48204.s
   group: GRPSERIAL
 test_pr48204_30:
   build:
-    cflags: "-O -fno-tree-ccp -fno-tree-dominator-opts -fno-tree-fre -g\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr48204.c'
+    cflags: -O -fno-tree-ccp -fno-tree-dominator-opts -fno-tree-fre -g -S
+    files: compilers/gcc/./gcc.dg/dfp/pr48204.c
     sources:
       binary: pr48204.s
-  group: GRPSERIAL
-test_pr48204_80:
-  build:
-    cflags: "-O -fno-tree-ccp -fno-tree-dominator-opts -fno-tree-fre -g\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr48204.c'
-    sources:
-      binary: pr48204.s
-  group: GRPSERIAL
-test_pr48928_131:
-  build:
-    cflags: "-g -O2\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr48928.c'
-    sources:
-      binary: pr48928.s
   group: GRPSERIAL
 test_pr48928_31:
   build:
-    cflags: "-g -O2\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr48928.c'
+    cflags: -g -O2 -S
+    files: compilers/gcc/./gcc.dg/dfp/pr48928.c
     sources:
       binary: pr48928.s
-  group: GRPSERIAL
-test_pr48928_81:
-  build:
-    cflags: "-g -O2\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr48928.c'
-    sources:
-      binary: pr48928.s
-  group: GRPSERIAL
-test_pr52140_132:
-  build:
-    cflags: "-O1\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr52140.c'
-    sources:
-      binary: pr52140.s
   group: GRPSERIAL
 test_pr52140_32:
   build:
-    cflags: "-O1\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr52140.c'
+    cflags: -O1 -S
+    files: compilers/gcc/./gcc.dg/dfp/pr52140.c
     sources:
       binary: pr52140.s
-  group: GRPSERIAL
-test_pr52140_82:
-  build:
-    cflags: "-O1\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr52140.c'
-    sources:
-      binary: pr52140.s
-  group: GRPSERIAL
-test_pr70052_133:
-  build:
-    cflags: "-O1\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr70052.c'
-    sources:
-      binary: pr70052.s
   group: GRPSERIAL
 test_pr70052_33:
   build:
-    cflags: "-O1\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr70052.c'
+    cflags: -O1 -S
+    files: compilers/gcc/./gcc.dg/dfp/pr70052.c
     sources:
       binary: pr70052.s
-  group: GRPSERIAL
-test_pr70052_83:
-  build:
-    cflags: "-O1\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr70052.c'
-    sources:
-      binary: pr70052.s
-  group: GRPSERIAL
-test_pr79487_134:
-  build:
-    cflags: "-O2\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr79487.c'
-    sources:
-      binary: pr79487.s
   group: GRPSERIAL
 test_pr79487_34:
   build:
-    cflags: "-O2\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr79487.c'
+    cflags: -O2 -S
+    files: compilers/gcc/./gcc.dg/dfp/pr79487.c
     sources:
       binary: pr79487.s
   group: GRPSERIAL
-test_pr79487_84:
-  build:
-    cflags: "-O2\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr79487.c'
-    sources:
-      binary: pr79487.s
-  group: GRPSERIAL
-test_pr79515_135:
-  build:
-    cflags: "-Wdouble-promotion\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr79515.c'
-    sources:
-      binary: pr79515.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L11:
-        expect: true
-        expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("mix operands")[^\n]*\n?)+'
 test_pr79515_35:
   build:
-    cflags: "-Wdouble-promotion\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr79515.c'
+    cflags: -Wdouble-promotion -S
+    files: compilers/gcc/./gcc.dg/dfp/pr79515.c
     sources:
       binary: pr79515.s
   group: GRPSERIAL
@@ -1942,112 +650,31 @@ test_pr79515_35:
       L11:
         expect: true
         expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("mix operands")[^\n]*\n?)+'
-test_pr79515_85:
-  build:
-    cflags: "-Wdouble-promotion\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pr79515.c'
-    sources:
-      binary: pr79515.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L11:
-        expect: true
-        expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("mix operands")[^\n]*\n?)+'
-test_pragma-float-const-decimal64-1_136:
-  build:
-    cflags: "-Wall\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-1.c'
-    sources:
-      binary: pragma-float-const-decimal64-1.s
-  group: GRPSERIAL
 test_pragma-float-const-decimal64-1_36:
   build:
-    cflags: "-Wall\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-1.c'
+    cflags: -Wall -S
+    files: compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-1.c
     sources:
       binary: pragma-float-const-decimal64-1.s
-  group: GRPSERIAL
-test_pragma-float-const-decimal64-1_86:
-  build:
-    cflags: "-Wall\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-1.c'
-    sources:
-      binary: pragma-float-const-decimal64-1.s
-  group: GRPSERIAL
-test_pragma-float-const-decimal64-2_137:
-  build:
-    cflags: "-Wall\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-2.c'
-    sources:
-      binary: pragma-float-const-decimal64-2.s
   group: GRPSERIAL
 test_pragma-float-const-decimal64-2_37:
   build:
-    cflags: "-Wall\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-2.c'
+    cflags: -Wall -S
+    files: compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-2.c
     sources:
       binary: pragma-float-const-decimal64-2.s
-  group: GRPSERIAL
-test_pragma-float-const-decimal64-2_87:
-  build:
-    cflags: "-Wall\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-2.c'
-    sources:
-      binary: pragma-float-const-decimal64-2.s
-  group: GRPSERIAL
-test_pragma-float-const-decimal64-3_138:
-  build:
-    cflags: "-Wall\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-3.c'
-    sources:
-      binary: pragma-float-const-decimal64-3.s
   group: GRPSERIAL
 test_pragma-float-const-decimal64-3_38:
   build:
-    cflags: "-Wall\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-3.c'
+    cflags: -Wall -S
+    files: compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-3.c
     sources:
       binary: pragma-float-const-decimal64-3.s
   group: GRPSERIAL
-test_pragma-float-const-decimal64-3_88:
-  build:
-    cflags: "-Wall\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-3.c'
-    sources:
-      binary: pragma-float-const-decimal64-3.s
-  group: GRPSERIAL
-test_pragma-float-const-decimal64-4_139:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-4.c'
-    sources:
-      binary: pragma-float-const-decimal64-4.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L13:
-        expect: true
-        expr: '(^|\n)([^\n]+(:13:)[^\n]*[0-9]+: warning:[^\n]*("malformed")[^\n]*\n?)+'
-      L19:
-        expect: true
-        expr: '(^|\n)([^\n]+(:19:)[^\n]*[0-9]+: warning:[^\n]*("malformed")[^\n]*\n?)+'
-      L25:
-        expect: true
-        expr: '(^|\n)([^\n]+(:25:)[^\n]*[0-9]+: warning:[^\n]*("junk at end")[^\n]*\n?)+'
-      L31:
-        expect: true
-        expr: '(^|\n)([^\n]+(:31:)[^\n]*[0-9]+: warning:[^\n]*("malformed")[^\n]*\n?)+'
-      L37:
-        expect: true
-        expr: '(^|\n)([^\n]+(:37:)[^\n]*[0-9]+: warning:[^\n]*("malformed")[^\n]*\n?)+'
-      L43:
-        expect: true
-        expr: '(^|\n)([^\n]+(:43:)[^\n]*[0-9]+: warning:[^\n]*("junk at end")[^\n]*\n?)+'
 test_pragma-float-const-decimal64-4_39:
   build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-4.c'
+    cflags: -std=gnu99 -S
+    files: compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-4.c
     sources:
       binary: pragma-float-const-decimal64-4.s
   group: GRPSERIAL
@@ -2071,64 +698,10 @@ test_pragma-float-const-decimal64-4_39:
       L43:
         expect: true
         expr: '(^|\n)([^\n]+(:43:)[^\n]*[0-9]+: warning:[^\n]*("junk at end")[^\n]*\n?)+'
-test_pragma-float-const-decimal64-4_89:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-4.c'
-    sources:
-      binary: pragma-float-const-decimal64-4.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L13:
-        expect: true
-        expr: '(^|\n)([^\n]+(:13:)[^\n]*[0-9]+: warning:[^\n]*("malformed")[^\n]*\n?)+'
-      L19:
-        expect: true
-        expr: '(^|\n)([^\n]+(:19:)[^\n]*[0-9]+: warning:[^\n]*("malformed")[^\n]*\n?)+'
-      L25:
-        expect: true
-        expr: '(^|\n)([^\n]+(:25:)[^\n]*[0-9]+: warning:[^\n]*("junk at end")[^\n]*\n?)+'
-      L31:
-        expect: true
-        expr: '(^|\n)([^\n]+(:31:)[^\n]*[0-9]+: warning:[^\n]*("malformed")[^\n]*\n?)+'
-      L37:
-        expect: true
-        expr: '(^|\n)([^\n]+(:37:)[^\n]*[0-9]+: warning:[^\n]*("malformed")[^\n]*\n?)+'
-      L43:
-        expect: true
-        expr: '(^|\n)([^\n]+(:43:)[^\n]*[0-9]+: warning:[^\n]*("junk at end")[^\n]*\n?)+'
-test_pragma-float-const-decimal64-5_140:
-  build:
-    cflags: "-std=c99 -pedantic\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-5.c'
-    sources:
-      binary: pragma-float-const-decimal64-5.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L14:
-        expect: true
-        expr: '(^|\n)([^\n]+(:14:)[^\n]*[0-9]+: warning:[^\n]*("ISO C")[^\n]*\n?)+'
-      L20:
-        expect: true
-        expr: '(^|\n)([^\n]+(:20:)[^\n]*[0-9]+: warning:[^\n]*("ISO C")[^\n]*\n?)+'
-      L26:
-        expect: true
-        expr: '(^|\n)([^\n]+(:26:)[^\n]*[0-9]+: warning:[^\n]*("ISO C")[^\n]*\n?)+'
-      L32:
-        expect: true
-        expr: '(^|\n)([^\n]+(:32:)[^\n]*[0-9]+: warning:[^\n]*("ISO C")[^\n]*\n?)+'
-      L38:
-        expect: true
-        expr: '(^|\n)([^\n]+(:38:)[^\n]*[0-9]+: warning:[^\n]*("ISO C")[^\n]*\n?)+'
-      L44:
-        expect: true
-        expr: '(^|\n)([^\n]+(:44:)[^\n]*[0-9]+: warning:[^\n]*("ISO C")[^\n]*\n?)+'
 test_pragma-float-const-decimal64-5_40:
   build:
-    cflags: "-std=c99 -pedantic\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-5.c'
+    cflags: -std=c99 -pedantic -S
+    files: compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-5.c
     sources:
       binary: pragma-float-const-decimal64-5.s
   group: GRPSERIAL
@@ -2152,64 +725,10 @@ test_pragma-float-const-decimal64-5_40:
       L44:
         expect: true
         expr: '(^|\n)([^\n]+(:44:)[^\n]*[0-9]+: warning:[^\n]*("ISO C")[^\n]*\n?)+'
-test_pragma-float-const-decimal64-5_90:
-  build:
-    cflags: "-std=c99 -pedantic\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-5.c'
-    sources:
-      binary: pragma-float-const-decimal64-5.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L14:
-        expect: true
-        expr: '(^|\n)([^\n]+(:14:)[^\n]*[0-9]+: warning:[^\n]*("ISO C")[^\n]*\n?)+'
-      L20:
-        expect: true
-        expr: '(^|\n)([^\n]+(:20:)[^\n]*[0-9]+: warning:[^\n]*("ISO C")[^\n]*\n?)+'
-      L26:
-        expect: true
-        expr: '(^|\n)([^\n]+(:26:)[^\n]*[0-9]+: warning:[^\n]*("ISO C")[^\n]*\n?)+'
-      L32:
-        expect: true
-        expr: '(^|\n)([^\n]+(:32:)[^\n]*[0-9]+: warning:[^\n]*("ISO C")[^\n]*\n?)+'
-      L38:
-        expect: true
-        expr: '(^|\n)([^\n]+(:38:)[^\n]*[0-9]+: warning:[^\n]*("ISO C")[^\n]*\n?)+'
-      L44:
-        expect: true
-        expr: '(^|\n)([^\n]+(:44:)[^\n]*[0-9]+: warning:[^\n]*("ISO C")[^\n]*\n?)+'
-test_pragma-float-const-decimal64-6_141:
-  build:
-    cflags: "-std=c99 -pedantic-errors\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-6.c'
-    sources:
-      binary: pragma-float-const-decimal64-6.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L14:
-        expect: true
-        expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO C")[^\n]*\n?)+'
-      L20:
-        expect: true
-        expr: '(^|\n)([^\n]+:20:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO C")[^\n]*\n?)+'
-      L26:
-        expect: true
-        expr: '(^|\n)([^\n]+:26:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO C")[^\n]*\n?)+'
-      L32:
-        expect: true
-        expr: '(^|\n)([^\n]+:32:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO C")[^\n]*\n?)+'
-      L38:
-        expect: true
-        expr: '(^|\n)([^\n]+:38:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO C")[^\n]*\n?)+'
-      L44:
-        expect: true
-        expr: '(^|\n)([^\n]+:44:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO C")[^\n]*\n?)+'
 test_pragma-float-const-decimal64-6_41:
   build:
-    cflags: "-std=c99 -pedantic-errors\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-6.c'
+    cflags: -std=c99 -pedantic-errors -S
+    files: compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-6.c
     sources:
       binary: pragma-float-const-decimal64-6.s
   group: GRPSERIAL
@@ -2233,52 +752,10 @@ test_pragma-float-const-decimal64-6_41:
       L44:
         expect: true
         expr: '(^|\n)([^\n]+:44:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO C")[^\n]*\n?)+'
-test_pragma-float-const-decimal64-6_91:
-  build:
-    cflags: "-std=c99 -pedantic-errors\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-6.c'
-    sources:
-      binary: pragma-float-const-decimal64-6.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L14:
-        expect: true
-        expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO C")[^\n]*\n?)+'
-      L20:
-        expect: true
-        expr: '(^|\n)([^\n]+:20:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO C")[^\n]*\n?)+'
-      L26:
-        expect: true
-        expr: '(^|\n)([^\n]+:26:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO C")[^\n]*\n?)+'
-      L32:
-        expect: true
-        expr: '(^|\n)([^\n]+:32:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO C")[^\n]*\n?)+'
-      L38:
-        expect: true
-        expr: '(^|\n)([^\n]+:38:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO C")[^\n]*\n?)+'
-      L44:
-        expect: true
-        expr: '(^|\n)([^\n]+:44:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO C")[^\n]*\n?)+'
-test_pragma-float-const-decimal64-7_142:
-  build:
-    cflags: "-Wall\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-7.c'
-    sources:
-      binary: pragma-float-const-decimal64-7.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L25:
-        expect: true
-        expr: '(^|\n)([^\n]+:25:[^\n]*[0-9]+: (fatal )?error:[^\n]*("with hex")[^\n]*\n?)+'
-      L26:
-        expect: true
-        expr: '(^|\n)([^\n]+:26:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid suffix")[^\n]*\n?)+'
 test_pragma-float-const-decimal64-7_42:
   build:
-    cflags: "-Wall\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-7.c'
+    cflags: -Wall -S
+    files: compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-7.c
     sources:
       binary: pragma-float-const-decimal64-7.s
   group: GRPSERIAL
@@ -2290,94 +767,10 @@ test_pragma-float-const-decimal64-7_42:
       L26:
         expect: true
         expr: '(^|\n)([^\n]+:26:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid suffix")[^\n]*\n?)+'
-test_pragma-float-const-decimal64-7_92:
-  build:
-    cflags: "-Wall\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-7.c'
-    sources:
-      binary: pragma-float-const-decimal64-7.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L25:
-        expect: true
-        expr: '(^|\n)([^\n]+:25:[^\n]*[0-9]+: (fatal )?error:[^\n]*("with hex")[^\n]*\n?)+'
-      L26:
-        expect: true
-        expr: '(^|\n)([^\n]+:26:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid suffix")[^\n]*\n?)+'
-test_pragma-float-const-decimal64-8_143:
-  build:
-    cflags: "-Wall\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-8.c'
-    sources:
-      binary: pragma-float-const-decimal64-8.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L104:
-        expect: true
-        expr: '(^|\n)([^\n]+(:104:)[^\n]*[0-9]+: warning:[^\n]*("invalid location")[^\n]*\n?)+'
-      L109:
-        expect: true
-        expr: '(^|\n)([^\n]+:109:[^\n]*[0-9]+: (fatal )?error:[^\n]*("#pragma")[^\n]*\n?)+'
-      L117:
-        expect: true
-        expr: '(^|\n)([^\n]+:117:[^\n]*[0-9]+: (fatal )?error:[^\n]*("#pragma")[^\n]*\n?)+'
-      L118:
-        expect: true
-        expr: '(^|\n)([^\n]+:118:[^\n]*[0-9]+: (fatal )?error:[^\n]*("before")[^\n]*\n?)+'
-      L129:
-        expect: true
-        expr: '(^|\n)([^\n]+(:129:)[^\n]*[0-9]+: warning:[^\n]*("invalid location")[^\n]*\n?)+'
-      L139:
-        expect: true
-        expr: '(^|\n)([^\n]+(:139:)[^\n]*[0-9]+: warning:[^\n]*("invalid location")[^\n]*\n?)+'
-      L148:
-        expect: true
-        expr: '(^|\n)([^\n]+(:148:)[^\n]*[0-9]+: warning:[^\n]*("defined but not used")[^\n]*\n?)+'
-      L152:
-        expect: true
-        expr: '(^|\n)([^\n]+(:152:)[^\n]*[0-9]+: warning:[^\n]*("invalid location")[^\n]*\n?)+'
-      L164:
-        expect: true
-        expr: '(^|\n)([^\n]+(:164:)[^\n]*[0-9]+: warning:[^\n]*("invalid location")[^\n]*\n?)+'
-      L172:
-        expect: true
-        expr: '(^|\n)([^\n]+(:172:)[^\n]*[0-9]+: warning:[^\n]*("invalid location")[^\n]*\n?)+'
-      L22:
-        expect: true
-        expr: '(^|\n)([^\n]+(:22:)[^\n]*[0-9]+: warning:[^\n]*("invalid location")[^\n]*\n?)+'
-      L29:
-        expect: true
-        expr: '(^|\n)([^\n]+(:29:)[^\n]*[0-9]+: warning:[^\n]*("invalid location")[^\n]*\n?)+'
-      L36:
-        expect: true
-        expr: '(^|\n)([^\n]+(:36:)[^\n]*[0-9]+: warning:[^\n]*("invalid location")[^\n]*\n?)+'
-      L40:
-        expect: true
-        expr: '(^|\n)([^\n]+:40:[^\n]*[0-9]+: (fatal )?error:[^\n]*("#pragma")[^\n]*\n?)+'
-      L47:
-        expect: true
-        expr: '(^|\n)([^\n]+:47:[^\n]*[0-9]+: (fatal )?error:[^\n]*("#pragma")[^\n]*\n?)+'
-      L54:
-        expect: true
-        expr: '(^|\n)([^\n]+:54:[^\n]*[0-9]+: (fatal )?error:[^\n]*("#pragma")[^\n]*\n?)+'
-      L58:
-        expect: true
-        expr: '(^|\n)([^\n]+:58:[^\n]*[0-9]+: (fatal )?error:[^\n]*("#pragma")[^\n]*\n?)+'
-      L72:
-        expect: true
-        expr: '(^|\n)([^\n]+(:72:)[^\n]*[0-9]+: warning:[^\n]*("invalid location")[^\n]*\n?)+'
-      L83:
-        expect: true
-        expr: '(^|\n)([^\n]+(:83:)[^\n]*[0-9]+: warning:[^\n]*("invalid location")[^\n]*\n?)+'
-      L92:
-        expect: true
-        expr: '(^|\n)([^\n]+(:92:)[^\n]*[0-9]+: warning:[^\n]*("invalid location")[^\n]*\n?)+'
 test_pragma-float-const-decimal64-8_43:
   build:
-    cflags: "-Wall\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-8.c'
+    cflags: -Wall -S
+    files: compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-8.c
     sources:
       binary: pragma-float-const-decimal64-8.s
   group: GRPSERIAL
@@ -2443,134 +836,10 @@ test_pragma-float-const-decimal64-8_43:
       L92:
         expect: true
         expr: '(^|\n)([^\n]+(:92:)[^\n]*[0-9]+: warning:[^\n]*("invalid location")[^\n]*\n?)+'
-test_pragma-float-const-decimal64-8_93:
-  build:
-    cflags: "-Wall\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/pragma-float-const-decimal64-8.c'
-    sources:
-      binary: pragma-float-const-decimal64-8.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L104:
-        expect: true
-        expr: '(^|\n)([^\n]+(:104:)[^\n]*[0-9]+: warning:[^\n]*("invalid location")[^\n]*\n?)+'
-      L109:
-        expect: true
-        expr: '(^|\n)([^\n]+:109:[^\n]*[0-9]+: (fatal )?error:[^\n]*("#pragma")[^\n]*\n?)+'
-      L117:
-        expect: true
-        expr: '(^|\n)([^\n]+:117:[^\n]*[0-9]+: (fatal )?error:[^\n]*("#pragma")[^\n]*\n?)+'
-      L118:
-        expect: true
-        expr: '(^|\n)([^\n]+:118:[^\n]*[0-9]+: (fatal )?error:[^\n]*("before")[^\n]*\n?)+'
-      L129:
-        expect: true
-        expr: '(^|\n)([^\n]+(:129:)[^\n]*[0-9]+: warning:[^\n]*("invalid location")[^\n]*\n?)+'
-      L139:
-        expect: true
-        expr: '(^|\n)([^\n]+(:139:)[^\n]*[0-9]+: warning:[^\n]*("invalid location")[^\n]*\n?)+'
-      L148:
-        expect: true
-        expr: '(^|\n)([^\n]+(:148:)[^\n]*[0-9]+: warning:[^\n]*("defined but not used")[^\n]*\n?)+'
-      L152:
-        expect: true
-        expr: '(^|\n)([^\n]+(:152:)[^\n]*[0-9]+: warning:[^\n]*("invalid location")[^\n]*\n?)+'
-      L164:
-        expect: true
-        expr: '(^|\n)([^\n]+(:164:)[^\n]*[0-9]+: warning:[^\n]*("invalid location")[^\n]*\n?)+'
-      L172:
-        expect: true
-        expr: '(^|\n)([^\n]+(:172:)[^\n]*[0-9]+: warning:[^\n]*("invalid location")[^\n]*\n?)+'
-      L22:
-        expect: true
-        expr: '(^|\n)([^\n]+(:22:)[^\n]*[0-9]+: warning:[^\n]*("invalid location")[^\n]*\n?)+'
-      L29:
-        expect: true
-        expr: '(^|\n)([^\n]+(:29:)[^\n]*[0-9]+: warning:[^\n]*("invalid location")[^\n]*\n?)+'
-      L36:
-        expect: true
-        expr: '(^|\n)([^\n]+(:36:)[^\n]*[0-9]+: warning:[^\n]*("invalid location")[^\n]*\n?)+'
-      L40:
-        expect: true
-        expr: '(^|\n)([^\n]+:40:[^\n]*[0-9]+: (fatal )?error:[^\n]*("#pragma")[^\n]*\n?)+'
-      L47:
-        expect: true
-        expr: '(^|\n)([^\n]+:47:[^\n]*[0-9]+: (fatal )?error:[^\n]*("#pragma")[^\n]*\n?)+'
-      L54:
-        expect: true
-        expr: '(^|\n)([^\n]+:54:[^\n]*[0-9]+: (fatal )?error:[^\n]*("#pragma")[^\n]*\n?)+'
-      L58:
-        expect: true
-        expr: '(^|\n)([^\n]+:58:[^\n]*[0-9]+: (fatal )?error:[^\n]*("#pragma")[^\n]*\n?)+'
-      L72:
-        expect: true
-        expr: '(^|\n)([^\n]+(:72:)[^\n]*[0-9]+: warning:[^\n]*("invalid location")[^\n]*\n?)+'
-      L83:
-        expect: true
-        expr: '(^|\n)([^\n]+(:83:)[^\n]*[0-9]+: warning:[^\n]*("invalid location")[^\n]*\n?)+'
-      L92:
-        expect: true
-        expr: '(^|\n)([^\n]+(:92:)[^\n]*[0-9]+: warning:[^\n]*("invalid location")[^\n]*\n?)+'
-test_struct-union_144:
-  build:
-    cflags: "-O -Wall\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/struct-union.c'
-    sources:
-      binary: struct-union.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L36:
-        expect: true
-        expr: '(^|\n)([^\n]+:36:[^\n]*[0-9]+: (fatal )?error:[^\n]*("assignment of
-          member \''d32\'' in read-only object")[^\n]*\n?)+'
-      L37:
-        expect: true
-        expr: '(^|\n)([^\n]+:37:[^\n]*[0-9]+: (fatal )?error:[^\n]*("assignment of
-          member \''d64\'' in read-only object")[^\n]*\n?)+'
-      L38:
-        expect: true
-        expr: '(^|\n)([^\n]+:38:[^\n]*[0-9]+: (fatal )?error:[^\n]*("assignment of
-          read-only member")[^\n]*\n?)+'
-      L43:
-        expect: true
-        expr: '(^|\n)([^\n]+:43:[^\n]*[0-9]+: (fatal )?error:[^\n]*("assignment of
-          read-only member")[^\n]*\n?)+'
-      L44:
-        expect: true
-        expr: '(^|\n)([^\n]+:44:[^\n]*[0-9]+: (fatal )?error:[^\n]*("assignment of
-          member \''d32\'' in read-only object")[^\n]*\n?)+'
-      L45:
-        expect: true
-        expr: '(^|\n)([^\n]+:45:[^\n]*[0-9]+: (fatal )?error:[^\n]*("assignment of
-          member \''d64\'' in read-only object")[^\n]*\n?)+'
-      L47:
-        expect: true
-        expr: '(^|\n)([^\n]+:47:[^\n]*[0-9]+: (fatal )?error:[^\n]*("assignment of
-          member \''d32\'' in read-only object")[^\n]*\n?)+'
-      L49:
-        expect: true
-        expr: '(^|\n)([^\n]+:49:[^\n]*[0-9]+: (fatal )?error:[^\n]*("assignment of
-          member \''d64\'' in read-only object")[^\n]*\n?)+'
-      L50:
-        expect: true
-        expr: '(^|\n)([^\n]+:50:[^\n]*[0-9]+: (fatal )?error:[^\n]*("assignment of
-          member \''d32\'' in read-only object")[^\n]*\n?)+'
-      L51:
-        expect: true
-        expr: '(^|\n)([^\n]+:51:[^\n]*[0-9]+: (fatal )?error:[^\n]*("assignment of
-          member \''d64\'' in read-only object")[^\n]*\n?)+'
-      L55:
-        expect: true
-        expr: '(^|\n)([^\n]+:55:[^\n]*[0-9]+: (fatal )?error:[^\n]*("lvalue required")[^\n]*\n?)+'
-      L56:
-        expect: true
-        expr: '(^|\n)([^\n]+:56:[^\n]*[0-9]+: (fatal )?error:[^\n]*("lvalue required")[^\n]*\n?)+'
 test_struct-union_44:
   build:
-    cflags: "-O -Wall\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/struct-union.c'
+    cflags: -O -Wall -S
+    files: compilers/gcc/./gcc.dg/dfp/struct-union.c
     sources:
       binary: struct-union.s
   group: GRPSERIAL
@@ -2622,956 +891,10 @@ test_struct-union_44:
       L56:
         expect: true
         expr: '(^|\n)([^\n]+:56:[^\n]*[0-9]+: (fatal )?error:[^\n]*("lvalue required")[^\n]*\n?)+'
-test_struct-union_94:
-  build:
-    cflags: "-O -Wall\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/struct-union.c'
-    sources:
-      binary: struct-union.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L36:
-        expect: true
-        expr: '(^|\n)([^\n]+:36:[^\n]*[0-9]+: (fatal )?error:[^\n]*("assignment of
-          member \''d32\'' in read-only object")[^\n]*\n?)+'
-      L37:
-        expect: true
-        expr: '(^|\n)([^\n]+:37:[^\n]*[0-9]+: (fatal )?error:[^\n]*("assignment of
-          member \''d64\'' in read-only object")[^\n]*\n?)+'
-      L38:
-        expect: true
-        expr: '(^|\n)([^\n]+:38:[^\n]*[0-9]+: (fatal )?error:[^\n]*("assignment of
-          read-only member")[^\n]*\n?)+'
-      L43:
-        expect: true
-        expr: '(^|\n)([^\n]+:43:[^\n]*[0-9]+: (fatal )?error:[^\n]*("assignment of
-          read-only member")[^\n]*\n?)+'
-      L44:
-        expect: true
-        expr: '(^|\n)([^\n]+:44:[^\n]*[0-9]+: (fatal )?error:[^\n]*("assignment of
-          member \''d32\'' in read-only object")[^\n]*\n?)+'
-      L45:
-        expect: true
-        expr: '(^|\n)([^\n]+:45:[^\n]*[0-9]+: (fatal )?error:[^\n]*("assignment of
-          member \''d64\'' in read-only object")[^\n]*\n?)+'
-      L47:
-        expect: true
-        expr: '(^|\n)([^\n]+:47:[^\n]*[0-9]+: (fatal )?error:[^\n]*("assignment of
-          member \''d32\'' in read-only object")[^\n]*\n?)+'
-      L49:
-        expect: true
-        expr: '(^|\n)([^\n]+:49:[^\n]*[0-9]+: (fatal )?error:[^\n]*("assignment of
-          member \''d64\'' in read-only object")[^\n]*\n?)+'
-      L50:
-        expect: true
-        expr: '(^|\n)([^\n]+:50:[^\n]*[0-9]+: (fatal )?error:[^\n]*("assignment of
-          member \''d32\'' in read-only object")[^\n]*\n?)+'
-      L51:
-        expect: true
-        expr: '(^|\n)([^\n]+:51:[^\n]*[0-9]+: (fatal )?error:[^\n]*("assignment of
-          member \''d64\'' in read-only object")[^\n]*\n?)+'
-      L55:
-        expect: true
-        expr: '(^|\n)([^\n]+:55:[^\n]*[0-9]+: (fatal )?error:[^\n]*("lvalue required")[^\n]*\n?)+'
-      L56:
-        expect: true
-        expr: '(^|\n)([^\n]+:56:[^\n]*[0-9]+: (fatal )?error:[^\n]*("lvalue required")[^\n]*\n?)+'
-test_typespec_145:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/typespec.c'
-    sources:
-      binary: typespec.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L10:
-        expect: true
-        expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L100:
-        expect: true
-        expr: '(^|\n)([^\n]+:100:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L101:
-        expect: true
-        expr: '(^|\n)([^\n]+:101:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L102:
-        expect: true
-        expr: '(^|\n)([^\n]+:102:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L103:
-        expect: true
-        expr: '(^|\n)([^\n]+:103:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L104:
-        expect: true
-        expr: '(^|\n)([^\n]+:104:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L105:
-        expect: true
-        expr: '(^|\n)([^\n]+:105:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L106:
-        expect: true
-        expr: '(^|\n)([^\n]+:106:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L107:
-        expect: true
-        expr: '(^|\n)([^\n]+:107:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L108:
-        expect: true
-        expr: '(^|\n)([^\n]+:108:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L109:
-        expect: true
-        expr: '(^|\n)([^\n]+:109:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L11:
-        expect: true
-        expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L110:
-        expect: true
-        expr: '(^|\n)([^\n]+:110:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L111:
-        expect: true
-        expr: '(^|\n)([^\n]+:111:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L112:
-        expect: true
-        expr: '(^|\n)([^\n]+:112:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L113:
-        expect: true
-        expr: '(^|\n)([^\n]+:113:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L114:
-        expect: true
-        expr: '(^|\n)([^\n]+:114:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L115:
-        expect: true
-        expr: '(^|\n)([^\n]+:115:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L116:
-        expect: true
-        expr: '(^|\n)([^\n]+:116:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L117:
-        expect: true
-        expr: '(^|\n)([^\n]+:117:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L118:
-        expect: true
-        expr: '(^|\n)([^\n]+:118:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L119:
-        expect: true
-        expr: '(^|\n)([^\n]+:119:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L12:
-        expect: true
-        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L120:
-        expect: true
-        expr: '(^|\n)([^\n]+:120:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L121:
-        expect: true
-        expr: '(^|\n)([^\n]+:121:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L122:
-        expect: true
-        expr: '(^|\n)([^\n]+:122:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L123:
-        expect: true
-        expr: '(^|\n)([^\n]+:123:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L124:
-        expect: true
-        expr: '(^|\n)([^\n]+:124:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L125:
-        expect: true
-        expr: '(^|\n)([^\n]+:125:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L126:
-        expect: true
-        expr: '(^|\n)([^\n]+:126:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L127:
-        expect: true
-        expr: '(^|\n)([^\n]+:127:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L128:
-        expect: true
-        expr: '(^|\n)([^\n]+:128:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L129:
-        expect: true
-        expr: '(^|\n)([^\n]+:129:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L13:
-        expect: true
-        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L130:
-        expect: true
-        expr: '(^|\n)([^\n]+:130:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L131:
-        expect: true
-        expr: '(^|\n)([^\n]+:131:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L132:
-        expect: true
-        expr: '(^|\n)([^\n]+:132:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L133:
-        expect: true
-        expr: '(^|\n)([^\n]+:133:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L134:
-        expect: true
-        expr: '(^|\n)([^\n]+:134:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L135:
-        expect: true
-        expr: '(^|\n)([^\n]+:135:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L136:
-        expect: true
-        expr: '(^|\n)([^\n]+:136:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L137:
-        expect: true
-        expr: '(^|\n)([^\n]+:137:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L138:
-        expect: true
-        expr: '(^|\n)([^\n]+:138:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L139:
-        expect: true
-        expr: '(^|\n)([^\n]+:139:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L14:
-        expect: true
-        expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L140:
-        expect: true
-        expr: '(^|\n)([^\n]+:140:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L141:
-        expect: true
-        expr: '(^|\n)([^\n]+:141:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L142:
-        expect: true
-        expr: '(^|\n)([^\n]+:142:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L143:
-        expect: true
-        expr: '(^|\n)([^\n]+:143:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L144:
-        expect: true
-        expr: '(^|\n)([^\n]+:144:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L145:
-        expect: true
-        expr: '(^|\n)([^\n]+:145:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L146:
-        expect: true
-        expr: '(^|\n)([^\n]+:146:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L147:
-        expect: true
-        expr: '(^|\n)([^\n]+:147:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L148:
-        expect: true
-        expr: '(^|\n)([^\n]+:148:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L149:
-        expect: true
-        expr: '(^|\n)([^\n]+:149:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L15:
-        expect: true
-        expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L150:
-        expect: true
-        expr: '(^|\n)([^\n]+:150:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L151:
-        expect: true
-        expr: '(^|\n)([^\n]+:151:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L152:
-        expect: true
-        expr: '(^|\n)([^\n]+:152:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L153:
-        expect: true
-        expr: '(^|\n)([^\n]+:153:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L154:
-        expect: true
-        expr: '(^|\n)([^\n]+:154:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L155:
-        expect: true
-        expr: '(^|\n)([^\n]+:155:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L156:
-        expect: true
-        expr: '(^|\n)([^\n]+:156:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L157:
-        expect: true
-        expr: '(^|\n)([^\n]+:157:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L158:
-        expect: true
-        expr: '(^|\n)([^\n]+:158:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L159:
-        expect: true
-        expr: '(^|\n)([^\n]+:159:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L16:
-        expect: true
-        expr: '(^|\n)([^\n]+:16:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L160:
-        expect: true
-        expr: '(^|\n)([^\n]+:160:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L161:
-        expect: true
-        expr: '(^|\n)([^\n]+:161:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L162:
-        expect: true
-        expr: '(^|\n)([^\n]+:162:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L163:
-        expect: true
-        expr: '(^|\n)([^\n]+:163:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L164:
-        expect: true
-        expr: '(^|\n)([^\n]+:164:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L165:
-        expect: true
-        expr: '(^|\n)([^\n]+:165:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L166:
-        expect: true
-        expr: '(^|\n)([^\n]+:166:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L167:
-        expect: true
-        expr: '(^|\n)([^\n]+:167:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L168:
-        expect: true
-        expr: '(^|\n)([^\n]+:168:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L169:
-        expect: true
-        expr: '(^|\n)([^\n]+:169:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L17:
-        expect: true
-        expr: '(^|\n)([^\n]+:17:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L170:
-        expect: true
-        expr: '(^|\n)([^\n]+:170:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L171:
-        expect: true
-        expr: '(^|\n)([^\n]+:171:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L172:
-        expect: true
-        expr: '(^|\n)([^\n]+:172:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L173:
-        expect: true
-        expr: '(^|\n)([^\n]+:173:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L174:
-        expect: true
-        expr: '(^|\n)([^\n]+:174:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L175:
-        expect: true
-        expr: '(^|\n)([^\n]+:175:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L176:
-        expect: true
-        expr: '(^|\n)([^\n]+:176:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L177:
-        expect: true
-        expr: '(^|\n)([^\n]+:177:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L178:
-        expect: true
-        expr: '(^|\n)([^\n]+:178:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L179:
-        expect: true
-        expr: '(^|\n)([^\n]+:179:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L18:
-        expect: true
-        expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L180:
-        expect: true
-        expr: '(^|\n)([^\n]+:180:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L181:
-        expect: true
-        expr: '(^|\n)([^\n]+:181:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L182:
-        expect: true
-        expr: '(^|\n)([^\n]+:182:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L183:
-        expect: true
-        expr: '(^|\n)([^\n]+:183:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L184:
-        expect: true
-        expr: '(^|\n)([^\n]+:184:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L185:
-        expect: true
-        expr: '(^|\n)([^\n]+:185:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L186:
-        expect: true
-        expr: '(^|\n)([^\n]+:186:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L187:
-        expect: true
-        expr: '(^|\n)([^\n]+:187:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L188:
-        expect: true
-        expr: '(^|\n)([^\n]+:188:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L189:
-        expect: true
-        expr: '(^|\n)([^\n]+:189:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L19:
-        expect: true
-        expr: '(^|\n)([^\n]+:19:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L190:
-        expect: true
-        expr: '(^|\n)([^\n]+:190:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L191:
-        expect: true
-        expr: '(^|\n)([^\n]+:191:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L192:
-        expect: true
-        expr: '(^|\n)([^\n]+:192:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L193:
-        expect: true
-        expr: '(^|\n)([^\n]+:193:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L194:
-        expect: true
-        expr: '(^|\n)([^\n]+:194:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L195:
-        expect: true
-        expr: '(^|\n)([^\n]+:195:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L196:
-        expect: true
-        expr: '(^|\n)([^\n]+:196:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L197:
-        expect: true
-        expr: '(^|\n)([^\n]+:197:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L198:
-        expect: true
-        expr: '(^|\n)([^\n]+:198:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L199:
-        expect: true
-        expr: '(^|\n)([^\n]+:199:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L20:
-        expect: true
-        expr: '(^|\n)([^\n]+:20:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L200:
-        expect: true
-        expr: '(^|\n)([^\n]+:200:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L201:
-        expect: true
-        expr: '(^|\n)([^\n]+:201:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L202:
-        expect: true
-        expr: '(^|\n)([^\n]+:202:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L203:
-        expect: true
-        expr: '(^|\n)([^\n]+:203:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L204:
-        expect: true
-        expr: '(^|\n)([^\n]+:204:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L205:
-        expect: true
-        expr: '(^|\n)([^\n]+:205:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L206:
-        expect: true
-        expr: '(^|\n)([^\n]+:206:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L207:
-        expect: true
-        expr: '(^|\n)([^\n]+:207:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L208:
-        expect: true
-        expr: '(^|\n)([^\n]+:208:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L209:
-        expect: true
-        expr: '(^|\n)([^\n]+:209:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L21:
-        expect: true
-        expr: '(^|\n)([^\n]+:21:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L210:
-        expect: true
-        expr: '(^|\n)([^\n]+:210:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L211:
-        expect: true
-        expr: '(^|\n)([^\n]+:211:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L212:
-        expect: true
-        expr: '(^|\n)([^\n]+:212:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L213:
-        expect: true
-        expr: '(^|\n)([^\n]+:213:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L214:
-        expect: true
-        expr: '(^|\n)([^\n]+:214:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L215:
-        expect: true
-        expr: '(^|\n)([^\n]+:215:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L216:
-        expect: true
-        expr: '(^|\n)([^\n]+:216:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L217:
-        expect: true
-        expr: '(^|\n)([^\n]+:217:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L218:
-        expect: true
-        expr: '(^|\n)([^\n]+:218:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L219:
-        expect: true
-        expr: '(^|\n)([^\n]+:219:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L22:
-        expect: true
-        expr: '(^|\n)([^\n]+:22:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L220:
-        expect: true
-        expr: '(^|\n)([^\n]+:220:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L221:
-        expect: true
-        expr: '(^|\n)([^\n]+:221:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L222:
-        expect: true
-        expr: '(^|\n)([^\n]+:222:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L223:
-        expect: true
-        expr: '(^|\n)([^\n]+:223:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L224:
-        expect: true
-        expr: '(^|\n)([^\n]+:224:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L225:
-        expect: true
-        expr: '(^|\n)([^\n]+:225:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L226:
-        expect: true
-        expr: '(^|\n)([^\n]+:226:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L227:
-        expect: true
-        expr: '(^|\n)([^\n]+:227:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L228:
-        expect: true
-        expr: '(^|\n)([^\n]+:228:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L229:
-        expect: true
-        expr: '(^|\n)([^\n]+:229:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L23:
-        expect: true
-        expr: '(^|\n)([^\n]+:23:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L230:
-        expect: true
-        expr: '(^|\n)([^\n]+:230:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L231:
-        expect: true
-        expr: '(^|\n)([^\n]+:231:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L232:
-        expect: true
-        expr: '(^|\n)([^\n]+:232:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L233:
-        expect: true
-        expr: '(^|\n)([^\n]+:233:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L234:
-        expect: true
-        expr: '(^|\n)([^\n]+:234:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L235:
-        expect: true
-        expr: '(^|\n)([^\n]+:235:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L236:
-        expect: true
-        expr: '(^|\n)([^\n]+:236:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L237:
-        expect: true
-        expr: '(^|\n)([^\n]+:237:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L238:
-        expect: true
-        expr: '(^|\n)([^\n]+:238:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L239:
-        expect: true
-        expr: '(^|\n)([^\n]+:239:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L24:
-        expect: true
-        expr: '(^|\n)([^\n]+:24:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L240:
-        expect: true
-        expr: '(^|\n)([^\n]+:240:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L241:
-        expect: true
-        expr: '(^|\n)([^\n]+:241:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L242:
-        expect: true
-        expr: '(^|\n)([^\n]+:242:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L243:
-        expect: true
-        expr: '(^|\n)([^\n]+:243:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L244:
-        expect: true
-        expr: '(^|\n)([^\n]+:244:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L245:
-        expect: true
-        expr: '(^|\n)([^\n]+:245:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L246:
-        expect: true
-        expr: '(^|\n)([^\n]+:246:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L247:
-        expect: true
-        expr: '(^|\n)([^\n]+:247:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L248:
-        expect: true
-        expr: '(^|\n)([^\n]+:248:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L249:
-        expect: true
-        expr: '(^|\n)([^\n]+:249:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L25:
-        expect: true
-        expr: '(^|\n)([^\n]+:25:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L250:
-        expect: true
-        expr: '(^|\n)([^\n]+:250:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L251:
-        expect: true
-        expr: '(^|\n)([^\n]+:251:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L252:
-        expect: true
-        expr: '(^|\n)([^\n]+:252:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L253:
-        expect: true
-        expr: '(^|\n)([^\n]+:253:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L254:
-        expect: true
-        expr: '(^|\n)([^\n]+:254:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L255:
-        expect: true
-        expr: '(^|\n)([^\n]+:255:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L256:
-        expect: true
-        expr: '(^|\n)([^\n]+:256:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L257:
-        expect: true
-        expr: '(^|\n)([^\n]+:257:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L258:
-        expect: true
-        expr: '(^|\n)([^\n]+:258:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L259:
-        expect: true
-        expr: '(^|\n)([^\n]+:259:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L26:
-        expect: true
-        expr: '(^|\n)([^\n]+:26:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L260:
-        expect: true
-        expr: '(^|\n)([^\n]+:260:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L261:
-        expect: true
-        expr: '(^|\n)([^\n]+:261:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L262:
-        expect: true
-        expr: '(^|\n)([^\n]+:262:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L263:
-        expect: true
-        expr: '(^|\n)([^\n]+:263:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L264:
-        expect: true
-        expr: '(^|\n)([^\n]+:264:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L265:
-        expect: true
-        expr: '(^|\n)([^\n]+:265:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L266:
-        expect: true
-        expr: '(^|\n)([^\n]+:266:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L267:
-        expect: true
-        expr: '(^|\n)([^\n]+:267:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L268:
-        expect: true
-        expr: '(^|\n)([^\n]+:268:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L269:
-        expect: true
-        expr: '(^|\n)([^\n]+:269:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L27:
-        expect: true
-        expr: '(^|\n)([^\n]+:27:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L270:
-        expect: true
-        expr: '(^|\n)([^\n]+:270:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L271:
-        expect: true
-        expr: '(^|\n)([^\n]+:271:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L272:
-        expect: true
-        expr: '(^|\n)([^\n]+:272:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L273:
-        expect: true
-        expr: '(^|\n)([^\n]+:273:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L274:
-        expect: true
-        expr: '(^|\n)([^\n]+:274:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L275:
-        expect: true
-        expr: '(^|\n)([^\n]+:275:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L276:
-        expect: true
-        expr: '(^|\n)([^\n]+:276:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L277:
-        expect: true
-        expr: '(^|\n)([^\n]+:277:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L278:
-        expect: true
-        expr: '(^|\n)([^\n]+:278:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L279:
-        expect: true
-        expr: '(^|\n)([^\n]+:279:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L28:
-        expect: true
-        expr: '(^|\n)([^\n]+:28:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L280:
-        expect: true
-        expr: '(^|\n)([^\n]+:280:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L281:
-        expect: true
-        expr: '(^|\n)([^\n]+:281:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L282:
-        expect: true
-        expr: '(^|\n)([^\n]+:282:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L283:
-        expect: true
-        expr: '(^|\n)([^\n]+:283:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L284:
-        expect: true
-        expr: '(^|\n)([^\n]+:284:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L285:
-        expect: true
-        expr: '(^|\n)([^\n]+:285:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L286:
-        expect: true
-        expr: '(^|\n)([^\n]+:286:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L287:
-        expect: true
-        expr: '(^|\n)([^\n]+:287:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L289:
-        expect: true
-        expr: '(^|\n)([^\n]+:289:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L29:
-        expect: true
-        expr: '(^|\n)([^\n]+:29:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L290:
-        expect: true
-        expr: '(^|\n)([^\n]+:290:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L291:
-        expect: true
-        expr: '(^|\n)([^\n]+:291:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L293:
-        expect: true
-        expr: '(^|\n)([^\n]+:293:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L294:
-        expect: true
-        expr: '(^|\n)([^\n]+:294:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L295:
-        expect: true
-        expr: '(^|\n)([^\n]+:295:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L297:
-        expect: true
-        expr: '(^|\n)([^\n]+:297:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L298:
-        expect: true
-        expr: '(^|\n)([^\n]+:298:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L299:
-        expect: true
-        expr: '(^|\n)([^\n]+:299:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L30:
-        expect: true
-        expr: '(^|\n)([^\n]+:30:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L300:
-        expect: true
-        expr: '(^|\n)([^\n]+:300:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L301:
-        expect: true
-        expr: '(^|\n)([^\n]+:301:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L302:
-        expect: true
-        expr: '(^|\n)([^\n]+:302:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L31:
-        expect: true
-        expr: '(^|\n)([^\n]+:31:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L32:
-        expect: true
-        expr: '(^|\n)([^\n]+:32:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L33:
-        expect: true
-        expr: '(^|\n)([^\n]+:33:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L34:
-        expect: true
-        expr: '(^|\n)([^\n]+:34:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L35:
-        expect: true
-        expr: '(^|\n)([^\n]+:35:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L36:
-        expect: true
-        expr: '(^|\n)([^\n]+:36:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L37:
-        expect: true
-        expr: '(^|\n)([^\n]+:37:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L38:
-        expect: true
-        expr: '(^|\n)([^\n]+:38:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L39:
-        expect: true
-        expr: '(^|\n)([^\n]+:39:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L40:
-        expect: true
-        expr: '(^|\n)([^\n]+:40:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L41:
-        expect: true
-        expr: '(^|\n)([^\n]+:41:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L42:
-        expect: true
-        expr: '(^|\n)([^\n]+:42:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L43:
-        expect: true
-        expr: '(^|\n)([^\n]+:43:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L44:
-        expect: true
-        expr: '(^|\n)([^\n]+:44:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L45:
-        expect: true
-        expr: '(^|\n)([^\n]+:45:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L46:
-        expect: true
-        expr: '(^|\n)([^\n]+:46:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L47:
-        expect: true
-        expr: '(^|\n)([^\n]+:47:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L48:
-        expect: true
-        expr: '(^|\n)([^\n]+:48:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L49:
-        expect: true
-        expr: '(^|\n)([^\n]+:49:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L50:
-        expect: true
-        expr: '(^|\n)([^\n]+:50:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L51:
-        expect: true
-        expr: '(^|\n)([^\n]+:51:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L52:
-        expect: true
-        expr: '(^|\n)([^\n]+:52:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L53:
-        expect: true
-        expr: '(^|\n)([^\n]+:53:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L54:
-        expect: true
-        expr: '(^|\n)([^\n]+:54:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L55:
-        expect: true
-        expr: '(^|\n)([^\n]+:55:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L56:
-        expect: true
-        expr: '(^|\n)([^\n]+:56:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L57:
-        expect: true
-        expr: '(^|\n)([^\n]+:57:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L58:
-        expect: true
-        expr: '(^|\n)([^\n]+:58:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L59:
-        expect: true
-        expr: '(^|\n)([^\n]+:59:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L60:
-        expect: true
-        expr: '(^|\n)([^\n]+:60:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L61:
-        expect: true
-        expr: '(^|\n)([^\n]+:61:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L62:
-        expect: true
-        expr: '(^|\n)([^\n]+:62:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L63:
-        expect: true
-        expr: '(^|\n)([^\n]+:63:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L64:
-        expect: true
-        expr: '(^|\n)([^\n]+:64:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L65:
-        expect: true
-        expr: '(^|\n)([^\n]+:65:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L66:
-        expect: true
-        expr: '(^|\n)([^\n]+:66:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L67:
-        expect: true
-        expr: '(^|\n)([^\n]+:67:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L68:
-        expect: true
-        expr: '(^|\n)([^\n]+:68:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L69:
-        expect: true
-        expr: '(^|\n)([^\n]+:69:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L70:
-        expect: true
-        expr: '(^|\n)([^\n]+:70:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L71:
-        expect: true
-        expr: '(^|\n)([^\n]+:71:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L72:
-        expect: true
-        expr: '(^|\n)([^\n]+:72:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L73:
-        expect: true
-        expr: '(^|\n)([^\n]+:73:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L74:
-        expect: true
-        expr: '(^|\n)([^\n]+:74:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L75:
-        expect: true
-        expr: '(^|\n)([^\n]+:75:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L76:
-        expect: true
-        expr: '(^|\n)([^\n]+:76:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L77:
-        expect: true
-        expr: '(^|\n)([^\n]+:77:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L78:
-        expect: true
-        expr: '(^|\n)([^\n]+:78:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L79:
-        expect: true
-        expr: '(^|\n)([^\n]+:79:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L80:
-        expect: true
-        expr: '(^|\n)([^\n]+:80:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L81:
-        expect: true
-        expr: '(^|\n)([^\n]+:81:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L82:
-        expect: true
-        expr: '(^|\n)([^\n]+:82:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L83:
-        expect: true
-        expr: '(^|\n)([^\n]+:83:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L84:
-        expect: true
-        expr: '(^|\n)([^\n]+:84:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L85:
-        expect: true
-        expr: '(^|\n)([^\n]+:85:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L86:
-        expect: true
-        expr: '(^|\n)([^\n]+:86:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L87:
-        expect: true
-        expr: '(^|\n)([^\n]+:87:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L88:
-        expect: true
-        expr: '(^|\n)([^\n]+:88:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L89:
-        expect: true
-        expr: '(^|\n)([^\n]+:89:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L9:
-        expect: true
-        expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L90:
-        expect: true
-        expr: '(^|\n)([^\n]+:90:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L91:
-        expect: true
-        expr: '(^|\n)([^\n]+:91:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L92:
-        expect: true
-        expr: '(^|\n)([^\n]+:92:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L93:
-        expect: true
-        expr: '(^|\n)([^\n]+:93:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L94:
-        expect: true
-        expr: '(^|\n)([^\n]+:94:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L95:
-        expect: true
-        expr: '(^|\n)([^\n]+:95:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L96:
-        expect: true
-        expr: '(^|\n)([^\n]+:96:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L97:
-        expect: true
-        expr: '(^|\n)([^\n]+:97:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L98:
-        expect: true
-        expr: '(^|\n)([^\n]+:98:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L99:
-        expect: true
-        expr: '(^|\n)([^\n]+:99:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
 test_typespec_45:
   build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/typespec.c'
+    cflags: -std=gnu99 -S
+    files: compilers/gcc/./gcc.dg/dfp/typespec.c
     sources:
       binary: typespec.s
   group: GRPSERIAL
@@ -4459,934 +1782,17 @@ test_typespec_45:
       L99:
         expect: true
         expr: '(^|\n)([^\n]+:99:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-test_typespec_95:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/typespec.c'
-    sources:
-      binary: typespec.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L10:
-        expect: true
-        expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L100:
-        expect: true
-        expr: '(^|\n)([^\n]+:100:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L101:
-        expect: true
-        expr: '(^|\n)([^\n]+:101:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L102:
-        expect: true
-        expr: '(^|\n)([^\n]+:102:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L103:
-        expect: true
-        expr: '(^|\n)([^\n]+:103:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L104:
-        expect: true
-        expr: '(^|\n)([^\n]+:104:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L105:
-        expect: true
-        expr: '(^|\n)([^\n]+:105:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L106:
-        expect: true
-        expr: '(^|\n)([^\n]+:106:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L107:
-        expect: true
-        expr: '(^|\n)([^\n]+:107:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L108:
-        expect: true
-        expr: '(^|\n)([^\n]+:108:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L109:
-        expect: true
-        expr: '(^|\n)([^\n]+:109:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L11:
-        expect: true
-        expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L110:
-        expect: true
-        expr: '(^|\n)([^\n]+:110:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L111:
-        expect: true
-        expr: '(^|\n)([^\n]+:111:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L112:
-        expect: true
-        expr: '(^|\n)([^\n]+:112:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L113:
-        expect: true
-        expr: '(^|\n)([^\n]+:113:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L114:
-        expect: true
-        expr: '(^|\n)([^\n]+:114:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L115:
-        expect: true
-        expr: '(^|\n)([^\n]+:115:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L116:
-        expect: true
-        expr: '(^|\n)([^\n]+:116:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L117:
-        expect: true
-        expr: '(^|\n)([^\n]+:117:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L118:
-        expect: true
-        expr: '(^|\n)([^\n]+:118:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L119:
-        expect: true
-        expr: '(^|\n)([^\n]+:119:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L12:
-        expect: true
-        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L120:
-        expect: true
-        expr: '(^|\n)([^\n]+:120:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L121:
-        expect: true
-        expr: '(^|\n)([^\n]+:121:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L122:
-        expect: true
-        expr: '(^|\n)([^\n]+:122:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L123:
-        expect: true
-        expr: '(^|\n)([^\n]+:123:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L124:
-        expect: true
-        expr: '(^|\n)([^\n]+:124:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L125:
-        expect: true
-        expr: '(^|\n)([^\n]+:125:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L126:
-        expect: true
-        expr: '(^|\n)([^\n]+:126:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L127:
-        expect: true
-        expr: '(^|\n)([^\n]+:127:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L128:
-        expect: true
-        expr: '(^|\n)([^\n]+:128:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L129:
-        expect: true
-        expr: '(^|\n)([^\n]+:129:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L13:
-        expect: true
-        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L130:
-        expect: true
-        expr: '(^|\n)([^\n]+:130:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L131:
-        expect: true
-        expr: '(^|\n)([^\n]+:131:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L132:
-        expect: true
-        expr: '(^|\n)([^\n]+:132:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L133:
-        expect: true
-        expr: '(^|\n)([^\n]+:133:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L134:
-        expect: true
-        expr: '(^|\n)([^\n]+:134:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L135:
-        expect: true
-        expr: '(^|\n)([^\n]+:135:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L136:
-        expect: true
-        expr: '(^|\n)([^\n]+:136:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L137:
-        expect: true
-        expr: '(^|\n)([^\n]+:137:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L138:
-        expect: true
-        expr: '(^|\n)([^\n]+:138:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L139:
-        expect: true
-        expr: '(^|\n)([^\n]+:139:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L14:
-        expect: true
-        expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L140:
-        expect: true
-        expr: '(^|\n)([^\n]+:140:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L141:
-        expect: true
-        expr: '(^|\n)([^\n]+:141:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L142:
-        expect: true
-        expr: '(^|\n)([^\n]+:142:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L143:
-        expect: true
-        expr: '(^|\n)([^\n]+:143:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L144:
-        expect: true
-        expr: '(^|\n)([^\n]+:144:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L145:
-        expect: true
-        expr: '(^|\n)([^\n]+:145:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L146:
-        expect: true
-        expr: '(^|\n)([^\n]+:146:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L147:
-        expect: true
-        expr: '(^|\n)([^\n]+:147:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L148:
-        expect: true
-        expr: '(^|\n)([^\n]+:148:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L149:
-        expect: true
-        expr: '(^|\n)([^\n]+:149:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L15:
-        expect: true
-        expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L150:
-        expect: true
-        expr: '(^|\n)([^\n]+:150:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L151:
-        expect: true
-        expr: '(^|\n)([^\n]+:151:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L152:
-        expect: true
-        expr: '(^|\n)([^\n]+:152:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L153:
-        expect: true
-        expr: '(^|\n)([^\n]+:153:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L154:
-        expect: true
-        expr: '(^|\n)([^\n]+:154:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L155:
-        expect: true
-        expr: '(^|\n)([^\n]+:155:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L156:
-        expect: true
-        expr: '(^|\n)([^\n]+:156:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L157:
-        expect: true
-        expr: '(^|\n)([^\n]+:157:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L158:
-        expect: true
-        expr: '(^|\n)([^\n]+:158:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L159:
-        expect: true
-        expr: '(^|\n)([^\n]+:159:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L16:
-        expect: true
-        expr: '(^|\n)([^\n]+:16:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L160:
-        expect: true
-        expr: '(^|\n)([^\n]+:160:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L161:
-        expect: true
-        expr: '(^|\n)([^\n]+:161:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L162:
-        expect: true
-        expr: '(^|\n)([^\n]+:162:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L163:
-        expect: true
-        expr: '(^|\n)([^\n]+:163:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L164:
-        expect: true
-        expr: '(^|\n)([^\n]+:164:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L165:
-        expect: true
-        expr: '(^|\n)([^\n]+:165:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L166:
-        expect: true
-        expr: '(^|\n)([^\n]+:166:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L167:
-        expect: true
-        expr: '(^|\n)([^\n]+:167:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L168:
-        expect: true
-        expr: '(^|\n)([^\n]+:168:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L169:
-        expect: true
-        expr: '(^|\n)([^\n]+:169:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L17:
-        expect: true
-        expr: '(^|\n)([^\n]+:17:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L170:
-        expect: true
-        expr: '(^|\n)([^\n]+:170:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L171:
-        expect: true
-        expr: '(^|\n)([^\n]+:171:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L172:
-        expect: true
-        expr: '(^|\n)([^\n]+:172:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L173:
-        expect: true
-        expr: '(^|\n)([^\n]+:173:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L174:
-        expect: true
-        expr: '(^|\n)([^\n]+:174:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L175:
-        expect: true
-        expr: '(^|\n)([^\n]+:175:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L176:
-        expect: true
-        expr: '(^|\n)([^\n]+:176:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L177:
-        expect: true
-        expr: '(^|\n)([^\n]+:177:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L178:
-        expect: true
-        expr: '(^|\n)([^\n]+:178:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L179:
-        expect: true
-        expr: '(^|\n)([^\n]+:179:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L18:
-        expect: true
-        expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L180:
-        expect: true
-        expr: '(^|\n)([^\n]+:180:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L181:
-        expect: true
-        expr: '(^|\n)([^\n]+:181:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L182:
-        expect: true
-        expr: '(^|\n)([^\n]+:182:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L183:
-        expect: true
-        expr: '(^|\n)([^\n]+:183:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L184:
-        expect: true
-        expr: '(^|\n)([^\n]+:184:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L185:
-        expect: true
-        expr: '(^|\n)([^\n]+:185:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L186:
-        expect: true
-        expr: '(^|\n)([^\n]+:186:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L187:
-        expect: true
-        expr: '(^|\n)([^\n]+:187:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L188:
-        expect: true
-        expr: '(^|\n)([^\n]+:188:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L189:
-        expect: true
-        expr: '(^|\n)([^\n]+:189:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L19:
-        expect: true
-        expr: '(^|\n)([^\n]+:19:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L190:
-        expect: true
-        expr: '(^|\n)([^\n]+:190:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L191:
-        expect: true
-        expr: '(^|\n)([^\n]+:191:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L192:
-        expect: true
-        expr: '(^|\n)([^\n]+:192:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L193:
-        expect: true
-        expr: '(^|\n)([^\n]+:193:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L194:
-        expect: true
-        expr: '(^|\n)([^\n]+:194:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L195:
-        expect: true
-        expr: '(^|\n)([^\n]+:195:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L196:
-        expect: true
-        expr: '(^|\n)([^\n]+:196:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L197:
-        expect: true
-        expr: '(^|\n)([^\n]+:197:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L198:
-        expect: true
-        expr: '(^|\n)([^\n]+:198:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L199:
-        expect: true
-        expr: '(^|\n)([^\n]+:199:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L20:
-        expect: true
-        expr: '(^|\n)([^\n]+:20:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L200:
-        expect: true
-        expr: '(^|\n)([^\n]+:200:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L201:
-        expect: true
-        expr: '(^|\n)([^\n]+:201:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L202:
-        expect: true
-        expr: '(^|\n)([^\n]+:202:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L203:
-        expect: true
-        expr: '(^|\n)([^\n]+:203:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L204:
-        expect: true
-        expr: '(^|\n)([^\n]+:204:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L205:
-        expect: true
-        expr: '(^|\n)([^\n]+:205:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L206:
-        expect: true
-        expr: '(^|\n)([^\n]+:206:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L207:
-        expect: true
-        expr: '(^|\n)([^\n]+:207:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L208:
-        expect: true
-        expr: '(^|\n)([^\n]+:208:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L209:
-        expect: true
-        expr: '(^|\n)([^\n]+:209:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L21:
-        expect: true
-        expr: '(^|\n)([^\n]+:21:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L210:
-        expect: true
-        expr: '(^|\n)([^\n]+:210:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L211:
-        expect: true
-        expr: '(^|\n)([^\n]+:211:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L212:
-        expect: true
-        expr: '(^|\n)([^\n]+:212:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L213:
-        expect: true
-        expr: '(^|\n)([^\n]+:213:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L214:
-        expect: true
-        expr: '(^|\n)([^\n]+:214:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L215:
-        expect: true
-        expr: '(^|\n)([^\n]+:215:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L216:
-        expect: true
-        expr: '(^|\n)([^\n]+:216:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L217:
-        expect: true
-        expr: '(^|\n)([^\n]+:217:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L218:
-        expect: true
-        expr: '(^|\n)([^\n]+:218:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L219:
-        expect: true
-        expr: '(^|\n)([^\n]+:219:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L22:
-        expect: true
-        expr: '(^|\n)([^\n]+:22:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L220:
-        expect: true
-        expr: '(^|\n)([^\n]+:220:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L221:
-        expect: true
-        expr: '(^|\n)([^\n]+:221:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L222:
-        expect: true
-        expr: '(^|\n)([^\n]+:222:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L223:
-        expect: true
-        expr: '(^|\n)([^\n]+:223:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L224:
-        expect: true
-        expr: '(^|\n)([^\n]+:224:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L225:
-        expect: true
-        expr: '(^|\n)([^\n]+:225:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L226:
-        expect: true
-        expr: '(^|\n)([^\n]+:226:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L227:
-        expect: true
-        expr: '(^|\n)([^\n]+:227:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L228:
-        expect: true
-        expr: '(^|\n)([^\n]+:228:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L229:
-        expect: true
-        expr: '(^|\n)([^\n]+:229:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L23:
-        expect: true
-        expr: '(^|\n)([^\n]+:23:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L230:
-        expect: true
-        expr: '(^|\n)([^\n]+:230:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L231:
-        expect: true
-        expr: '(^|\n)([^\n]+:231:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L232:
-        expect: true
-        expr: '(^|\n)([^\n]+:232:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L233:
-        expect: true
-        expr: '(^|\n)([^\n]+:233:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L234:
-        expect: true
-        expr: '(^|\n)([^\n]+:234:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L235:
-        expect: true
-        expr: '(^|\n)([^\n]+:235:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L236:
-        expect: true
-        expr: '(^|\n)([^\n]+:236:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L237:
-        expect: true
-        expr: '(^|\n)([^\n]+:237:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L238:
-        expect: true
-        expr: '(^|\n)([^\n]+:238:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L239:
-        expect: true
-        expr: '(^|\n)([^\n]+:239:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L24:
-        expect: true
-        expr: '(^|\n)([^\n]+:24:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L240:
-        expect: true
-        expr: '(^|\n)([^\n]+:240:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L241:
-        expect: true
-        expr: '(^|\n)([^\n]+:241:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L242:
-        expect: true
-        expr: '(^|\n)([^\n]+:242:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L243:
-        expect: true
-        expr: '(^|\n)([^\n]+:243:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L244:
-        expect: true
-        expr: '(^|\n)([^\n]+:244:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L245:
-        expect: true
-        expr: '(^|\n)([^\n]+:245:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L246:
-        expect: true
-        expr: '(^|\n)([^\n]+:246:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L247:
-        expect: true
-        expr: '(^|\n)([^\n]+:247:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L248:
-        expect: true
-        expr: '(^|\n)([^\n]+:248:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L249:
-        expect: true
-        expr: '(^|\n)([^\n]+:249:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L25:
-        expect: true
-        expr: '(^|\n)([^\n]+:25:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L250:
-        expect: true
-        expr: '(^|\n)([^\n]+:250:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L251:
-        expect: true
-        expr: '(^|\n)([^\n]+:251:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L252:
-        expect: true
-        expr: '(^|\n)([^\n]+:252:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L253:
-        expect: true
-        expr: '(^|\n)([^\n]+:253:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L254:
-        expect: true
-        expr: '(^|\n)([^\n]+:254:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L255:
-        expect: true
-        expr: '(^|\n)([^\n]+:255:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L256:
-        expect: true
-        expr: '(^|\n)([^\n]+:256:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L257:
-        expect: true
-        expr: '(^|\n)([^\n]+:257:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L258:
-        expect: true
-        expr: '(^|\n)([^\n]+:258:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L259:
-        expect: true
-        expr: '(^|\n)([^\n]+:259:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L26:
-        expect: true
-        expr: '(^|\n)([^\n]+:26:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L260:
-        expect: true
-        expr: '(^|\n)([^\n]+:260:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L261:
-        expect: true
-        expr: '(^|\n)([^\n]+:261:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L262:
-        expect: true
-        expr: '(^|\n)([^\n]+:262:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L263:
-        expect: true
-        expr: '(^|\n)([^\n]+:263:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L264:
-        expect: true
-        expr: '(^|\n)([^\n]+:264:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L265:
-        expect: true
-        expr: '(^|\n)([^\n]+:265:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L266:
-        expect: true
-        expr: '(^|\n)([^\n]+:266:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L267:
-        expect: true
-        expr: '(^|\n)([^\n]+:267:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L268:
-        expect: true
-        expr: '(^|\n)([^\n]+:268:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L269:
-        expect: true
-        expr: '(^|\n)([^\n]+:269:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L27:
-        expect: true
-        expr: '(^|\n)([^\n]+:27:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L270:
-        expect: true
-        expr: '(^|\n)([^\n]+:270:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L271:
-        expect: true
-        expr: '(^|\n)([^\n]+:271:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L272:
-        expect: true
-        expr: '(^|\n)([^\n]+:272:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L273:
-        expect: true
-        expr: '(^|\n)([^\n]+:273:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L274:
-        expect: true
-        expr: '(^|\n)([^\n]+:274:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L275:
-        expect: true
-        expr: '(^|\n)([^\n]+:275:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L276:
-        expect: true
-        expr: '(^|\n)([^\n]+:276:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L277:
-        expect: true
-        expr: '(^|\n)([^\n]+:277:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L278:
-        expect: true
-        expr: '(^|\n)([^\n]+:278:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L279:
-        expect: true
-        expr: '(^|\n)([^\n]+:279:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L28:
-        expect: true
-        expr: '(^|\n)([^\n]+:28:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L280:
-        expect: true
-        expr: '(^|\n)([^\n]+:280:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L281:
-        expect: true
-        expr: '(^|\n)([^\n]+:281:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L282:
-        expect: true
-        expr: '(^|\n)([^\n]+:282:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L283:
-        expect: true
-        expr: '(^|\n)([^\n]+:283:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L284:
-        expect: true
-        expr: '(^|\n)([^\n]+:284:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L285:
-        expect: true
-        expr: '(^|\n)([^\n]+:285:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L286:
-        expect: true
-        expr: '(^|\n)([^\n]+:286:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L287:
-        expect: true
-        expr: '(^|\n)([^\n]+:287:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L289:
-        expect: true
-        expr: '(^|\n)([^\n]+:289:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L29:
-        expect: true
-        expr: '(^|\n)([^\n]+:29:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L290:
-        expect: true
-        expr: '(^|\n)([^\n]+:290:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L291:
-        expect: true
-        expr: '(^|\n)([^\n]+:291:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L293:
-        expect: true
-        expr: '(^|\n)([^\n]+:293:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L294:
-        expect: true
-        expr: '(^|\n)([^\n]+:294:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L295:
-        expect: true
-        expr: '(^|\n)([^\n]+:295:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L297:
-        expect: true
-        expr: '(^|\n)([^\n]+:297:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L298:
-        expect: true
-        expr: '(^|\n)([^\n]+:298:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L299:
-        expect: true
-        expr: '(^|\n)([^\n]+:299:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L30:
-        expect: true
-        expr: '(^|\n)([^\n]+:30:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L300:
-        expect: true
-        expr: '(^|\n)([^\n]+:300:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L301:
-        expect: true
-        expr: '(^|\n)([^\n]+:301:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L302:
-        expect: true
-        expr: '(^|\n)([^\n]+:302:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L31:
-        expect: true
-        expr: '(^|\n)([^\n]+:31:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L32:
-        expect: true
-        expr: '(^|\n)([^\n]+:32:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L33:
-        expect: true
-        expr: '(^|\n)([^\n]+:33:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L34:
-        expect: true
-        expr: '(^|\n)([^\n]+:34:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L35:
-        expect: true
-        expr: '(^|\n)([^\n]+:35:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L36:
-        expect: true
-        expr: '(^|\n)([^\n]+:36:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L37:
-        expect: true
-        expr: '(^|\n)([^\n]+:37:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L38:
-        expect: true
-        expr: '(^|\n)([^\n]+:38:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L39:
-        expect: true
-        expr: '(^|\n)([^\n]+:39:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L40:
-        expect: true
-        expr: '(^|\n)([^\n]+:40:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L41:
-        expect: true
-        expr: '(^|\n)([^\n]+:41:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L42:
-        expect: true
-        expr: '(^|\n)([^\n]+:42:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L43:
-        expect: true
-        expr: '(^|\n)([^\n]+:43:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L44:
-        expect: true
-        expr: '(^|\n)([^\n]+:44:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L45:
-        expect: true
-        expr: '(^|\n)([^\n]+:45:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L46:
-        expect: true
-        expr: '(^|\n)([^\n]+:46:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L47:
-        expect: true
-        expr: '(^|\n)([^\n]+:47:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L48:
-        expect: true
-        expr: '(^|\n)([^\n]+:48:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L49:
-        expect: true
-        expr: '(^|\n)([^\n]+:49:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L50:
-        expect: true
-        expr: '(^|\n)([^\n]+:50:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L51:
-        expect: true
-        expr: '(^|\n)([^\n]+:51:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L52:
-        expect: true
-        expr: '(^|\n)([^\n]+:52:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L53:
-        expect: true
-        expr: '(^|\n)([^\n]+:53:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L54:
-        expect: true
-        expr: '(^|\n)([^\n]+:54:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L55:
-        expect: true
-        expr: '(^|\n)([^\n]+:55:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L56:
-        expect: true
-        expr: '(^|\n)([^\n]+:56:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L57:
-        expect: true
-        expr: '(^|\n)([^\n]+:57:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L58:
-        expect: true
-        expr: '(^|\n)([^\n]+:58:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L59:
-        expect: true
-        expr: '(^|\n)([^\n]+:59:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L60:
-        expect: true
-        expr: '(^|\n)([^\n]+:60:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L61:
-        expect: true
-        expr: '(^|\n)([^\n]+:61:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L62:
-        expect: true
-        expr: '(^|\n)([^\n]+:62:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L63:
-        expect: true
-        expr: '(^|\n)([^\n]+:63:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L64:
-        expect: true
-        expr: '(^|\n)([^\n]+:64:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L65:
-        expect: true
-        expr: '(^|\n)([^\n]+:65:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L66:
-        expect: true
-        expr: '(^|\n)([^\n]+:66:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L67:
-        expect: true
-        expr: '(^|\n)([^\n]+:67:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L68:
-        expect: true
-        expr: '(^|\n)([^\n]+:68:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L69:
-        expect: true
-        expr: '(^|\n)([^\n]+:69:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L70:
-        expect: true
-        expr: '(^|\n)([^\n]+:70:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L71:
-        expect: true
-        expr: '(^|\n)([^\n]+:71:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L72:
-        expect: true
-        expr: '(^|\n)([^\n]+:72:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L73:
-        expect: true
-        expr: '(^|\n)([^\n]+:73:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L74:
-        expect: true
-        expr: '(^|\n)([^\n]+:74:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L75:
-        expect: true
-        expr: '(^|\n)([^\n]+:75:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L76:
-        expect: true
-        expr: '(^|\n)([^\n]+:76:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L77:
-        expect: true
-        expr: '(^|\n)([^\n]+:77:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L78:
-        expect: true
-        expr: '(^|\n)([^\n]+:78:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L79:
-        expect: true
-        expr: '(^|\n)([^\n]+:79:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L80:
-        expect: true
-        expr: '(^|\n)([^\n]+:80:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L81:
-        expect: true
-        expr: '(^|\n)([^\n]+:81:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L82:
-        expect: true
-        expr: '(^|\n)([^\n]+:82:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L83:
-        expect: true
-        expr: '(^|\n)([^\n]+:83:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L84:
-        expect: true
-        expr: '(^|\n)([^\n]+:84:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L85:
-        expect: true
-        expr: '(^|\n)([^\n]+:85:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L86:
-        expect: true
-        expr: '(^|\n)([^\n]+:86:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L87:
-        expect: true
-        expr: '(^|\n)([^\n]+:87:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L88:
-        expect: true
-        expr: '(^|\n)([^\n]+:88:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L89:
-        expect: true
-        expr: '(^|\n)([^\n]+:89:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L9:
-        expect: true
-        expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L90:
-        expect: true
-        expr: '(^|\n)([^\n]+:90:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L91:
-        expect: true
-        expr: '(^|\n)([^\n]+:91:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L92:
-        expect: true
-        expr: '(^|\n)([^\n]+:92:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L93:
-        expect: true
-        expr: '(^|\n)([^\n]+:93:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L94:
-        expect: true
-        expr: '(^|\n)([^\n]+:94:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L95:
-        expect: true
-        expr: '(^|\n)([^\n]+:95:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L96:
-        expect: true
-        expr: '(^|\n)([^\n]+:96:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L97:
-        expect: true
-        expr: '(^|\n)([^\n]+:97:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L98:
-        expect: true
-        expr: '(^|\n)([^\n]+:98:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L99:
-        expect: true
-        expr: '(^|\n)([^\n]+:99:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-test_union-init_146:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/union-init.c'
-    sources:
-      binary: union-init.s
-  group: GRPSERIAL
 test_union-init_46:
   build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/union-init.c'
+    cflags: -std=gnu99 -S
+    files: compilers/gcc/./gcc.dg/dfp/union-init.c
     sources:
       binary: union-init.s
   group: GRPSERIAL
-test_union-init_96:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/union-init.c'
-    sources:
-      binary: union-init.s
-  group: GRPSERIAL
-test_usual-arith-conv-bad-2_147:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/usual-arith-conv-bad-2.c'
-    sources:
-      binary: usual-arith-conv-bad-2.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L11:
-        expect: true
-        expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("mix operands")[^\n]*\n?)+'
 test_usual-arith-conv-bad-2_47:
   build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/usual-arith-conv-bad-2.c'
+    cflags: -std=gnu99 -S
+    files: compilers/gcc/./gcc.dg/dfp/usual-arith-conv-bad-2.c
     sources:
       binary: usual-arith-conv-bad-2.s
   group: GRPSERIAL
@@ -5395,34 +1801,10 @@ test_usual-arith-conv-bad-2_47:
       L11:
         expect: true
         expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("mix operands")[^\n]*\n?)+'
-test_usual-arith-conv-bad-2_97:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/usual-arith-conv-bad-2.c'
-    sources:
-      binary: usual-arith-conv-bad-2.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L11:
-        expect: true
-        expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("mix operands")[^\n]*\n?)+'
-test_usual-arith-conv-bad-3_148:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/usual-arith-conv-bad-3.c'
-    sources:
-      binary: usual-arith-conv-bad-3.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L12:
-        expect: true
-        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("mix operands")[^\n]*\n?)+'
 test_usual-arith-conv-bad-3_48:
   build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/usual-arith-conv-bad-3.c'
+    cflags: -std=gnu99 -S
+    files: compilers/gcc/./gcc.dg/dfp/usual-arith-conv-bad-3.c
     sources:
       binary: usual-arith-conv-bad-3.s
   group: GRPSERIAL
@@ -5431,85 +1813,10 @@ test_usual-arith-conv-bad-3_48:
       L12:
         expect: true
         expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("mix operands")[^\n]*\n?)+'
-test_usual-arith-conv-bad-3_98:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/usual-arith-conv-bad-3.c'
-    sources:
-      binary: usual-arith-conv-bad-3.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L12:
-        expect: true
-        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("mix operands")[^\n]*\n?)+'
-test_usual-arith-conv-bad_149:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/usual-arith-conv-bad.c'
-    sources:
-      binary: usual-arith-conv-bad.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L27:
-        expect: true
-        expr: '(^|\n)([^\n]+:27:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L28:
-        expect: true
-        expr: '(^|\n)([^\n]+:28:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L29:
-        expect: true
-        expr: '(^|\n)([^\n]+:29:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L30:
-        expect: true
-        expr: '(^|\n)([^\n]+:30:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L31:
-        expect: true
-        expr: '(^|\n)([^\n]+:31:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L32:
-        expect: true
-        expr: '(^|\n)([^\n]+:32:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L33:
-        expect: true
-        expr: '(^|\n)([^\n]+:33:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L34:
-        expect: true
-        expr: '(^|\n)([^\n]+:34:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L35:
-        expect: true
-        expr: '(^|\n)([^\n]+:35:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L36:
-        expect: true
-        expr: '(^|\n)([^\n]+:36:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L39:
-        expect: true
-        expr: '(^|\n)([^\n]+:39:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L40:
-        expect: true
-        expr: '(^|\n)([^\n]+:40:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L41:
-        expect: true
-        expr: '(^|\n)([^\n]+:41:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L44:
-        expect: true
-        expr: '(^|\n)([^\n]+:44:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L45:
-        expect: true
-        expr: '(^|\n)([^\n]+:45:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L46:
-        expect: true
-        expr: '(^|\n)([^\n]+:46:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L47:
-        expect: true
-        expr: '(^|\n)([^\n]+:47:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L48:
-        expect: true
-        expr: '(^|\n)([^\n]+:48:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
 test_usual-arith-conv-bad_49:
   build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/usual-arith-conv-bad.c'
+    cflags: -std=gnu99 -S
+    files: compilers/gcc/./gcc.dg/dfp/usual-arith-conv-bad.c
     sources:
       binary: usual-arith-conv-bad.s
   group: GRPSERIAL
@@ -5569,211 +1876,10 @@ test_usual-arith-conv-bad_49:
       L48:
         expect: true
         expr: '(^|\n)([^\n]+:48:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-test_usual-arith-conv-bad_99:
-  build:
-    cflags: "-std=gnu99\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/usual-arith-conv-bad.c'
-    sources:
-      binary: usual-arith-conv-bad.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L27:
-        expect: true
-        expr: '(^|\n)([^\n]+:27:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L28:
-        expect: true
-        expr: '(^|\n)([^\n]+:28:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L29:
-        expect: true
-        expr: '(^|\n)([^\n]+:29:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L30:
-        expect: true
-        expr: '(^|\n)([^\n]+:30:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L31:
-        expect: true
-        expr: '(^|\n)([^\n]+:31:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L32:
-        expect: true
-        expr: '(^|\n)([^\n]+:32:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L33:
-        expect: true
-        expr: '(^|\n)([^\n]+:33:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L34:
-        expect: true
-        expr: '(^|\n)([^\n]+:34:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L35:
-        expect: true
-        expr: '(^|\n)([^\n]+:35:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L36:
-        expect: true
-        expr: '(^|\n)([^\n]+:36:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L39:
-        expect: true
-        expr: '(^|\n)([^\n]+:39:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L40:
-        expect: true
-        expr: '(^|\n)([^\n]+:40:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L41:
-        expect: true
-        expr: '(^|\n)([^\n]+:41:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L44:
-        expect: true
-        expr: '(^|\n)([^\n]+:44:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L45:
-        expect: true
-        expr: '(^|\n)([^\n]+:45:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L46:
-        expect: true
-        expr: '(^|\n)([^\n]+:46:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L47:
-        expect: true
-        expr: '(^|\n)([^\n]+:47:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-      L48:
-        expect: true
-        expr: '(^|\n)([^\n]+:48:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
-test_wtr-conversion-1_100:
-  build:
-    cflags: "-Wtraditional-conversion\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/wtr-conversion-1.c'
-    sources:
-      binary: wtr-conversion-1.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L26:
-        expect: true
-        expr: '(^|\n)([^\n]+(:26:)[^\n]*[0-9]+: warning:[^\n]*("as integer rather
-          than floating")[^\n]*\n?)+'
-      L27:
-        expect: true
-        expr: '(^|\n)([^\n]+(:27:)[^\n]*[0-9]+: warning:[^\n]*("as integer rather
-          than floating")[^\n]*\n?)+'
-      L28:
-        expect: true
-        expr: '(^|\n)([^\n]+(:28:)[^\n]*[0-9]+: warning:[^\n]*("as integer rather
-          than floating")[^\n]*\n?)+'
-      L29:
-        expect: true
-        expr: '(^|\n)([^\n]+(:29:)[^\n]*[0-9]+: warning:[^\n]*("as floating rather
-          than integer")[^\n]*\n?)+'
-      L30:
-        expect: true
-        expr: '(^|\n)([^\n]+(:30:)[^\n]*[0-9]+: warning:[^\n]*("as \''_Decimal32\''
-          rather than \''float\''")[^\n]*\n?)+'
-      L31:
-        expect: true
-        expr: '(^|\n)([^\n]+(:31:)[^\n]*[0-9]+: warning:[^\n]*("as \''_Decimal32\''
-          rather than \''long double\''")[^\n]*\n?)+'
-      L32:
-        expect: true
-        expr: '(^|\n)([^\n]+(:32:)[^\n]*[0-9]+: warning:[^\n]*("as \''_Decimal32\''
-          rather than \''_Decimal64\''")[^\n]*\n?)+'
-      L33:
-        expect: true
-        expr: '(^|\n)([^\n]+(:33:)[^\n]*[0-9]+: warning:[^\n]*("as \''_Decimal32\''
-          rather than \''_Decimal128\''")[^\n]*\n?)+'
-      L34:
-        expect: true
-        expr: '(^|\n)([^\n]+(:34:)[^\n]*[0-9]+: warning:[^\n]*("as floating rather
-          than integer")[^\n]*\n?)+'
-      L35:
-        expect: true
-        expr: '(^|\n)([^\n]+(:35:)[^\n]*[0-9]+: warning:[^\n]*("as \''_Decimal64\''
-          rather than \''float\''")[^\n]*\n?)+'
-      L36:
-        expect: true
-        expr: '(^|\n)([^\n]+(:36:)[^\n]*[0-9]+: warning:[^\n]*("as \''_Decimal64\''
-          rather than \''long double\''")[^\n]*\n?)+'
-      L38:
-        expect: true
-        expr: '(^|\n)([^\n]+(:38:)[^\n]*[0-9]+: warning:[^\n]*("as \''_Decimal64\''
-          rather than \''_Decimal128\''")[^\n]*\n?)+'
-      L39:
-        expect: true
-        expr: '(^|\n)([^\n]+(:39:)[^\n]*[0-9]+: warning:[^\n]*("as floating rather
-          than integer")[^\n]*\n?)+'
-      L40:
-        expect: true
-        expr: '(^|\n)([^\n]+(:40:)[^\n]*[0-9]+: warning:[^\n]*("as \''_Decimal128\''
-          rather than \''float\''")[^\n]*\n?)+'
-      L41:
-        expect: true
-        expr: '(^|\n)([^\n]+(:41:)[^\n]*[0-9]+: warning:[^\n]*("as \''_Decimal128\''
-          rather than \''long double\''")[^\n]*\n?)+'
-test_wtr-conversion-1_150:
-  build:
-    cflags: "-Wtraditional-conversion\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/wtr-conversion-1.c'
-    sources:
-      binary: wtr-conversion-1.s
-  group: GRPSERIAL
-  validate:
-    match:
-      L26:
-        expect: true
-        expr: '(^|\n)([^\n]+(:26:)[^\n]*[0-9]+: warning:[^\n]*("as integer rather
-          than floating")[^\n]*\n?)+'
-      L27:
-        expect: true
-        expr: '(^|\n)([^\n]+(:27:)[^\n]*[0-9]+: warning:[^\n]*("as integer rather
-          than floating")[^\n]*\n?)+'
-      L28:
-        expect: true
-        expr: '(^|\n)([^\n]+(:28:)[^\n]*[0-9]+: warning:[^\n]*("as integer rather
-          than floating")[^\n]*\n?)+'
-      L29:
-        expect: true
-        expr: '(^|\n)([^\n]+(:29:)[^\n]*[0-9]+: warning:[^\n]*("as floating rather
-          than integer")[^\n]*\n?)+'
-      L30:
-        expect: true
-        expr: '(^|\n)([^\n]+(:30:)[^\n]*[0-9]+: warning:[^\n]*("as \''_Decimal32\''
-          rather than \''float\''")[^\n]*\n?)+'
-      L31:
-        expect: true
-        expr: '(^|\n)([^\n]+(:31:)[^\n]*[0-9]+: warning:[^\n]*("as \''_Decimal32\''
-          rather than \''long double\''")[^\n]*\n?)+'
-      L32:
-        expect: true
-        expr: '(^|\n)([^\n]+(:32:)[^\n]*[0-9]+: warning:[^\n]*("as \''_Decimal32\''
-          rather than \''_Decimal64\''")[^\n]*\n?)+'
-      L33:
-        expect: true
-        expr: '(^|\n)([^\n]+(:33:)[^\n]*[0-9]+: warning:[^\n]*("as \''_Decimal32\''
-          rather than \''_Decimal128\''")[^\n]*\n?)+'
-      L34:
-        expect: true
-        expr: '(^|\n)([^\n]+(:34:)[^\n]*[0-9]+: warning:[^\n]*("as floating rather
-          than integer")[^\n]*\n?)+'
-      L35:
-        expect: true
-        expr: '(^|\n)([^\n]+(:35:)[^\n]*[0-9]+: warning:[^\n]*("as \''_Decimal64\''
-          rather than \''float\''")[^\n]*\n?)+'
-      L36:
-        expect: true
-        expr: '(^|\n)([^\n]+(:36:)[^\n]*[0-9]+: warning:[^\n]*("as \''_Decimal64\''
-          rather than \''long double\''")[^\n]*\n?)+'
-      L38:
-        expect: true
-        expr: '(^|\n)([^\n]+(:38:)[^\n]*[0-9]+: warning:[^\n]*("as \''_Decimal64\''
-          rather than \''_Decimal128\''")[^\n]*\n?)+'
-      L39:
-        expect: true
-        expr: '(^|\n)([^\n]+(:39:)[^\n]*[0-9]+: warning:[^\n]*("as floating rather
-          than integer")[^\n]*\n?)+'
-      L40:
-        expect: true
-        expr: '(^|\n)([^\n]+(:40:)[^\n]*[0-9]+: warning:[^\n]*("as \''_Decimal128\''
-          rather than \''float\''")[^\n]*\n?)+'
-      L41:
-        expect: true
-        expr: '(^|\n)([^\n]+(:41:)[^\n]*[0-9]+: warning:[^\n]*("as \''_Decimal128\''
-          rather than \''long double\''")[^\n]*\n?)+'
 test_wtr-conversion-1_50:
   build:
-    cflags: "-Wtraditional-conversion\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/dfp/wtr-conversion-1.c'
+    cflags: -Wtraditional-conversion -S
+    files: compilers/gcc/./gcc.dg/dfp/wtr-conversion-1.c
     sources:
       binary: wtr-conversion-1.s
   group: GRPSERIAL

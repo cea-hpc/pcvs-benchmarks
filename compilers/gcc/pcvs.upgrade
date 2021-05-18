@@ -45,7 +45,7 @@ def load_src_file(path):
                 elif rule == 'error':
                     # this RE allow the 'args' field to be restrained to the significant argument:
                     # the next one just after the rule
-                    args = re.match('^("[^"]*"|[^ ])*.*$', args).group(1)
+                    args = re.match(r'^("[^"]*"|[^ ])*.*$', args).group(1)
 
                     # now, for the rule 'error', build what GCC would print when encountering this error
                     # this is only the end of the line containing the error
@@ -98,6 +98,8 @@ def load_raw_file(filename):
             # <kind> <source_file> <exe_name> [<extra_cflags>]
             # 'kind' may be one of ['preprocess', 'assembly', 'object' or 'executable']
             kind, src_file, exe_name, flags = line.split(' ', 3)
+            flags = flags.strip()
+            print(flags)
 
             # if source file has never been loaded yet
             if src_file not in file_dict:
@@ -115,8 +117,8 @@ def load_raw_file(filename):
             elif kind == 'object':
                 flags += ' -c'
 
-            node.build.cflags = flags.strip()
-            node.build.files = "@ROOTPATH@/compilers/gcc/{}".format(src_file)
+            node.build.cflags = flags
+            node.build.files = "compilers/gcc/{}".format(src_file)
             node.build.sources.binary = exe_name.strip()
             node.group = 'GRPSERIAL'
             if 'save-temps' in flags:
@@ -147,21 +149,21 @@ if path is None:
 os.environ['PCVS_CATCH_RUNTEST'] = "pcvs.raw"
 
 # execute runtests to build test command lines
-for tool in ['gcc', 'g++', 'gfortran']:
-    print('Run tests for {}'.format(tool))
-    with tempfile.TemporaryDirectory() as tmpdir:
-        proc = subprocess.Popen(
-                '{path} --tool={tool} --objdir={tmp} --outdir={tmp} --tool_exec={cmd}'.format(
-                    tool=tool,
-                    path=path,
-                    tmp=tmpdir,
-                    cmd=os.path.join(os.getcwd(), "tools/bin/gcc")
-                ),
-                shell=True,
-                stderr=subprocess.PIPE,
-                stdout=subprocess.DEVNULL
-              )
-        proc.communicate()
+def func():
+    for tool in ['gcc', 'g++', 'gfortran']:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            proc = subprocess.Popen(
+                    '{path} --tool={tool} --objdir={tmp} --outdir={tmp} --tool_exec={cmd}'.format(
+                        tool=tool,
+                        path=path,
+                        tmp=tmpdir,
+                        cmd=os.path.join(os.getcwd(), "tools/bin/gcc")
+                    ),
+                    shell=True,
+                    stderr=subprocess.PIPE,
+                    stdout=subprocess.DEVNULL
+                )
+            proc.communicate()
 
 # now process pcvs.raw files to build tests
 for root, dirs, files in os.walk(os.getcwd()):

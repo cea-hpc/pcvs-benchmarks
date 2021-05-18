@@ -1,25 +1,7 @@
 test_Wunused_1:
   build:
-    cflags: "-Wunused-macros -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/Wunused.c'
-    sources:
-      binary: Wunused.i
-  group: GRPSERIAL
-  validate:
-    match:
-      L17:
-        expect: true
-        expr: '(^|\n)([^\n]+(:17:)[^\n]*[0-9]+: warning:[^\n]*("used")[^\n]*\n?)+'
-      L18:
-        expect: true
-        expr: '(^|\n)([^\n]+(:18:)[^\n]*[0-9]+: warning:[^\n]*("used")[^\n]*\n?)+'
-      L19:
-        expect: true
-        expr: '(^|\n)([^\n]+(:19:)[^\n]*[0-9]+: warning:[^\n]*("used")[^\n]*\n?)+'
-test_Wunused_115:
-  build:
-    cflags: "-Wunused-macros -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/Wunused.c'
+    cflags: -Wunused-macros -traditional-cpp -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/Wunused.c
     sources:
       binary: Wunused.i
   group: GRPSERIAL
@@ -36,8 +18,8 @@ test_Wunused_115:
         expr: '(^|\n)([^\n]+(:19:)[^\n]*[0-9]+: warning:[^\n]*("used")[^\n]*\n?)+'
 test_Wunused_58:
   build:
-    cflags: "-Wunused-macros -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/Wunused.c'
+    cflags: -Wunused-macros -traditional-cpp -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/Wunused.c
     sources:
       binary: Wunused.i
   group: GRPSERIAL
@@ -52,61 +34,24 @@ test_Wunused_58:
       L19:
         expect: true
         expr: '(^|\n)([^\n]+(:19:)[^\n]*[0-9]+: warning:[^\n]*("used")[^\n]*\n?)+'
-test___STDC___116:
-  build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/__STDC__.c'
-    sources:
-      binary: __STDC__.i
-  group: GRPSERIAL
 test___STDC___2:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/__STDC__.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/__STDC__.c
     sources:
       binary: __STDC__.i
   group: GRPSERIAL
 test___STDC___59:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/__STDC__.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/__STDC__.c
     sources:
       binary: __STDC__.i
   group: GRPSERIAL
-test_argcount_117:
-  build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/argcount.c'
-    sources:
-      binary: argcount.i
-  group: GRPSERIAL
-  validate:
-    match:
-      L12:
-        expect: true
-        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("passed 2")[^\n]*\n?)+'
-      L13:
-        expect: true
-        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("passed 2")[^\n]*\n?)+'
-      L15:
-        expect: true
-        expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("passed 1")[^\n]*\n?)+'
-      L16:
-        expect: true
-        expr: '(^|\n)([^\n]+:16:[^\n]*[0-9]+: (fatal )?error:[^\n]*("passed 2")[^\n]*\n?)+'
-      L17:
-        expect: true
-        expr: '(^|\n)([^\n]+:17:[^\n]*[0-9]+: (fatal )?error:[^\n]*("requires 2")[^\n]*\n?)+'
-      L18:
-        expect: true
-        expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("requires 2")[^\n]*\n?)+'
-      L21:
-        expect: true
-        expr: '(^|\n)([^\n]+:21:[^\n]*[0-9]+: (fatal )?error:[^\n]*("passed 3")[^\n]*\n?)+'
 test_argcount_3:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/argcount.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/argcount.c
     sources:
       binary: argcount.i
   group: GRPSERIAL
@@ -135,8 +80,8 @@ test_argcount_3:
         expr: '(^|\n)([^\n]+:21:[^\n]*[0-9]+: (fatal )?error:[^\n]*("passed 3")[^\n]*\n?)+'
 test_argcount_60:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/argcount.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/argcount.c
     sources:
       binary: argcount.i
   group: GRPSERIAL
@@ -163,22 +108,10 @@ test_argcount_60:
       L21:
         expect: true
         expr: '(^|\n)([^\n]+:21:[^\n]*[0-9]+: (fatal )?error:[^\n]*("passed 3")[^\n]*\n?)+'
-test_assembler_118:
-  build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/assembler.S'
-    sources:
-      binary: assembler.i
-  group: GRPSERIAL
-  validate:
-    match:
-      L18:
-        expect: true
-        expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("diagnostic")[^\n]*\n?)+'
 test_assembler_4:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/assembler.S'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/assembler.S
     sources:
       binary: assembler.i
   group: GRPSERIAL
@@ -189,8 +122,8 @@ test_assembler_4:
         expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("diagnostic")[^\n]*\n?)+'
 test_assembler_61:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/assembler.S'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/assembler.S
     sources:
       binary: assembler.i
   group: GRPSERIAL
@@ -199,64 +132,24 @@ test_assembler_61:
       L18:
         expect: true
         expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("diagnostic")[^\n]*\n?)+'
-test_assert1_119:
-  build:
-    cflags: "-Wno-deprecated\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/assert1.c'
-    sources:
-      binary: assert1.s
-  group: GRPSERIAL
 test_assert1_5:
   build:
-    cflags: "-Wno-deprecated\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/assert1.c'
+    cflags: -Wno-deprecated -S
+    files: compilers/gcc/./gcc.dg/cpp/trad/assert1.c
     sources:
       binary: assert1.s
   group: GRPSERIAL
 test_assert1_62:
   build:
-    cflags: "-Wno-deprecated\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/assert1.c'
+    cflags: -Wno-deprecated -S
+    files: compilers/gcc/./gcc.dg/cpp/trad/assert1.c
     sources:
       binary: assert1.s
   group: GRPSERIAL
-test_assert2_120:
-  build:
-    cflags: "-Wno-deprecated\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/assert2.c'
-    sources:
-      binary: assert2.i
-  group: GRPSERIAL
-  validate:
-    match:
-      L10:
-        expect: true
-        expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*("without predicate")[^\n]*\n?)+'
-      L13:
-        expect: true
-        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("an identifier")[^\n]*\n?)+'
-      L16:
-        expect: true
-        expr: '(^|\n)([^\n]+:16:[^\n]*[0-9]+: (fatal )?error:[^\n]*("an identifier")[^\n]*\n?)+'
-      L23:
-        expect: true
-        expr: '(^|\n)([^\n]+:23:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not valid in")[^\n]*\n?)+'
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("without predicate")[^\n]*\n?)+'
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("an identifier")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("an identifier")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("missing")[^\n]*\n?)+'
 test_assert2_6:
   build:
-    cflags: "-Wno-deprecated\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/assert2.c'
+    cflags: -Wno-deprecated -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/assert2.c
     sources:
       binary: assert2.i
   group: GRPSERIAL
@@ -288,8 +181,8 @@ test_assert2_6:
         expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("missing")[^\n]*\n?)+'
 test_assert2_63:
   build:
-    cflags: "-Wno-deprecated\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/assert2.c'
+    cflags: -Wno-deprecated -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/assert2.c
     sources:
       binary: assert2.i
   group: GRPSERIAL
@@ -319,43 +212,26 @@ test_assert2_63:
       L8:
         expect: true
         expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("missing")[^\n]*\n?)+'
-test_assert3_121:
-  build:
-    cflags: "-A abc=def -A abc(ghi) \"-Aabc = jkl\" -A abc=mno -A -abc=mno -Wno-deprecated\n\
-      \ -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/assert3.c'
-    sources:
-      binary: assert3.i
-  group: GRPSERIAL
 test_assert3_64:
   build:
-    cflags: "-A abc=def -A abc(ghi) \"-Aabc = jkl\" -A abc=mno -A -abc=mno -Wno-deprecated\n\
-      \ -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/assert3.c'
+    cflags: -A abc=def -A abc(ghi) "-Aabc = jkl" -A abc=mno -A -abc=mno -Wno-deprecated
+      -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/assert3.c
     sources:
       binary: assert3.i
   group: GRPSERIAL
 test_assert3_7:
   build:
-    cflags: "-A abc=def -A abc(ghi) \"-Aabc = jkl\" -A abc=mno -A -abc=mno -Wno-deprecated\n\
-      \ -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/assert3.c'
+    cflags: -A abc=def -A abc(ghi) "-Aabc = jkl" -A abc=mno -A -abc=mno -Wno-deprecated
+      -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/assert3.c
     sources:
       binary: assert3.i
   group: GRPSERIAL
-test_builtins_122:
-  build:
-    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/builtins.c'
-    sources:
-      binary: ./builtins.exe
-  group: GRPSERIAL
-  run:
-    cwd: .
 test_builtins_65:
   build:
     cflags: -traditional-cpp -I./gcc.dg/cpp/trad/
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/builtins.c'
+    files: compilers/gcc/./gcc.dg/cpp/trad/builtins.c
     sources:
       binary: ./builtins.exe
   group: GRPSERIAL
@@ -364,7 +240,7 @@ test_builtins_65:
 test_builtins_8:
   build:
     cflags: -traditional-cpp -I./gcc.dg/cpp/trad/
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/builtins.c'
+    files: compilers/gcc/./gcc.dg/cpp/trad/builtins.c
     sources:
       binary: ./builtins.exe
   group: GRPSERIAL
@@ -372,107 +248,64 @@ test_builtins_8:
     cwd: .
 test_cmdlne-C2_10:
   build:
-    cflags: "-C -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/cmdlne-C2.c'
-    sources:
-      binary: cmdlne-C2.i
-  group: GRPSERIAL
-test_cmdlne-C2_124:
-  build:
-    cflags: "-C -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/cmdlne-C2.c'
+    cflags: -C -traditional-cpp -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/cmdlne-C2.c
     sources:
       binary: cmdlne-C2.i
   group: GRPSERIAL
 test_cmdlne-C2_67:
   build:
-    cflags: "-C -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/cmdlne-C2.c'
+    cflags: -C -traditional-cpp -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/cmdlne-C2.c
     sources:
       binary: cmdlne-C2.i
   group: GRPSERIAL
-test_cmdlne-C_123:
-  build:
-    cflags: "-C -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/cmdlne-C.c'
-    sources:
-      binary: cmdlne-C.i
-  group: GRPSERIAL
 test_cmdlne-C_66:
   build:
-    cflags: "-C -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/cmdlne-C.c'
+    cflags: -C -traditional-cpp -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/cmdlne-C.c
     sources:
       binary: cmdlne-C.i
   group: GRPSERIAL
 test_cmdlne-C_9:
   build:
-    cflags: "-C -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/cmdlne-C.c'
+    cflags: -C -traditional-cpp -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/cmdlne-C.c
     sources:
       binary: cmdlne-C.i
   group: GRPSERIAL
 test_cmdlne-dD_11:
   build:
-    cflags: "-dD -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/cmdlne-dD.c'
-    sources:
-      binary: cmdlne-dD.i
-  group: GRPSERIAL
-test_cmdlne-dD_125:
-  build:
-    cflags: "-dD -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/cmdlne-dD.c'
+    cflags: -dD -traditional-cpp -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/cmdlne-dD.c
     sources:
       binary: cmdlne-dD.i
   group: GRPSERIAL
 test_cmdlne-dD_68:
   build:
-    cflags: "-dD -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/cmdlne-dD.c'
+    cflags: -dD -traditional-cpp -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/cmdlne-dD.c
     sources:
       binary: cmdlne-dD.i
   group: GRPSERIAL
 test_cmdlne-dM_12:
   build:
-    cflags: "-dM -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/cmdlne-dM.c'
-    sources:
-      binary: cmdlne-dM.i
-  group: GRPSERIAL
-test_cmdlne-dM_126:
-  build:
-    cflags: "-dM -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/cmdlne-dM.c'
+    cflags: -dM -traditional-cpp -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/cmdlne-dM.c
     sources:
       binary: cmdlne-dM.i
   group: GRPSERIAL
 test_cmdlne-dM_69:
   build:
-    cflags: "-dM -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/cmdlne-dM.c'
+    cflags: -dM -traditional-cpp -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/cmdlne-dM.c
     sources:
       binary: cmdlne-dM.i
   group: GRPSERIAL
-test_comment-2_127:
-  build:
-    cflags: "-traditional-cpp -Wcomments\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/comment-2.c'
-    sources:
-      binary: comment-2.i
-  group: GRPSERIAL
-  validate:
-    match:
-      L11:
-        expect: true
-        expr: '(^|\n)([^\n]+(:11:)[^\n]*[0-9]+: warning:[^\n]*("2: within comment")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+(:7:)[^\n]*[0-9]+: warning:[^\n]*("within comment")[^\n]*\n?)+'
 test_comment-2_13:
   build:
-    cflags: "-traditional-cpp -Wcomments\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/comment-2.c'
+    cflags: -traditional-cpp -Wcomments -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/comment-2.c
     sources:
       binary: comment-2.i
   group: GRPSERIAL
@@ -486,8 +319,8 @@ test_comment-2_13:
         expr: '(^|\n)([^\n]+(:7:)[^\n]*[0-9]+: warning:[^\n]*("within comment")[^\n]*\n?)+'
 test_comment-2_70:
   build:
-    cflags: "-traditional-cpp -Wcomments\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/comment-2.c'
+    cflags: -traditional-cpp -Wcomments -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/comment-2.c
     sources:
       binary: comment-2.i
   group: GRPSERIAL
@@ -499,22 +332,10 @@ test_comment-2_70:
       L7:
         expect: true
         expr: '(^|\n)([^\n]+(:7:)[^\n]*[0-9]+: warning:[^\n]*("within comment")[^\n]*\n?)+'
-test_comment-3_128:
-  build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/comment-3.c'
-    sources:
-      binary: comment-3.i
-  group: GRPSERIAL
-  validate:
-    match:
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+(:6:)[^\n]*[0-9]+: warning:[^\n]*("extra tokens")[^\n]*\n?)+'
 test_comment-3_14:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/comment-3.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/comment-3.c
     sources:
       binary: comment-3.i
   group: GRPSERIAL
@@ -525,8 +346,8 @@ test_comment-3_14:
         expr: '(^|\n)([^\n]+(:6:)[^\n]*[0-9]+: warning:[^\n]*("extra tokens")[^\n]*\n?)+'
 test_comment-3_71:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/comment-3.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/comment-3.c
     sources:
       binary: comment-3.i
   group: GRPSERIAL
@@ -535,22 +356,10 @@ test_comment-3_71:
       L6:
         expect: true
         expr: '(^|\n)([^\n]+(:6:)[^\n]*[0-9]+: warning:[^\n]*("extra tokens")[^\n]*\n?)+'
-test_comment_129:
-  build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/comment.c'
-    sources:
-      binary: comment.i
-  group: GRPSERIAL
-  validate:
-    match:
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("unterminated comment")[^\n]*\n?)+'
 test_comment_15:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/comment.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/comment.c
     sources:
       binary: comment.i
   group: GRPSERIAL
@@ -561,8 +370,8 @@ test_comment_15:
         expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("unterminated comment")[^\n]*\n?)+'
 test_comment_72:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/comment.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/comment.c
     sources:
       binary: comment.i
   group: GRPSERIAL
@@ -571,43 +380,24 @@ test_comment_72:
       L5:
         expect: true
         expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("unterminated comment")[^\n]*\n?)+'
-test_define_130:
-  build:
-    cflags: "-traditional-cpp -DDEFINE1DEFINE -DDEFINE2DEFIN=\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/define.c'
-    sources:
-      binary: define.i
-  group: GRPSERIAL
 test_define_16:
   build:
-    cflags: "-traditional-cpp -DDEFINE1DEFINE -DDEFINE2DEFIN=\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/define.c'
+    cflags: -traditional-cpp -DDEFINE1DEFINE -DDEFINE2DEFIN= -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/define.c
     sources:
       binary: define.i
   group: GRPSERIAL
 test_define_73:
   build:
-    cflags: "-traditional-cpp -DDEFINE1DEFINE -DDEFINE2DEFIN=\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/define.c'
+    cflags: -traditional-cpp -DDEFINE1DEFINE -DDEFINE2DEFIN= -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/define.c
     sources:
       binary: define.i
   group: GRPSERIAL
-test_defined_131:
-  build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/defined.c'
-    sources:
-      binary: defined.i
-  group: GRPSERIAL
-  validate:
-    match:
-      L19:
-        expect: true
-        expr: '(^|\n)([^\n]+:19:[^\n]*[0-9]+: (fatal )?error:[^\n]*("defined")[^\n]*\n?)+'
 test_defined_17:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/defined.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/defined.c
     sources:
       binary: defined.i
   group: GRPSERIAL
@@ -618,8 +408,8 @@ test_defined_17:
         expr: '(^|\n)([^\n]+:19:[^\n]*[0-9]+: (fatal )?error:[^\n]*("defined")[^\n]*\n?)+'
 test_defined_74:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/defined.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/defined.c
     sources:
       binary: defined.i
   group: GRPSERIAL
@@ -628,25 +418,10 @@ test_defined_74:
       L19:
         expect: true
         expr: '(^|\n)([^\n]+:19:[^\n]*[0-9]+: (fatal )?error:[^\n]*("defined")[^\n]*\n?)+'
-test_directive_132:
-  build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/directive.c'
-    sources:
-      binary: directive.i
-  group: GRPSERIAL
-  validate:
-    match:
-      L10:
-        expect: true
-        expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*("bad")[^\n]*\n?)+'
-      L15:
-        expect: true
-        expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid")[^\n]*\n?)+'
 test_directive_18:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/directive.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/directive.c
     sources:
       binary: directive.i
   group: GRPSERIAL
@@ -660,8 +435,8 @@ test_directive_18:
         expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid")[^\n]*\n?)+'
 test_directive_75:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/directive.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/directive.c
     sources:
       binary: directive.i
   group: GRPSERIAL
@@ -673,22 +448,10 @@ test_directive_75:
       L15:
         expect: true
         expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid")[^\n]*\n?)+'
-test_escaped-eof_133:
-  build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/escaped-eof.c'
-    sources:
-      binary: escaped-eof.i
-  group: GRPSERIAL
-  validate:
-    match:
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+(:5:)[^\n]*[0-9]+: warning:[^\n]*("backslash-new")[^\n]*\n?)+'
 test_escaped-eof_19:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/escaped-eof.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/escaped-eof.c
     sources:
       binary: escaped-eof.i
   group: GRPSERIAL
@@ -699,8 +462,8 @@ test_escaped-eof_19:
         expr: '(^|\n)([^\n]+(:5:)[^\n]*[0-9]+: warning:[^\n]*("backslash-new")[^\n]*\n?)+'
 test_escaped-eof_76:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/escaped-eof.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/escaped-eof.c
     sources:
       binary: escaped-eof.i
   group: GRPSERIAL
@@ -709,67 +472,38 @@ test_escaped-eof_76:
       L5:
         expect: true
         expr: '(^|\n)([^\n]+(:5:)[^\n]*[0-9]+: warning:[^\n]*("backslash-new")[^\n]*\n?)+'
-test_escaped-nl_134:
-  build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/escaped-nl.c'
-    sources:
-      binary: escaped-nl.i
-  group: GRPSERIAL
 test_escaped-nl_20:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/escaped-nl.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/escaped-nl.c
     sources:
       binary: escaped-nl.i
   group: GRPSERIAL
 test_escaped-nl_77:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/escaped-nl.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/escaped-nl.c
     sources:
       binary: escaped-nl.i
   group: GRPSERIAL
-test_funlike-2_135:
-  build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/funlike-2.c'
-    sources:
-      binary: funlike-2.i
-  group: GRPSERIAL
 test_funlike-2_21:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/funlike-2.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/funlike-2.c
     sources:
       binary: funlike-2.i
   group: GRPSERIAL
 test_funlike-2_78:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/funlike-2.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/funlike-2.c
     sources:
       binary: funlike-2.i
   group: GRPSERIAL
-test_funlike-3_136:
-  build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/funlike-3.c'
-    sources:
-      binary: funlike-3.i
-  group: GRPSERIAL
-  validate:
-    match:
-      L12:
-        expect: true
-        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("unterminated")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("unterminated")[^\n]*\n?)+'
 test_funlike-3_22:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/funlike-3.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/funlike-3.c
     sources:
       binary: funlike-3.i
   group: GRPSERIAL
@@ -783,8 +517,8 @@ test_funlike-3_22:
         expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("unterminated")[^\n]*\n?)+'
 test_funlike-3_79:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/funlike-3.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/funlike-3.c
     sources:
       binary: funlike-3.i
   group: GRPSERIAL
@@ -796,19 +530,10 @@ test_funlike-3_79:
       L8:
         expect: true
         expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("unterminated")[^\n]*\n?)+'
-test_funlike-4_137:
-  build:
-    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/funlike-4.c'
-    sources:
-      binary: ./funlike-4.exe
-  group: GRPSERIAL
-  run:
-    cwd: .
 test_funlike-4_23:
   build:
     cflags: -traditional-cpp -I./gcc.dg/cpp/trad/
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/funlike-4.c'
+    files: compilers/gcc/./gcc.dg/cpp/trad/funlike-4.c
     sources:
       binary: ./funlike-4.exe
   group: GRPSERIAL
@@ -817,49 +542,30 @@ test_funlike-4_23:
 test_funlike-4_80:
   build:
     cflags: -traditional-cpp -I./gcc.dg/cpp/trad/
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/funlike-4.c'
+    files: compilers/gcc/./gcc.dg/cpp/trad/funlike-4.c
     sources:
       binary: ./funlike-4.exe
   group: GRPSERIAL
   run:
     cwd: .
-test_funlike-5_138:
-  build:
-    cflags: "-traditional-cpp -E -dD\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/funlike-5.c'
-    sources:
-      binary: funlike-5.s
-  group: GRPSERIAL
 test_funlike-5_24:
   build:
-    cflags: "-traditional-cpp -E -dD\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/funlike-5.c'
+    cflags: -traditional-cpp -E -dD -S
+    files: compilers/gcc/./gcc.dg/cpp/trad/funlike-5.c
     sources:
       binary: funlike-5.s
   group: GRPSERIAL
 test_funlike-5_81:
   build:
-    cflags: "-traditional-cpp -E -dD\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/funlike-5.c'
+    cflags: -traditional-cpp -E -dD -S
+    files: compilers/gcc/./gcc.dg/cpp/trad/funlike-5.c
     sources:
       binary: funlike-5.s
   group: GRPSERIAL
-test_funlike_139:
-  build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/funlike.c'
-    sources:
-      binary: funlike.i
-  group: GRPSERIAL
-  validate:
-    match:
-      L24:
-        expect: true
-        expr: '(^|\n)([^\n]+:24:[^\n]*[0-9]+: (fatal )?error:[^\n]*("missing binary")[^\n]*\n?)+'
 test_funlike_25:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/funlike.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/funlike.c
     sources:
       binary: funlike.i
   group: GRPSERIAL
@@ -870,8 +576,8 @@ test_funlike_25:
         expr: '(^|\n)([^\n]+:24:[^\n]*[0-9]+: (fatal )?error:[^\n]*("missing binary")[^\n]*\n?)+'
 test_funlike_82:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/funlike.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/funlike.c
     sources:
       binary: funlike.i
   group: GRPSERIAL
@@ -880,61 +586,38 @@ test_funlike_82:
       L24:
         expect: true
         expr: '(^|\n)([^\n]+:24:[^\n]*[0-9]+: (fatal )?error:[^\n]*("missing binary")[^\n]*\n?)+'
-test_hash_140:
-  build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/hash.c'
-    sources:
-      binary: hash.i
-  group: GRPSERIAL
 test_hash_26:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/hash.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/hash.c
     sources:
       binary: hash.i
   group: GRPSERIAL
 test_hash_83:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/hash.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/hash.c
     sources:
       binary: hash.i
   group: GRPSERIAL
-test_include_141:
-  build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/include.c'
-    sources:
-      binary: include.s
-  group: GRPSERIAL
 test_include_27:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/include.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -S
+    files: compilers/gcc/./gcc.dg/cpp/trad/include.c
     sources:
       binary: include.s
   group: GRPSERIAL
 test_include_84:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/include.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -S
+    files: compilers/gcc/./gcc.dg/cpp/trad/include.c
     sources:
       binary: include.s
   group: GRPSERIAL
-test_literals-1_142:
-  build:
-    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/literals-1.c'
-    sources:
-      binary: ./literals-1.exe
-  group: GRPSERIAL
-  run:
-    cwd: .
 test_literals-1_28:
   build:
     cflags: -traditional-cpp -I./gcc.dg/cpp/trad/
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/literals-1.c'
+    files: compilers/gcc/./gcc.dg/cpp/trad/literals-1.c
     sources:
       binary: ./literals-1.exe
   group: GRPSERIAL
@@ -943,31 +626,16 @@ test_literals-1_28:
 test_literals-1_85:
   build:
     cflags: -traditional-cpp -I./gcc.dg/cpp/trad/
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/literals-1.c'
+    files: compilers/gcc/./gcc.dg/cpp/trad/literals-1.c
     sources:
       binary: ./literals-1.exe
   group: GRPSERIAL
   run:
     cwd: .
-test_literals-2_143:
-  build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/literals-2.c'
-    sources:
-      binary: literals-2.i
-  group: GRPSERIAL
-  validate:
-    match:
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+(:5:)[^\n]*[0-9]+: warning:[^\n]*("missing terminating")[^\n]*\n?)+'
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not valid")[^\n]*\n?)+'
 test_literals-2_29:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/literals-2.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/literals-2.c
     sources:
       binary: literals-2.i
   group: GRPSERIAL
@@ -981,8 +649,8 @@ test_literals-2_29:
         expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not valid")[^\n]*\n?)+'
 test_literals-2_86:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/literals-2.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/literals-2.c
     sources:
       binary: literals-2.i
   group: GRPSERIAL
@@ -994,128 +662,80 @@ test_literals-2_86:
       L6:
         expect: true
         expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not valid")[^\n]*\n?)+'
-test_maccom1_144:
-  build:
-    cflags: "-CC -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/maccom1.c'
-    sources:
-      binary: maccom1.i
-  group: GRPSERIAL
 test_maccom1_30:
   build:
-    cflags: "-CC -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/maccom1.c'
+    cflags: -CC -traditional-cpp -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/maccom1.c
     sources:
       binary: maccom1.i
   group: GRPSERIAL
 test_maccom1_87:
   build:
-    cflags: "-CC -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/maccom1.c'
+    cflags: -CC -traditional-cpp -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/maccom1.c
     sources:
       binary: maccom1.i
   group: GRPSERIAL
-test_maccom2_145:
-  build:
-    cflags: "-CC -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/maccom2.c'
-    sources:
-      binary: maccom2.i
-  group: GRPSERIAL
 test_maccom2_31:
   build:
-    cflags: "-CC -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/maccom2.c'
+    cflags: -CC -traditional-cpp -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/maccom2.c
     sources:
       binary: maccom2.i
   group: GRPSERIAL
 test_maccom2_88:
   build:
-    cflags: "-CC -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/maccom2.c'
+    cflags: -CC -traditional-cpp -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/maccom2.c
     sources:
       binary: maccom2.i
   group: GRPSERIAL
-test_maccom3_146:
-  build:
-    cflags: "-CC -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/maccom3.c'
-    sources:
-      binary: maccom3.i
-  group: GRPSERIAL
 test_maccom3_32:
   build:
-    cflags: "-CC -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/maccom3.c'
+    cflags: -CC -traditional-cpp -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/maccom3.c
     sources:
       binary: maccom3.i
   group: GRPSERIAL
 test_maccom3_89:
   build:
-    cflags: "-CC -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/maccom3.c'
+    cflags: -CC -traditional-cpp -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/maccom3.c
     sources:
       binary: maccom3.i
   group: GRPSERIAL
-test_maccom4_147:
-  build:
-    cflags: "-CC -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/maccom4.c'
-    sources:
-      binary: maccom4.i
-  group: GRPSERIAL
 test_maccom4_33:
   build:
-    cflags: "-CC -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/maccom4.c'
+    cflags: -CC -traditional-cpp -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/maccom4.c
     sources:
       binary: maccom4.i
   group: GRPSERIAL
 test_maccom4_90:
   build:
-    cflags: "-CC -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/maccom4.c'
+    cflags: -CC -traditional-cpp -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/maccom4.c
     sources:
       binary: maccom4.i
   group: GRPSERIAL
-test_maccom6_148:
-  build:
-    cflags: "-CC -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/maccom6.c'
-    sources:
-      binary: maccom6.i
-  group: GRPSERIAL
 test_maccom6_34:
   build:
-    cflags: "-CC -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/maccom6.c'
+    cflags: -CC -traditional-cpp -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/maccom6.c
     sources:
       binary: maccom6.i
   group: GRPSERIAL
 test_maccom6_91:
   build:
-    cflags: "-CC -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/maccom6.c'
+    cflags: -CC -traditional-cpp -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/maccom6.c
     sources:
       binary: maccom6.i
   group: GRPSERIAL
-test_macro_149:
-  build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/macro.c'
-    sources:
-      binary: macro.i
-  group: GRPSERIAL
-  validate:
-    match:
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("macro parameter
-          list")[^\n]*\n?)+'
 test_macro_35:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/macro.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/macro.c
     sources:
       binary: macro.i
   group: GRPSERIAL
@@ -1127,8 +747,8 @@ test_macro_35:
           list")[^\n]*\n?)+'
 test_macro_92:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/macro.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/macro.c
     sources:
       binary: macro.i
   group: GRPSERIAL
@@ -1138,19 +758,10 @@ test_macro_92:
         expect: true
         expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("macro parameter
           list")[^\n]*\n?)+'
-test_macroargs_150:
-  build:
-    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/macroargs.c'
-    sources:
-      binary: ./macroargs.exe
-  group: GRPSERIAL
-  run:
-    cwd: .
 test_macroargs_36:
   build:
     cflags: -traditional-cpp -I./gcc.dg/cpp/trad/
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/macroargs.c'
+    files: compilers/gcc/./gcc.dg/cpp/trad/macroargs.c
     sources:
       binary: ./macroargs.exe
   group: GRPSERIAL
@@ -1159,175 +770,114 @@ test_macroargs_36:
 test_macroargs_93:
   build:
     cflags: -traditional-cpp -I./gcc.dg/cpp/trad/
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/macroargs.c'
+    files: compilers/gcc/./gcc.dg/cpp/trad/macroargs.c
     sources:
       binary: ./macroargs.exe
   group: GRPSERIAL
   run:
     cwd: .
-test_mi1_151:
-  build:
-    cflags: "-H -traditional-cpp\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/mi1.c'
-    sources:
-      binary: mi1.s
-  group: GRPSERIAL
 test_mi1_37:
   build:
-    cflags: "-H -traditional-cpp\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/mi1.c'
+    cflags: -H -traditional-cpp -S
+    files: compilers/gcc/./gcc.dg/cpp/trad/mi1.c
     sources:
       binary: mi1.s
   group: GRPSERIAL
 test_mi1_94:
   build:
-    cflags: "-H -traditional-cpp\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/mi1.c'
+    cflags: -H -traditional-cpp -S
+    files: compilers/gcc/./gcc.dg/cpp/trad/mi1.c
     sources:
       binary: mi1.s
   group: GRPSERIAL
-test_mi2_152:
-  build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/mi2.c'
-    sources:
-      binary: mi2.s
-  group: GRPSERIAL
 test_mi2_38:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/mi2.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -S
+    files: compilers/gcc/./gcc.dg/cpp/trad/mi2.c
     sources:
       binary: mi2.s
   group: GRPSERIAL
 test_mi2_95:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/mi2.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -S
+    files: compilers/gcc/./gcc.dg/cpp/trad/mi2.c
     sources:
       binary: mi2.s
   group: GRPSERIAL
-test_mi3_153:
-  build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/mi3.c'
-    sources:
-      binary: mi3.s
-  group: GRPSERIAL
 test_mi3_39:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/mi3.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -S
+    files: compilers/gcc/./gcc.dg/cpp/trad/mi3.c
     sources:
       binary: mi3.s
   group: GRPSERIAL
 test_mi3_96:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/mi3.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -S
+    files: compilers/gcc/./gcc.dg/cpp/trad/mi3.c
     sources:
       binary: mi3.s
   group: GRPSERIAL
-test_mi4_154:
-  build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/mi4.c'
-    sources:
-      binary: mi4.i
-  group: GRPSERIAL
 test_mi4_40:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/mi4.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/mi4.c
     sources:
       binary: mi4.i
   group: GRPSERIAL
 test_mi4_97:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/mi4.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/mi4.c
     sources:
       binary: mi4.i
   group: GRPSERIAL
-test_mi5_155:
-  build:
-    cflags: "-H -C -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/mi5.c'
-    sources:
-      binary: mi5.i
-  group: GRPSERIAL
 test_mi5_41:
   build:
-    cflags: "-H -C -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/mi5.c'
+    cflags: -H -C -traditional-cpp -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/mi5.c
     sources:
       binary: mi5.i
   group: GRPSERIAL
 test_mi5_98:
   build:
-    cflags: "-H -C -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/mi5.c'
+    cflags: -H -C -traditional-cpp -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/mi5.c
     sources:
       binary: mi5.i
   group: GRPSERIAL
-test_mi6_156:
-  build:
-    cflags: -S
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/mi6.c'
-    sources:
-      binary: mi6.s
-  group: GRPSERIAL
 test_mi6_42:
   build:
-    cflags: -S
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/mi6.c'
+    cflags: ' -S'
+    files: compilers/gcc/./gcc.dg/cpp/trad/mi6.c
     sources:
       binary: mi6.s
   group: GRPSERIAL
 test_mi6_99:
   build:
-    cflags: -S
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/mi6.c'
+    cflags: ' -S'
+    files: compilers/gcc/./gcc.dg/cpp/trad/mi6.c
     sources:
       binary: mi6.s
   group: GRPSERIAL
 test_mi7_100:
   build:
-    cflags: "-H -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/mi7.c'
-    sources:
-      binary: mi7.i
-  group: GRPSERIAL
-test_mi7_157:
-  build:
-    cflags: "-H -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/mi7.c'
+    cflags: -H -traditional-cpp -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/mi7.c
     sources:
       binary: mi7.i
   group: GRPSERIAL
 test_mi7_43:
   build:
-    cflags: "-H -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/mi7.c'
+    cflags: -H -traditional-cpp -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/mi7.c
     sources:
       binary: mi7.i
   group: GRPSERIAL
 test_null-drctv_101:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/null-drctv.c'
-    sources:
-      binary: null-drctv.i
-  group: GRPSERIAL
-  validate:
-    match:
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OK")[^\n]*\n?)+'
-test_null-drctv_158:
-  build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/null-drctv.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/null-drctv.c
     sources:
       binary: null-drctv.i
   group: GRPSERIAL
@@ -1338,8 +888,8 @@ test_null-drctv_158:
         expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OK")[^\n]*\n?)+'
 test_null-drctv_44:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/null-drctv.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/null-drctv.c
     sources:
       binary: null-drctv.i
   group: GRPSERIAL
@@ -1350,59 +900,36 @@ test_null-drctv_44:
         expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("OK")[^\n]*\n?)+'
 test_num-sign_102:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/num-sign.c'
-    sources:
-      binary: num-sign.i
-  group: GRPSERIAL
-test_num-sign_159:
-  build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/num-sign.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/num-sign.c
     sources:
       binary: num-sign.i
   group: GRPSERIAL
 test_num-sign_45:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/num-sign.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/num-sign.c
     sources:
       binary: num-sign.i
   group: GRPSERIAL
 test_paste_103:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/paste.c'
-    sources:
-      binary: paste.s
-  group: GRPSERIAL
-test_paste_160:
-  build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/paste.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -S
+    files: compilers/gcc/./gcc.dg/cpp/trad/paste.c
     sources:
       binary: paste.s
   group: GRPSERIAL
 test_paste_46:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -S"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/paste.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -S
+    files: compilers/gcc/./gcc.dg/cpp/trad/paste.c
     sources:
       binary: paste.s
   group: GRPSERIAL
 test_pr65238-3_104:
   build:
     cflags: -traditional-cpp
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/pr65238-3.c'
-    sources:
-      binary: ./pr65238-3.exe
-  group: GRPSERIAL
-  run:
-    cwd: .
-test_pr65238-3_161:
-  build:
-    cflags: -traditional-cpp
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/pr65238-3.c'
+    files: compilers/gcc/./gcc.dg/cpp/trad/pr65238-3.c
     sources:
       binary: ./pr65238-3.exe
   group: GRPSERIAL
@@ -1411,7 +938,7 @@ test_pr65238-3_161:
 test_pr65238-3_47:
   build:
     cflags: -traditional-cpp
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/pr65238-3.c'
+    files: compilers/gcc/./gcc.dg/cpp/trad/pr65238-3.c
     sources:
       binary: ./pr65238-3.exe
   group: GRPSERIAL
@@ -1419,40 +946,8 @@ test_pr65238-3_47:
     cwd: .
 test_pr65238-4_105:
   build:
-    cflags: "-traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/pr65238-4.c'
-    sources:
-      binary: pr65238-4.i
-  group: GRPSERIAL
-  validate:
-    match:
-      L14:
-        expect: true
-        expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("unterminated
-          argument list invoking macro .__has_attribute.")[^\n]*\n?)+'
-      L15:
-        expect: true
-        expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("#if with no expression")[^\n]*\n?)+'
-      L16:
-        expect: true
-        expr: '(^|\n)([^\n]+:16:[^\n]*[0-9]+: (fatal )?error:[^\n]*("unterminated
-          argument list invoking macro .__has_attribute.")[^\n]*\n?)+'
-      L17:
-        expect: true
-        expr: '(^|\n)([^\n]+:17:[^\n]*[0-9]+: (fatal )?error:[^\n]*("macro .__has_attribute.
-          passed 2 arguments, but takes just 1")[^\n]*\n?)+'
-      L18:
-        expect: true
-        expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("missing ... in
-          expression")[^\n]*\n?)+'
-      L19:
-        expect: true
-        expr: '(^|\n)([^\n]+:19:[^\n]*[0-9]+: (fatal )?error:[^\n]*("macro .__has_attribute.
-          requires an identifier")[^\n]*\n?)+'
-test_pr65238-4_162:
-  build:
-    cflags: "-traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/pr65238-4.c'
+    cflags: -traditional-cpp -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/pr65238-4.c
     sources:
       binary: pr65238-4.i
   group: GRPSERIAL
@@ -1483,8 +978,8 @@ test_pr65238-4_162:
           requires an identifier")[^\n]*\n?)+'
 test_pr65238-4_48:
   build:
-    cflags: "-traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/pr65238-4.c'
+    cflags: -traditional-cpp -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/pr65238-4.c
     sources:
       binary: pr65238-4.i
   group: GRPSERIAL
@@ -1515,44 +1010,22 @@ test_pr65238-4_48:
           requires an identifier")[^\n]*\n?)+'
 test_quote_106:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/quote.c'
-    sources:
-      binary: quote.i
-  group: GRPSERIAL
-test_quote_163:
-  build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/quote.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/quote.c
     sources:
       binary: quote.i
   group: GRPSERIAL
 test_quote_49:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/quote.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/quote.c
     sources:
       binary: quote.i
   group: GRPSERIAL
 test_recurse-1_107:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/recurse-1.c'
-    sources:
-      binary: recurse-1.i
-  group: GRPSERIAL
-  validate:
-    match:
-      L10:
-        expect: true
-        expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*("detected recursion")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("detected recursion")[^\n]*\n?)+'
-test_recurse-1_164:
-  build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/recurse-1.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/recurse-1.c
     sources:
       binary: recurse-1.i
   group: GRPSERIAL
@@ -1566,8 +1039,8 @@ test_recurse-1_164:
         expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("detected recursion")[^\n]*\n?)+'
 test_recurse-1_50:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/recurse-1.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/recurse-1.c
     sources:
       binary: recurse-1.i
   group: GRPSERIAL
@@ -1581,26 +1054,8 @@ test_recurse-1_50:
         expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("detected recursion")[^\n]*\n?)+'
 test_recurse-2_108:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/recurse-2.c'
-    sources:
-      binary: recurse-2.i
-  group: GRPSERIAL
-  validate:
-    match:
-      L13:
-        expect: true
-        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("detected recursion")[^\n]*\n?)+'
-      L16:
-        expect: true
-        expr: '(^|\n)([^\n]+:16:[^\n]*[0-9]+: (fatal )?error:[^\n]*("detected recursion")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("detected recursion")[^\n]*\n?)+'
-test_recurse-2_165:
-  build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/recurse-2.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/recurse-2.c
     sources:
       binary: recurse-2.i
   group: GRPSERIAL
@@ -1617,8 +1072,8 @@ test_recurse-2_165:
         expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("detected recursion")[^\n]*\n?)+'
 test_recurse-2_51:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/recurse-2.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/recurse-2.c
     sources:
       binary: recurse-2.i
   group: GRPSERIAL
@@ -1635,86 +1090,36 @@ test_recurse-2_51:
         expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("detected recursion")[^\n]*\n?)+'
 test_recurse-3_109:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/recurse-3.c'
-    sources:
-      binary: recurse-3.i
-  group: GRPSERIAL
-test_recurse-3_166:
-  build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/recurse-3.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/recurse-3.c
     sources:
       binary: recurse-3.i
   group: GRPSERIAL
 test_recurse-3_52:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/recurse-3.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/recurse-3.c
     sources:
       binary: recurse-3.i
   group: GRPSERIAL
 test_redef1_110:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/redef1.c'
-    sources:
-      binary: redef1.i
-  group: GRPSERIAL
-test_redef1_167:
-  build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/redef1.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/redef1.c
     sources:
       binary: redef1.i
   group: GRPSERIAL
 test_redef1_53:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/redef1.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/redef1.c
     sources:
       binary: redef1.i
   group: GRPSERIAL
 test_redef2_111:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/redef2.c'
-    sources:
-      binary: redef2.i
-  group: GRPSERIAL
-  validate:
-    match:
-      L10:
-        expect: true
-        expr: '(^|\n)([^\n]+(:10:)[^\n]*[0-9]+: warning:[^\n]*("redefined")[^\n]*\n?)+'
-      L14:
-        expect: true
-        expr: '(^|\n)([^\n]+(:14:)[^\n]*[0-9]+: warning:[^\n]*("redefined")[^\n]*\n?)+'
-      L17:
-        expect: true
-        expr: '(^|\n)([^\n]+(:17:)[^\n]*[0-9]+: warning:[^\n]*("redefined")[^\n]*\n?)+'
-      L20:
-        expect: true
-        expr: '(^|\n)([^\n]+(:20:)[^\n]*[0-9]+: warning:[^\n]*("redefined")[^\n]*\n?)+'
-      L23:
-        expect: true
-        expr: '(^|\n)([^\n]+(:23:)[^\n]*[0-9]+: warning:[^\n]*("redefined")[^\n]*\n?)+'
-      L26:
-        expect: true
-        expr: '(^|\n)([^\n]+(:26:)[^\n]*[0-9]+: warning:[^\n]*("redefined")[^\n]*\n?)+'
-      L29:
-        expect: true
-        expr: '(^|\n)([^\n]+(:29:)[^\n]*[0-9]+: warning:[^\n]*("redefined")[^\n]*\n?)+'
-      L32:
-        expect: true
-        expr: '(^|\n)([^\n]+(:32:)[^\n]*[0-9]+: warning:[^\n]*("redefined")[^\n]*\n?)+'
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+(:6:)[^\n]*[0-9]+: warning:[^\n]*("redefined")[^\n]*\n?)+'
-test_redef2_168:
-  build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/redef2.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/redef2.c
     sources:
       binary: redef2.i
   group: GRPSERIAL
@@ -1749,8 +1154,8 @@ test_redef2_168:
         expr: '(^|\n)([^\n]+(:6:)[^\n]*[0-9]+: warning:[^\n]*("redefined")[^\n]*\n?)+'
 test_redef2_54:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/redef2.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/redef2.c
     sources:
       binary: redef2.i
   group: GRPSERIAL
@@ -1786,16 +1191,7 @@ test_redef2_54:
 test_strify_112:
   build:
     cflags: -traditional-cpp -I./gcc.dg/cpp/trad/
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/strify.c'
-    sources:
-      binary: ./strify.exe
-  group: GRPSERIAL
-  run:
-    cwd: .
-test_strify_169:
-  build:
-    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/strify.c'
+    files: compilers/gcc/./gcc.dg/cpp/trad/strify.c
     sources:
       binary: ./strify.exe
   group: GRPSERIAL
@@ -1804,7 +1200,7 @@ test_strify_169:
 test_strify_55:
   build:
     cflags: -traditional-cpp -I./gcc.dg/cpp/trad/
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/strify.c'
+    files: compilers/gcc/./gcc.dg/cpp/trad/strify.c
     sources:
       binary: ./strify.exe
   group: GRPSERIAL
@@ -1812,43 +1208,29 @@ test_strify_55:
     cwd: .
 test_uchar_113:
   build:
-    cflags: "-funsigned-char -fsigned-char -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/uchar.c'
-    sources:
-      binary: uchar.i
-  group: GRPSERIAL
-test_uchar_170:
-  build:
-    cflags: "-funsigned-char -fsigned-char -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/uchar.c'
+    cflags: -funsigned-char -fsigned-char -traditional-cpp -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/uchar.c
     sources:
       binary: uchar.i
   group: GRPSERIAL
 test_uchar_56:
   build:
-    cflags: "-funsigned-char -fsigned-char -traditional-cpp\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/uchar.c'
+    cflags: -funsigned-char -fsigned-char -traditional-cpp -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/uchar.c
     sources:
       binary: uchar.i
   group: GRPSERIAL
 test_xwin1_114:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/xwin1.c'
-    sources:
-      binary: xwin1.i
-  group: GRPSERIAL
-test_xwin1_171:
-  build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/xwin1.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/xwin1.c
     sources:
       binary: xwin1.i
   group: GRPSERIAL
 test_xwin1_57:
   build:
-    cflags: "-traditional-cpp -I./gcc.dg/cpp/trad/\n -E"
-    files: '@ROOTPATH@/compilers/gcc/./gcc.dg/cpp/trad/xwin1.c'
+    cflags: -traditional-cpp -I./gcc.dg/cpp/trad/ -E
+    files: compilers/gcc/./gcc.dg/cpp/trad/xwin1.c
     sources:
       binary: xwin1.i
   group: GRPSERIAL
