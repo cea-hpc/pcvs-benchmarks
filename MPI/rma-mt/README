@@ -1,0 +1,99 @@
+#
+# Copyright (c) 2018      Los Alamos National Security, LLC.  All rights
+#                         reserved.
+# $COPYRIGHT$
+#
+# Additional copyrights may follow
+#
+# $HEADER$
+#
+
+The RMA-MT benchmarks are designed to evaluate the performance of an
+implementation of the Message Passing Interface (MPI) Remote Memory
+Access (RMA) interface. There are three tests in this benchmarking
+suite:
+
+rmamt_bw:
+
+  This benchmark tests the bandwidth of the MPI implementations when
+  subjected to many concurrent put or get operations. It prints out
+  the effective bandwidth and the message rate for each message size.
+
+rmamt_bibw:
+
+  This benchmark tests the bi-directional bandwidth of the MPI
+  implementations when subjected to many concurrent put or get
+  operations from both MPI processes. It prints out the effective
+  bi-directional bandwidth and the message rates for each message
+  size.
+
+
+rmamt_lat:
+
+  This benchmarks tests the multi-threaded latency of the MPI
+  implementation. This is evaluated by summing the total time for each
+  thread to do a single put or get operation plus the time for
+  synchronization. It prints out the total latency for each message
+  size.
+
+
+Common options for all benchmarks:
+
+ -o,--operation=value      Operation to benchmark: put, get
+ -s,--sync=value           Synchronization function to use: lock_all,
+                           fence, lock, flush, pscw
+ -m, --max-size=value      Maximum aggregate transfer size
+ -l, --min-size=value      Minimum aggregate transfer size
+ -w,--win-per-thread       Use a different MPI window in each thread
+ -i,--iterations=value     Number of iterations to run for each per
+                           message size (default: 1000)
+ -t,--threads=value        Number of threads to use
+ -n,--busy-loop            Run busy loop on receiver
+ -x,--bind-threads         Bind threads to unique cores (requires
+                           hwloc)
+ -z,--sleep-interval=value Sleep interval in ns to use on receiver if
+                           using busy loop. Not relevant to rmamt_bibw
+                           loop (default: 10000)
+ -r,--result=value         Write parsable output to the specified file
+                           in CSV format.
+ -h,--help                 Print this help message
+
+
+Configuring and building:
+
+
+If the desired MPI compiler wrapper is in your path (mpicc, cray cc)
+you can simply run:
+
+./configure
+make
+
+
+You can also specify the desired wrapper by setting the CC environment
+variable.
+
+
+
+Running:
+
+
+The RMA-MT benchmark suite comes with some basic run scripts in the
+scripts directory. These can be modified to run the entire
+benchmarking suite in the current allocation using the mpirun
+launcher. They can be modified to use any launcher. Note that by
+default the scripts bind the bechmark to the socket (unless -x is
+specified to bind the worker threads).
+
+The benchmarks can also be run by hand. The minimum arguments required
+are -o and -s to specify the operation (put, get) and the
+synchronization method (flush, lock, lock_all, pscw). There must be
+exactly two processes.
+
+Ex:
+
+mpirun -n 2 --npernode 1 rmamt_bw -o put -s flush -t 32
+
+
+This will run the bandwidth benchmark with MPI_Put() and
+MPI_Win_flush() with 32 threads.
+
