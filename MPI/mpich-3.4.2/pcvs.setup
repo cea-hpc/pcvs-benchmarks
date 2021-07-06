@@ -1,0 +1,104 @@
+#! /usr/bin/perl
+
+use strict;
+use warnings;
+
+my ($subdir) = @ARGV;
+my $pcvs_src_current=qq($ENV{pcvs_src}/$subdir);
+my $pcvs_build_current=qq($ENV{pcvs_testbuild}/$subdir);
+
+# pre-make dependencies for slow NFS
+print STDOUT "dtpools:\n";
+print STDOUT "    type: 'build'\n";
+print STDOUT "    files: '\@BUILDPATH\@/build/dtpools/Makefile'\n";
+print STDOUT "    target: '-ik'\n";
+print STDOUT "    herit: *GRPMPI\n";
+print STDOUT "util:\n";
+print STDOUT "    type: 'build'\n";
+print STDOUT "    files: '\@BUILDPATH\@/build/util/Makefile'\n";
+print STDOUT "    target: '-ik'\n";
+print STDOUT "    herit: *GRPMPI\n";
+
+
+sub process_file
+{
+	my ($file) = @_;
+	
+	#-s means file with non-zero size: pick source testlist if the build one does not exist
+	$file = "$pcvs_build_current/build/$file" if(!-s $file and -s "$pcvs_build_current/build/$file" );
+
+	#file not found here
+	return if(!-s $file);
+
+	my $tree = $file;
+	$tree =~ s,$pcvs_build_current/build/,,;
+	$tree =~ s,$pcvs_build_current/,,;
+	$tree =~ s,$pcvs_src_current/,,;
+	$tree =~ s,testlist$,,g;
+	
+	open(my $fh, "<", $file) || warn("Abnormal: '$file' defined but not found !");
+	while(<$fh>)
+	{
+		my ($program, $nmpi) = ();
+		chomp $_; #remove trailing newlines
+		s/#.*//g; #remove comments
+		s/^ *//g; #remove leading spaces
+		s/ *$//g;  # remove trailing spaces
+
+		my @list_args = split(/ +/, $_);
+
+		$program = $list_args[0];
+
+		next if (!defined $program); # skip empty lines
+
+		# if the line is a test
+		if(@list_args > 1)
+		{
+			$program = $list_args[0];
+			$nmpi = $list_args[1];
+			(my $tree_prefix = $tree) =~ s,/+,_,g;
+			#should we parse extra options ? maybe copy pasting from runtests.in
+			print STDOUT "${tree_prefix}${program}:\n";
+			print STDOUT "    deps: ['dtpools', 'util']\n";
+			print STDOUT "    type: 'complete'\n";
+			print STDOUT "    files: '\@BUILDPATH\@/build/$tree/Makefile'\n";
+			print STDOUT "    target: '$program'\n";
+			print STDOUT "    herit: *GRPMPI\n";
+			print STDOUT "    bin: 'build/$tree/$program'\n";
+			print STDOUT "    n_mpi: [ $nmpi ]\n";
+		}
+		# else if a directory
+		elsif(-d "$pcvs_build_current/$tree/$program")
+		{
+			process_file("$pcvs_build_current/$tree/$program/testlist");
+		}
+		else
+		{
+			die("Unexpected line '$_' in $file ! $pcvs_build_current/$tree/$program is not a dir");
+		}
+	}
+
+}
+
+# Run MPICH configure during setup...
+`cp -r $pcvs_src_current/* $pcvs_build_current/ && cd $pcvs_build_current/ && $pcvs_build_current/autogen.sh &> /dev/null && autoreconf -fi &> /dev/null `;
+`mkdir -p $pcvs_build_current/build && cd $pcvs_build_current/build && \
+    $pcvs_build_current/configure --disable-maintainer_mode --enable-strict --enable-threads=multiple --enable-fortran=yes CC="$ENV{pcvs_compiler_c}" CXX="$ENV{pcvs_compiler_cxx}" F77="$ENV{pcvs_compiler_f77}" CFLAGS="$ENV{pcvs_compiler_cflags} -D_GNU_SOURCE" FC="$ENV{pcvs_compiler_f90}" &> /dev/null`;
+#check for errors
+exit 1 if(($? >> 8) != 0);
+
+##### FROM HERE, We mimics RunList() and ProcessDir() MPICH functions from runtests.in
+
+# Open main testlist -> list directories to build
+open(my $main_fh, "<", "$pcvs_build_current/build/testlist") || exit 1;
+while(<$main_fh>)
+{
+	chomp;
+	s/#.*//g; #remove comments
+	s/^ *//g; #remove leading spaces
+	s/ *$//g;  # remove trailing spaces
+	next if ($_ eq "");
+	process_file("$_/testlist");
+}
+
+exit 0;
