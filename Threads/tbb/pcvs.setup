@@ -16,7 +16,7 @@ print STDOUT "  group: 'GRPSERIAL'\n";
 #actually build the tests
 print STDOUT "build_testsuite:\n";
 print STDOUT "  build:\n";
-print STDOUT "    depends_on: {'test':  [ 'dummy_test' ]}\n";
+print STDOUT "    depends_on:   [ 'dummy_test' ]\n";
 print STDOUT "    make: {'target': 'test compiler=pcvs run_cmd=\"echo building ||\"'}\n";
 print STDOUT "    files: '\@BUILDPATH\@/Makefile'\n";
 
@@ -41,14 +41,16 @@ while(<$fh>)
 	my $bin = $line[1];
 	(my $name = $bin) =~ s,^./|\.exe$,,g;
 
+	$name .= join("", @line[2..$#line]);
+
 	print STDOUT "$name:\n";
 	print STDOUT "  run:\n";
-	print STDOUT "    depends_on: {'test':  [ 'build_testsuite' ]}\n";
+	print STDOUT "    depends_on:   [ 'build_testsuite' ]\n";
 	print STDOUT "    program: 'build/${bdir}_debug/$bin'\n";
 	print STDOUT "    iterate:\n";
 	print STDOUT "      n_proc: {'values':  null}\n";
 	print STDOUT "      net: {'values': null}\n";
-	print STDOUT "      n_mpi: {'values': [{'seq': {'to': 4}}]}\n";
+	print STDOUT "      n_mpi: {'values': [{op: 'seq', 'to': 4}]}\n";
 	if(@line > 2){
 		print STDOUT "      program: {'args': {'values': '".join(" ", @line[2..$#line])."'}}\n";
 	}

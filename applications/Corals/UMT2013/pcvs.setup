@@ -24,7 +24,7 @@ echo "make_umt:
 
 make_suolson:
     build:
-        depends_on: {'test':  ['make_umt']}
+        depends_on:   ['make_umt']
         variants: ['openmp']
         make:
             target: 'SuOlsonTest UMT_FORTRAN_LIB=\"$UMT_FORTAN_LIB\"'
@@ -37,7 +37,7 @@ make_suolson:
 
 
 echo ".template: &suolson
-    depends_on: {'test':  [ 'make_suolson' ]}
+    depends_on:   [ 'make_suolson' ]
     cwd: './Teton'
     program: './Teton/SuOlsonTest'
 "
