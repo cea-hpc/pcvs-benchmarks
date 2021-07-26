@@ -32,7 +32,7 @@ def process_file(filename):
                 args = line.split()[1:]
                 if len(args) > 0:
                     print("""
-{escaped_prefix}{program}:
+{escaped_prefix}{program}_n{mpi}:
     group: 'GRPMPI'
     build:
         depends_on: ['build_util_dir']
@@ -82,7 +82,7 @@ if __name__ == '__main__':
               'CXX="{}" '.format(os.environ["pcvs_compiler_commands_cxx"]) + \
               'F77="{}" '.format(os.environ["pcvs_compiler_commands_f77"]) + \
               'FC="{} "'.format(os.environ["pcvs_compiler_commands_f90"])
-        subprocess.check_output(cmd, shell=True, stderr=subprocess.DEVNULL)
+        subprocess.check_output(cmd, shell=True)
 
         print("""
 build_util_dir:
@@ -99,6 +99,10 @@ build_util_dir:
                 if line.startswith('#'):
                     continue
                 process_file(os.path.join(line, 'testlist'))
-    except (FileNotFoundError, subprocess.CalledProcessError):
-        exit(40)
+    except FileNotFoundError as e:
+        print("{} not found".format(e), file=sys.stderr)
+        exit(1)
+    except subprocess.CalledProcessError as e:
+        print("Command failed: {}:\n{}".format(e.cmd, e.stderr), file=sys.stderr)
+        exit(2)
 exit(0)
