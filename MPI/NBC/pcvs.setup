@@ -4,7 +4,7 @@ pcvs_src_current=$pcvs_src/$1
 pcvs_build_current=$pcvs_testbuild/$1
 
 
-for f in `ls -1 $pcvs_src_current`
+for f in `find $pcvs_src_current -name "*.c" -exec basename {} \;`
 do
 	name=`echo "$f" | sed -e "s,\..*$,,"`
 	printf "$name:
