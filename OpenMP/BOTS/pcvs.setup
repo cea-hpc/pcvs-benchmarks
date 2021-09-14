@@ -3,6 +3,7 @@ pcvs_src_current=$pcvs_src/$1
 pcvs_build_current=$pcvs_testbuild/$1
 
 cp -r $pcvs_src_current/* $pcvs_build_current/
+mkdir $pcvs_build_current/bin
 
 cat <<EOF > $pcvs_build_current/config/make.config
 
@@ -13,10 +14,10 @@ cat <<EOF > $pcvs_build_current/config/make.config
 LABEL=$pcvs_validation_pf_name
 
 #compilers
-OMPC=$pcvs_compiler_commands_cc $pcvs_compiler_openmp
-CC=$pcvs_compiler_commands_cc$
-OMPLINK=$pcvs_compiler_commands_cc $pcvs_compiler_openmp
-CLINK=$pcvs_compiler_commands_cc$
+OMPC=$pcvs_compiler_commands_cc $pcvs_compiler_variants_openmp_args
+CC=$pcvs_compiler_commands_cc
+OMPLINK=$pcvs_compiler_commands_cc $pcvs_compiler_variants_openmp_args
+CLINK=$pcvs_compiler_commands_cc
 
 #compiler and linker flags
 
@@ -42,6 +43,7 @@ do
 	echo "alignment-$align:"
 	echo "  group: 'GRPOMP'"
         echo "  run:"
+	echo "    depends_on: ['build_bots']"
 	echo "    program: 'bin/alignment.$pcvs_validation_pf_name.$align-omp-tasks'"
 	echo "    iterate: {'program': {'args': {'values': '-c -f @BUILDPATH@/inputs/alignment/prot.20.aa'}}}"
 done
@@ -49,30 +51,35 @@ done
 echo "fft_1024x1024x8:"
 echo "  group: 'GRPOMP'"
 echo "  run:"
+echo "    depends_on: ['build_bots']"
 echo "    program: 'bin/fft.${pcvs_validation_pf_name}.omp-tasks'"
 echo "    iterate: {'program': {'args': {'values': '-c -n 8388608'}}}"
 
 echo "fib_20:"
 echo "  group: 'GRPOMP'"
 echo "  run:"
+echo "    depends_on: ['build_bots']"
 echo "    program: 'bin/fib.${pcvs_validation_pf_name}.omp-tasks'"
 echo "    iterate: {'program': {'args': {'values': '-c -n 20'}}}"
 
 echo "floorplan_input20:"
 echo "  group: 'GRPOMP'"
 echo "  run:"
+echo "    depends_on: ['build_bots']"
 echo "    program: 'bin/floorplan.${pcvs_validation_pf_name}.omp-tasks'"
 echo "    iterate: {'program': {'args': {'values': '-c -f @BUILDPATH@/inputs/flooplan/input.20'}}}"
 
 echo "health_small:"
 echo "  group: 'GRPOMP'"
 echo "  run:"
+echo "    depends_on: ['build_bots']"
 echo "    program: 'bin/health.${pcvs_validation_pf_name}.omp-tasks'"
 echo "    iterate: {'program': {'args': {'values': '-c -f @BUILDPATH@/inputs/health/small.input'}}}"
 
 echo "nqueens_14:"
 echo "  group: 'GRPOMP'"
 echo "  run:"
+echo "    depends_on: ['build_bots']"
 echo "    program: 'bin/nqueens.${pcvs_validation_pf_name}.omp-tasks'"
 echo "    iterate: {'program': {'args': {'values': '-c -n 14'}}}"
 
@@ -80,6 +87,7 @@ echo "sort_20:"
 echo "  group: 'GRPOMP'"
 echo "  run:"
 echo "    program: 'bin/sort.${pcvs_validation_pf_name}.omp-tasks'"
+echo "    depends_on: ['build_bots']"
 echo "    iterate: {'program': {'args': {'values': '-c -n 20'}}}"
 
 for sparselu in 'for' 'single'
@@ -88,18 +96,21 @@ do
 	echo "  group: 'GRPOMP'"
 	echo "  run:"
 	echo "    program: 'bin/sparselu.${pcvs_validation_pf_name}.$sparselu-omp-tasks'"
+	echo "    depends_on: ['build_bots']"
 	echo "    iterate: {'program': {'args': {'values': '-c -n 25'}}}"
 done
 
 echo "strassen_1024:"
 echo "  group: 'GRPOMP'"
 echo "  run:"
+echo "    depends_on: ['build_bots']"
 echo "    program: 'bin/strassen.${pcvs_validation_pf_name}.omp-tasks'"
 echo "    iterate: {'program': {'args': {'values': '-c -n 1024'}}}"
 
 echo "uts_tiny:"
 echo "  group: 'GRPOMP'"
 echo "  run:"
+echo "    depends_on: ['build_bots']"
 echo "    program: 'bin/uts.${pcvs_validation_pf_name}.omp-tasks'"
 echo "    iterate: {'program': {'args': {'values': '-c -f @BUILDPATH@/inputs/uts/tiny.input'}}}"
 
