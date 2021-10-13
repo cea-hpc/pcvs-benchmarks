@@ -1,0 +1,86 @@
+#
+#     (C) 2019 by Bull S. A. S.  All rights reserved.
+#
+#     One-Sided Communication Tests for Notified Communications in
+#     MPI
+
+Copyright (C) 2019 Bull S. A. S. - All rights reserved
+Bull, Rue Jean Jaures, B.P.68, 78340, Les Clayes-sous-Bois, France
+This is not Free or Open Source software.
+Please contact Bull S. A. S. for details about its license.
+
+
+Contents
+========
+
+  - What is this test suite
+  - Directory structure
+  - How to build
+  - How to use
+  - How to install
+
+What is this test suite
+----------------------------------------
+
+This test suite contains tests for the MPI Notified Communications feature
+introduced in Bull Open MPI 3.1.4. Notified Communications are a new
+synchronization and communication mechanism for MPI one-sided communications
+aimed at performance and ease of use.
+
+Directory structure
+----------------------------------------
+root_directory
+|-- error/
+    |-- <test_name>.c
+|-- functional/
+    |-- <test_name>.c
+|-- util/
+    |-- common.c/.h
+    |-- common_output.c/.h
+|-- Makefile
+|-- README.dev
+
+Tests are splitted between functional tests, which should proceed with no
+errors, and resilience tests located in the error directory, which should fail.
+The util/ directory contains common utilitaries for tests, such as standardized
+print routines.
+
+How to build
+----------------------------------------
+
+$> make
+This will build all error tests and functional tests and put them in the bin/
+directory of the test directory.
+A utilitary library is also built in the .lib/ directory.
+
+How to use
+----------------------------------------
+
+One can run tests as follows:
+$> mpirun -np 2 /path/to/repository/bin/name_of_test
+
+The output will look like something like this:
+
+# MPI Notifications Functionnal/Robustness Test - Test Name
+# Window creation: Allocation flavor used by the test
+# Synchronization: Synchronization flavor used by the test
+# Expected result: OK or XFAIL (expected fail)
+RESULT
+
+If the result is FAIL, it means that the test either fails while it should work,
+or the test succeeds while it should fail.
+
+Here is an example taken from the error/illegal_notifs test:
+
+# MPI Notifications Robustness Test - Notifications Outside Legal Range
+# Window creation: MPI_Win_allocate_notify
+# Synchronization: MPI_Win_wait/test_notify
+# Expected result: XFAIL
+XFAIL
+
+How to install
+----------------------------------------
+
+$> make install INSTALL_PREFIX=/path/to/install
+By default, binaries are installed in a build/ directory at the root of this
+test suite.

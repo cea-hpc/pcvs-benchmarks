@@ -1,0 +1,35 @@
+#!/bin/bash
+#pcvs variables:
+#$pcvs_testbuild: building directory
+#$pcvs_src: source directory
+#$group: pcvs group (empty by default)
+#$1: actual test name (MPI/BULL/osc_notified_communications here)
+
+#Check that tests are run on an Open MPI that support BULL notifications
+test "` ompi_info -a 2>/dev/null | grep "max_notification_idx" `" || exit 0
+
+mkdir -p $pcvs_testbuild/$1
+cp -r $pcvs_src/$1/* $pcvs_testbuild/$1
+
+# Compilation rule for rma notifications
+echo "compile_bull_rma_notifications_tests:"
+echo "    type: 'build'"
+echo "    files: '@BUILDPATH@/$groupe/Makefile'"
+echo "    target: 'all'"
+
+# Run rules generation
+notif_tests=`ls $pcvs_testbuild/$1/{error,functional,performance}/*.c | sed 's/.*\///g' | sed 's/\.c//g'`
+
+for test in $notif_tests
+do
+    echo "$test"":"
+    echo "    deps: [\"compile_bull_rma_notifications_tests\"]"
+    echo "    type: 'run'"
+    echo "    bin: 'bin/$test'"
+    echo "    cpu_bind: ~"
+    case $test in
+    unidir_latency_notify|check_osc_ddt)
+        echo "    n_mpi: ['2']" ;;
+    esac
+done
+
