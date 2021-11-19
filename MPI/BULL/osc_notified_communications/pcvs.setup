@@ -13,23 +13,27 @@ cp -r $pcvs_src/$1/* $pcvs_testbuild/$1
 
 # Compilation rule for rma notifications
 echo "compile_bull_rma_notifications_tests:"
-echo "    type: 'build'"
-echo "    files: '@BUILDPATH@/$groupe/Makefile'"
-echo "    target: 'all'"
+echo "    build:"
+echo "        files: '@BUILDPATH@/$groupe/Makefile'"
+echo "        make:"
+echo "            target: 'all'"
 
 # Run rules generation
 notif_tests=`ls $pcvs_testbuild/$1/{error,functional,performance}/*.c | sed 's/.*\///g' | sed 's/\.c//g'`
 
 for test in $notif_tests
 do
-    echo "$test"":"
-    echo "    deps: [\"compile_bull_rma_notifications_tests\"]"
-    echo "    type: 'run'"
-    echo "    bin: 'bin/$test'"
-    echo "    cpu_bind: ~"
+    echo "$test:"
+    echo "    run:"
+    echo "        depends_on: [\"compile_bull_rma_notifications_tests\"]"
+    echo "        program: 'bin/$test'"
+    echo "        iterate:"
+    echo "            cpu_bind:"
+    echo "                values: null"
     case $test in
     unidir_latency_notify|check_osc_ddt)
-        echo "    n_mpi: ['2']" ;;
+        echo "            n_mpi:"
+        echo "                values: [2]" ;;
     esac
 done
 

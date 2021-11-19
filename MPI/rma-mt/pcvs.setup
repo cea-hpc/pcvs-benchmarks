@@ -10,32 +10,41 @@ cd $pcvs_build_current
 cp -r $pcvs_src_current/* $pcvs_build_current/
 
 #run configure...
-#autoreconf -fi &> autoreconf.log || exit 1
+autoreconf -fi &> autoreconf.log || exit 1
 ./configure CC="$pcvs_compiler_c" CXX="$pcvs_compiler_cxx" CFLAGS="$pcvs_compilers_cflags -lpthread" --prefix=$pcvs_build_current &> configure.log || exit 1
 
 echo "compile_rma_mt:"
-echo "    type: 'build'"
-echo "    cargs: '-lpthread'"
-echo "    files: '@BUILDPATH@/Makefile'"
-echo "    target: 'all'"
+echo "    build:"
+echo "        ldflags: '-lpthread'"
+echo "        files: '@BUILDPATH@/Makefile'"
+echo "        make:"
+echo "            target: 'all'"
 
 #add new tests here...
 for bin in rmamt_bw rmamt_bibw rmamt_lat ; do
-    for comm_type in put get ; do
-        for sync in lock fence pscw lock_all flush ; do
-            for thread in 1 4 64 ; do
-                echo "${bin}_${comm_type}_${sync}_t${thread}:"
-                echo "    type: 'run'"
-                echo "    cpu_bind: ~"
-                echo "    bin: 'src/$bin -o $comm_type -s $sync  -t $thread  -i 10'"
-                echo "    deps: [ \"compile_rma_mt\" ]"
-            done
-        done
-    done
+    echo "${bin}:"
+    echo "    run:"
+    echo "        program: 'src/$bin -o $comm_type -s $sync  -t $thread  -i 10'"
+    echo "        depends_on: [ \"compile_rma_mt\" ]"
+    echo "        iterate:"
+    echo "            cpu_bind: {values: null}"
+    echo "            program:"
+    echo "                th:"
+    echo "                  option: '-t '"
+    echo "                  subtitle: 't'"
+    echo "                  values: [1, 4, 64]"
+    echo "                sync:"
+    echo "                  option: '-s '"
+    echo "                  subtitle: ''"
+    echo "                  values: ['lock', 'fence', 'pscw', 'lock_all', 'flush']"
+    echo "                type:"
+    echo "                  option: '-o '"
+    echo "                  subtitle: ''"
+    echo "                  values: ['put', 'get']"
 
     case $bin in
-    rmamt_lat)   echo "    n_mpi: ['2']" ;;
-    *)           echo "    n_mpi: ['2:128:+2']" ;;
+    rmamt_lat)   echo "            n_mpi: {values: [2]}" ;;
+    *)           echo "            n_mpi: {values: [{from: 2, to: 128, of: 2}]}" ;;
     esac
 
 done
