@@ -3,7 +3,7 @@
 pcvs_src_current=$pcvs_src/$1
 #pcvs_build_current=$pcvs_testbuild/$1
 
-for t in `find $pcvs_src_current -name '*.f*'`
+for t in `find $pcvs_src_current -name '*.f*' -exec basename {} \;`
 do
 	#remove extension
 	bin=`echo "$t" | sed -Ee 's,.*/(.*)\..*$,\1,'`
