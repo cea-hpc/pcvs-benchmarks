@@ -32,18 +32,18 @@ def process_file(filename):
                 args = line.split()[1:]
                 if len(args) > 0:
                     print("""
-{escaped_prefix}{program}_n{mpi}:
+{escaped_prefix}{program}_np{mpi}:
     group: 'GRPMPI'
     build:
-        depends_on: ['build_util_dir']
+        depends_on: ['build_util', 'build_dtpools']
         files: '@BUILDPATH@/build/{prefix}/Makefile'
         make:
             target: '{program}'
     run:
         program: 'build/{prefix}/{program}'
         iterate: 
-            n_mpi':
-                'values': [ {mpi} ]
+            n_mpi:
+                values: [ {mpi} ]
                 """.format(program=program,
                            prefix=prefix,
                            escaped_prefix=prefix.replace("/", "_"),
@@ -85,11 +85,16 @@ if __name__ == '__main__':
         subprocess.check_output(cmd, shell=True)
 
         print("""
-build_util_dir:
+build_util:
     build:
         files: '@BUILDPATH@/build/util/Makefile'
         make:
-            target: 'mtest.o mtest_datatype.o mtest_datatype_gen.o'
+            target: '-ik'
+build_dtpools:
+    build:
+        files: '@BUILDPATH@/build/dtpools/Makefile'
+        make:
+            target: '-ik'
         """)
 
         with open(os.path.join(cur_bldir, "build/testlist"), 'r') as fh:
