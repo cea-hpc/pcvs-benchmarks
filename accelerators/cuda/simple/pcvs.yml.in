@@ -1,17 +1,13 @@
-.simple: &simple
-
+.simple: null
 mpi_hello-world:
-        group: "GRPMPI"
-        build:
-                files: '@SRCPATH@/mpi_hello-world.cu'
-                variants: [ 'accel' ]
-        run:
-               cwd: "."
+  build:
+    files: '@SRCPATH@/mpi_hello-world.cu'
+    variants: [accel]
+  group: GRPMPI
+  run: {cwd: .}
 mpi_reduce:
-        group: "GRPMPI"
-        build:
-                files: '@SRCPATH@/mpi_reduce.cu'
-                variants: [ 'accel' ]
-        run:
-               cwd: "."
-
+  build:
+    files: '@SRCPATH@/mpi_reduce.cu'
+    variants: [accel]
+  group: GRPMPI
+  run: {cwd: .}

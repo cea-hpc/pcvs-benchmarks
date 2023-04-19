@@ -1,14 +1,11 @@
-.t: &t
-  group: 'GRPSERIAL'
-  run:
-    cwd: "."
-
+.t:
+  group: GRPSERIAL
+  run: {cwd: .}
 test_env:
-  <<: *t
-  build:
-    files: '@SRCPATH@/env.c'
-
+  build: {files: '@SRCPATH@/env.c'}
+  group: GRPSERIAL
+  run: {cwd: .}
 test_minife_args:
-  <<: *t
-  build:
-    files: '@SRCPATH@/args.c'
+  build: {files: '@SRCPATH@/args.c'}
+  group: GRPSERIAL
+  run: {cwd: .}

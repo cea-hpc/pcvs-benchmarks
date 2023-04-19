@@ -58,19 +58,6 @@ def process_file(filename):
 
 
 if __name__ == '__main__':
-    compilers=""
-    for cc in [('CC', 'cc'),
-               ('CXX', 'cxx'),
-               ('F77', 'f77'),
-               ('FC', 'f90')]:
-        try:
-            compilers.append('{}={}'.format(
-                cc[0],
-                os.environ['pcvs_compiler_commands_{}'.format(cc[1])]
-                ))
-        except:
-            pass
-
     try:
         cmd = 'cp -r {}/* {}'.format(cur_srcdir, cur_bldir) + \
             '&& mkdir -p {} '.format(os.path.join(cur_bldir, 'build')) + \
@@ -78,10 +65,10 @@ if __name__ == '__main__':
             '&& {} '.format(os.path.join(cur_srcdir, 'configure')) + \
               '--disable-maintainer_mode --enable-strictmpi ' + \
               '--enable-threads=multiple --enable-fortran=yes ' \
-              'CC="{}" '.format(os.environ["pcvs_compiler_commands_cc"]) + \
-              'CXX="{}" '.format(os.environ["pcvs_compiler_commands_cxx"]) + \
-              'F77="{}" '.format(os.environ["pcvs_compiler_commands_f77"]) + \
-              'FC="{} "'.format(os.environ["pcvs_compiler_commands_f90"])
+              'CC="{}" '.format(os.environ["pcvs_compiler_cc_program"]) + \
+              'CXX="{}" '.format(os.environ["pcvs_compiler_cxx_program"]) + \
+              'F77="{}" '.format(os.environ["pcvs_compiler_f77_program"]) + \
+              'FC="{} "'.format(os.environ["pcvs_compiler_f90_program"])
         subprocess.check_output(cmd, shell=True)
 
         print("""

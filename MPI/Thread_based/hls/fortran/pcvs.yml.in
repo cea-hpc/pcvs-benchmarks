@@ -1,18 +1,21 @@
-.hls: &hls
+.hls:
   run:
     iterate:
-      n_proc: {'values': [1]}
-
+      n_proc:
+        values: &id001 [1]
 hls_node:
-  <<: *hls
   build:
-    cflags: "-fhls"
-    files: "@SRCPATH@/hls_node.f90"
-
+    files: '@SRCPATH@/hls_node.f90'
+    sources: {cflags: -fhls}
+  run:
+    iterate:
+      n_proc:
+        values: *id001
 hls_single:
-  <<: *hls
   build:
-    cflags: "-fhls"
-    files: "@SRCPATH@/hls_single.f90"
-
-
+    files: '@SRCPATH@/hls_single.f90'
+    sources: {cflags: -fhls}
+  run:
+    iterate:
+      n_proc:
+        values: *id001

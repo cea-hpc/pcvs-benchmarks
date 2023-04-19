@@ -11,14 +11,14 @@ cp -r $pcvs_src_current/* $pcvs_build_current/
 
 #run configure...
 autoreconf -fi > autoreconf.log 2>&1 || exit 1
-./configure CC="$pcvs_compiler_c" CXX="$pcvs_compiler_cxx" CFLAGS="$pcvs_compilers_cflags -lpthread" --prefix=$pcvs_build_current > configure.log 2>&1 || exit 1
+./configure CC="$pcvs_compiler_cc_program" CXX="$pcvs_compiler_cxx_program" CFLAGS="$pcvs_compiler_cc_args -lpthread" --prefix=$pcvs_build_current > configure.log 2>&1
 
 echo "compile_rma_mt:"
 echo "    build:"
-echo "        ldflags: '-lpthread'"
 echo "        files: '@BUILDPATH@/Makefile'"
 echo "        make:"
 echo "            target: 'all'"
+echo "            args: ['LDFLAGS=-lpthread']"
 
 #add new tests here...
 for bin in rmamt_bw rmamt_bibw rmamt_lat ; do
@@ -43,8 +43,10 @@ for bin in rmamt_bw rmamt_bibw rmamt_lat ; do
     echo "                  values: ['put', 'get']"
 
     case $bin in
-    rmamt_lat)   echo "            n_mpi: {values: [2]}" ;;
-    *)           echo "            n_mpi: {values: [{from: 2, to: 128, of: 2}]}" ;;
+    rmamt_lat)
+    echo "            n_mpi: {values: [2]}" ;;
+    *)
+    echo "            n_mpi: {values: [{from: 2, to: 128, of: 2}]}" ;;
     esac
 
 done

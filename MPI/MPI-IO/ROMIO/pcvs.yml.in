@@ -1,119 +1,204 @@
-.template: &t
-    group: 'GRPMPI'
-
+.template: {group: GRPMPI}
 aggregation1:
-    <<: *t
-    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/aggregation1.dat'}}}}
-    build: {'files': '@SRCPATH@/aggregation1.c'}
+  build: {files: '@SRCPATH@/aggregation1.c'}
+  group: GRPMPI
+  run:
+    iterate:
+      program:
+        args: {values: -fname @BUILDPATH@/aggregation1.dat}
 aggregation2:
-    <<: *t
-    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/aggregation2.dat'}}}}
-    build: {'files': '@SRCPATH@/aggregation2.c'}
+  build: {files: '@SRCPATH@/aggregation2.c'}
+  group: GRPMPI
+  run:
+    iterate:
+      program:
+        args: {values: -fname @BUILDPATH@/aggregation2.dat}
 async:
-    <<: *t
-    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/async.dat'}}}}
-    build: {'files': '@SRCPATH@/async.c'}
+  build: {files: '@SRCPATH@/async.c'}
+  group: GRPMPI
+  run:
+    iterate:
+      program:
+        args: {values: -fname @BUILDPATH@/async.dat}
 async-multiple:
-    <<: *t
-    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/async-multiple.dat'}}}}
-    build: {'files': '@SRCPATH@/async-multiple.c'}
+  build: {files: '@SRCPATH@/async-multiple.c'}
+  group: GRPMPI
+  run:
+    iterate:
+      program:
+        args: {values: -fname @BUILDPATH@/async-multiple.dat}
 atomicity:
-    <<: *t
-    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/atomicity.dat'}}}}
-    build: {'files': '@SRCPATH@/atomicity.c'}
+  build: {files: '@SRCPATH@/atomicity.c'}
+  group: GRPMPI
+  run:
+    iterate:
+      program:
+        args: {values: -fname @BUILDPATH@/atomicity.dat}
 big_extents:
-    <<: *t
-    run: {'iterate':{'program': {'args': {'values': '@BUILDPATH@/big_extents.dat'}}}}
-    build: {'files': '@SRCPATH@/big_extents.c'}
+  build: {files: '@SRCPATH@/big_extents.c'}
+  group: GRPMPI
+  run:
+    iterate:
+      program:
+        args: {values: '@BUILDPATH@/big_extents.dat'}
 coll_perf:
-    <<: *t
-    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/coll_perf.dat'}}}}
-    build: {'files': '@SRCPATH@/coll_perf.c'}
+  build: {files: '@SRCPATH@/coll_perf.c'}
+  group: GRPMPI
+  run:
+    iterate:
+      program:
+        args: {values: -fname @BUILDPATH@/coll_perf.dat}
 coll_test:
-    <<: *t
-    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/coll_test.dat'}}}}
-    build: {'files': '@SRCPATH@/coll_test.c'}
+  build: {files: '@SRCPATH@/coll_test.c'}
+  group: GRPMPI
+  run:
+    iterate:
+      program:
+        args: {values: -fname @BUILDPATH@/coll_test.dat}
 creat_excl:
-    <<: *t
-    build: {'files': '@SRCPATH@/creat_excl.c'}
-    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/creat_excl.dat'}}}}
+  build: {files: '@SRCPATH@/creat_excl.c'}
+  group: GRPMPI
+  run:
+    iterate:
+      program:
+        args: {values: -fname @BUILDPATH@/creat_excl.dat}
 darray_read:
-    <<: *t
-    build: {'files': '@SRCPATH@/darray_read.c'}
-    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/darray_read.dat'}}}}
+  build: {files: '@SRCPATH@/darray_read.c'}
+  group: GRPMPI
+  run:
+    iterate:
+      program:
+        args: {values: -fname @BUILDPATH@/darray_read.dat}
 error:
-    <<: *t
-    build: {'files': '@SRCPATH@/error.c'}
-    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/error.dat'}}}}
+  build: {files: '@SRCPATH@/error.c'}
+  group: GRPMPI
+  run:
+    iterate:
+      program:
+        args: {values: -fname @BUILDPATH@/error.dat}
 excl:
-    <<: *t
-    build: {'files': '@SRCPATH@/excl.c'}
-    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/excl.dat'}}}}
+  build: {files: '@SRCPATH@/excl.c'}
+  group: GRPMPI
+  run:
+    iterate:
+      program:
+        args: {values: -fname @BUILDPATH@/excl.dat}
 external32:
-    <<: *t
-    build: {'files': '@SRCPATH@/external32.c'}
-    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/external32.dat'}}}}
+  build: {files: '@SRCPATH@/external32.c'}
+  group: GRPMPI
+  run:
+    iterate:
+      program:
+        args: {values: -fname @BUILDPATH@/external32.dat}
 file_info:
-    <<: *t
-    build: {'files': '@SRCPATH@/file_info.c'}
-    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/file_info.dat'}}}}
+  build: {files: '@SRCPATH@/file_info.c'}
+  group: GRPMPI
+  run:
+    iterate:
+      program:
+        args: {values: -fname @BUILDPATH@/file_info.dat}
 hindexed:
-    <<: *t
-    build: {'files': '@SRCPATH@/hindexed.c'}
-    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/hindexed.dat'}}}}
+  build: {files: '@SRCPATH@/hindexed.c'}
+  group: GRPMPI
+  run:
+    iterate:
+      program:
+        args: {values: -fname @BUILDPATH@/hindexed.dat}
 i_noncontig:
-    <<: *t
-    build: {'files': '@SRCPATH@/i_noncontig.c'}
-    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/i_noncontig.dat'}}}}
+  build: {files: '@SRCPATH@/i_noncontig.c'}
+  group: GRPMPI
+  run:
+    iterate:
+      program:
+        args: {values: -fname @BUILDPATH@/i_noncontig.dat}
 large_array:
-    <<: *t
-    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/large_array.dat'}}}}
-    build: {'files': '@SRCPATH@/large_array.c'}
+  build: {files: '@SRCPATH@/large_array.c'}
+  group: GRPMPI
+  run:
+    iterate:
+      program:
+        args: {values: -fname @BUILDPATH@/large_array.dat}
 noncontig:
-    <<: *t
-    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/noncontig.dat'}}}}
-    build: {'files': '@SRCPATH@/noncontig.c'}
-noncontig_coll2:
-    <<: *t
-    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/noncontig_coll2.dat'}}}}
-    build: {'files': '@SRCPATH@/noncontig_coll2.c'}
+  build: {files: '@SRCPATH@/noncontig.c'}
+  group: GRPMPI
+  run:
+    iterate:
+      program:
+        args: {values: -fname @BUILDPATH@/noncontig.dat}
 noncontig_coll:
-    <<: *t
-    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/noncontig_coll.dat'}}}}
-    build: {'files': '@SRCPATH@/noncontig_coll.c'}
+  build: {files: '@SRCPATH@/noncontig_coll.c'}
+  group: GRPMPI
+  run:
+    iterate:
+      program:
+        args: {values: -fname @BUILDPATH@/noncontig_coll.dat}
+noncontig_coll2:
+  build: {files: '@SRCPATH@/noncontig_coll2.c'}
+  group: GRPMPI
+  run:
+    iterate:
+      program:
+        args: {values: -fname @BUILDPATH@/noncontig_coll2.dat}
 ordered_fp:
-    <<: *t
-    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/ordered_fp.dat'}}}}
-    build: {'files': '@SRCPATH@/ordered_fp.c'}
+  build: {files: '@SRCPATH@/ordered_fp.c'}
+  group: GRPMPI
+  run:
+    iterate:
+      program:
+        args: {values: -fname @BUILDPATH@/ordered_fp.dat}
 perf:
-    <<: *t
-    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/perf.dat'}}}}
-    build: {'files': '@SRCPATH@/perf.c'}
+  build: {files: '@SRCPATH@/perf.c'}
+  group: GRPMPI
+  run:
+    iterate:
+      program:
+        args: {values: -fname @BUILDPATH@/perf.dat}
 psimple:
-    <<: *t
-    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/psimple.dat'}}}}
-    build: {'files': '@SRCPATH@/psimple.c'}
+  build: {files: '@SRCPATH@/psimple.c'}
+  group: GRPMPI
+  run:
+    iterate:
+      program:
+        args: {values: -fname @BUILDPATH@/psimple.dat}
 shared_fp:
-    <<: *t
-    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/shared_fp.dat'}}}}
-    build: {'files': '@SRCPATH@/shared_fp.c'}
+  build: {files: '@SRCPATH@/shared_fp.c'}
+  group: GRPMPI
+  run:
+    iterate:
+      program:
+        args: {values: -fname @BUILDPATH@/shared_fp.dat}
 simple:
-    <<: *t
-    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/simple.dat'}}}}
-    build: {'files': '@SRCPATH@/simple.c'}
+  build: {files: '@SRCPATH@/simple.c'}
+  group: GRPMPI
+  run:
+    iterate:
+      program:
+        args: {values: -fname @BUILDPATH@/simple.dat}
 split_coll:
-    <<: *t
-    build: {'files': '@SRCPATH@/split_coll.c'}
-    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/split_coll.dat'}}}}
+  build: {files: '@SRCPATH@/split_coll.c'}
+  group: GRPMPI
+  run:
+    iterate:
+      program:
+        args: {values: -fname @BUILDPATH@/split_coll.dat}
 status:
-    <<: *t
-    build: {'files': '@SRCPATH@/status.c'}
-    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/status.dat'}}}}
+  build: {files: '@SRCPATH@/status.c'}
+  group: GRPMPI
+  run:
+    iterate:
+      program:
+        args: {values: -fname @BUILDPATH@/status.dat}
 syshints:
-    <<: *t
-    build: {'files': '@SRCPATH@/syshints.c'}
-    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/syshints.dat'}}}}
+  build: {files: '@SRCPATH@/syshints.c'}
+  group: GRPMPI
+  run:
+    iterate:
+      program:
+        args: {values: -fname @BUILDPATH@/syshints.dat}
 types_with_zeros:
-    <<: *t
-    build: {'files': '@SRCPATH@/types_with_zeros.c'}
-    run: {'iterate':{'program': {'args': {'values': '-fname @BUILDPATH@/types_with_zeros.dat'}}}}
+  build: {files: '@SRCPATH@/types_with_zeros.c'}
+  group: GRPMPI
+  run:
+    iterate:
+      program:
+        args: {values: -fname @BUILDPATH@/types_with_zeros.dat}

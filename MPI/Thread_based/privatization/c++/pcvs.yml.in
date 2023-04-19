@@ -1,21 +1,27 @@
-.t: &t
-  group: "GRPMPI"
+.t:
+  group: GRPMPI
   run:
     iterate:
-      n_proc: {"values": [1]}
-
+      n_proc:
+        values: &id001 [1]
 const_dyn_privatization:
-  <<: *t
-  build:
-    files: "@SRCPATH@/const_dyn_privatization.cpp"
-
+  build: {files: '@SRCPATH@/const_dyn_privatization.cpp'}
+  group: GRPMPI
+  run:
+    iterate:
+      n_proc:
+        values: *id001
 dyn_privatization:
-  <<: *t
-  build:
-    files: "@SRCPATH@/dyn_privatization.cpp"
-
+  build: {files: '@SRCPATH@/dyn_privatization.cpp'}
+  group: GRPMPI
+  run:
+    iterate:
+      n_proc:
+        values: *id001
 privatization:
-  <<: *t
-  build:
-    files: "@SRCPATH@/privatization.cpp"
-
+  build: {files: '@SRCPATH@/privatization.cpp'}
+  group: GRPMPI
+  run:
+    iterate:
+      n_proc:
+        values: *id001

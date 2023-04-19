@@ -1,1572 +1,1164 @@
 test_diag-1_1:
   build:
-    cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-1.C'
-    sources:
-      binary: diag-1.s
+    sources: {binary: diag-1.s, cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_diag-1_2:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-1.C'
-    sources:
-      binary: diag-1.s
+    sources: {binary: diag-1.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_diag-1_3:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-1.C'
-    sources:
-      binary: diag-1.s
+    sources: {binary: diag-1.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_diag-1_67:
   build:
-    cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-1.C'
-    sources:
-      binary: diag-1.s
+    sources: {binary: diag-1.s, cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_diag-1_68:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-1.C'
-    sources:
-      binary: diag-1.s
+    sources: {binary: diag-1.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_diag-1_69:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-1.C'
-    sources:
-      binary: diag-1.s
+    sources: {binary: diag-1.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_diag-2_4:
   build:
-    cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-2.C'
-    sources:
-      binary: diag-2.s
+    sources: {binary: diag-2.s, cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L11:
-        expect: true
-        expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("implicitly auto
-          and declared \''__thread\''")[^\n]*\n?)+'
-      L12:
-        expect: true
-        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes|data types")[^\n]*\n?)+'
-      L13:
-        expect: true
-        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          before \''extern\''")[^\n]*\n?)+'
-      L14:
-        expect: true
-        expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes")[^\n]*\n?)+'
-      L15:
-        expect: true
-        expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO C\\\\+\\\\+1z
-          does not allow \''register\'' storage class specifier")[^\n]*\n?)+'
-      L17:
-        expect: true
-        expr: '(^|\n)([^\n]+:17:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid for function")[^\n]*\n?)+'
-      L18:
-        expect: true
-        expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid for function")[^\n]*\n?)+'
-      L19:
-        expect: true
-        expr: '(^|\n)([^\n]+:19:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid for function")[^\n]*\n?)+'
-      L20:
-        expect: true
-        expr: '(^|\n)([^\n]+:20:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid for function")[^\n]*\n?)+'
-      L22:
-        expect: true
-        expr: '(^|\n)([^\n]+:22:[^\n]*[0-9]+: (fatal )?error:[^\n]*("(invalid in parameter)|(specified
-          for parameter)")[^\n]*\n?)+'
-      L25:
-        expect: true
-        expr: '(^|\n)([^\n]+:25:[^\n]*[0-9]+: (fatal )?error:[^\n]*("storage class
-          specified")[^\n]*\n?)+'
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          before \''extern\''")[^\n]*\n?)+'
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          before \''static\''")[^\n]*\n?)+'
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("duplicate \''__thread\''")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes")[^\n]*\n?)+'
+      L11: {expect: true, expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("implicitly
+          auto and declared \''__thread\''")[^\n]*\n?)+'}
+      L12: {expect: true, expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes|data types")[^\n]*\n?)+'}
+      L13: {expect: true, expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          before \''extern\''")[^\n]*\n?)+'}
+      L14: {expect: true, expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes")[^\n]*\n?)+'}
+      L15: {expect: true, expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO
+          C\\\\+\\\\+1z does not allow \''register\'' storage class specifier")[^\n]*\n?)+'}
+      L17: {expect: true, expr: '(^|\n)([^\n]+:17:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid
+          for function")[^\n]*\n?)+'}
+      L18: {expect: true, expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid
+          for function")[^\n]*\n?)+'}
+      L19: {expect: true, expr: '(^|\n)([^\n]+:19:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid
+          for function")[^\n]*\n?)+'}
+      L20: {expect: true, expr: '(^|\n)([^\n]+:20:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid
+          for function")[^\n]*\n?)+'}
+      L22: {expect: true, expr: '(^|\n)([^\n]+:22:[^\n]*[0-9]+: (fatal )?error:[^\n]*("(invalid
+          in parameter)|(specified for parameter)")[^\n]*\n?)+'}
+      L25: {expect: true, expr: '(^|\n)([^\n]+:25:[^\n]*[0-9]+: (fatal )?error:[^\n]*("storage
+          class specified")[^\n]*\n?)+'}
+      L4: {expect: true, expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          before \''extern\''")[^\n]*\n?)+'}
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          before \''static\''")[^\n]*\n?)+'}
+      L6: {expect: true, expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("duplicate
+          \''__thread\''")[^\n]*\n?)+'}
+      L7: {expect: true, expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes")[^\n]*\n?)+'}
 test_diag-2_5:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-2.C'
-    sources:
-      binary: diag-2.s
+    sources: {binary: diag-2.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L11:
-        expect: true
-        expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("implicitly auto
-          and declared \''__thread\''")[^\n]*\n?)+'
-      L12:
-        expect: true
-        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes|data types")[^\n]*\n?)+'
-      L13:
-        expect: true
-        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          before \''extern\''")[^\n]*\n?)+'
-      L14:
-        expect: true
-        expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes")[^\n]*\n?)+'
-      L15:
-        expect: true
-        expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO C\\\\+\\\\+1z
-          does not allow \''register\'' storage class specifier")[^\n]*\n?)+'
-      L17:
-        expect: true
-        expr: '(^|\n)([^\n]+:17:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid for function")[^\n]*\n?)+'
-      L18:
-        expect: true
-        expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid for function")[^\n]*\n?)+'
-      L19:
-        expect: true
-        expr: '(^|\n)([^\n]+:19:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid for function")[^\n]*\n?)+'
-      L20:
-        expect: true
-        expr: '(^|\n)([^\n]+:20:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid for function")[^\n]*\n?)+'
-      L22:
-        expect: true
-        expr: '(^|\n)([^\n]+:22:[^\n]*[0-9]+: (fatal )?error:[^\n]*("(invalid in parameter)|(specified
-          for parameter)")[^\n]*\n?)+'
-      L25:
-        expect: true
-        expr: '(^|\n)([^\n]+:25:[^\n]*[0-9]+: (fatal )?error:[^\n]*("storage class
-          specified")[^\n]*\n?)+'
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          before \''extern\''")[^\n]*\n?)+'
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          before \''static\''")[^\n]*\n?)+'
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("duplicate \''__thread\''")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes")[^\n]*\n?)+'
+      L11: {expect: true, expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("implicitly
+          auto and declared \''__thread\''")[^\n]*\n?)+'}
+      L12: {expect: true, expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes|data types")[^\n]*\n?)+'}
+      L13: {expect: true, expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          before \''extern\''")[^\n]*\n?)+'}
+      L14: {expect: true, expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes")[^\n]*\n?)+'}
+      L15: {expect: true, expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO
+          C\\\\+\\\\+1z does not allow \''register\'' storage class specifier")[^\n]*\n?)+'}
+      L17: {expect: true, expr: '(^|\n)([^\n]+:17:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid
+          for function")[^\n]*\n?)+'}
+      L18: {expect: true, expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid
+          for function")[^\n]*\n?)+'}
+      L19: {expect: true, expr: '(^|\n)([^\n]+:19:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid
+          for function")[^\n]*\n?)+'}
+      L20: {expect: true, expr: '(^|\n)([^\n]+:20:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid
+          for function")[^\n]*\n?)+'}
+      L22: {expect: true, expr: '(^|\n)([^\n]+:22:[^\n]*[0-9]+: (fatal )?error:[^\n]*("(invalid
+          in parameter)|(specified for parameter)")[^\n]*\n?)+'}
+      L25: {expect: true, expr: '(^|\n)([^\n]+:25:[^\n]*[0-9]+: (fatal )?error:[^\n]*("storage
+          class specified")[^\n]*\n?)+'}
+      L4: {expect: true, expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          before \''extern\''")[^\n]*\n?)+'}
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          before \''static\''")[^\n]*\n?)+'}
+      L6: {expect: true, expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("duplicate
+          \''__thread\''")[^\n]*\n?)+'}
+      L7: {expect: true, expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes")[^\n]*\n?)+'}
 test_diag-2_6:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-2.C'
-    sources:
-      binary: diag-2.s
+    sources: {binary: diag-2.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L11:
-        expect: true
-        expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("implicitly auto
-          and declared \''__thread\''")[^\n]*\n?)+'
-      L12:
-        expect: true
-        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes|data types")[^\n]*\n?)+'
-      L13:
-        expect: true
-        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          before \''extern\''")[^\n]*\n?)+'
-      L14:
-        expect: true
-        expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes")[^\n]*\n?)+'
-      L15:
-        expect: true
-        expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO C\\\\+\\\\+1z
-          does not allow \''register\'' storage class specifier")[^\n]*\n?)+'
-      L17:
-        expect: true
-        expr: '(^|\n)([^\n]+:17:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid for function")[^\n]*\n?)+'
-      L18:
-        expect: true
-        expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid for function")[^\n]*\n?)+'
-      L19:
-        expect: true
-        expr: '(^|\n)([^\n]+:19:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid for function")[^\n]*\n?)+'
-      L20:
-        expect: true
-        expr: '(^|\n)([^\n]+:20:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid for function")[^\n]*\n?)+'
-      L22:
-        expect: true
-        expr: '(^|\n)([^\n]+:22:[^\n]*[0-9]+: (fatal )?error:[^\n]*("(invalid in parameter)|(specified
-          for parameter)")[^\n]*\n?)+'
-      L25:
-        expect: true
-        expr: '(^|\n)([^\n]+:25:[^\n]*[0-9]+: (fatal )?error:[^\n]*("storage class
-          specified")[^\n]*\n?)+'
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          before \''extern\''")[^\n]*\n?)+'
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          before \''static\''")[^\n]*\n?)+'
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("duplicate \''__thread\''")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes")[^\n]*\n?)+'
+      L11: {expect: true, expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("implicitly
+          auto and declared \''__thread\''")[^\n]*\n?)+'}
+      L12: {expect: true, expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes|data types")[^\n]*\n?)+'}
+      L13: {expect: true, expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          before \''extern\''")[^\n]*\n?)+'}
+      L14: {expect: true, expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes")[^\n]*\n?)+'}
+      L15: {expect: true, expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO
+          C\\\\+\\\\+1z does not allow \''register\'' storage class specifier")[^\n]*\n?)+'}
+      L17: {expect: true, expr: '(^|\n)([^\n]+:17:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid
+          for function")[^\n]*\n?)+'}
+      L18: {expect: true, expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid
+          for function")[^\n]*\n?)+'}
+      L19: {expect: true, expr: '(^|\n)([^\n]+:19:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid
+          for function")[^\n]*\n?)+'}
+      L20: {expect: true, expr: '(^|\n)([^\n]+:20:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid
+          for function")[^\n]*\n?)+'}
+      L22: {expect: true, expr: '(^|\n)([^\n]+:22:[^\n]*[0-9]+: (fatal )?error:[^\n]*("(invalid
+          in parameter)|(specified for parameter)")[^\n]*\n?)+'}
+      L25: {expect: true, expr: '(^|\n)([^\n]+:25:[^\n]*[0-9]+: (fatal )?error:[^\n]*("storage
+          class specified")[^\n]*\n?)+'}
+      L4: {expect: true, expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          before \''extern\''")[^\n]*\n?)+'}
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          before \''static\''")[^\n]*\n?)+'}
+      L6: {expect: true, expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("duplicate
+          \''__thread\''")[^\n]*\n?)+'}
+      L7: {expect: true, expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes")[^\n]*\n?)+'}
 test_diag-2_70:
   build:
-    cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-2.C'
-    sources:
-      binary: diag-2.s
+    sources: {binary: diag-2.s, cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L11:
-        expect: true
-        expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("implicitly auto
-          and declared \''__thread\''")[^\n]*\n?)+'
-      L12:
-        expect: true
-        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes|data types")[^\n]*\n?)+'
-      L13:
-        expect: true
-        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          before \''extern\''")[^\n]*\n?)+'
-      L14:
-        expect: true
-        expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes")[^\n]*\n?)+'
-      L15:
-        expect: true
-        expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO C\\\\+\\\\+1z
-          does not allow \''register\'' storage class specifier")[^\n]*\n?)+'
-      L17:
-        expect: true
-        expr: '(^|\n)([^\n]+:17:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid for function")[^\n]*\n?)+'
-      L18:
-        expect: true
-        expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid for function")[^\n]*\n?)+'
-      L19:
-        expect: true
-        expr: '(^|\n)([^\n]+:19:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid for function")[^\n]*\n?)+'
-      L20:
-        expect: true
-        expr: '(^|\n)([^\n]+:20:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid for function")[^\n]*\n?)+'
-      L22:
-        expect: true
-        expr: '(^|\n)([^\n]+:22:[^\n]*[0-9]+: (fatal )?error:[^\n]*("(invalid in parameter)|(specified
-          for parameter)")[^\n]*\n?)+'
-      L25:
-        expect: true
-        expr: '(^|\n)([^\n]+:25:[^\n]*[0-9]+: (fatal )?error:[^\n]*("storage class
-          specified")[^\n]*\n?)+'
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          before \''extern\''")[^\n]*\n?)+'
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          before \''static\''")[^\n]*\n?)+'
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("duplicate \''__thread\''")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes")[^\n]*\n?)+'
+      L11: {expect: true, expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("implicitly
+          auto and declared \''__thread\''")[^\n]*\n?)+'}
+      L12: {expect: true, expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes|data types")[^\n]*\n?)+'}
+      L13: {expect: true, expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          before \''extern\''")[^\n]*\n?)+'}
+      L14: {expect: true, expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes")[^\n]*\n?)+'}
+      L15: {expect: true, expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO
+          C\\\\+\\\\+1z does not allow \''register\'' storage class specifier")[^\n]*\n?)+'}
+      L17: {expect: true, expr: '(^|\n)([^\n]+:17:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid
+          for function")[^\n]*\n?)+'}
+      L18: {expect: true, expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid
+          for function")[^\n]*\n?)+'}
+      L19: {expect: true, expr: '(^|\n)([^\n]+:19:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid
+          for function")[^\n]*\n?)+'}
+      L20: {expect: true, expr: '(^|\n)([^\n]+:20:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid
+          for function")[^\n]*\n?)+'}
+      L22: {expect: true, expr: '(^|\n)([^\n]+:22:[^\n]*[0-9]+: (fatal )?error:[^\n]*("(invalid
+          in parameter)|(specified for parameter)")[^\n]*\n?)+'}
+      L25: {expect: true, expr: '(^|\n)([^\n]+:25:[^\n]*[0-9]+: (fatal )?error:[^\n]*("storage
+          class specified")[^\n]*\n?)+'}
+      L4: {expect: true, expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          before \''extern\''")[^\n]*\n?)+'}
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          before \''static\''")[^\n]*\n?)+'}
+      L6: {expect: true, expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("duplicate
+          \''__thread\''")[^\n]*\n?)+'}
+      L7: {expect: true, expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes")[^\n]*\n?)+'}
 test_diag-2_71:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-2.C'
-    sources:
-      binary: diag-2.s
+    sources: {binary: diag-2.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L11:
-        expect: true
-        expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("implicitly auto
-          and declared \''__thread\''")[^\n]*\n?)+'
-      L12:
-        expect: true
-        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes|data types")[^\n]*\n?)+'
-      L13:
-        expect: true
-        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          before \''extern\''")[^\n]*\n?)+'
-      L14:
-        expect: true
-        expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes")[^\n]*\n?)+'
-      L15:
-        expect: true
-        expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO C\\\\+\\\\+1z
-          does not allow \''register\'' storage class specifier")[^\n]*\n?)+'
-      L17:
-        expect: true
-        expr: '(^|\n)([^\n]+:17:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid for function")[^\n]*\n?)+'
-      L18:
-        expect: true
-        expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid for function")[^\n]*\n?)+'
-      L19:
-        expect: true
-        expr: '(^|\n)([^\n]+:19:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid for function")[^\n]*\n?)+'
-      L20:
-        expect: true
-        expr: '(^|\n)([^\n]+:20:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid for function")[^\n]*\n?)+'
-      L22:
-        expect: true
-        expr: '(^|\n)([^\n]+:22:[^\n]*[0-9]+: (fatal )?error:[^\n]*("(invalid in parameter)|(specified
-          for parameter)")[^\n]*\n?)+'
-      L25:
-        expect: true
-        expr: '(^|\n)([^\n]+:25:[^\n]*[0-9]+: (fatal )?error:[^\n]*("storage class
-          specified")[^\n]*\n?)+'
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          before \''extern\''")[^\n]*\n?)+'
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          before \''static\''")[^\n]*\n?)+'
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("duplicate \''__thread\''")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes")[^\n]*\n?)+'
+      L11: {expect: true, expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("implicitly
+          auto and declared \''__thread\''")[^\n]*\n?)+'}
+      L12: {expect: true, expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes|data types")[^\n]*\n?)+'}
+      L13: {expect: true, expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          before \''extern\''")[^\n]*\n?)+'}
+      L14: {expect: true, expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes")[^\n]*\n?)+'}
+      L15: {expect: true, expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO
+          C\\\\+\\\\+1z does not allow \''register\'' storage class specifier")[^\n]*\n?)+'}
+      L17: {expect: true, expr: '(^|\n)([^\n]+:17:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid
+          for function")[^\n]*\n?)+'}
+      L18: {expect: true, expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid
+          for function")[^\n]*\n?)+'}
+      L19: {expect: true, expr: '(^|\n)([^\n]+:19:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid
+          for function")[^\n]*\n?)+'}
+      L20: {expect: true, expr: '(^|\n)([^\n]+:20:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid
+          for function")[^\n]*\n?)+'}
+      L22: {expect: true, expr: '(^|\n)([^\n]+:22:[^\n]*[0-9]+: (fatal )?error:[^\n]*("(invalid
+          in parameter)|(specified for parameter)")[^\n]*\n?)+'}
+      L25: {expect: true, expr: '(^|\n)([^\n]+:25:[^\n]*[0-9]+: (fatal )?error:[^\n]*("storage
+          class specified")[^\n]*\n?)+'}
+      L4: {expect: true, expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          before \''extern\''")[^\n]*\n?)+'}
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          before \''static\''")[^\n]*\n?)+'}
+      L6: {expect: true, expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("duplicate
+          \''__thread\''")[^\n]*\n?)+'}
+      L7: {expect: true, expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes")[^\n]*\n?)+'}
 test_diag-2_72:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-2.C'
-    sources:
-      binary: diag-2.s
+    sources: {binary: diag-2.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L11:
-        expect: true
-        expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("implicitly auto
-          and declared \''__thread\''")[^\n]*\n?)+'
-      L12:
-        expect: true
-        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes|data types")[^\n]*\n?)+'
-      L13:
-        expect: true
-        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          before \''extern\''")[^\n]*\n?)+'
-      L14:
-        expect: true
-        expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes")[^\n]*\n?)+'
-      L15:
-        expect: true
-        expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO C\\\\+\\\\+1z
-          does not allow \''register\'' storage class specifier")[^\n]*\n?)+'
-      L17:
-        expect: true
-        expr: '(^|\n)([^\n]+:17:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid for function")[^\n]*\n?)+'
-      L18:
-        expect: true
-        expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid for function")[^\n]*\n?)+'
-      L19:
-        expect: true
-        expr: '(^|\n)([^\n]+:19:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid for function")[^\n]*\n?)+'
-      L20:
-        expect: true
-        expr: '(^|\n)([^\n]+:20:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid for function")[^\n]*\n?)+'
-      L22:
-        expect: true
-        expr: '(^|\n)([^\n]+:22:[^\n]*[0-9]+: (fatal )?error:[^\n]*("(invalid in parameter)|(specified
-          for parameter)")[^\n]*\n?)+'
-      L25:
-        expect: true
-        expr: '(^|\n)([^\n]+:25:[^\n]*[0-9]+: (fatal )?error:[^\n]*("storage class
-          specified")[^\n]*\n?)+'
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          before \''extern\''")[^\n]*\n?)+'
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          before \''static\''")[^\n]*\n?)+'
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("duplicate \''__thread\''")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes")[^\n]*\n?)+'
+      L11: {expect: true, expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("implicitly
+          auto and declared \''__thread\''")[^\n]*\n?)+'}
+      L12: {expect: true, expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes|data types")[^\n]*\n?)+'}
+      L13: {expect: true, expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          before \''extern\''")[^\n]*\n?)+'}
+      L14: {expect: true, expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes")[^\n]*\n?)+'}
+      L15: {expect: true, expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO
+          C\\\\+\\\\+1z does not allow \''register\'' storage class specifier")[^\n]*\n?)+'}
+      L17: {expect: true, expr: '(^|\n)([^\n]+:17:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid
+          for function")[^\n]*\n?)+'}
+      L18: {expect: true, expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid
+          for function")[^\n]*\n?)+'}
+      L19: {expect: true, expr: '(^|\n)([^\n]+:19:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid
+          for function")[^\n]*\n?)+'}
+      L20: {expect: true, expr: '(^|\n)([^\n]+:20:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid
+          for function")[^\n]*\n?)+'}
+      L22: {expect: true, expr: '(^|\n)([^\n]+:22:[^\n]*[0-9]+: (fatal )?error:[^\n]*("(invalid
+          in parameter)|(specified for parameter)")[^\n]*\n?)+'}
+      L25: {expect: true, expr: '(^|\n)([^\n]+:25:[^\n]*[0-9]+: (fatal )?error:[^\n]*("storage
+          class specified")[^\n]*\n?)+'}
+      L4: {expect: true, expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          before \''extern\''")[^\n]*\n?)+'}
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          before \''static\''")[^\n]*\n?)+'}
+      L6: {expect: true, expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("duplicate
+          \''__thread\''")[^\n]*\n?)+'}
+      L7: {expect: true, expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes")[^\n]*\n?)+'}
 test_diag-3_7:
   build:
-    cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-3.C'
-    sources:
-      binary: diag-3.s
+    sources: {binary: diag-3.s, cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("follows non-thread-local")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("follows thread-local")[^\n]*\n?)+'
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("follows
+          non-thread-local")[^\n]*\n?)+'}
+      L8: {expect: true, expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("follows
+          thread-local")[^\n]*\n?)+'}
 test_diag-3_73:
   build:
-    cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-3.C'
-    sources:
-      binary: diag-3.s
+    sources: {binary: diag-3.s, cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("follows non-thread-local")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("follows thread-local")[^\n]*\n?)+'
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("follows
+          non-thread-local")[^\n]*\n?)+'}
+      L8: {expect: true, expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("follows
+          thread-local")[^\n]*\n?)+'}
 test_diag-3_74:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-3.C'
-    sources:
-      binary: diag-3.s
+    sources: {binary: diag-3.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("follows non-thread-local")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("follows thread-local")[^\n]*\n?)+'
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("follows
+          non-thread-local")[^\n]*\n?)+'}
+      L8: {expect: true, expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("follows
+          thread-local")[^\n]*\n?)+'}
 test_diag-3_75:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-3.C'
-    sources:
-      binary: diag-3.s
+    sources: {binary: diag-3.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("follows non-thread-local")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("follows thread-local")[^\n]*\n?)+'
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("follows
+          non-thread-local")[^\n]*\n?)+'}
+      L8: {expect: true, expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("follows
+          thread-local")[^\n]*\n?)+'}
 test_diag-3_8:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-3.C'
-    sources:
-      binary: diag-3.s
+    sources: {binary: diag-3.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("follows non-thread-local")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("follows thread-local")[^\n]*\n?)+'
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("follows
+          non-thread-local")[^\n]*\n?)+'}
+      L8: {expect: true, expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("follows
+          thread-local")[^\n]*\n?)+'}
 test_diag-3_9:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-3.C'
-    sources:
-      binary: diag-3.s
+    sources: {binary: diag-3.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("follows non-thread-local")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("follows thread-local")[^\n]*\n?)+'
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("follows
+          non-thread-local")[^\n]*\n?)+'}
+      L8: {expect: true, expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("follows
+          thread-local")[^\n]*\n?)+'}
 test_diag-4_10:
   build:
-    cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-4.C'
-    sources:
-      binary: diag-4.s
+    sources: {binary: diag-4.s, cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L10:
-        expect: true
-        expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO C\\\\+\\\\+1z
-          does not allow \''register\'' storage class specifier")[^\n]*\n?)+'
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes|data types")[^\n]*\n?)+'
-      L9:
-        expect: true
-        expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes")[^\n]*\n?)+'
+      L10: {expect: true, expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO
+          C\\\\+\\\\+1z does not allow \''register\'' storage class specifier")[^\n]*\n?)+'}
+      L4: {expect: true, expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes")[^\n]*\n?)+'}
+      L8: {expect: true, expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes|data types")[^\n]*\n?)+'}
+      L9: {expect: true, expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes")[^\n]*\n?)+'}
 test_diag-4_11:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-4.C'
-    sources:
-      binary: diag-4.s
+    sources: {binary: diag-4.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L10:
-        expect: true
-        expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO C\\\\+\\\\+1z
-          does not allow \''register\'' storage class specifier")[^\n]*\n?)+'
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes|data types")[^\n]*\n?)+'
-      L9:
-        expect: true
-        expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes")[^\n]*\n?)+'
+      L10: {expect: true, expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO
+          C\\\\+\\\\+1z does not allow \''register\'' storage class specifier")[^\n]*\n?)+'}
+      L4: {expect: true, expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes")[^\n]*\n?)+'}
+      L8: {expect: true, expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes|data types")[^\n]*\n?)+'}
+      L9: {expect: true, expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes")[^\n]*\n?)+'}
 test_diag-4_12:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-4.C'
-    sources:
-      binary: diag-4.s
+    sources: {binary: diag-4.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L10:
-        expect: true
-        expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO C\\\\+\\\\+1z
-          does not allow \''register\'' storage class specifier")[^\n]*\n?)+'
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes|data types")[^\n]*\n?)+'
-      L9:
-        expect: true
-        expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes")[^\n]*\n?)+'
+      L10: {expect: true, expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO
+          C\\\\+\\\\+1z does not allow \''register\'' storage class specifier")[^\n]*\n?)+'}
+      L4: {expect: true, expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes")[^\n]*\n?)+'}
+      L8: {expect: true, expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes|data types")[^\n]*\n?)+'}
+      L9: {expect: true, expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes")[^\n]*\n?)+'}
 test_diag-4_76:
   build:
-    cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-4.C'
-    sources:
-      binary: diag-4.s
+    sources: {binary: diag-4.s, cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L10:
-        expect: true
-        expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO C\\\\+\\\\+1z
-          does not allow \''register\'' storage class specifier")[^\n]*\n?)+'
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes|data types")[^\n]*\n?)+'
-      L9:
-        expect: true
-        expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes")[^\n]*\n?)+'
+      L10: {expect: true, expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO
+          C\\\\+\\\\+1z does not allow \''register\'' storage class specifier")[^\n]*\n?)+'}
+      L4: {expect: true, expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes")[^\n]*\n?)+'}
+      L8: {expect: true, expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes|data types")[^\n]*\n?)+'}
+      L9: {expect: true, expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes")[^\n]*\n?)+'}
 test_diag-4_77:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-4.C'
-    sources:
-      binary: diag-4.s
+    sources: {binary: diag-4.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L10:
-        expect: true
-        expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO C\\\\+\\\\+1z
-          does not allow \''register\'' storage class specifier")[^\n]*\n?)+'
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes|data types")[^\n]*\n?)+'
-      L9:
-        expect: true
-        expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes")[^\n]*\n?)+'
+      L10: {expect: true, expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO
+          C\\\\+\\\\+1z does not allow \''register\'' storage class specifier")[^\n]*\n?)+'}
+      L4: {expect: true, expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes")[^\n]*\n?)+'}
+      L8: {expect: true, expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes|data types")[^\n]*\n?)+'}
+      L9: {expect: true, expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes")[^\n]*\n?)+'}
 test_diag-4_78:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-4.C'
-    sources:
-      binary: diag-4.s
+    sources: {binary: diag-4.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L10:
-        expect: true
-        expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO C\\\\+\\\\+1z
-          does not allow \''register\'' storage class specifier")[^\n]*\n?)+'
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes|data types")[^\n]*\n?)+'
-      L9:
-        expect: true
-        expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes")[^\n]*\n?)+'
+      L10: {expect: true, expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*("ISO
+          C\\\\+\\\\+1z does not allow \''register\'' storage class specifier")[^\n]*\n?)+'}
+      L4: {expect: true, expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes")[^\n]*\n?)+'}
+      L8: {expect: true, expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes|data types")[^\n]*\n?)+'}
+      L9: {expect: true, expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes")[^\n]*\n?)+'}
 test_diag-5_13:
   build:
-    cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-5.C'
-    sources:
-      binary: diag-5.s
+    sources: {binary: diag-5.s, cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes|storage class specified")[^\n]*\n?)+'
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes|storage class specified")[^\n]*\n?)+'}
 test_diag-5_14:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-5.C'
-    sources:
-      binary: diag-5.s
+    sources: {binary: diag-5.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes|storage class specified")[^\n]*\n?)+'
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes|storage class specified")[^\n]*\n?)+'}
 test_diag-5_15:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-5.C'
-    sources:
-      binary: diag-5.s
+    sources: {binary: diag-5.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes|storage class specified")[^\n]*\n?)+'
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes|storage class specified")[^\n]*\n?)+'}
 test_diag-5_79:
   build:
-    cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-5.C'
-    sources:
-      binary: diag-5.s
+    sources: {binary: diag-5.s, cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes|storage class specified")[^\n]*\n?)+'
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes|storage class specified")[^\n]*\n?)+'}
 test_diag-5_80:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-5.C'
-    sources:
-      binary: diag-5.s
+    sources: {binary: diag-5.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes|storage class specified")[^\n]*\n?)+'
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes|storage class specified")[^\n]*\n?)+'}
 test_diag-5_81:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/diag-5.C'
-    sources:
-      binary: diag-5.s
+    sources: {binary: diag-5.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple storage
-          classes|storage class specified")[^\n]*\n?)+'
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("multiple
+          storage classes|storage class specified")[^\n]*\n?)+'}
 test_init-1_16:
   build:
-    cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/init-1.C'
-    sources:
-      binary: init-1.s
+    sources: {binary: init-1.s, cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_init-1_17:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/init-1.C'
-    sources:
-      binary: init-1.s
+    sources: {binary: init-1.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_init-1_18:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/init-1.C'
-    sources:
-      binary: init-1.s
+    sources: {binary: init-1.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_init-1_82:
   build:
-    cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/init-1.C'
-    sources:
-      binary: init-1.s
+    sources: {binary: init-1.s, cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_init-1_83:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/init-1.C'
-    sources:
-      binary: init-1.s
+    sources: {binary: init-1.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_init-1_84:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/init-1.C'
-    sources:
-      binary: init-1.s
+    sources: {binary: init-1.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_init-2_19:
   build:
-    cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/init-2.C'
-    sources:
-      binary: init-2.s
+    sources: {binary: init-2.s, cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L14:
-        expect: true
-        expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("dynamic initialization")[^\n]*\n?)+'
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("dynamic initialization")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("dynamic initialization")[^\n]*\n?)+'
+      L14: {expect: true, expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("dynamic
+          initialization")[^\n]*\n?)+'}
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("dynamic
+          initialization")[^\n]*\n?)+'}
+      L8: {expect: true, expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("dynamic
+          initialization")[^\n]*\n?)+'}
 test_init-2_20:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/init-2.C'
-    sources:
-      binary: init-2.s
+    sources: {binary: init-2.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L14:
-        expect: true
-        expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("dynamic initialization")[^\n]*\n?)+'
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("dynamic initialization")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("dynamic initialization")[^\n]*\n?)+'
+      L14: {expect: true, expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("dynamic
+          initialization")[^\n]*\n?)+'}
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("dynamic
+          initialization")[^\n]*\n?)+'}
+      L8: {expect: true, expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("dynamic
+          initialization")[^\n]*\n?)+'}
 test_init-2_21:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/init-2.C'
-    sources:
-      binary: init-2.s
+    sources: {binary: init-2.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L14:
-        expect: true
-        expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("dynamic initialization")[^\n]*\n?)+'
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("dynamic initialization")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("dynamic initialization")[^\n]*\n?)+'
+      L14: {expect: true, expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("dynamic
+          initialization")[^\n]*\n?)+'}
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("dynamic
+          initialization")[^\n]*\n?)+'}
+      L8: {expect: true, expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("dynamic
+          initialization")[^\n]*\n?)+'}
 test_init-2_85:
   build:
-    cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/init-2.C'
-    sources:
-      binary: init-2.s
+    sources: {binary: init-2.s, cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L14:
-        expect: true
-        expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("dynamic initialization")[^\n]*\n?)+'
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("dynamic initialization")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("dynamic initialization")[^\n]*\n?)+'
+      L14: {expect: true, expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("dynamic
+          initialization")[^\n]*\n?)+'}
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("dynamic
+          initialization")[^\n]*\n?)+'}
+      L8: {expect: true, expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("dynamic
+          initialization")[^\n]*\n?)+'}
 test_init-2_86:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/init-2.C'
-    sources:
-      binary: init-2.s
+    sources: {binary: init-2.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L14:
-        expect: true
-        expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("dynamic initialization")[^\n]*\n?)+'
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("dynamic initialization")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("dynamic initialization")[^\n]*\n?)+'
+      L14: {expect: true, expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("dynamic
+          initialization")[^\n]*\n?)+'}
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("dynamic
+          initialization")[^\n]*\n?)+'}
+      L8: {expect: true, expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("dynamic
+          initialization")[^\n]*\n?)+'}
 test_init-2_87:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/init-2.C'
-    sources:
-      binary: init-2.s
+    sources: {binary: init-2.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L14:
-        expect: true
-        expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("dynamic initialization")[^\n]*\n?)+'
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("dynamic initialization")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("dynamic initialization")[^\n]*\n?)+'
+      L14: {expect: true, expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("dynamic
+          initialization")[^\n]*\n?)+'}
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("dynamic
+          initialization")[^\n]*\n?)+'}
+      L8: {expect: true, expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("dynamic
+          initialization")[^\n]*\n?)+'}
 test_pr66808_22:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/pr66808.C'
-    sources:
-      binary: pr66808.s
+    sources: {binary: pr66808.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_pr66808_23:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/pr66808.C'
-    sources:
-      binary: pr66808.s
+    sources: {binary: pr66808.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_pr66808_88:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/pr66808.C'
-    sources:
-      binary: pr66808.s
+    sources: {binary: pr66808.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_pr66808_89:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/pr66808.C'
-    sources:
-      binary: pr66808.s
+    sources: {binary: pr66808.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_pr69000_24:
   build:
-    cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/pr69000.C'
-    sources:
-      binary: pr69000.s
+    sources: {binary: pr69000.s, cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_pr69000_25:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/pr69000.C'
-    sources:
-      binary: pr69000.s
+    sources: {binary: pr69000.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_pr69000_26:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/pr69000.C'
-    sources:
-      binary: pr69000.s
+    sources: {binary: pr69000.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_pr69000_90:
   build:
-    cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/pr69000.C'
-    sources:
-      binary: pr69000.s
+    sources: {binary: pr69000.s, cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_pr69000_91:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/pr69000.C'
-    sources:
-      binary: pr69000.s
+    sources: {binary: pr69000.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_pr69000_92:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/pr69000.C'
-    sources:
-      binary: pr69000.s
+    sources: {binary: pr69000.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_pr77285-1_27:
   build:
-    cflags: -std=c++11  -pedantic-errors -Wno-long-long
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/pr77285-1.C'
-    sources:
-      binary: pr77285-1.exe
+    sources: {binary: pr77285-1.exe, cflags: -std=c++11  -pedantic-errors -Wno-long-long}
   group: GRPSERIAL
-  run:
-    cwd: .
+  run: {cwd: .}
 test_pr77285-1_28:
   build:
-    cflags: -std=c++14  -pedantic-errors -Wno-long-long
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/pr77285-1.C'
-    sources:
-      binary: pr77285-1.exe
+    sources: {binary: pr77285-1.exe, cflags: -std=c++14  -pedantic-errors -Wno-long-long}
   group: GRPSERIAL
-  run:
-    cwd: .
+  run: {cwd: .}
 test_pr77285-1_93:
   build:
-    cflags: -std=c++11  -pedantic-errors -Wno-long-long
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/pr77285-1.C'
-    sources:
-      binary: pr77285-1.exe
+    sources: {binary: pr77285-1.exe, cflags: -std=c++11  -pedantic-errors -Wno-long-long}
   group: GRPSERIAL
-  run:
-    cwd: .
+  run: {cwd: .}
 test_pr77285-1_94:
   build:
-    cflags: -std=c++14  -pedantic-errors -Wno-long-long
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/pr77285-1.C'
-    sources:
-      binary: pr77285-1.exe
+    sources: {binary: pr77285-1.exe, cflags: -std=c++14  -pedantic-errors -Wno-long-long}
   group: GRPSERIAL
-  run:
-    cwd: .
+  run: {cwd: .}
 test_pr77285-2_29:
   build:
-    cflags: "-std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/pr77285-2.C'
-    sources:
-      binary: pr77285-2.s
+    sources: {binary: pr77285-2.s, cflags: "-std=c++11 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_pr77285-2_30:
   build:
-    cflags: "-std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/pr77285-2.C'
-    sources:
-      binary: pr77285-2.s
+    sources: {binary: pr77285-2.s, cflags: "-std=c++14 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_pr77285-2_95:
   build:
-    cflags: "-std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/pr77285-2.C'
-    sources:
-      binary: pr77285-2.s
+    sources: {binary: pr77285-2.s, cflags: "-std=c++11 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_pr77285-2_96:
   build:
-    cflags: "-std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/pr77285-2.C'
-    sources:
-      binary: pr77285-2.s
+    sources: {binary: pr77285-2.s, cflags: "-std=c++14 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_pr79288_31:
   build:
-    cflags: "-std=gnu++98 -O2 -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/pr79288.C'
-    sources:
-      binary: pr79288.s
+    sources: {binary: pr79288.s, cflags: "-std=gnu++98 -O2 -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_pr79288_32:
   build:
-    cflags: "-std=gnu++11 -O2 -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/pr79288.C'
-    sources:
-      binary: pr79288.s
+    sources: {binary: pr79288.s, cflags: "-std=gnu++11 -O2 -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_pr79288_33:
   build:
-    cflags: "-std=gnu++14 -O2 -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/pr79288.C'
-    sources:
-      binary: pr79288.s
+    sources: {binary: pr79288.s, cflags: "-std=gnu++14 -O2 -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_pr79288_97:
   build:
-    cflags: "-std=gnu++98 -O2 -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/pr79288.C'
-    sources:
-      binary: pr79288.s
+    sources: {binary: pr79288.s, cflags: "-std=gnu++98 -O2 -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_pr79288_98:
   build:
-    cflags: "-std=gnu++11 -O2 -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/pr79288.C'
-    sources:
-      binary: pr79288.s
+    sources: {binary: pr79288.s, cflags: "-std=gnu++11 -O2 -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_pr79288_99:
   build:
-    cflags: "-std=gnu++14 -O2 -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/pr79288.C'
-    sources:
-      binary: pr79288.s
+    sources: {binary: pr79288.s, cflags: "-std=gnu++14 -O2 -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_static2_100:
   build:
-    cflags: "-std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/static2.C'
-    sources:
-      binary: static2.s
+    sources: {binary: static2.s, cflags: "-std=c++98 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_static2_101:
   build:
-    cflags: "-std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/static2.C'
-    sources:
-      binary: static2.s
+    sources: {binary: static2.s, cflags: "-std=c++11 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_static2_102:
   build:
-    cflags: "-std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/static2.C'
-    sources:
-      binary: static2.s
+    sources: {binary: static2.s, cflags: "-std=c++14 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_static2_34:
   build:
-    cflags: "-std=c++98 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/static2.C'
-    sources:
-      binary: static2.s
+    sources: {binary: static2.s, cflags: "-std=c++98 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_static2_35:
   build:
-    cflags: "-std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/static2.C'
-    sources:
-      binary: static2.s
+    sources: {binary: static2.s, cflags: "-std=c++11 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_static2_36:
   build:
-    cflags: "-std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/static2.C'
-    sources:
-      binary: static2.s
+    sources: {binary: static2.s, cflags: "-std=c++14 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_thread_local-ice2_105:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-ice2.C'
-    sources:
-      binary: thread_local-ice2.s
+    sources: {binary: thread_local-ice2.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
+      L8: {expect: true, expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'}
 test_thread_local-ice2_106:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-ice2.C'
-    sources:
-      binary: thread_local-ice2.s
+    sources: {binary: thread_local-ice2.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
+      L8: {expect: true, expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'}
 test_thread_local-ice2_39:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-ice2.C'
-    sources:
-      binary: thread_local-ice2.s
+    sources: {binary: thread_local-ice2.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
+      L8: {expect: true, expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'}
 test_thread_local-ice2_40:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-ice2.C'
-    sources:
-      binary: thread_local-ice2.s
+    sources: {binary: thread_local-ice2.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'
+      L8: {expect: true, expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("")[^\n]*\n?)+'}
 test_thread_local-ice3_107:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-ice3.C'
-    sources:
-      binary: thread_local-ice3.s
+    sources: {binary: thread_local-ice3.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_thread_local-ice3_108:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-ice3.C'
-    sources:
-      binary: thread_local-ice3.s
+    sources: {binary: thread_local-ice3.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_thread_local-ice3_41:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-ice3.C'
-    sources:
-      binary: thread_local-ice3.s
+    sources: {binary: thread_local-ice3.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_thread_local-ice3_42:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-ice3.C'
-    sources:
-      binary: thread_local-ice3.s
+    sources: {binary: thread_local-ice3.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_thread_local-ice4_109:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-ice4.C'
-    sources:
-      binary: thread_local-ice4.s
+    sources: {binary: thread_local-ice4.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_thread_local-ice4_110:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-ice4.C'
-    sources:
-      binary: thread_local-ice4.s
+    sources: {binary: thread_local-ice4.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_thread_local-ice4_43:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-ice4.C'
-    sources:
-      binary: thread_local-ice4.s
+    sources: {binary: thread_local-ice4.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_thread_local-ice4_44:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-ice4.C'
-    sources:
-      binary: thread_local-ice4.s
+    sources: {binary: thread_local-ice4.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_thread_local-ice_103:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-ice.C'
-    sources:
-      binary: thread_local-ice.s
+    sources: {binary: thread_local-ice.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("incomplete")[^\n]*\n?)+'
+      L6: {expect: true, expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("incomplete")[^\n]*\n?)+'}
 test_thread_local-ice_104:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-ice.C'
-    sources:
-      binary: thread_local-ice.s
+    sources: {binary: thread_local-ice.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("incomplete")[^\n]*\n?)+'
+      L6: {expect: true, expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("incomplete")[^\n]*\n?)+'}
 test_thread_local-ice_37:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-ice.C'
-    sources:
-      binary: thread_local-ice.s
+    sources: {binary: thread_local-ice.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("incomplete")[^\n]*\n?)+'
+      L6: {expect: true, expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("incomplete")[^\n]*\n?)+'}
 test_thread_local-ice_38:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-ice.C'
-    sources:
-      binary: thread_local-ice.s
+    sources: {binary: thread_local-ice.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("incomplete")[^\n]*\n?)+'
+      L6: {expect: true, expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("incomplete")[^\n]*\n?)+'}
 test_thread_local-wrap1_111:
   build:
-    cflags: "-std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-wrap1.C'
-    sources:
-      binary: thread_local-wrap1.s
+    sources: {binary: thread_local-wrap1.s, cflags: "-std=c++11 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_thread_local-wrap1_112:
   build:
-    cflags: "-std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-wrap1.C'
-    sources:
-      binary: thread_local-wrap1.s
+    sources: {binary: thread_local-wrap1.s, cflags: "-std=c++14 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_thread_local-wrap1_45:
   build:
-    cflags: "-std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-wrap1.C'
-    sources:
-      binary: thread_local-wrap1.s
+    sources: {binary: thread_local-wrap1.s, cflags: "-std=c++11 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_thread_local-wrap1_46:
   build:
-    cflags: "-std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-wrap1.C'
-    sources:
-      binary: thread_local-wrap1.s
+    sources: {binary: thread_local-wrap1.s, cflags: "-std=c++14 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_thread_local-wrap2_113:
   build:
-    cflags: "-std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-wrap2.C'
-    sources:
-      binary: thread_local-wrap2.s
+    sources: {binary: thread_local-wrap2.s, cflags: "-std=c++11 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_thread_local-wrap2_114:
   build:
-    cflags: "-std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-wrap2.C'
-    sources:
-      binary: thread_local-wrap2.s
+    sources: {binary: thread_local-wrap2.s, cflags: "-std=c++14 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_thread_local-wrap2_47:
   build:
-    cflags: "-std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-wrap2.C'
-    sources:
-      binary: thread_local-wrap2.s
+    sources: {binary: thread_local-wrap2.s, cflags: "-std=c++11 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_thread_local-wrap2_48:
   build:
-    cflags: "-std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-wrap2.C'
-    sources:
-      binary: thread_local-wrap2.s
+    sources: {binary: thread_local-wrap2.s, cflags: "-std=c++14 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_thread_local-wrap3_115:
   build:
-    cflags: "-std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-wrap3.C'
-    sources:
-      binary: thread_local-wrap3.s
+    sources: {binary: thread_local-wrap3.s, cflags: "-std=c++11 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_thread_local-wrap3_116:
   build:
-    cflags: "-std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-wrap3.C'
-    sources:
-      binary: thread_local-wrap3.s
+    sources: {binary: thread_local-wrap3.s, cflags: "-std=c++14 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_thread_local-wrap3_49:
   build:
-    cflags: "-std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-wrap3.C'
-    sources:
-      binary: thread_local-wrap3.s
+    sources: {binary: thread_local-wrap3.s, cflags: "-std=c++11 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_thread_local-wrap3_50:
   build:
-    cflags: "-std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-wrap3.C'
-    sources:
-      binary: thread_local-wrap3.s
+    sources: {binary: thread_local-wrap3.s, cflags: "-std=c++14 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_thread_local-wrap4_117:
   build:
-    cflags: "-std=gnu++11 -fPIC -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-wrap4.C'
-    sources:
-      binary: thread_local-wrap4.s
+    sources: {binary: thread_local-wrap4.s, cflags: "-std=gnu++11 -fPIC -ffat-lto-objects\n
+        -S"}
   group: GRPSERIAL
 test_thread_local-wrap4_118:
   build:
-    cflags: "-std=gnu++14 -fPIC -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-wrap4.C'
-    sources:
-      binary: thread_local-wrap4.s
+    sources: {binary: thread_local-wrap4.s, cflags: "-std=gnu++14 -fPIC -ffat-lto-objects\n
+        -S"}
   group: GRPSERIAL
 test_thread_local-wrap4_51:
   build:
-    cflags: "-std=gnu++11 -fPIC -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-wrap4.C'
-    sources:
-      binary: thread_local-wrap4.s
+    sources: {binary: thread_local-wrap4.s, cflags: "-std=gnu++11 -fPIC -ffat-lto-objects\n
+        -S"}
   group: GRPSERIAL
 test_thread_local-wrap4_52:
   build:
-    cflags: "-std=gnu++14 -fPIC -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local-wrap4.C'
-    sources:
-      binary: thread_local-wrap4.s
+    sources: {binary: thread_local-wrap4.s, cflags: "-std=gnu++14 -fPIC -ffat-lto-objects\n
+        -S"}
   group: GRPSERIAL
 test_thread_local1_119:
   build:
-    cflags: "-std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local1.C'
-    sources:
-      binary: thread_local1.s
+    sources: {binary: thread_local1.s, cflags: "-std=c++11 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_thread_local1_120:
   build:
-    cflags: "-std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local1.C'
-    sources:
-      binary: thread_local1.s
+    sources: {binary: thread_local1.s, cflags: "-std=c++14 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_thread_local1_53:
   build:
-    cflags: "-std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local1.C'
-    sources:
-      binary: thread_local1.s
+    sources: {binary: thread_local1.s, cflags: "-std=c++11 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_thread_local1_54:
   build:
-    cflags: "-std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local1.C'
-    sources:
-      binary: thread_local1.s
+    sources: {binary: thread_local1.s, cflags: "-std=c++14 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_thread_local7_121:
   build:
-    cflags: "-std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local7.C'
-    sources:
-      binary: thread_local7.s
+    sources: {binary: thread_local7.s, cflags: "-std=c++11 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_thread_local7_122:
   build:
-    cflags: "-std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local7.C'
-    sources:
-      binary: thread_local7.s
+    sources: {binary: thread_local7.s, cflags: "-std=c++14 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_thread_local7_55:
   build:
-    cflags: "-std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local7.C'
-    sources:
-      binary: thread_local7.s
+    sources: {binary: thread_local7.s, cflags: "-std=c++11 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_thread_local7_56:
   build:
-    cflags: "-std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local7.C'
-    sources:
-      binary: thread_local7.s
+    sources: {binary: thread_local7.s, cflags: "-std=c++14 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_thread_local7g_123:
   build:
-    cflags: "-std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local7g.C'
-    sources:
-      binary: thread_local7g.s
+    sources: {binary: thread_local7g.s, cflags: "-std=c++11 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_thread_local7g_124:
   build:
-    cflags: "-std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local7g.C'
-    sources:
-      binary: thread_local7g.s
+    sources: {binary: thread_local7g.s, cflags: "-std=c++14 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_thread_local7g_57:
   build:
-    cflags: "-std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local7g.C'
-    sources:
-      binary: thread_local7g.s
+    sources: {binary: thread_local7g.s, cflags: "-std=c++11 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_thread_local7g_58:
   build:
-    cflags: "-std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local7g.C'
-    sources:
-      binary: thread_local7g.s
+    sources: {binary: thread_local7g.s, cflags: "-std=c++14 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_thread_local8_125:
   build:
-    cflags: "-std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local8.C'
-    sources:
-      binary: thread_local8.s
+    sources: {binary: thread_local8.s, cflags: "-std=c++11 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_thread_local8_126:
   build:
-    cflags: "-std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local8.C'
-    sources:
-      binary: thread_local8.s
+    sources: {binary: thread_local8.s, cflags: "-std=c++14 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_thread_local8_59:
   build:
-    cflags: "-std=c++11 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local8.C'
-    sources:
-      binary: thread_local8.s
+    sources: {binary: thread_local8.s, cflags: "-std=c++11 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_thread_local8_60:
   build:
-    cflags: "-std=c++14 -pedantic-errors -Wno-long-long -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/thread_local8.C'
-    sources:
-      binary: thread_local8.s
+    sources: {binary: thread_local8.s, cflags: "-std=c++14 -pedantic-errors -Wno-long-long
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_tls_model1_127:
   build:
-    cflags: "-std=gnu++98 -g\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/tls_model1.C'
-    sources:
-      binary: tls_model1.s
+    sources: {binary: tls_model1.s, cflags: "-std=gnu++98 -g\n -S"}
   group: GRPSERIAL
 test_tls_model1_128:
   build:
-    cflags: "-std=gnu++11 -g\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/tls_model1.C'
-    sources:
-      binary: tls_model1.s
+    sources: {binary: tls_model1.s, cflags: "-std=gnu++11 -g\n -S"}
   group: GRPSERIAL
 test_tls_model1_129:
   build:
-    cflags: "-std=gnu++14 -g\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/tls_model1.C'
-    sources:
-      binary: tls_model1.s
+    sources: {binary: tls_model1.s, cflags: "-std=gnu++14 -g\n -S"}
   group: GRPSERIAL
 test_tls_model1_61:
   build:
-    cflags: "-std=gnu++98 -g\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/tls_model1.C'
-    sources:
-      binary: tls_model1.s
+    sources: {binary: tls_model1.s, cflags: "-std=gnu++98 -g\n -S"}
   group: GRPSERIAL
 test_tls_model1_62:
   build:
-    cflags: "-std=gnu++11 -g\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/tls_model1.C'
-    sources:
-      binary: tls_model1.s
+    sources: {binary: tls_model1.s, cflags: "-std=gnu++11 -g\n -S"}
   group: GRPSERIAL
 test_tls_model1_63:
   build:
-    cflags: "-std=gnu++14 -g\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/tls_model1.C'
-    sources:
-      binary: tls_model1.s
+    sources: {binary: tls_model1.s, cflags: "-std=gnu++14 -g\n -S"}
   group: GRPSERIAL
 test_trivial_130:
   build:
-    cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/trivial.C'
-    sources:
-      binary: trivial.s
+    sources: {binary: trivial.s, cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_trivial_131:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/trivial.C'
-    sources:
-      binary: trivial.s
+    sources: {binary: trivial.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_trivial_132:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/trivial.C'
-    sources:
-      binary: trivial.s
+    sources: {binary: trivial.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_trivial_64:
   build:
-    cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/trivial.C'
-    sources:
-      binary: trivial.s
+    sources: {binary: trivial.s, cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_trivial_65:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/trivial.C'
-    sources:
-      binary: trivial.s
+    sources: {binary: trivial.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_trivial_66:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/tls/trivial.C'
-    sources:
-      binary: trivial.s
+    sources: {binary: trivial.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL

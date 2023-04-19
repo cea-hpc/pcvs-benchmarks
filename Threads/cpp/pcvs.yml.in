@@ -1,26 +1,20 @@
 basic_std_thread:
   build:
-   cflags: "-lpthread"
-   files: "@SRCPATH@/basic.cpp"
-   sources:
-     binary: "basic_std_thread"
+    files: '@SRCPATH@/basic.cpp'
+    sources: {binary: basic_std_thread, cflags: -lpthread}
   run:
     iterate:
-      n_proc: {'values': null}
-      n_mpi: {'values': null}
-      n_omp: {'values': null}
-      net: {'values': null}
-
+      n_mpi: {values: null}
+      n_omp: {values: null}
+      n_proc: {values: null}
+      net: {values: null}
 simple_counter_std_thread:
   build:
-   cflags: "-lpthread"
-   files: "@SRCPATH@/simple_counter.cpp"
-   sources:
-     binary: "simple_counter_std_thread"
+    files: '@SRCPATH@/simple_counter.cpp'
+    sources: {binary: simple_counter_std_thread, cflags: -lpthread}
   run:
     iterate:
-      n_proc: {'values': null}
-      n_mpi: {'values': null}
-      n_omp: {'values': null}
-      net: {'values': null}
-
+      n_mpi: {values: null}
+      n_omp: {values: null}
+      n_proc: {values: null}
+      net: {values: null}

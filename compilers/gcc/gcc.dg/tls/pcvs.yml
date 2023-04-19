@@ -1,1113 +1,750 @@
 test_asm-1_1:
   build:
-    cflags: "-Werror\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/asm-1.c'
-    sources:
-      binary: asm-1.s
+    sources: {binary: asm-1.s, cflags: "-Werror\n -S"}
   group: GRPSERIAL
   validate:
     match:
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("directly addressable")[^\n]*\n?)+'
+      L7: {expect: true, expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("directly
+          addressable")[^\n]*\n?)+'}
 test_asm-1_37:
   build:
-    cflags: "-Werror\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/asm-1.c'
-    sources:
-      binary: asm-1.s
+    sources: {binary: asm-1.s, cflags: "-Werror\n -S"}
   group: GRPSERIAL
   validate:
     match:
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("directly addressable")[^\n]*\n?)+'
+      L7: {expect: true, expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("directly
+          addressable")[^\n]*\n?)+'}
 test_asm-1_73:
   build:
-    cflags: "-Werror\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/asm-1.c'
-    sources:
-      binary: asm-1.s
+    sources: {binary: asm-1.s, cflags: "-Werror\n -S"}
   group: GRPSERIAL
   validate:
     match:
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("directly addressable")[^\n]*\n?)+'
+      L7: {expect: true, expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("directly
+          addressable")[^\n]*\n?)+'}
 test_debug-1_2:
   build:
-    cflags: "-g\n -c"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/debug-1.c'
-    sources:
-      binary: debug-1.o
+    sources: {binary: debug-1.o, cflags: "-g\n -c"}
   group: GRPSERIAL
 test_debug-1_38:
   build:
-    cflags: "-g\n -c"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/debug-1.c'
-    sources:
-      binary: debug-1.o
+    sources: {binary: debug-1.o, cflags: "-g\n -c"}
   group: GRPSERIAL
 test_debug-1_74:
   build:
-    cflags: "-g\n -c"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/debug-1.c'
-    sources:
-      binary: debug-1.o
+    sources: {binary: debug-1.o, cflags: "-g\n -c"}
   group: GRPSERIAL
 test_diag-1_3:
   build:
-    cflags: "-ansi -pedantic-errors\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/diag-1.c'
-    sources:
-      binary: diag-1.s
+    sources: {binary: diag-1.s, cflags: "-ansi -pedantic-errors\n -S"}
   group: GRPSERIAL
 test_diag-1_39:
   build:
-    cflags: "-ansi -pedantic-errors\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/diag-1.c'
-    sources:
-      binary: diag-1.s
+    sources: {binary: diag-1.s, cflags: "-ansi -pedantic-errors\n -S"}
   group: GRPSERIAL
 test_diag-1_75:
   build:
-    cflags: "-ansi -pedantic-errors\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/diag-1.c'
-    sources:
-      binary: diag-1.s
+    sources: {binary: diag-1.s, cflags: "-ansi -pedantic-errors\n -S"}
   group: GRPSERIAL
 test_diag-2_4:
   build:
-    cflags: "-ansi -pedantic-errors\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/diag-2.c'
-    sources:
-      binary: diag-2.s
+    sources: {binary: diag-2.s, cflags: "-ansi -pedantic-errors\n -S"}
   group: GRPSERIAL
   validate:
     match:
-      L11:
-        expect: true
-        expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("implicitly auto
-          and declared \''__thread\''")[^\n]*\n?)+'
-      L12:
-        expect: true
-        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          used with \''auto\''")[^\n]*\n?)+'
-      L13:
-        expect: true
-        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          before \''extern\''")[^\n]*\n?)+'
-      L14:
-        expect: true
-        expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          used with \''register\''")[^\n]*\n?)+'
-      L17:
-        expect: true
-        expr: '(^|\n)([^\n]+:17:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid storage
-          class for function")[^\n]*\n?)+'
-      L18:
-        expect: true
-        expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid storage
-          class for function")[^\n]*\n?)+'
-      L19:
-        expect: true
-        expr: '(^|\n)([^\n]+:19:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid storage
-          class for function")[^\n]*\n?)+'
-      L20:
-        expect: true
-        expr: '(^|\n)([^\n]+:20:[^\n]*[0-9]+: (fatal )?error:[^\n]*("function definition
-          declared \''__thread\''")[^\n]*\n?)+'
-      L22:
-        expect: true
-        expr: '(^|\n)([^\n]+:22:[^\n]*[0-9]+: (fatal )?error:[^\n]*("storage class
-          specified for parameter")[^\n]*\n?)+'
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          before \''extern\''")[^\n]*\n?)+'
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          before \''static\''")[^\n]*\n?)+'
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("duplicate")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          used with \''typedef\''")[^\n]*\n?)+'
+      L11: {expect: true, expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("implicitly
+          auto and declared \''__thread\''")[^\n]*\n?)+'}
+      L12: {expect: true, expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          used with \''auto\''")[^\n]*\n?)+'}
+      L13: {expect: true, expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          before \''extern\''")[^\n]*\n?)+'}
+      L14: {expect: true, expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          used with \''register\''")[^\n]*\n?)+'}
+      L17: {expect: true, expr: '(^|\n)([^\n]+:17:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid
+          storage class for function")[^\n]*\n?)+'}
+      L18: {expect: true, expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid
+          storage class for function")[^\n]*\n?)+'}
+      L19: {expect: true, expr: '(^|\n)([^\n]+:19:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid
+          storage class for function")[^\n]*\n?)+'}
+      L20: {expect: true, expr: '(^|\n)([^\n]+:20:[^\n]*[0-9]+: (fatal )?error:[^\n]*("function
+          definition declared \''__thread\''")[^\n]*\n?)+'}
+      L22: {expect: true, expr: '(^|\n)([^\n]+:22:[^\n]*[0-9]+: (fatal )?error:[^\n]*("storage
+          class specified for parameter")[^\n]*\n?)+'}
+      L4: {expect: true, expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          before \''extern\''")[^\n]*\n?)+'}
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          before \''static\''")[^\n]*\n?)+'}
+      L6: {expect: true, expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("duplicate")[^\n]*\n?)+'}
+      L7: {expect: true, expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          used with \''typedef\''")[^\n]*\n?)+'}
 test_diag-2_40:
   build:
-    cflags: "-ansi -pedantic-errors\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/diag-2.c'
-    sources:
-      binary: diag-2.s
+    sources: {binary: diag-2.s, cflags: "-ansi -pedantic-errors\n -S"}
   group: GRPSERIAL
   validate:
     match:
-      L11:
-        expect: true
-        expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("implicitly auto
-          and declared \''__thread\''")[^\n]*\n?)+'
-      L12:
-        expect: true
-        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          used with \''auto\''")[^\n]*\n?)+'
-      L13:
-        expect: true
-        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          before \''extern\''")[^\n]*\n?)+'
-      L14:
-        expect: true
-        expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          used with \''register\''")[^\n]*\n?)+'
-      L17:
-        expect: true
-        expr: '(^|\n)([^\n]+:17:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid storage
-          class for function")[^\n]*\n?)+'
-      L18:
-        expect: true
-        expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid storage
-          class for function")[^\n]*\n?)+'
-      L19:
-        expect: true
-        expr: '(^|\n)([^\n]+:19:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid storage
-          class for function")[^\n]*\n?)+'
-      L20:
-        expect: true
-        expr: '(^|\n)([^\n]+:20:[^\n]*[0-9]+: (fatal )?error:[^\n]*("function definition
-          declared \''__thread\''")[^\n]*\n?)+'
-      L22:
-        expect: true
-        expr: '(^|\n)([^\n]+:22:[^\n]*[0-9]+: (fatal )?error:[^\n]*("storage class
-          specified for parameter")[^\n]*\n?)+'
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          before \''extern\''")[^\n]*\n?)+'
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          before \''static\''")[^\n]*\n?)+'
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("duplicate")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          used with \''typedef\''")[^\n]*\n?)+'
+      L11: {expect: true, expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("implicitly
+          auto and declared \''__thread\''")[^\n]*\n?)+'}
+      L12: {expect: true, expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          used with \''auto\''")[^\n]*\n?)+'}
+      L13: {expect: true, expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          before \''extern\''")[^\n]*\n?)+'}
+      L14: {expect: true, expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          used with \''register\''")[^\n]*\n?)+'}
+      L17: {expect: true, expr: '(^|\n)([^\n]+:17:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid
+          storage class for function")[^\n]*\n?)+'}
+      L18: {expect: true, expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid
+          storage class for function")[^\n]*\n?)+'}
+      L19: {expect: true, expr: '(^|\n)([^\n]+:19:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid
+          storage class for function")[^\n]*\n?)+'}
+      L20: {expect: true, expr: '(^|\n)([^\n]+:20:[^\n]*[0-9]+: (fatal )?error:[^\n]*("function
+          definition declared \''__thread\''")[^\n]*\n?)+'}
+      L22: {expect: true, expr: '(^|\n)([^\n]+:22:[^\n]*[0-9]+: (fatal )?error:[^\n]*("storage
+          class specified for parameter")[^\n]*\n?)+'}
+      L4: {expect: true, expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          before \''extern\''")[^\n]*\n?)+'}
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          before \''static\''")[^\n]*\n?)+'}
+      L6: {expect: true, expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("duplicate")[^\n]*\n?)+'}
+      L7: {expect: true, expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          used with \''typedef\''")[^\n]*\n?)+'}
 test_diag-2_76:
   build:
-    cflags: "-ansi -pedantic-errors\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/diag-2.c'
-    sources:
-      binary: diag-2.s
+    sources: {binary: diag-2.s, cflags: "-ansi -pedantic-errors\n -S"}
   group: GRPSERIAL
   validate:
     match:
-      L11:
-        expect: true
-        expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("implicitly auto
-          and declared \''__thread\''")[^\n]*\n?)+'
-      L12:
-        expect: true
-        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          used with \''auto\''")[^\n]*\n?)+'
-      L13:
-        expect: true
-        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          before \''extern\''")[^\n]*\n?)+'
-      L14:
-        expect: true
-        expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          used with \''register\''")[^\n]*\n?)+'
-      L17:
-        expect: true
-        expr: '(^|\n)([^\n]+:17:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid storage
-          class for function")[^\n]*\n?)+'
-      L18:
-        expect: true
-        expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid storage
-          class for function")[^\n]*\n?)+'
-      L19:
-        expect: true
-        expr: '(^|\n)([^\n]+:19:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid storage
-          class for function")[^\n]*\n?)+'
-      L20:
-        expect: true
-        expr: '(^|\n)([^\n]+:20:[^\n]*[0-9]+: (fatal )?error:[^\n]*("function definition
-          declared \''__thread\''")[^\n]*\n?)+'
-      L22:
-        expect: true
-        expr: '(^|\n)([^\n]+:22:[^\n]*[0-9]+: (fatal )?error:[^\n]*("storage class
-          specified for parameter")[^\n]*\n?)+'
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          before \''extern\''")[^\n]*\n?)+'
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          before \''static\''")[^\n]*\n?)+'
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("duplicate")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          used with \''typedef\''")[^\n]*\n?)+'
+      L11: {expect: true, expr: '(^|\n)([^\n]+:11:[^\n]*[0-9]+: (fatal )?error:[^\n]*("implicitly
+          auto and declared \''__thread\''")[^\n]*\n?)+'}
+      L12: {expect: true, expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          used with \''auto\''")[^\n]*\n?)+'}
+      L13: {expect: true, expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          before \''extern\''")[^\n]*\n?)+'}
+      L14: {expect: true, expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          used with \''register\''")[^\n]*\n?)+'}
+      L17: {expect: true, expr: '(^|\n)([^\n]+:17:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid
+          storage class for function")[^\n]*\n?)+'}
+      L18: {expect: true, expr: '(^|\n)([^\n]+:18:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid
+          storage class for function")[^\n]*\n?)+'}
+      L19: {expect: true, expr: '(^|\n)([^\n]+:19:[^\n]*[0-9]+: (fatal )?error:[^\n]*("invalid
+          storage class for function")[^\n]*\n?)+'}
+      L20: {expect: true, expr: '(^|\n)([^\n]+:20:[^\n]*[0-9]+: (fatal )?error:[^\n]*("function
+          definition declared \''__thread\''")[^\n]*\n?)+'}
+      L22: {expect: true, expr: '(^|\n)([^\n]+:22:[^\n]*[0-9]+: (fatal )?error:[^\n]*("storage
+          class specified for parameter")[^\n]*\n?)+'}
+      L4: {expect: true, expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          before \''extern\''")[^\n]*\n?)+'}
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          before \''static\''")[^\n]*\n?)+'}
+      L6: {expect: true, expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("duplicate")[^\n]*\n?)+'}
+      L7: {expect: true, expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          used with \''typedef\''")[^\n]*\n?)+'}
 test_diag-3_41:
   build:
-    cflags: "-ansi -pedantic-errors\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/diag-3.c'
-    sources:
-      binary: diag-3.s
+    sources: {binary: diag-3.s, cflags: "-ansi -pedantic-errors\n -S"}
   group: GRPSERIAL
   validate:
     match:
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("follows non-thread-local")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("follows thread-local")[^\n]*\n?)+'
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("follows
+          non-thread-local")[^\n]*\n?)+'}
+      L8: {expect: true, expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("follows
+          thread-local")[^\n]*\n?)+'}
 test_diag-3_5:
   build:
-    cflags: "-ansi -pedantic-errors\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/diag-3.c'
-    sources:
-      binary: diag-3.s
+    sources: {binary: diag-3.s, cflags: "-ansi -pedantic-errors\n -S"}
   group: GRPSERIAL
   validate:
     match:
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("follows non-thread-local")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("follows thread-local")[^\n]*\n?)+'
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("follows
+          non-thread-local")[^\n]*\n?)+'}
+      L8: {expect: true, expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("follows
+          thread-local")[^\n]*\n?)+'}
 test_diag-3_77:
   build:
-    cflags: "-ansi -pedantic-errors\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/diag-3.c'
-    sources:
-      binary: diag-3.s
+    sources: {binary: diag-3.s, cflags: "-ansi -pedantic-errors\n -S"}
   group: GRPSERIAL
   validate:
     match:
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("follows non-thread-local")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("follows thread-local")[^\n]*\n?)+'
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("follows
+          non-thread-local")[^\n]*\n?)+'}
+      L8: {expect: true, expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("follows
+          thread-local")[^\n]*\n?)+'}
 test_diag-4_42:
   build:
-    cflags: "-ansi -pedantic-errors\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/diag-4.c'
-    sources:
-      binary: diag-4.s
+    sources: {binary: diag-4.s, cflags: "-ansi -pedantic-errors\n -S"}
   group: GRPSERIAL
   validate:
     match:
-      L10:
-        expect: true
-        expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          used with \''register\''")[^\n]*\n?)+'
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          used with \''typedef\''")[^\n]*\n?)+'
-      L9:
-        expect: true
-        expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          used with \''auto\''")[^\n]*\n?)+'
+      L10: {expect: true, expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          used with \''register\''")[^\n]*\n?)+'}
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          used with \''typedef\''")[^\n]*\n?)+'}
+      L9: {expect: true, expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          used with \''auto\''")[^\n]*\n?)+'}
 test_diag-4_6:
   build:
-    cflags: "-ansi -pedantic-errors\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/diag-4.c'
-    sources:
-      binary: diag-4.s
+    sources: {binary: diag-4.s, cflags: "-ansi -pedantic-errors\n -S"}
   group: GRPSERIAL
   validate:
     match:
-      L10:
-        expect: true
-        expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          used with \''register\''")[^\n]*\n?)+'
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          used with \''typedef\''")[^\n]*\n?)+'
-      L9:
-        expect: true
-        expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          used with \''auto\''")[^\n]*\n?)+'
+      L10: {expect: true, expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          used with \''register\''")[^\n]*\n?)+'}
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          used with \''typedef\''")[^\n]*\n?)+'}
+      L9: {expect: true, expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          used with \''auto\''")[^\n]*\n?)+'}
 test_diag-4_78:
   build:
-    cflags: "-ansi -pedantic-errors\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/diag-4.c'
-    sources:
-      binary: diag-4.s
+    sources: {binary: diag-4.s, cflags: "-ansi -pedantic-errors\n -S"}
   group: GRPSERIAL
   validate:
     match:
-      L10:
-        expect: true
-        expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          used with \''register\''")[^\n]*\n?)+'
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          used with \''typedef\''")[^\n]*\n?)+'
-      L9:
-        expect: true
-        expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
-          used with \''auto\''")[^\n]*\n?)+'
+      L10: {expect: true, expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          used with \''register\''")[^\n]*\n?)+'}
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          used with \''typedef\''")[^\n]*\n?)+'}
+      L9: {expect: true, expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("\''__thread\''
+          used with \''auto\''")[^\n]*\n?)+'}
 test_diag-5_43:
   build:
-    cflags: "-ansi -pedantic-errors\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/diag-5.c'
-    sources:
-      binary: diag-5.s
+    sources: {binary: diag-5.s, cflags: "-ansi -pedantic-errors\n -S"}
   group: GRPSERIAL
   validate:
     match:
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+(:4:)[^\n]*[0-9]+: warning:[^\n]*("useless \''__thread\''
-          in empty declaration")[^\n]*\n?)+'
+      L4: {expect: true, expr: '(^|\n)([^\n]+(:4:)[^\n]*[0-9]+: warning:[^\n]*("useless
+          \''__thread\'' in empty declaration")[^\n]*\n?)+'}
 test_diag-5_7:
   build:
-    cflags: "-ansi -pedantic-errors\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/diag-5.c'
-    sources:
-      binary: diag-5.s
+    sources: {binary: diag-5.s, cflags: "-ansi -pedantic-errors\n -S"}
   group: GRPSERIAL
   validate:
     match:
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+(:4:)[^\n]*[0-9]+: warning:[^\n]*("useless \''__thread\''
-          in empty declaration")[^\n]*\n?)+'
+      L4: {expect: true, expr: '(^|\n)([^\n]+(:4:)[^\n]*[0-9]+: warning:[^\n]*("useless
+          \''__thread\'' in empty declaration")[^\n]*\n?)+'}
 test_diag-5_79:
   build:
-    cflags: "-ansi -pedantic-errors\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/diag-5.c'
-    sources:
-      binary: diag-5.s
+    sources: {binary: diag-5.s, cflags: "-ansi -pedantic-errors\n -S"}
   group: GRPSERIAL
   validate:
     match:
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+(:4:)[^\n]*[0-9]+: warning:[^\n]*("useless \''__thread\''
-          in empty declaration")[^\n]*\n?)+'
+      L4: {expect: true, expr: '(^|\n)([^\n]+(:4:)[^\n]*[0-9]+: warning:[^\n]*("useless
+          \''__thread\'' in empty declaration")[^\n]*\n?)+'}
 test_diag-6_44:
   build:
-    cflags: "-ansi -pedantic-errors\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/diag-6.c'
-    sources:
-      binary: diag-6.s
+    sources: {binary: diag-6.s, cflags: "-ansi -pedantic-errors\n -S"}
   group: GRPSERIAL
   validate:
     match:
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+(:4:)[^\n]*[0-9]+: warning:[^\n]*("attribute ignored")[^\n]*\n?)+'
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+(:5:)[^\n]*[0-9]+: warning:[^\n]*("attribute ignored")[^\n]*\n?)+'
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+(:6:)[^\n]*[0-9]+: warning:[^\n]*("attribute ignored")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("tls_model argument
-          not a string")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("tls_model argument
-          must be one of")[^\n]*\n?)+'
+      L4: {expect: true, expr: '(^|\n)([^\n]+(:4:)[^\n]*[0-9]+: warning:[^\n]*("attribute
+          ignored")[^\n]*\n?)+'}
+      L5: {expect: true, expr: '(^|\n)([^\n]+(:5:)[^\n]*[0-9]+: warning:[^\n]*("attribute
+          ignored")[^\n]*\n?)+'}
+      L6: {expect: true, expr: '(^|\n)([^\n]+(:6:)[^\n]*[0-9]+: warning:[^\n]*("attribute
+          ignored")[^\n]*\n?)+'}
+      L7: {expect: true, expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("tls_model
+          argument not a string")[^\n]*\n?)+'}
+      L8: {expect: true, expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("tls_model
+          argument must be one of")[^\n]*\n?)+'}
 test_diag-6_8:
   build:
-    cflags: "-ansi -pedantic-errors\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/diag-6.c'
-    sources:
-      binary: diag-6.s
+    sources: {binary: diag-6.s, cflags: "-ansi -pedantic-errors\n -S"}
   group: GRPSERIAL
   validate:
     match:
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+(:4:)[^\n]*[0-9]+: warning:[^\n]*("attribute ignored")[^\n]*\n?)+'
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+(:5:)[^\n]*[0-9]+: warning:[^\n]*("attribute ignored")[^\n]*\n?)+'
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+(:6:)[^\n]*[0-9]+: warning:[^\n]*("attribute ignored")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("tls_model argument
-          not a string")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("tls_model argument
-          must be one of")[^\n]*\n?)+'
+      L4: {expect: true, expr: '(^|\n)([^\n]+(:4:)[^\n]*[0-9]+: warning:[^\n]*("attribute
+          ignored")[^\n]*\n?)+'}
+      L5: {expect: true, expr: '(^|\n)([^\n]+(:5:)[^\n]*[0-9]+: warning:[^\n]*("attribute
+          ignored")[^\n]*\n?)+'}
+      L6: {expect: true, expr: '(^|\n)([^\n]+(:6:)[^\n]*[0-9]+: warning:[^\n]*("attribute
+          ignored")[^\n]*\n?)+'}
+      L7: {expect: true, expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("tls_model
+          argument not a string")[^\n]*\n?)+'}
+      L8: {expect: true, expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("tls_model
+          argument must be one of")[^\n]*\n?)+'}
 test_diag-6_80:
   build:
-    cflags: "-ansi -pedantic-errors\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/diag-6.c'
-    sources:
-      binary: diag-6.s
+    sources: {binary: diag-6.s, cflags: "-ansi -pedantic-errors\n -S"}
   group: GRPSERIAL
   validate:
     match:
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+(:4:)[^\n]*[0-9]+: warning:[^\n]*("attribute ignored")[^\n]*\n?)+'
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+(:5:)[^\n]*[0-9]+: warning:[^\n]*("attribute ignored")[^\n]*\n?)+'
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+(:6:)[^\n]*[0-9]+: warning:[^\n]*("attribute ignored")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("tls_model argument
-          not a string")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("tls_model argument
-          must be one of")[^\n]*\n?)+'
+      L4: {expect: true, expr: '(^|\n)([^\n]+(:4:)[^\n]*[0-9]+: warning:[^\n]*("attribute
+          ignored")[^\n]*\n?)+'}
+      L5: {expect: true, expr: '(^|\n)([^\n]+(:5:)[^\n]*[0-9]+: warning:[^\n]*("attribute
+          ignored")[^\n]*\n?)+'}
+      L6: {expect: true, expr: '(^|\n)([^\n]+(:6:)[^\n]*[0-9]+: warning:[^\n]*("attribute
+          ignored")[^\n]*\n?)+'}
+      L7: {expect: true, expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("tls_model
+          argument not a string")[^\n]*\n?)+'}
+      L8: {expect: true, expr: '(^|\n)([^\n]+:8:[^\n]*[0-9]+: (fatal )?error:[^\n]*("tls_model
+          argument must be one of")[^\n]*\n?)+'}
 test_emutls-2_45:
   build:
-    cflags: "-O2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/emutls-2.c'
-    sources:
-      binary: emutls-2.s
+    sources: {binary: emutls-2.s, cflags: "-O2\n -S"}
   group: GRPSERIAL
 test_emutls-2_81:
   build:
-    cflags: "-O2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/emutls-2.c'
-    sources:
-      binary: emutls-2.s
+    sources: {binary: emutls-2.s, cflags: "-O2\n -S"}
   group: GRPSERIAL
 test_emutls-2_9:
   build:
-    cflags: "-O2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/emutls-2.c'
-    sources:
-      binary: emutls-2.s
+    sources: {binary: emutls-2.s, cflags: "-O2\n -S"}
   group: GRPSERIAL
 test_init-1_10:
   build:
-    cflags: "-ansi -pedantic-errors\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/init-1.c'
-    sources:
-      binary: init-1.s
+    sources: {binary: init-1.s, cflags: "-ansi -pedantic-errors\n -S"}
   group: GRPSERIAL
   validate:
     match:
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("initializer element
-          is not constant")[^\n]*\n?)+'
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("initializer
+          element is not constant")[^\n]*\n?)+'}
 test_init-1_46:
   build:
-    cflags: "-ansi -pedantic-errors\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/init-1.c'
-    sources:
-      binary: init-1.s
+    sources: {binary: init-1.s, cflags: "-ansi -pedantic-errors\n -S"}
   group: GRPSERIAL
   validate:
     match:
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("initializer element
-          is not constant")[^\n]*\n?)+'
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("initializer
+          element is not constant")[^\n]*\n?)+'}
 test_init-1_82:
   build:
-    cflags: "-ansi -pedantic-errors\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/init-1.c'
-    sources:
-      binary: init-1.s
+    sources: {binary: init-1.s, cflags: "-ansi -pedantic-errors\n -S"}
   group: GRPSERIAL
   validate:
     match:
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("initializer element
-          is not constant")[^\n]*\n?)+'
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("initializer
+          element is not constant")[^\n]*\n?)+'}
 test_nonpic-1_11:
   build:
-    cflags: "-O2 -ftls-model=initial-exec\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/nonpic-1.c'
-    sources:
-      binary: nonpic-1.s
+    sources: {binary: nonpic-1.s, cflags: "-O2 -ftls-model=initial-exec\n -S"}
   group: GRPSERIAL
 test_nonpic-1_47:
   build:
-    cflags: "-O2 -ftls-model=initial-exec\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/nonpic-1.c'
-    sources:
-      binary: nonpic-1.s
+    sources: {binary: nonpic-1.s, cflags: "-O2 -ftls-model=initial-exec\n -S"}
   group: GRPSERIAL
 test_nonpic-1_83:
   build:
-    cflags: "-O2 -ftls-model=initial-exec\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/nonpic-1.c'
-    sources:
-      binary: nonpic-1.s
+    sources: {binary: nonpic-1.s, cflags: "-O2 -ftls-model=initial-exec\n -S"}
   group: GRPSERIAL
 test_opt-10_13:
   build:
-    cflags: "-O3 -fpic\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-10.c'
-    sources:
-      binary: opt-10.s
+    sources: {binary: opt-10.s, cflags: "-O3 -fpic\n -S"}
   group: GRPSERIAL
 test_opt-10_49:
   build:
-    cflags: "-O3 -fpic\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-10.c'
-    sources:
-      binary: opt-10.s
+    sources: {binary: opt-10.s, cflags: "-O3 -fpic\n -S"}
   group: GRPSERIAL
 test_opt-10_85:
   build:
-    cflags: "-O3 -fpic\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-10.c'
-    sources:
-      binary: opt-10.s
+    sources: {binary: opt-10.s, cflags: "-O3 -fpic\n -S"}
   group: GRPSERIAL
 test_opt-13_14:
   build:
-    cflags: "-O2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-13.c'
-    sources:
-      binary: opt-13.s
+    sources: {binary: opt-13.s, cflags: "-O2\n -S"}
   group: GRPSERIAL
 test_opt-13_50:
   build:
-    cflags: "-O2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-13.c'
-    sources:
-      binary: opt-13.s
+    sources: {binary: opt-13.s, cflags: "-O2\n -S"}
   group: GRPSERIAL
 test_opt-13_86:
   build:
-    cflags: "-O2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-13.c'
-    sources:
-      binary: opt-13.s
+    sources: {binary: opt-13.s, cflags: "-O2\n -S"}
   group: GRPSERIAL
 test_opt-14_15:
   build:
-    cflags: "-O2\n -c"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-14.c'
-    sources:
-      binary: opt-14.o
+    sources: {binary: opt-14.o, cflags: "-O2\n -c"}
   group: GRPSERIAL
 test_opt-14_51:
   build:
-    cflags: "-O2\n -c"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-14.c'
-    sources:
-      binary: opt-14.o
+    sources: {binary: opt-14.o, cflags: "-O2\n -c"}
   group: GRPSERIAL
 test_opt-14_87:
   build:
-    cflags: "-O2\n -c"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-14.c'
-    sources:
-      binary: opt-14.o
+    sources: {binary: opt-14.o, cflags: "-O2\n -c"}
   group: GRPSERIAL
 test_opt-15_16:
   build:
-    cflags: "-O -fPIC\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-15.c'
-    sources:
-      binary: opt-15.s
+    sources: {binary: opt-15.s, cflags: "-O -fPIC\n -S"}
   group: GRPSERIAL
 test_opt-15_52:
   build:
-    cflags: "-O -fPIC\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-15.c'
-    sources:
-      binary: opt-15.s
+    sources: {binary: opt-15.s, cflags: "-O -fPIC\n -S"}
   group: GRPSERIAL
 test_opt-15_88:
   build:
-    cflags: "-O -fPIC\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-15.c'
-    sources:
-      binary: opt-15.s
+    sources: {binary: opt-15.s, cflags: "-O -fPIC\n -S"}
   group: GRPSERIAL
 test_opt-1_12:
   build:
-    cflags: "-O2 -fPIC -mtune=i686\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-1.c'
-    sources:
-      binary: opt-1.s
+    sources: {binary: opt-1.s, cflags: "-O2 -fPIC -mtune=i686\n -S"}
   group: GRPSERIAL
 test_opt-1_48:
   build:
-    cflags: "-O2 -fPIC -mtune=i686\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-1.c'
-    sources:
-      binary: opt-1.s
+    sources: {binary: opt-1.s, cflags: "-O2 -fPIC -mtune=i686\n -S"}
   group: GRPSERIAL
 test_opt-1_84:
   build:
-    cflags: "-O2 -fPIC -mtune=i686\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-1.c'
-    sources:
-      binary: opt-1.s
+    sources: {binary: opt-1.s, cflags: "-O2 -fPIC -mtune=i686\n -S"}
   group: GRPSERIAL
 test_opt-3_17:
   build:
-    cflags: "-O2 -fpic -mregparm=3\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-3.c'
-    sources:
-      binary: opt-3.s
+    sources: {binary: opt-3.s, cflags: "-O2 -fpic -mregparm=3\n -S"}
   group: GRPSERIAL
 test_opt-3_53:
   build:
-    cflags: "-O2 -fpic -mregparm=3\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-3.c'
-    sources:
-      binary: opt-3.s
+    sources: {binary: opt-3.s, cflags: "-O2 -fpic -mregparm=3\n -S"}
   group: GRPSERIAL
 test_opt-3_89:
   build:
-    cflags: "-O2 -fpic -mregparm=3\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-3.c'
-    sources:
-      binary: opt-3.s
+    sources: {binary: opt-3.s, cflags: "-O2 -fpic -mregparm=3\n -S"}
   group: GRPSERIAL
 test_opt-5_18:
   build:
-    cflags: "-O2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-5.c'
-    sources:
-      binary: opt-5.s
+    sources: {binary: opt-5.s, cflags: "-O2\n -S"}
   group: GRPSERIAL
 test_opt-5_54:
   build:
-    cflags: "-O2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-5.c'
-    sources:
-      binary: opt-5.s
+    sources: {binary: opt-5.s, cflags: "-O2\n -S"}
   group: GRPSERIAL
 test_opt-5_90:
   build:
-    cflags: "-O2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-5.c'
-    sources:
-      binary: opt-5.s
+    sources: {binary: opt-5.s, cflags: "-O2\n -S"}
   group: GRPSERIAL
 test_opt-6_19:
   build:
-    cflags: "-O2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-6.c'
-    sources:
-      binary: opt-6.s
+    sources: {binary: opt-6.s, cflags: "-O2\n -S"}
   group: GRPSERIAL
 test_opt-6_55:
   build:
-    cflags: "-O2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-6.c'
-    sources:
-      binary: opt-6.s
+    sources: {binary: opt-6.s, cflags: "-O2\n -S"}
   group: GRPSERIAL
 test_opt-6_91:
   build:
-    cflags: "-O2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-6.c'
-    sources:
-      binary: opt-6.s
+    sources: {binary: opt-6.s, cflags: "-O2\n -S"}
   group: GRPSERIAL
 test_opt-7_20:
   build:
-    cflags: "-O2 -fPIC -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-7.c'
-    sources:
-      binary: opt-7.s
+    sources: {binary: opt-7.s, cflags: "-O2 -fPIC -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_opt-7_56:
   build:
-    cflags: "-O2 -fPIC -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-7.c'
-    sources:
-      binary: opt-7.s
+    sources: {binary: opt-7.s, cflags: "-O2 -fPIC -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_opt-7_92:
   build:
-    cflags: "-O2 -fPIC -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-7.c'
-    sources:
-      binary: opt-7.s
+    sources: {binary: opt-7.s, cflags: "-O2 -fPIC -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_opt-8_21:
   build:
-    cflags: "-O2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-8.c'
-    sources:
-      binary: opt-8.s
+    sources: {binary: opt-8.s, cflags: "-O2\n -S"}
   group: GRPSERIAL
 test_opt-8_57:
   build:
-    cflags: "-O2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-8.c'
-    sources:
-      binary: opt-8.s
+    sources: {binary: opt-8.s, cflags: "-O2\n -S"}
   group: GRPSERIAL
 test_opt-8_93:
   build:
-    cflags: "-O2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-8.c'
-    sources:
-      binary: opt-8.s
+    sources: {binary: opt-8.s, cflags: "-O2\n -S"}
   group: GRPSERIAL
 test_opt-9_22:
   build:
-    cflags: "-O2 -fPIC\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-9.c'
-    sources:
-      binary: opt-9.s
+    sources: {binary: opt-9.s, cflags: "-O2 -fPIC\n -S"}
   group: GRPSERIAL
 test_opt-9_58:
   build:
-    cflags: "-O2 -fPIC\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-9.c'
-    sources:
-      binary: opt-9.s
+    sources: {binary: opt-9.s, cflags: "-O2 -fPIC\n -S"}
   group: GRPSERIAL
 test_opt-9_94:
   build:
-    cflags: "-O2 -fPIC\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/opt-9.c'
-    sources:
-      binary: opt-9.s
+    sources: {binary: opt-9.s, cflags: "-O2 -fPIC\n -S"}
   group: GRPSERIAL
 test_pic-1_23:
   build:
-    cflags: "-O2 -fpic -ftls-model=global-dynamic\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pic-1.c'
-    sources:
-      binary: pic-1.s
+    sources: {binary: pic-1.s, cflags: "-O2 -fpic -ftls-model=global-dynamic\n -S"}
   group: GRPSERIAL
 test_pic-1_59:
   build:
-    cflags: "-O2 -fpic -ftls-model=global-dynamic\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pic-1.c'
-    sources:
-      binary: pic-1.s
+    sources: {binary: pic-1.s, cflags: "-O2 -fpic -ftls-model=global-dynamic\n -S"}
   group: GRPSERIAL
 test_pic-1_95:
   build:
-    cflags: "-O2 -fpic -ftls-model=global-dynamic\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pic-1.c'
-    sources:
-      binary: pic-1.s
+    sources: {binary: pic-1.s, cflags: "-O2 -fpic -ftls-model=global-dynamic\n -S"}
   group: GRPSERIAL
 test_pie-1_24:
   build:
-    cflags: "-fpie\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pie-1.c'
-    sources:
-      binary: pie-1.s
+    sources: {binary: pie-1.s, cflags: "-fpie\n -S"}
   group: GRPSERIAL
 test_pie-1_60:
   build:
-    cflags: "-fpie\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pie-1.c'
-    sources:
-      binary: pie-1.s
+    sources: {binary: pie-1.s, cflags: "-fpie\n -S"}
   group: GRPSERIAL
 test_pie-1_96:
   build:
-    cflags: "-fpie\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pie-1.c'
-    sources:
-      binary: pie-1.s
+    sources: {binary: pie-1.s, cflags: "-fpie\n -S"}
   group: GRPSERIAL
 test_pr42894_25:
   build:
-    cflags: "-ansi -pedantic-errors\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr42894.c'
-    sources:
-      binary: pr42894.s
+    sources: {binary: pr42894.s, cflags: "-ansi -pedantic-errors\n -S"}
   group: GRPSERIAL
 test_pr42894_61:
   build:
-    cflags: "-ansi -pedantic-errors\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr42894.c'
-    sources:
-      binary: pr42894.s
+    sources: {binary: pr42894.s, cflags: "-ansi -pedantic-errors\n -S"}
   group: GRPSERIAL
 test_pr42894_97:
   build:
-    cflags: "-ansi -pedantic-errors\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr42894.c'
-    sources:
-      binary: pr42894.s
+    sources: {binary: pr42894.s, cflags: "-ansi -pedantic-errors\n -S"}
   group: GRPSERIAL
 test_pr45870_26:
   build:
-    cflags: "-g -O\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr45870.c'
-    sources:
-      binary: pr45870.s
+    sources: {binary: pr45870.s, cflags: "-g -O\n -S"}
   group: GRPSERIAL
 test_pr45870_62:
   build:
-    cflags: "-g -O\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr45870.c'
-    sources:
-      binary: pr45870.s
+    sources: {binary: pr45870.s, cflags: "-g -O\n -S"}
   group: GRPSERIAL
 test_pr45870_98:
   build:
-    cflags: "-g -O\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr45870.c'
-    sources:
-      binary: pr45870.s
+    sources: {binary: pr45870.s, cflags: "-g -O\n -S"}
   group: GRPSERIAL
 test_pr47715-1_27:
   build:
-    cflags: "-O2 -fPIC\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr47715-1.c'
-    sources:
-      binary: pr47715-1.s
+    sources: {binary: pr47715-1.s, cflags: "-O2 -fPIC\n -S"}
   group: GRPSERIAL
 test_pr47715-1_63:
   build:
-    cflags: "-O2 -fPIC\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr47715-1.c'
-    sources:
-      binary: pr47715-1.s
+    sources: {binary: pr47715-1.s, cflags: "-O2 -fPIC\n -S"}
   group: GRPSERIAL
 test_pr47715-1_99:
   build:
-    cflags: "-O2 -fPIC\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr47715-1.c'
-    sources:
-      binary: pr47715-1.s
+    sources: {binary: pr47715-1.s, cflags: "-O2 -fPIC\n -S"}
   group: GRPSERIAL
 test_pr47715-2_100:
   build:
-    cflags: "-O2 -fPIC\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr47715-2.c'
-    sources:
-      binary: pr47715-2.s
+    sources: {binary: pr47715-2.s, cflags: "-O2 -fPIC\n -S"}
   group: GRPSERIAL
 test_pr47715-2_28:
   build:
-    cflags: "-O2 -fPIC\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr47715-2.c'
-    sources:
-      binary: pr47715-2.s
+    sources: {binary: pr47715-2.s, cflags: "-O2 -fPIC\n -S"}
   group: GRPSERIAL
 test_pr47715-2_64:
   build:
-    cflags: "-O2 -fPIC\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr47715-2.c'
-    sources:
-      binary: pr47715-2.s
+    sources: {binary: pr47715-2.s, cflags: "-O2 -fPIC\n -S"}
   group: GRPSERIAL
 test_pr47715-3_101:
   build:
-    cflags: "-O2 -fPIC\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr47715-3.c'
-    sources:
-      binary: pr47715-3.s
+    sources: {binary: pr47715-3.s, cflags: "-O2 -fPIC\n -S"}
   group: GRPSERIAL
 test_pr47715-3_29:
   build:
-    cflags: "-O2 -fPIC\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr47715-3.c'
-    sources:
-      binary: pr47715-3.s
+    sources: {binary: pr47715-3.s, cflags: "-O2 -fPIC\n -S"}
   group: GRPSERIAL
 test_pr47715-3_65:
   build:
-    cflags: "-O2 -fPIC\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr47715-3.c'
-    sources:
-      binary: pr47715-3.s
+    sources: {binary: pr47715-3.s, cflags: "-O2 -fPIC\n -S"}
   group: GRPSERIAL
 test_pr47715-4_102:
   build:
-    cflags: "-O0\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr47715-4.c'
-    sources:
-      binary: pr47715-4.s
+    sources: {binary: pr47715-4.s, cflags: "-O0\n -S"}
   group: GRPSERIAL
 test_pr47715-4_30:
   build:
-    cflags: "-O0\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr47715-4.c'
-    sources:
-      binary: pr47715-4.s
+    sources: {binary: pr47715-4.s, cflags: "-O0\n -S"}
   group: GRPSERIAL
 test_pr47715-4_66:
   build:
-    cflags: "-O0\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr47715-4.c'
-    sources:
-      binary: pr47715-4.s
+    sources: {binary: pr47715-4.s, cflags: "-O0\n -S"}
   group: GRPSERIAL
 test_pr47715-5_103:
   build:
-    cflags: "-O2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr47715-5.c'
-    sources:
-      binary: pr47715-5.s
+    sources: {binary: pr47715-5.s, cflags: "-O2\n -S"}
   group: GRPSERIAL
 test_pr47715-5_31:
   build:
-    cflags: "-O2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr47715-5.c'
-    sources:
-      binary: pr47715-5.s
+    sources: {binary: pr47715-5.s, cflags: "-O2\n -S"}
   group: GRPSERIAL
 test_pr47715-5_67:
   build:
-    cflags: "-O2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr47715-5.c'
-    sources:
-      binary: pr47715-5.s
+    sources: {binary: pr47715-5.s, cflags: "-O2\n -S"}
   group: GRPSERIAL
 test_pr66470_104:
   build:
-    cflags: "-O2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr66470.c'
-    sources:
-      binary: pr66470.s
+    sources: {binary: pr66470.s, cflags: "-O2\n -S"}
   group: GRPSERIAL
 test_pr66470_32:
   build:
-    cflags: "-O2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr66470.c'
-    sources:
-      binary: pr66470.s
+    sources: {binary: pr66470.s, cflags: "-O2\n -S"}
   group: GRPSERIAL
 test_pr66470_68:
   build:
-    cflags: "-O2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr66470.c'
-    sources:
-      binary: pr66470.s
+    sources: {binary: pr66470.s, cflags: "-O2\n -S"}
   group: GRPSERIAL
 test_pr78796_105:
   build:
-    cflags: -O2
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr78796.c'
-    sources:
-      binary: ./pr78796.exe
+    sources: {binary: ./pr78796.exe, cflags: -O2}
   group: GRPSERIAL
-  run:
-    cwd: .
+  run: {cwd: .}
 test_pr78796_33:
   build:
-    cflags: -O2
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr78796.c'
-    sources:
-      binary: ./pr78796.exe
+    sources: {binary: ./pr78796.exe, cflags: -O2}
   group: GRPSERIAL
-  run:
-    cwd: .
+  run: {cwd: .}
 test_pr78796_69:
   build:
-    cflags: -O2
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/pr78796.c'
-    sources:
-      binary: ./pr78796.exe
+    sources: {binary: ./pr78796.exe, cflags: -O2}
   group: GRPSERIAL
-  run:
-    cwd: .
+  run: {cwd: .}
 test_struct-1_106:
   build:
-    cflags: "-O2 -fpic\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/struct-1.c'
-    sources:
-      binary: struct-1.s
+    sources: {binary: struct-1.s, cflags: "-O2 -fpic\n -S"}
   group: GRPSERIAL
 test_struct-1_34:
   build:
-    cflags: "-O2 -fpic\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/struct-1.c'
-    sources:
-      binary: struct-1.s
+    sources: {binary: struct-1.s, cflags: "-O2 -fpic\n -S"}
   group: GRPSERIAL
 test_struct-1_70:
   build:
-    cflags: "-O2 -fpic\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/struct-1.c'
-    sources:
-      binary: struct-1.s
+    sources: {binary: struct-1.s, cflags: "-O2 -fpic\n -S"}
   group: GRPSERIAL
 test_thr-init-1_107:
   build:
-    cflags: "-ansi -pedantic-errors\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/thr-init-1.c'
-    sources:
-      binary: thr-init-1.s
+    sources: {binary: thr-init-1.s, cflags: "-ansi -pedantic-errors\n -S"}
   group: GRPSERIAL
   validate:
     match:
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("redefinition of
-          \''fstat\''")[^\n]*\n?)+'
+      L7: {expect: true, expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("redefinition
+          of \''fstat\''")[^\n]*\n?)+'}
 test_thr-init-1_35:
   build:
-    cflags: "-ansi -pedantic-errors\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/thr-init-1.c'
-    sources:
-      binary: thr-init-1.s
+    sources: {binary: thr-init-1.s, cflags: "-ansi -pedantic-errors\n -S"}
   group: GRPSERIAL
   validate:
     match:
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("redefinition of
-          \''fstat\''")[^\n]*\n?)+'
+      L7: {expect: true, expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("redefinition
+          of \''fstat\''")[^\n]*\n?)+'}
 test_thr-init-1_71:
   build:
-    cflags: "-ansi -pedantic-errors\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/thr-init-1.c'
-    sources:
-      binary: thr-init-1.s
+    sources: {binary: thr-init-1.s, cflags: "-ansi -pedantic-errors\n -S"}
   group: GRPSERIAL
   validate:
     match:
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("redefinition of
-          \''fstat\''")[^\n]*\n?)+'
+      L7: {expect: true, expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("redefinition
+          of \''fstat\''")[^\n]*\n?)+'}
 test_trivial_108:
   build:
-    cflags: "-ansi -pedantic-errors\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/trivial.c'
-    sources:
-      binary: trivial.s
+    sources: {binary: trivial.s, cflags: "-ansi -pedantic-errors\n -S"}
   group: GRPSERIAL
 test_trivial_36:
   build:
-    cflags: "-ansi -pedantic-errors\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/trivial.c'
-    sources:
-      binary: trivial.s
+    sources: {binary: trivial.s, cflags: "-ansi -pedantic-errors\n -S"}
   group: GRPSERIAL
 test_trivial_72:
   build:
-    cflags: "-ansi -pedantic-errors\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.dg/tls/trivial.c'
-    sources:
-      binary: trivial.s
+    sources: {binary: trivial.s, cflags: "-ansi -pedantic-errors\n -S"}
   group: GRPSERIAL

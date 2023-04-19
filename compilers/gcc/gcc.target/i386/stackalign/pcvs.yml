@@ -1,462 +1,384 @@
 test_asm-1_1:
   build:
-    cflags: "-mstackrealign -mpreferred-stack-boundary=2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/asm-1.c'
-    sources:
-      binary: asm-1.s
+    sources: {binary: asm-1.s, cflags: "-mstackrealign -mpreferred-stack-boundary=2\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+(:7:)[^\n]*[0-9]+: warning:[^\n]*("unsupported size")[^\n]*\n?)+'
+      L7: {expect: true, expr: '(^|\n)([^\n]+(:7:)[^\n]*[0-9]+: warning:[^\n]*("unsupported
+          size")[^\n]*\n?)+'}
 test_asm-1_11:
   build:
-    cflags: "-mno-stackrealign -mpreferred-stack-boundary=2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/asm-1.c'
-    sources:
-      binary: asm-1.s
+    sources: {binary: asm-1.s, cflags: "-mno-stackrealign -mpreferred-stack-boundary=2\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+(:7:)[^\n]*[0-9]+: warning:[^\n]*("unsupported size")[^\n]*\n?)+'
+      L7: {expect: true, expr: '(^|\n)([^\n]+(:7:)[^\n]*[0-9]+: warning:[^\n]*("unsupported
+          size")[^\n]*\n?)+'}
 test_asm-1_21:
   build:
-    cflags: "-mstackrealign -mpreferred-stack-boundary=2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/asm-1.c'
-    sources:
-      binary: asm-1.s
+    sources: {binary: asm-1.s, cflags: "-mstackrealign -mpreferred-stack-boundary=2\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+(:7:)[^\n]*[0-9]+: warning:[^\n]*("unsupported size")[^\n]*\n?)+'
+      L7: {expect: true, expr: '(^|\n)([^\n]+(:7:)[^\n]*[0-9]+: warning:[^\n]*("unsupported
+          size")[^\n]*\n?)+'}
 test_asm-1_31:
   build:
-    cflags: "-mno-stackrealign -mpreferred-stack-boundary=2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/asm-1.c'
-    sources:
-      binary: asm-1.s
+    sources: {binary: asm-1.s, cflags: "-mno-stackrealign -mpreferred-stack-boundary=2\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+(:7:)[^\n]*[0-9]+: warning:[^\n]*("unsupported size")[^\n]*\n?)+'
+      L7: {expect: true, expr: '(^|\n)([^\n]+(:7:)[^\n]*[0-9]+: warning:[^\n]*("unsupported
+          size")[^\n]*\n?)+'}
 test_asm-1_41:
   build:
-    cflags: "-mstackrealign -mpreferred-stack-boundary=2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/asm-1.c'
-    sources:
-      binary: asm-1.s
+    sources: {binary: asm-1.s, cflags: "-mstackrealign -mpreferred-stack-boundary=2\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+(:7:)[^\n]*[0-9]+: warning:[^\n]*("unsupported size")[^\n]*\n?)+'
+      L7: {expect: true, expr: '(^|\n)([^\n]+(:7:)[^\n]*[0-9]+: warning:[^\n]*("unsupported
+          size")[^\n]*\n?)+'}
 test_asm-1_51:
   build:
-    cflags: "-mno-stackrealign -mpreferred-stack-boundary=2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/asm-1.c'
-    sources:
-      binary: asm-1.s
+    sources: {binary: asm-1.s, cflags: "-mno-stackrealign -mpreferred-stack-boundary=2\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+(:7:)[^\n]*[0-9]+: warning:[^\n]*("unsupported size")[^\n]*\n?)+'
+      L7: {expect: true, expr: '(^|\n)([^\n]+(:7:)[^\n]*[0-9]+: warning:[^\n]*("unsupported
+          size")[^\n]*\n?)+'}
 test_longlong-1_12:
   build:
-    cflags: "-mno-stackrealign -O2 -mpreferred-stack-boundary=2 -ffat-lto-objects\n\
-      \ -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/longlong-1.c'
-    sources:
-      binary: longlong-1.s
+    sources: {binary: longlong-1.s, cflags: "-mno-stackrealign -O2 -mpreferred-stack-boundary=2
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_longlong-1_2:
   build:
-    cflags: "-mstackrealign -O2 -mpreferred-stack-boundary=2 -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/longlong-1.c'
-    sources:
-      binary: longlong-1.s
+    sources: {binary: longlong-1.s, cflags: "-mstackrealign -O2 -mpreferred-stack-boundary=2
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_longlong-1_22:
   build:
-    cflags: "-mstackrealign -O2 -mpreferred-stack-boundary=2 -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/longlong-1.c'
-    sources:
-      binary: longlong-1.s
+    sources: {binary: longlong-1.s, cflags: "-mstackrealign -O2 -mpreferred-stack-boundary=2
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_longlong-1_32:
   build:
-    cflags: "-mno-stackrealign -O2 -mpreferred-stack-boundary=2 -ffat-lto-objects\n\
-      \ -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/longlong-1.c'
-    sources:
-      binary: longlong-1.s
+    sources: {binary: longlong-1.s, cflags: "-mno-stackrealign -O2 -mpreferred-stack-boundary=2
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_longlong-1_42:
   build:
-    cflags: "-mstackrealign -O2 -mpreferred-stack-boundary=2 -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/longlong-1.c'
-    sources:
-      binary: longlong-1.s
+    sources: {binary: longlong-1.s, cflags: "-mstackrealign -O2 -mpreferred-stack-boundary=2
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_longlong-1_52:
   build:
-    cflags: "-mno-stackrealign -O2 -mpreferred-stack-boundary=2 -ffat-lto-objects\n\
-      \ -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/longlong-1.c'
-    sources:
-      binary: longlong-1.s
+    sources: {binary: longlong-1.s, cflags: "-mno-stackrealign -O2 -mpreferred-stack-boundary=2
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_longlong-2_13:
   build:
-    cflags: "-mno-stackrealign -O2 -mpreferred-stack-boundary=2 -fno-ipa-icf -ffat-lto-objects\n\
-      \ -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/longlong-2.c'
-    sources:
-      binary: longlong-2.s
+    sources: {binary: longlong-2.s, cflags: "-mno-stackrealign -O2 -mpreferred-stack-boundary=2
+        -fno-ipa-icf -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_longlong-2_23:
   build:
-    cflags: "-mstackrealign -O2 -mpreferred-stack-boundary=2 -fno-ipa-icf -ffat-lto-objects\n\
-      \ -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/longlong-2.c'
-    sources:
-      binary: longlong-2.s
+    sources: {binary: longlong-2.s, cflags: "-mstackrealign -O2 -mpreferred-stack-boundary=2
+        -fno-ipa-icf -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_longlong-2_3:
   build:
-    cflags: "-mstackrealign -O2 -mpreferred-stack-boundary=2 -fno-ipa-icf -ffat-lto-objects\n\
-      \ -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/longlong-2.c'
-    sources:
-      binary: longlong-2.s
+    sources: {binary: longlong-2.s, cflags: "-mstackrealign -O2 -mpreferred-stack-boundary=2
+        -fno-ipa-icf -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_longlong-2_33:
   build:
-    cflags: "-mno-stackrealign -O2 -mpreferred-stack-boundary=2 -fno-ipa-icf -ffat-lto-objects\n\
-      \ -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/longlong-2.c'
-    sources:
-      binary: longlong-2.s
+    sources: {binary: longlong-2.s, cflags: "-mno-stackrealign -O2 -mpreferred-stack-boundary=2
+        -fno-ipa-icf -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_longlong-2_43:
   build:
-    cflags: "-mstackrealign -O2 -mpreferred-stack-boundary=2 -fno-ipa-icf -ffat-lto-objects\n\
-      \ -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/longlong-2.c'
-    sources:
-      binary: longlong-2.s
+    sources: {binary: longlong-2.s, cflags: "-mstackrealign -O2 -mpreferred-stack-boundary=2
+        -fno-ipa-icf -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_longlong-2_53:
   build:
-    cflags: "-mno-stackrealign -O2 -mpreferred-stack-boundary=2 -fno-ipa-icf -ffat-lto-objects\n\
-      \ -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/longlong-2.c'
-    sources:
-      binary: longlong-2.s
+    sources: {binary: longlong-2.s, cflags: "-mno-stackrealign -O2 -mpreferred-stack-boundary=2
+        -fno-ipa-icf -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_pr39146_14:
   build:
-    cflags: "-mno-stackrealign -O2 -mavx -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/pr39146.c'
-    sources:
-      binary: pr39146.s
+    sources: {binary: pr39146.s, cflags: "-mno-stackrealign -O2 -mavx -ffat-lto-objects\n
+        -S"}
   group: GRPSERIAL
 test_pr39146_24:
   build:
-    cflags: "-mstackrealign -O2 -mavx -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/pr39146.c'
-    sources:
-      binary: pr39146.s
+    sources: {binary: pr39146.s, cflags: "-mstackrealign -O2 -mavx -ffat-lto-objects\n
+        -S"}
   group: GRPSERIAL
 test_pr39146_34:
   build:
-    cflags: "-mno-stackrealign -O2 -mavx -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/pr39146.c'
-    sources:
-      binary: pr39146.s
+    sources: {binary: pr39146.s, cflags: "-mno-stackrealign -O2 -mavx -ffat-lto-objects\n
+        -S"}
   group: GRPSERIAL
 test_pr39146_4:
   build:
-    cflags: "-mstackrealign -O2 -mavx -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/pr39146.c'
-    sources:
-      binary: pr39146.s
+    sources: {binary: pr39146.s, cflags: "-mstackrealign -O2 -mavx -ffat-lto-objects\n
+        -S"}
   group: GRPSERIAL
 test_pr39146_44:
   build:
-    cflags: "-mstackrealign -O2 -mavx -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/pr39146.c'
-    sources:
-      binary: pr39146.s
+    sources: {binary: pr39146.s, cflags: "-mstackrealign -O2 -mavx -ffat-lto-objects\n
+        -S"}
   group: GRPSERIAL
 test_pr39146_54:
   build:
-    cflags: "-mno-stackrealign -O2 -mavx -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/pr39146.c'
-    sources:
-      binary: pr39146.s
+    sources: {binary: pr39146.s, cflags: "-mno-stackrealign -O2 -mavx -ffat-lto-objects\n
+        -S"}
   group: GRPSERIAL
 test_return-1_15:
   build:
-    cflags: "-mno-stackrealign -mpreferred-stack-boundary=2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-1.c'
-    sources:
-      binary: return-1.s
+    sources: {binary: return-1.s, cflags: "-mno-stackrealign -mpreferred-stack-boundary=2\n
+        -S"}
   group: GRPSERIAL
 test_return-1_25:
   build:
-    cflags: "-mstackrealign -mpreferred-stack-boundary=2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-1.c'
-    sources:
-      binary: return-1.s
+    sources: {binary: return-1.s, cflags: "-mstackrealign -mpreferred-stack-boundary=2\n
+        -S"}
   group: GRPSERIAL
 test_return-1_35:
   build:
-    cflags: "-mno-stackrealign -mpreferred-stack-boundary=2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-1.c'
-    sources:
-      binary: return-1.s
+    sources: {binary: return-1.s, cflags: "-mno-stackrealign -mpreferred-stack-boundary=2\n
+        -S"}
   group: GRPSERIAL
 test_return-1_45:
   build:
-    cflags: "-mstackrealign -mpreferred-stack-boundary=2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-1.c'
-    sources:
-      binary: return-1.s
+    sources: {binary: return-1.s, cflags: "-mstackrealign -mpreferred-stack-boundary=2\n
+        -S"}
   group: GRPSERIAL
 test_return-1_5:
   build:
-    cflags: "-mstackrealign -mpreferred-stack-boundary=2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-1.c'
-    sources:
-      binary: return-1.s
+    sources: {binary: return-1.s, cflags: "-mstackrealign -mpreferred-stack-boundary=2\n
+        -S"}
   group: GRPSERIAL
 test_return-1_55:
   build:
-    cflags: "-mno-stackrealign -mpreferred-stack-boundary=2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-1.c'
-    sources:
-      binary: return-1.s
+    sources: {binary: return-1.s, cflags: "-mno-stackrealign -mpreferred-stack-boundary=2\n
+        -S"}
   group: GRPSERIAL
 test_return-2_16:
   build:
-    cflags: "-mno-stackrealign -mpreferred-stack-boundary=2 -std=gnu89\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-2.c'
-    sources:
-      binary: return-2.s
+    sources: {binary: return-2.s, cflags: "-mno-stackrealign -mpreferred-stack-boundary=2
+        -std=gnu89\n -S"}
   group: GRPSERIAL
 test_return-2_26:
   build:
-    cflags: "-mstackrealign -mpreferred-stack-boundary=2 -std=gnu89\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-2.c'
-    sources:
-      binary: return-2.s
+    sources: {binary: return-2.s, cflags: "-mstackrealign -mpreferred-stack-boundary=2
+        -std=gnu89\n -S"}
   group: GRPSERIAL
 test_return-2_36:
   build:
-    cflags: "-mno-stackrealign -mpreferred-stack-boundary=2 -std=gnu89\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-2.c'
-    sources:
-      binary: return-2.s
+    sources: {binary: return-2.s, cflags: "-mno-stackrealign -mpreferred-stack-boundary=2
+        -std=gnu89\n -S"}
   group: GRPSERIAL
 test_return-2_46:
   build:
-    cflags: "-mstackrealign -mpreferred-stack-boundary=2 -std=gnu89\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-2.c'
-    sources:
-      binary: return-2.s
+    sources: {binary: return-2.s, cflags: "-mstackrealign -mpreferred-stack-boundary=2
+        -std=gnu89\n -S"}
   group: GRPSERIAL
 test_return-2_56:
   build:
-    cflags: "-mno-stackrealign -mpreferred-stack-boundary=2 -std=gnu89\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-2.c'
-    sources:
-      binary: return-2.s
+    sources: {binary: return-2.s, cflags: "-mno-stackrealign -mpreferred-stack-boundary=2
+        -std=gnu89\n -S"}
   group: GRPSERIAL
 test_return-2_6:
   build:
-    cflags: "-mstackrealign -mpreferred-stack-boundary=2 -std=gnu89\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-2.c'
-    sources:
-      binary: return-2.s
+    sources: {binary: return-2.s, cflags: "-mstackrealign -mpreferred-stack-boundary=2
+        -std=gnu89\n -S"}
   group: GRPSERIAL
 test_return-3_17:
   build:
-    cflags: "-mno-stackrealign -msse -std=gnu99 -mpreferred-stack-boundary=2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-3.c'
-    sources:
-      binary: return-3.s
+    sources: {binary: return-3.s, cflags: "-mno-stackrealign -msse -std=gnu99 -mpreferred-stack-boundary=2\n
+        -S"}
   group: GRPSERIAL
 test_return-3_27:
   build:
-    cflags: "-mstackrealign -msse -std=gnu99 -mpreferred-stack-boundary=2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-3.c'
-    sources:
-      binary: return-3.s
+    sources: {binary: return-3.s, cflags: "-mstackrealign -msse -std=gnu99 -mpreferred-stack-boundary=2\n
+        -S"}
   group: GRPSERIAL
 test_return-3_37:
   build:
-    cflags: "-mno-stackrealign -msse -std=gnu99 -mpreferred-stack-boundary=2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-3.c'
-    sources:
-      binary: return-3.s
+    sources: {binary: return-3.s, cflags: "-mno-stackrealign -msse -std=gnu99 -mpreferred-stack-boundary=2\n
+        -S"}
   group: GRPSERIAL
 test_return-3_47:
   build:
-    cflags: "-mstackrealign -msse -std=gnu99 -mpreferred-stack-boundary=2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-3.c'
-    sources:
-      binary: return-3.s
+    sources: {binary: return-3.s, cflags: "-mstackrealign -msse -std=gnu99 -mpreferred-stack-boundary=2\n
+        -S"}
   group: GRPSERIAL
 test_return-3_57:
   build:
-    cflags: "-mno-stackrealign -msse -std=gnu99 -mpreferred-stack-boundary=2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-3.c'
-    sources:
-      binary: return-3.s
+    sources: {binary: return-3.s, cflags: "-mno-stackrealign -msse -std=gnu99 -mpreferred-stack-boundary=2\n
+        -S"}
   group: GRPSERIAL
 test_return-3_7:
   build:
-    cflags: "-mstackrealign -msse -std=gnu99 -mpreferred-stack-boundary=2\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-3.c'
-    sources:
-      binary: return-3.s
+    sources: {binary: return-3.s, cflags: "-mstackrealign -msse -std=gnu99 -mpreferred-stack-boundary=2\n
+        -S"}
   group: GRPSERIAL
 test_return-4_18:
   build:
-    cflags: "-mno-stackrealign -mpreferred-stack-boundary=4 -O -ffat-lto-objects\n\
-      \ -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-4.c'
-    sources:
-      binary: return-4.s
+    sources: {binary: return-4.s, cflags: "-mno-stackrealign -mpreferred-stack-boundary=4
+        -O -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_return-4_28:
   build:
-    cflags: "-mstackrealign -mpreferred-stack-boundary=4 -O -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-4.c'
-    sources:
-      binary: return-4.s
+    sources: {binary: return-4.s, cflags: "-mstackrealign -mpreferred-stack-boundary=4
+        -O -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_return-4_38:
   build:
-    cflags: "-mno-stackrealign -mpreferred-stack-boundary=4 -O -ffat-lto-objects\n\
-      \ -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-4.c'
-    sources:
-      binary: return-4.s
+    sources: {binary: return-4.s, cflags: "-mno-stackrealign -mpreferred-stack-boundary=4
+        -O -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_return-4_48:
   build:
-    cflags: "-mstackrealign -mpreferred-stack-boundary=4 -O -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-4.c'
-    sources:
-      binary: return-4.s
+    sources: {binary: return-4.s, cflags: "-mstackrealign -mpreferred-stack-boundary=4
+        -O -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_return-4_58:
   build:
-    cflags: "-mno-stackrealign -mpreferred-stack-boundary=4 -O -ffat-lto-objects\n\
-      \ -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-4.c'
-    sources:
-      binary: return-4.s
+    sources: {binary: return-4.s, cflags: "-mno-stackrealign -mpreferred-stack-boundary=4
+        -O -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_return-4_8:
   build:
-    cflags: "-mstackrealign -mpreferred-stack-boundary=4 -O -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-4.c'
-    sources:
-      binary: return-4.s
+    sources: {binary: return-4.s, cflags: "-mstackrealign -mpreferred-stack-boundary=4
+        -O -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_return-5_19:
   build:
-    cflags: "-mno-stackrealign -mpreferred-stack-boundary=4 -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-5.c'
-    sources:
-      binary: return-5.s
+    sources: {binary: return-5.s, cflags: "-mno-stackrealign -mpreferred-stack-boundary=4
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_return-5_29:
   build:
-    cflags: "-mstackrealign -mpreferred-stack-boundary=4 -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-5.c'
-    sources:
-      binary: return-5.s
+    sources: {binary: return-5.s, cflags: "-mstackrealign -mpreferred-stack-boundary=4
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_return-5_39:
   build:
-    cflags: "-mno-stackrealign -mpreferred-stack-boundary=4 -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-5.c'
-    sources:
-      binary: return-5.s
+    sources: {binary: return-5.s, cflags: "-mno-stackrealign -mpreferred-stack-boundary=4
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_return-5_49:
   build:
-    cflags: "-mstackrealign -mpreferred-stack-boundary=4 -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-5.c'
-    sources:
-      binary: return-5.s
+    sources: {binary: return-5.s, cflags: "-mstackrealign -mpreferred-stack-boundary=4
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_return-5_59:
   build:
-    cflags: "-mno-stackrealign -mpreferred-stack-boundary=4 -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-5.c'
-    sources:
-      binary: return-5.s
+    sources: {binary: return-5.s, cflags: "-mno-stackrealign -mpreferred-stack-boundary=4
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_return-5_9:
   build:
-    cflags: "-mstackrealign -mpreferred-stack-boundary=4 -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-5.c'
-    sources:
-      binary: return-5.s
+    sources: {binary: return-5.s, cflags: "-mstackrealign -mpreferred-stack-boundary=4
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_return-6_10:
   build:
-    cflags: "-mstackrealign -mpreferred-stack-boundary=4 -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-6.c'
-    sources:
-      binary: return-6.s
+    sources: {binary: return-6.s, cflags: "-mstackrealign -mpreferred-stack-boundary=4
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_return-6_20:
   build:
-    cflags: "-mno-stackrealign -mpreferred-stack-boundary=4 -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-6.c'
-    sources:
-      binary: return-6.s
+    sources: {binary: return-6.s, cflags: "-mno-stackrealign -mpreferred-stack-boundary=4
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_return-6_30:
   build:
-    cflags: "-mstackrealign -mpreferred-stack-boundary=4 -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-6.c'
-    sources:
-      binary: return-6.s
+    sources: {binary: return-6.s, cflags: "-mstackrealign -mpreferred-stack-boundary=4
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_return-6_40:
   build:
-    cflags: "-mno-stackrealign -mpreferred-stack-boundary=4 -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-6.c'
-    sources:
-      binary: return-6.s
+    sources: {binary: return-6.s, cflags: "-mno-stackrealign -mpreferred-stack-boundary=4
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_return-6_50:
   build:
-    cflags: "-mstackrealign -mpreferred-stack-boundary=4 -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-6.c'
-    sources:
-      binary: return-6.s
+    sources: {binary: return-6.s, cflags: "-mstackrealign -mpreferred-stack-boundary=4
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL
 test_return-6_60:
   build:
-    cflags: "-mno-stackrealign -mpreferred-stack-boundary=4 -ffat-lto-objects\n -S"
     files: '@ROOTPATH@/compilers/gcc/./gcc.target/i386/stackalign/return-6.c'
-    sources:
-      binary: return-6.s
+    sources: {binary: return-6.s, cflags: "-mno-stackrealign -mpreferred-stack-boundary=4
+        -ffat-lto-objects\n -S"}
   group: GRPSERIAL

@@ -1,1136 +1,828 @@
 test__Pragma1_1:
   build:
-    cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/_Pragma1.C'
-    sources:
-      binary: _Pragma1.s
+    sources: {binary: _Pragma1.s, cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test__Pragma1_2:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/_Pragma1.C'
-    sources:
-      binary: _Pragma1.s
+    sources: {binary: _Pragma1.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test__Pragma1_3:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/_Pragma1.C'
-    sources:
-      binary: _Pragma1.s
+    sources: {binary: _Pragma1.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test__Pragma1_54:
   build:
-    cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/_Pragma1.C'
-    sources:
-      binary: _Pragma1.s
+    sources: {binary: _Pragma1.s, cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test__Pragma1_55:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/_Pragma1.C'
-    sources:
-      binary: _Pragma1.s
+    sources: {binary: _Pragma1.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test__Pragma1_56:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/_Pragma1.C'
-    sources:
-      binary: _Pragma1.s
+    sources: {binary: _Pragma1.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_c++98-pedantic_4:
   build:
-    cflags: "-std=c++98 -pedantic\n -E"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/c++98-pedantic.C'
-    sources:
-      binary: c++98-pedantic.i
+    sources: {binary: c++98-pedantic.i, cflags: "-std=c++98 -pedantic\n -E"}
   group: GRPSERIAL
   validate:
     match:
-      L9:
-        expect: true
-        expr: '(^|\n)([^\n]+(:9:)[^\n]*[0-9]+: warning:[^\n]*("long long")[^\n]*\n?)+'
+      L9: {expect: true, expr: '(^|\n)([^\n]+(:9:)[^\n]*[0-9]+: warning:[^\n]*("long
+          long")[^\n]*\n?)+'}
 test_c++98-pedantic_57:
   build:
-    cflags: "-std=c++98 -pedantic\n -E"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/c++98-pedantic.C'
-    sources:
-      binary: c++98-pedantic.i
+    sources: {binary: c++98-pedantic.i, cflags: "-std=c++98 -pedantic\n -E"}
   group: GRPSERIAL
   validate:
     match:
-      L9:
-        expect: true
-        expr: '(^|\n)([^\n]+(:9:)[^\n]*[0-9]+: warning:[^\n]*("long long")[^\n]*\n?)+'
+      L9: {expect: true, expr: '(^|\n)([^\n]+(:9:)[^\n]*[0-9]+: warning:[^\n]*("long
+          long")[^\n]*\n?)+'}
 test_c++98_5:
   build:
-    cflags: "-std=c++98\n -E"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/c++98.C'
-    sources:
-      binary: c++98.i
+    sources: {binary: c++98.i, cflags: "-std=c++98\n -E"}
   group: GRPSERIAL
 test_c++98_58:
   build:
-    cflags: "-std=c++98\n -E"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/c++98.C'
-    sources:
-      binary: c++98.i
+    sources: {binary: c++98.i, cflags: "-std=c++98\n -E"}
   group: GRPSERIAL
 test_c++_cmd_1_59:
   build:
-    cflags: "-std=gnu++98 -c -include ./g++.dg/cpp/c++_cmd_1.h\n -E"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/c++_cmd_1.C'
-    sources:
-      binary: c++_cmd_1.i
+    sources: {binary: c++_cmd_1.i, cflags: "-std=gnu++98 -c -include ./g++.dg/cpp/c++_cmd_1.h\n
+        -E"}
   group: GRPSERIAL
 test_c++_cmd_1_6:
   build:
-    cflags: "-std=gnu++98 -c -include ./g++.dg/cpp/c++_cmd_1.h\n -E"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/c++_cmd_1.C'
-    sources:
-      binary: c++_cmd_1.i
+    sources: {binary: c++_cmd_1.i, cflags: "-std=gnu++98 -c -include ./g++.dg/cpp/c++_cmd_1.h\n
+        -E"}
   group: GRPSERIAL
 test_c++_cmd_1_60:
   build:
-    cflags: "-std=gnu++11 -c -include ./g++.dg/cpp/c++_cmd_1.h\n -E"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/c++_cmd_1.C'
-    sources:
-      binary: c++_cmd_1.i
+    sources: {binary: c++_cmd_1.i, cflags: "-std=gnu++11 -c -include ./g++.dg/cpp/c++_cmd_1.h\n
+        -E"}
   group: GRPSERIAL
 test_c++_cmd_1_61:
   build:
-    cflags: "-std=gnu++14 -c -include ./g++.dg/cpp/c++_cmd_1.h\n -E"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/c++_cmd_1.C'
-    sources:
-      binary: c++_cmd_1.i
+    sources: {binary: c++_cmd_1.i, cflags: "-std=gnu++14 -c -include ./g++.dg/cpp/c++_cmd_1.h\n
+        -E"}
   group: GRPSERIAL
 test_c++_cmd_1_7:
   build:
-    cflags: "-std=gnu++11 -c -include ./g++.dg/cpp/c++_cmd_1.h\n -E"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/c++_cmd_1.C'
-    sources:
-      binary: c++_cmd_1.i
+    sources: {binary: c++_cmd_1.i, cflags: "-std=gnu++11 -c -include ./g++.dg/cpp/c++_cmd_1.h\n
+        -E"}
   group: GRPSERIAL
 test_c++_cmd_1_8:
   build:
-    cflags: "-std=gnu++14 -c -include ./g++.dg/cpp/c++_cmd_1.h\n -E"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/c++_cmd_1.C'
-    sources:
-      binary: c++_cmd_1.i
+    sources: {binary: c++_cmd_1.i, cflags: "-std=gnu++14 -c -include ./g++.dg/cpp/c++_cmd_1.h\n
+        -E"}
   group: GRPSERIAL
 test_limits_10:
   build:
-    cflags: "-std=gnu++11 -pedantic\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/limits.C'
-    sources:
-      binary: limits.s
+    sources: {binary: limits.s, cflags: "-std=gnu++11 -pedantic\n -S"}
   group: GRPSERIAL
 test_limits_11:
   build:
-    cflags: "-std=gnu++14 -pedantic\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/limits.C'
-    sources:
-      binary: limits.s
+    sources: {binary: limits.s, cflags: "-std=gnu++14 -pedantic\n -S"}
   group: GRPSERIAL
 test_limits_62:
   build:
-    cflags: "-std=gnu++98 -pedantic\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/limits.C'
-    sources:
-      binary: limits.s
+    sources: {binary: limits.s, cflags: "-std=gnu++98 -pedantic\n -S"}
   group: GRPSERIAL
 test_limits_63:
   build:
-    cflags: "-std=gnu++11 -pedantic\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/limits.C'
-    sources:
-      binary: limits.s
+    sources: {binary: limits.s, cflags: "-std=gnu++11 -pedantic\n -S"}
   group: GRPSERIAL
 test_limits_64:
   build:
-    cflags: "-std=gnu++14 -pedantic\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/limits.C'
-    sources:
-      binary: limits.s
+    sources: {binary: limits.s, cflags: "-std=gnu++14 -pedantic\n -S"}
   group: GRPSERIAL
 test_limits_9:
   build:
-    cflags: "-std=gnu++98 -pedantic\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/limits.C'
-    sources:
-      binary: limits.s
+    sources: {binary: limits.s, cflags: "-std=gnu++98 -pedantic\n -S"}
   group: GRPSERIAL
 test_paste1_12:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/paste1.C'
-    sources:
-      binary: paste1.s
+    sources: {binary: paste1.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_paste1_13:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/paste1.C'
-    sources:
-      binary: paste1.s
+    sources: {binary: paste1.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_paste1_65:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/paste1.C'
-    sources:
-      binary: paste1.s
+    sources: {binary: paste1.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_paste1_66:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/paste1.C'
-    sources:
-      binary: paste1.s
+    sources: {binary: paste1.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_paste2_14:
   build:
-    cflags: "-std=gnu++11 -save-temps\n -S"
     cwd: /home/adamj/mnt/projects/pcvs/compilers/gcc/g++.dg/cpp
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/paste2.C'
-    sources:
-      binary: paste2.s
+    sources: {binary: paste2.s, cflags: "-std=gnu++11 -save-temps\n -S"}
   group: GRPSERIAL
-  run:
-    cwd: /home/adamj/mnt/projects/pcvs/compilers/gcc/g++.dg/cpp
+  run: {cwd: /home/adamj/mnt/projects/pcvs/compilers/gcc/g++.dg/cpp}
 test_paste2_15:
   build:
-    cflags: "-std=gnu++14 -save-temps\n -S"
     cwd: /home/adamj/mnt/projects/pcvs/compilers/gcc/g++.dg/cpp
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/paste2.C'
-    sources:
-      binary: paste2.s
+    sources: {binary: paste2.s, cflags: "-std=gnu++14 -save-temps\n -S"}
   group: GRPSERIAL
-  run:
-    cwd: /home/adamj/mnt/projects/pcvs/compilers/gcc/g++.dg/cpp
+  run: {cwd: /home/adamj/mnt/projects/pcvs/compilers/gcc/g++.dg/cpp}
 test_paste2_67:
   build:
-    cflags: "-std=gnu++11 -save-temps\n -S"
     cwd: /home/adamj/mnt/projects/pcvs/compilers/gcc/g++.dg/cpp
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/paste2.C'
-    sources:
-      binary: paste2.s
+    sources: {binary: paste2.s, cflags: "-std=gnu++11 -save-temps\n -S"}
   group: GRPSERIAL
-  run:
-    cwd: /home/adamj/mnt/projects/pcvs/compilers/gcc/g++.dg/cpp
+  run: {cwd: /home/adamj/mnt/projects/pcvs/compilers/gcc/g++.dg/cpp}
 test_paste2_68:
   build:
-    cflags: "-std=gnu++14 -save-temps\n -S"
     cwd: /home/adamj/mnt/projects/pcvs/compilers/gcc/g++.dg/cpp
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/paste2.C'
-    sources:
-      binary: paste2.s
+    sources: {binary: paste2.s, cflags: "-std=gnu++14 -save-temps\n -S"}
   group: GRPSERIAL
-  run:
-    cwd: /home/adamj/mnt/projects/pcvs/compilers/gcc/g++.dg/cpp
+  run: {cwd: /home/adamj/mnt/projects/pcvs/compilers/gcc/g++.dg/cpp}
 test_pedantic-errors_16:
   build:
-    cflags: "-std=c++98 -pedantic-errors\n -E"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/pedantic-errors.C'
-    sources:
-      binary: pedantic-errors.i
+    sources: {binary: pedantic-errors.i, cflags: "-std=c++98 -pedantic-errors\n -E"}
   group: GRPSERIAL
   validate:
     match:
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("extra tokens at
-          end of #endif directive")[^\n]*\n?)+'
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("extra
+          tokens at end of #endif directive")[^\n]*\n?)+'}
 test_pedantic-errors_69:
   build:
-    cflags: "-std=c++98 -pedantic-errors\n -E"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/pedantic-errors.C'
-    sources:
-      binary: pedantic-errors.i
+    sources: {binary: pedantic-errors.i, cflags: "-std=c++98 -pedantic-errors\n -E"}
   group: GRPSERIAL
   validate:
     match:
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("extra tokens at
-          end of #endif directive")[^\n]*\n?)+'
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("extra
+          tokens at end of #endif directive")[^\n]*\n?)+'}
 test_pr23827_cxx11_17:
   build:
-    cflags: -std=gnu++11 -pedantic-errors
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/pr23827_cxx11.C'
-    sources:
-      binary: ./pr23827_cxx11.exe
+    sources: {binary: ./pr23827_cxx11.exe, cflags: -std=gnu++11 -pedantic-errors}
   group: GRPSERIAL
-  run:
-    cwd: .
+  run: {cwd: .}
 test_pr23827_cxx11_18:
   build:
-    cflags: -std=gnu++14 -pedantic-errors
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/pr23827_cxx11.C'
-    sources:
-      binary: ./pr23827_cxx11.exe
+    sources: {binary: ./pr23827_cxx11.exe, cflags: -std=gnu++14 -pedantic-errors}
   group: GRPSERIAL
-  run:
-    cwd: .
+  run: {cwd: .}
 test_pr23827_cxx11_70:
   build:
-    cflags: -std=gnu++11 -pedantic-errors
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/pr23827_cxx11.C'
-    sources:
-      binary: ./pr23827_cxx11.exe
+    sources: {binary: ./pr23827_cxx11.exe, cflags: -std=gnu++11 -pedantic-errors}
   group: GRPSERIAL
-  run:
-    cwd: .
+  run: {cwd: .}
 test_pr23827_cxx11_71:
   build:
-    cflags: -std=gnu++14 -pedantic-errors
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/pr23827_cxx11.C'
-    sources:
-      binary: ./pr23827_cxx11.exe
+    sources: {binary: ./pr23827_cxx11.exe, cflags: -std=gnu++14 -pedantic-errors}
   group: GRPSERIAL
-  run:
-    cwd: .
+  run: {cwd: .}
 test_pr23827_cxx98_19:
   build:
-    cflags: -std=gnu++98 -ansi -pedantic-errors
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/pr23827_cxx98.C'
-    sources:
-      binary: ./pr23827_cxx98.exe
+    sources: {binary: ./pr23827_cxx98.exe, cflags: -std=gnu++98 -ansi -pedantic-errors}
   group: GRPSERIAL
-  run:
-    cwd: .
+  run: {cwd: .}
 test_pr23827_cxx98_72:
   build:
-    cflags: -std=gnu++98 -ansi -pedantic-errors
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/pr23827_cxx98.C'
-    sources:
-      binary: ./pr23827_cxx98.exe
+    sources: {binary: ./pr23827_cxx98.exe, cflags: -std=gnu++98 -ansi -pedantic-errors}
   group: GRPSERIAL
-  run:
-    cwd: .
+  run: {cwd: .}
 test_pr23827_cxx98_neg_20:
   build:
-    cflags: "-std=gnu++98 -ansi -pedantic-errors\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/pr23827_cxx98_neg.C'
-    sources:
-      binary: pr23827_cxx98_neg.s
+    sources: {binary: pr23827_cxx98_neg.s, cflags: "-std=gnu++98 -ansi -pedantic-errors\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("use of C..1z hexadecimal
-          floating constant")[^\n]*\n?)+'
+      L4: {expect: true, expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("use
+          of C..1z hexadecimal floating constant")[^\n]*\n?)+'}
 test_pr23827_cxx98_neg_73:
   build:
-    cflags: "-std=gnu++98 -ansi -pedantic-errors\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/pr23827_cxx98_neg.C'
-    sources:
-      binary: pr23827_cxx98_neg.s
+    sources: {binary: pr23827_cxx98_neg.s, cflags: "-std=gnu++98 -ansi -pedantic-errors\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("use of C..1z hexadecimal
-          floating constant")[^\n]*\n?)+'
+      L4: {expect: true, expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("use
+          of C..1z hexadecimal floating constant")[^\n]*\n?)+'}
 test_pr53690_21:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/pr53690.C'
-    sources:
-      binary: pr53690.s
+    sources: {binary: pr53690.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_pr53690_22:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/pr53690.C'
-    sources:
-      binary: pr53690.s
+    sources: {binary: pr53690.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_pr53690_74:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/pr53690.C'
-    sources:
-      binary: pr53690.s
+    sources: {binary: pr53690.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_pr53690_75:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/pr53690.C'
-    sources:
-      binary: pr53690.s
+    sources: {binary: pr53690.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_pr64127_23:
   build:
-    cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/pr64127.C'
-    sources:
-      binary: pr64127.s
+    sources: {binary: pr64127.s, cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L3:
-        expect: true
-        expr: '(^|\n)([^\n]+:3:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected identifier|numeric
-          constant|variable templates")[^\n]*\n?)+'
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("template argument|parse
-          error|not name a type")[^\n]*\n?)+'
+      L3: {expect: true, expr: '(^|\n)([^\n]+:3:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected
+          identifier|numeric constant|variable templates")[^\n]*\n?)+'}
+      L4: {expect: true, expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("template
+          argument|parse error|not name a type")[^\n]*\n?)+'}
 test_pr64127_76:
   build:
-    cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/pr64127.C'
-    sources:
-      binary: pr64127.s
+    sources: {binary: pr64127.s, cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L3:
-        expect: true
-        expr: '(^|\n)([^\n]+:3:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected identifier|numeric
-          constant|variable templates")[^\n]*\n?)+'
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("template argument|parse
-          error|not name a type")[^\n]*\n?)+'
+      L3: {expect: true, expr: '(^|\n)([^\n]+:3:[^\n]*[0-9]+: (fatal )?error:[^\n]*("expected
+          identifier|numeric constant|variable templates")[^\n]*\n?)+'}
+      L4: {expect: true, expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("template
+          argument|parse error|not name a type")[^\n]*\n?)+'}
 test_pragma-float-const-decimal64-1_24:
   build:
-    cflags: "-std=gnu++98 -Wunknown-pragmas\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/pragma-float-const-decimal64-1.C'
-    sources:
-      binary: pragma-float-const-decimal64-1.s
+    sources: {binary: pragma-float-const-decimal64-1.s, cflags: "-std=gnu++98 -Wunknown-pragmas\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+(:4:)[^\n]*[0-9]+: warning:[^\n]*("not supported for C\\\\\\+\\\\\\+")[^\n]*\n?)+'
+      L4: {expect: true, expr: '(^|\n)([^\n]+(:4:)[^\n]*[0-9]+: warning:[^\n]*("not
+          supported for C\\\\\\+\\\\\\+")[^\n]*\n?)+'}
 test_pragma-float-const-decimal64-1_25:
   build:
-    cflags: "-std=gnu++11 -Wunknown-pragmas\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/pragma-float-const-decimal64-1.C'
-    sources:
-      binary: pragma-float-const-decimal64-1.s
+    sources: {binary: pragma-float-const-decimal64-1.s, cflags: "-std=gnu++11 -Wunknown-pragmas\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+(:4:)[^\n]*[0-9]+: warning:[^\n]*("not supported for C\\\\\\+\\\\\\+")[^\n]*\n?)+'
+      L4: {expect: true, expr: '(^|\n)([^\n]+(:4:)[^\n]*[0-9]+: warning:[^\n]*("not
+          supported for C\\\\\\+\\\\\\+")[^\n]*\n?)+'}
 test_pragma-float-const-decimal64-1_26:
   build:
-    cflags: "-std=gnu++14 -Wunknown-pragmas\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/pragma-float-const-decimal64-1.C'
-    sources:
-      binary: pragma-float-const-decimal64-1.s
+    sources: {binary: pragma-float-const-decimal64-1.s, cflags: "-std=gnu++14 -Wunknown-pragmas\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+(:4:)[^\n]*[0-9]+: warning:[^\n]*("not supported for C\\\\\\+\\\\\\+")[^\n]*\n?)+'
+      L4: {expect: true, expr: '(^|\n)([^\n]+(:4:)[^\n]*[0-9]+: warning:[^\n]*("not
+          supported for C\\\\\\+\\\\\\+")[^\n]*\n?)+'}
 test_pragma-float-const-decimal64-1_77:
   build:
-    cflags: "-std=gnu++98 -Wunknown-pragmas\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/pragma-float-const-decimal64-1.C'
-    sources:
-      binary: pragma-float-const-decimal64-1.s
+    sources: {binary: pragma-float-const-decimal64-1.s, cflags: "-std=gnu++98 -Wunknown-pragmas\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+(:4:)[^\n]*[0-9]+: warning:[^\n]*("not supported for C\\\\\\+\\\\\\+")[^\n]*\n?)+'
+      L4: {expect: true, expr: '(^|\n)([^\n]+(:4:)[^\n]*[0-9]+: warning:[^\n]*("not
+          supported for C\\\\\\+\\\\\\+")[^\n]*\n?)+'}
 test_pragma-float-const-decimal64-1_78:
   build:
-    cflags: "-std=gnu++11 -Wunknown-pragmas\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/pragma-float-const-decimal64-1.C'
-    sources:
-      binary: pragma-float-const-decimal64-1.s
+    sources: {binary: pragma-float-const-decimal64-1.s, cflags: "-std=gnu++11 -Wunknown-pragmas\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+(:4:)[^\n]*[0-9]+: warning:[^\n]*("not supported for C\\\\\\+\\\\\\+")[^\n]*\n?)+'
+      L4: {expect: true, expr: '(^|\n)([^\n]+(:4:)[^\n]*[0-9]+: warning:[^\n]*("not
+          supported for C\\\\\\+\\\\\\+")[^\n]*\n?)+'}
 test_pragma-float-const-decimal64-1_79:
   build:
-    cflags: "-std=gnu++14 -Wunknown-pragmas\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/pragma-float-const-decimal64-1.C'
-    sources:
-      binary: pragma-float-const-decimal64-1.s
+    sources: {binary: pragma-float-const-decimal64-1.s, cflags: "-std=gnu++14 -Wunknown-pragmas\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+(:4:)[^\n]*[0-9]+: warning:[^\n]*("not supported for C\\\\\\+\\\\\\+")[^\n]*\n?)+'
+      L4: {expect: true, expr: '(^|\n)([^\n]+(:4:)[^\n]*[0-9]+: warning:[^\n]*("not
+          supported for C\\\\\\+\\\\\\+")[^\n]*\n?)+'}
 test_string-1_27:
   build:
-    cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/string-1.C'
-    sources:
-      binary: string-1.s
+    sources: {binary: string-1.s, cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("unknown escape
-          sequence")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("unknown escape
-          sequence")[^\n]*\n?)+'
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("unknown
+          escape sequence")[^\n]*\n?)+'}
+      L7: {expect: true, expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("unknown
+          escape sequence")[^\n]*\n?)+'}
 test_string-1_28:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/string-1.C'
-    sources:
-      binary: string-1.s
+    sources: {binary: string-1.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("unknown escape
-          sequence")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("unknown escape
-          sequence")[^\n]*\n?)+'
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("unknown
+          escape sequence")[^\n]*\n?)+'}
+      L7: {expect: true, expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("unknown
+          escape sequence")[^\n]*\n?)+'}
 test_string-1_29:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/string-1.C'
-    sources:
-      binary: string-1.s
+    sources: {binary: string-1.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("unknown escape
-          sequence")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("unknown escape
-          sequence")[^\n]*\n?)+'
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("unknown
+          escape sequence")[^\n]*\n?)+'}
+      L7: {expect: true, expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("unknown
+          escape sequence")[^\n]*\n?)+'}
 test_string-1_80:
   build:
-    cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/string-1.C'
-    sources:
-      binary: string-1.s
+    sources: {binary: string-1.s, cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("unknown escape
-          sequence")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("unknown escape
-          sequence")[^\n]*\n?)+'
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("unknown
+          escape sequence")[^\n]*\n?)+'}
+      L7: {expect: true, expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("unknown
+          escape sequence")[^\n]*\n?)+'}
 test_string-1_81:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/string-1.C'
-    sources:
-      binary: string-1.s
+    sources: {binary: string-1.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("unknown escape
-          sequence")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("unknown escape
-          sequence")[^\n]*\n?)+'
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("unknown
+          escape sequence")[^\n]*\n?)+'}
+      L7: {expect: true, expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("unknown
+          escape sequence")[^\n]*\n?)+'}
 test_string-1_82:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/string-1.C'
-    sources:
-      binary: string-1.s
+    sources: {binary: string-1.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("unknown escape
-          sequence")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("unknown escape
-          sequence")[^\n]*\n?)+'
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("unknown
+          escape sequence")[^\n]*\n?)+'}
+      L7: {expect: true, expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("unknown
+          escape sequence")[^\n]*\n?)+'}
 test_string-2_30:
   build:
-    cflags: "-std=gnu++98 \n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/string-2.C'
-    sources:
-      binary: string-2.s
+    sources: {binary: string-2.s, cflags: "-std=gnu++98 \n -S"}
   group: GRPSERIAL
   validate:
     match:
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+(:6:)[^\n]*[0-9]+: warning:[^\n]*("unknown escape sequence")[^\n]*\n?)+'
+      L6: {expect: true, expr: '(^|\n)([^\n]+(:6:)[^\n]*[0-9]+: warning:[^\n]*("unknown
+          escape sequence")[^\n]*\n?)+'}
 test_string-2_31:
   build:
-    cflags: "-std=gnu++11 \n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/string-2.C'
-    sources:
-      binary: string-2.s
+    sources: {binary: string-2.s, cflags: "-std=gnu++11 \n -S"}
   group: GRPSERIAL
   validate:
     match:
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+(:6:)[^\n]*[0-9]+: warning:[^\n]*("unknown escape sequence")[^\n]*\n?)+'
+      L6: {expect: true, expr: '(^|\n)([^\n]+(:6:)[^\n]*[0-9]+: warning:[^\n]*("unknown
+          escape sequence")[^\n]*\n?)+'}
 test_string-2_32:
   build:
-    cflags: "-std=gnu++14 \n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/string-2.C'
-    sources:
-      binary: string-2.s
+    sources: {binary: string-2.s, cflags: "-std=gnu++14 \n -S"}
   group: GRPSERIAL
   validate:
     match:
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+(:6:)[^\n]*[0-9]+: warning:[^\n]*("unknown escape sequence")[^\n]*\n?)+'
+      L6: {expect: true, expr: '(^|\n)([^\n]+(:6:)[^\n]*[0-9]+: warning:[^\n]*("unknown
+          escape sequence")[^\n]*\n?)+'}
 test_string-2_83:
   build:
-    cflags: "-std=gnu++98 \n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/string-2.C'
-    sources:
-      binary: string-2.s
+    sources: {binary: string-2.s, cflags: "-std=gnu++98 \n -S"}
   group: GRPSERIAL
   validate:
     match:
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+(:6:)[^\n]*[0-9]+: warning:[^\n]*("unknown escape sequence")[^\n]*\n?)+'
+      L6: {expect: true, expr: '(^|\n)([^\n]+(:6:)[^\n]*[0-9]+: warning:[^\n]*("unknown
+          escape sequence")[^\n]*\n?)+'}
 test_string-2_84:
   build:
-    cflags: "-std=gnu++11 \n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/string-2.C'
-    sources:
-      binary: string-2.s
+    sources: {binary: string-2.s, cflags: "-std=gnu++11 \n -S"}
   group: GRPSERIAL
   validate:
     match:
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+(:6:)[^\n]*[0-9]+: warning:[^\n]*("unknown escape sequence")[^\n]*\n?)+'
+      L6: {expect: true, expr: '(^|\n)([^\n]+(:6:)[^\n]*[0-9]+: warning:[^\n]*("unknown
+          escape sequence")[^\n]*\n?)+'}
 test_string-2_85:
   build:
-    cflags: "-std=gnu++14 \n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/string-2.C'
-    sources:
-      binary: string-2.s
+    sources: {binary: string-2.s, cflags: "-std=gnu++14 \n -S"}
   group: GRPSERIAL
   validate:
     match:
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+(:6:)[^\n]*[0-9]+: warning:[^\n]*("unknown escape sequence")[^\n]*\n?)+'
+      L6: {expect: true, expr: '(^|\n)([^\n]+(:6:)[^\n]*[0-9]+: warning:[^\n]*("unknown
+          escape sequence")[^\n]*\n?)+'}
 test_stringop-1_33:
   build:
-    cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/stringop-1.C'
-    sources:
-      binary: stringop-1.s
+    sources: {binary: stringop-1.s, cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_stringop-1_34:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/stringop-1.C'
-    sources:
-      binary: stringop-1.s
+    sources: {binary: stringop-1.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_stringop-1_35:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/stringop-1.C'
-    sources:
-      binary: stringop-1.s
+    sources: {binary: stringop-1.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_stringop-1_86:
   build:
-    cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/stringop-1.C'
-    sources:
-      binary: stringop-1.s
+    sources: {binary: stringop-1.s, cflags: "-std=c++98  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_stringop-1_87:
   build:
-    cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/stringop-1.C'
-    sources:
-      binary: stringop-1.s
+    sources: {binary: stringop-1.s, cflags: "-std=c++11  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_stringop-1_88:
   build:
-    cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/stringop-1.C'
-    sources:
-      binary: stringop-1.s
+    sources: {binary: stringop-1.s, cflags: "-std=c++14  -pedantic-errors -Wno-long-long\n
+        -S"}
   group: GRPSERIAL
 test_syshdr3_36:
   build:
-    cflags: "-pedantic -std=c++98 -ftrack-macro-expansion=1\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/syshdr3.C'
-    sources:
-      binary: syshdr3.s
+    sources: {binary: syshdr3.s, cflags: "-pedantic -std=c++98 -ftrack-macro-expansion=1\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L16:
-        expect: true
-        expr: '(^|\n)([^\n]+(:16:)[^\n]*[0-9]+: warning:[^\n]*("long long")[^\n]*\n?)+'
+      L16: {expect: true, expr: '(^|\n)([^\n]+(:16:)[^\n]*[0-9]+: warning:[^\n]*("long
+          long")[^\n]*\n?)+'}
 test_syshdr3_89:
   build:
-    cflags: "-pedantic -std=c++98 -ftrack-macro-expansion=1\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/syshdr3.C'
-    sources:
-      binary: syshdr3.s
+    sources: {binary: syshdr3.s, cflags: "-pedantic -std=c++98 -ftrack-macro-expansion=1\n
+        -S"}
   group: GRPSERIAL
   validate:
     match:
-      L16:
-        expect: true
-        expr: '(^|\n)([^\n]+(:16:)[^\n]*[0-9]+: warning:[^\n]*("long long")[^\n]*\n?)+'
+      L16: {expect: true, expr: '(^|\n)([^\n]+(:16:)[^\n]*[0-9]+: warning:[^\n]*("long
+          long")[^\n]*\n?)+'}
 test_truefalse_37:
   build:
-    cflags: "-std=gnu++98 -ansi -pedantic -Wundef\n -E"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/truefalse.C'
-    sources:
-      binary: truefalse.i
+    sources: {binary: truefalse.i, cflags: "-std=gnu++98 -ansi -pedantic -Wundef\n
+        -E"}
   group: GRPSERIAL
   validate:
     match:
-      L12:
-        expect: true
-        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("foo")[^\n]*\n?)+'
+      L12: {expect: true, expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("foo")[^\n]*\n?)+'}
 test_truefalse_38:
   build:
-    cflags: "-std=gnu++11 -ansi -pedantic -Wundef\n -E"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/truefalse.C'
-    sources:
-      binary: truefalse.i
+    sources: {binary: truefalse.i, cflags: "-std=gnu++11 -ansi -pedantic -Wundef\n
+        -E"}
   group: GRPSERIAL
   validate:
     match:
-      L12:
-        expect: true
-        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("foo")[^\n]*\n?)+'
+      L12: {expect: true, expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("foo")[^\n]*\n?)+'}
 test_truefalse_39:
   build:
-    cflags: "-std=gnu++14 -ansi -pedantic -Wundef\n -E"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/truefalse.C'
-    sources:
-      binary: truefalse.i
+    sources: {binary: truefalse.i, cflags: "-std=gnu++14 -ansi -pedantic -Wundef\n
+        -E"}
   group: GRPSERIAL
   validate:
     match:
-      L12:
-        expect: true
-        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("foo")[^\n]*\n?)+'
+      L12: {expect: true, expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("foo")[^\n]*\n?)+'}
 test_truefalse_90:
   build:
-    cflags: "-std=gnu++98 -ansi -pedantic -Wundef\n -E"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/truefalse.C'
-    sources:
-      binary: truefalse.i
+    sources: {binary: truefalse.i, cflags: "-std=gnu++98 -ansi -pedantic -Wundef\n
+        -E"}
   group: GRPSERIAL
   validate:
     match:
-      L12:
-        expect: true
-        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("foo")[^\n]*\n?)+'
+      L12: {expect: true, expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("foo")[^\n]*\n?)+'}
 test_truefalse_91:
   build:
-    cflags: "-std=gnu++11 -ansi -pedantic -Wundef\n -E"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/truefalse.C'
-    sources:
-      binary: truefalse.i
+    sources: {binary: truefalse.i, cflags: "-std=gnu++11 -ansi -pedantic -Wundef\n
+        -E"}
   group: GRPSERIAL
   validate:
     match:
-      L12:
-        expect: true
-        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("foo")[^\n]*\n?)+'
+      L12: {expect: true, expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("foo")[^\n]*\n?)+'}
 test_truefalse_92:
   build:
-    cflags: "-std=gnu++14 -ansi -pedantic -Wundef\n -E"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/truefalse.C'
-    sources:
-      binary: truefalse.i
+    sources: {binary: truefalse.i, cflags: "-std=gnu++14 -ansi -pedantic -Wundef\n
+        -E"}
   group: GRPSERIAL
   validate:
     match:
-      L12:
-        expect: true
-        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("foo")[^\n]*\n?)+'
+      L12: {expect: true, expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("foo")[^\n]*\n?)+'}
 test_ucn-1_40:
   build:
-    cflags: "-std=gnu++11 \n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/ucn-1.C'
-    sources:
-      binary: ucn-1.s
+    sources: {binary: ucn-1.s, cflags: "-std=gnu++11 \n -S"}
   group: GRPSERIAL
   validate:
     match:
-      L10:
-        expect: true
-        expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not valid in
-          an identifier")[^\n]*\n?)+'
-      L12:
-        expect: true
-        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not valid in
-          an identifier")[^\n]*\n?)+'
-      L14:
-        expect: true
-        expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not a valid universal
-          character")[^\n]*\n?)+'
+      L10: {expect: true, expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not
+          valid in an identifier")[^\n]*\n?)+'}
+      L12: {expect: true, expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not
+          valid in an identifier")[^\n]*\n?)+'}
+      L14: {expect: true, expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not
+          a valid universal character")[^\n]*\n?)+'}
 test_ucn-1_41:
   build:
-    cflags: "-std=gnu++14 \n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/ucn-1.C'
-    sources:
-      binary: ucn-1.s
+    sources: {binary: ucn-1.s, cflags: "-std=gnu++14 \n -S"}
   group: GRPSERIAL
   validate:
     match:
-      L10:
-        expect: true
-        expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not valid in
-          an identifier")[^\n]*\n?)+'
-      L12:
-        expect: true
-        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not valid in
-          an identifier")[^\n]*\n?)+'
-      L14:
-        expect: true
-        expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not a valid universal
-          character")[^\n]*\n?)+'
+      L10: {expect: true, expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not
+          valid in an identifier")[^\n]*\n?)+'}
+      L12: {expect: true, expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not
+          valid in an identifier")[^\n]*\n?)+'}
+      L14: {expect: true, expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not
+          a valid universal character")[^\n]*\n?)+'}
 test_ucn-1_93:
   build:
-    cflags: "-std=gnu++11 \n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/ucn-1.C'
-    sources:
-      binary: ucn-1.s
+    sources: {binary: ucn-1.s, cflags: "-std=gnu++11 \n -S"}
   group: GRPSERIAL
   validate:
     match:
-      L10:
-        expect: true
-        expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not valid in
-          an identifier")[^\n]*\n?)+'
-      L12:
-        expect: true
-        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not valid in
-          an identifier")[^\n]*\n?)+'
-      L14:
-        expect: true
-        expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not a valid universal
-          character")[^\n]*\n?)+'
+      L10: {expect: true, expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not
+          valid in an identifier")[^\n]*\n?)+'}
+      L12: {expect: true, expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not
+          valid in an identifier")[^\n]*\n?)+'}
+      L14: {expect: true, expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not
+          a valid universal character")[^\n]*\n?)+'}
 test_ucn-1_94:
   build:
-    cflags: "-std=gnu++14 \n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/ucn-1.C'
-    sources:
-      binary: ucn-1.s
+    sources: {binary: ucn-1.s, cflags: "-std=gnu++14 \n -S"}
   group: GRPSERIAL
   validate:
     match:
-      L10:
-        expect: true
-        expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not valid in
-          an identifier")[^\n]*\n?)+'
-      L12:
-        expect: true
-        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not valid in
-          an identifier")[^\n]*\n?)+'
-      L14:
-        expect: true
-        expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not a valid universal
-          character")[^\n]*\n?)+'
+      L10: {expect: true, expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not
+          valid in an identifier")[^\n]*\n?)+'}
+      L12: {expect: true, expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not
+          valid in an identifier")[^\n]*\n?)+'}
+      L14: {expect: true, expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not
+          a valid universal character")[^\n]*\n?)+'}
 test_ucnid-1_42:
   build:
-    cflags: "-std=gnu++98 -pedantic\n -E"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/ucnid-1.C'
-    sources:
-      binary: ucnid-1.i
+    sources: {binary: ucnid-1.i, cflags: "-std=gnu++98 -pedantic\n -E"}
   group: GRPSERIAL
   validate:
     match:
-      L12:
-        expect: true
-        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not valid in
-          an identifier")[^\n]*\n?)+'
-      L13:
-        expect: true
-        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not valid in
-          an identifier")[^\n]*\n?)+'
-      L14:
-        expect: true
-        expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not valid in
-          an identifier")[^\n]*\n?)+'
-      L15:
-        expect: true
-        expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not valid in
-          an identifier")[^\n]*\n?)+'
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not valid in an
-          identifier")[^\n]*\n?)+'
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not valid in an
-          identifier")[^\n]*\n?)+'
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not valid in an
-          identifier")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not valid in an
-          identifier")[^\n]*\n?)+'
+      L12: {expect: true, expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not
+          valid in an identifier")[^\n]*\n?)+'}
+      L13: {expect: true, expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not
+          valid in an identifier")[^\n]*\n?)+'}
+      L14: {expect: true, expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not
+          valid in an identifier")[^\n]*\n?)+'}
+      L15: {expect: true, expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not
+          valid in an identifier")[^\n]*\n?)+'}
+      L4: {expect: true, expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not
+          valid in an identifier")[^\n]*\n?)+'}
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not
+          valid in an identifier")[^\n]*\n?)+'}
+      L6: {expect: true, expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not
+          valid in an identifier")[^\n]*\n?)+'}
+      L7: {expect: true, expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not
+          valid in an identifier")[^\n]*\n?)+'}
 test_ucnid-1_95:
   build:
-    cflags: "-std=gnu++98 -pedantic\n -E"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/ucnid-1.C'
-    sources:
-      binary: ucnid-1.i
+    sources: {binary: ucnid-1.i, cflags: "-std=gnu++98 -pedantic\n -E"}
   group: GRPSERIAL
   validate:
     match:
-      L12:
-        expect: true
-        expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not valid in
-          an identifier")[^\n]*\n?)+'
-      L13:
-        expect: true
-        expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not valid in
-          an identifier")[^\n]*\n?)+'
-      L14:
-        expect: true
-        expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not valid in
-          an identifier")[^\n]*\n?)+'
-      L15:
-        expect: true
-        expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not valid in
-          an identifier")[^\n]*\n?)+'
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not valid in an
-          identifier")[^\n]*\n?)+'
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not valid in an
-          identifier")[^\n]*\n?)+'
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not valid in an
-          identifier")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not valid in an
-          identifier")[^\n]*\n?)+'
+      L12: {expect: true, expr: '(^|\n)([^\n]+:12:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not
+          valid in an identifier")[^\n]*\n?)+'}
+      L13: {expect: true, expr: '(^|\n)([^\n]+:13:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not
+          valid in an identifier")[^\n]*\n?)+'}
+      L14: {expect: true, expr: '(^|\n)([^\n]+:14:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not
+          valid in an identifier")[^\n]*\n?)+'}
+      L15: {expect: true, expr: '(^|\n)([^\n]+:15:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not
+          valid in an identifier")[^\n]*\n?)+'}
+      L4: {expect: true, expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not
+          valid in an identifier")[^\n]*\n?)+'}
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not
+          valid in an identifier")[^\n]*\n?)+'}
+      L6: {expect: true, expr: '(^|\n)([^\n]+:6:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not
+          valid in an identifier")[^\n]*\n?)+'}
+      L7: {expect: true, expr: '(^|\n)([^\n]+:7:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not
+          valid in an identifier")[^\n]*\n?)+'}
 test_ucnid-2_43:
   build:
-    cflags: -std=c++98  -pedantic-errors -Wno-long-long
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/ucnid-2.C'
-    sources:
-      binary: ./ucnid-2.exe
+    sources: {binary: ./ucnid-2.exe, cflags: -std=c++98  -pedantic-errors -Wno-long-long}
   group: GRPSERIAL
-  run:
-    cwd: .
+  run: {cwd: .}
 test_ucnid-2_44:
   build:
-    cflags: -std=c++11  -pedantic-errors -Wno-long-long
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/ucnid-2.C'
-    sources:
-      binary: ./ucnid-2.exe
+    sources: {binary: ./ucnid-2.exe, cflags: -std=c++11  -pedantic-errors -Wno-long-long}
   group: GRPSERIAL
-  run:
-    cwd: .
+  run: {cwd: .}
 test_ucnid-2_45:
   build:
-    cflags: -std=c++14  -pedantic-errors -Wno-long-long
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/ucnid-2.C'
-    sources:
-      binary: ./ucnid-2.exe
+    sources: {binary: ./ucnid-2.exe, cflags: -std=c++14  -pedantic-errors -Wno-long-long}
   group: GRPSERIAL
-  run:
-    cwd: .
+  run: {cwd: .}
 test_ucnid-2_96:
   build:
-    cflags: -std=c++98  -pedantic-errors -Wno-long-long
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/ucnid-2.C'
-    sources:
-      binary: ./ucnid-2.exe
+    sources: {binary: ./ucnid-2.exe, cflags: -std=c++98  -pedantic-errors -Wno-long-long}
   group: GRPSERIAL
-  run:
-    cwd: .
+  run: {cwd: .}
 test_ucnid-2_97:
   build:
-    cflags: -std=c++11  -pedantic-errors -Wno-long-long
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/ucnid-2.C'
-    sources:
-      binary: ./ucnid-2.exe
+    sources: {binary: ./ucnid-2.exe, cflags: -std=c++11  -pedantic-errors -Wno-long-long}
   group: GRPSERIAL
-  run:
-    cwd: .
+  run: {cwd: .}
 test_ucnid-2_98:
   build:
-    cflags: -std=c++14  -pedantic-errors -Wno-long-long
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/ucnid-2.C'
-    sources:
-      binary: ./ucnid-2.exe
+    sources: {binary: ./ucnid-2.exe, cflags: -std=c++14  -pedantic-errors -Wno-long-long}
   group: GRPSERIAL
-  run:
-    cwd: .
+  run: {cwd: .}
 test_ucnid-3_100:
   build:
-    cflags: -std=c++11  -pedantic-errors -Wno-long-long
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/ucnid-3.C'
-    sources:
-      binary: ./ucnid-3.exe
+    sources: {binary: ./ucnid-3.exe, cflags: -std=c++11  -pedantic-errors -Wno-long-long}
   group: GRPSERIAL
-  run:
-    cwd: .
+  run: {cwd: .}
 test_ucnid-3_101:
   build:
-    cflags: -std=c++14  -pedantic-errors -Wno-long-long
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/ucnid-3.C'
-    sources:
-      binary: ./ucnid-3.exe
+    sources: {binary: ./ucnid-3.exe, cflags: -std=c++14  -pedantic-errors -Wno-long-long}
   group: GRPSERIAL
-  run:
-    cwd: .
+  run: {cwd: .}
 test_ucnid-3_46:
   build:
-    cflags: -std=c++98  -pedantic-errors -Wno-long-long
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/ucnid-3.C'
-    sources:
-      binary: ./ucnid-3.exe
+    sources: {binary: ./ucnid-3.exe, cflags: -std=c++98  -pedantic-errors -Wno-long-long}
   group: GRPSERIAL
-  run:
-    cwd: .
+  run: {cwd: .}
 test_ucnid-3_47:
   build:
-    cflags: -std=c++11  -pedantic-errors -Wno-long-long
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/ucnid-3.C'
-    sources:
-      binary: ./ucnid-3.exe
+    sources: {binary: ./ucnid-3.exe, cflags: -std=c++11  -pedantic-errors -Wno-long-long}
   group: GRPSERIAL
-  run:
-    cwd: .
+  run: {cwd: .}
 test_ucnid-3_48:
   build:
-    cflags: -std=c++14  -pedantic-errors -Wno-long-long
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/ucnid-3.C'
-    sources:
-      binary: ./ucnid-3.exe
+    sources: {binary: ./ucnid-3.exe, cflags: -std=c++14  -pedantic-errors -Wno-long-long}
   group: GRPSERIAL
-  run:
-    cwd: .
+  run: {cwd: .}
 test_ucnid-3_99:
   build:
-    cflags: -std=c++98  -pedantic-errors -Wno-long-long
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/ucnid-3.C'
-    sources:
-      binary: ./ucnid-3.exe
+    sources: {binary: ./ucnid-3.exe, cflags: -std=c++98  -pedantic-errors -Wno-long-long}
   group: GRPSERIAL
-  run:
-    cwd: .
+  run: {cwd: .}
 test_utf16-pr41698-1_102:
   build:
-    cflags: -std=c++11  -pedantic-errors -Wno-long-long
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/utf16-pr41698-1.C'
-    sources:
-      binary: ./utf16-pr41698-1.exe
+    sources: {binary: ./utf16-pr41698-1.exe, cflags: -std=c++11  -pedantic-errors
+        -Wno-long-long}
   group: GRPSERIAL
-  run:
-    cwd: .
+  run: {cwd: .}
 test_utf16-pr41698-1_103:
   build:
-    cflags: -std=c++14  -pedantic-errors -Wno-long-long
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/utf16-pr41698-1.C'
-    sources:
-      binary: ./utf16-pr41698-1.exe
+    sources: {binary: ./utf16-pr41698-1.exe, cflags: -std=c++14  -pedantic-errors
+        -Wno-long-long}
   group: GRPSERIAL
-  run:
-    cwd: .
+  run: {cwd: .}
 test_utf16-pr41698-1_49:
   build:
-    cflags: -std=c++11  -pedantic-errors -Wno-long-long
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/utf16-pr41698-1.C'
-    sources:
-      binary: ./utf16-pr41698-1.exe
+    sources: {binary: ./utf16-pr41698-1.exe, cflags: -std=c++11  -pedantic-errors
+        -Wno-long-long}
   group: GRPSERIAL
-  run:
-    cwd: .
+  run: {cwd: .}
 test_utf16-pr41698-1_50:
   build:
-    cflags: -std=c++14  -pedantic-errors -Wno-long-long
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/utf16-pr41698-1.C'
-    sources:
-      binary: ./utf16-pr41698-1.exe
+    sources: {binary: ./utf16-pr41698-1.exe, cflags: -std=c++14  -pedantic-errors
+        -Wno-long-long}
   group: GRPSERIAL
-  run:
-    cwd: .
+  run: {cwd: .}
 test_weak_104:
   build:
-    cflags: "-std=gnu++98 -fno-weak\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/weak.C'
-    sources:
-      binary: weak.s
+    sources: {binary: weak.s, cflags: "-std=gnu++98 -fno-weak\n -S"}
   group: GRPSERIAL
 test_weak_105:
   build:
-    cflags: "-std=gnu++11 -fno-weak\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/weak.C'
-    sources:
-      binary: weak.s
+    sources: {binary: weak.s, cflags: "-std=gnu++11 -fno-weak\n -S"}
   group: GRPSERIAL
 test_weak_106:
   build:
-    cflags: "-std=gnu++14 -fno-weak\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/weak.C'
-    sources:
-      binary: weak.s
+    sources: {binary: weak.s, cflags: "-std=gnu++14 -fno-weak\n -S"}
   group: GRPSERIAL
 test_weak_51:
   build:
-    cflags: "-std=gnu++98 -fno-weak\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/weak.C'
-    sources:
-      binary: weak.s
+    sources: {binary: weak.s, cflags: "-std=gnu++98 -fno-weak\n -S"}
   group: GRPSERIAL
 test_weak_52:
   build:
-    cflags: "-std=gnu++11 -fno-weak\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/weak.C'
-    sources:
-      binary: weak.s
+    sources: {binary: weak.s, cflags: "-std=gnu++11 -fno-weak\n -S"}
   group: GRPSERIAL
 test_weak_53:
   build:
-    cflags: "-std=gnu++14 -fno-weak\n -S"
     files: '@ROOTPATH@/compilers/gcc/./g++.dg/cpp/weak.C'
-    sources:
-      binary: weak.s
+    sources: {binary: weak.s, cflags: "-std=gnu++14 -fno-weak\n -S"}
   group: GRPSERIAL

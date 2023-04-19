@@ -1,176 +1,221 @@
-.t: &t
-  group: 'GRPOMP'
-  run:
-    cwd: "."
+.t:
+  group: GRPOMP
+  run: {cwd: .}
   validate:
-    time:
-      kill_after: 5
-
+    time: {kill_after: 5}
 arrays_fortran:
-  <<: *t
   build:
-    cflags: "-g -O0"
-    variants: ['openmp']
-    files: "@SRCPATH@/arrays_fortran.f90"
-
+    files: '@SRCPATH@/arrays_fortran.f90'
+    sources: {cflags: -g -O0}
+    variants: [openmp]
+  group: GRPOMP
+  run: {cwd: .}
+  validate:
+    time: {kill_after: 5}
 arrays_fortran_multi:
-  <<: *t
   build:
-    cflags: "-g -O0"
-    variants: ['openmp']
-    files: "@SRCPATH@/arrays_fortran_multi.f90"
-
+    files: '@SRCPATH@/arrays_fortran_multi.f90'
+    sources: {cflags: -g -O0}
+    variants: [openmp]
+  group: GRPOMP
+  run: {cwd: .}
+  validate:
+    time: {kill_after: 5}
 atomic_multiple:
-  <<: *t
   build:
-    cflags: "-g -O0"
-    variants: ['openmp']
-    files: "@SRCPATH@/atomic_multiple.c"
-
+    files: '@SRCPATH@/atomic_multiple.c'
+    sources: {cflags: -g -O0}
+    variants: [openmp]
+  group: GRPOMP
+  run: {cwd: .}
+  validate:
+    time: {kill_after: 5}
 for_dynamic4_chunk:
-  <<: *t
   build:
-    cflags: "-g -O0"
-    variants: ['openmp']
-    files: "@SRCPATH@/for_dynamic4_chunk.c"
-
+    files: '@SRCPATH@/for_dynamic4_chunk.c'
+    sources: {cflags: -g -O0}
+    variants: [openmp]
+  group: GRPOMP
+  run: {cwd: .}
+  validate:
+    time: {kill_after: 5}
 for_dynamic8_chunk:
-  <<: *t
   build:
-    cflags: "-g -O0"
-    variants: ['openmp']
-    files: "@SRCPATH@/for_dynamic8_chunk.c"
-
-for_static_1it:
-  <<: *t
-  build:
-    cflags: "-g -O0"
-    variants: ['openmp']
-    files: "@SRCPATH@/for_static_1it.cpp"
-
-for_static8_1it:
-  <<: *t
-  build:
-    cflags: "-g -O0"
-    variants: ['openmp']
-    files: "@SRCPATH@/for_static8_1it.cpp"
-
-for_static8u_1it:
-  <<: *t
-  build:
-    cflags: "-g -O0"
-    variants: ['openmp']
-    files: "@SRCPATH@/for_static8u_1it.cpp"
-
+    files: '@SRCPATH@/for_dynamic8_chunk.c'
+    sources: {cflags: -g -O0}
+    variants: [openmp]
+  group: GRPOMP
+  run: {cwd: .}
+  validate:
+    time: {kill_after: 5}
 for_static:
-  <<: *t
   build:
-    cflags: "-g -O0"
-    variants: ['openmp']
-    files: "@SRCPATH@/for_static.c"
-
+    files: '@SRCPATH@/for_static.c'
+    sources: {cflags: -g -O0}
+    variants: [openmp]
+  group: GRPOMP
+  run: {cwd: .}
+  validate:
+    time: {kill_after: 5}
+for_static8_1it:
+  build:
+    files: '@SRCPATH@/for_static8_1it.cpp'
+    sources: {cflags: -g -O0}
+    variants: [openmp]
+  group: GRPOMP
+  run: {cwd: .}
+  validate:
+    time: {kill_after: 5}
+for_static8u_1it:
+  build:
+    files: '@SRCPATH@/for_static8u_1it.cpp'
+    sources: {cflags: -g -O0}
+    variants: [openmp]
+  group: GRPOMP
+  run: {cwd: .}
+  validate:
+    time: {kill_after: 5}
+for_static_1it:
+  build:
+    files: '@SRCPATH@/for_static_1it.cpp'
+    sources: {cflags: -g -O0}
+    variants: [openmp]
+  group: GRPOMP
+  run: {cwd: .}
+  validate:
+    time: {kill_after: 5}
 for_static_chunk:
-  <<: *t
   build:
-    cflags: "-g -O0"
-    variants: ['openmp']
-    files: "@SRCPATH@/for_static_chunk.c"
-
+    files: '@SRCPATH@/for_static_chunk.c'
+    sources: {cflags: -g -O0}
+    variants: [openmp]
+  group: GRPOMP
+  run: {cwd: .}
+  validate:
+    time: {kill_after: 5}
 hello:
-  <<: *t
   build:
-    cflags: "-g -O0"
-    variants: ['openmp']
-    files: "@SRCPATH@/hello.c"
-
+    files: '@SRCPATH@/hello.c'
+    sources: {cflags: -g -O0}
+    variants: [openmp]
+  group: GRPOMP
+  run: {cwd: .}
+  validate:
+    time: {kill_after: 5}
 many_args:
-  <<: *t
   build:
-    cflags: "-g -O0"
-    variants: ['openmp']
-    files: "@SRCPATH@/many_args.c"
-
-max_threads_advance:
-  <<: *t
-  build:
-    cflags: "-g -O0"
-    variants: ['openmp']
-    files: "@SRCPATH@/max_threads_advance.c"
-
-max_threads_advance_hybrid:
-  <<: *t
-  build:
-    cflags: "-g -O0"
-    variants: ['openmp']
-    files: "@SRCPATH@/max_threads_advance_hybrid.c"
-
+    files: '@SRCPATH@/many_args.c'
+    sources: {cflags: -g -O0}
+    variants: [openmp]
+  group: GRPOMP
+  run: {cwd: .}
+  validate:
+    time: {kill_after: 5}
 max_threads:
-  <<: *t
   build:
-    cflags: "-g -O0"
-    variants: ['openmp']
-    files: "@SRCPATH@/max_threads.c"
-
+    files: '@SRCPATH@/max_threads.c'
+    sources: {cflags: -g -O0}
+    variants: [openmp]
+  group: GRPOMP
+  run: {cwd: .}
+  validate:
+    time: {kill_after: 5}
+max_threads_advance:
+  build:
+    files: '@SRCPATH@/max_threads_advance.c'
+    sources: {cflags: -g -O0}
+    variants: [openmp]
+  group: GRPOMP
+  run: {cwd: .}
+  validate:
+    time: {kill_after: 5}
+max_threads_advance_hybrid:
+  build:
+    files: '@SRCPATH@/max_threads_advance_hybrid.c'
+    sources: {cflags: -g -O0}
+    variants: [openmp]
+  group: GRPOMP
+  run: {cwd: .}
+  validate:
+    time: {kill_after: 5}
 num_threads:
-  <<: *t
   build:
-    cflags: "-g -O0"
-    variants: ['openmp']
-    files: "@SRCPATH@/num_threads.c"
-
+    files: '@SRCPATH@/num_threads.c'
+    sources: {cflags: -g -O0}
+    variants: [openmp]
+  group: GRPOMP
+  run: {cwd: .}
+  validate:
+    time: {kill_after: 5}
 ordered_4:
-  <<: *t
   build:
-    cflags: "-g -O0"
-    variants: ['openmp']
-    files: "@SRCPATH@/ordered_4.c"
-
+    files: '@SRCPATH@/ordered_4.c'
+    sources: {cflags: -g -O0}
+    variants: [openmp]
+  group: GRPOMP
+  run: {cwd: .}
+  validate:
+    time: {kill_after: 5}
 ordered_4u:
-  <<: *t
   build:
-    cflags: "-g -O0"
-    variants: ['openmp']
-    files: "@SRCPATH@/ordered_4u.c"
-
+    files: '@SRCPATH@/ordered_4u.c'
+    sources: {cflags: -g -O0}
+    variants: [openmp]
+  group: GRPOMP
+  run: {cwd: .}
+  validate:
+    time: {kill_after: 5}
 ordered_8:
-  <<: *t
   build:
-    cflags: "-g -O0"
-    variants: ['openmp']
-    files: "@SRCPATH@/ordered_8.c"
-
+    files: '@SRCPATH@/ordered_8.c'
+    sources: {cflags: -g -O0}
+    variants: [openmp]
+  group: GRPOMP
+  run: {cwd: .}
+  validate:
+    time: {kill_after: 5}
 ordered_8u:
-  <<: *t
   build:
-    cflags: "-g -O0"
-    variants: ['openmp']
-    files: "@SRCPATH@/ordered_8u.c"
-
+    files: '@SRCPATH@/ordered_8u.c'
+    sources: {cflags: -g -O0}
+    variants: [openmp]
+  group: GRPOMP
+  run: {cwd: .}
+  validate:
+    time: {kill_after: 5}
 parallel-before-main:
-  <<: *t
   build:
-    cflags: "-g -O0"
-    variants: ['openmp']
-    files: "@SRCPATH@/parallel-before-main.cpp"
-
+    files: '@SRCPATH@/parallel-before-main.cpp'
+    sources: {cflags: -g -O0}
+    variants: [openmp]
+  group: GRPOMP
+  run: {cwd: .}
+  validate:
+    time: {kill_after: 5}
 test_copyin:
-  <<: *t
   build:
-    cflags: "-g -O0"
-    variants: ['openmp']
-    files: "@SRCPATH@/test_copyin.c"
-
+    files: '@SRCPATH@/test_copyin.c'
+    sources: {cflags: -g -O0}
+    variants: [openmp]
+  group: GRPOMP
+  run: {cwd: .}
+  validate:
+    time: {kill_after: 5}
 test_threadprivate:
-  <<: *t
   build:
-    cflags: "-g -O0"
-    variants: ['openmp']
-    files: "@SRCPATH@/test_threadprivate.c"
-
+    files: '@SRCPATH@/test_threadprivate.c'
+    sources: {cflags: -g -O0}
+    variants: [openmp]
+  group: GRPOMP
+  run: {cwd: .}
+  validate:
+    time: {kill_after: 5}
 units_omp:
-  <<: *t
   build:
-    cflags: "-g -O0"
-    variants: ['openmp']
-    files: "@SRCPATH@/units_omp.f90"
-
+    files: '@SRCPATH@/units_omp.f90'
+    sources: {cflags: -g -O0}
+    variants: [openmp]
+  group: GRPOMP
+  run: {cwd: .}
+  validate:
+    time: {kill_after: 5}

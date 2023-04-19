@@ -1,49 +1,39 @@
-.t: &t
-  group: 'GRPMPI'
-  run:
-    cwd: '.'
-
+.t:
+  group: GRPMPI
+  run: {cwd: .}
 all-reduce:
-  <<: *t
-  build:
-    files: '@SRCPATH@/all-reduce.c'
-
+  build: {files: '@SRCPATH@/all-reduce.c'}
+  group: GRPMPI
+  run: {cwd: .}
 bug-ib:
-  <<: *t
-  build:
-    files: '@SRCPATH@/bug-ib.c'
-
+  build: {files: '@SRCPATH@/bug-ib.c'}
+  group: GRPMPI
+  run: {cwd: .}
 bug-packed:
-  <<: *t
-  build:
-    files: '@SRCPATH@/bug-packed.c'
-
+  build: {files: '@SRCPATH@/bug-packed.c'}
+  group: GRPMPI
+  run: {cwd: .}
 comm_dup:
-  <<: *t
-  build:
-    files: '@SRCPATH@/comm_dup.c'
-
+  build: {files: '@SRCPATH@/comm_dup.c'}
+  group: GRPMPI
+  run: {cwd: .}
 deadlock:
-  <<: *t
-  build:
-    files: '@SRCPATH@/deadlock.c'
-
+  build: {files: '@SRCPATH@/deadlock.c'}
+  group: GRPMPI
+  run: {cwd: .}
 key:
-  <<: *t
-  build:
-    files: '@SRCPATH@/key.c'
-
-main:
-  <<: *t
-  build:
-    files: '@SRCPATH@/main.c'
-
+  build: {files: '@SRCPATH@/key.c'}
+  group: GRPMPI
+  run: {cwd: .}
 m:
-  <<: *t
-  build:
-    files: '@SRCPATH@/m.f90'
-
+  build: {files: '@SRCPATH@/m.f90'}
+  group: GRPMPI
+  run: {cwd: .}
+main:
+  build: {files: '@SRCPATH@/main.c'}
+  group: GRPMPI
+  run: {cwd: .}
 wave:
-  <<: *t
-  build:
-      files: '@SRCPATH@/wave.c'
+  build: {files: '@SRCPATH@/wave.c'}
+  group: GRPMPI
+  run: {cwd: .}

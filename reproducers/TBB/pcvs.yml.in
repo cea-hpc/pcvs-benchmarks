@@ -1,17 +1,15 @@
-.t: &t
-  group: 'GRPSERIAL'
-  run:
-    cwd: "."
-
+.t:
+  group: GRPSERIAL
+  run: {cwd: .}
 tbb_mixed_omp:
   build:
     files: '@SRCPATH@/tbb_mixed_omp.cpp'
-    variants: ['tbb']
-  <<: *t
-
+    variants: [tbb]
+  group: GRPSERIAL
+  run: {cwd: .}
 tbb_simple_parallel_for:
   build:
     files: '@SRCPATH@/tbb_simple_parallel_for.cpp'
-    variants: ['tbb']
-  <<: *t
-
+    variants: [tbb]
+  group: GRPSERIAL
+  run: {cwd: .}

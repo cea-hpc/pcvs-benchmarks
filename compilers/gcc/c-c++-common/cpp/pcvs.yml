@@ -1,598 +1,414 @@
 test_diagnostic-pragma-1_1:
   build:
-    cflags: -Wc++-compat -S
     files: compilers/gcc/./c-c++-common/cpp/diagnostic-pragma-1.c
-    sources:
-      binary: diagnostic-pragma-1.s
+    sources: {binary: diagnostic-pragma-1.s, cflags: -Wc++-compat -S}
   group: GRPSERIAL
   validate:
     match:
-      L10:
-        expect: true
-        expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*(d)[^\n]*\n?)+'
-      L3:
-        expect: true
-        expr: '(^|\n)([^\n]+(:3:)[^\n]*[0-9]+: warning:[^\n]*(a)[^\n]*\n?)+'
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*(b)[^\n]*\n?)+'
-      L9:
-        expect: true
-        expr: '(^|\n)([^\n]+(:9:)[^\n]*[0-9]+: warning:[^\n]*(c)[^\n]*\n?)+'
+      L10: {expect: true, expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*(d)[^\n]*\n?)+'}
+      L3: {expect: true, expr: '(^|\n)([^\n]+(:3:)[^\n]*[0-9]+: warning:[^\n]*(a)[^\n]*\n?)+'}
+      L4: {expect: true, expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*(b)[^\n]*\n?)+'}
+      L9: {expect: true, expr: '(^|\n)([^\n]+(:9:)[^\n]*[0-9]+: warning:[^\n]*(c)[^\n]*\n?)+'}
 test_diagnostic-pragma-1_25:
   build:
-    cflags: -Wc++-compat -S
     files: compilers/gcc/./c-c++-common/cpp/diagnostic-pragma-1.c
-    sources:
-      binary: diagnostic-pragma-1.s
+    sources: {binary: diagnostic-pragma-1.s, cflags: -Wc++-compat -S}
   group: GRPSERIAL
   validate:
     match:
-      L10:
-        expect: true
-        expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*(d)[^\n]*\n?)+'
-      L3:
-        expect: true
-        expr: '(^|\n)([^\n]+(:3:)[^\n]*[0-9]+: warning:[^\n]*(a)[^\n]*\n?)+'
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*(b)[^\n]*\n?)+'
-      L9:
-        expect: true
-        expr: '(^|\n)([^\n]+(:9:)[^\n]*[0-9]+: warning:[^\n]*(c)[^\n]*\n?)+'
+      L10: {expect: true, expr: '(^|\n)([^\n]+:10:[^\n]*[0-9]+: (fatal )?error:[^\n]*(d)[^\n]*\n?)+'}
+      L3: {expect: true, expr: '(^|\n)([^\n]+(:3:)[^\n]*[0-9]+: warning:[^\n]*(a)[^\n]*\n?)+'}
+      L4: {expect: true, expr: '(^|\n)([^\n]+:4:[^\n]*[0-9]+: (fatal )?error:[^\n]*(b)[^\n]*\n?)+'}
+      L9: {expect: true, expr: '(^|\n)([^\n]+(:9:)[^\n]*[0-9]+: warning:[^\n]*(c)[^\n]*\n?)+'}
 test_normalize-3_2:
   build:
-    cflags: -Wc++-compat  -std=c99 -Wnormalized=id -E
     files: compilers/gcc/./c-c++-common/cpp/normalize-3.c
-    sources:
-      binary: normalize-3.i
+    sources: {binary: normalize-3.i, cflags: -Wc++-compat  -std=c99 -Wnormalized=id
+        -E}
   group: GRPSERIAL
   validate:
     match:
-      L11:
-        expect: true
-        expr: '(^|\n)([^\n]+(:11:)[^\n]*[0-9]+: warning:[^\n]*("not in NFC")[^\n]*\n?)+'
-      L13:
-        expect: true
-        expr: '(^|\n)([^\n]+(:13:)[^\n]*[0-9]+: warning:[^\n]*("not in NFC")[^\n]*\n?)+'
-      L15:
-        expect: true
-        expr: '(^|\n)([^\n]+(:15:)[^\n]*[0-9]+: warning:[^\n]*("not in NFC")[^\n]*\n?)+'
-      L17:
-        expect: true
-        expr: '(^|\n)([^\n]+(:17:)[^\n]*[0-9]+: warning:[^\n]*("not in NFC")[^\n]*\n?)+'
-      L19:
-        expect: true
-        expr: '(^|\n)([^\n]+(:19:)[^\n]*[0-9]+: warning:[^\n]*("not in NFC")[^\n]*\n?)+'
-      L21:
-        expect: true
-        expr: '(^|\n)([^\n]+(:21:)[^\n]*[0-9]+: warning:[^\n]*("not in NFC")[^\n]*\n?)+'
-      L23:
-        expect: true
-        expr: '(^|\n)([^\n]+(:23:)[^\n]*[0-9]+: warning:[^\n]*("not in NFC")[^\n]*\n?)+'
-      L29:
-        expect: true
-        expr: '(^|\n)([^\n]+(:29:)[^\n]*[0-9]+: warning:[^\n]*("not in NFC")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+(:7:)[^\n]*[0-9]+: warning:[^\n]*("not in NFC")[^\n]*\n?)+'
-      L9:
-        expect: true
-        expr: '(^|\n)([^\n]+(:9:)[^\n]*[0-9]+: warning:[^\n]*("not in NFC")[^\n]*\n?)+'
+      L11: {expect: true, expr: '(^|\n)([^\n]+(:11:)[^\n]*[0-9]+: warning:[^\n]*("not
+          in NFC")[^\n]*\n?)+'}
+      L13: {expect: true, expr: '(^|\n)([^\n]+(:13:)[^\n]*[0-9]+: warning:[^\n]*("not
+          in NFC")[^\n]*\n?)+'}
+      L15: {expect: true, expr: '(^|\n)([^\n]+(:15:)[^\n]*[0-9]+: warning:[^\n]*("not
+          in NFC")[^\n]*\n?)+'}
+      L17: {expect: true, expr: '(^|\n)([^\n]+(:17:)[^\n]*[0-9]+: warning:[^\n]*("not
+          in NFC")[^\n]*\n?)+'}
+      L19: {expect: true, expr: '(^|\n)([^\n]+(:19:)[^\n]*[0-9]+: warning:[^\n]*("not
+          in NFC")[^\n]*\n?)+'}
+      L21: {expect: true, expr: '(^|\n)([^\n]+(:21:)[^\n]*[0-9]+: warning:[^\n]*("not
+          in NFC")[^\n]*\n?)+'}
+      L23: {expect: true, expr: '(^|\n)([^\n]+(:23:)[^\n]*[0-9]+: warning:[^\n]*("not
+          in NFC")[^\n]*\n?)+'}
+      L29: {expect: true, expr: '(^|\n)([^\n]+(:29:)[^\n]*[0-9]+: warning:[^\n]*("not
+          in NFC")[^\n]*\n?)+'}
+      L7: {expect: true, expr: '(^|\n)([^\n]+(:7:)[^\n]*[0-9]+: warning:[^\n]*("not
+          in NFC")[^\n]*\n?)+'}
+      L9: {expect: true, expr: '(^|\n)([^\n]+(:9:)[^\n]*[0-9]+: warning:[^\n]*("not
+          in NFC")[^\n]*\n?)+'}
 test_normalize-3_26:
   build:
-    cflags: -Wc++-compat  -std=c99 -Wnormalized=id -E
     files: compilers/gcc/./c-c++-common/cpp/normalize-3.c
-    sources:
-      binary: normalize-3.i
+    sources: {binary: normalize-3.i, cflags: -Wc++-compat  -std=c99 -Wnormalized=id
+        -E}
   group: GRPSERIAL
   validate:
     match:
-      L11:
-        expect: true
-        expr: '(^|\n)([^\n]+(:11:)[^\n]*[0-9]+: warning:[^\n]*("not in NFC")[^\n]*\n?)+'
-      L13:
-        expect: true
-        expr: '(^|\n)([^\n]+(:13:)[^\n]*[0-9]+: warning:[^\n]*("not in NFC")[^\n]*\n?)+'
-      L15:
-        expect: true
-        expr: '(^|\n)([^\n]+(:15:)[^\n]*[0-9]+: warning:[^\n]*("not in NFC")[^\n]*\n?)+'
-      L17:
-        expect: true
-        expr: '(^|\n)([^\n]+(:17:)[^\n]*[0-9]+: warning:[^\n]*("not in NFC")[^\n]*\n?)+'
-      L19:
-        expect: true
-        expr: '(^|\n)([^\n]+(:19:)[^\n]*[0-9]+: warning:[^\n]*("not in NFC")[^\n]*\n?)+'
-      L21:
-        expect: true
-        expr: '(^|\n)([^\n]+(:21:)[^\n]*[0-9]+: warning:[^\n]*("not in NFC")[^\n]*\n?)+'
-      L23:
-        expect: true
-        expr: '(^|\n)([^\n]+(:23:)[^\n]*[0-9]+: warning:[^\n]*("not in NFC")[^\n]*\n?)+'
-      L29:
-        expect: true
-        expr: '(^|\n)([^\n]+(:29:)[^\n]*[0-9]+: warning:[^\n]*("not in NFC")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+(:7:)[^\n]*[0-9]+: warning:[^\n]*("not in NFC")[^\n]*\n?)+'
-      L9:
-        expect: true
-        expr: '(^|\n)([^\n]+(:9:)[^\n]*[0-9]+: warning:[^\n]*("not in NFC")[^\n]*\n?)+'
+      L11: {expect: true, expr: '(^|\n)([^\n]+(:11:)[^\n]*[0-9]+: warning:[^\n]*("not
+          in NFC")[^\n]*\n?)+'}
+      L13: {expect: true, expr: '(^|\n)([^\n]+(:13:)[^\n]*[0-9]+: warning:[^\n]*("not
+          in NFC")[^\n]*\n?)+'}
+      L15: {expect: true, expr: '(^|\n)([^\n]+(:15:)[^\n]*[0-9]+: warning:[^\n]*("not
+          in NFC")[^\n]*\n?)+'}
+      L17: {expect: true, expr: '(^|\n)([^\n]+(:17:)[^\n]*[0-9]+: warning:[^\n]*("not
+          in NFC")[^\n]*\n?)+'}
+      L19: {expect: true, expr: '(^|\n)([^\n]+(:19:)[^\n]*[0-9]+: warning:[^\n]*("not
+          in NFC")[^\n]*\n?)+'}
+      L21: {expect: true, expr: '(^|\n)([^\n]+(:21:)[^\n]*[0-9]+: warning:[^\n]*("not
+          in NFC")[^\n]*\n?)+'}
+      L23: {expect: true, expr: '(^|\n)([^\n]+(:23:)[^\n]*[0-9]+: warning:[^\n]*("not
+          in NFC")[^\n]*\n?)+'}
+      L29: {expect: true, expr: '(^|\n)([^\n]+(:29:)[^\n]*[0-9]+: warning:[^\n]*("not
+          in NFC")[^\n]*\n?)+'}
+      L7: {expect: true, expr: '(^|\n)([^\n]+(:7:)[^\n]*[0-9]+: warning:[^\n]*("not
+          in NFC")[^\n]*\n?)+'}
+      L9: {expect: true, expr: '(^|\n)([^\n]+(:9:)[^\n]*[0-9]+: warning:[^\n]*("not
+          in NFC")[^\n]*\n?)+'}
 test_openacc-define-1_27:
   build:
-    cflags: -Wc++-compat -E
     files: compilers/gcc/./c-c++-common/cpp/openacc-define-1.c
-    sources:
-      binary: openacc-define-1.i
+    sources: {binary: openacc-define-1.i, cflags: -Wc++-compat -E}
   group: GRPSERIAL
 test_openacc-define-1_3:
   build:
-    cflags: -Wc++-compat -E
     files: compilers/gcc/./c-c++-common/cpp/openacc-define-1.c
-    sources:
-      binary: openacc-define-1.i
+    sources: {binary: openacc-define-1.i, cflags: -Wc++-compat -E}
   group: GRPSERIAL
 test_openacc-define-2_28:
   build:
-    cflags: -Wc++-compat  -fno-openacc -E
     files: compilers/gcc/./c-c++-common/cpp/openacc-define-2.c
-    sources:
-      binary: openacc-define-2.i
+    sources: {binary: openacc-define-2.i, cflags: -Wc++-compat  -fno-openacc -E}
   group: GRPSERIAL
 test_openacc-define-2_4:
   build:
-    cflags: -Wc++-compat  -fno-openacc -E
     files: compilers/gcc/./c-c++-common/cpp/openacc-define-2.c
-    sources:
-      binary: openacc-define-2.i
+    sources: {binary: openacc-define-2.i, cflags: -Wc++-compat  -fno-openacc -E}
   group: GRPSERIAL
 test_openacc-define-3_29:
   build:
-    cflags: -Wc++-compat  -fopenacc -E
     files: compilers/gcc/./c-c++-common/cpp/openacc-define-3.c
-    sources:
-      binary: openacc-define-3.i
+    sources: {binary: openacc-define-3.i, cflags: -Wc++-compat  -fopenacc -E}
   group: GRPSERIAL
 test_openacc-define-3_5:
   build:
-    cflags: -Wc++-compat  -fopenacc -E
     files: compilers/gcc/./c-c++-common/cpp/openacc-define-3.c
-    sources:
-      binary: openacc-define-3.i
+    sources: {binary: openacc-define-3.i, cflags: -Wc++-compat  -fopenacc -E}
   group: GRPSERIAL
 test_openmp-define-1_30:
   build:
-    cflags: -Wc++-compat -E
     files: compilers/gcc/./c-c++-common/cpp/openmp-define-1.c
-    sources:
-      binary: openmp-define-1.i
+    sources: {binary: openmp-define-1.i, cflags: -Wc++-compat -E}
   group: GRPSERIAL
 test_openmp-define-1_6:
   build:
-    cflags: -Wc++-compat -E
     files: compilers/gcc/./c-c++-common/cpp/openmp-define-1.c
-    sources:
-      binary: openmp-define-1.i
+    sources: {binary: openmp-define-1.i, cflags: -Wc++-compat -E}
   group: GRPSERIAL
 test_openmp-define-2_31:
   build:
-    cflags: -Wc++-compat  -fno-openmp -E
     files: compilers/gcc/./c-c++-common/cpp/openmp-define-2.c
-    sources:
-      binary: openmp-define-2.i
+    sources: {binary: openmp-define-2.i, cflags: -Wc++-compat  -fno-openmp -E}
   group: GRPSERIAL
 test_openmp-define-2_7:
   build:
-    cflags: -Wc++-compat  -fno-openmp -E
     files: compilers/gcc/./c-c++-common/cpp/openmp-define-2.c
-    sources:
-      binary: openmp-define-2.i
+    sources: {binary: openmp-define-2.i, cflags: -Wc++-compat  -fno-openmp -E}
   group: GRPSERIAL
 test_openmp-define-3_32:
   build:
-    cflags: -Wc++-compat  -fopenmp -E
     files: compilers/gcc/./c-c++-common/cpp/openmp-define-3.c
-    sources:
-      binary: openmp-define-3.i
+    sources: {binary: openmp-define-3.i, cflags: -Wc++-compat  -fopenmp -E}
   group: GRPSERIAL
 test_openmp-define-3_8:
   build:
-    cflags: -Wc++-compat  -fopenmp -E
     files: compilers/gcc/./c-c++-common/cpp/openmp-define-3.c
-    sources:
-      binary: openmp-define-3.i
+    sources: {binary: openmp-define-3.i, cflags: -Wc++-compat  -fopenmp -E}
   group: GRPSERIAL
 test_pr45457_33:
   build:
-    cflags: -Wc++-compat -S
     files: compilers/gcc/./c-c++-common/cpp/pr45457.c
-    sources:
-      binary: pr45457.s
+    sources: {binary: pr45457.s, cflags: -Wc++-compat -S}
   group: GRPSERIAL
 test_pr45457_9:
   build:
-    cflags: -Wc++-compat -S
     files: compilers/gcc/./c-c++-common/cpp/pr45457.c
-    sources:
-      binary: pr45457.s
+    sources: {binary: pr45457.s, cflags: -Wc++-compat -S}
   group: GRPSERIAL
 test_pr57580_10:
   build:
-    cflags: -Wc++-compat  -save-temps -S
     cwd: /code/pcvs-benchmarks/compilers/gcc/c-c++-common/cpp
     files: compilers/gcc/./c-c++-common/cpp/pr57580.c
-    sources:
-      binary: pr57580.s
+    sources: {binary: pr57580.s, cflags: -Wc++-compat  -save-temps -S}
   group: GRPSERIAL
-  run:
-    cwd: /code/pcvs-benchmarks/compilers/gcc/c-c++-common/cpp
+  run: {cwd: /code/pcvs-benchmarks/compilers/gcc/c-c++-common/cpp}
 test_pr57580_34:
   build:
-    cflags: -Wc++-compat  -save-temps -S
     cwd: /code/pcvs-benchmarks/compilers/gcc/c-c++-common/cpp
     files: compilers/gcc/./c-c++-common/cpp/pr57580.c
-    sources:
-      binary: pr57580.s
+    sources: {binary: pr57580.s, cflags: -Wc++-compat  -save-temps -S}
   group: GRPSERIAL
-  run:
-    cwd: /code/pcvs-benchmarks/compilers/gcc/c-c++-common/cpp
+  run: {cwd: /code/pcvs-benchmarks/compilers/gcc/c-c++-common/cpp}
 test_pr58844-1_11:
   build:
-    cflags: -Wc++-compat  -ftrack-macro-expansion=0 -S
     files: compilers/gcc/./c-c++-common/cpp/pr58844-1.c
-    sources:
-      binary: pr58844-1.s
+    sources: {binary: pr58844-1.s, cflags: -Wc++-compat  -ftrack-macro-expansion=0
+        -S}
   group: GRPSERIAL
   validate:
     match:
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+(:8:)[^\n]*[0-9]+: warning:[^\n]*("redefined")[^\n]*\n?)+'
+      L8: {expect: true, expr: '(^|\n)([^\n]+(:8:)[^\n]*[0-9]+: warning:[^\n]*("redefined")[^\n]*\n?)+'}
 test_pr58844-1_35:
   build:
-    cflags: -Wc++-compat  -ftrack-macro-expansion=0 -S
     files: compilers/gcc/./c-c++-common/cpp/pr58844-1.c
-    sources:
-      binary: pr58844-1.s
+    sources: {binary: pr58844-1.s, cflags: -Wc++-compat  -ftrack-macro-expansion=0
+        -S}
   group: GRPSERIAL
   validate:
     match:
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+(:8:)[^\n]*[0-9]+: warning:[^\n]*("redefined")[^\n]*\n?)+'
+      L8: {expect: true, expr: '(^|\n)([^\n]+(:8:)[^\n]*[0-9]+: warning:[^\n]*("redefined")[^\n]*\n?)+'}
 test_pr58844-2_12:
   build:
-    cflags: -Wc++-compat  -ftrack-macro-expansion=2 -S
     files: compilers/gcc/./c-c++-common/cpp/pr58844-2.c
-    sources:
-      binary: pr58844-2.s
+    sources: {binary: pr58844-2.s, cflags: -Wc++-compat  -ftrack-macro-expansion=2
+        -S}
   group: GRPSERIAL
   validate:
     match:
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+(:8:)[^\n]*[0-9]+: warning:[^\n]*("redefined")[^\n]*\n?)+'
+      L8: {expect: true, expr: '(^|\n)([^\n]+(:8:)[^\n]*[0-9]+: warning:[^\n]*("redefined")[^\n]*\n?)+'}
 test_pr58844-2_36:
   build:
-    cflags: -Wc++-compat  -ftrack-macro-expansion=2 -S
     files: compilers/gcc/./c-c++-common/cpp/pr58844-2.c
-    sources:
-      binary: pr58844-2.s
+    sources: {binary: pr58844-2.s, cflags: -Wc++-compat  -ftrack-macro-expansion=2
+        -S}
   group: GRPSERIAL
   validate:
     match:
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+(:8:)[^\n]*[0-9]+: warning:[^\n]*("redefined")[^\n]*\n?)+'
+      L8: {expect: true, expr: '(^|\n)([^\n]+(:8:)[^\n]*[0-9]+: warning:[^\n]*("redefined")[^\n]*\n?)+'}
 test_pr60400_13:
   build:
-    cflags: -Wc++-compat  -trigraphs -Wtrigraphs -S
     files: compilers/gcc/./c-c++-common/cpp/pr60400.c
-    sources:
-      binary: pr60400.s
+    sources: {binary: pr60400.s, cflags: -Wc++-compat  -trigraphs -Wtrigraphs -S}
   group: GRPSERIAL
   validate:
     match:
-      L10:
-        expect: true
-        expr: '(^|\n)([^\n]+(:10:)[^\n]*[0-9]+: warning:[^\n]*("trigraph")[^\n]*\n?)+'
-      L11:
-        expect: true
-        expr: '(^|\n)([^\n]+(:11:)[^\n]*[0-9]+: warning:[^\n]*("trigraph")[^\n]*\n?)+'
-      L12:
-        expect: true
-        expr: '(^|\n)([^\n]+(:12:)[^\n]*[0-9]+: warning:[^\n]*("trigraph")[^\n]*\n?)+'
-      L13:
-        expect: true
-        expr: '(^|\n)([^\n]+(:13:)[^\n]*[0-9]+: warning:[^\n]*("trigraph")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+(:8:)[^\n]*[0-9]+: warning:[^\n]*("trigraph")[^\n]*\n?)+'
-      L9:
-        expect: true
-        expr: '(^|\n)([^\n]+(:9:)[^\n]*[0-9]+: warning:[^\n]*("trigraph")[^\n]*\n?)+'
+      L10: {expect: true, expr: '(^|\n)([^\n]+(:10:)[^\n]*[0-9]+: warning:[^\n]*("trigraph")[^\n]*\n?)+'}
+      L11: {expect: true, expr: '(^|\n)([^\n]+(:11:)[^\n]*[0-9]+: warning:[^\n]*("trigraph")[^\n]*\n?)+'}
+      L12: {expect: true, expr: '(^|\n)([^\n]+(:12:)[^\n]*[0-9]+: warning:[^\n]*("trigraph")[^\n]*\n?)+'}
+      L13: {expect: true, expr: '(^|\n)([^\n]+(:13:)[^\n]*[0-9]+: warning:[^\n]*("trigraph")[^\n]*\n?)+'}
+      L8: {expect: true, expr: '(^|\n)([^\n]+(:8:)[^\n]*[0-9]+: warning:[^\n]*("trigraph")[^\n]*\n?)+'}
+      L9: {expect: true, expr: '(^|\n)([^\n]+(:9:)[^\n]*[0-9]+: warning:[^\n]*("trigraph")[^\n]*\n?)+'}
 test_pr60400_37:
   build:
-    cflags: -Wc++-compat  -trigraphs -Wtrigraphs -S
     files: compilers/gcc/./c-c++-common/cpp/pr60400.c
-    sources:
-      binary: pr60400.s
+    sources: {binary: pr60400.s, cflags: -Wc++-compat  -trigraphs -Wtrigraphs -S}
   group: GRPSERIAL
   validate:
     match:
-      L10:
-        expect: true
-        expr: '(^|\n)([^\n]+(:10:)[^\n]*[0-9]+: warning:[^\n]*("trigraph")[^\n]*\n?)+'
-      L11:
-        expect: true
-        expr: '(^|\n)([^\n]+(:11:)[^\n]*[0-9]+: warning:[^\n]*("trigraph")[^\n]*\n?)+'
-      L12:
-        expect: true
-        expr: '(^|\n)([^\n]+(:12:)[^\n]*[0-9]+: warning:[^\n]*("trigraph")[^\n]*\n?)+'
-      L13:
-        expect: true
-        expr: '(^|\n)([^\n]+(:13:)[^\n]*[0-9]+: warning:[^\n]*("trigraph")[^\n]*\n?)+'
-      L8:
-        expect: true
-        expr: '(^|\n)([^\n]+(:8:)[^\n]*[0-9]+: warning:[^\n]*("trigraph")[^\n]*\n?)+'
-      L9:
-        expect: true
-        expr: '(^|\n)([^\n]+(:9:)[^\n]*[0-9]+: warning:[^\n]*("trigraph")[^\n]*\n?)+'
+      L10: {expect: true, expr: '(^|\n)([^\n]+(:10:)[^\n]*[0-9]+: warning:[^\n]*("trigraph")[^\n]*\n?)+'}
+      L11: {expect: true, expr: '(^|\n)([^\n]+(:11:)[^\n]*[0-9]+: warning:[^\n]*("trigraph")[^\n]*\n?)+'}
+      L12: {expect: true, expr: '(^|\n)([^\n]+(:12:)[^\n]*[0-9]+: warning:[^\n]*("trigraph")[^\n]*\n?)+'}
+      L13: {expect: true, expr: '(^|\n)([^\n]+(:13:)[^\n]*[0-9]+: warning:[^\n]*("trigraph")[^\n]*\n?)+'}
+      L8: {expect: true, expr: '(^|\n)([^\n]+(:8:)[^\n]*[0-9]+: warning:[^\n]*("trigraph")[^\n]*\n?)+'}
+      L9: {expect: true, expr: '(^|\n)([^\n]+(:9:)[^\n]*[0-9]+: warning:[^\n]*("trigraph")[^\n]*\n?)+'}
 test_pr63831-1_14:
   build:
-    cflags: -Wc++-compat -S
     files: compilers/gcc/./c-c++-common/cpp/pr63831-1.c
-    sources:
-      binary: pr63831-1.s
+    sources: {binary: pr63831-1.s, cflags: -Wc++-compat -S}
   group: GRPSERIAL
 test_pr63831-1_38:
   build:
-    cflags: -Wc++-compat -S
     files: compilers/gcc/./c-c++-common/cpp/pr63831-1.c
-    sources:
-      binary: pr63831-1.s
+    sources: {binary: pr63831-1.s, cflags: -Wc++-compat -S}
   group: GRPSERIAL
 test_pr63831-2_15:
   build:
-    cflags: -Wc++-compat  -save-temps -S
     cwd: /code/pcvs-benchmarks/compilers/gcc/c-c++-common/cpp
     files: compilers/gcc/./c-c++-common/cpp/pr63831-2.c
-    sources:
-      binary: pr63831-2.s
+    sources: {binary: pr63831-2.s, cflags: -Wc++-compat  -save-temps -S}
   group: GRPSERIAL
-  run:
-    cwd: /code/pcvs-benchmarks/compilers/gcc/c-c++-common/cpp
+  run: {cwd: /code/pcvs-benchmarks/compilers/gcc/c-c++-common/cpp}
 test_pr63831-2_39:
   build:
-    cflags: -Wc++-compat  -save-temps -S
     cwd: /code/pcvs-benchmarks/compilers/gcc/c-c++-common/cpp
     files: compilers/gcc/./c-c++-common/cpp/pr63831-2.c
-    sources:
-      binary: pr63831-2.s
+    sources: {binary: pr63831-2.s, cflags: -Wc++-compat  -save-temps -S}
   group: GRPSERIAL
-  run:
-    cwd: /code/pcvs-benchmarks/compilers/gcc/c-c++-common/cpp
+  run: {cwd: /code/pcvs-benchmarks/compilers/gcc/c-c++-common/cpp}
 test_pr65238-1_16:
   build:
-    cflags: -Wc++-compat
     files: compilers/gcc/./c-c++-common/cpp/pr65238-1.c
-    sources:
-      binary: ./pr65238-1.exe
+    sources: {binary: ./pr65238-1.exe, cflags: -Wc++-compat}
   group: GRPSERIAL
-  run:
-    cwd: .
+  run: {cwd: .}
 test_pr65238-1_40:
   build:
-    cflags: -Wc++-compat
     files: compilers/gcc/./c-c++-common/cpp/pr65238-1.c
-    sources:
-      binary: ./pr65238-1.exe
+    sources: {binary: ./pr65238-1.exe, cflags: -Wc++-compat}
   group: GRPSERIAL
-  run:
-    cwd: .
+  run: {cwd: .}
 test_ucnid-2011-1_17:
   build:
-    cflags: -Wc++-compat  -std=c11 -pedantic -E
     files: compilers/gcc/./c-c++-common/cpp/ucnid-2011-1.c
-    sources:
-      binary: ucnid-2011-1.i
+    sources: {binary: ucnid-2011-1.i, cflags: -Wc++-compat  -std=c11 -pedantic -E}
   group: GRPSERIAL
   validate:
     match:
-      L11:
-        expect: true
-        expr: '(^|\n)([^\n]+(:11:)[^\n]*[0-9]+: warning:[^\n]*("not in NFC")[^\n]*\n?)+'
-      L9:
-        expect: true
-        expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not valid at the
-          start of an identifier")[^\n]*\n?)+'
+      L11: {expect: true, expr: '(^|\n)([^\n]+(:11:)[^\n]*[0-9]+: warning:[^\n]*("not
+          in NFC")[^\n]*\n?)+'}
+      L9: {expect: true, expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not
+          valid at the start of an identifier")[^\n]*\n?)+'}
 test_ucnid-2011-1_41:
   build:
-    cflags: -Wc++-compat  -std=c11 -pedantic -E
     files: compilers/gcc/./c-c++-common/cpp/ucnid-2011-1.c
-    sources:
-      binary: ucnid-2011-1.i
+    sources: {binary: ucnid-2011-1.i, cflags: -Wc++-compat  -std=c11 -pedantic -E}
   group: GRPSERIAL
   validate:
     match:
-      L11:
-        expect: true
-        expr: '(^|\n)([^\n]+(:11:)[^\n]*[0-9]+: warning:[^\n]*("not in NFC")[^\n]*\n?)+'
-      L9:
-        expect: true
-        expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not valid at the
-          start of an identifier")[^\n]*\n?)+'
+      L11: {expect: true, expr: '(^|\n)([^\n]+(:11:)[^\n]*[0-9]+: warning:[^\n]*("not
+          in NFC")[^\n]*\n?)+'}
+      L9: {expect: true, expr: '(^|\n)([^\n]+:9:[^\n]*[0-9]+: (fatal )?error:[^\n]*("not
+          valid at the start of an identifier")[^\n]*\n?)+'}
 test_warning-directive-1_18:
   build:
-    cflags: -Wc++-compat  -std=gnu99 -fdiagnostics-show-option -E
     files: compilers/gcc/./c-c++-common/cpp/warning-directive-1.c
-    sources:
-      binary: warning-directive-1.i
+    sources: {binary: warning-directive-1.i, cflags: -Wc++-compat  -std=gnu99 -fdiagnostics-show-option
+        -E}
   group: GRPSERIAL
   validate:
     match:
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+(:4:)[^\n]*[0-9]+: warning:[^\n]*(" .-Wcpp.")[^\n]*\n?)+'
+      L4: {expect: true, expr: '(^|\n)([^\n]+(:4:)[^\n]*[0-9]+: warning:[^\n]*(" .-Wcpp.")[^\n]*\n?)+'}
 test_warning-directive-1_42:
   build:
-    cflags: -Wc++-compat  -std=gnu99 -fdiagnostics-show-option -E
     files: compilers/gcc/./c-c++-common/cpp/warning-directive-1.c
-    sources:
-      binary: warning-directive-1.i
+    sources: {binary: warning-directive-1.i, cflags: -Wc++-compat  -std=gnu99 -fdiagnostics-show-option
+        -E}
   group: GRPSERIAL
   validate:
     match:
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+(:4:)[^\n]*[0-9]+: warning:[^\n]*(" .-Wcpp.")[^\n]*\n?)+'
+      L4: {expect: true, expr: '(^|\n)([^\n]+(:4:)[^\n]*[0-9]+: warning:[^\n]*(" .-Wcpp.")[^\n]*\n?)+'}
 test_warning-directive-2_19:
   build:
-    cflags: -Wc++-compat  -std=gnu99 -fdiagnostics-show-option -Werror=cpp -E
     files: compilers/gcc/./c-c++-common/cpp/warning-directive-2.c
-    sources:
-      binary: warning-directive-2.i
+    sources: {binary: warning-directive-2.i, cflags: -Wc++-compat  -std=gnu99 -fdiagnostics-show-option
+        -Werror=cpp -E}
   group: GRPSERIAL
   validate:
     match:
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*(" .-Werror=cpp.")[^\n]*\n?)+'
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("
+          .-Werror=cpp.")[^\n]*\n?)+'}
 test_warning-directive-2_43:
   build:
-    cflags: -Wc++-compat  -std=gnu99 -fdiagnostics-show-option -Werror=cpp -E
     files: compilers/gcc/./c-c++-common/cpp/warning-directive-2.c
-    sources:
-      binary: warning-directive-2.i
+    sources: {binary: warning-directive-2.i, cflags: -Wc++-compat  -std=gnu99 -fdiagnostics-show-option
+        -Werror=cpp -E}
   group: GRPSERIAL
   validate:
     match:
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*(" .-Werror=cpp.")[^\n]*\n?)+'
+      L5: {expect: true, expr: '(^|\n)([^\n]+:5:[^\n]*[0-9]+: (fatal )?error:[^\n]*("
+          .-Werror=cpp.")[^\n]*\n?)+'}
 test_warning-directive-3_20:
   build:
-    cflags: -Wc++-compat  -std=gnu99 -fdiagnostics-show-option -Werror -Wno-error=cpp
-      -E
     files: compilers/gcc/./c-c++-common/cpp/warning-directive-3.c
-    sources:
-      binary: warning-directive-3.i
+    sources: {binary: warning-directive-3.i, cflags: -Wc++-compat  -std=gnu99 -fdiagnostics-show-option
+        -Werror -Wno-error=cpp -E}
   group: GRPSERIAL
   validate:
     match:
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+(:4:)[^\n]*[0-9]+: warning:[^\n]*(" .-Wcpp.")[^\n]*\n?)+'
+      L4: {expect: true, expr: '(^|\n)([^\n]+(:4:)[^\n]*[0-9]+: warning:[^\n]*(" .-Wcpp.")[^\n]*\n?)+'}
 test_warning-directive-3_44:
   build:
-    cflags: -Wc++-compat  -std=gnu99 -fdiagnostics-show-option -Werror -Wno-error=cpp
-      -E
     files: compilers/gcc/./c-c++-common/cpp/warning-directive-3.c
-    sources:
-      binary: warning-directive-3.i
+    sources: {binary: warning-directive-3.i, cflags: -Wc++-compat  -std=gnu99 -fdiagnostics-show-option
+        -Werror -Wno-error=cpp -E}
   group: GRPSERIAL
   validate:
     match:
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+(:4:)[^\n]*[0-9]+: warning:[^\n]*(" .-Wcpp.")[^\n]*\n?)+'
+      L4: {expect: true, expr: '(^|\n)([^\n]+(:4:)[^\n]*[0-9]+: warning:[^\n]*(" .-Wcpp.")[^\n]*\n?)+'}
 test_warning-directive-4_21:
   build:
-    cflags: -Wc++-compat  -std=gnu99 -fdiagnostics-show-option -Wno-cpp -E
     files: compilers/gcc/./c-c++-common/cpp/warning-directive-4.c
-    sources:
-      binary: warning-directive-4.i
+    sources: {binary: warning-directive-4.i, cflags: -Wc++-compat  -std=gnu99 -fdiagnostics-show-option
+        -Wno-cpp -E}
   group: GRPSERIAL
 test_warning-directive-4_45:
   build:
-    cflags: -Wc++-compat  -std=gnu99 -fdiagnostics-show-option -Wno-cpp -E
     files: compilers/gcc/./c-c++-common/cpp/warning-directive-4.c
-    sources:
-      binary: warning-directive-4.i
+    sources: {binary: warning-directive-4.i, cflags: -Wc++-compat  -std=gnu99 -fdiagnostics-show-option
+        -Wno-cpp -E}
   group: GRPSERIAL
 test_warning-zero-in-literals-1_22:
   build:
-    cflags: -Wc++-compat -E
     files: compilers/gcc/./c-c++-common/cpp/warning-zero-in-literals-1.c
-    sources:
-      binary: warning-zero-in-literals-1.i
+    sources: {binary: warning-zero-in-literals-1.i, cflags: -Wc++-compat -E}
   group: GRPSERIAL
   validate:
     match:
-      L3:
-        expect: true
-        expr: '(^|\n)([^\n]+(:3:)[^\n]*[0-9]+: warning:[^\n]*("null character")[^\n]*\n?)+'
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+(:4:)[^\n]*[0-9]+: warning:[^\n]*("null character")[^\n]*\n?)+'
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+(:5:)[^\n]*[0-9]+: warning:[^\n]*("null character")[^\n]*\n?)+'
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+(:6:)[^\n]*[0-9]+: warning:[^\n]*("null character")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+(:7:)[^\n]*[0-9]+: warning:[^\n]*("null character")[^\n]*\n?)+'
+      L3: {expect: true, expr: '(^|\n)([^\n]+(:3:)[^\n]*[0-9]+: warning:[^\n]*("null
+          character")[^\n]*\n?)+'}
+      L4: {expect: true, expr: '(^|\n)([^\n]+(:4:)[^\n]*[0-9]+: warning:[^\n]*("null
+          character")[^\n]*\n?)+'}
+      L5: {expect: true, expr: '(^|\n)([^\n]+(:5:)[^\n]*[0-9]+: warning:[^\n]*("null
+          character")[^\n]*\n?)+'}
+      L6: {expect: true, expr: '(^|\n)([^\n]+(:6:)[^\n]*[0-9]+: warning:[^\n]*("null
+          character")[^\n]*\n?)+'}
+      L7: {expect: true, expr: '(^|\n)([^\n]+(:7:)[^\n]*[0-9]+: warning:[^\n]*("null
+          character")[^\n]*\n?)+'}
 test_warning-zero-in-literals-1_46:
   build:
-    cflags: -Wc++-compat -E
     files: compilers/gcc/./c-c++-common/cpp/warning-zero-in-literals-1.c
-    sources:
-      binary: warning-zero-in-literals-1.i
+    sources: {binary: warning-zero-in-literals-1.i, cflags: -Wc++-compat -E}
   group: GRPSERIAL
   validate:
     match:
-      L3:
-        expect: true
-        expr: '(^|\n)([^\n]+(:3:)[^\n]*[0-9]+: warning:[^\n]*("null character")[^\n]*\n?)+'
-      L4:
-        expect: true
-        expr: '(^|\n)([^\n]+(:4:)[^\n]*[0-9]+: warning:[^\n]*("null character")[^\n]*\n?)+'
-      L5:
-        expect: true
-        expr: '(^|\n)([^\n]+(:5:)[^\n]*[0-9]+: warning:[^\n]*("null character")[^\n]*\n?)+'
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+(:6:)[^\n]*[0-9]+: warning:[^\n]*("null character")[^\n]*\n?)+'
-      L7:
-        expect: true
-        expr: '(^|\n)([^\n]+(:7:)[^\n]*[0-9]+: warning:[^\n]*("null character")[^\n]*\n?)+'
+      L3: {expect: true, expr: '(^|\n)([^\n]+(:3:)[^\n]*[0-9]+: warning:[^\n]*("null
+          character")[^\n]*\n?)+'}
+      L4: {expect: true, expr: '(^|\n)([^\n]+(:4:)[^\n]*[0-9]+: warning:[^\n]*("null
+          character")[^\n]*\n?)+'}
+      L5: {expect: true, expr: '(^|\n)([^\n]+(:5:)[^\n]*[0-9]+: warning:[^\n]*("null
+          character")[^\n]*\n?)+'}
+      L6: {expect: true, expr: '(^|\n)([^\n]+(:6:)[^\n]*[0-9]+: warning:[^\n]*("null
+          character")[^\n]*\n?)+'}
+      L7: {expect: true, expr: '(^|\n)([^\n]+(:7:)[^\n]*[0-9]+: warning:[^\n]*("null
+          character")[^\n]*\n?)+'}
 test_warning-zero-location-2_23:
   build:
-    cflags: -Wc++-compat  -D _GNU_SOURCE -fdiagnostics-show-caret -S
     files: compilers/gcc/./c-c++-common/cpp/warning-zero-location-2.c
-    sources:
-      binary: warning-zero-location-2.s
+    sources: {binary: warning-zero-location-2.s, cflags: -Wc++-compat  -D _GNU_SOURCE
+        -fdiagnostics-show-caret -S}
   group: GRPSERIAL
 test_warning-zero-location-2_47:
   build:
-    cflags: -Wc++-compat  -D _GNU_SOURCE -fdiagnostics-show-caret -S
     files: compilers/gcc/./c-c++-common/cpp/warning-zero-location-2.c
-    sources:
-      binary: warning-zero-location-2.s
+    sources: {binary: warning-zero-location-2.s, cflags: -Wc++-compat  -D _GNU_SOURCE
+        -fdiagnostics-show-caret -S}
   group: GRPSERIAL
 test_warning-zero-location_24:
   build:
-    cflags: -Wc++-compat  -D _GNU_SOURCE -fdiagnostics-show-caret -S
     files: compilers/gcc/./c-c++-common/cpp/warning-zero-location.c
-    sources:
-      binary: warning-zero-location.s
+    sources: {binary: warning-zero-location.s, cflags: -Wc++-compat  -D _GNU_SOURCE
+        -fdiagnostics-show-caret -S}
   group: GRPSERIAL
   validate:
     match:
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+(:6:)[^\n]*[0-9]+: warning:[^\n]*("redefined")[^\n]*\n?)+'
+      L6: {expect: true, expr: '(^|\n)([^\n]+(:6:)[^\n]*[0-9]+: warning:[^\n]*("redefined")[^\n]*\n?)+'}
 test_warning-zero-location_48:
   build:
-    cflags: -Wc++-compat  -D _GNU_SOURCE -fdiagnostics-show-caret -S
     files: compilers/gcc/./c-c++-common/cpp/warning-zero-location.c
-    sources:
-      binary: warning-zero-location.s
+    sources: {binary: warning-zero-location.s, cflags: -Wc++-compat  -D _GNU_SOURCE
+        -fdiagnostics-show-caret -S}
   group: GRPSERIAL
   validate:
     match:
-      L6:
-        expect: true
-        expr: '(^|\n)([^\n]+(:6:)[^\n]*[0-9]+: warning:[^\n]*("redefined")[^\n]*\n?)+'
+      L6: {expect: true, expr: '(^|\n)([^\n]+(:6:)[^\n]*[0-9]+: warning:[^\n]*("redefined")[^\n]*\n?)+'}

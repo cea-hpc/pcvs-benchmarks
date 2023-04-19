@@ -1,9 +1,8 @@
 build_epcc:
   build:
     variants: ['openmp']
-    cflags: "-DOMPVER2 -DOMPVER3"
     files: "@BUILDPATH@/Makefile"
-    make: {'target': ""}
+    make: {'target': "", args: ["CFLAGS='-DOMPVER2 -DOMPVER3'"]}
 
 .bench_run: &runt
   run:
