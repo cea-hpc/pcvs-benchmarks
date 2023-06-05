@@ -1,0 +1,17 @@
+FROM python:3
+
+WORKDIR /pcvs
+
+RUN apt update && apt install -y git tar
+#RUN git clone --depth 1 --branch gui https://github.com/cea-hpc/pcvs.git /pcvs
+COPY ./pcvs.tar.gz .
+RUN tar xf ./pcvs.tar.gz
+RUN pip install --no-cache-dir -r ./requirements.txt
+RUN pip install .
+
+#RUN git clone --depth 1 https://github.com/cea-hpc/pcvs-benchmarks.git /benchmark
+RUN git clone --depth 1 --branch develop https://github.com/spack/spack.git /spack
+ENV PATH="${PATH}:/spack/bin"
+COPY run.sh /script/
+RUN pcvs bank init mpicheck /bank
+CMD /script/run.sh mpicheck

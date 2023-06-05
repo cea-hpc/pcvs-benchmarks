@@ -4,13 +4,13 @@
         use mpi_f08
         
             INTERFACE
-            SUBROUTINE MPI_Session_errhandler_function_def65(comm, error_code)
+            SUBROUTINE MPI_Session_errhandler_function_def47(comm, error_code)
                     import MPI_Session
                     TYPE(MPI_Session) :: comm
                     INTEGER :: error_code
             END SUBROUTINE
             END INTERFACE
-        PROCEDURE(MPI_Session_errhandler_function_def65), POINTER :: var_0
+        PROCEDURE(MPI_Session_errhandler_function_def47), POINTER :: var_0
        TYPE(MPI_Errhandler) :: var_1
        INTEGER :: var_2
         call mpi_session_create_errhandler(var_0, var_1, var_2)

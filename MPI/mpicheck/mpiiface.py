@@ -427,10 +427,17 @@ end subroutine""".format(varname)
 
     def array_dims(self):
         l = self._get_attr("length")
+
+        #length may be none but param still an array
+        # -> convert
         if not l:
             l = list()
 
+        # special case #1
         if self.kind() == "F90_STATUS":
+            l.append("10")
+        # special case #2
+        elif self.kind() == "ERROR_CODE" and "array" in self.name():
             l.append("10")
 
         if len(l) <= 0:
