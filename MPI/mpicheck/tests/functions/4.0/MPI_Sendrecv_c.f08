@@ -16,9 +16,9 @@
        TYPE(MPI_Comm) :: var_10
        TYPE(MPI_Status) :: var_11
        INTEGER :: var_12
-        call mpi_sendrecv_c(var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, &
+        call mpi_sendrecv(var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, &
        var_10, var_11, var_12)
-       call pmpi_sendrecv_c(var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, &
+       call pmpi_sendrecv(var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, &
        var_10, var_11, var_12)
         end program main
     

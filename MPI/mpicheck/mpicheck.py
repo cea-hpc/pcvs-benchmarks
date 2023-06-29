@@ -298,6 +298,12 @@ def process_function(func):
                   lang=lang, tags=[lang, "functions", *func_tags])
     
         if largecount_alternate_func:
+            if lang == "f08":
+                # f08 large counts are handled through polymorphism
+                calls_large = calls
+            elif lang in ["f90", "f77"]:
+                continue
+
             large_func_tags = get_func_tags("{}_c".format(func.name()))
             large_rev_tag = compute_min_std_from_tag(large_func_tags)
             large_srcpath = os.path.join(OUTDIR,

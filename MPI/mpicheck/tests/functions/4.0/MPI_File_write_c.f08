@@ -9,7 +9,7 @@
        TYPE(MPI_Datatype) :: var_3
        TYPE(MPI_Status) :: var_4
        INTEGER :: var_5
-        call mpi_file_write_c(var_0, var_1, var_2, var_3, var_4, var_5)
-       call pmpi_file_write_c(var_0, var_1, var_2, var_3, var_4, var_5)
+        call mpi_file_write(var_0, var_1, var_2, var_3, var_4, var_5)
+       call pmpi_file_write(var_0, var_1, var_2, var_3, var_4, var_5)
         end program main
     

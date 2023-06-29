@@ -13,9 +13,9 @@
        TYPE(MPI_Info) :: var_7
        TYPE(MPI_Request) :: var_8
        INTEGER :: var_9
-        call mpi_alltoall_init_c(var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, &
+        call mpi_alltoall_init(var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, &
        var_9)
-       call pmpi_alltoall_init_c(var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, &
+       call pmpi_alltoall_init(var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, &
        var_9)
         end program main
     

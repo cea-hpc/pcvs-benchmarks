@@ -13,9 +13,9 @@
        TYPE(MPI_Comm) :: var_7
        TYPE(MPI_Request) :: var_8
        INTEGER :: var_9
-        call mpi_ineighbor_allgatherv_c(var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, &
+        call mpi_ineighbor_allgatherv(var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, &
        var_8, var_9)
-       call pmpi_ineighbor_allgatherv_c(var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, &
+       call pmpi_ineighbor_allgatherv(var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, &
        var_8, var_9)
         end program main
     

@@ -10,7 +10,7 @@
        TYPE(MPI_Op) :: var_4
        TYPE(MPI_Comm) :: var_5
        INTEGER :: var_6
-        call mpi_scan_c(var_0, var_1, var_2, var_3, var_4, var_5, var_6)
-       call pmpi_scan_c(var_0, var_1, var_2, var_3, var_4, var_5, var_6)
+        call mpi_scan(var_0, var_1, var_2, var_3, var_4, var_5, var_6)
+       call pmpi_scan(var_0, var_1, var_2, var_3, var_4, var_5, var_6)
         end program main
     
