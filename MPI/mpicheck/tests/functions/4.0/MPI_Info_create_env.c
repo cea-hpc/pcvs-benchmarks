@@ -3,7 +3,7 @@ int main(char argc, char**argv)
 {
     /* vars */
     int var_0;
-    char var_1[2];
+    char **var_1;
     MPI_Info *var_2;
     int ret;
     /* calls */

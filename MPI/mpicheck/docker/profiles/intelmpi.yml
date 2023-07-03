@@ -1,0 +1,51 @@
+compiler:
+  cc: {program: mpiicc}
+  cxx: {program: mpiicpc}
+  f08: {program: mpiifort}
+  f77:
+    args: [-free]
+    program: mpiifort
+  f90:
+    args: [-free]
+    program: mpiifort
+  fc:
+    args: [-free]
+    program: mpiifort
+criterion:
+  n_mpi:
+    subtitle: n
+    values: [1]
+group:
+  GRPMPI:
+    run:
+      iterate:
+        n_omp: {values: null}
+machine:
+  concurrent_run: 4
+  cores_per_node: 4
+  job_manager:
+    allocate: {args: -ne, program: echo, wrapper: /home/adamj/myallocscript.sh}
+    remote: {args: -ne, program: echo, wrapper: /home/adamj/myallocscript.sh}
+  name: localhost
+  nodes: 1
+runtime:
+  criterions:
+    n_mpi: {numeric: true, option: '-np '}
+  plugin: !!binary |
+    YVcxd2IzSjBJRzFoZEdnS1puSnZiU0J3WTNaekxuQnNkV2RwYm5NZ2FXMXdiM0owSUZCc2RXZHBi
+    Z29LWTJ4aGMzTWdUVkJKVUd4MVoybHVLRkJzZFdkcGJpazZDaUFnSUNCemRHVndJRDBnVUd4MVoy
+    bHVMbE4wWlhBdVZFVlRWRjlGVmtGTUNpQWdJQ0FLSUNBZ0lHUmxaaUJ5ZFc0b2MyVnNaaXdnS21G
+    eVozTXNJQ29xYTNkaGNtZHpLVG9LSUNBZ0lDQWdJQ0FqSUhKbGRIVnlibk1nVkhKMVpTQnBaaUIw
+    YUdVZ1kyOXRZbWx1WVhScGIyNGdjMmh2ZFd4a0lHSmxJSFZ6WldRS0lDQWdJQ0FnSUNCamIyNW1h
+    V2NnUFNCcmQyRnlaM05iSjJOdmJtWnBaeWRkQ2lBZ0lDQWdJQ0FnYm1KZmJtOWtaWE1nUFNCamIy
+    NW1hV2N1YldGamFHbHVaUzVuWlhRb0oyNXZaR1Z6Snl3Z01Ta0tJQ0FnSUNBZ0lDQnVZbDlqYjNK
+    bGN5QTlJR052Ym1acFp5NXRZV05vYVc1bExtZGxkQ2duWTI5eVpYTmZjR1Z5WDI1dlpHVW5MQ0F4
+    S1FvS0lDQWdJQ0FnSUNCamIyMWlJRDBnYTNkaGNtZHpXeWRqYjIxaWFXNWhkR2x2YmlkZENpQWdJ
+    Q0FnSUNBZ2JsOXRjR2tnUFNCamIyMWlMbWRsZENnbmJsOXRjR2tuTENBeEtRb2dJQ0FnSUNBZ0lH
+    NWZiMjF3SUQwZ1kyOXRZaTVuWlhRb0oyNWZiMjF3Snl3Z01Da0tJQ0FnSUNBZ0lDQnVYMjV2WkdV
+    Z1BTQmpiMjFpTG1kbGRDZ25ibDl1YjJSbEp5d2dNU2tLQ2lBZ0lDQWdJQ0FnYVdZZ1hBb2dJQ0Fn
+    SUNBZ0lDQWdJQ0FvYVc1MEtHNWZiWEJwSUM4Z2JsOXViMlJsS1NBK0lHNWlYMk52Y21WektTQnZj
+    aUJjQ2lBZ0lDQWdJQ0FnSUNBZ0lDaHVYMjV2WkdVZ1BpQnVZbDl1YjJSbGN5azZDaUFnSUNBZ0lD
+    QWdJQ0FnSUNBZ0lDQnlaWFIxY200Z1JtRnNjMlVLSUNBZ0lDQWdJQ0JsYkhObE9nb2dJQ0FnSUNB
+    Z0lDQWdJQ0J5WlhSMWNtNGdWSEoxWlFvPQ==
+  program: mpirun

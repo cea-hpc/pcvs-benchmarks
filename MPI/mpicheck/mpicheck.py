@@ -49,11 +49,17 @@ def build_c_code(func, decls, calls):
         legacymode = d[2] if len(d) >= 3 else False
         if not param.isc():
             continue
+        param_decl_str = ""
         if param.kind() == "VARARGS":
-            code_decls.append("char* {}[10];".format(varname))
+            param_decl_str = "char* {}[10];".format(varname)
         else:
-            code_decls.append("{};".format(param.type_decl_c(varname, legacy=legacymode)))
+            suffix = ''
+            if param.kind() == "POLYFUNCTION" and not legacymode:
+                suffix = '_c'
+            param_decl_str = "{};".format(param.type_decl_c(varname, legacy=legacymode, suffix=suffix))
         params.append(varname)
+
+        code_decls.append(param_decl_str)
     
     if func.return_kind() != "NOTHING":
         code_decls.append("{} ret;".format(func.meta.kind_expand(func.return_kind(), lang="c")))

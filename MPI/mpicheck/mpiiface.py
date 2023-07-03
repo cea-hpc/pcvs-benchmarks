@@ -128,14 +128,19 @@ class MPI_Parameter():
         if self.meta.lang != "c" and self.meta.lang != "fbind":
             return ''
 
+
+        if self.kind() == 'ARGUMENT_LIST':
+            if self.pointer() is True or self.pointer() is None:
+                    return "***"
+            else:
+                return '**'
+
         if self.pointer() is not None and not self.pointer():
             return ''
 
         if self.kind() == 'STRING_2DARRAY':
             return '**'
 
-        if self.kind() == 'ARGUMENT_LIST':
-            return '***'
 
         # needed for MPI_UNPACK_EXTERNAL[_size]
         if (self.kind() == 'STRING' and
@@ -170,6 +175,9 @@ class MPI_Parameter():
 
         if self.kind() == 'C_BUFFER4':
             # length set on MPI_User_function
+            return ''
+
+        if self.kind() == "ARGUMENT_LIST":
             return ''
 
         if ( self.kind() != 'STRING' and
@@ -466,8 +474,8 @@ end subroutine""".format(varname)
         else:
             return self.meta.kind_expand(self.kind(), lang=lang, version="3.1.0" if legacy else "4.0.0")
 
-    def type_c(self, noconst=False, legacy=False):
-        return ("const " if self.constant() and not noconst else "") + self.kind_expand(legacy=legacy)
+    def type_c(self, noconst=False, legacy=False, suffix=""):
+        return ("const " if self.constant() and not noconst else "") + self.kind_expand(legacy=legacy) + suffix
 
 
     def get_f_pointer(self, ver="f"):
@@ -528,9 +536,9 @@ end subroutine""".format(varname)
     def type_c_is_pointer(self):
         return (self._get_c_pointer() == "*")
 
-    def type_decl_c(self, altername=None, default_cnt="2", legacy=False):
+    def type_decl_c(self, altername=None, default_cnt="2", legacy=False, suffix=''):
         name = altername if altername else self.name()
-        return "{} {}{}{}".format( self.type_c(legacy=legacy),
+        return "{} {}{}{}".format( self.type_c(legacy=legacy, suffix=suffix),
                                    self._get_c_pointer(),
                                    name,
                                    self.get_c_array(default_cnt))

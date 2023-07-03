@@ -4,7 +4,7 @@
         use mpi_f08
         
             INTERFACE
-            SUBROUTINE MPI_Comm_copy_attr_function_def4(oldcomm, comm_keyval, extra_state, attribute_val_in, &
+            SUBROUTINE MPI_Comm_copy_attr_function_def53(oldcomm, comm_keyval, extra_state, attribute_val_in, &
                     & attribute_val_out, flag, ierror)
                     import MPI_Comm, MPI_ADDRESS_KIND
 					TYPE(MPI_Comm) :: oldcomm
@@ -15,15 +15,15 @@
             END INTERFACE
 
             INTERFACE
-            SUBROUTINE MPI_Comm_delete_attr_function_def35(comm, comm_keyval, attribute_val, extra_state, ierror)
+            SUBROUTINE MPI_Comm_delete_attr_function_def18(comm, comm_keyval, attribute_val, extra_state, ierror)
                     import MPI_Comm, MPI_ADDRESS_KIND
                     TYPE(MPI_Comm) :: comm
                     INTEGER :: comm_keyval, ierror
                     INTEGER(KIND=MPI_ADDRESS_KIND) :: attribute_val, extra_state
             END SUBROUTINE
             END INTERFACE
-        PROCEDURE(MPI_Comm_copy_attr_function_def4), POINTER :: var_0
-       PROCEDURE(MPI_Comm_delete_attr_function_def35), POINTER :: var_1
+        PROCEDURE(MPI_Comm_copy_attr_function_def53), POINTER :: var_0
+       PROCEDURE(MPI_Comm_delete_attr_function_def18), POINTER :: var_1
        INTEGER :: var_2
        INTEGER(KIND=MPI_ADDRESS_KIND) :: var_3
        INTEGER :: var_4

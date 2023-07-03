@@ -4,14 +4,14 @@
         use mpi_f08
         
             INTERFACE
-            SUBROUTINE MPI_User_function_def77(invec, inoutvec, len, datatype)
+            SUBROUTINE MPI_User_function_def27(invec, inoutvec, len, datatype)
                     import MPI_Datatype, C_PTR
                     TYPE(C_PTR), VALUE :: invec, inoutvec
                     INTEGER :: len
                     TYPE(MPI_Datatype) :: datatype
             END SUBROUTINE
             END INTERFACE
-        PROCEDURE(MPI_User_function_def77), POINTER :: var_0
+        PROCEDURE(MPI_User_function_def27), POINTER :: var_0
        LOGICAL :: var_1
        TYPE(MPI_Op) :: var_2
        INTEGER :: var_3

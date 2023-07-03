@@ -3,8 +3,8 @@ int main(char argc, char**argv)
 {
     /* vars */
     const char *var_0;
-    MPI_Datarep_conversion_function *var_1;
-    MPI_Datarep_conversion_function *var_2;
+    MPI_Datarep_conversion_function_c *var_1;
+    MPI_Datarep_conversion_function_c *var_2;
     MPI_Datarep_extent_function *var_3;
     void *var_4;
     int ret;

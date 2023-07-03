@@ -3,7 +3,6 @@
 MPIMETA_PATH="${MPIMETA-$PWD}"
 CHECK_INSTALL="${CHECK_INSTALL-yes}"
 LIST_ONLY="${LIST_ONLY-no}"
-EXIT_RC=1
 
 err()
 {
@@ -52,12 +51,7 @@ is_missing_spec()
 mark_spec()
 {
 	target_file=$pcvs_bank/cache/$1
-	if test -n "$2"; then
-		echo "$2" > $target_file
-	else
-		touch $target_file
-	fi
-	EXIT_RC=0
+	touch $target_file
 }
 
 
@@ -65,6 +59,7 @@ echo "Browse runtimes"
 for runtime in openmpi intel-mpi mpich mvapich2; do
 	versions=$(list_versions_for_pkg $runtime)
 	mkdir -p $pcvs_bank/cache/$runtime
+	echo "$runtime $versions"
 	for v in $versions; do
 		# check if already stored
 		if is_missing_spec $runtime/$v; then
@@ -83,8 +78,7 @@ for runtime in openmpi intel-mpi mpich mvapich2; do
 			if test "$CHECK_INSTALL" = "yes"; then
 				spack location -i $spack_line > /dev/null  2>&1
 				if test "$?" -ne 0; then
-					spack install $spack_line || continue
-					mark_spec $runtime/$v "failed to build"
+					safe_exec spack install $spack_line
 				fi
 			fi
 
@@ -105,6 +99,5 @@ for runtime in openmpi intel-mpi mpich mvapich2; do
 	done
 done
 echo "Completed."
-exit $EXIT_RC
 
 

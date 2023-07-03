@@ -2,7 +2,7 @@
 int main(char argc, char**argv)
 {
     /* vars */
-    MPI_User_function *var_0;
+    MPI_User_function_c *var_0;
     int var_1;
     MPI_Op *var_2;
     int ret;
