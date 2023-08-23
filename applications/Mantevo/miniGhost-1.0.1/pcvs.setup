@@ -1,0 +1,51 @@
+#!/bin/sh
+
+prefix=$pcvs_testbuild/$1/
+
+mkdir -p $prefix/serial $prefix/mpi
+
+cp -r $pcvs_src/$1/* $prefix/serial
+cp -r $pcvs_src/$1/* $prefix/mpi
+
+cat << EOF 
+miniGhost_serial:
+    build:
+        variants: ['openmp']
+        files: '@BUILDPATH@/serial/ref/Makefile'
+        make:
+            args: ['PROTOCOL=-D_MG_SERIAL']
+    run:
+        program: '@BUILDPATH@/serial/ref/miniGhost.x'
+        iterate:
+            n_node:
+                values: [1, 2, 4]
+            n_proc:
+                values:
+                - {op: 'mul', of: 2}
+            n_mpi:
+                values:
+                - {op: 'powerof', of: 3}
+            n_omp:
+                values: [2, 4, 8]
+miniGhost_parallel:
+    build:
+        variants: ['openmp']
+        files: '@BUILDPATH@/mpi/ref/Makefile'
+        make:
+            args: ["PROTOCOL=-D_MG_MPI"]
+    run:
+        program: '@BUILDPATH@/mpi/ref/miniGhost.x'
+        iterate:
+            n_node:
+                values: [1, 2, 4]
+            n_proc:
+                values:
+                - {op: 'mul', of: 2}
+            n_mpi:
+                values:
+                - {op: 'powerof', of: 3}
+            n_omp:
+                values: [2, 4, 8]
+EOF
+
+exit 0

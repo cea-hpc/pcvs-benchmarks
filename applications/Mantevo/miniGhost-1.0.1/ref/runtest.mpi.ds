@@ -1,0 +1,681 @@
+
+ARCH=xe6
+PROTOCOL=mpi
+COMPILER=pgi
+
+mkdir -p $RESULTS_DIR
+
+EXEC=miniGhost.x
+
+PES_PER_NODE=16
+PES_PER_NODE_S=16PEpernode
+
+NUMPES=16
+NUMPES_S=16pes
+
+NPX=4
+NPY=2
+NPZ=2
+NPXxNPYxNPZ_S=2x2x2
+
+##########################################################################################
+# Run with default settings.
+##########################################################################################
+
+echo
+echo '##########################################################################################'
+echo Begin miniGhost testing : runtest.mpi
+echo '##########################################################################################'
+echo
+echo Running with default settings.
+echo
+aprun -ss -n $NUMPES -N $PES_PER_NODE  \
+        ./$EXEC
+
+##########################################################################################
+#
+SCALING=2
+COMM_METHOD=10
+NX=100
+NY=100
+NZ=100
+NUM_VARS=40
+PERCENT_SUM=100
+NUM_SPIKES=3
+NUM_TSTEPS=80
+STENCIL=21
+ERROR_TOL=8
+REPORT_DIFFUSION=1
+
+##########################################################################################
+
+echo ' ########################################################################################## '
+echo
+echo Running with unknown parameter.
+echo
+aprun -ss -n $NUMPES -N $PES_PER_NODE  \
+        ./$EXEC --nvar
+
+##########################################################################################
+# Verify correctness checking is working. 
+##########################################################################################
+
+echo
+echo ' ########################################################################################## '
+echo
+echo Inputing incorrect parameter: SCALING = 0
+echo
+SCALING=0
+aprun -ss -n $NUMPES -N $PES_PER_NODE  \
+        ./$EXEC \
+        --scaling $SCALING \
+	--comm_method $COMM_METHOD \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION \
+        --npx $NPX \
+        --npy $NPY \
+        --npz $NPZ
+
+SCALING=2
+echo
+echo ' ########################################################################################## '
+echo
+echo Inputing incorrect parameter: NUMPES=4
+echo
+NUMPES=4
+aprun -ss -n $NUMPES \
+        ./$EXEC \
+        --scaling $SCALING \
+	--comm_method $COMM_METHOD \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION \
+        --npx $NPX \
+        --npy $NPY \
+        --npz $NPZ
+
+NUMPES=16
+echo ' ########################################################################################## '
+echo
+echo Inputing incorrect parameter: NPX = 0
+echo
+NPX=0
+aprun -ss -n $NUMPES -N $PES_PER_NODE  \
+        ./$EXEC \
+        --scaling $SCALING \
+	--comm_method $COMM_METHOD \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION \
+        --npx $NPX \
+        --npy $NPY \
+        --npz $NPZ
+
+NPX=4
+echo ' ########################################################################################## '
+echo
+echo Inputing incorrect parameter: NPY=1
+echo
+NPY=1
+aprun -ss -n $NUMPES -N $PES_PER_NODE  \
+        ./$EXEC \
+        --scaling $SCALING \
+	--comm_method $COMM_METHOD \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION \
+        --npx $NPX \
+        --npy $NPY \
+        --npz $NPZ
+
+NPY=2
+echo ' ########################################################################################## '
+echo
+echo Inputing incorrect parameter: NPZ = -2
+echo
+NPZ=-2
+aprun -ss -n $NUMPES -N $PES_PER_NODE  \
+        ./$EXEC \
+        --scaling $SCALING \
+	--comm_method $COMM_METHOD \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION \
+        --npx $NPX \
+        --npy $NPY \
+        --npz $NPZ
+
+NPZ=2
+echo ' ########################################################################################## '
+echo
+echo Inputing incorrect parameter: NX = 0
+echo
+NX=0
+aprun -ss -n $NUMPES -N $PES_PER_NODE  \
+        ./$EXEC \
+        --scaling $SCALING \
+	--comm_method $COMM_METHOD \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION \
+        --npx $NPX \
+        --npy $NPY \
+        --npz $NPZ
+
+NX=100
+echo
+echo ' ########################################################################################## '
+echo
+echo Inputing incorrect parameter: NY = 0
+echo
+NY=0
+aprun -ss -n $NUMPES -N $PES_PER_NODE  \
+        ./$EXEC \
+        --scaling $SCALING \
+	--comm_method $COMM_METHOD \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION \
+        --npx $NPX \
+        --npy $NPY \
+        --npz $NPZ
+
+NY=100
+echo
+echo ' ########################################################################################## '
+echo
+echo Inputing incorrect parameter: NZ = 0
+echo
+NZ=0
+aprun -ss -n $NUMPES -N $PES_PER_NODE  \
+        ./$EXEC \
+        --scaling $SCALING \
+	--comm_method $COMM_METHOD \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION \
+        --npx $NPX \
+        --npy $NPY \
+        --npz $NPZ
+NZ=100
+echo
+echo ' ########################################################################################## '
+echo
+echo Inputing incorrect parameter: NUM_VARS = 0
+echo
+NUM_VARS=0
+aprun -ss -n $NUMPES -N $PES_PER_NODE  \
+        ./$EXEC \
+        --scaling $SCALING \
+	--comm_method $COMM_METHOD \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION \
+        --npx $NPX \
+        --npy $NPY \
+        --npz $NPZ
+
+NUM_VARS=1
+echo
+echo ' ########################################################################################## '
+echo
+echo Inputing incorrect parameter: PERCENT_SUM = -1
+echo
+PERCENT_SUM=-1
+aprun -ss -n $NUMPES -N $PES_PER_NODE  \
+        ./$EXEC \
+        --scaling $SCALING \
+	--comm_method $COMM_METHOD \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION \
+        --npx $NPX \
+        --npy $NPY \
+        --npz $NPZ
+
+echo
+echo ' ########################################################################################## '
+echo
+echo Inputing incorrect parameter: PERCENT_SUM = 101
+echo
+PERCENT_SUM=101
+aprun -ss -n $NUMPES -N $PES_PER_NODE  \
+        ./$EXEC \
+        --scaling $SCALING \
+	--comm_method $COMM_METHOD \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION \
+        --npx $NPX \
+        --npy $NPY \
+        --npz $NPZ
+
+PERCENT_SUM=50
+echo
+echo ' ########################################################################################## '
+echo
+echo Inputing incorrect parameter: NUM_SPIKES = 0
+echo
+NUM_SPIKES=0
+aprun -ss -n $NUMPES -N $PES_PER_NODE  \
+        ./$EXEC \
+        --scaling $SCALING \
+	--comm_method $COMM_METHOD \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION \
+        --npx $NPX \
+        --npy $NPY \
+        --npz $NPZ
+
+NUM_SPIKES=1
+echo
+echo ' ########################################################################################## '
+echo
+echo Inputing incorrect parameter: NUM_TSTEPS = 0
+echo
+NUM_TSTEPS=0
+aprun -ss -n $NUMPES -N $PES_PER_NODE  \
+        ./$EXEC \
+        --scaling $SCALING \
+	--comm_method $COMM_METHOD \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION \
+        --npx $NPX \
+        --npy $NPY \
+        --npz $NPZ
+
+NUM_TSTEPS=100
+echo
+echo ' ########################################################################################## '
+echo
+echo Inputing incorrect parameter: STENCIL = 13
+echo
+STENCIL=13
+aprun -ss -n $NUMPES -N $PES_PER_NODE  \
+        ./$EXEC \
+        --scaling $SCALING \
+	--comm_method $COMM_METHOD \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION \
+        --npx $NPX \
+        --npy $NPY \
+        --npz $NPZ
+STENCIL=21
+echo
+echo ' ########################################################################################## '
+echo
+echo Inputing incorrect parameter: ERROR_TOL = -1
+echo
+ERROR_TOL=-1
+aprun -ss -n $NUMPES -N $PES_PER_NODE  \
+        ./$EXEC \
+        --scaling $SCALING \
+	--comm_method $COMM_METHOD \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION \
+        --npx $NPX \
+        --npy $NPY \
+        --npz $NPZ
+
+ERROR_TOL=8
+echo
+echo ' ########################################################################################## '
+echo
+echo Inputing incorrect parameter: REPORT_DIFFUSION = -1
+echo
+REPORT_DIFFUSION=-1
+aprun -ss -n $NUMPES -N $PES_PER_NODE  \
+        ./$EXEC \
+        --scaling $SCALING \
+	--comm_method $COMM_METHOD \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION \
+        --npx $NPX \
+        --npy $NPY \
+        --npz $NPZ
+
+REPORT_DIFFUSION=1
+##########################################################################################
+# Input
+##########################################################################################
+
+echo
+echo ' ########################################################################################## '
+echo
+echo Inputing valid problem sets: answers should be correct.
+echo
+echo BSPMA across four stencils
+echo ' ########################################################################################## '
+
+NUM_VARS=40
+NUM_VARS_S=40vars
+
+PERCENT_SUM=100
+PERCENT_SUM_S=all
+
+NUM_SPIKES=4
+NUM_TSTEPS=100
+
+ERROR_TOL=5
+REPORT_DIFFUSION=50
+
+NX=100
+NY=100
+NZ=100
+
+DIM_S=100x100x100
+
+##############################################################################################
+
+STENCIL=21
+STENCIL_S=2d5pt
+
+aprun -ss -n $NUMPES -N $PES_PER_NODE  \
+        ./$EXEC \
+        --scaling $SCALING \
+	--comm_method $COMM_METHOD \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION \
+        --npx $NPX \
+        --npy $NPY \
+        --npz $NPZ
+
+mv results.yaml results.$STENCIL_S.$ARCH.$COMPILER.$DIM_S.$NUM_VARS_S.$PERCENT_SUM_S.yaml
+
+STENCIL=22
+STENCIL_S=2d9pt
+
+aprun -ss -n $NUMPES -N $PES_PER_NODE  \
+        ./$EXEC \
+        --scaling $SCALING \
+	--comm_method $COMM_METHOD \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION \
+        --npx $NPX \
+        --npy $NPY \
+        --npz $NPZ
+
+mv results.yaml results.$STENCIL_S.$ARCH.$COMPILER.$DIM_S.$NUM_VARS_S.$PERCENT_SUM_S.yaml
+
+STENCIL=23
+STENCIL_S=3d7pt
+
+aprun -ss -n $NUMPES -N $PES_PER_NODE  \
+        ./$EXEC \
+        --scaling $SCALING \
+	--comm_method $COMM_METHOD \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION \
+        --npx $NPX \
+        --npy $NPY \
+        --npz $NPZ
+
+mv results.yaml results.$STENCIL_S.$ARCH.$COMPILER.$DIM_S.$NUM_VARS_S.$PERCENT_SUM_S.yaml
+
+STENCIL=24
+STENCIL_S=3d27pt
+
+aprun -ss -n $NUMPES -N $PES_PER_NODE  \
+        ./$EXEC \
+        --scaling $SCALING \
+	--comm_method $COMM_METHOD \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION \
+        --npx $NPX \
+        --npy $NPY \
+        --npz $NPZ
+
+mv results.yaml results.$STENCIL_S.$ARCH.$COMPILER.$DIM_S.$NUM_VARS_S.$PERCENT_SUM_S.yaml
+
+echo ' ########################################################################################## '
+echo
+echo SVAF across four stencils
+echo ' ########################################################################################## '
+
+COMM_METHOD=11
+
+STENCIL=21
+STENCIL_S=2d5pt
+
+aprun -ss -n $NUMPES -N $PES_PER_NODE  \
+        ./$EXEC \
+        --scaling $SCALING \
+	--comm_method $COMM_METHOD \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION \
+        --npx $NPX \
+        --npy $NPY \
+        --npz $NPZ
+
+mv results.yaml results.$STENCIL_S.$ARCH.$COMPILER.$DIM_S.$NUM_VARS_S.$PERCENT_SUM_S.yaml
+
+STENCIL=22
+STENCIL_S=2d9pt
+
+aprun -ss -n $NUMPES -N $PES_PER_NODE  \
+        ./$EXEC \
+        --scaling $SCALING \
+	--comm_method $COMM_METHOD \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION \
+        --npx $NPX \
+        --npy $NPY \
+        --npz $NPZ
+
+mv results.yaml results.$STENCIL_S.$ARCH.$COMPILER.$DIM_S.$NUM_VARS_S.$PERCENT_SUM_S.yaml
+
+STENCIL=23
+STENCIL_S=3d7pt
+
+aprun -ss -n $NUMPES -N $PES_PER_NODE  \
+        ./$EXEC \
+        --scaling $SCALING \
+	--comm_method $COMM_METHOD \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION \
+        --npx $NPX \
+        --npy $NPY \
+        --npz $NPZ
+
+mv results.yaml results.$STENCIL_S.$ARCH.$COMPILER.$DIM_S.$NUM_VARS_S.$PERCENT_SUM_S.yaml
+
+STENCIL=24
+STENCIL_S=3d27pt
+
+aprun -ss -n $NUMPES -N $PES_PER_NODE  \
+        ./$EXEC \
+        --scaling $SCALING \
+	--comm_method $COMM_METHOD \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION \
+        --npx $NPX \
+        --npy $NPY \
+        --npz $NPZ
+
+mv results.yaml results.$STENCIL_S.$ARCH.$COMPILER.$DIM_S.$NUM_VARS_S.$PERCENT_SUM_S.yaml
+
+echo ' All MPI tests complete'
+echo
+##########################################################################################

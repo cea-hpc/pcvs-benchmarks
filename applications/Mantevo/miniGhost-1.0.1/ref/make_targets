@@ -1,0 +1,166 @@
+############################## Executable definitions #################################
+
+EXEC    = miniGhost.x
+
+################################# File dependcies ####################################
+
+ifeq ($(ENABLE_CHECKPT_MPIIO),TRUE)
+CHECKPOINT_SRCS += MG_CHECKPOINT_MPIIO.F
+CHECKPOINT_OBJS += MG_CHECKPOINT_MPIIO.o
+endif
+ifeq ($(ENABLE_CHECKPT_H5PART),TRUE)
+CHECKPOINT_SRCS += MG_CHECKPOINT_H5PART.F
+CHECKPOINT_OBJS += MG_CHECKPOINT_H5PART.o
+endif
+
+OBJS_F = MG_CONSTANTS.o MG_OPTIONS.o MG_UTILS.o \
+	MG_ENV.o MG_PROFILING.o \
+	MG_GET_FACE.o \
+	MG_BUFINIT.o MG_PACK.o MG_IRECV.o MG_UNPACK_SVAF.o \
+	MG_SEND_BSPMA.o \
+	MG_SEND_SVAF.o \
+	MG_UNPACK_BSPMA.o \
+	MG_BSPMA.o MG_SVAF.o \
+	MG_FLUX_ACCUMULATE.o MG_BC.o \
+	MG_STENCIL_COMPS.o MG_STENCIL.o \
+	MG_BSPMA_DIAGS.o MG_SVAF_DIAGS.o \
+	MG_SUM_GRID.o \
+	$(CHECKPOINT_OBJS) \
+	MG_CHECKPOINT.o \
+	DRIVER_BSPMA.o DRIVER_SVAF.o \
+	DRIVER.o
+
+#######
+
+OBJS_MG = main.o $(OBJS_F)
+
+######################################################################################
+
+all ::  $(EXEC) 
+
+####################### Create executable #######################
+
+$(EXEC): $(OBJS_MG) $(COBJS)
+	$(LD) $(LDFLAGS) -o $@ $(OBJS_MG) $(LIBS)
+
+MG_ENV.F:
+	./capture_env "$(FC)" "$(CC)" "$(LD)" "$(FFLAGS)" "$(CFLAGS)" "$(ARCH)"
+
+runtest.mpi: realclean
+	make -f makefile.mpi
+	qsub runtest.mpi
+
+runtest.serial: realclean
+	make -f makefile.serial
+	./runtest.serial
+
+###############################################################
+
+clean:
+	rm -f \
+		$(OBJS_MG) \
+		$(COBJS) \
+		*.mod *.trace core
+
+realclean::
+	rm -f \
+		$(OBJS_MG) \
+		$(COBJS) \
+		*.mod *.trace core
+	rm -f $(EXEC)
+
+############################### Compilation rules ####################################
+
+.F.o:
+	$(FC) $(FFLAGS) $(F_INCLUDE) -c $<
+
+.c.o:
+	$(CC) $(CFLAGS) -c $<
+
+############################### Dependencies #########################################
+
+main.o: default-settings.h
+
+DRIVER_BSPMA.o: MG_CONSTANTS.o MG_BSPMA.o MG_BSPMA_DIAGS.o MG_STENCIL.o \
+		MG_PROFILING.o MG_SUM_GRID.o
+
+DRIVER_OBJS=MG_CONSTANTS.o MG_OPTIONS.o MG_UTILS.o MG_BUFINIT.o \
+		DRIVER_BSPMA.o DRIVER_SVAF.o MG_STENCIL.o \
+		MG_PROFILING.o \
+		$(CHECKPOINT_OBJS) \
+		MG_CHECKPOINT.o
+
+DRIVER.o: $(DRIVER_OBJS)
+
+DRIVER_SVAF.o: MG_CONSTANTS.o MG_BUFINIT.o MG_SVAF.o MG_SVAF_DIAGS.o \
+		MG_STENCIL.o MG_PROFILING.o MG_SUM_GRID.o
+
+MG_BSPMA_DIAGS.o: MG_CONSTANTS.o MG_UTILS.o MG_IRECV.o MG_PACK.o \
+		MG_SEND_BSPMA.o MG_UNPACK_BSPMA.o
+
+MG_BSPMA.o: MG_CONSTANTS.o MG_UTILS.o MG_IRECV.o MG_PACK.o \
+		MG_SEND_BSPMA.o MG_UNPACK_BSPMA.o
+
+MG_BUFINIT.o: MG_CONSTANTS.o MG_UTILS.o
+
+MG_CHECKPOINT.o: $(CHECKPOINT_OBJS)
+
+MG_CHECKPOINT_MPIIO.o: MG_CONSTANTS.o MG_OPTIONS.o
+
+MG_CHECKPOINT_H5PART.o: MG_CONSTANTS.o MG_OPTIONS.o
+
+MG_ENV.o: MG_ENV.F
+
+MG_ENV_SRCS=MG_CONSTANTS.F MG_OPTIONS.F MG_UTILS.F \
+		MG_PROFILING.F MG_GET_FACE.F MG_BUFINIT.F MG_PACK.F \
+		MG_IRECV.F MG_UNPACK_SVAF.F MG_SEND_BSPMA.F \
+		MG_SEND_SVAF.F MG_UNPACK_BSPMA.F MG_BSPMA.F \
+		MG_SVAF.F \
+		MG_FLUX_ACCUMULATE.F MG_BC.F \
+		MG_STENCIL_COMPS.F MG_STENCIL.F MG_BSPMA_DIAGS.F MG_SVAF_DIAGS.F \
+		MG_SUM_GRID.F \
+		$(CHECKPOINT_SRCS) \
+		MG_CHECKPOINT.F \
+		DRIVER_BSPMA.F DRIVER_SVAF.F DRIVER.F
+
+MG_ENV.F: $(MG_ENV_SRCS)
+
+MG_FLUX_ACCUMULATE.o: MG_UTILS.o MG_PROFILING.o
+
+MG_BC.o: MG_UTILS.o MG_PROFILING.o
+
+MG_GET_FACE.o: MG_CONSTANTS.o MG_UTILS.o
+
+MG_IRECV.o: MG_CONSTANTS.o MG_UTILS.o MG_PROFILING.o
+
+MG_ISEND_BSPMA.o: MG_CONSTANTS.o MG_UTILS.o MG_PROFILING.o
+
+MG_ISEND_SVAF.o: MG_CONSTANTS.o MG_UTILS.o MG_PROFILING.o
+
+MG_OPTIONS.o: MG_CONSTANTS.o
+
+MG_PACK.o: MG_CONSTANTS.o MG_UTILS.o MG_PROFILING.o
+
+MG_PROFILING.o: MG_CONSTANTS.o MG_UTILS.o MG_ENV.o
+
+MG_SEND_BSPMA.o: MG_CONSTANTS.o MG_UTILS.o MG_PROFILING.o
+
+MG_SEND_SVAF.o: MG_CONSTANTS.o MG_UTILS.o MG_PROFILING.o
+
+MG_STENCIL_COMPS.o: MG_UTILS.o MG_PROFILING.o
+
+MG_STENCIL.o: MG_UTILS.o MG_STENCIL_COMPS.o
+
+MG_SUM_GRID.o: MG_UTILS.o
+
+MG_SVAF_DIAGS.o: MG_CONSTANTS.o MG_UTILS.o MG_IRECV.o MG_PACK.o \
+		MG_SEND_SVAF.o MG_UNPACK_SVAF.o
+
+MG_SVAF.o: MG_CONSTANTS.o MG_UTILS.o MG_IRECV.o MG_PACK.o MG_SEND_SVAF.o \
+		MG_UNPACK_SVAF.o
+
+MG_UNPACK_BSPMA.o: MG_CONSTANTS.o MG_UTILS.o MG_GET_FACE.o MG_PROFILING.o
+
+MG_UNPACK_SVAF.o: MG_CONSTANTS.o MG_UTILS.o MG_GET_FACE.o MG_PROFILING.o
+
+MG_UTILS.o: MG_CONSTANTS.o MG_OPTIONS.o MG_CONSTANTS.o MG_CONSTANTS.o

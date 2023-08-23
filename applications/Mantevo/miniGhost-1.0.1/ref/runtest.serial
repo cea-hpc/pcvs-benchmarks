@@ -1,0 +1,402 @@
+
+# To include a descriptive machine name in the yaml output file, 
+# edit the following line in MG_UTILS.F 
+#      TEST_MACHINE = 'Insert machine name here'
+#
+# For convenience, the next three settings are used in the file name for the results.
+# Regardless, the content of those files will describe the actually settings used.
+ARCH=mymac
+PROTOCOL=serial
+COMPILER=gfortran
+
+EXEC=miniGhost.x
+
+##########################################################################################
+# Run with default settings.
+##########################################################################################
+
+echo
+echo '##########################################################################################'
+echo Begin miniGhost testing : runtest.serial
+echo '##########################################################################################'
+echo
+echo Running with default settings.
+echo
+./$EXEC
+
+mv results.yaml results.$ARCH.$PROTOCOL.$COMPILER.DEFAULT_SETTINGS.yaml
+
+##########################################################################################
+#
+NX=100
+NY=100
+NZ=100
+DIM_S=100x100x100
+NUM_VARS=40
+NUM_VARS_S=40vars
+PERCENT_SUM=100
+PERCENT_SUM_S=100summed
+NUM_SPIKES=3
+NUM_TSTEPS=80
+STENCIL=21
+STENCIL_S=2d5pt
+ERROR_TOL=8
+REPORT_DIFFUSION=10
+##########################################################################################
+
+echo ' ########################################################################################## '
+echo
+echo Running with unknown parameter.
+echo
+./$EXEC --nvar
+
+##########################################################################################
+# Verify correctness checking is working. 
+##########################################################################################
+
+echo
+echo ' ########################################################################################## '
+echo
+echo ' Inputing incorrect parameter: NX = 0'
+echo
+NX_ORIG=$NX
+NX=0
+./$EXEC \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION
+
+NX=$NX_ORIG
+echo
+echo ' ########################################################################################## '
+echo
+echo ' Inputing incorrect parameter: NY = 0'
+echo
+NY_ORIG=$NY
+NY=0
+./$EXEC \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION
+
+NY=$NY_ORIG
+echo
+echo ' ########################################################################################## '
+echo
+echo ' Inputing incorrect parameter: NZ = 0'
+echo
+NZ_ORIG=$NZ
+NZ=0
+./$EXEC \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION
+NZ=$NZ_ORIG
+echo
+echo ' ########################################################################################## '
+echo
+echo ' Inputing incorrect parameter: NUM_VARS = 0'
+echo
+NUM_VARS_ORIG=$NUM_VARS
+NUM_VARS=0
+./$EXEC \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION
+
+NUM_VARS=$NUM_VARS_ORIG
+echo
+echo ' ########################################################################################## '
+echo
+echo ' Inputing incorrect parameter: PERCENT_SUM = -1'
+echo
+PERCENT_SUM_ORIG=$PERCENT_SUM
+PERCENT_SUM=-1
+./$EXEC \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION
+
+echo
+echo ' ########################################################################################## '
+echo
+echo ' Inputing incorrect parameter: PERCENT_SUM = 101'
+echo
+PERCENT_SUM=101
+./$EXEC \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION
+
+PERCENT_SUM=$PERCENT_SUM_ORIG
+echo
+echo ' ########################################################################################## '
+echo
+echo ' Inputing incorrect parameter: NUM_SPIKES = 0'
+echo
+NUM_SPIKES_ORIG=$NUM_SPIKES
+NUM_SPIKES=0
+./$EXEC \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION
+
+NUM_SPIKES=$NUM_SPIKES_ORIG
+echo
+echo ' ########################################################################################## '
+echo
+echo ' Inputing incorrect parameter: NUM_TSTEPS = 0'
+echo
+NUM_TSTEPS_ORIG=$NUM_TSTEPS
+NUM_TSTEPS=0
+./$EXEC \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION
+
+NUM_TSTEPS=$NUM_TSTEPS_ORIG
+echo
+echo ' ########################################################################################## '
+echo
+echo ' Inputing incorrect parameter: STENCIL = 13'
+echo
+STENCIL=13
+./$EXEC \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION
+STENCIL=21
+echo
+echo ' ########################################################################################## '
+echo
+echo ' Inputing incorrect parameter: ERROR_TOL = -1'
+echo
+ERROR_TOL_ORIG=$ERROR_TOL
+ERROR_TOL=-1
+./$EXEC \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION
+
+ERROR_TOL=$ERROR_TOL_ORIG
+echo
+echo ' ########################################################################################## '
+echo
+echo ' Inputing incorrect parameter: REPORT_DIFFUSION = -1'
+echo
+REPORT_DIFFUSION_ORIG=$REPORT_DIFFUSION
+REPORT_DIFFUSION=-1
+./$EXEC \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION
+
+REPORT_DIFFUSION=$REPORT_DIFFUSION_ORIG
+echo
+##########################################################################################
+# Input
+##########################################################################################
+
+echo
+echo ' ########################################################################################## '
+echo
+echo ' Inputing valid problem sets: answers should be correct.'
+echo ' ########################################################################################## '
+
+STENCIL=21
+STENCIL_S=2d5pt
+
+echo ./$EXEC \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION
+
+./$EXEC \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION
+
+mv results.yaml results.$ARCH.$PROTOCOL.$COMPILER.$STENCIL_S.$DIM_S.$NUM_VARS_S.$PERCENT_SUM_S.yaml
+
+STENCIL=22
+STENCIL_S=2d9pt
+
+echo ./$EXEC \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION
+
+./$EXEC \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION
+
+mv results.yaml results.$ARCH.$PROTOCOL.$COMPILER.$STENCIL_S.$DIM_S.$NUM_VARS_S.$PERCENT_SUM_S.yaml
+
+STENCIL=23
+STENCIL_S=3d7pt
+
+echo ./$EXEC \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION
+
+./$EXEC \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION
+
+mv results.yaml results.$ARCH.$PROTOCOL.$COMPILER.$STENCIL_S.$DIM_S.$NUM_VARS_S.$PERCENT_SUM_S.yaml
+
+STENCIL=24
+STENCIL_S=3d27pt
+
+echo ./$EXEC \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION
+
+./$EXEC \
+        --nx $NX \
+        --ny $NY \
+        --nz $NZ \
+        --num_vars $NUM_VARS \
+        --percent_sum $PERCENT_SUM \
+        --num_spikes $NUM_SPIKES \
+        --num_tsteps $NUM_TSTEPS \
+        --stencil $STENCIL \
+        --error_tol $ERROR_TOL \
+        --report_diffusion $REPORT_DIFFUSION
+
+mv results.yaml results.$ARCH.$PROTOCOL.$COMPILER.$STENCIL_S.$DIM_S.$NUM_VARS_S.$PERCENT_SUM_S.yaml
+
+echo ' All serial tests complete'
+echo
+
+##########################################################################################
