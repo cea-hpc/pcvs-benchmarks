@@ -1,0 +1,20 @@
+#!/bin/sh
+
+prefix=$pcvs_testbuild/$1/
+
+mkdir -p $prefix/serial $prefix/mpi
+
+cp -r $pcvs_src/$1/* $prefix/serial
+cp -r $pcvs_src/$1/* $prefix/mpi
+
+cat << EOF 
+miniAMR:
+    build:
+        variants: ['openmp']
+        files: '@BUILDPATH@/serial/ref/Makefile'
+        make:
+            args: ['']
+    run:
+        program: '@BUILDPATH@/serial/ref/miniAMR.x'
+EOF
+exit 0
