@@ -9,6 +9,7 @@ cp -r $pcvs_src/$1/* $prefix/mpi
 
 cat << EOF 
 miniGhost_serial:
+    group: "GRPSERIAL"
     build:
         variants: ['openmp']
         files: '@BUILDPATH@/serial/ref/Makefile'
@@ -16,36 +17,66 @@ miniGhost_serial:
             args: ['PROTOCOL=-D_MG_SERIAL']
     run:
         program: '@BUILDPATH@/serial/ref/miniGhost.x'
-        iterate:
-            n_node:
-                values: [1, 2, 4]
-            n_proc:
-                values:
-                - {op: 'mul', of: 2}
-            n_mpi:
-                values:
-                - {op: 'powerof', of: 3}
-            n_omp:
-                values: [2, 4, 8]
+        
 miniGhost_parallel:
+    group: "GRPMPI"
     build:
         variants: ['openmp']
         files: '@BUILDPATH@/mpi/ref/Makefile'
         make:
             args: ["PROTOCOL=-D_MG_MPI"]
     run:
-        program: '@BUILDPATH@/mpi/ref/miniGhost.x'
+        program: '@BUILDPATH@/mpi/ref/miniGhost.x --checkpoint_interval 1 --checkpoint_file checkpoint.minighost --restart_file checkpoint.minighost'
         iterate:
-            n_node:
-                values: [1, 2, 4]
-            n_proc:
-                values:
-                - {op: 'mul', of: 2}
-            n_mpi:
-                values:
-                - {op: 'powerof', of: 3}
-            n_omp:
-                values: [2, 4, 8]
+            program:
+                STENCIL:
+                    type: "argument"
+                    numeric: true
+                    subtitle: "stencil"
+                    option: "--stencil"
+                    values: [24]
+                SCALING:
+                    type: "argument"
+                    numeric: false
+                    subtitle: "scaling"
+                    option: "--scaling"
+                    values: [2]
+                NPX:
+                    type: "argument"
+                    numeric: true
+                    subtitle: "npx"
+                    option: "--npx"
+                    values: [100]
+                NPY:
+                    type: "argument"
+                    numeric: true
+                    subtitle: "npy"
+                    option: "--npy"
+                    values: [100]
+                NPZ:
+                    type: "argument"
+                    numeric: true
+                    subtitle: "npz"
+                    option: "--npz"
+                    values: [100]
+                NX:
+                    type: "argument"
+                    numeric: true
+                    subtitle: "nx"
+                    option: "--nx"
+                    values: [100]
+                NY:
+                    type: "argument"
+                    numeric: true
+                    subtitle: "ny"
+                    option: "--ny"
+                    values: [100]
+                NZ:
+                    type: "argument"
+                    numeric: true
+                    subtitle: "nz"
+                    option: "--nz"
+                    values: [100]
 EOF
 
 exit 0
