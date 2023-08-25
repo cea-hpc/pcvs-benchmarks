@@ -1,0 +1,18 @@
+#!/bin/sh
+
+prefix=$pcvs_testbuild/$1/
+
+cp -r $pcvs_src/$1/ref $prefix/
+
+cat << EOF 
+cloverleaf_serial:
+    group: "GRPSERIAL"
+    build:
+        files: '@BUILDPATH@/ref/Makefile'
+        make:
+            args: ['']
+    run:
+        program: '@BUILDPATH@/ref/clover_leaf'
+EOF
+
+exit 0
