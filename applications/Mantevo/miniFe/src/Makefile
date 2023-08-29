@@ -12,7 +12,7 @@ MINIFE_MATRIX_TYPE = -DMINIFE_CSR_MATRIX
 
 #-----------------------------------------------------------------------
 
-# GNU CFLAGS = -O3 -fopenmp
+CFLAGS = -O3 -fopenmp
 
 # BG/Q
 #CFLAGS = -DIBM_HPM -qlist -qsource  -g -O3 -qsmp=omp
@@ -23,17 +23,17 @@ CXXFLAGS = $(CFLAGS)
 # report rusage
 CPPFLAGS = -I. -I../utils -I../fem $(MINIFE_TYPES) \
 	$(MINIFE_MATRIX_TYPE) \
-	-DHAVE_MPI -DMPICH_IGNORE_CXX_SEEK #-DMINIFE_REPORT_RUSAGE
+	-DHAVE_MPI -DMPICH_IGNORE_CXX_SEEK -fopenmp#-DMINIFE_REPORT_RUSAGE
 
 LDFLAGS=$(CFLAGS)
 LIBS=
 
-# GNU CXX=mpicxx
-# GNU CC=mpicc
+CXX=mpicxx
+CC=mpicc
 
 # BG/Q
-CXX=$(PCVS_CXX)
-CC=$(PCVS_CC)
+# CXX=$(PCVS_CXX)
+# CC=$(PCVS_CC)
 
 
 include make_targets

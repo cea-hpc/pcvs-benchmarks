@@ -2,19 +2,29 @@
 
 prefix=$pcvs_testbuild/$1/
 
-mkdir -p $prefix/serial $prefix/mpi
+mkdir -p $prefix/openmp $prefix/ref
 
-cp -r $pcvs_src/$1/* $prefix/serial
-cp -r $pcvs_src/$1/* $prefix/mpi
+cp -r $pcvs_src/$1/openmp $prefix
+cp -r $pcvs_src/$1/ref $prefix
 
 cat << EOF 
-miniAMR:
+miniAMR_ref:
     build:
-        variants: ['openmp']
-        files: '@BUILDPATH@/serial/ref/Makefile'
+        files: '@BUILDPATH@/ref/Makefile'
         make:
             args: ['']
     run:
-        program: '@BUILDPATH@/serial/ref/miniAMR.x'
+        program: '@BUILDPATH@/ref/miniAMR.x'
 EOF
+
+# This does not build with mpc or mpich
+
+# miniAMR_openmp:
+#     build:
+#         variants: ['openmp']
+#         files: '@BUILDPATH@/openmp/Makefile'
+#         make:
+#             args: ['']
+#     run:
+#         program: '@BUILDPATH@/openmp/miniAMR.x'
 exit 0

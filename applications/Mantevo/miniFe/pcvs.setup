@@ -4,12 +4,13 @@ pcvs_src_current=$pcvs_src/$1
 pcvs_build_current=$pcvs_testbuild/$1
 
 cp -r $pcvs_src_current/* $pcvs_build_current
-echo "miniFe:
+cp -r $pcvs_src_current/* $pcvs_build_current
+echo "miniFe_src:
     build:
         files: '@BUILDPATH@/src/Makefile'
         variants: ['openmp']
         make:
-            target: ''
+            target: 'CFLAGS=-fopenmp CPPFLAGS=-fopenmp'
     run:
         program: 'src/miniFE.x'
         iterate:

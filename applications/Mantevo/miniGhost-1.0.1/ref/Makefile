@@ -42,9 +42,9 @@ INT_PRECISION = -D_MG_INT4
 
 # Compilers
 # FC=fortran
-FC=mpc_f77
+FC=mpif77
 # CC=gcc
-CC=mpc_cc
+CC=mpicc
 
 CFLAGS = $(PROTOCOL) $(REAL_PRECISION) $(INT_PRECISION)
 # C main calling Fortran subroutine:
