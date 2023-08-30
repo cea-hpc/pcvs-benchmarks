@@ -28,43 +28,45 @@ miniGhost_parallel:
     run:
         program: '@BUILDPATH@/mpi/ref/miniGhost.x --checkpoint_interval 1 --checkpoint_file checkpoint.minighost --restart_file checkpoint.minighost'
         iterate:
+            n_mpi:
+                values: [4]
             program:
                 STENCIL:
                     type: "argument"
                     numeric: true
                     subtitle: "stencil"
                     option: "--stencil "
-                    values: [21, 24]
+                    values: [21]
                 NUM_VARS:
                     type: "argument"
                     numeric: true
                     subtitle: "numvars"
-                    option: "--num-vars "
-                    values: [0, 40]
+                    option: "--num_vars "
+                    values: [40]
                 SCALING:
                     type: "argument"
-                    numeric: false
+                    numeric: true
                     subtitle: "scaling"
                     option: "--scaling "
-                    values: [0, 2]
+                    values: [1, 2]
                 NPX:
                     type: "argument"
                     numeric: true
                     subtitle: "npx"
                     option: "--npx "
-                    values: [100]
+                    values: [2]
                 NPY:
                     type: "argument"
                     numeric: true
                     subtitle: "npy"
                     option: "--npy "
-                    values: [100]
+                    values: [2]
                 NPZ:
                     type: "argument"
                     numeric: true
                     subtitle: "npz"
                     option: "--npz "
-                    values: [100]
+                    values: [1]
                 NX:
                     type: "argument"
                     numeric: true

@@ -47,8 +47,8 @@
 #
 # 0) Specify compiler and linker:
 
-CXX=mpc_cxx
-LINKER=mpc_cxx
+CXX=mpicxx
+LINKER=mpicxx
 #CXX=mpicxx
 #LINKER=mpicxx
 

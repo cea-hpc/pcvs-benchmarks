@@ -9,11 +9,15 @@ cp -r $pcvs_src/$1/ref $prefix
 
 cat << EOF 
 miniAMR_ref:
+    group: "GRPSERIAL"
     build:
         files: '@BUILDPATH@/ref/Makefile'
         make:
             args: ['']
     run:
+        iterate:
+            n_mpi: 
+                values: [1]
         program: '@BUILDPATH@/ref/miniAMR.x'
 EOF
 
