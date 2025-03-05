@@ -63,6 +63,7 @@ For more documentation than found here, see
 #define __Bmark_h__
 
 #include "IMB_mem_info.h"
+#include "IMB_comm_info.h"
 
 /* Classification of benchmarks */
 
