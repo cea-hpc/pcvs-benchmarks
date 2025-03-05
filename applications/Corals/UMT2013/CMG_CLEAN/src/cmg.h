@@ -693,4 +693,21 @@ END SERIAL FUNCTIONS THAT ASK FOR A DOMAIN ID FOR DOMAIN QUERY
 ************************************************************/
 
 
+/* yyparse function definition */
+#ifdef YYPARSE_PARAM
+# if defined (__STDC__) || defined (__cplusplus)
+int yyparse (void *YYPARSE_PARAM);
+# else
+int yyparse ();
+# endif
+#else /* ! YYPARSE_PARAM */
+#if defined (__STDC__) || defined (__cplusplus)
+int yyparse (void);
+#else
+int yyparse ();
+#endif
+#endif /* ! YYPARSE_PARAM */
+
+
+
 #endif /*  CMG_H */
