@@ -21,11 +21,11 @@ $pcvs_compiler_f77_program -show 2> /dev/null | grep "gfortran"
 
 if test "x$?" != "x0"; then
 	if test "$COMP_TYPE" = "gfortran"; then
-		echo "#USING GFORTRAN but it is something else !" >2
-		echo "WARNING : Nekbone is only integrated for gfortran and ifort compilation may fail" >2
+		echo "#USING GFORTRAN but it is something else !" >&2
+		echo "WARNING : Nekbone is only integrated for gfortran and ifort compilation may fail" >&2
 	fi	
 else
-	echo "#gfortran DETECTED" >2
+	echo "#gfortran DETECTED" >&2
 fi
 
 #Default
