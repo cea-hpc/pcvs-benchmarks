@@ -25,10 +25,12 @@ void hello(char *a, int *b)
 	a[threadIdx.x] += b[threadIdx.x];
 }
 
-int rank = -1;
+
 
 int main(int argc, char ** argv)
 {
+	int rank = -1;
+
 	MPI_Init(&argc, &argv);
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
@@ -49,9 +51,10 @@ int main(int argc, char ** argv)
 	safe_cudart(cudaMemcpy( bd, b, isize, cudaMemcpyHostToDevice )); 
 	
 	dim3 dimBlock( blocksize, 1, 1);
-	dim3 dimGrid( 10, 1, 1 );
+	dim3 dimGrid( 1, 1, 1 );
 
 	hello<<<dimGrid, dimBlock>>>(ad, bd);
+	cudaDeviceSynchronize();
 
 	cudaError_t err = cudaGetLastError();
 	if(err != cudaSuccess)

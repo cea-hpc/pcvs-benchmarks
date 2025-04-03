@@ -1,13 +1,25 @@
-.simple: null
 mpi_hello-world:
   build:
     files: '@SRCPATH@/mpi_hello-world.cu'
-    variants: [accel]
   group: GRPMPI
-  run: {cwd: .}
+  run:
+    cwd: .
+    iterate:
+      program:
+        accl:
+          local: False
+          values: "--use-accl"
+          subtitle: "accl"
 mpi_reduce:
   build:
     files: '@SRCPATH@/mpi_reduce.cu'
-    variants: [accel]
   group: GRPMPI
-  run: {cwd: .}
+  run:
+    cwd: .
+    iterate:
+      program:
+        accl:
+          local: False
+          values: "--use-accl"
+          subtitle: "accl"
+
