@@ -1,0 +1,179 @@
+#!/bin/sh
+
+pcvs_src_current=$pcvs_src/$1
+pcvs_build_current=$pcvs_testbuild/$1
+
+#pre actions...
+OLDIR=`pwd`
+cd $pcvs_build_current
+
+#run configure...
+$pcvs_src_current/configure CC="$pcvs_compiler_cc_program" CXX="$pcvs_compiler_cxx_program" CFLAGS="$pcvs_compilers_cflags" --prefix=$pcvs_build_current > $pcvs_build_current/configure_out.log 2>&1 || exit 1
+
+mkdir -p $pcvs_build_current/util
+cp $pcvs_src_current/util/*.h $pcvs_build_current/util/
+
+echo "compile_osu_mpi:"
+echo "  build:"
+echo "    files: '@BUILDPATH@/c/mpi/$group/Makefile'"
+echo "    make: {'target': 'all'}"
+
+#add new tests here...
+for t in                                             \
+startup/osu_hello                                    \
+startup/osu_init                                     \
+pt2pt/standard/osu_bibw                              \
+pt2pt/standard/osu_bw                                \
+pt2pt/standard/osu_latency_mt                        \
+pt2pt/standard/osu_latency_mp                        \
+pt2pt/standard/osu_mbw_mr                            \
+pt2pt/standard/osu_multi_lat                         \
+pt2pt/standard/osu_latency                           \
+pt2pt/persistent/osu_bibw_persistent                 \
+pt2pt/persistent/osu_bw_persistent                   \
+pt2pt/persistent/osu_latency_persistent              \
+collective/blocking/osu_scatterv                     \
+collective/blocking/osu_reduce_scatter               \
+collective/blocking/osu_alltoallw                    \
+collective/blocking/osu_gather                       \
+collective/blocking/osu_gatherv                      \
+collective/blocking/osu_barrier                      \
+collective/blocking/osu_bcast                        \
+collective/blocking/osu_alltoall                     \
+collective/blocking/osu_allreduce                    \
+collective/blocking/osu_alltoallv                    \
+collective/blocking/osu_scatter                      \
+collective/blocking/osu_reduce_scatter_block         \
+collective/blocking/osu_reduce                       \
+collective/blocking/osu_allgatherv                   \
+collective/blocking/osu_allgather                    \
+collective/non_blocking/osu_igather                  \
+collective/non_blocking/osu_ireduce_scatter_block    \
+collective/non_blocking/osu_ireduce                  \
+collective/non_blocking/osu_igatherv                 \
+collective/non_blocking/osu_ialltoall                \
+collective/non_blocking/osu_iallreduce               \
+collective/non_blocking/osu_ireduce_scatter          \
+collective/non_blocking/osu_ibarrier                 \
+collective/non_blocking/osu_iallgather               \
+collective/non_blocking/osu_ialltoallv               \
+collective/non_blocking/osu_iscatter                 \
+collective/non_blocking/osu_iscatterv                \
+collective/non_blocking/osu_ialltoallw               \
+collective/non_blocking/osu_ibcast                   \
+collective/non_blocking/osu_iallgatherv              \
+collective/neighborhood/osu_neighbor_allgatherv      \
+collective/neighborhood/osu_neighbor_alltoallw       \
+collective/neighborhood/osu_neighbor_alltoall        \
+collective/neighborhood/osu_neighbor_allgather       \
+collective/neighborhood/osu_neighbor_alltoallv       \
+collective/neighborhood/osu_ineighbor_alltoall       \
+collective/neighborhood/osu_ineighbor_alltoallv      \
+collective/neighborhood/osu_ineighbor_alltoallw      \
+collective/neighborhood/osu_ineighbor_allgatherv     \
+collective/neighborhood/osu_ineighbor_allgather      \
+collective/persistent/osu_allgather_persistent       \
+collective/persistent/osu_alltoallv_persistent       \
+collective/persistent/osu_gather_persistent          \
+collective/persistent/osu_scatter_persistent         \
+collective/persistent/osu_allgatherv_persistent      \
+collective/persistent/osu_alltoallw_persistent       \
+collective/persistent/osu_gatherv_persistent         \
+collective/persistent/osu_scatterv_persistent        \
+collective/persistent/osu_allreduce_persistent       \
+collective/persistent/osu_barrier_persistent         \
+collective/persistent/osu_reduce_persistent          \
+collective/persistent/osu_alltoall_persistent        \
+collective/persistent/osu_bcast_persistent           \
+collective/persistent/osu_reduce_scatter_persistent  \
+one-sided/osu_put_bw                                 \
+one-sided/osu_put_bibw                               \
+one-sided/osu_get_acc_latency                        \
+one-sided/osu_get_latency                            \
+one-sided/osu_get_bw                                 \
+one-sided/osu_put_latency                            \
+one-sided/osu_cas_latency                            \
+one-sided/osu_acc_latency                            \
+one-sided/osu_fop_latency                            \
+; do
+group=`echo $t | xargs dirname | sed -e 's/\//_/g'`
+bin=`basename $t`
+echo "${group}_${bin}:"
+echo "  group: 'GRPMPI'"
+echo "  run:"
+echo "    program: 'c/mpi/$t'"
+echo "    depends_on: ['compile_osu_mpi']"
+
+#please set special cases here...
+case $t in
+    collective/blocking/osu_barrier|collective/non_blocking/osu_ibarrier|collective/persistent/osu_barrier_persistent)
+echo "    iterate:"
+echo "      n_ppn:"
+echo "        values: [1, 2, 4, 8, 64]"
+echo "      n_node:"
+echo "        values: [1, 2, 4]"
+echo "      program:"
+echo "        args:"
+echo "          type: 'argument'"
+echo "          values: ['-x10 -i100']"
+        ;;
+	pt2pt/osu_mbw_mr|collective/*)
+echo "    iterate:"
+echo "      n_ppn:"
+echo "        values: [1, 2, 4, 8, 64]"
+echo "      n_node:"
+echo "        values: [1, 2, 4]"
+echo "      program:"
+echo "        args:"
+echo "          type: 'argument'"
+echo "          values: ['-c -u0 -x10 -i100']"
+        ;;
+    pt2pt/osu_bw|pt2pt/osu_bibw|pt2pt/persistent/osu_bw_persistent|pt2pt/persistent/osu_bibw_persistent)
+echo "    iterate:"
+echo "      n_ppn:"
+echo "        values: [1, 2]"
+echo "      n_node:"
+echo "        values: [1, 2]"
+echo "      program:"
+echo "        args:"
+echo "          type: 'argument'"
+echo "          values: ['-c -u0 -x10 -i100 -W1']"
+        ;;
+	pt2pt/*)
+echo "    iterate:"
+echo "      n_ppn:"
+echo "        values: [1, 2]"
+echo "      n_node:"
+echo "        values: [1, 2]"
+echo "      program:"
+echo "        args:"
+echo "          type: 'argument'"
+echo "          values: ['-c -u0 -x10 -i100']"
+        ;;
+    one-sided/osu_cas_latency|one-sided/osu_fop_latency|one-sided/osu_acc_latency)
+echo "    iterate:"
+echo "      n_ppn:"
+echo "        values: [1, 2]"
+echo "      n_node:"
+echo "        values: [1, 2]"
+echo "      program:"
+echo "        args:"
+echo "          type: 'argument'"
+echo "          values: ['-c -x10 -i100']"
+        ;;
+    one-sided/*)
+echo "    iterate:"
+echo "      n_ppn:"
+echo "        values: [1, 2]"
+echo "      n_node:"
+echo "        values: [1, 2]"
+echo "      program:"
+echo "        args:"
+echo "          type: 'argument'"
+echo "          values: ['-x10 -i100']"
+        ;;
+esac
+done
+######
+cd $OLDIR
+exit 0
