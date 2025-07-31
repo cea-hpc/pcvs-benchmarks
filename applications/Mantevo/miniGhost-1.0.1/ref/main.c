@@ -456,7 +456,7 @@ void print_help_message ()
       fprintf ( stderr, "See MG_OPTIONS.F for listing of options.\n\n");
 
 #if defined _MG_MPI
-      MPI_Abort ( -1, MPI_COMM_WORLD );
+      MPI_Abort ( MPI_COMM_WORLD, -1 );
       exit(0);
 #elif defined _MG_SERIAL
       exit(0);

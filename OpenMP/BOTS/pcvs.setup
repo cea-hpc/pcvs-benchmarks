@@ -14,16 +14,16 @@ cat <<EOF > $pcvs_build_current/config/make.config
 LABEL=$pcvs_validation_pf_name
 
 #compilers
-OMPC=$pcvs_compiler_cc_program $pcvs_compiler_cc_variants_openmp_args
-CC=$pcvs_compiler_cc_program
-OMPLINK=$pcvs_compiler_cc_program $pcvs_compiler_cc_variants_openmp_args
-CLINK=$pcvs_compiler_cc_program
+OMPC=$pcvs_compiler_compilers_cc_program $pcvs_compiler_compilers_cc_variants_openmp_args
+CC=$pcvs_compiler_compilers_cc_program
+OMPLINK=$pcvs_compiler_compilers_cc_program $pcvs_compiler_compilers_cc_variants_openmp_args
+CLINK=$pcvs_compiler_compilers_cc_program
 
 #compiler and linker flags
 
 OPT_FLAGS=-O3
 
-CC_FLAGS=$pcvs_compiler_cc_args
+CC_FLAGS=$pcvs_compiler_compilers_cc_args
 OMPC_FLAGS= 
 OMPC_FINAL_FLAGS=
 

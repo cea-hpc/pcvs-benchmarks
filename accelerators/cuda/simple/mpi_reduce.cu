@@ -10,9 +10,7 @@
 		abort();                                                               \
 	}
 
-int rank = -1;
-
-	__global__
+__global__
 void square(int* in, int* out)
 {
 	(*out) = (*in) * (*in);
@@ -20,6 +18,7 @@ void square(int* in, int* out)
 
 int main(int argc, char **argv)
 {
+	int rank = -1;
 	int comm_size;
 
 	MPI_Init(&argc, &argv);
@@ -41,6 +40,7 @@ int main(int argc, char **argv)
 
 	/* compute the square of the current rank */
 	square<<<1, 1>>>(gin, gout);
+	cudaDeviceSynchronize();
 
 	safe_cudart(cudaMemcpy(out, gout, sizeof(int), cudaMemcpyDeviceToHost));
 

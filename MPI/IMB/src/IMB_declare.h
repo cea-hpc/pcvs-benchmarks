@@ -65,6 +65,7 @@ For more documentation than found here, see
 #include "IMB_appl_errors.h"
 #include "IMB_err_check.h"
 #include <assert.h>
+#include <ctype.h>
 #include <malloc.h>
 #include <math.h>
 #include <mpi.h>

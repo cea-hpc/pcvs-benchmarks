@@ -398,6 +398,9 @@ void IMB_rma_compare_and_swap(struct comm_info *c_info, int size,
 void IMB_rma_passive_put(struct comm_info *c_info, int size,
                          struct iter_schedule *iterations, MODES run_mode,
                          double *time);
+
+void IMB_user_set_info(MPI_Info *opt_info);
+
 #endif /*RMA*/
 
 /* Organizational functions */
