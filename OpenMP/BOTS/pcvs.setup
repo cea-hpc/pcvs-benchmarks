@@ -14,16 +14,16 @@ cat <<EOF > $pcvs_build_current/config/make.config
 LABEL=pcvs
 
 #compilers
-OMPC=$pcvs_compiler_compilers_cc_program $pcvs_compiler_compilers_cc_variants_openmp_args
-CC=$pcvs_compiler_compilers_cc_program
-OMPLINK=$pcvs_compiler_compilers_cc_program $pcvs_compiler_compilers_cc_variants_openmp_args
-CLINK=$pcvs_compiler_compilers_cc_program
+OMPC=$PCVS_CMP_CC $PCVS_CMP_CC_VAR_OPENMP_ARGS
+CC=$PCVS_CMP_CC
+OMPLINK=$PCVS_CMP_CC $PCVS_CMP_CC_VAR_OPENMP_ARGS
+CLINK=$PCVS_CMP_CC
 
 #compiler and linker flags
 
 OPT_FLAGS=-O3
 
-CC_FLAGS=$pcvs_compiler_compilers_cc_args
+CC_FLAGS=$PCVS_CMP_CC_ARGS
 OMPC_FLAGS= 
 OMPC_FINAL_FLAGS=
 
@@ -42,9 +42,9 @@ for align in 'for' 'single'
 do
 	echo "alignment-$align:"
 	echo "  group: 'GRPOMP'"
-        echo "  run:"
+	echo "  run:"
 	echo "    depends_on: ['build_bots']"
-	echo "    program: 'bin/alignment.$pcvs_validation_pf_name.$align-omp-tasks'"
+	echo "    program: 'bin/alignment.$align-omp-tasks'"
 	echo "    iterate: {'program': {'args': {'values': '-c -f @BUILDPATH@/inputs/alignment/prot.20.aa'}}}"
 done
 

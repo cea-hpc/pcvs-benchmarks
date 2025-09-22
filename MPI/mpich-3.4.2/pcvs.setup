@@ -109,10 +109,10 @@ if __name__ == '__main__':
             '&& {} '.format(os.path.join(cur_srcdir, 'configure')) + \
               '--disable-maintainer_mode --enable-strictmpi ' + \
               '--enable-threads=multiple --enable-fortran=yes ' \
-              'CC="{}" '.format(os.environ["pcvs_compiler_compilers_cc_program"]) + \
-              'CXX="{}" '.format(os.environ["pcvs_compiler_compilers_cxx_program"]) + \
-              'F77="{}" '.format(os.environ["pcvs_compiler_compilers_fc_program"]) + \
-              'FC="{} "'.format(os.environ["pcvs_compiler_compilers_fc_program"])
+              'CC="{}" '.format(os.environ["PCVS_CMP_CC"]) + \
+              'CXX="{}" '.format(os.environ["PCVS_CMP_CXX"]) + \
+              'F77="{}" '.format(os.environ["PCVS_CMP_FC"]) + \
+              'FC="{} "'.format(os.environ["PCVS_CMP_FC"])
         subprocess.check_output(cmd, shell=True)
 
         print("""
