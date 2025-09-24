@@ -8,7 +8,7 @@ OLDIR=`pwd`
 cd $pcvs_build_current
 
 #run configure...
-$pcvs_src_current/configure CC="$pcvs_compiler_compilers_cc_program" CXX="$pcvs_compiler_compilers_cxx_program" CFLAGS="$pcvs_compiler_compilers_cc_args" --prefix=$pcvs_build_current > $pcvs_build_current/configure_out.log 2>&1 || exit 1
+$pcvs_src_current/configure CC="$PCVS_CMP_CC" CXX="$PCVS_CMP_CXX" CFLAGS="$PCVS_CMP_CC_ARGS" --prefix=$pcvs_build_current > $pcvs_build_current/configure_out.log 2>&1 || exit 1
 
 mkdir -p $pcvs_build_current/util
 cp $pcvs_src_current/util/*.h $pcvs_build_current/util/

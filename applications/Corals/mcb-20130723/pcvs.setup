@@ -20,7 +20,7 @@ echo "make_mcb:
 "
 
 
-if test -z "$pcvs_criterion_iterators_n_mpi_values" -o "x$pcvs_criterion_iterators_n_mpi_values" = "xundefined"; then
+if test -z "$PCVS_CRIT_N_MPI" -o "x$PCVS_CRIT_N_MPI" = "xundefined"; then
 	exit 0
 fi
 
@@ -45,7 +45,7 @@ emit_mcb_test()
 "
 }
 
-for i in $pcvs_criterion_iterators_n_mpi_values
+for i in $PCVS_CRIT_N_MPI
 do
 	SQR=`perl -e "print int(sqrt($i))"`
 	MUL=`perl -e "print int($SQR**2)"`
