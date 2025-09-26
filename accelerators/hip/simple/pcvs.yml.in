@@ -1,6 +1,6 @@
 mpi_hello-world:
   build:
-    files: '@SRCPATH@/mpi_hello-world.cu'
+    files: '@SRCPATH@/mpi_hello-world.hip'
   group: GRPMPI
   run:
     cwd: .
@@ -8,10 +8,10 @@ mpi_hello-world:
       program:
         accl:
           local: False
-          values: "--cuda"
+          values: "--rocm"
 mpi_reduce:
   build:
-    files: '@SRCPATH@/mpi_reduce.cu'
+    files: '@SRCPATH@/mpi_reduce.hip'
   group: GRPMPI
   run:
     cwd: .
@@ -19,4 +19,4 @@ mpi_reduce:
       program:
         accl:
           local: False
-          values: "--cuda"
+          values: "--rocm"
