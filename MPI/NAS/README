@@ -1,4 +1,4 @@
-The MPI implementation of NPB 3.3 (NPB3.3-MPI)
+The MPI implementation of NPB 3.4.3 (NPB3.4-MPI)
 --------------------------------------------------
 
 For problem reports and suggestions on the implementation, 
@@ -11,7 +11,7 @@ please contact:
 
 
 This directory contains the MPI implementation of the NAS
-Parallel Benchmarks, Version 3.3 (NPB3.3-MPI).  A brief
+Parallel Benchmarks, Version 3.4.3 (NPB3.4-MPI).  A brief
 summary of the new features introduced in this version is
 given below.
 
@@ -21,26 +21,67 @@ included in the upper directory of this distribution.
 For explanation of compilation and running of the benchmarks,
 please refer to README.install.  For a special note on DT, please
 see the README file in the DT subdirectory.
-This version includes additional timers in several benchmarks.
 
 
-New features in NPB3.3-MPI:
-  * NPB3.3-MPI introduces a new problem size (class E) to seven of  
-    the benchmarks (BT, SP, LU, CG, MG, FT, and EP).  The version 
-    also includes a new problem size (class D) for the IS benchmark, 
-    which was not present in the previous releases.
+New features in NPB3.4-MPI of NPB 3.4.3:
+  * Support the MPI module interface (mpi or mpi_f08) for Fortran codes.  
+    The make option "F08=f" was included to force the use of the old
+    "mpif.h" approach if needed.
 
-  * The release is merged with the vector codes for the BT and LU
-    benchmarks, which can be selected with the VERSION=VEC option
-    during compilation.  However, it should be noted that successful
-    vectorization highly depends on the compiler used.  Some changes
-    to compiler directives for vectorization in the current codes
-    (see *_vec.f files) may be required.
+  * Changed the frequency of printing norm values in CG from
+    every iteration to every 5 iterations (to be more consistent with
+    other benchmarks).
 
-  * New improvements to BTIO (BT with IO subtypes):
-    - added I/O stats (I/O timing, data size written, I/O data rate)
-    - added an option for interleaving reads between writes through
-      the inputbt.data file.  Although the data file size would be
-      smaller as a result, the total amount of data written is still
-      the same.
+  * Modified the way of defining the "ntotal_f" value in FT to work
+    around issues in some compilers.
+
+  * Free dynamically allocated memory at the end of a run.
+
+
+New features in NPB3.4-MPI of NPB 3.4.2:
+  * New verification scheme for EP
+
+  * Add back the VEC versions of BT and LU, accessible by "VERSION=VEC"
+
+  * Fixed a bug in the BT-IO benchmark that can cause integer overflow
+    in CLASS=D or larger problems.  Setting FORTRAN_REC_SIZE in make.def
+    is no longer required.
+
+
+New features in NPB3.4-MPI of NPB 3.4.1:
+  * Changed Fortran sources from fixed form to free form
+
+  * Fix inconsistency in enforcing process count requirements.
+    The enforcement of process count can be turned off by setting 
+    the environment variable NPB_NPROCS_STRICT to (0, off, no, false).
+
+  * Changed the reference of "INTEGER*8" to "INTEGER(8)" in randi8.f
+
+
+New features in NPB3.4-MPI:
+  * NPB3.4-MPI added the class E problem size for IS, and the class F
+    problem size for BT, LU, SP, CG, EP, FT, and MG.
+
+  * Version 3.4 uses the dynamic memory allocation feature in
+    Fortran 90 so that separate compilations for different process
+    counts are no longer necessary.  The number of processes is solely
+    determined and checked at runtime.
+
+  * The version uses Fortran modules to define global data (to replace 
+    common blocks) and Fortran 2003 IEEE arithmetic function to catch
+    the NaN condition during verification.
+
+    The version requires a compiler that supports features available
+    in Fortran 90 and 2003. Because of these changes, the MPIF77 flag 
+    in make.def is renamed to MPIFC.
+
+  * The environment variable NPB_TIMER_FLAG is now used to enable 
+    additional timers.
+
+  * The vector codes for the BT and LU benchmarks have been removed
+    due to the fact that these implementations were not portable and
+    successful vectorization highly depends on the compiler used.
+
+  * Potential performance improvement of the LU benchmark as a result of 
+    reduced memory usage for working arrays in the solver.
 

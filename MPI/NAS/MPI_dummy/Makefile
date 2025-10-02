@@ -1,7 +1,7 @@
 # Makefile for MPI dummy library. 
 # Must be edited for a specific machine. Does NOT read in 
-# the make.def file of NPB 2.3
-F77 = f77
+# the make.def file of NPB 3.4
+FC = f90
 CC = cc
 AR = ar
 
@@ -12,12 +12,12 @@ AR = ar
 libmpi.a: mpi_dummy.o mpi_dummy_c.o wtime.o
 	$(AR) r libmpi.a mpi_dummy.o mpi_dummy_c.o wtime.o
 
-mpi_dummy.o: mpi_dummy.f mpif.h
-	$(F77) -c mpi_dummy.f
+mpi_dummy.o: mpi_dummy.f90 mpif.h
+	$(FC) -c mpi_dummy.f90
 # For a Cray C90, try:
-#	cf77 -dp -c mpi_dummy.f
+#	cf90 -dp -c mpi_dummy.f90
 # For an IBM 590, try:
-#	xlf -c mpi_dummy.f
+#	xlf90 -c mpi_dummy.f90
 
 mpi_dummy_c.o: mpi_dummy.c mpi.h
 	$(CC) -c ${MACHINE} -o mpi_dummy_c.o mpi_dummy.c
@@ -28,8 +28,8 @@ wtime.o: wtime.c
 # For a precise timer on an SGI Power Challenge, try:
 #	$(CC) -o wtime.o -c wtime_sgi64.c
 
-test: test.f
-	$(F77) -o test -I. test.f -L. -lmpi
+test: test.f90
+	$(FC) -o test -I. test.f90 -L. -lmpi
 
 
 

@@ -14,45 +14,45 @@
 # For CG, EP, FT, MG, LU, SP and BT, which are in Fortran, the following must 
 # be defined:
 #
-# MPIF77     - Fortran compiler
+# MPIFC      - Fortran compiler
 # FFLAGS     - Fortran compilation arguments
 # FMPI_INC   - any -I arguments required for compiling MPI/Fortran 
 # FLINK      - Fortran linker
 # FLINKFLAGS - Fortran linker arguments
 # FMPI_LIB   - any -L and -l arguments required for linking MPI/Fortran 
 # 
-# compilations are done with $(MPIF77) $(FMPI_INC) $(FFLAGS) or
-#                            $(MPIF77) $(FFLAGS)
+# compilations are done with $(MPIFC) $(FMPI_INC) $(FFLAGS) or
+#                            $(MPIFC) $(FFLAGS)
 # linking is done with       $(FLINK) $(FMPI_LIB) $(FLINKFLAGS)
 #---------------------------------------------------------------------------
 
 #---------------------------------------------------------------------------
 # This is the fortran compiler used for MPI programs
 #---------------------------------------------------------------------------
-MPIF77 = f77
-# This links MPI fortran programs; usually the same as ${MPIF77}
-FLINK	= $(MPIF77)
+MPIFC = mpif90
+# This links MPI fortran programs; usually the same as ${MPIFC}
+FLINK	= $(MPIFC)
 
 #---------------------------------------------------------------------------
 # These macros are passed to the linker to help link with MPI correctly
 #---------------------------------------------------------------------------
-FMPI_LIB  = -L/usr/local/lib -lmpi
+FMPI_LIB =
 
 #---------------------------------------------------------------------------
 # These macros are passed to the compiler to help find 'mpif.h'
 #---------------------------------------------------------------------------
-FMPI_INC = -I/usr/local/include
+FMPI_INC =
 
 #---------------------------------------------------------------------------
 # Global *compile time* flags for Fortran programs
 #---------------------------------------------------------------------------
-FFLAGS	= -O
+FFLAGS	= -O3
 
 #---------------------------------------------------------------------------
 # Global *link time* flags. Flags for increasing maximum executable 
 # size usually go here. 
 #---------------------------------------------------------------------------
-FLINKFLAGS = -O
+FLINKFLAGS = $(FFLAGS)
 
 
 #---------------------------------------------------------------------------
@@ -75,30 +75,30 @@ FLINKFLAGS = -O
 #---------------------------------------------------------------------------
 # This is the C compiler used for MPI programs
 #---------------------------------------------------------------------------
-MPICC = cc
+MPICC = mpicc
 # This links MPI C programs; usually the same as ${MPICC}
 CLINK	= $(MPICC)
 
 #---------------------------------------------------------------------------
 # These macros are passed to the linker to help link with MPI correctly
 #---------------------------------------------------------------------------
-CMPI_LIB  = -L/usr/local/lib -lmpi
+CMPI_LIB =
 
 #---------------------------------------------------------------------------
 # These macros are passed to the compiler to help find 'mpi.h'
 #---------------------------------------------------------------------------
-CMPI_INC = -I/usr/local/include
+CMPI_INC =
 
 #---------------------------------------------------------------------------
 # Global *compile time* flags for C programs
 #---------------------------------------------------------------------------
-CFLAGS	= -O
+CFLAGS	= -O3
 
 #---------------------------------------------------------------------------
 # Global *link time* flags. Flags for increasing maximum executable 
 # size usually go here. 
 #---------------------------------------------------------------------------
-CLINKFLAGS = -O
+CLINKFLAGS = $(CFLAGS)
 
 
 #---------------------------------------------------------------------------
@@ -119,7 +119,7 @@ CLINKFLAGS = -O
 # this compiler go here also; typically there are few flags required; hence 
 # there are no separate macros provided for such flags.
 #---------------------------------------------------------------------------
-CC	= cc -g
+CC	= gcc -g
 
 
 #---------------------------------------------------------------------------
@@ -148,6 +148,7 @@ BINDIR	= ../bin
 # CONVERTFLAG	= -DCONVERTDOUBLE
 # CONVERTFLAG	= -DFORTRAN_REC_SIZE=length
 # CONVERTFLAG	= -DCONVERTDOUBLE -DFORTRAN_REC_SIZE=length
+CONVERTFLAG	= -DFORTRAN_REC_SIZE=0
 
 
 #---------------------------------------------------------------------------

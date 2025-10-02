@@ -1,36 +1,31 @@
 /*************************************************************************
  *                                                                       * 
- *        N  A  S     P A R A L L E L     B E N C H M A R K S  3.3       *
+ *        N  A  S     P A R A L L E L     B E N C H M A R K S  3.4       *
  *                                                                       * 
  *                                  I S                                  * 
  *                                                                       * 
  ************************************************************************* 
  *                                                                       * 
- *   This benchmark is part of the NAS Parallel Benchmark 3.3 suite.     *
+ *   This benchmark is part of the NAS Parallel Benchmark 3.4 suite.     *
  *   It is described in NAS Technical Report 95-020.                     * 
  *                                                                       * 
  *   Permission to use, copy, distribute and modify this software        * 
  *   for any purpose with or without fee is hereby granted.  We          * 
  *   request, however, that all derived work reference the NAS           * 
- *   Parallel Benchmarks 3.3. This software is provided "as is"          *
+ *   Parallel Benchmarks 3.4. This software is provided "as is"          *
  *   without express or implied warranty.                                * 
  *                                                                       * 
- *   Information on NPB 3.3, including the technical report, the         *
+ *   Information on NPB 3.4, including the technical report, the         *
  *   original specifications, source code, results and information       * 
  *   on how to submit new results, is available at:                      * 
  *                                                                       * 
  *          http://www.nas.nasa.gov/Software/NPB                         * 
  *                                                                       * 
  *   Send comments or suggestions to  npb@nas.nasa.gov                   * 
- *   Send bug reports to              npb-bugs@nas.nasa.gov              * 
  *                                                                       * 
  *         NAS Parallel Benchmarks Group                                 * 
  *         NASA Ames Research Center                                     * 
- *         Mail Stop: T27A-1                                             * 
  *         Moffett Field, CA   94035-1000                                * 
- *                                                                       * 
- *         E-mail:  npb@nas.nasa.gov                                     * 
- *         Fax:     (650) 604-3957                                       * 
  *                                                                       * 
  ************************************************************************* 
  *                                                                       * 
@@ -43,6 +38,7 @@
 #include "npbparams.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 /******************/
 /* default values */
@@ -52,6 +48,7 @@
 #define NUM_PROCS            1                 
 #endif
 #define MIN_PROCS            1
+#define ONE                  1
 
 
 /*************/
@@ -107,7 +104,7 @@
 /*  CLASS D  */
 /*************/
 #if CLASS == 'D'
-#define  TOTAL_KEYS_LOG_2    29
+#define  TOTAL_KEYS_LOG_2    29     /* 2^31 */
 #define  MAX_KEY_LOG_2       27
 #define  NUM_BUCKETS_LOG_2   10
 #undef   MIN_PROCS
@@ -115,28 +112,29 @@
 #endif
 
 
-#define  TOTAL_KEYS          (1 << TOTAL_KEYS_LOG_2)
-#define  MAX_KEY             (1 << MAX_KEY_LOG_2)
-#define  NUM_BUCKETS         (1 << NUM_BUCKETS_LOG_2)
-#define  NUM_KEYS            (TOTAL_KEYS/NUM_PROCS*MIN_PROCS)
-
-/*****************************************************************/
-/* On larger number of processors, since the keys are (roughly)  */ 
-/* gaussian distributed, the first and last processor sort keys  */ 
-/* in a large interval, requiring array sizes to be larger. Note */
-/* that for large NUM_PROCS, NUM_KEYS is, however, a small number*/
-/* The required array size also depends on the bucket size used. */
-/* The following values are validated for the 1024-bucket setup. */
-/*****************************************************************/
-#if   NUM_PROCS < 256
-#define  SIZE_OF_BUFFERS     3*NUM_KEYS/2
-#elif NUM_PROCS < 512
-#define  SIZE_OF_BUFFERS     5*NUM_KEYS/2
-#elif NUM_PROCS < 1024
-#define  SIZE_OF_BUFFERS     4*NUM_KEYS
-#else
-#define  SIZE_OF_BUFFERS     13*NUM_KEYS/2
+/*************/
+/*  CLASS E  */
+/*************/
+#if CLASS == 'E'
+#define  TOTAL_KEYS_LOG_2    29     /* 2^35 */
+#define  MAX_KEY_LOG_2       31
+#define  NUM_BUCKETS_LOG_2   10
+#undef   MIN_PROCS
+#define  MIN_PROCS           64
+#undef   ONE
+#define  ONE                 1L
 #endif
+
+
+/*******************************************************************
+ * Defining MIN_PROCS is to avoid integer overflow for large problem 
+ * sizes without using a larger integer type, such as long int.
+ * The actual total keys = TOTAL_KEYS * MIN_PROCS
+ *******************************************************************/
+#define  TOTAL_KEYS          (1 << TOTAL_KEYS_LOG_2)
+
+#define  MAX_KEY             (ONE << MAX_KEY_LOG_2)
+#define  NUM_BUCKETS         (1 << NUM_BUCKETS_LOG_2)
 
 /*****************************************************************/
 /* NOTE: THIS CODE CANNOT BE RUN ON ARBITRARILY LARGE NUMBERS OF */
@@ -151,6 +149,33 @@
 
 #define  MAX_ITERATIONS      10
 #define  TEST_ARRAY_SIZE     5
+
+
+/* Number of keys assigned to each processor
+ * #define  NUM_KEYS            (TOTAL_KEYS/NUM_PROCS*MIN_PROCS)
+ */
+int num_keys;
+
+/*****************************************************************/
+/* On larger number of processors, since the keys are (roughly)  */ 
+/* gaussian distributed, the first and last processor sort keys  */ 
+/* in a large interval, requiring array sizes to be larger. Note */
+/* that for large NUM_PROCS, NUM_KEYS is, however, a small number*/
+/* The required array size also depends on the bucket size used. */
+/* The following values are validated for the 1024-bucket setup. */
+/*****************************************************************/
+/*
+ * #if   NUM_PROCS < 256
+ * #define  SIZE_OF_BUFFERS     3*NUM_KEYS/2
+ * #elif NUM_PROCS < 512
+ * #define  SIZE_OF_BUFFERS     5*NUM_KEYS/2
+ * #elif NUM_PROCS < 1024
+ * #define  SIZE_OF_BUFFERS     4*NUM_KEYS
+ * #else
+ * #define  SIZE_OF_BUFFERS     13*NUM_KEYS/2
+ * #endif
+ */
+int size_of_buffers;
 
 
 /***********************************/
@@ -180,7 +205,11 @@ int timeron;
 /* int type to, say, long            */
 /*************************************/
 typedef  int  INT_TYPE;
-typedef  long INT_TYPE2;
+#if CLASS == 'D' || CLASS == 'E'
+typedef  long KEY_TYPE;
+#else
+typedef  int  KEY_TYPE;
+#endif
 #define MP_KEY_TYPE MPI_INT
 
 
@@ -188,8 +217,9 @@ typedef  long INT_TYPE2;
 /********************/
 /* MPI properties:  */
 /********************/
-int      my_rank,
+int      my_rank, np_total,
          comm_size;
+MPI_Comm comm_work;
 
 
 /********************/
@@ -208,25 +238,25 @@ int      passed_verification;
 /* These are the three main arrays. */
 /* See SIZE_OF_BUFFERS def above    */
 /************************************/
-INT_TYPE key_array[SIZE_OF_BUFFERS],    
-         key_buff1[SIZE_OF_BUFFERS],    
-         key_buff2[SIZE_OF_BUFFERS],
+INT_TYPE *key_array,    
+         *key_buff1,    
+         *key_buff2,
          bucket_size[NUM_BUCKETS+TEST_ARRAY_SIZE],     /* Top 5 elements for */
          bucket_size_totals[NUM_BUCKETS+TEST_ARRAY_SIZE], /* part. ver. vals */
          bucket_ptrs[NUM_BUCKETS],
          process_bucket_distrib_ptr1[NUM_BUCKETS+TEST_ARRAY_SIZE],   
          process_bucket_distrib_ptr2[NUM_BUCKETS+TEST_ARRAY_SIZE];   
-int      send_count[MAX_PROCS], recv_count[MAX_PROCS],
-         send_displ[MAX_PROCS], recv_displ[MAX_PROCS];
+int      *send_count, *recv_count,
+         *send_displ, *recv_displ;
 
 
 /**********************/
 /* Partial verif info */
 /**********************/
-INT_TYPE2 test_index_array[TEST_ARRAY_SIZE],
-         test_rank_array[TEST_ARRAY_SIZE],
+KEY_TYPE test_index_array[TEST_ARRAY_SIZE],
+         test_rank_array[TEST_ARRAY_SIZE];
 
-         S_test_index_array[TEST_ARRAY_SIZE] = 
+int      S_test_index_array[TEST_ARRAY_SIZE] = 
                              {48427,17148,23627,62548,4431},
          S_test_rank_array[TEST_ARRAY_SIZE] = 
                              {0,18,346,64917,65463},
@@ -249,12 +279,17 @@ INT_TYPE2 test_index_array[TEST_ARRAY_SIZE],
          C_test_index_array[TEST_ARRAY_SIZE] = 
                              {44172927,72999161,74326391,129606274,21736814},
          C_test_rank_array[TEST_ARRAY_SIZE] = 
-                             {61147,882988,266290,133997595,133525895},
+                             {61147,882988,266290,133997595,133525895};
 
-         D_test_index_array[TEST_ARRAY_SIZE] = 
+long     D_test_index_array[TEST_ARRAY_SIZE] = 
                              {1317351170,995930646,1157283250,1503301535,1453734525},
          D_test_rank_array[TEST_ARRAY_SIZE] = 
-                             {1,36538729,1978098519,2145192618,2147425337};
+                             {1,36538729,1978098519,2145192618,2147425337},
+
+         E_test_index_array[TEST_ARRAY_SIZE] = 
+                             {21492309536L,24606226181L,12608530949L,4065943607L,3324513396L},
+         E_test_rank_array[TEST_ARRAY_SIZE] = 
+                             {3L,27580354L,3248475153L,30048754302L,31485259697L};
 
 
 
@@ -271,7 +306,7 @@ void c_print_results( char   *name,
                       int    n2,
                       int    n3,
                       int    niter,
-                      int    nprocs_compiled,
+                      int    nprocs_active,
                       int    nprocs_total,
                       double t,
                       double mops,
@@ -286,11 +321,59 @@ void c_print_results( char   *name,
                       char   *cflags,
                       char   *clinkflags );
 
-void    timer_clear( int n );
-void    timer_start( int n );
-void    timer_stop( int n );
-double  timer_read( int n );
+#include "../common/c_timers.h"
 
+
+/*****************************************************************/
+/*     Dynamically allocate space for main arrays                */
+/*****************************************************************/
+void alloc_space(void)
+{
+   /* problem size after partition */
+   num_keys = (TOTAL_KEYS/comm_size) * MIN_PROCS;
+
+   /* buffer size for communication */
+   if ( comm_size < 256 )
+      size_of_buffers = 3*num_keys/2;
+   else if ( comm_size < 512 )
+      size_of_buffers = 5*num_keys/2;
+   else if ( comm_size < 1024 )
+      size_of_buffers = 4*num_keys;
+   else
+      size_of_buffers = 13*num_keys/2;
+
+   /* allocate space */
+   key_array = (INT_TYPE *)malloc(sizeof(INT_TYPE)*size_of_buffers);
+   key_buff1 = (INT_TYPE *)malloc(sizeof(INT_TYPE)*size_of_buffers);
+   key_buff2 = (INT_TYPE *)malloc(sizeof(INT_TYPE)*size_of_buffers);
+
+   send_count = (int *)malloc(sizeof(int)*comm_size);
+   recv_count = (int *)malloc(sizeof(int)*comm_size);
+   send_displ = (int *)malloc(sizeof(int)*comm_size);
+   recv_displ = (int *)malloc(sizeof(int)*comm_size);
+
+   if (!key_array || !key_buff1 || !key_buff2 ||
+       !send_count || !recv_count || !send_displ || !recv_displ) {
+      printf("ERROR: memoy allocation failed\n");
+      MPI_Abort(MPI_COMM_WORLD, 1);
+      exit(1);
+   }
+}
+
+/*****************************************************************/
+/*     Free dynamically allocated space                          */
+/*****************************************************************/
+void free_space(void)
+{
+   free(key_array);
+   free(key_buff1);
+   free(key_buff2);
+
+   free(send_count);
+   free(recv_count);
+   free(send_displ);
+   free(recv_displ);
+}
 
 
 /*
@@ -466,7 +549,7 @@ void	create_seq( double seed, double a )
 
         k = MAX_KEY/4;
 
-	for (i=0; i<NUM_KEYS; i++)
+	for (i=0; i<num_keys; i++)
 	{
 	    x = randlc(&seed, &a);
 	    x += randlc(&seed, &a);
@@ -509,7 +592,7 @@ void full_verify( void )
                    MP_KEY_TYPE,
                    my_rank-1,
                    1000,
-                   MPI_COMM_WORLD,
+                   comm_work,
                    &request );                   
     if( my_rank < comm_size-1 )
         MPI_Send( &key_array[last_local_key],
@@ -517,7 +600,7 @@ void full_verify( void )
                   MP_KEY_TYPE,
                   my_rank+1,
                   1000,
-                  MPI_COMM_WORLD );
+                  comm_work );
     if( my_rank > 0 )
         MPI_Wait( &request, &status );
 
@@ -562,7 +645,7 @@ void rank( int iteration )
 
     INT_TYPE    shift = MAX_KEY_LOG_2 - NUM_BUCKETS_LOG_2;
     INT_TYPE    key;
-    INT_TYPE2   bucket_sum_accumulator, j, m;
+    KEY_TYPE    bucket_sum_accumulator, j, m;
     INT_TYPE    local_bucket_sum_accumulator;
     INT_TYPE    min_key_val, max_key_val;
     INT_TYPE    *key_buff_ptr;
@@ -592,13 +675,13 @@ void rank( int iteration )
 /*  Determine where the partial verify test keys are, load into  */
 /*  top of array bucket_size                                     */
     for( i=0; i<TEST_ARRAY_SIZE; i++ )
-        if( (test_index_array[i]/NUM_KEYS) == my_rank )
+        if( (test_index_array[i]/num_keys) == my_rank )
             bucket_size[NUM_BUCKETS+i] = 
-                          key_array[test_index_array[i] % NUM_KEYS];
+                          key_array[test_index_array[i] % num_keys];
 
 
 /*  Determine the number of keys in each bucket */
-    for( i=0; i<NUM_KEYS; i++ )
+    for( i=0; i<num_keys; i++ )
         bucket_size[key_array[i] >> shift]++;
 
 
@@ -609,7 +692,7 @@ void rank( int iteration )
 
 
 /*  Sort into appropriate bucket */
-    for( i=0; i<NUM_KEYS; i++ )  
+    for( i=0; i<num_keys; i++ )  
     {
         key = key_array[i];
         key_buff1[bucket_ptrs[key >> shift]++] = key;
@@ -625,7 +708,7 @@ void rank( int iteration )
                    NUM_BUCKETS+TEST_ARRAY_SIZE, 
                    MP_KEY_TYPE,
                    MPI_SUM,
-                   MPI_COMM_WORLD );
+                   comm_work );
 
     TIMER_STOP( T_RCOMM );
     TIMER_START( T_RANK );
@@ -653,7 +736,7 @@ void rank( int iteration )
     {
         bucket_sum_accumulator       += bucket_size_totals[i];
         local_bucket_sum_accumulator += bucket_size[i];
-        if( bucket_sum_accumulator >= (j+1)*NUM_KEYS )  
+        if( bucket_sum_accumulator >= (j+1)*num_keys )  
         {
             send_count[j] = local_bucket_sum_accumulator;
             if( j != 0 )
@@ -688,7 +771,7 @@ void rank( int iteration )
                   recv_count,
                   1,
                   MPI_INT,
-                  MPI_COMM_WORLD );
+                  comm_work );
 
 /*  Determine the receive array displacements for the buckets */    
     recv_displ[0] = 0;
@@ -705,7 +788,7 @@ void rank( int iteration )
                    recv_count,
                    recv_displ,
                    MP_KEY_TYPE,
-                   MPI_COMM_WORLD );
+                   comm_work );
 
     TIMER_STOP( T_RCOMM ); 
     TIMER_START( T_RANK );
@@ -769,112 +852,71 @@ void rank( int iteration )
         if( min_key_val <= k  &&  k <= max_key_val )
         {
             /* Add the total of lesser keys, m, here */
-            INT_TYPE2 key_rank = key_buff_ptr[k-1] + m;
+            KEY_TYPE key_rank = key_buff_ptr[k-1] + m;
+            KEY_TYPE test_rank = test_rank_array[i];
             int failed = 0;
 
             switch( CLASS )
             {
                 case 'S':
                     if( i <= 2 )
-                    {
-                        if( key_rank != test_rank_array[i]+iteration )
-                            failed = 1;
-                        else
-                            passed_verification++;
-                    }
+                        test_rank += iteration;
                     else
-                    {
-                        if( key_rank != test_rank_array[i]-iteration )
-                            failed = 1;
-                        else
-                            passed_verification++;
-                    }
+                        test_rank -= iteration;
                     break;
                 case 'W':
                     if( i < 2 )
-                    {
-                        if( key_rank != test_rank_array[i]+(iteration-2) )
-                            failed = 1;
-                        else
-                            passed_verification++;
-                    }
+                        test_rank += iteration - 2;
                     else
-                    {
-                        if( key_rank != test_rank_array[i]-iteration )
-                            failed = 1;
-                        else
-                            passed_verification++;
-                    }
+                        test_rank -= iteration;
                     break;
                 case 'A':
                     if( i <= 2 )
-        	    {
-                        if( key_rank != test_rank_array[i]+(iteration-1) )
-                            failed = 1;
-                        else
-                            passed_verification++;
-        	    }
+                        test_rank += iteration - 1;
                     else
-                    {
-                        if( key_rank != test_rank_array[i]-(iteration-1) )
-                            failed = 1;
-                        else
-                            passed_verification++;
-                    }
+                        test_rank -= iteration - 1;
                     break;
                 case 'B':
                     if( i == 1 || i == 2 || i == 4 )
-        	    {
-                        if( key_rank != test_rank_array[i]+iteration )
-                            failed = 1;
-                        else
-                            passed_verification++;
-        	    }
+                        test_rank += iteration;
                     else
-                    {
-                        if( key_rank != test_rank_array[i]-iteration )
-                            failed = 1;
-                        else
-                            passed_verification++;
-                    }
+                        test_rank -= iteration;
                     break;
                 case 'C':
                     if( i <= 2 )
-        	    {
-                        if( key_rank != test_rank_array[i]+iteration )
-                            failed = 1;
-                        else
-                            passed_verification++;
-        	    }
+                        test_rank += iteration;
                     else
-                    {
-                        if( key_rank != test_rank_array[i]-iteration )
-                            failed = 1;
-                        else
-                            passed_verification++;
-                    }
+                        test_rank -= iteration;
                     break;
                 case 'D':
                     if( i < 2 )
-        	    {
-                        if( key_rank != test_rank_array[i]+iteration )
-                            failed = 1;
-                        else
-                            passed_verification++;
-        	    }
+                        test_rank += iteration;
                     else
+                        test_rank -= iteration;
+                    break;
+                 case 'E':
+                    if( i < 2 )
+                        test_rank += iteration - 2;
+                    else if( i == 2 )
                     {
-                        if( key_rank != test_rank_array[i]-iteration )
-                            failed = 1;
-                        else
-                            passed_verification++;
+                        test_rank += iteration - 2;
+                        if (iteration > 4)
+                            test_rank -= 2;
+                        else if (iteration > 2)
+                            test_rank -= 1;
                     }
+                    else
+                        test_rank -= iteration - 2;
                     break;
             }
+            if( key_rank != test_rank )
+                failed = 1;
+            else
+                passed_verification++;
             if( failed == 1 )
                 printf( "Failed partial verification: "
-                        "iteration %d, processor %d, test key %d\n", 
-                         iteration, my_rank, (int)i );
+                        "iteration %d, processor %d, test key %d, key rank %ld\n", 
+                         iteration, my_rank, (int)i, (long)key_rank );
         }
     }
 
@@ -903,7 +945,7 @@ void rank( int iteration )
 int main( int argc, char **argv )
 {
 
-    int             i, iteration, itemp;
+    int             i, iteration, itemp, active;
 
     double          timecounter, maxtime;
 
@@ -911,7 +953,64 @@ int main( int argc, char **argv )
 /*  Initialize MPI */
     MPI_Init( &argc, &argv );
     MPI_Comm_rank( MPI_COMM_WORLD, &my_rank );
-    MPI_Comm_size( MPI_COMM_WORLD, &comm_size );
+    MPI_Comm_size( MPI_COMM_WORLD, &np_total );
+
+
+/*  Check to see whether total number of processes is within bounds.
+    This could in principle be checked in setparams.c, but it is more
+    convenient to do it here                                               */
+    if( np_total < MIN_PROCS || np_total > MAX_PROCS)
+    {
+       if( my_rank == 0 )
+           printf( "\n ERROR: number of processes %d not within range %d-%d"
+                   "\n Exiting program!\n\n", np_total, MIN_PROCS, MAX_PROCS);
+       MPI_Finalize();
+       exit( 1 );
+    }
+
+
+/*  comm_size needs to be power of two */
+    for (comm_size = 1; comm_size < np_total; comm_size *= 2);
+    if (comm_size > np_total) comm_size /= 2;
+
+/*  If the actual number of processes doesn't agree with comm_size,
+    check if excess ranks need to be masked */
+    active = 1;
+    if( comm_size != np_total )
+    {
+        /* check if NPB_NPROCS_STRICT is set */
+        if( my_rank == 0 ) {
+            char *ep = getenv("NPB_NPROCS_STRICT");
+            if (ep && *ep) {
+               if (strchr("nNfF-", *ep) || strcmp(ep, "0") == 0)
+                  active = 0;
+               else if (strcmp(ep, "off") == 0 || strcmp(ep, "OFF") == 0)
+                  active = 0;
+            }
+        }
+        MPI_Bcast(&active, 1, MPI_INT, 0, MPI_COMM_WORLD);
+
+        /* abort if a strict NPROCS enforcement is required */
+        if (active) {
+            if( my_rank == 0 )
+               printf( "\n ERROR: Number of processes (%d)"
+                       " is not a power of two (%d?)\n"
+                       " Exiting program!\n\n", np_total, comm_size );
+            MPI_Abort(MPI_COMM_WORLD, MPI_ERR_OTHER);
+            exit( 1 );
+        }
+
+        /* mark excess ranks as inactive */
+        active = ( my_rank >= comm_size )? 0 : 1;
+        MPI_Comm_split(MPI_COMM_WORLD, active, my_rank, &comm_work);
+    }
+    else
+        MPI_Comm_dup(MPI_COMM_WORLD, &comm_work);
+
+    if (!active) {
+        MPI_Finalize();
+        exit( 0 );
+    }
 
 
 /*  Initialize the verification arrays if a valid class */
@@ -942,55 +1041,35 @@ int main( int argc, char **argv )
                 test_index_array[i] = D_test_index_array[i];
                 test_rank_array[i]  = D_test_rank_array[i];
                 break;
+            case 'E':
+                test_index_array[i] = E_test_index_array[i];
+                test_rank_array[i]  = E_test_rank_array[i];
+                break;
         };
-
         
 
 /*  Printout initial NPB info */
     if( my_rank == 0 )
     {
-        FILE *fp;
-        printf( "\n\n NAS Parallel Benchmarks 3.3 -- IS Benchmark\n\n" );
+        printf( "\n\n NAS Parallel Benchmarks 3.4 -- IS Benchmark\n\n" );
         printf( " Size:  %ld  (class %c)\n", (long)TOTAL_KEYS*MIN_PROCS, CLASS );
         printf( " Iterations:   %d\n", MAX_ITERATIONS );
-        printf( " Number of processes:     %d\n", comm_size );
+        printf( " Total number of processes:  %d\n", np_total );
+        if ( comm_size != np_total )
+            printf( " WARNING: Number of processes"
+                    " is not a power of two (%d active)\n", comm_size );
 
-        fp = fopen("timer.flag", "r");
-        timeron = 0;
-        if (fp) {
-            timeron = 1;
-            fclose(fp);
-        }
+        timeron = check_timer_flag();
     }
 
-/*  Check that actual and compiled number of processors agree */
-    if( comm_size != NUM_PROCS )
-    {
-        if( my_rank == 0 )
-            printf( "\n ERROR: compiled for %d processes\n"
-                    " Number of active processes: %d\n"
-                    " Exiting program!\n\n", NUM_PROCS, comm_size );
-        MPI_Finalize();
-        exit( 1 );
-    }
-
-/*  Check to see whether total number of processes is within bounds.
-    This could in principle be checked in setparams.c, but it is more
-    convenient to do it here                                               */
-    if( comm_size < MIN_PROCS || comm_size > MAX_PROCS)
-    {
-       if( my_rank == 0 )
-           printf( "\n ERROR: number of processes %d not within range %d-%d"
-                   "\n Exiting program!\n\n", comm_size, MIN_PROCS, MAX_PROCS);
-       MPI_Finalize();
-       exit( 1 );
-    }
-
-    MPI_Bcast(&timeron, 1, MPI_INT, 0, MPI_COMM_WORLD);
+    MPI_Bcast(&timeron, 1, MPI_INT, 0, comm_work);
 
 #ifdef  TIMING_ENABLED 
     for( i=1; i<=T_LAST; i++ ) timer_clear( i );
 #endif
+
+/*  allocate space for work arrays */
+    alloc_space();
 
 /*  Generate random number sequence and subsequent keys on all procs */
     create_seq( find_my_seed( my_rank, 
@@ -1042,7 +1121,7 @@ int main( int argc, char **argv )
                 MPI_DOUBLE,
                 MPI_MAX,
                 0,
-                MPI_COMM_WORLD );
+                comm_work );
 
 
 /*  This tests that keys are in sequence: sorting of last ranked key seq
@@ -1058,8 +1137,9 @@ int main( int argc, char **argv )
                 MPI_INT,
                 MPI_SUM,
                 0,
-                MPI_COMM_WORLD );
+                comm_work );
 
+    free_space();
 
 
 /*  The final printout  */
@@ -1073,8 +1153,8 @@ int main( int argc, char **argv )
                          MIN_PROCS,
                          0,
                          MAX_ITERATIONS,
-                         NUM_PROCS,
                          comm_size,
+                         np_total,
                          maxtime,
                          ((double) (MAX_ITERATIONS)*TOTAL_KEYS*MIN_PROCS)
                                                       /maxtime/1000000.,
@@ -1106,21 +1186,21 @@ int main( int argc, char **argv )
                     MPI_DOUBLE,
                     MPI_MIN,
                     0,
-                    MPI_COMM_WORLD );
+                    comm_work );
         MPI_Reduce( t1,
                     tsum,
                     T_LAST+1,
                     MPI_DOUBLE,
                     MPI_SUM,
                     0,
-                    MPI_COMM_WORLD );
+                    comm_work );
         MPI_Reduce( t1,
                     tmax,
                     T_LAST+1,
                     MPI_DOUBLE,
                     MPI_MAX,
                     0,
-                    MPI_COMM_WORLD );
+                    comm_work );
 
         if( my_rank == 0 )
         {

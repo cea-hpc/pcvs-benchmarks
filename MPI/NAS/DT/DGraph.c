@@ -158,7 +158,7 @@ return arcId;
 }
 void graphShow(DGraph *dg,int DetailsLevel){
   int i=0,j=0;
-  fprintf(stderr,"%d.%s: (%d,%d)\n",dg->id,dg->name,dg->numNodes,dg->numArcs);
+  fprintf(stderr," %d.%s: (%d,%d)\n",dg->id,dg->name,dg->numNodes,dg->numArcs);
   if ( DetailsLevel < 1) return;
   for (i = 0; i < dg->numNodes; i++ ) {
     DGNode *focusNode = dg->node[ i];

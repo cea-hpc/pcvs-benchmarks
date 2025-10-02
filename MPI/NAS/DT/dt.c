@@ -1,39 +1,34 @@
 /*************************************************************************
  *                                                                       * 
- *        N  A  S     P A R A L L E L     B E N C H M A R K S  3.3       *
+ *        N  A  S     P A R A L L E L     B E N C H M A R K S  3.4       *
  *                                                                       * 
  *                                  D T					 * 
  *                                                                       * 
  ************************************************************************* 
  *                                                                       * 
- *   This benchmark is part of the NAS Parallel Benchmark 3.3 suite.     *
+ *   This benchmark is part of the NAS Parallel Benchmark 3.4 suite.     *
  *                                                                       * 
  *   Permission to use, copy, distribute and modify this software        * 
  *   for any purpose with or without fee is hereby granted.  We          * 
  *   request, however, that all derived work reference the NAS           * 
- *   Parallel Benchmarks 3.3. This software is provided "as is"          *
+ *   Parallel Benchmarks 3.4. This software is provided "as is"          *
  *   without express or implied warranty.                                * 
  *                                                                       * 
- *   Information on NPB 3.3, including the technical report, the         *
+ *   Information on NPB 3.4, including the technical report, the         *
  *   original specifications, source code, results and information       * 
  *   on how to submit new results, is available at:                      * 
  *                                                                       * 
  *          http:  www.nas.nasa.gov/Software/NPB                         * 
  *                                                                       * 
  *   Send comments or suggestions to  npb@nas.nasa.gov                   * 
- *   Send bug reports to              npb-bugs@nas.nasa.gov              * 
  *                                                                       * 
  *         NAS Parallel Benchmarks Group                                 * 
  *         NASA Ames Research Center                                     * 
- *         Mail Stop: T27A-1                                             * 
  *         Moffett Field, CA   94035-1000                                * 
- *                                                                       * 
- *         E-mail:  npb@nas.nasa.gov                                     * 
- *         Fax:     (650) 604-3957                                       * 
  *                                                                       * 
  ************************************************************************* 
  *                                                                       * 
- *   Author: M. Frumkin							 *						 * 
+ *   Author: M. Frumkin							 *
  *                                                                       * 
  *************************************************************************/
 
@@ -46,7 +41,6 @@
 
 #ifndef CLASS
 #define CLASS 'S'
-#define NUM_PROCS            1                 
 #endif
 
 int      passed_verification;
@@ -73,10 +67,7 @@ void c_print_results( char   *name,
                       char   *cflags,
                       char   *clinkflags );
 		      
-void    timer_clear( int n );
-void    timer_start( int n );
-void    timer_stop( int n );
-double  timer_read( int n );
+#include "../common/c_timers.h"
 int timer_on=0,timers_tot=64;
 
 int verify(char *bmname,double rnm2){
@@ -691,7 +682,7 @@ int main(int argc,char **argv ){
         fprintf(stderr,"     the number of nodes in the graph\n");
       }
       MPI_Finalize();
-      exit(0);
+      exit(1);
     } 
    if(strncmp(argv[1],"BH",2)==0){
       dg=buildBH(CLASS);
@@ -714,13 +705,13 @@ int main(int argc,char **argv ){
         fprintf(stderr,"**  Number nodes in the graph = %d\n",dg->numNodes);
       }
       MPI_Finalize();
-      exit(0);
+      exit(1);
     }
     for(i=0;i<dg->numNodes;i++){ 
       dg->node[i]->address=i;
     }
     if( my_rank == 0 ){
-      printf( "\n\n NAS Parallel Benchmarks 3.3 -- DT Benchmark\n\n" );
+      printf( "\n\n NAS Parallel Benchmarks 3.4 -- DT Benchmark\n\n" );
       graphShow(dg,0);
       timer_clear(0);
       timer_start(0);
@@ -755,5 +746,5 @@ int main(int argc,char **argv ){
         	       CLINKFLAGS );
     }          
     MPI_Finalize();
-  return 1;
+  return 0;
 }

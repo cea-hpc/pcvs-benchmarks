@@ -14,24 +14,24 @@
 # For CG, EP, FT, MG, LU, SP and BT, which are in Fortran, the following must 
 # be defined:
 #
-# MPIF77     - Fortran compiler
+# MPIFC      - Fortran compiler
 # FFLAGS     - Fortran compilation arguments
 # FMPI_INC   - any -I arguments required for compiling MPI/Fortran 
 # FLINK      - Fortran linker
 # FLINKFLAGS - Fortran linker arguments
 # FMPI_LIB   - any -L and -l arguments required for linking MPI/Fortran 
 # 
-# compilations are done with $(MPIF77) $(FMPI_INC) $(FFLAGS) or
-#                            $(MPIF77) $(FFLAGS)
+# compilations are done with $(MPIFC) $(FMPI_INC) $(FFLAGS) or
+#                            $(MPIFC) $(FFLAGS)
 # linking is done with       $(FLINK) $(FMPI_LIB) $(FLINKFLAGS)
 #---------------------------------------------------------------------------
 
 #---------------------------------------------------------------------------
 # This is the fortran compiler used for MPI programs
 #---------------------------------------------------------------------------
-MPIF77 = mpif90
-# This links MPI fortran programs; usually the same as ${MPIF77}
-FLINK	= $(MPIF77)
+MPIFC = mpif90
+# This links MPI fortran programs; usually the same as ${MPIFC}
+FLINK	= $(MPIFC)
 
 #---------------------------------------------------------------------------
 # These macros are passed to the linker to help link with MPI correctly
@@ -46,13 +46,13 @@ FMPI_INC =
 #---------------------------------------------------------------------------
 # Global *compile time* flags for Fortran programs
 #---------------------------------------------------------------------------
-FFLAGS	= -O3 -fastsse
+FFLAGS	= -fastsse
 
 #---------------------------------------------------------------------------
 # Global *link time* flags. Flags for increasing maximum executable 
 # size usually go here. 
 #---------------------------------------------------------------------------
-FLINKFLAGS = -O3 -fastsse
+FLINKFLAGS = $(FFLAGS)
 
 
 #---------------------------------------------------------------------------
@@ -92,13 +92,13 @@ CMPI_INC =
 #---------------------------------------------------------------------------
 # Global *compile time* flags for C programs
 #---------------------------------------------------------------------------
-CFLAGS	= -O3 -fastsse
+CFLAGS	= -fastsse
 
 #---------------------------------------------------------------------------
 # Global *link time* flags. Flags for increasing maximum executable 
 # size usually go here. 
 #---------------------------------------------------------------------------
-CLINKFLAGS = -O3 -fastsse
+CLINKFLAGS = $(CFLAGS)
 
 
 #---------------------------------------------------------------------------

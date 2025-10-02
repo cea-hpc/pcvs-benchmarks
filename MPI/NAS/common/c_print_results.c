@@ -10,7 +10,7 @@ void c_print_results( char   *name,
                       int    n2,
                       int    n3,
                       int    niter,
-                      int    nprocs_compiled,
+                      int    nprocs_active,
                       int    nprocs_total,
                       double t,
                       double mops,
@@ -45,8 +45,8 @@ void c_print_results( char   *name,
 
     printf( " Total processes =             %12d\n", nprocs_total );
 
-    if ( nprocs_compiled != 0 )
-        printf( " Compiled procs  =             %12d\n", nprocs_compiled );
+    if ( nprocs_active != 0 )
+        printf( " Active processes=             %12d\n", nprocs_active );
 
     printf( " Mop/s total     =             %12.2f\n", mops );
 
