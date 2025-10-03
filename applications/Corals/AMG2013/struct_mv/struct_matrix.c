@@ -540,8 +540,8 @@ hypre_StructMatrixSetValues( hypre_StructMatrix *matrix,
    double             *matp;
 
    int                 i, s, found;
-   int                 true = 1;
-   int                 false= 0;
+   int                 is_true = 1;
+   int                 is_false= 0;
  
    int                 nprocs;
 
@@ -550,7 +550,7 @@ hypre_StructMatrixSetValues( hypre_StructMatrix *matrix,
    boxes = hypre_StructGridBoxes(hypre_StructMatrixGrid(matrix));
    constant_coefficient = hypre_StructMatrixConstantCoefficient(matrix);
 
-   found= true; /* index found will be set to false later on. This 
+   found= is_true; /* index found will be set to is_false later on. This
                    eliminates the constant_coefficient= 1 case correctly. */
    hypre_ForBoxI(i, boxes)
       {
@@ -593,7 +593,7 @@ hypre_StructMatrixSetValues( hypre_StructMatrix *matrix,
             stencil = hypre_StructMatrixStencil(matrix);
             center_rank = hypre_StructStencilElementRank( stencil, center_index );
 
-            found= false;
+            found= is_false;
             if ( action > 0 )
             {
                for (s = 0; s < num_stencil_indices; s++)
@@ -611,7 +611,7 @@ hypre_StructMatrixSetValues( hypre_StructMatrix *matrix,
                                                               stencil_indices[s],
                                                               grid_index);
                         *matp += values[s];
-                        found= true;
+                        found= is_true;
                      }
                   }
                   else
@@ -620,7 +620,7 @@ hypre_StructMatrixSetValues( hypre_StructMatrix *matrix,
                      matp = hypre_StructMatrixBoxData(matrix, i,
                                                       stencil_indices[s]);
                      *matp += values[s];
-                     found= true;
+                     found= is_true;
                   }
                }
             }
@@ -641,7 +641,7 @@ hypre_StructMatrixSetValues( hypre_StructMatrix *matrix,
                                                               stencil_indices[s],
                                                               grid_index);
                         *matp = values[s];
-                        found= true;
+                        found= is_true;
                      }
                   }
                   else
@@ -650,13 +650,13 @@ hypre_StructMatrixSetValues( hypre_StructMatrix *matrix,
                      matp = hypre_StructMatrixBoxData(matrix, i,
                                                       stencil_indices[s]);
                      *matp += values[s];
-                     found= true;
+                     found= is_true;
                   }
                }
             }
             else  /* action<0 */
             {
-               found= true; /* no need to set-off proc for get values */
+               found= is_true; /* no need to set-off proc for get values */
                for (s = 0; s < num_stencil_indices; s++)
                {
                   if ( stencil_indices[s] == center_rank )
@@ -687,7 +687,7 @@ hypre_StructMatrixSetValues( hypre_StructMatrix *matrix,
          else
             /* variable coefficient, constant_coefficient=0 */
          {
-            found= false;
+            found= is_false;
             if ((hypre_IndexX(grid_index) >= hypre_BoxIMinX(box)) &&
                 (hypre_IndexX(grid_index) <= hypre_BoxIMaxX(box)) &&
                 (hypre_IndexY(grid_index) >= hypre_BoxIMinY(box)) &&
@@ -726,7 +726,7 @@ hypre_StructMatrixSetValues( hypre_StructMatrix *matrix,
                   }
                }
 
-               found= true;
+               found= is_true;
             }
          }
       }
@@ -768,7 +768,7 @@ hypre_StructMatrixSetValues( hypre_StructMatrix *matrix,
                                                         stencil_indices[center_rank],
                                                         grid_index);
                  *matp += values[s];
-                  found= true;
+                  found= is_true;
                }
             }
 
@@ -789,7 +789,7 @@ hypre_StructMatrixSetValues( hypre_StructMatrix *matrix,
                                                            grid_index);
                     *matp += values[s];
                   }
-                  found= true;
+                  found= is_true;
                }
             }
             if (found) break;
