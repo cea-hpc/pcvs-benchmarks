@@ -14,6 +14,52 @@ your library supports MPI-1, MPI-2, MPI-3, OpenSHMEM, and UPC++ to compile the
 corresponding benchmarks.  See http://mvapich.cse.ohio-state.edu/benchmarks/ to
 download the latest version of this package.
 
+The python directory contains Python versions of the benchmarks. These do not
+need to be compiled. See the README file located in the python directory
+for more details.
+
+The Java directory contains Java versions of the benchmarks. These are compiled
+separately via the javac compiler. See the README file located in the java
+directory for more details.
+
+OMB also contains ROCm, CUDA, SYCL and OpenACC extensions to the benchmarks.
+CUDA extensions can be enabled by configuring OMB with --enable-cuda option as
+shown below.
+
+    ./configure CC=/path/to/mpicc
+                CXX=/path/to/mpicxx
+                --enable-cuda
+                --with-cuda-include=/path/to/cuda/include
+                --with-cuda-libpath=/path/to/cuda/lib
+    make
+    make install
+
+ROCm extensions can be enabled by configuring OMB with --enable-rocm
+option as shown below. Similarly OpenACC extensions can be enabled using
+--enable-openacc option. The MPI library used should be able to support MPI
+communication from buffers in GPU Device memory.
+
+    ./configure CC=/path/to/mpicc
+                CXX=/path/to/mpicxx
+                --enable-rocm
+                --with-rocm=/path/to/rocm/install
+    make
+    make install
+
+SYCL extensions can be enabled by configuring OMB with --enable-sycl
+option as shown below.
+
+    ./configure CC=/path/to/mpicc
+                CXX=/path/to/mpicxx
+                --enable-sycl
+                --with-sycl=/path/to/sycl/install
+    make
+    make install
+
+
+More information about the ROCm and CUDA extensions are given towards the end of
+the README.
+
 This package also distributes UPC put, get, and collective benchmarks.
 These are located in the upc subdirectory and can be compiled by the
 following:
@@ -29,7 +75,7 @@ following:
                      osu_upc_all_barrier
         do
             echo "Compiling $bench..."
-            upcc $bench.c ../util/osu_util.c -o $bench
+            upcc $bench.c ../util/osu_util_pgas.c ../util/osu_util.c -o $bench
         done
 
 The MPI Multiple Bandwidth / Message Rate (osu_mbw_mr), OpenSHMEM Put Message
@@ -73,9 +119,45 @@ osu_latency_mt - Multi-threaded Latency Test
     * thread calls MPI_Recv and upon receiving a message sends back a response
     * of equal size. Many iterations are performed and the average one-way
     * latency numbers are reported. This test is available here.
+    * "-t" option can be used to set the number of sender and receiver threads
+           to be used in a benchmark. Examples:
+            -t 4        // receiver threads = 4 and sender threads = 1
+            -t 4:6      // sender threads = 4 and receiver threads = 6
+            -t 2:       // not defined
+
+osu_latency_mp - Multi-process Latency Test
+    * The multi-process latency test performs a ping-pong test with a single
+    * sender process and a single receiver process, both having one or more
+    * child processes that are spawned using the fork() system call. In this test
+    * the sending process(parent) sends a message of a given data size to the
+    * receiver(parent) process and waits for a reply from the receiver process.
+    * Both the sending and receiving process have a variable number of child
+    * processes (set by default to 1 child process), where each child process
+    * sleeps for 2 seconds after the fork call and exits. The parent processes
+    * carry out the ping-pong test where many iterations are performed and the
+    * average one-way latency numbers are reported. This test is available here.
+    * "-t" option can be used to set the number of sender and receiver processes
+    * including the parent processes to be used in a benchmark.
+    *
+    * The purpose of this test is to check if the underlying MPI communication
+    * runtime has taken care of fork safety even if the application has not.
+    *
+    * A new environment variable "MV2_SUPPORT_FORK_SAFETY" was introduced with
+    * MVAPICH2 2.3.4 to make MVAPICH2 takes care of fork safety for
+    * applications that require it.
+    *
+    * The support for fork safety is disabled by default in MVAPICH2 due to
+    * performance reasons. When running osu_latency_mp with MVAPICH2, set
+    * the environment variable MV2_SUPPORT_FORK_SAFETY to 1. When running
+    * osu_latency_mp with other MPI libraries that do not support fork safety,
+    * set the environment variables RDMAV_FORK_SAFE or IBV_FORK_SAFE to 1.
+    * Examples:
+            -t 4        // receiver processes = 4 and sender processes = 1
+            -t 4:6      // sender processes = 4 and receiver processes = 6
+            -t 2:       // not defined
 
 osu_bw - Bandwidth Test
-    * The bandwidth tests were carried out by having the sender sending out a
+    * The bandwidth tests are carried out by having the sender sending out a
     * fixed number (equal to the window size) of back-to-back messages to the
     * receiver and then waiting for a reply from the receiver. The receiver
     * sends the reply only after receiving all these messages. This process is
@@ -84,7 +166,7 @@ osu_bw - Bandwidth Test
     * time it receives the reply back from the receiver) and the number of bytes
     * sent by the sender. The objective of this bandwidth test is to determine
     * the maximum sustained date rate that can be achieved at the network level.
-    * Thus, non-blocking version of MPI functions (MPI_Isend and MPI_Irecv) were
+    * Thus, non-blocking version of MPI functions (MPI_Isend and MPI_Irecv) are
     * used in the test. This test is available here.
 
 osu_bibw - Bidirectional Bandwidth Test
@@ -109,6 +191,50 @@ osu_multi_lat - Multi-pair Latency Test
     * instant multiple pairs are performing the same test simultaneously.
     * In order to perform the test across just two nodes the hostnames must
     * be specified in block fashion.
+
+Building XCCL(NCCL/RCCL) benchmarks
+--------------------------------------
+NCCL and RCCL benchmarks are now merged into XCCL benchmarks. XCCL benchmarks
+will run with either NCCL or RCCL support set during configure time.
+
+Configure command line to enable NCCL benchmarks is as follows:
+--enable-cuda --with-cuda-include=/path/to/cuda/include
+--with-cuda-libpath=/path/to/cuda/lib64 --enable-ncclomb
+--with-nccl=/path/to/nccl/build
+
+Configure command line to enable RCCL benchmarks is as follows:
+--enable-rocm --with-rocm=/path/to/rocm/build --enable-rcclomb
+--with-rccl=/path/to/rocm/build
+
+Point-to-Point XCCL(NCCL/RCCL) Benchmarks
+------------------------------
+osu_latency - Latency Test
+    * The latency tests are carried out in a ping-pong fashion. The sender
+    * sends a message with a certain data size to the receiver and waits for a
+    * reply from the receiver. The receiver receives the message from the sender
+    * and sends back a reply with the same data size. Many iterations of this
+    * ping-pong test are carried out and average one-way latency numbers are
+    * obtained. Non-Blocking version of XCCL functions (ncclSend and ncclRecv)
+    * are used in the tests. This test is available here.
+
+osu_bw - Bandwidth Test
+    * The bandwidth tests are carried out by having the sender sending out a
+    * fixed number (equal to the window size) of back-to-back messages to the
+    * receiver and then waiting for a reply from the receiver. The receiver
+    * sends the reply only after receiving all these messages. This process is
+    * repeated for several iterations and the bandwidth is calculated based on
+    * the elapsed time (from the time sender sends the first message until the
+    * time it receives the reply back from the receiver) and the number of bytes
+    * sent by the sender. The objective of this bandwidth test is to determine
+    * the maximum sustained date rate that can be achieved at the network level.
+    * Thus, non-blocking version of XCCL functions (ncclSend and ncclRecv) are
+    * used in the test. This test is available here.
+
+osu_bibw - Bidirectional Bandwidth Test
+    * The bidirectional bandwidth test is similar to the bandwidth test, except
+    * that both the nodes involved send out a fixed number of back-to-back
+    * messages and wait for the reply. This test measures the maximum
+    * sustainable aggregate bandwidth by two nodes. This test is available here.
 
 Collective MPI Benchmarks
 -------------------------
@@ -149,18 +275,60 @@ Collective Latency Tests
            message length.
     * "-i" can be used to set the number of iterations to run for each message
            length.
-    * "-M" can be used to set per process maximum memory consumption.  By
-           default the benchmarks are limited to 512MB allocations.
 
+Collective XCCL(NCCL/RCCL) Benchmarks
+--------------------------
+osu_xccl_allgather      - XCCL Allgather Latency Test(*)
+osu_xccl_allreduce      - XCCL Allreduce Latency Test
+osu_xccl_alltoall       - XCCL Alltoall Latency Test
+osu_xccl_bcast          - XCCL Bcast Latency Test
+osu_xccl_reduce         - XCCL Reduce Latency Test
+osu_xccl_reduce_scatter - XCCL Reduce_scatter Latency Test
+
+Collective Latency Tests
+    * The latest OMB version includes benchmarks for various MPI blocking
+    * collective operations (NCCL Allgather, NCCL Allreduce, NCCL Alltoall,
+    * NCCL Bcast, NCCL Reduce, NCCL Reduce_Scatter. These benchmarks work in the
+    * following manner.  Suppose users run the osu_xccl_bcast benchmark with N
+    * processes, the benchmark measures the min, max and the average latency of
+    * the NCCL Bcast collective operation across N processes, for various
+    * message lengths, over a large number of iterations. In the default
+    * version, these benchmarks report the average latency for each message
+    * length. Additionally, the benchmarks offer the following options:
+    * "-f" can be used to report additional statistics of the benchmark,
+           such as min and max latencies and the number of iterations.
+    * "-m" option can be used to set the minimum and maximum message length
+           to be used in a benchmark. In the default version, the benchmarks
+           report the latencies for up to 1MB message lengths. Examples:
+            -m 128      // min = default, max = 128
+            -m 2:128    // min = 2, max = 128
+            -m 2:       // min = 2, max = default
+    * "-x" can be used to set the number of warmup iterations to skip for each
+           message length.
+    * "-i" can be used to set the number of iterations to run for each message
+           length.
+
+Support for Data Validation
+---------------------------
+The following benchmarks have been extended to evalaute the correctness in
+addition to the communication performance.
+
+    * osu_allreduce         - MPI_Allreduce Latency Test
+    * osu_xccl_allreduce    - XCCL Allreduce Latency Test
+    * osu_reduce            - MPI_Reduce Latency Test
+    * osu_xccl_reduce       - XCCL Reduce Latency Test
+    * osu_alltoall          - MPI_Alltoall Latency Test
 
 Support for CUDA Managed Memory
----------------------------------
+-------------------------------
 The following benchmarks have been extended to evaluate performance of MPI communication
 from and to buffers allocated using CUDA Managed Memory.
 
     * osu_bibw              - Bidirectional Bandwidth Test
     * osu_bw                - Bandwidth Test
     * osu_latency           - Latency Test
+    * osu_mbw_mr            - Multiple Bandwidth / Message Rate Test
+    * osu_multi_lat         - Multi-pair Latency Test
     * osu_allgather         - MPI_Allgather Latency Test
     * osu_allgatherv        - MPI_Allgatherv Latency Test
     * osu_allreduce         - MPI_Allreduce Latency Test
@@ -191,6 +359,7 @@ Non-Blocking Collective MPI Benchmarks
 --------------------------------------
 osu_iallgather    - MPI_Iallgather Latency Test
 osu_iallgatherv   - MPI_Iallgatherv Latency Test
+osu_iallreduce    - MPI_Iallreduce Latency Test
 osu_ialltoall     - MPI_Ialltoall Latency Test
 osu_ialltoallv    - MPI_Ialltoallv Latency Test
 osu_ialltoallw    - MPI_Ialltoallw Latency Test
@@ -198,6 +367,7 @@ osu_ibarrier      - MPI_Ibarrier Latency Test
 osu_ibcast        - MPI_Ibcast Latency Test
 osu_igather       - MPI_Igather Latency Test
 osu_igatherv      - MPI_Igatherv Latency Test
+osu_ireduce       - MPI_Ireduce Latency Test
 osu_iscatter      - MPI_Iscatter Latency Test
 osu_iscatterv     - MPI_Iscatterv Latency Test
 
@@ -534,26 +704,42 @@ osu_oshm_put.c - Latency Test for OpenSHMEM Put Routine
     * without timing to ignore any start-up overheads.  Both PEs call shmem
     * barrier all after the test for each message size.
 
+osu_oshm_put_bw.c - Bandwidth Test for OpenSHMEM Put Routine
+    * This benchmark is similar to osu_oshm_put.c except it measures
+    * the total bandwidth (MB/s) instead of latency.
+
 osu_oshm_put_nb.c - Latency Test for OpenSHMEM Non-blocking Put Routine
-    * This benchmark measures the non-blocking latency of a shmem putmem_nbi 
-    * operation for different data sizes. The user is required to select 
-    * whether the communication buffers should be allocated in global 
-    * memory or heap memory, through a parameter. The test requires exactly 
-    * two PEs. PE 0 issues shmem putmem_nbi to write data at PE 1 and then calls 
-    * shmem quiet. This is repeated for a fixed number of iterations, depending 
-    * on the data size. The average latency per iteration is reported. 
-    * A few warm-up iterations are run without timing to ignore any start-up 
+    * This benchmark measures the non-blocking latency of a shmem putmem_nbi
+    * operation for different data sizes. The user is required to select
+    * whether the communication buffers should be allocated in global
+    * memory or heap memory, through a parameter. The test requires exactly
+    * two PEs. PE 0 issues shmem putmem_nbi to write data at PE 1 and then calls
+    * shmem quiet. This is repeated for a fixed number of iterations, depending
+    * on the data size. The average latency per iteration is reported.
+    * A few warm-up iterations are run without timing to ignore any start-up
     * overheads. Both PEs call shmem barrier all after the test for each message size.
+
+osu_oshm_put_nb_bw.c - Bandwidth Test for OpenSHMEM Non-blocking Put Routine
+    * This benchmark is similar to osu_oshm_put_nb.c except it measures
+    * the total bandwidth (MB/s) instead of latency.
 
 osu_oshm_get.c - Latency Test for OpenSHMEM Get Routine
     * This benchmark is similar to the one above except that PE 0 does a shmem
     * getmem operation to read data from PE 1 in each iteration. The average
     * latency per iteration is reported.
 
+osu_oshm_get_bw.c - Bandwidth Test for OpenSHMEM Get Routine
+    * This benchmark is similar to osu_oshm_get.c except it measures
+    * the total bandwidth (MB/s) instead of latency.
+
 osu_oshm_get_nb.c - Latency Test for OpenSHMEM Non-blocking Get Routine
     * This benchmark is similar to the one above except that PE 0 does a shmem
     * getmem_nbi operation to read data from PE 1 in each iteration. The average
     * latency per iteration is reported.
+
+osu_oshm_get_nb_bw.c - Bandwidth Test for OpenSHMEM Non-blocking Get Routine
+    * This benchmark is similar to osu_oshm_get_nb.c except it measures
+    * the total bandwidth (MB/s) instead of latency.
 
 osu_oshm_put_mr.c - Message Rate Test for OpenSHMEM Put Routine
     * This benchmark measures the aggregate uni-directional operation rate of
@@ -568,27 +754,27 @@ osu_oshm_put_mr.c - Message Rate Test for OpenSHMEM Put Routine
 
 osu_oshm_put_mr_nb.c - Message Rate Test for Non-blocking OpenSHMEM Put Routine
     * This benchmark measures the aggregate uni-directional operation rate of
-    * OpenSHMEM Non-blocking Put between pairs of PEs, for different data sizes. 
-    * The user should select for communication buffers to be in global memory 
-    * and heap memory as with the earlier benchmarks. This test requires number 
+    * OpenSHMEM Non-blocking Put between pairs of PEs, for different data sizes.
+    * The user should select for communication buffers to be in global memory
+    * and heap memory as with the earlier benchmarks. This test requires number
     * of PEs to be even. The PEs are paired with PE 0 pairing with PE n/2 and so on,
     * where n is the total number of PEs. The first PE in each pair issues
     * back-to-back shmem putmem_nbi operations to its peer PE until the window
     * size. A call to shmem_quite is placed after the window loop to ensure
-    * completion of the issued operations. The total time for the non-blocking 
+    * completion of the issued operations. The total time for the non-blocking
     * put operations is measured and operation rate per second is reported.
     * All PEs call shmem barrier all after the test for each message size.
 
 osu_oshm_get_mr_nb.c - Message Rate Test for Non-blocking OpenSHMEM Get Routine
     * This benchmark measures the aggregate uni-directional operation rate of
-    * OpenSHMEM Non-blocking Get between pairs of PEs, for different data sizes. 
-    * The user should select for communication buffers to be in global memory 
-    * and heap memory as with the earlier benchmarks. This test requires number 
+    * OpenSHMEM Non-blocking Get between pairs of PEs, for different data sizes.
+    * The user should select for communication buffers to be in global memory
+    * and heap memory as with the earlier benchmarks. This test requires number
     * of PEs to be even. The PEs are paired with PE 0 pairing with PE n/2 and so on,
     * where n is the total number of PEs. The first PE in each pair issues
     * back-to-back shmem getmem_nbi operations to its peer PE until the window
     * size. A call to shmem_quite is placed after the window loop to ensure
-    * completion of the issued operations. The total time for the non-blocking 
+    * completion of the issued operations. The total time for the non-blocking
     * put operations is measured and operation rate per second is reported.
     * All PEs call shmem barrier all after the test for each message size.
 
@@ -608,7 +794,7 @@ osu_oshm_atomics.c - Latency and Operation Rate Test for OpenSHMEM Atomics Routi
     * benchmark and the first PE in each pair issues back-to-back atomic
     * operations of a type to its peer PE. The average latency per atomic
     * operation and the aggregate operation rate are reported.  This is
-    * repeated for each of fadd, finc, add, inc, cswap, swap, set, and fetch 
+    * repeated for each of fadd, finc, add, inc, cswap, swap, set, and fetch
     * routines.
 
 Collective OpenSHMEM Benchmarks
@@ -740,27 +926,43 @@ osu_hello.c - This is a simple hello world program. Users can take advantage of
     * Example:
     * - time mpirun_rsh -np 2 -hostfile hostfile osu_hello
 
-CUDA and OpenACC Extensions to OMB
-----------------------------------
+ROCm, CUDA and OpenACC Extensions to OMB
+----------------------------------------
 CUDA Extensions to OMB can be enable by configuring the benchmark suite with
---enable-cuda option as shown below.  Similarly, OpenACC Extensions can be
-enabled by specifying the --enable-openacc option.  The MPI library used should
-be able to support MPI communication from buffers in GPU Device memory.
+--enable-cuda option as shown below.
 
-    ./configure CC=/path/to/mpicc 
+    ./configure CC=/path/to/mpicc
                 CXX=/path/to/mpicxx
-                --enable-cuda 
+                --enable-cuda
                 --with-cuda-include=/path/to/cuda/include
                 --with-cuda-libpath=/path/to/cuda/lib
     make
     make install
 
+ROCm extensions can be enabled by configuring OMB with --enable-rocm
+option as shown below. Similarly OpenACC extensions can be enabled using
+--enable-openacc option. The MPI library used should be able to support MPI
+communication from buffers in GPU Device memory.
+
+    ./configure CC=/path/to/mpicc
+                CXX=/path/to/mpicxx
+                --enable-rocm
+                --with-rocm=/path/to/rocm/install
+    make
+    make install
+
+Similarly, OpenACC and SYCL Extensions can be enabled by specifying the
+--enable-openacc and --enable-sycl options respectively.  The MPI library used
+should be able to support MPI communication from buffers in GPU Device memory.
+
 The following benchmarks have been extended to evaluate performance of
-MPI communication using buffers on NVIDIA GPU devices.
+MPI communication using buffers on AMD and NVIDIA GPU devices.
 
     osu_bibw           - Bidirectional Bandwidth Test
     osu_bw             - Bandwidth Test
     osu_latency        - Latency Test
+    osu_mbw_mr         - Multiple Bandwidth / Message Rate Test
+    osu_multi_lat      - Multi-pair Latency Test
     osu_put_latency    - Latency Test for Put
     osu_get_latency    - Latency Test for Get
     osu_put_bw         - Bandwidth Test for Put
@@ -783,19 +985,24 @@ MPI communication using buffers on NVIDIA GPU devices.
     osu_scatterv       - MPI_Scatterv Latency Test
     osu_iallgather     - MPI_Iallgather Latency Test
     osu_iallgatherv    - MPI_Iallgatherv Latency Test
+    osu_iallreduce     - MPI_Iallreduce Latency Test
     osu_ialltoall      - MPI_Ialltoall Latency Test
     osu_ialltoallv     - MPI_Ialltoallv Latency Test
     osu_ialltoallw     - MPI_Ialltoallw Latency Test
     osu_ibcast         - MPI_Ibcast Latency Test
     osu_igather        - MPI_Igather Latency Test
     osu_igatherv       - MPI_Igatherv Latency Test
+    osu_ireduce        - MPI_Ireduce Latency Test
     osu_iscatter       - MPI_Iscatter Latency Test
     osu_iscatterv      - MPI_Iscatterv Latency Test
 
 If both CUDA and OpenACC support is enabled you can switch between the modes
-using the -d [cuda|openacc] option to the benchmarks.  Whether a process
-allocates its communication buffers on the GPU device or on the host can be
-controlled at run-time.  Use the -h option for more help.
+using the -d [cuda|openacc] option to the benchmarks. If ROCm support is
+enabled, you need to use -d rocm option to make the benchmarks use this feature.
+If SYCL support is enabled, you need to use -d sycl option to make the
+benchmarks use this feature. Whether a process allocates its communication
+buffers on the GPU device or on the host can be controlled at run-time.
+Use the -h option for more help.
 
     ./osu_latency -h
     Usage: osu_latency [options] [RANK0 RANK1]
@@ -820,11 +1027,13 @@ allocated on the host.
 Examples:
 
     - mpirun_rsh -np 2 -hostfile hostfile MV2_USE_CUDA=1 osu_latency D D
+    - mpirun_rsh -np 2 -hostfile hostfile MV2_USE_ROCM=1 osu_latency D D
 
 In this run, the latency test allocates buffers at both rank 0 and rank 1 on
 the GPU devices.
 
     - mpirun_rsh -np 2 -hostfile hostfile MV2_USE_CUDA=1 osu_bw D H
+    - mpirun_rsh -np 2 -hostfile hostfile MV2_USE_ROCM=1 osu_bw D H
 
 In this run, the bandwidth test allocates buffers at rank 0 on the GPU device
 and buffers at rank 1 on the host.
@@ -837,9 +1046,10 @@ launchers expose this information through different environment variables. The
 benchmarks use an environment variable called LOCAL_RANK to get this
 information.
 
-A script like below can be used to export this environment variable when using
-mpirun_rsh.  This can be adapted to work with other MPI launchers and
-libraries.
+Starting with OMB v5.4.4, the benchmarks automatically identify the process rank
+on a node for MVAPICH2 when launched with mpirun_rsh. However, a script like
+below can be used to export this environment variable when using OMB to work
+with other MPI launchers and libraries.
 
     #!/bin/bash
 
@@ -851,4 +1061,452 @@ It can be used as follows:
 
     mpirun_rsh -np 2 -hostfile hostfile MV2_USE_CUDA=1 get_local_rank \
         ./osu_latency D D
+    mpirun_rsh -np 2 -hostfile hostfile MV2_USE_ROCM=1 get_local_rank \
+        ./osu_latency D D
+
+Support for Derived Data Types
+------------------------------
+The following benchmarks have been extended to support MPI derived data types in
+addition to the communication performance.
+
+    osu_bibw           - Bidirectional Bandwidth Test
+    osu_bw             - Bandwidth Test
+    osu_latency        - Latency Test
+    osu_mbw_mr         - Multiple Bandwidth / Message Rate Test
+    osu_multi_lat      - Multi-pair Latency Test
+    osu_latency_mt     - Multi-threaded Latency Test
+    osu_latency_mp     - Multi-process Latency Test
+    osu_allgather      - MPI_Allgather Latency Test(*)
+    osu_allgatherv     - MPI_Allgatherv Latency Test
+    osu_alltoall       - MPI_Alltoall Latency Test
+    osu_alltoallv      - MPI_Alltoallv Latency Test
+    osu_bcast          - MPI_Bcast Latency Test
+    osu_gather         - MPI_Gather Latency Test(*)
+    osu_gatherv        - MPI_Gatherv Latency Test
+    osu_scatter        - MPI_Scatter Latency Test(*)
+    osu_scatterv       - MPI_Scatterv Latency Test
+    osu_iallgather     - MPI_Iallgather Latency Test
+    osu_iallgatherv    - MPI_Iallgatherv Latency Test
+    osu_ialltoall      - MPI_Ialltoall Latency Test
+    osu_ialltoallv     - MPI_Ialltoallv Latency Test
+    osu_ialltoallw     - MPI_Ialltoallw Latency Test
+    osu_ibcast         - MPI_Ibcast Latency Test
+    osu_igather        - MPI_Igather Latency Test
+    osu_igatherv       - MPI_Igatherv Latency Test
+    osu_iscatter       - MPI_Iscatter Latency Test
+    osu_iscatterv      - MPI_Iscatterv Latency Test
+
+    * Additionally, the benchmarks offer following options:
+    * "-D" option can be used to enable DDT support
+    *      "-D cont" for contiguous DDT support
+    *      "-D vect:[stride]:[block_length]" for vector DDT support
+    *           Example: -D vect:8:4
+    *      "-D indx:[ddt file path]" for index DDT support
+    *           Example: -D indx:ddt_sample.txt
+
+Support for Graphs
+------------------
+The following benchmarks have been extended to support graphing of metrics in
+addition to the communication performance.
+
+This feature can be used if 'gnuplot' in present in the PATH or by passing gnuplot
+installation path during configure time using
+--with-gnuplot=/path/to/gnuplot/installation/bin.
+
+For graph output in pdf format, in addition to gnuplot, 'convert' must be present
+in the PATH or must be passed during configure time using
+--with-convert=/path/to/ImageMagick/installation/bin
+
+    osu_bibw           - Bidirectional Bandwidth Test
+    osu_bw             - Bandwidth Test
+    osu_latency        - Latency Test
+    osu_mbw_mr         - Multiple Bandwidth / Message Rate Test
+    osu_multi_lat      - Multi-pair Latency Test
+    osu_latency_mt     - Multi-threaded Latency Test
+    osu_latency_mp     - Multi-process Latency Test
+    osu_allgather      - MPI_Allgather Latency Test
+    osu_allgatherv     - MPI_Allgatherv Latency Test
+    osu_alltoall       - MPI_Alltoall Latency Test
+    osu_alltoallv      - MPI_Alltoallv Latency Test
+    osu_alltoallw      - MPI_Alltoallw Latency Test
+    osu_allreduce      - MPI_Allreduce Latency Test
+    osu_bcast          - MPI_Bcast Latency Test
+    osu_gather         - MPI_Gather Latency Test
+    osu_gatherv        - MPI_Gatherv Latency Test
+    osu_barrier        - MPI_Barrier Latency Test
+    osu_reduce         - MPI_Reduce Latency Test
+    osu_reduce_scatter - MPI_Reduce_scatter Latency Test
+    osu_scatter        - MPI_Scatter Latency Test
+    osu_scatterv       - MPI_Scatterv Latency Test
+    osu_iallgather     - MPI_Iallgather Latency Test
+    osu_iallgatherv    - MPI_Iallgatherv Latency Test
+    osu_iallreduce     - MPI_Iallreduce Latency Test
+    osu_ialltoall      - MPI_Ialltoall Latency Test
+    osu_ialltoallv     - MPI_Ialltoallv Latency Test
+    osu_ialltoallw     - MPI_Ialltoallw Latency Test
+    osu_ibarrier       - MPI_Ibarrier Latency Test
+    osu_ibcast         - MPI_Ibcast Latency Test
+    osu_igather        - MPI_Igather Latency Test
+    osu_igatherv       - MPI_Igatherv Latency Test
+    osu_ireduce        - MPI_Ireduce Latency Test
+    osu_iscatter       - MPI_Iscatter Latency Test
+    osu_iscatterv      - MPI_Iscatterv Latency Test
+    osu_put_latency    - Latency Test for Put
+    osu_get_latency    - Latency Test for Get
+    osu_put_bw         - Bandwidth Test for Put
+    osu_get_bw         - Bandwidth Test for Get
+    osu_put_bibw       - Bidirectional Bandwidth Test for Put
+    osu_acc_latency    - Latency Test for Accumulate
+    osu_cas_latency    - Latency Test for Compare and Swap
+    osu_fop_latency    - Latency Test for Fetch and Op
+    osu_get_acc_latency- Latency Test for Get_accumulate with Active/Passive
+
+    * Additionally, the benchmarks offer following options:
+    * "-G" option can be used to output result in graphs
+    *      "-G tty" for graph output in terminal using ASCII characters
+    *      "-G png" for graph output in png format
+    *      "-G pdf" for graph output in pdf format
+
+Support for PAPI
+------------------
+The following benchmarks have been extended to support PAPI to get insights in
+addition to the communication performance.
+
+This feature can be used by enabling PAPI support using --enable-papi and
+passing PAPI installation path during configure time using
+--with-papi=/path/to/papi/build.
+
+    osu_bibw           - Bidirectional Bandwidth Test
+    osu_bw             - Bandwidth Test
+    osu_latency        - Latency Test
+    osu_mbw_mr         - Multiple Bandwidth / Message Rate Test
+    osu_multi_lat      - Multi-pair Latency Test
+    osu_latency_mp     - Multi-process Latency Test
+    osu_allgather      - MPI_Allgather Latency Test
+    osu_allgatherv     - MPI_Allgatherv Latency Test
+    osu_alltoall       - MPI_Alltoall Latency Test
+    osu_alltoallv      - MPI_Alltoallv Latency Test
+    osu_alltoallw      - MPI_Alltoallw Latency Test
+    osu_allreduce      - MPI_Allreduce Latency Test
+    osu_bcast          - MPI_Bcast Latency Test
+    osu_gather         - MPI_Gather Latency Test
+    osu_gatherv        - MPI_Gatherv Latency Test
+    osu_barrier        - MPI_Barrier Latency Test
+    osu_reduce         - MPI_Reduce Latency Test
+    osu_reduce_scatter - MPI_Reduce_scatter Latency Test
+    osu_ireduce_scatter- MPI_Ireduce_scatter Latency Test
+    osu_scatter        - MPI_Scatter Latency Test
+    osu_scatterv       - MPI_Scatterv Latency Test
+    osu_iallgather     - MPI_Iallgather Latency Test
+    osu_iallgatherv    - MPI_Iallgatherv Latency Test
+    osu_iallreduce     - MPI_Iallreduce Latency Test
+    osu_ialltoall      - MPI_Ialltoall Latency Test
+    osu_ialltoallv     - MPI_Ialltoallv Latency Test
+    osu_ialltoallw     - MPI_Ialltoallw Latency Test
+    osu_ibarrier       - MPI_Ibarrier Latency Test
+    osu_ibcast         - MPI_Ibcast Latency Test
+    osu_igather        - MPI_Igather Latency Test
+    osu_igatherv       - MPI_Igatherv Latency Test
+    osu_ireduce        - MPI_Ireduce Latency Test
+    osu_iscatter       - MPI_Iscatter Latency Test
+    osu_iscatterv      - MPI_Iscatterv Latency Test
+    osu_put_latency    - Latency Test for Put
+    osu_get_latency    - Latency Test for Get
+    osu_put_bw         - Bandwidth Test for Put
+    osu_get_bw         - Bandwidth Test for Get
+    osu_put_bibw       - Bidirectional Bandwidth Test for Put
+    osu_acc_latency    - Latency Test for Accumulate
+    osu_cas_latency    - Latency Test for Compare and Swap
+    osu_fop_latency    - Latency Test for Fetch and Op
+    osu_get_acc_latency- Latency Test for Get_accumulate with Active/Passive
+
+
+    * Additionally, the benchmarks offer following options:
+    * "-P  [EVENTS]:[PATH]" option can be used to enable PAPI output
+    *      "[EVENTS]" Comma seperated list of PAPI events
+    *      "[PATH]" PAPI output file path
+    * E.g: -PPAPI_L1_DCM,PAPI_VEC_DP,PAPI_VEC_SP:papi_output.out
+
+Point-to-Point Persistent Benchmarks
+------------------------------
+osu_latency_p - Persistent Latency Test
+    * Similar to osu_latency test using persistent point-to-point communication
+    * requests.
+
+osu_bw_p - Persistent Bandwidth Test
+    * Similar to osu_bw test using persistent point-to-point communication
+    * requests.
+
+osu_bibw_p - Persistent Bidirectional Bandwidth Test
+    * Similar to osu_bibw test using persistent point-to-point communication
+    * requests.
+
+
+Persistent Collective Benchmarks
+------------------------------
+osu_bcast_persistent          - Persistent collective communication test for MPI_Bcast
+osu_allgather_persistent      - Persistent collective communication test for MPI_Allgather
+osu_allgatherv_persistent     - Persistent collective communication test for MPI_Allgatherv
+osu_allreduce_persistent      - Persistent collective communication test for MPI_Allreduce
+osu_alltoall_persistent       - Persistent collective communication test for MPI_Alltoall
+osu_alltoallv_persistent      - Persistent collective communication test for MPI_Alltoallv
+osu_alltoallw_persistent      - Persistent collective communication test for MPI_Alltoallw
+osu_gather_persistent         - Persistent collective communication test for MPI_Gather
+osu_gatherv_persistent        - Persistent collective communication test for MPI_Gatherv
+osu_reduce_persistent         - Persistent collective communication test for MPI_Reduce
+osu_reduce_scatter_persistent - Persistent collective communication test for MPI_Reduce_scatter
+osu_scatter_persistent        - Persistent collective communication test for MPI_Scatter
+osu_scatterv_persistent       - Persistent collective communication test for MPI_Scatterv
+osu_barrier_persistent        - Persistent collective communication test for MPI_Barrier
+
+
+Neighborhood Collective MPI Benchmarks
+--------------------------------------
+osu_neighbor_allgather  - MPI_Neighbor_allgather Latency Test
+osu_neighbor_allgatherv - MPI_Neighbor_allgatherv Latency Test
+osu_neighbor_alltoall   - MPI_Neighbor_alltoall Latency Test
+osu_neighbor_alltoallv  - MPI_Neighbor_alltoallv Latency Test
+osu_neighbor_alltoallw  - MPI_Neighbor_alltoallw Latency Test
+osu_ineighbor_allgather - MPI_Ineighbor_allgather Latency Test
+osu_ineighbor_allgatherv- MPI_Ineighbor_allgatherv Latency Test
+osu_ineighbor_alltoall  - MPI_Ineighbor_alltoall Latency Test
+osu_ineighbor_alltoallv - MPI_Ineighbor_alltoallv Latency Test
+osu_ineighbor_alltoallw - MPI_Ineighbor_alltoallw Latency Test
+
+Neighbor Collective Latency Tests
+    * In addition to the blocking and non-blocking collective latency tests,
+    * we provide several neighborhood collectives as mentioned above.
+    * Additionally, the benchmarks offer following options:
+    * "-N [TYPE]:[ARGS]  Configure neighborhood collectives.(default:- cart:1:1)
+    *                    -N cart:<num of dimentions:radius>   //Cartesian
+    *                    -N graph:<adjacency graph file>      //Graph
+    * Sample adjacency graph file found in utils.
+
+Support for multiple MPI types
+--------------------------------------
+The following benchmarks have been extended to support multiple MPI types.
+    osu_bibw                - Bidirectional Bandwidth Test
+    osu_bw                  - Bandwidth Test
+    osu_latency             - Latency Test
+    osu_mbw_mr              - Multiple Bandwidth / Message Rate Test
+    osu_multi_lat           - Multi-pair Latency Test
+    osu_latency_mp          - Multi-process Latency Test
+    osu_allgather           - MPI_Allgather Latency Test
+    osu_allgatherv          - MPI_Allgatherv Latency Test
+    osu_alltoall            - MPI_Alltoall Latency Test
+    osu_alltoallv           - MPI_Alltoallv Latency Test
+    osu_alltoallw           - MPI_Alltoallw Latency Test
+    osu_allreduce           - MPI_Allreduce Latency Test
+    osu_bcast               - MPI_Bcast Latency Test
+    osu_gather              - MPI_Gather Latency Test
+    osu_gatherv             - MPI_Gatherv Latency Test
+    osu_barrier             - MPI_Barrier Latency Test
+    osu_reduce              - MPI_Reduce Latency Test
+    osu_reduce_scatter      - MPI_Reduce_scatter Latency Test
+    osu_ireduce_scatter     - MPI_Ireduce_scatter Latency Test
+    osu_scatter             - MPI_Scatter Latency Test
+    osu_scatterv            - MPI_Scatterv Latency Test
+    osu_iallgather          - MPI_Iallgather Latency Test
+    osu_iallgatherv         - MPI_Iallgatherv Latency Test
+    osu_iallreduce          - MPI_Iallreduce Latency Test
+    osu_ialltoall           - MPI_Ialltoall Latency Test
+    osu_ialltoallv          - MPI_Ialltoallv Latency Test
+    osu_ialltoallw          - MPI_Ialltoallw Latency Test
+    osu_ibarrier            - MPI_Ibarrier Latency Test
+    osu_ibcast              - MPI_Ibcast Latency Test
+    osu_igather             - MPI_Igather Latency Test
+    osu_igatherv            - MPI_Igatherv Latency Test
+    osu_ireduce             - MPI_Ireduce Latency Test
+    osu_iscatter            - MPI_Iscatter Latency Test
+    osu_iscatterv           - MPI_Iscatterv Latency Test
+    osu_put_latency         - Latency Test for Put
+    osu_get_latency         - Latency Test for Get
+    osu_put_bw              - Bandwidth Test for Put
+    osu_get_bw              - Bandwidth Test for Get
+    osu_put_bibw            - Bidirectional Bandwidth Test for Put
+    osu_acc_latency         - Latency Test for Accumulate
+    osu_cas_latency         - Latency Test for Compare and Swap
+    osu_fop_latency         - Latency Test for Fetch and Op
+    osu_get_acc_latency     - Latency Test for Get_accumulate with Active/Passive
+    osu_neighbor_allgather  - MPI_Neighbor_allgather Latency Test
+    osu_neighbor_allgatherv - MPI_Neighbor_allgatherv Latency Test
+    osu_neighbor_alltoall   - MPI_Neighbor_alltoall Latency Test
+    osu_neighbor_alltoallv  - MPI_Neighbor_alltoallv Latency Test
+    osu_neighbor_alltoallw  - MPI_Neighbor_alltoallw Latency Test
+    osu_ineighbor_allgather - MPI_Ineighbor_allgather Latency Test
+    osu_ineighbor_allgatherv- MPI_Ineighbor_allgatherv Latency Test
+    osu_ineighbor_alltoall  - MPI_Ineighbor_alltoall Latency Test
+    osu_ineighbor_alltoallv - MPI_Ineighbor_alltoallv Latency Test
+    osu_ineighbor_alltoallw - MPI_Ineighbor_alltoallw Latency Test
+
+    * Additionally, the benchmarks offer following options:
+    * "-T" option can be used to pass required MPI type.
+    *      "-T mpi_int" for running benchmark using MPI_INT.
+    *      "-T all" for running benchmark using supported MPI types.
+
+Support for MPI Session
+--------------------------------------
+The following benchmarks have been extended to support MPI initialization using
+session.
+    osu_bibw                - Bidirectional Bandwidth Test
+    osu_bw                  - Bandwidth Test
+    osu_latency             - Latency Test
+    osu_mbw_mr              - Multiple Bandwidth / Message Rate Test
+    osu_multi_lat           - Multi-pair Latency Test
+    osu_latency_mp          - Multi-process Latency Test
+    osu_latency_mt          - Multi-threaded Latency Test
+    osu_latency_p           - Persistent Latency Test
+    osu_bw_p                - Persistent Bandwidth Test
+    osu_bibw_p              - Persistent Bidirectional Bandwidth Test
+    osu_allgather           - MPI_Allgather Latency Test
+    osu_allgatherv          - MPI_Allgatherv Latency Test
+    osu_alltoall            - MPI_Alltoall Latency Test
+    osu_alltoallv           - MPI_Alltoallv Latency Test
+    osu_alltoallw           - MPI_Alltoallw Latency Test
+    osu_allreduce           - MPI_Allreduce Latency Test
+    osu_bcast               - MPI_Bcast Latency Test
+    osu_gather              - MPI_Gather Latency Test
+    osu_gatherv             - MPI_Gatherv Latency Test
+    osu_barrier             - MPI_Barrier Latency Test
+    osu_reduce              - MPI_Reduce Latency Test
+    osu_reduce_scatter      - MPI_Reduce_scatter Latency Test
+    osu_ireduce_scatter     - MPI_Ireduce_scatter Latency Test
+    osu_scatter             - MPI_Scatter Latency Test
+    osu_scatterv            - MPI_Scatterv Latency Test
+    osu_iallgather          - MPI_Iallgather Latency Test
+    osu_iallgatherv         - MPI_Iallgatherv Latency Test
+    osu_iallreduce          - MPI_Iallreduce Latency Test
+    osu_ialltoall           - MPI_Ialltoall Latency Test
+    osu_ialltoallv          - MPI_Ialltoallv Latency Test
+    osu_ialltoallw          - MPI_Ialltoallw Latency Test
+    osu_ibarrier            - MPI_Ibarrier Latency Test
+    osu_ibcast              - MPI_Ibcast Latency Test
+    osu_igather             - MPI_Igather Latency Test
+    osu_igatherv            - MPI_Igatherv Latency Test
+    osu_ireduce             - MPI_Ireduce Latency Test
+    osu_iscatter            - MPI_Iscatter Latency Test
+    osu_iscatterv           - MPI_Iscatterv Latency Test
+    osu_neighbor_allgather  - MPI_Neighbor_allgather Latency Test
+    osu_neighbor_allgatherv - MPI_Neighbor_allgatherv Latency Test
+    osu_neighbor_alltoall   - MPI_Neighbor_alltoall Latency Test
+    osu_neighbor_alltoallv  - MPI_Neighbor_alltoallv Latency Test
+    osu_neighbor_alltoallw  - MPI_Neighbor_alltoallw Latency Test
+    osu_ineighbor_allgather - MPI_Ineighbor_allgather Latency Test
+    osu_ineighbor_allgatherv- MPI_Ineighbor_allgatherv Latency Test
+    osu_ineighbor_alltoall  - MPI_Ineighbor_alltoall Latency Test
+    osu_ineighbor_alltoallv - MPI_Ineighbor_alltoallv Latency Test
+    osu_ineighbor_alltoallw - MPI_Ineighbor_alltoallw Latency Test
+    osu_put_latency         - Latency Test for Put
+    osu_get_latency         - Latency Test for Get
+    osu_put_bw              - Bandwidth Test for Put
+    osu_get_bw              - Bandwidth Test for Get
+    osu_put_bibw            - Bidirectional Bandwidth Test for Put
+    osu_acc_latency         - Latency Test for Accumulate
+    osu_cas_latency         - Latency Test for Compare and Swap
+    osu_fop_latency         - Latency Test for Fetch and Op
+    osu_get_acc_latency     - Latency Test for Get_accumulate with Active/Passive
+    osu_init                - MPI initialization test
+
+    * Additionally, the benchmarks offer following options:
+    * "-I" option can be used to enable MPI initialization using session.
+
+Support for MPI_IN_PLACE
+--------------------------------------
+The following benchmarks have been extended to support MPI_IN_PLACE.
+    osu_allgather           - MPI_Allgather Latency Test
+    osu_allgatherv          - MPI_Allgatherv Latency Test
+    osu_alltoall            - MPI_Alltoall Latency Test
+    osu_alltoallv           - MPI_Alltoallv Latency Test
+    osu_alltoallw           - MPI_Alltoallw Latency Test
+    osu_allreduce           - MPI_Allreduce Latency Test
+    osu_gather              - MPI_Gather Latency Test
+    osu_gatherv             - MPI_Gatherv Latency Test
+    osu_reduce              - MPI_Reduce Latency Test
+    osu_reduce_scatter      - MPI_Reduce_scatter Latency Test
+    osu_ireduce_scatter     - MPI_Ireduce_scatter Latency Test
+    osu_scatter             - MPI_Scatter Latency Test
+    osu_scatterv            - MPI_Scatterv Latency Test
+    osu_iallgather          - MPI_Iallgather Latency Test
+    osu_iallgatherv         - MPI_Iallgatherv Latency Test
+    osu_iallreduce          - MPI_Iallreduce Latency Test
+    osu_ialltoall           - MPI_Ialltoall Latency Test
+    osu_ialltoallv          - MPI_Ialltoallv Latency Test
+    osu_ialltoallw          - MPI_Ialltoallw Latency Test
+    osu_igather             - MPI_Igather Latency Test
+    osu_igatherv            - MPI_Igatherv Latency Test
+    osu_ireduce             - MPI_Ireduce Latency Test
+    osu_iscatter            - MPI_Iscatter Latency Test
+    osu_iscatterv           - MPI_Iscatterv Latency Test
+
+    * Additionally, the benchmarks offer following options:
+    * "-l" option can be used to run benchmarks with MPI_IN_PLACE support.
+
+Option to set root rank
+--------------------------------------
+The following benchmarks have been extended which an option to set root rank.
+    osu_gather              - MPI_Gather Latency Test
+    osu_gatherv             - MPI_Gatherv Latency Test
+    osu_reduce              - MPI_Reduce Latency Test
+    osu_scatter             - MPI_Scatter Latency Test
+    osu_scatterv            - MPI_Scatterv Latency Test
+    osu_igather             - MPI_Igather Latency Test
+    osu_igatherv            - MPI_Igatherv Latency Test
+    osu_ireduce             - MPI_Ireduce Latency Test
+    osu_iscatter            - MPI_Iscatter Latency Test
+    osu_iscatterv           - MPI_Iscatterv Latency Test
+
+    * Additionally, the benchmarks offer following options:
+    * "-r" option can be used to set the root rank of the collective.
+    *      "-r rotate" to change root for every iteration.
+    *      "-r fixed:<rank>" to run benchmark with a fixed root.
+
+Option to print tail latencies/bandwidth
+-----------------------------------------
+Benchmarks have been extended to support the following additional metrics by
+default,
+    * 50th percentile tail latency/bandwidth
+    * 95th percentile tail latency/bandwidth
+    * 99th percentile tail latency/bandwidth
+
+The benchmarks offer following options:
+    * "-z" Outputs P99, P90, P50 percentiles"
+    * "-z<1-99,1-99,1-99..>" Comma seperated percentile range
+
+Building with MPI-4 support
+--------------------------------------
+OMB supports some of the MPI-4 features like MPI Sessions and Persistenct
+Collectives. When an MPI-4 supported MPI library is used at the time of
+configuration, OMB will automatically detect and build with MPI-4 support.
+
+OMB can also be forced to build with MPI-4 support by passing "--enable-mpi4"
+during configure time.
+
+
+Congestion Benchmarks
+-----------------------------------
+osu_bw_fan_out.c - benchmark to measure send bandwidth.
+    * The fan out congestion bandwidth test evaluates the aggregate
+    * uni-directional bandwidth between multiple pairs of process across nodes.
+    * Each of the sending processes on one node sends a fixed number of
+    * messages (the window size) back-to-back to the paired receiving
+    * processies on k nodes before waiting for a reply from the receiver.
+    * This process is repeated for several iterations. The objective of this
+    * benchmark is to determine the achieved bandwidth with configurable
+    * number of processes running on each node.
+
+osu_bw_fan_in.c - benchmark to measure receive bandwidth.
+    * The fan in congestion bandwidth test evaluates the aggregate
+    * uni-directional bandwidth between multiple pairs of process across nodes.
+    * Each of the sending processes on k nodes sends a fixed number of
+    * messages (the window size) back-to-back to the paired receiving
+    * processies on 1 node before waiting for a reply from the receiver.
+    * This process is repeated for several iterations. The objective of this
+    * benchmark is to determine the achieved bandwidth with configurable
+    * number of processes running on each node.
+
+Point-to-Point Partitioned Benchmarks
+------------------------------
+osu_partitioned_latency - Partitioned Latency Test
+    * Similar to osu_latency test using partitioned point-to-point communication
+    * requests.
 

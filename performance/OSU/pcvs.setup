@@ -4,78 +4,92 @@ pcvs_src_current=$pcvs_src/$1
 pcvs_build_current=$pcvs_testbuild/$1
 
 #pre actions...
-OLDIR=`pwd`
+OLDIR=$(pwd)
 cd $pcvs_build_current
 
 #run configure...
-$pcvs_src_current/configure CC="$PCVS_CMP_CC" CXX="$PCVS_CMP_CXX" CFLAGS="$PCVS_CMP_CC_ARGS" --prefix=$pcvs_build_current > $pcvs_build_current/configure_out.log 2>&1 || exit 1
+$pcvs_src_current/configure CC="$PCVS_CMP_CC" CXX="$PCVS_CMP_CXX" CFLAGS="$PCVS_CMP_CC_ARGS" --prefix=$pcvs_build_current >$pcvs_build_current/configure_out.log 2>&1 || exit 1
 
 mkdir -p $pcvs_build_current/util
 cp $pcvs_src_current/util/*.h $pcvs_build_current/util/
 
 echo "compile_osu_mpi:"
 echo "  build:"
-echo "    files: '@BUILDPATH@/mpi/$group/Makefile'"
+echo "    files: '@BUILDPATH@/c/mpi/$group/Makefile'"
 echo "    make: {'target': 'all'}"
 
 #add new tests here...
-for t in                      \
-startup/osu_hello               \
-startup/osu_init                \
-pt2pt/osu_bibw                  \
-pt2pt/osu_bw                    \
-pt2pt/osu_latency_mt            \
-pt2pt/osu_mbw_mr                \
-pt2pt/osu_multi_lat             \
-pt2pt/osu_latency               \
-collective/osu_reduce_scatter   \
-collective/osu_barrier          \
-collective/osu_iscatterv        \
-collective/osu_bcast            \
-collective/osu_igather          \
-collective/osu_iallgatherv      \
-collective/osu_ialltoall        \
-collective/osu_gatherv          \
-collective/osu_allgatherv       \
-collective/osu_alltoall         \
-collective/osu_gather           \
-collective/osu_scatter          \
-collective/osu_allgather        \
-collective/osu_alltoallv        \
-collective/osu_igatherv         \
-collective/osu_scatterv         \
-collective/osu_iscatter         \
-collective/osu_reduce           \
-collective/osu_ialltoallv       \
-collective/osu_allreduce        \
-collective/osu_ialltoallw       \
-collective/osu_iallgather       \
-collective/osu_ibarrier         \
-collective/osu_ibcast           \
-one-sided/osu_put_bw            \
-one-sided/osu_acc_latency       \
-one-sided/osu_put_bibw          \
-one-sided/osu_get_acc_latency   \
-one-sided/osu_cas_latency       \
-one-sided/osu_get_latency       \
-one-sided/osu_get_bw            \
-one-sided/osu_put_latency       \
-one-sided/osu_fop_latency       \
-; do
-group=`echo "$t" | cut -f1 -d'/'`
-bin=`echo "$t" | cut -f2 -d'/'`
-echo "${group}_${bin}:"
-echo "  group: 'GRPMPI'"
-echo "  run:"
-echo "    program: 'mpi/$group/$bin'"
-echo "    depends_on:   [ 'compile_osu_mpi' ]"
+for t in \
+	startup//osu_hello \
+	startup//osu_init \
+	pt2pt/standard/osu_bw \
+	pt2pt/standard/osu_bibw \
+	pt2pt/standard/osu_mbw_mr \
+	pt2pt/standard/osu_latency \
+	pt2pt/standard/osu_multi_lat \
+	pt2pt/standard/osu_latency_mt \
+	collective/blocking/osu_barrier \
+	collective/blocking/osu_bcast \
+	collective/blocking/osu_gather \
+	collective/blocking/osu_allgather \
+	collective/blocking/osu_gatherv \
+	collective/blocking/osu_allgatherv \
+	collective/blocking/osu_scatter \
+	collective/blocking/osu_scatterv \
+	collective/blocking/osu_reduce \
+	collective/blocking/osu_reduce_scatter \
+	collective/blocking/osu_allreduce \
+	collective/blocking/osu_alltoall \
+	collective/blocking/osu_alltoallv \
+	collective/non_blocking/osu_ibarrier \
+	collective/non_blocking/osu_ibcast \
+	collective/non_blocking/osu_igather \
+	collective/non_blocking/osu_iallgather \
+	collective/non_blocking/osu_igatherv \
+	collective/non_blocking/osu_iallgatherv \
+	collective/non_blocking/osu_iscatter \
+	collective/non_blocking/osu_iscatterv \
+	collective/non_blocking/osu_ialltoall \
+	collective/non_blocking/osu_ialltoallv \
+	collective/non_blocking/osu_ialltoallw \
+	one-sided//osu_get_bw \
+	one-sided//osu_put_bw \
+	one-sided//osu_put_bibw \
+	one-sided//osu_acc_latency \
+	one-sided//osu_cas_latency \
+	one-sided//osu_get_acc_latency \
+	one-sided//osu_get_latency \
+	one-sided//osu_put_latency \
+	one-sided//osu_fop_latency; do
 
-#please set special cases here...
-case $t in
-	pt2pt/osu_mbw_mr|collective/*) echo "    iterate: {'n_mpi': {'values': [{op: 'seq', from: 2}]}}" ;;
-	pt2pt/*|one-sided/*)          echo "    iterate: {'n_mpi': {'values': [2]}}" ;;
+	group=$(echo "$t" | cut -f1 -d'/')
+	subgroup=$(echo "$t" | cut -f2 -d'/')
+	bin=$(echo "$t" | cut -f3 -d'/')
 
-esac
+	if test -z $subgroup; then
+		program="c/mpi/$group/$bin"
+	else
+		program="c/mpi/$group/$subgroup/$bin"
+	fi
+
+	echo "${group}_${bin}:"
+	echo "  group: 'GRPMPI'"
+	echo "  run:"
+	echo "    program: '${program}'"
+	echo "    depends_on:   [ 'compile_osu_mpi' ]"
+
+	#please set special cases here...
+	case $t in
+	pt2pt/standard/osu_mbw_mr | collective/*)
+		echo "    iterate: {'n_mpi': {'values': [{op: 'seq', from: 2}]}}"
+		;;
+	pt2pt/* | one-sided/*)
+		echo "    iterate: {'n_mpi': {'values': [2]}}"
+		;;
+	esac
+
+	echo "  validate: {time: {hard_timeout: 600}}"
+	echo ""
 done
 ######
 cd $OLDIR
