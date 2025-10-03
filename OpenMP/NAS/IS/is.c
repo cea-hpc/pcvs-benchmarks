@@ -1,6 +1,6 @@
 /*************************************************************************
  *                                                                       * 
- *       N  A  S     P A R A L L E L     B E N C H M A R K S  3.3        *
+ *       N  A  S     P A R A L L E L     B E N C H M A R K S  3.4        *
  *                                                                       *
  *                      O p e n M P     V E R S I O N                    *
  *                                                                       * 
@@ -14,10 +14,10 @@
  *   Permission to use, copy, distribute and modify this software        *
  *   for any purpose with or without fee is hereby granted.  We          *
  *   request, however, that all derived work reference the NAS           *
- *   Parallel Benchmarks 3.3. This software is provided "as is"          *
+ *   Parallel Benchmarks 3.4. This software is provided "as is"          *
  *   without express or implied warranty.                                *
  *                                                                       *
- *   Information on NPB 3.3, including the technical report, the         *
+ *   Information on NPB 3.4, including the technical report, the         *
  *   original specifications, source code, results and information       *
  *   on how to submit new results, is available at:                      *
  *                                                                       *
@@ -27,11 +27,7 @@
  *                                                                       *
  *         NAS Parallel Benchmarks Group                                 *
  *         NASA Ames Research Center                                     *
- *         Mail Stop: T27A-1                                             *
  *         Moffett Field, CA   94035-1000                                *
- *                                                                       *
- *         E-mail:  npb@nas.nasa.gov                                     *
- *         Fax:     (650) 604-3957                                       *
  *                                                                       *
  ************************************************************************* 
  *                                                                       * 
@@ -132,12 +128,27 @@
 #endif
 
 
-#if CLASS == 'D'
+/*************/
+/*  CLASS E  */
+/*************/
+#if CLASS == 'E'
+#define  TOTAL_KEYS_LOG_2    35
+#define  MAX_KEY_LOG_2       31
+#define  NUM_BUCKETS_LOG_2   10
+#endif
+
+
+#if (CLASS == 'D' || CLASS == 'E')
 #define  TOTAL_KEYS          (1L << TOTAL_KEYS_LOG_2)
+#define  TOTAL_KS1           (1 << (TOTAL_KEYS_LOG_2-8))
+#define  TOTAL_KS2           (1 << 8)
+#define  MAX_KEY             (1L << MAX_KEY_LOG_2)
 #else
 #define  TOTAL_KEYS          (1 << TOTAL_KEYS_LOG_2)
-#endif
+#define  TOTAL_KS1           TOTAL_KEYS
+#define  TOTAL_KS2           1
 #define  MAX_KEY             (1 << MAX_KEY_LOG_2)
+#endif
 #define  NUM_BUCKETS         (1 << NUM_BUCKETS_LOG_2)
 #define  NUM_KEYS            TOTAL_KEYS
 #define  SIZE_OF_BUFFERS     NUM_KEYS  
@@ -152,7 +163,7 @@
 /* size of int here by changing the  */
 /* int type to, say, long            */
 /*************************************/
-#if CLASS == 'D'
+#if (CLASS == 'D' || CLASS == 'E')
 typedef  long INT_TYPE;
 #else
 typedef  int  INT_TYPE;
@@ -189,9 +200,9 @@ INT_TYPE **bucket_size,
 /* Partial verif info */
 /**********************/
 INT_TYPE test_index_array[TEST_ARRAY_SIZE],
-         test_rank_array[TEST_ARRAY_SIZE],
+         test_rank_array[TEST_ARRAY_SIZE];
 
-         S_test_index_array[TEST_ARRAY_SIZE] = 
+int      S_test_index_array[TEST_ARRAY_SIZE] = 
                              {48427,17148,23627,62548,4431},
          S_test_rank_array[TEST_ARRAY_SIZE] = 
                              {0,18,346,64917,65463},
@@ -214,12 +225,17 @@ INT_TYPE test_index_array[TEST_ARRAY_SIZE],
          C_test_index_array[TEST_ARRAY_SIZE] = 
                              {44172927,72999161,74326391,129606274,21736814},
          C_test_rank_array[TEST_ARRAY_SIZE] = 
-                             {61147,882988,266290,133997595,133525895},
+                             {61147,882988,266290,133997595,133525895};
 
-         D_test_index_array[TEST_ARRAY_SIZE] = 
+long     D_test_index_array[TEST_ARRAY_SIZE] = 
                              {1317351170,995930646,1157283250,1503301535,1453734525},
          D_test_rank_array[TEST_ARRAY_SIZE] = 
-                             {1,36538729,1978098519,2145192618,2147425337};
+                             {1,36538729,1978098519,2145192618,2147425337},
+
+         E_test_index_array[TEST_ARRAY_SIZE] = 
+                             {21492309536L,24606226181L,12608530949L,4065943607L,3324513396L},
+         E_test_rank_array[TEST_ARRAY_SIZE] = 
+                             {3L,27580354L,3248475153L,30048754302L,31485259697L};
 
 
 /***********************/
@@ -248,11 +264,7 @@ void c_print_results( char   *name,
                       char   *cflags,
                       char   *clinkflags );
 
-
-void    timer_clear( int n );
-void    timer_start( int n );
-void    timer_stop( int n );
-double  timer_read( int n );
+#include "../common/c_timers.h"
 
 
 /*
@@ -421,24 +433,21 @@ void	create_seq( double seed, double a )
     {
 	INT_TYPE k1, k2;
 	double an = a;
-	int myid, num_procs;
+	int myid = 0, num_threads = 1;
         INT_TYPE mq;
 
 #ifdef _OPENMP
 	myid = omp_get_thread_num();
-	num_procs = omp_get_num_threads();
-#else
-	myid = 0;
-	num_procs = 1;
+	num_threads = omp_get_num_threads();
 #endif
 
-	mq = (NUM_KEYS + num_procs - 1) / num_procs;
+	mq = (NUM_KEYS + num_threads - 1) / num_threads;
 	k1 = mq * myid;
 	k2 = k1 + mq;
 	if ( k2 > NUM_KEYS ) k2 = NUM_KEYS;
 
 	KS = 0;
-	s = find_my_seed( myid, num_procs,
+	s = find_my_seed( myid, num_threads,
 			  (long)4*NUM_KEYS, seed, an );
 
         k = MAX_KEY/4;
@@ -475,19 +484,17 @@ void *alloc_mem( size_t size )
 void alloc_key_buff( void )
 {
     INT_TYPE i;
-    int      num_procs;
+    int      num_threads = 1;
 
 
 #ifdef _OPENMP
-    num_procs = omp_get_max_threads();
-#else
-    num_procs = 1;
+    num_threads = omp_get_max_threads();
 #endif
 
 #ifdef USE_BUCKETS
-    bucket_size = (INT_TYPE **)alloc_mem(sizeof(INT_TYPE *) * num_procs);
+    bucket_size = (INT_TYPE **)alloc_mem(sizeof(INT_TYPE *) * num_threads);
 
-    for (i = 0; i < num_procs; i++) {
+    for (i = 0; i < num_threads; i++) {
         bucket_size[i] = (INT_TYPE *)alloc_mem(sizeof(INT_TYPE) * NUM_BUCKETS);
     }
 
@@ -497,16 +504,42 @@ void alloc_key_buff( void )
 
 #else /*USE_BUCKETS*/
 
-    key_buff1_aptr = (INT_TYPE **)alloc_mem(sizeof(INT_TYPE *) * num_procs);
+    key_buff1_aptr = (INT_TYPE **)alloc_mem(sizeof(INT_TYPE *) * num_threads);
 
     key_buff1_aptr[0] = key_buff1;
-    for (i = 1; i < num_procs; i++) {
+    for (i = 1; i < num_threads; i++) {
         key_buff1_aptr[i] = (INT_TYPE *)alloc_mem(sizeof(INT_TYPE) * MAX_KEY);
     }
 
 #endif /*USE_BUCKETS*/
 }
 
+
+void free_key_buff( void )
+{
+    INT_TYPE i;
+    int      num_threads = 1;
+
+#ifdef _OPENMP
+    num_threads = omp_get_max_threads();
+#endif
+
+#ifdef USE_BUCKETS
+
+    for (i = 0; i < num_threads; i++) {
+        free(bucket_size[i]);
+    }
+    free(bucket_size);
+
+#else /*USE_BUCKETS*/
+
+    for (i = 1; i < num_threads; i++) {
+        free(key_buff1_aptr[i]);
+    }
+    free(key_buff1_aptr);
+
+#endif /*USE_BUCKETS*/
+}
 
 
 /*****************************************************************/
@@ -551,9 +584,14 @@ void full_verify( void )
 
     /* This is actual sorting. Each thread is responsible for 
        a subset of key values */
+#ifdef _OPENMP
     j = omp_get_num_threads();
     j = (MAX_KEY + j - 1) / j;
     k1 = j * omp_get_thread_num();
+#else
+    j = MAX_KEY;
+    k1 = 0;
+#endif
     k2 = k1 + j;
     if (k2 > MAX_KEY) k2 = MAX_KEY;
 
@@ -625,11 +663,11 @@ void rank( int iteration )
 #pragma omp parallel private(i, k)
   {
     INT_TYPE *work_buff, m, k1, k2;
-    int myid = 0, num_procs = 1;
+    int myid = 0, num_threads = 1;
 
 #ifdef _OPENMP
     myid = omp_get_thread_num();
-    num_procs = omp_get_num_threads();
+    num_threads = omp_get_num_threads();
 #endif
 
 
@@ -659,7 +697,7 @@ void rank( int iteration )
         bucket_ptrs[i] = bucket_ptrs[i-1];
         for( k=0; k< myid; k++ )
             bucket_ptrs[i] += bucket_size[k][i];
-        for( k=myid; k< num_procs; k++ )
+        for( k=myid; k< num_threads; k++ )
             bucket_ptrs[i] += bucket_size[k][i-1];
     }
 
@@ -673,9 +711,9 @@ void rank( int iteration )
     }
 
 /*  The bucket pointers now point to the final accumulated sizes */
-    if (myid < num_procs-1) {
+    if (myid < num_threads-1) {
         for( i=0; i< NUM_BUCKETS; i++ )
-            for( k=myid+1; k< num_procs; k++ )
+            for( k=myid+1; k< num_threads; k++ )
                 bucket_ptrs[i] += bucket_size[k][i];
     }
 
@@ -748,7 +786,7 @@ void rank( int iteration )
     #pragma omp barrier
 
 /*  Accumulate the global key population */
-    for( k=1; k<num_procs; k++ ) {
+    for( k=1; k<num_threads; k++ ) {
         #pragma omp for nowait schedule(static)
         for( i=0; i<MAX_KEY; i++ )
             key_buff_ptr[i] += key_buff1_aptr[k][i];
@@ -767,107 +805,66 @@ void rank( int iteration )
         if( 0 < k  &&  k <= NUM_KEYS-1 )
         {
             INT_TYPE key_rank = key_buff_ptr[k-1];
+            INT_TYPE test_rank = test_rank_array[i];
             int failed = 0;
 
             switch( CLASS )
             {
                 case 'S':
                     if( i <= 2 )
-                    {
-                        if( key_rank != test_rank_array[i]+iteration )
-                            failed = 1;
-                        else
-                            passed_verification++;
-                    }
+                        test_rank += iteration;
                     else
-                    {
-                        if( key_rank != test_rank_array[i]-iteration )
-                            failed = 1;
-                        else
-                            passed_verification++;
-                    }
+                        test_rank -= iteration;
                     break;
                 case 'W':
                     if( i < 2 )
-                    {
-                        if( key_rank != test_rank_array[i]+(iteration-2) )
-                            failed = 1;
-                        else
-                            passed_verification++;
-                    }
+                        test_rank += iteration - 2;
                     else
-                    {
-                        if( key_rank != test_rank_array[i]-iteration )
-                            failed = 1;
-                        else
-                            passed_verification++;
-                    }
+                        test_rank -= iteration;
                     break;
                 case 'A':
                     if( i <= 2 )
-        	    {
-                        if( key_rank != test_rank_array[i]+(iteration-1) )
-                            failed = 1;
-                        else
-                            passed_verification++;
-        	    }
+                        test_rank += iteration - 1;
                     else
-                    {
-                        if( key_rank != test_rank_array[i]-(iteration-1) )
-                            failed = 1;
-                        else
-                            passed_verification++;
-                    }
+                        test_rank -= iteration - 1;
                     break;
                 case 'B':
                     if( i == 1 || i == 2 || i == 4 )
-        	    {
-                        if( key_rank != test_rank_array[i]+iteration )
-                            failed = 1;
-                        else
-                            passed_verification++;
-        	    }
+                        test_rank += iteration;
                     else
-                    {
-                        if( key_rank != test_rank_array[i]-iteration )
-                            failed = 1;
-                        else
-                            passed_verification++;
-                    }
+                        test_rank -= iteration;
                     break;
                 case 'C':
                     if( i <= 2 )
-        	    {
-                        if( key_rank != test_rank_array[i]+iteration )
-                            failed = 1;
-                        else
-                            passed_verification++;
-        	    }
+                        test_rank += iteration;
                     else
-                    {
-                        if( key_rank != test_rank_array[i]-iteration )
-                            failed = 1;
-                        else
-                            passed_verification++;
-                    }
+                        test_rank -= iteration;
                     break;
                 case 'D':
                     if( i < 2 )
-        	    {
-                        if( key_rank != test_rank_array[i]+iteration )
-                            failed = 1;
-                        else
-                            passed_verification++;
-        	    }
+                        test_rank += iteration;
                     else
+                        test_rank -= iteration;
+                    break;
+                case 'E':
+                    if( i < 2 )
+                        test_rank += iteration - 2;
+                    else if( i == 2 )
                     {
-                        if( key_rank != test_rank_array[i]-iteration )
-                            failed = 1;
-                        else
-                            passed_verification++;
+                        test_rank += iteration - 2;
+                        if (iteration > 4)
+                            test_rank -= 2;
+                        else if (iteration > 2)
+                            test_rank -= 1;
                     }
+                    else
+                        test_rank -= iteration - 2;
                     break;
             }
+            if( key_rank != test_rank )
+                failed = 1;
+            else
+                passed_verification++;
             if( failed == 1 )
                 printf( "Failed partial verification: "
                         "iteration %d, test key %d\n", 
@@ -899,15 +896,10 @@ int main( int argc, char **argv )
 
     double          timecounter;
 
-    FILE            *fp;
-
 
 /*  Initialize timers  */
-    timer_on = 0;            
-    if ((fp = fopen("timer.flag", "r")) != NULL) {
-        fclose(fp);
-        timer_on = 1;
-    }
+    timer_on = check_timer_flag();
+
     timer_clear( 0 );
     if (timer_on) {
         timer_clear( 1 );
@@ -946,13 +938,17 @@ int main( int argc, char **argv )
                 test_index_array[i] = D_test_index_array[i];
                 test_rank_array[i]  = D_test_rank_array[i];
                 break;
+            case 'E':
+                test_index_array[i] = E_test_index_array[i];
+                test_rank_array[i]  = E_test_rank_array[i];
+                break;
         };
 
         
 
 /*  Printout initial NPB info */
     printf
-      ( "\n\n NAS Parallel Benchmarks (NPB3.3-OMP) - IS Benchmark\n\n" );
+      ( "\n\n NAS Parallel Benchmarks (NPB3.4-OMP) - IS Benchmark\n\n" );
     printf( " Size:  %ld  (class %c)\n", (long)TOTAL_KEYS, CLASS );
     printf( " Iterations:  %d\n", MAX_ITERATIONS );
 #ifdef _OPENMP
@@ -1004,19 +1000,21 @@ int main( int argc, char **argv )
 
     if (timer_on) timer_stop( 3 );
 
+    free_key_buff();
+
 
 /*  The final printout  */
     if( passed_verification != 5*MAX_ITERATIONS + 1 )
         passed_verification = 0;
     c_print_results( "IS",
                      CLASS,
-                     (int)(TOTAL_KEYS/64),
-                     64,
+                     TOTAL_KS1,
+                     TOTAL_KS2,
                      0,
                      MAX_ITERATIONS,
                      timecounter,
-                     ((double) (MAX_ITERATIONS*TOTAL_KEYS))
-                                                  /timecounter/1000000.,
+                     1.0e-6*(double)(TOTAL_KEYS)*MAX_ITERATIONS
+                                                  /timecounter,
                      "keys ranked", 
                      passed_verification,
                      NPBVERSION,

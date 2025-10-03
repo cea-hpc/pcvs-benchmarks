@@ -29,8 +29,8 @@ void c_print_results( char   *name,
     int num_threads, max_threads;
 
 
-    max_threads = 1;
-    num_threads = 1;
+    max_threads = 0;
+    num_threads = 0;
 
 /*   figure out number of threads used */
 #ifdef _OPENMP
@@ -59,17 +59,20 @@ void c_print_results( char   *name,
  
     printf( " Time in seconds =             %12.2f\n", t );
 
-    printf( " Total threads   =             %12d\n", num_threads);
+    if (num_threads > 0)
+        printf( " Total threads   =             %12d\n", num_threads);
 
-    printf( " Avail threads   =             %12d\n", max_threads);
+    if (max_threads > 0)
+        printf( " Avail threads   =             %12d\n", max_threads);
 
     if (num_threads != max_threads) 
         printf( " Warning: Threads used differ from threads available\n");
 
     printf( " Mop/s total     =             %12.2f\n", mops );
 
-    printf( " Mop/s/thread    =             %12.2f\n",
-           mops/(double)num_threads );
+    if (num_threads > 0)
+        printf( " Mop/s/thread    =             %12.2f\n",
+               mops/(double)num_threads );
 
     printf( " Operation type  = %24s\n", optype);
 

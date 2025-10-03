@@ -1,66 +1,60 @@
 SHELL=/bin/sh
 BENCHMARK=lu
 BENCHMARKU=LU
-VEC=
+SVER=
 
 include ../config/make.def
 
-OBJS = lu.o read_input.o \
+OBJS = lu.o lu_data.o read_input.o \
        domain.o setcoeff.o setbv.o exact.o setiv.o \
-       erhs.o ssor$(VEC).o rhs$(VEC).o l2norm.o \
-       jacld.o blts$(VEC).o jacu.o buts$(VEC).o error.o syncs.o \
+       erhs.o ssor$(SVER).o rhs.o l2norm.o \
+       jacld.o blts.o jacu.o buts.o error.o \
        pintgr.o verify.o ${COMMON}/print_results.o \
        ${COMMON}/timers.o ${COMMON}/wtime.o
 
 include ../sys/make.common
 
-
-# npbparams.h is included by applu.incl
-# The following rule should do the trick but many make programs (not gmake)
-# will do the wrong thing and rebuild the world every time (because the
-# mod time on header.h is not changed. One solution would be to 
-# touch header.h but this might cause confusion if someone has
-# accidentally deleted it. Instead, make the dependency on npbparams.h
-# explicit in all the lines below (even though dependence is indirect). 
-
-# applu.incl: npbparams.h
+# npbparams.h is included by lu_data module (via lu_data.o)
 
 ${PROGRAM}: config
-	@if [ x$(VERSION) = xvec ] ; then	\
-		${MAKE} VEC=_vec exec;		\
-	elif [ x$(VERSION) = xVEC ] ; then	\
-		${MAKE} VEC=_vec exec;		\
-	else					\
-		${MAKE} exec;			\
+	@if [ x$(VERSION) = xdoac -o x$(VERSION) = xDOAC ] ; then	\
+		${MAKE} SVER=_doac exec;			\
+	elif [ x$(VERSION) = xhp -o x$(VERSION) = xHP ] ; then	\
+		${MAKE} SVER=_hp exec;				\
+	else							\
+		${MAKE} exec-sync;				\
 	fi
+
+exec-sync: $(OBJS) syncs.o
+	${FLINK} ${FLINKFLAGS} -o ${PROGRAM} ${OBJS} syncs.o ${F_LIB}
 
 exec: $(OBJS)
 	${FLINK} ${FLINKFLAGS} -o ${PROGRAM} ${OBJS} ${F_LIB}
 
-.f.o :
+.f90.o :
 	${FCOMPILE} $<
 
-lu.o:		lu.f applu.incl npbparams.h
-blts$(VEC).o:	blts$(VEC).f
-buts$(VEC).o:	buts$(VEC).f
-erhs.o:		erhs.f applu.incl npbparams.h
-error.o:	error.f applu.incl npbparams.h
-exact.o:	exact.f applu.incl npbparams.h
-jacld.o:	jacld.f applu.incl npbparams.h
-jacu.o:		jacu.f applu.incl npbparams.h
-l2norm.o:	l2norm.f
-pintgr.o:	pintgr.f applu.incl npbparams.h
-read_input.o:	read_input.f applu.incl npbparams.h
-rhs$(VEC).o:	rhs$(VEC).f applu.incl npbparams.h
-setbv.o:	setbv.f applu.incl npbparams.h
-setiv.o:	setiv.f applu.incl npbparams.h
-setcoeff.o:	setcoeff.f applu.incl npbparams.h
-ssor$(VEC).o:	ssor$(VEC).f applu.incl npbparams.h
-domain.o:	domain.f applu.incl npbparams.h
-verify.o:	verify.f applu.incl npbparams.h
-syncs.o:	syncs.f npbparams.h
+lu.o:		lu.f90 lu_data.o
+blts.o:		blts.f90
+buts.o:		buts.f90
+erhs.o:		erhs.f90 lu_data.o
+error.o:	error.f90 lu_data.o
+exact.o:	exact.f90 lu_data.o
+jacld.o:	jacld.f90 lu_data.o
+jacu.o:		jacu.f90 lu_data.o
+l2norm.o:	l2norm.f90
+pintgr.o:	pintgr.f90 lu_data.o
+read_input.o:	read_input.f90 lu_data.o
+rhs.o:		rhs.f90 lu_data.o
+setbv.o:	setbv.f90 lu_data.o
+setiv.o:	setiv.f90 lu_data.o
+setcoeff.o:	setcoeff.f90 lu_data.o
+ssor$(SVER).o:	ssor$(SVER).f90 lu_data.o
+domain.o:	domain.f90 lu_data.o
+verify.o:	verify.f90 lu_data.o
+syncs.o:	syncs.f90 lu_data.o
+lu_data.o:	lu_data.f90 npbparams.h
 
 clean:
-	- /bin/rm -f npbparams.h
-	- /bin/rm -f *.o *~
+	- rm -f *.o *~ *.mod npbparams.h
 	- if [ -d rii_files ]; then rm -r rii_files; fi

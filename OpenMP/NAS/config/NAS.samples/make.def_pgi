@@ -11,27 +11,27 @@
 #---------------------------------------------------------------------------
 # Parallel Fortran:
 #
-# For CG, EP, FT, MG, LU, SP and BT, which are in Fortran, the following must 
-# be defined:
+# For CG, EP, FT, MG, LU, SP, BT and UA, which are in Fortran, the following 
+# must be defined:
 #
-# F77        - Fortran compiler
+# FC         - Fortran compiler
 # FFLAGS     - Fortran compilation arguments
 # F_INC      - any -I arguments required for compiling Fortran 
 # FLINK      - Fortran linker
 # FLINKFLAGS - Fortran linker arguments
 # F_LIB      - any -L and -l arguments required for linking Fortran 
 # 
-# compilations are done with $(F77) $(F_INC) $(FFLAGS) or
-#                            $(F77) $(FFLAGS)
+# compilations are done with $(FC) $(F_INC) $(FFLAGS) or
+#                            $(FC) $(FFLAGS)
 # linking is done with       $(FLINK) $(F_LIB) $(FLINKFLAGS)
 #---------------------------------------------------------------------------
 
 #---------------------------------------------------------------------------
 # This is the fortran compiler used for Fortran programs
 #---------------------------------------------------------------------------
-F77 = pgf90
-# This links fortran programs; usually the same as ${F77}
-FLINK	= $(F77)
+FC = pgf90
+# This links fortran programs; usually the same as ${FC}
+FLINK	= $(FC)
 
 #---------------------------------------------------------------------------
 # These macros are passed to the linker 
@@ -46,19 +46,19 @@ F_INC =
 #---------------------------------------------------------------------------
 # Global *compile time* flags for Fortran programs
 #---------------------------------------------------------------------------
-FFLAGS	= -O3 -mp
+FFLAGS	= -fastsse -mp
 
 #---------------------------------------------------------------------------
 # Global *link time* flags. Flags for increasing maximum executable 
 # size usually go here. 
 #---------------------------------------------------------------------------
-FLINKFLAGS = -O3 -mp
+FLINKFLAGS = $(FFLAGS)
 
 
 #---------------------------------------------------------------------------
 # Parallel C:
 #
-# For IS, which is in C, the following must be defined:
+# For IS and DC, which are in C, the following must be defined:
 #
 # CC         - C compiler 
 # CFLAGS     - C compilation arguments
@@ -82,7 +82,7 @@ CLINK	= $(CC)
 #---------------------------------------------------------------------------
 # These macros are passed to the linker 
 #---------------------------------------------------------------------------
-C_LIB  =
+C_LIB  = -lm
 
 #---------------------------------------------------------------------------
 # These macros are passed to the compiler 
@@ -91,14 +91,26 @@ C_INC =
 
 #---------------------------------------------------------------------------
 # Global *compile time* flags for C programs
+# DC inspects the following flags (preceded by "-D"):
+#
+# IN_CORE - computes all views and checksums in main memory (if there is 
+# enough memory)
+#
+# VIEW_FILE_OUTPUT - forces DC to write the generated views to disk
+#
+# OPTIMIZATION - turns on some nonstandard DC optimizations
+#
+# _FILE_OFFSET_BITS=64 
+# _LARGEFILE64_SOURCE - are standard compiler flags which allow to work with 
+# files larger than 2GB.
 #---------------------------------------------------------------------------
-CFLAGS	= -O3 -mp
+CFLAGS	= -fastsse -mp
 
 #---------------------------------------------------------------------------
 # Global *link time* flags. Flags for increasing maximum executable 
 # size usually go here. 
 #---------------------------------------------------------------------------
-CLINKFLAGS = -O3 -mp
+CLINKFLAGS = $(CFLAGS)
 
 
 #---------------------------------------------------------------------------
@@ -108,7 +120,7 @@ CLINKFLAGS = -O3 -mp
 # this compiler go here also; typically there are few flags required; hence 
 # there are no separate macros provided for such flags.
 #---------------------------------------------------------------------------
-UCC	= pgcc
+UCC	= gcc
 
 
 #---------------------------------------------------------------------------
@@ -130,7 +142,7 @@ RAND   = randi8
 
 #---------------------------------------------------------------------------
 # The variable WTIME is the name of the wtime source code module in the
-# NPB3.x/common directory.  
+# common directory.  
 # For most machines,       use wtime.c
 # For SGI power challenge: use wtime_sgi64.c
 #---------------------------------------------------------------------------
@@ -138,7 +150,7 @@ WTIME  = wtime.c
 
 
 #---------------------------------------------------------------------------
-# Enable if either Cray or IBM: 
+# Enable if either Cray (not Cray-X1) or IBM: 
 # (no such flag for most machines: see common/wtime.h)
 # This is used by the C compiler to pass the machine name to common/wtime.h,
 # where the C/Fortran binding interface format is determined

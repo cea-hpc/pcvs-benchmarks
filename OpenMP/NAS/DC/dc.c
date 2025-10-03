@@ -1,7 +1,7 @@
 /*
 !-------------------------------------------------------------------------!
 !                                                                         !
-!        N  A  S     P A R A L L E L     B E N C H M A R K S  3.3         !
+!        N  A  S     P A R A L L E L     B E N C H M A R K S  3.4         !
 !                                                                         !
 !                      O p e n M P     V E R S I O N                      !
 !                                                                         !
@@ -17,10 +17,10 @@
 !    Permission to use, copy, distribute and modify this software         !
 !    for any purpose with or without fee is hereby granted.  We           !
 !    request, however, that all derived work reference the NAS            !
-!    Parallel Benchmarks 3.3. This software is provided "as is"           !
+!    Parallel Benchmarks 3.4. This software is provided "as is"           !
 !    without express or implied warranty.                                 !
 !                                                                         !
-!    Information on NPB 3.3, including the technical report, the          !
+!    Information on NPB 3.4, including the technical report, the          !
 !    original specifications, source code, results and information        !
 !    on how to submit new results, is available at:                       !
 !                                                                         !
@@ -30,11 +30,7 @@
 !                                                                         !
 !          NAS Parallel Benchmarks Group                                  !
 !          NASA Ames Research Center                                      !
-!          Mail Stop: T27A-1                                              !
 !          Moffett Field, CA   94035-1000                                 !
-!                                                                         !
-!          E-mail:  npb@nas.nasa.gov                                      !
-!          Fax:     (650) 604-3957                                        !
 !                                                                         !
 !-------------------------------------------------------------------------!
 ! Author: Michael Frumkin                                                 !
@@ -63,10 +59,7 @@
 #include <unistd.h>
 
 #define MAX_TIMERS 64  /* NPB maximum timers */
-  void    timer_clear(int);
-  void    timer_start(int);
-  void    timer_stop(int); 
-  double  timer_read(int);
+#include "../common/c_timers.h"
 #endif
 
 void c_print_results( char   *name,
@@ -103,7 +96,7 @@ int main ( int argc, char * argv[] )
   ADC_VIEW_PARS *adcpp;
   int32 retCode;
 
-  fprintf(stdout,"\n\n NAS Parallel Benchmarks (NPB3.3-OMP) - DC Benchmark\n\n" );
+  fprintf(stdout,"\n\n NAS Parallel Benchmarks (NPB3.4-OMP) - DC Benchmark\n\n" );
   if(argc!=3){
     fprintf(stdout," No Paramter file. Using compiled defaults\n");
   }
