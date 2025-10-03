@@ -1,34 +1,23 @@
 SHELL=/bin/sh
 BENCHMARK=lu-mz
 BENCHMARKU=LU-MZ
-VEC=
 
 include ../config/make.def
 
-OBJS = lu.o read_input.o omp_setup.o \
+OBJS = lu.o lu_data.o read_input.o setup_omp.o ompnpb.o \
        setcoeff.o setbv.o exact.o setiv.o \
-       erhs.o ssor$(VEC).o zone_setup.o exch_qbc.o \
-       rhs$(VEC).o l2norm.o jacld.o blts$(VEC).o jacu.o buts$(VEC).o \
+       erhs.o ssor.o zone_setup.o exch_qbc.o \
+       rhs.o l2norm.o jacld.o blts.o jacu.o buts.o \
        syncs.o error.o pintgr.o verify.o ${COMMON}/print_results.o \
        ${COMMON}/timers.o ${COMMON}/wtime.o
 
 include ../sys/make.common
 
 
-# npbparams.h is included by header.h
-# The following rule should do the trick but many make programs (not gmake)
-# will do the wrong thing and rebuild the world every time (because the
-# mod time on header.h is not changed. One solution would be to 
-# touch header.h but this might cause confusion if someone has
-# accidentally deleted it. Instead, make the dependency on npbparams.h
-# explicit in all the lines below (even though dependence is indirect). 
-
-# header.h: npbparams.h
+# npbparams.h is included by lu_data module (via lu_data.o)
 
 ${PROGRAM}: config
-	@if [ x$(VERSION) = xvec ] ; then	\
-		${MAKE} VEC=_vec exec;		\
-	elif [ x$(VERSION) = xVEC ] ; then	\
+	@if [ x$(VERSION) = xvec -o x$(VERSION) = xVEC ] ; then	\
 		${MAKE} VEC=_vec exec;		\
 	else					\
 		${MAKE} exec;			\
@@ -37,31 +26,33 @@ ${PROGRAM}: config
 exec: $(OBJS)
 	${FLINK} ${FLINKFLAGS} -o ${PROGRAM} ${OBJS} ${F_LIB}
 
-.f.o :
+.f90.o :
 	${FCOMPILE} $<
 
-lu.o:		lu.f omp_stuff.h header.h npbparams.h
-blts$(VEC).o:	blts$(VEC).f
-buts$(VEC).o:	buts$(VEC).f
-erhs.o:		erhs.f header.h npbparams.h
-zone_setup.o:   zone_setup.f omp_stuff.h header.h npbparams.h
-exch_qbc.o:     exch_qbc.f omp_stuff.h header.h npbparams.h
-error.o:	error.f
-exact.o:	exact.f header.h npbparams.h
-jacld.o:	jacld.f header.h npbparams.h
-jacu.o:		jacu.f header.h npbparams.h
-l2norm.o:	l2norm.f
-pintgr.o:	pintgr.f header.h npbparams.h
-read_input.o:	read_input.f omp_stuff.h header.h npbparams.h
-rhs$(VEC).o:	rhs$(VEC).f header.h npbparams.h
-setbv.o:	setbv.f header.h npbparams.h
-setiv.o:	setiv.f header.h npbparams.h
-setcoeff.o:	setcoeff.f header.h npbparams.h
-ssor$(VEC).o:	ssor$(VEC).f header.h npbparams.h
-verify.o:	verify.f header.h npbparams.h
-omp_setup.o:	omp_setup.f omp_stuff.h header.h npbparams.h
-syncs.o:	syncs.f
+lu.o:		lu.f90 lu_data.o ompnpb.o
+blts.o:		blts.f90
+buts.o:		buts.f90
+erhs.o:		erhs.f90 lu_data.o
+zone_setup.o:   zone_setup.f90 lu_data.o ompnpb.o
+exch_qbc.o:     exch_qbc.f90 lu_data.o ompnpb.o
+error.o:	error.f90
+exact.o:	exact.f90 lu_data.o
+jacld.o:	jacld.f90 lu_data.o
+jacu.o:		jacu.f90 lu_data.o
+l2norm.o:	l2norm.f90
+pintgr.o:	pintgr.f90 lu_data.o
+read_input.o:	read_input.f90 lu_data.o ompnpb.o
+rhs.o:		rhs.f90 lu_data.o
+setbv.o:	setbv.f90 lu_data.o
+setiv.o:	setiv.f90 lu_data.o
+setcoeff.o:	setcoeff.f90 lu_data.o
+ssor.o:		ssor.f90 lu_data.o
+verify.o:	verify.f90 lu_data.o
+setup_omp.o:	setup_omp.f90 lu_data.o ompnpb.o
+syncs.o:	syncs.f90
+ompnpb.o:	ompnpb.f90  lu_data.o
+lu_data.o:	lu_data.f90  npbparams.h
 
 clean:
-	- /bin/rm -f npbparams.h
-	- /bin/rm -f *.o *~
+	- rm -f npbparams.h
+	- rm -f *.o *~ *.mod

@@ -1,5 +1,5 @@
-NPB3.3-MZ (Multi-Zone) MPI+OpenMP Versions
--------------------------------------------
+NPB3.4.3-MZ (Multi-Zone) MPI+OpenMP Versions
+---------------------------------------------
 
 NPB Development Team
    npb@nas.nasa.gov
@@ -17,6 +17,60 @@ README.install included in the directory.
 
 This file briefly summarizes features and changes made in
 different releases of the hybrid versions.
+
+
+NPB 3.4.3-MZ-MPI
+
+  * Support the MPI module interface (mpi or mpi_f08) for Fortran codes.  
+    The make option "F08=f" was included to force the use of the old
+    "mpif.h" approach if needed.
+
+  * Free dynamically allocated memory at the end of a run.
+
+
+NPB 3.4.2-MZ-MPI
+
+This is a bug-fix release.
+  * LU-MZ: fixed a bug in setting up proc_num_threads when
+    the x-dimension partition is involved for runs that use
+    more than 16 (number of zones) MPI ranks.
+
+
+NPB 3.4.1-MZ-MPI
+
+This is a minor release with no functional change.
+
+  * Changed Fortran sources from fixed form to free form
+
+  * Included a few "dummy" MPI routines to support compilation and 
+    linking without an MPI library.  This is intended for testing
+    runs with OpenMP only.  See README.install for details.
+
+
+NPB 3.4-MZ-MPI
+
+  * Use Fortran 90 ALLOCATE for dynamic memory allocation.
+    It is no longer needed to compile for each process count.
+    Use Fortran modules for global data (to replace common blocks).
+
+  * Improvement on the OpenMP parallelization with the use of
+    the COLLAPSE clause for multiple loop nests in BT-MZ and SP-MZ.
+
+  * Domain decomposition has been applied to the I dimension of zones
+    besides the zone dimension for LU-MZ to improve the MPI scalability
+    of this code.  This change requires the MPI library to support
+    MPI_THREAD_MULTIPLE when the code is running in the hybrid mode.
+
+  * Support for specifying the number of threads for each rank from
+    environment variables when NPB_MZ_BLOAD is set to "ERANK".
+    Support for process range specification in load data file.
+
+  * Use Fortran 2003 IEEE arithmetic function to catch the NaN condition
+    during verification.
+
+  * The environment variable NPB_TIMER_FLAG is now used to enable 
+    additional timers.  This method supersedes the use of the file
+    "timer.flag" in the working directory.
 
 
 NPB 3.3.1-MZ-MPI

@@ -46,7 +46,7 @@
  * won't accidentally change it. 
  */
 
-#define VERSION "3.3.1"
+#define VERSION "3.4.3"
 
 /* controls verbose output from setparams */
 /* #define VERBOSE */
@@ -54,10 +54,10 @@
 #define MAX_X_ZONES 128
 #define MAX_Y_ZONES 128
 #define FILENAME    "npbparams.h"
-#define DESC_LINE   "c CLASS = %c\n"
+#define DESC_LINE   "! CLASS = %c\n"
 #define DEF_CLASS_LINE     "#define CLASS '%c'\n"
 #define FINDENT  "        "
-#define CONTINUE "     > "
+#define CONTINUE "     & "
 #define max(a,b)    (((a) > (b)) ? (a) : (b))
 
 void get_info(char *argv[], int *typep, char *classp);
@@ -254,12 +254,12 @@ void write_info(int type, char class)
           fprintf(fp, DESC_LINE, class);
           /* Print out a warning so bozos don't mess with the file */
           fprintf(fp, "\
-c  \n\
-c  \n\
-c  This file is generated automatically by the setparams utility.\n\
-c  It sets the number of processors and the class of the NPB\n\
-c  in this directory. Do not modify it by hand.\n\
-c  \n");
+!  \n\
+!  \n\
+!  This file is generated automatically by the setparams utility.\n\
+!  It sets the number of processors and the class of the NPB\n\
+!  in this directory. Do not modify it by hand.\n\
+!  \n");
 
           break;
       default:
@@ -297,10 +297,10 @@ c  \n");
 void write_sp_info(FILE *fp, char class) 
 {
   int  gx_size, gy_size, gz_size, niter, x_zones, y_zones;
-  int  max_lsize;
-  char *dt, *ratio, *int_type;
+  int  max_lsize, kind2;
+  char *dt, *ratio;
 
-  int_type="integer";
+  kind2 = 4;
   if      (class == 'S') 
   {gx_size = 24; gy_size=24; gz_size=6; 
    x_zones = y_zones = 2;
@@ -327,11 +327,11 @@ void write_sp_info(FILE *fp, char class)
    dt = "0.0003d0"; niter = 500;}
   else if (class == 'E') 
   {gx_size = 4224; gy_size=3456; gz_size=92; 
-   x_zones = y_zones = 64; int_type="integer*8";
+   x_zones = y_zones = 64; kind2 = 8;
    dt = "0.0002d0"; niter = 500;}
   else if (class == 'F') 
   {gx_size = 12032; gy_size=8960; gz_size=250; 
-   x_zones = y_zones = 128; int_type="integer*8";
+   x_zones = y_zones = 128; kind2 = 8;
    dt = "0.0001d0"; niter = 500;}
   else {
     printf("setparams: Internal error: invalid class %c\n", class);
@@ -349,21 +349,12 @@ void write_sp_info(FILE *fp, char class)
   fprintf(fp, "%sparameter (gx_size=%d, gy_size=%d, gz_size=%d)\n", 
 	       FINDENT, gx_size, gy_size, gz_size);
   fprintf(fp, "%sparameter (niter_default=%d)\n", FINDENT, niter);
-  fprintf(fp, "%sinteger problem_size\n", FINDENT);
-  fprintf(fp, "%sparameter (problem_size = %d)\n", FINDENT, 
-          max(max_lsize,gz_size));
-  fprintf(fp, "%s%s max_xysize\n", FINDENT, int_type);
-  fprintf(fp, "%s%s proc_max_size, proc_max_size5, proc_max_bcsize\n", FINDENT, int_type);
-  fprintf(fp, "%sparameter (max_xysize=%ld)\n",  FINDENT, 
-      	  (long)(gx_size+x_zones)*gy_size);
-  fprintf(fp, "%sparameter (proc_max_size=max_xysize*gz_size)\n",  FINDENT);
-  fprintf(fp, "%sparameter (proc_max_size5=proc_max_size*5)\n",  FINDENT);
-  fprintf(fp, "%sparameter (proc_max_bcsize=max_xysize*20)\n",  FINDENT);
+  fprintf(fp, "%sinteger problem_size, kind2\n", FINDENT);
+  fprintf(fp, "%sparameter (problem_size = %d, kind2 = %d)\n", FINDENT, 
+          max(max_lsize,gz_size), kind2);
 
   fprintf(fp, "%sdouble precision dt_default, ratio\n", FINDENT);
   fprintf(fp, "%sparameter (dt_default = %s, ratio = %s)\n", FINDENT, dt, ratio);
-  fprintf(fp, "%s%s start1, start5, qstart_west, qstart_east\n", FINDENT, int_type);
-  fprintf(fp, "%s%s qstart_south, qstart_north\n", FINDENT, int_type);
 }
   
 /* 
@@ -373,11 +364,11 @@ void write_sp_info(FILE *fp, char class)
 void write_bt_info(FILE *fp, char class) 
 {
   int  gx_size, gy_size, gz_size, niter, x_zones, y_zones;
-  int  max_lsize;
-  char *dt, *ratio, *int_type;
+  int  max_lsize, kind2;
+  char *dt, *ratio;
   double ratio_val;
 
-  int_type="integer";
+  kind2 = 4;
   if      (class == 'S') 
   {gx_size = 24; gy_size=24; gz_size=6;
    x_zones = y_zones = 2; ratio = "3.d0";
@@ -405,11 +396,11 @@ void write_bt_info(FILE *fp, char class)
   else if (class == 'E') 
   {gx_size = 4224; gy_size=3456; gz_size=92; 
    x_zones = y_zones = 64; ratio = "4.5d0";
-   dt = "0.000004d0"; niter = 250; int_type="integer*8";}
+   dt = "0.000004d0"; niter = 250; kind2 = 8;}
   else if (class == 'F') 
   {gx_size = 12032; gy_size=8960; gz_size=250; 
    x_zones = y_zones = 128; ratio = "4.5d0";
-   dt = "0.000001d0"; niter = 250; int_type="integer*8";}
+   dt = "0.000001d0"; niter = 250; kind2 = 8;}
   else {
     printf("setparams: Internal error: invalid class %c\n", class);
     exit(1);
@@ -426,21 +417,12 @@ void write_bt_info(FILE *fp, char class)
   fprintf(fp, "%sparameter (gx_size=%d, gy_size=%d, gz_size=%d)\n", 
 	       FINDENT, gx_size, gy_size, gz_size);
   fprintf(fp, "%sparameter (niter_default=%d)\n", FINDENT, niter);
-  fprintf(fp, "%sinteger problem_size\n", FINDENT);
-  fprintf(fp, "%sparameter (problem_size = %d)\n", FINDENT, 
-          max(max_lsize,gz_size));
-  fprintf(fp, "%s%s max_xysize\n", FINDENT, int_type);
-  fprintf(fp, "%s%s proc_max_size, proc_max_size5, proc_max_bcsize\n", FINDENT, int_type);
-  fprintf(fp, "%sparameter (max_xysize=%ld)\n",  FINDENT, 
-      	  (long)(gx_size+x_zones)*gy_size);
-  fprintf(fp, "%sparameter (proc_max_size=max_xysize*gz_size)\n",  FINDENT);
-  fprintf(fp, "%sparameter (proc_max_size5=proc_max_size*5)\n",  FINDENT);
-  fprintf(fp, "%sparameter (proc_max_bcsize=max_xysize*20)\n",  FINDENT);
+  fprintf(fp, "%sinteger problem_size, kind2\n", FINDENT);
+  fprintf(fp, "%sparameter (problem_size = %d, kind2 = %d)\n", FINDENT, 
+          max(max_lsize,gz_size), kind2);
 
   fprintf(fp, "%sdouble precision dt_default, ratio\n", FINDENT);
   fprintf(fp, "%sparameter (dt_default = %s, ratio = %s)\n", FINDENT, dt, ratio);
-  fprintf(fp, "%s%s start1, start5, qstart_west, qstart_east\n", FINDENT, int_type);
-  fprintf(fp, "%s%s qstart_south, qstart_north\n", FINDENT, int_type);
 }
   
 
@@ -452,11 +434,11 @@ void write_bt_info(FILE *fp, char class)
 void write_lu_info(FILE *fp, char class) 
 {
   int  itmax, inorm, gx_size, gy_size, gz_size, x_zones, y_zones;
-  int  max_lsize;
-  char *dt_default, *ratio, *int_type;
+  int  max_lsize, kind2;
+  char *dt_default, *ratio;
 
   x_zones = y_zones = 4; 
-  int_type="integer";
+  kind2 = 4;
   if      (class == 'S') 
      {gx_size = 24; gy_size=24; gz_size=6; 
       dt_default = "0.5d0"; itmax = 50; }
@@ -477,10 +459,10 @@ void write_lu_info(FILE *fp, char class)
       dt_default = "1.0d0"; itmax = 300; }
   else if (class == 'E') 
      {gx_size = 4224; gy_size=3456; gz_size=92; 
-      dt_default = "0.5d0"; itmax = 300; int_type="integer*8";}
+      dt_default = "0.5d0"; itmax = 300; kind2 = 8;}
   else if (class == 'F') 
      {gx_size = 12032; gy_size=8960; gz_size=250; 
-      dt_default = "0.2d0"; itmax = 300; int_type="integer*8";}
+      dt_default = "0.2d0"; itmax = 300; kind2 = 8;}
   else {
     printf("setparams: Internal error: invalid class %c\n", class);
     exit(1);
@@ -497,26 +479,17 @@ void write_lu_info(FILE *fp, char class)
           FINDENT);
   fprintf(fp, "%sparameter (gx_size=%d, gy_size=%d, gz_size=%d)\n", 
 	       FINDENT, gx_size, gy_size, gz_size);
-  fprintf(fp, "%sinteger problem_size\n", FINDENT);
-  fprintf(fp, "%sparameter (problem_size = %d)\n", FINDENT, 
-          max(max_lsize,gz_size));
-  fprintf(fp, "%s%s max_xysize\n", FINDENT, int_type);
-  fprintf(fp, "%s%s proc_max_size, proc_max_size5, proc_max_bcsize\n", FINDENT, int_type);
-  fprintf(fp, "%sparameter (max_xysize=%ld)\n",  FINDENT, 
-      	  (long)(gx_size+x_zones)*gy_size);
-  fprintf(fp, "%sparameter (proc_max_size=max_xysize*gz_size)\n",  FINDENT);
-  fprintf(fp, "%sparameter (proc_max_size5=proc_max_size*5)\n",  FINDENT);
-  fprintf(fp, "%sparameter (proc_max_bcsize=max_xysize*20)\n",  FINDENT);
+  fprintf(fp, "%sinteger problem_size, kind2\n", FINDENT);
+  fprintf(fp, "%sparameter (problem_size = %d, kind2 = %d)\n", FINDENT, 
+          max(max_lsize,gz_size), kind2);
 
-  fprintf(fp, "\nc number of iterations and how often to print the norm\n");
+  fprintf(fp, "\n! number of iterations and how often to print the norm\n");
   fprintf(fp, "%sinteger itmax_default, inorm_default\n", FINDENT);
   fprintf(fp, "%sparameter (itmax_default=%d, inorm_default=%d)\n", 
 	  FINDENT, itmax, inorm);
   fprintf(fp, "%sdouble precision dt_default, ratio\n", FINDENT);
   fprintf(fp, "%sparameter (dt_default = %s, ratio = %s)\n", FINDENT, 
                 dt_default, ratio);
-  fprintf(fp, "%s%s start1, start5, qstart_west, qstart_east\n", FINDENT, int_type);
-  fprintf(fp, "%s%s qstart_south, qstart_north\n", FINDENT, int_type);
 }
 
 /* 
@@ -524,7 +497,7 @@ void write_lu_info(FILE *fp, char class)
  * print out how they were compiled. Various other ways
  * of doing this have been tried and they all fail on
  * some machine - due to a broken "make" program, or
- * F77 limitations, of whatever. Hopefully this will
+ * Fortran limitations, of whatever. Hopefully this will
  * always work because it uses very portable C. Unfortunately
  * it relies on parsing the make.def file - YUK. 
  * If your machine doesn't have <string.h> or <ctype.h>, happy hacking!
@@ -540,7 +513,7 @@ FILE *deffile;
 void write_compiler_info(int type, FILE *fp)
 {
   char line[LL];
-  char f77[LL], flink[LL], f_lib[LL], f_inc[LL], fflags[LL], flinkflags[LL];
+  char fc[LL], flink[LL], f_lib[LL], f_inc[LL], fflags[LL], flinkflags[LL];
   char compiletime[LL], randfile[LL];
   char cc[LL], cflags[LL], clink[LL], clinkflags[LL],
        c_lib[LL], c_inc[LL];
@@ -555,7 +528,7 @@ setparams: File %s doesn't exist. To build the NAS benchmarks\n\
            the file config/make.def.template\n", DEFFILE);
     exit(1);
   }
-  strcpy(f77, DEFAULT_MESSAGE);
+  strcpy(fc, DEFAULT_MESSAGE);
   strcpy(flink, DEFAULT_MESSAGE);
   strcpy(f_lib, DEFAULT_MESSAGE);
   strcpy(f_inc, DEFAULT_MESSAGE);
@@ -572,7 +545,7 @@ setparams: File %s doesn't exist. To build the NAS benchmarks\n\
   while (fgets(line, LL, deffile) != NULL) {
     if (*line == '#') continue;
     /* yes, this is inefficient. but it's simple! */
-    check_line(line, "F77", f77);
+    check_line(line, "FC", fc);
     check_line(line, "FLINK", flink);
     check_line(line, "F_LIB", f_lib);
     check_line(line, "F_INC", f_inc);
@@ -599,7 +572,7 @@ setparams: File %s doesn't exist. To build the NAS benchmarks\n\
       case LU:
           put_string(fp, "compiletime", compiletime);
           put_string(fp, "npbversion", VERSION);
-          put_string(fp, "cs1", f77);
+          put_string(fp, "cs1", fc);
           put_string(fp, "cs2", flink);
           put_string(fp, "cs3", f_lib);
           put_string(fp, "cs4", f_inc);

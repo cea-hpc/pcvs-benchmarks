@@ -14,24 +14,24 @@
 # For CG, EP, FT, MG, LU, SP and BT, which are in Fortran, the following must 
 # be defined:
 #
-# F77        - Fortran compiler
+# FC         - Fortran compiler
 # FFLAGS     - Fortran compilation arguments
 # F_INC      - any -I arguments required for compiling Fortran 
 # FLINK      - Fortran linker
 # FLINKFLAGS - Fortran linker arguments
 # F_LIB      - any -L and -l arguments required for linking Fortran 
 # 
-# compilations are done with $(F77) $(F_INC) $(FFLAGS) or
-#                            $(F77) $(FFLAGS)
+# compilations are done with $(FC) $(F_INC) $(FFLAGS) or
+#                            $(FC) $(FFLAGS)
 # linking is done with       $(FLINK) $(F_LIB) $(FLINKFLAGS)
 #---------------------------------------------------------------------------
 
 #---------------------------------------------------------------------------
 # This is the fortran compiler used for fortran programs
 #---------------------------------------------------------------------------
-F77 = pgf77
-# This links fortran programs; usually the same as ${F77}
-FLINK	= $(F77)
+FC = pgf90
+# This links fortran programs; usually the same as ${FC}
+FLINK	= $(FC)
 
 #---------------------------------------------------------------------------
 # These macros are passed to the linker 
@@ -46,14 +46,13 @@ F_INC =
 #---------------------------------------------------------------------------
 # Global *compile time* flags for Fortran programs
 #---------------------------------------------------------------------------
-FFLAGS	= -fast
-# FFLAGS = -g
+FFLAGS	= -fastsse -mp
 
 #---------------------------------------------------------------------------
 # Global *link time* flags. Flags for increasing maximum executable 
 # size usually go here. 
 #---------------------------------------------------------------------------
-FLINKFLAGS = -fast
+FLINKFLAGS = $(FFLAGS)
 
 
 #---------------------------------------------------------------------------
@@ -93,14 +92,13 @@ C_INC =
 #---------------------------------------------------------------------------
 # Global *compile time* flags for C programs
 #---------------------------------------------------------------------------
-CFLAGS	= -fast
-# CFLAGS = -g
+CFLAGS	= -fastsse -mp
 
 #---------------------------------------------------------------------------
 # Global *link time* flags. Flags for increasing maximum executable 
 # size usually go here. 
 #---------------------------------------------------------------------------
-CLINKFLAGS = -fast
+CLINKFLAGS = $(CFLAGS)
 
 
 #---------------------------------------------------------------------------
@@ -110,7 +108,7 @@ CLINKFLAGS = -fast
 # this compiler go here also; typically there are few flags required; hence 
 # there are no separate macros provided for such flags.
 #---------------------------------------------------------------------------
-UCC	= pgcc
+UCC	= gcc
 
 
 #---------------------------------------------------------------------------
@@ -121,7 +119,7 @@ BINDIR	= ../bin
 
 #---------------------------------------------------------------------------
 # The variable RAND controls which random number generator 
-# is used. It is described in detail in Doc/README.install. 
+# is used. It is described in detail in README.install. 
 # Use "randi8" unless there is a reason to use another one. 
 # Other allowed values are "randi8_safe", "randdp" and "randdpvec"
 #---------------------------------------------------------------------------

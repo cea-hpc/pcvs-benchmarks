@@ -1,4 +1,4 @@
-NPB3.3-MZ (Multi-Zone) OpenMP Versions
+NPB3.4-MZ (Multi-Zone) OpenMP Versions
 ----------------------------------------
 
 For details, see
@@ -18,16 +18,10 @@ Compilation
 2. modify/specify the compiler and compilation flags in config/make.def
 
 3. use the following line to compile
-   make benchmark CLASS=class [VERSION=VEC]
+   make benchmark CLASS=class
 
    [benchmark] is one of [bt-mz, sp-mz, lu-mz]
    [class] is one of [S, W, A through F]
-   The "VERSION=VEC" option can be used to compile the "vectorizable"
-   version of the selected benchmark.
-
-   However, successful vectorization highly depends on the compiler 
-   used.  Some changes to compiler directives for vectorization in 
-   the current codes (see *_vec.f files) may be required.
 
 
 Execution
@@ -39,12 +33,16 @@ the make.def).  In order to run the program, you should first
 specify the number of threads and define any needed runtime 
 parameters (see below for details).
 
-Here is an example of running bt-mz, class A with 4 outer 
-threads and 2 inner threads per outer thread (in csh):
+Here is an example of running bt-mz, class A, with 4 outer-level 
+threads (o_threads) and 2 inner-level threads (i_threads) per 
+outer thread (in csh):
 
-   setenv OMP_NUM_THREADS 4
-   setenv OMP_NUM_THREADS2 2
+   setenv OMP_NUM_THREADS 4,2
    bin/bt-mz.A.x
+
+The output of the run will include information about the number of
+outer-level threads among zones (o_threads) and the total number of
+threads (=o_threads*i_threads).
 
 
 Runtime Environment Variables and Setups
@@ -81,16 +79,15 @@ will not be applied if all values of <flag> are less than one.
 
 1.2 environment variables
 
-OMP_NUM_THREADS
-  - the number of outer-level threads.  If this variable is not specified,
-    one thread is assumed.
-
-OMP_NUM_THREADS2
-  - the number of threads per outer-level thread.  If this variable is not
-    specified, one inner thread is assumed for each outer thread.
+OMP_NUM_THREADS <n1,n2>
+  - <n1> is the number of outer-level threads (o_threads); <n2> is 
+    the number of inner threads per outer-level thread (i_threads).
+    If <n2> is not specified, one inner thread is assumed for each 
+    outer thread. If this variable is not specified, one thread is 
+    assumed for the whole program.
 
     The total number of threads is
-       number_of_othreads * number_inner_threads.
+       o_threads * i_threads
 
 NPB_OMP_NESTED
   - control the level of nested OpenMP parallelism in the code.
@@ -111,6 +108,9 @@ NPB_VERBOSE
     is printed.  With a value of 1 (or larger), more detailed information 
     on zones is printed.
 
+NPB_TIMER_FLAG
+  - flag to enable additional profile timers (see below)
+
 3. Use the built-in profile timers
 
 An input parameter file may be used to change several parameters at 
@@ -121,25 +121,27 @@ the working directory from the sample input files included in the source
 directory.  To collect timing statistics, switch on (with a value of 1)
 the timer flag in the input file.
 
+An alternative way is to define the environment variable NPB_TIMER_FLAG
+with a value of 1.  The old method of creating a "timer.flag" file in 
+the working directory is still supported, but not recommended.
+
 
 Known Problems
 ---------------
-  - On SGI Altix, if undefined symbols (for getenv) are encountered when
-    compiling with the Intel 7.x FORTRAN compiler, add "-Vaxlib" to
-    F_LIB in config/make.def.
+  - Compilation of the codes requires a compiler that supports Fortran 90
+    and OpenMP 3.0, or higher.
 
-    With some versions of Intel compilers, the following runtime variable
+  - With some versions of Intel compilers, the following runtime variable
     may be required to avoid a stacksize overflow:
 
     "setenv KMP_MONITOR_STACKSIZE 200k" (csh) or
     "export KMP_MONITOR_STACKSIZE=200k" (sh)
 
   - The LU-MZ benchmark may require larger stack size for OpenMP threads
-    than the default setup.  Different system may have different way of
-    specifying the size.  For example, the Intel compiler accepts
+    than the default setup.  For a compiler that supports OpenMP 3.0, use
 
-      setenv KMP_STACKSIZE 30m  (csh)
-      export KMP_STACKSIZE=30m  (sh)
+      setenv OMP_STACKSIZE 30m  (csh)
+      export OMP_STACKSIZE=30m  (sh)
 
     The value will be different for different class of problems.
     You may need to try a few times.

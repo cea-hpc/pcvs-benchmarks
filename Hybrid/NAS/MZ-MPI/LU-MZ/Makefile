@@ -1,67 +1,64 @@
 SHELL=/bin/sh
 BENCHMARK=lu-mz
 BENCHMARKU=LU-MZ
-VEC=
+F08=def
 
 include ../config/make.def
 
-OBJS = lu.o read_input.o mpi_setup.o \
+OBJS = lu.o lu_data.o read_input.o setup_mpi.o \
        setcoeff.o setbv.o exact.o setiv.o \
-       erhs.o ssor$(VEC).o zone_setup.o exch_qbc.o \
-       rhs$(VEC).o l2norm.o jacld.o blts$(VEC).o jacu.o buts$(VEC).o \
-       syncs.o error.o pintgr.o verify.o ${COMMON}/print_results.o \
-       ${COMMON}/timers.o
+       erhs.o ssor.o zone_setup.o exch_qbc.o \
+       rhs.o l2norm.o jacld.o blts.o jacu.o buts.o \
+       syncs.o error.o pintgr.o verify.o proc_grid.o neighbors.o \
+       subdomain.o exchange_1.o exchange_3.o  exchange_4.o \
+       error_cond.o mpinpb.o alloc_space.o \
+       ${COMMON}/print_results.o ${COMMON}/timers.o
 
 include ../sys/make.common
 
 
-# npbparams.h is included by header.h
-# The following rule should do the trick but many make programs (not gmake)
-# will do the wrong thing and rebuild the world every time (because the
-# mod time on header.h is not changed. One solution would be to 
-# touch header.h but this might cause confusion if someone has
-# accidentally deleted it. Instead, make the dependency on npbparams.h
-# explicit in all the lines below (even though dependence is indirect). 
+# npbparams.h is included by lu_data module (via lu_data.o)
 
-# header.h: npbparams.h
-
-${PROGRAM}: config
-	@if [ x$(VERSION) = xvec ] ; then	\
-		${MAKE} VEC=_vec exec;		\
-	elif [ x$(VERSION) = xVEC ] ; then	\
-		${MAKE} VEC=_vec exec;		\
-	else					\
-		${MAKE} exec;			\
-	fi
-
-exec: $(OBJS)
+${PROGRAM}: config $(OBJS)
 	${FLINK} ${FLINKFLAGS} -o ${PROGRAM} ${OBJS} ${F_LIB}
 
-.f.o :
+.f90.o :
 	${FCOMPILE} $<
 
-lu.o:		lu.f mpi_stuff.h header.h npbparams.h
-blts$(VEC).o:	blts$(VEC).f
-buts$(VEC).o:	buts$(VEC).f
-erhs.o:		erhs.f header.h npbparams.h
-zone_setup.o:   zone_setup.f mpi_stuff.h header.h npbparams.h
-exch_qbc.o:     exch_qbc.f mpi_stuff.h header.h npbparams.h
-error.o:	error.f
-exact.o:	exact.f header.h npbparams.h
-jacld.o:	jacld.f header.h npbparams.h
-jacu.o:		jacu.f header.h npbparams.h
-l2norm.o:	l2norm.f
-pintgr.o:	pintgr.f header.h npbparams.h
-read_input.o:	read_input.f mpi_stuff.h header.h npbparams.h
-rhs$(VEC).o:	rhs$(VEC).f header.h npbparams.h
-setbv.o:	setbv.f header.h npbparams.h
-setiv.o:	setiv.f header.h npbparams.h
-setcoeff.o:	setcoeff.f header.h npbparams.h
-ssor$(VEC).o:	ssor$(VEC).f header.h npbparams.h
-verify.o:	verify.f header.h npbparams.h
-mpi_setup.o:	mpi_setup.f mpi_stuff.h header.h npbparams.h
-syncs.o:	syncs.f
+lu.o:		lu.f90 lu_data.o mpinpb.o
+blts.o:		blts.f90
+buts.o:		buts.f90
+erhs.o:		erhs.f90 lu_data.o
+zone_setup.o:   zone_setup.f90 lu_data.o mpinpb.o
+exch_qbc.o:     exch_qbc.f90 lu_data.o mpinpb.o
+error.o:	error.f90 lu_data.o mpinpb.o
+exact.o:	exact.f90 lu_data.o
+jacld.o:	jacld.f90 lu_data.o
+jacu.o:		jacu.f90 lu_data.o
+l2norm.o:	l2norm.f90 lu_data.o mpinpb.o
+pintgr.o:	pintgr.f90 lu_data.o mpinpb.o
+read_input.o:	read_input.f90 lu_data.o mpinpb.o
+rhs.o:		rhs.f90 lu_data.o
+setbv.o:	setbv.f90 lu_data.o
+setiv.o:	setiv.f90 lu_data.o
+setcoeff.o:	setcoeff.f90 lu_data.o
+ssor.o:		ssor.f90 lu_data.o mpinpb.o
+verify.o:	verify.f90 lu_data.o
+setup_mpi.o:	setup_mpi.f90 lu_data.o mpinpb.o
+proc_grid.o:	proc_grid.f90 lu_data.o mpinpb.o
+neighbors.o:	neighbors.f90 lu_data.o mpinpb.o
+subdomain.o:	subdomain.f90 lu_data.o mpinpb.o
+exchange_1.o:	exchange_1.f90 lu_data.o mpinpb.o
+exchange_3.o:	exchange_3.f90 lu_data.o mpinpb.o
+exchange_4.o:	exchange_4.f90 lu_data.o mpinpb.o
+error_cond.o:   error_cond.f90  mpinpb.o
+syncs.o:	syncs.f90 lu_data.o
+alloc_space.o:  alloc_space.f90 lu_data.o mpinpb.o
+lu_data.o:      lu_data.f90 npbparams.h
+mpinpb.o:       mpinpb.f90 lu_data.o
+mpinpb.f90:     mpinpb_${F08}.f90
+	cp mpinpb_${F08}.f90 $@
 
 clean:
-	- /bin/rm -f npbparams.h
-	- /bin/rm -f *.o *~
+	- rm -f *.o *~ *.mod mputil* core
+	- rm -f npbparams.h mpinpb.f90

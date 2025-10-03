@@ -16,54 +16,44 @@ echo "build_MPINAS-MZ:
 "
 
 # config/suite.def
-# This file is used to build several benchmarks with a single command. 
+# This file is used to build several benchmarks with a single command.
 # Typing "make suite" in the main directory will build all the benchmarks
-# specified in this file. 
+# specified in this file.
 # Each line of this file contains a benchmark name, class, and number
-# of nodes. The name is one of "cg", "is", "ep", mg", "ft", "sp", "bt", 
-# "lu", and "dt". 
+# of nodes. The name is one of "cg", "is", "ep", mg", "ft", "sp", "bt",
+# "lu", and "dt".
 # The class is one of "S", "W", "A", "B", "C", "D", and "E"
 # (except that no classes C, D and E for DT, and no class E for IS).
 # The number of nodes must be a legal number for a particular
 # benchmark. The utility which parses this file is primitive, so
-# formatting is inflexible. Separate name/class/number by tabs. 
-# Comments start with "#" as the first character on a line. 
-# No blank lines. 
-# The following example builds 1 processor sample sizes of all benchmarks. 
-build_benchs()
-{
-	for bench in sp-mz lu-mz bt-mz
-	do
-		for class in S W A
-		do
-			for mpi in $PCVS_CRIT_N_MPI
-			do
-				if test "$mpi" -gt 4 -a "$class" = "S"; then
-					continue
-				fi
+# formatting is inflexible. Separate name/class/number by tabs.
+# Comments start with "#" as the first character on a line.
+# No blank lines.
+# The following example builds 1 processor sample sizes of all benchmarks.
+build_benchs() {
+	for bench in sp-mz lu-mz bt-mz; do
+		for class in S W A; do
 
-				printf "$bench\t$class\t$mpi\n" >> "$pcvs_build_current/config/suite.def"
+			printf "$bench\t$class\n" >>"$pcvs_build_current/config/suite.def"
 
-				echo "$bench-$class.$mpi:"
-				echo "    run:"
-				echo "        depends_on:   [ 'build_MPINAS-MZ' ]"
-				echo "        program: 'bin/${bench}.${class}.$mpi'"
+			echo "$bench-$class:"
+			echo "    run:"
+			echo "        depends_on:   [ 'build_MPINAS-MZ' ]"
+			echo "        program: 'bin/${bench}.${class}.x'"
+			if test "$class" = "S"; then
 				echo "        iterate:"
 				echo "            n_mpi:"
-				echo "                values: [ $mpi ]"
+				echo "                values: [ {to: 4} ]"
+			fi
 
-				#if test "x$class" = "xB"; then
-				#echo "    n_omp: [ '>=8' ]"
-				#fi
+			#if test "x$class" = "xB"; then
+			#echo "    n_omp: [ '>=8' ]"
+			#fi
 
-				echo ""
-			done
+			echo ""
 		done
 	done
 }
-
-#if n_mpi iterator is explicitly disabled
-test "$PCVS_CRIT_N_MPI" = "undefined" && exit 0
 
 build_benchs
 

@@ -1,6 +1,5 @@
 SHELL=/bin/sh
 CLASS=W
-NPROCS=1
 VERSION=
 SFILE=config/suite.def
 
@@ -9,15 +8,15 @@ default: header
 
 BT-MZ: bt-mz
 bt-mz: header
-	cd BT-MZ; $(MAKE) CLASS=$(CLASS) NPROCS=$(NPROCS) VERSION=$(VERSION)
+	cd BT-MZ; $(MAKE) CLASS=$(CLASS) VERSION=$(VERSION)
 
 SP-MZ: sp-mz
 sp-mz: header
-	cd SP-MZ; $(MAKE) CLASS=$(CLASS) NPROCS=$(NPROCS)
+	cd SP-MZ; $(MAKE) CLASS=$(CLASS)
 		       
 LU-MZ: lu-mz
 lu-mz: header
-	cd LU-MZ; $(MAKE) CLASS=$(CLASS) NPROCS=$(NPROCS) VERSION=$(VERSION)
+	cd LU-MZ; $(MAKE) CLASS=$(CLASS) VERSION=$(VERSION)
 
 # Awk script courtesy cmg@cray.com
 suite:
@@ -28,8 +27,9 @@ suite:
 # are defined) but on a really clean system this will won't work
 # because those makefiles need config/make.def
 clean:
-	- rm -f core
-	- rm -f *~ */core */*~ */*.o */npbparams.h */*.obj */*.exe
+	- rm -f core *~ */core */*~
+	- rm -f */*.o */*.obj */*.exe */*.mod */*.a
+	- rm -f */npbparams.h */mpinpb.f90
 	- rm -f sys/setparams sys/makesuite sys/setparams.h
 
 veryclean: clean
