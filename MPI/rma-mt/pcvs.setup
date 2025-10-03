@@ -5,13 +5,13 @@ pcvs_src_current=$pcvs_src/$1
 pcvs_build_current=$pcvs_testbuild/$1
 
 #pre actions...
-OLDIR=`pwd`
+OLDIR=$(pwd)
 cd $pcvs_build_current
 cp -r $pcvs_src_current/* $pcvs_build_current/
 
 #run configure...
-autoreconf -fi > autoreconf.log 2>&1 || exit 1
-./configure CC="$PCVS_CMP_CC" CXX="$PCVS_CMP_CXX" CFLAGS="$PCVS_CMP_CC_ARGS -lpthread" --prefix=$pcvs_build_current > configure.log 2>&1
+autoreconf -fi >autoreconf.log 2>&1 || exit 1
+./configure CC="$PCVS_CMP_CC" CXX="$PCVS_CMP_CXX" CFLAGS="$PCVS_CMP_CC_ARGS -lpthread" --prefix=$pcvs_build_current >configure.log 2>&1
 
 echo "compile_rma_mt:"
 echo "    build:"
@@ -21,34 +21,41 @@ echo "            target: 'all'"
 echo "            args: ['LDFLAGS=-lpthread']"
 
 #add new tests here...
-for bin in rmamt_bw rmamt_bibw rmamt_lat ; do
-    echo "${bin}:"
-    echo "    run:"
-    echo "        program: 'src/$bin -o $comm_type -s $sync  -t $thread  -i 10'"
-    echo "        depends_on: [ \"compile_rma_mt\" ]"
-    echo "        iterate:"
-    echo "            cpu_bind: {values: null}"
-    echo "            program:"
-    echo "                th:"
-    echo "                  option: '-t '"
-    echo "                  subtitle: 't'"
-    echo "                  values: [1, 4, 64]"
-    echo "                sync:"
-    echo "                  option: '-s '"
-    echo "                  subtitle: ''"
-    echo "                  values: ['lock', 'fence', 'pscw', 'lock_all', 'flush']"
-    echo "                type:"
-    echo "                  option: '-o '"
-    echo "                  subtitle: ''"
-    echo "                  values: ['put', 'get']"
+for bin in rmamt_bw rmamt_bibw rmamt_lat; do
+	for numthreads in 1 4 64; do
+		echo "${bin}-t$numthreads:"
+		echo "    run:"
+		echo "        program: 'src/$bin -i 10'"
+		echo "        depends_on: [ \"compile_rma_mt\" ]"
+		echo "        iterate:"
+		echo "            cpu_bind: {values: null}"
+		echo "            program:"
+		echo "                th:"
+		echo "                  option: '-t '"
+		echo "                  subtitle: 't'"
+		echo "                  values: [$numthreads]"
+		echo "                sync:"
+		echo "                  option: '-s '"
+		echo "                  subtitle: ''"
+		echo "                  values: ['lock', 'fence', 'pscw', 'lock_all', 'flush']"
+		echo "                type:"
+		echo "                  option: '-o '"
+		echo "                  subtitle: ''"
+		echo "                  values: ['put', 'get']"
+		echo "            n_cores: {values: [$numthreads]}"
 
-    case $bin in
-    rmamt_lat)
-    echo "            n_mpi: {values: [2]}" ;;
-    *)
-    echo "            n_mpi: {values: [{from: 2, to: 128, of: 2}]}" ;;
-    esac
-
+		case $bin in
+		rmamt_lat)
+			echo "            n_mpi: {values: [2]}"
+			;;
+		*)
+			echo "            n_mpi: {values: [{from: 2, to: 128, of: 2}]}"
+			;;
+		esac
+		echo "    validate:"
+		echo "        time:"
+		echo "            hard_timeout: 360"
+	done
 done
 
 cd $OLDIR
