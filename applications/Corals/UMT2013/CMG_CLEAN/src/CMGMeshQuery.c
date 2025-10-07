@@ -614,10 +614,9 @@ int getNodeFromIJ(int i, int j, int faceId)
     }
   }
   else{
-    assert(1);
+    assert(0);
   }
-  return;
-  
+  return 0;
 }
 int getNodeFromI(int i, int edgeId)
 {

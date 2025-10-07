@@ -586,9 +586,11 @@ while (0)
 /* YYLEX -- calling `yylex' with the right arguments.  */
 
 #ifdef YYLEX_PARAM
-# define YYLEX yylex (YYLEX_PARAM)
+char yylex (void *YYLEX_PARAM);
+#define YYLEX yylex(YYLEX_PARAM)
 #else
-# define YYLEX yylex ()
+char yylex ();
+#define YYLEX yylex()
 #endif
 
 /* Enable debugging if requested.  */

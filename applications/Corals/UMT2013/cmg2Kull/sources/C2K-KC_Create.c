@@ -24,6 +24,7 @@
 #include "C2K-Storage.h"
 #include "C2K-Lists.h"
 #include "C2K-CMG.h"
+#include "C2K-KC_Geom.h"
 #include "C2K-KC_Create.h"
 #include "C2K-KC_Info.h"
 #include "C2K-KC_API.h"
@@ -1577,7 +1578,7 @@ void Create_KC_Mesh ( )
 	CreateRealZones ( );
 	CreateRealEdges ( );
 	CreateRealFacesAndSides ( );
-  CalcAllFaceCentroids();
+	CalcAllFaceCentroids();
   
 /*   SetZonesSDControl ( ); */
 /*   SubDivideZones ( 0.1 ); */
