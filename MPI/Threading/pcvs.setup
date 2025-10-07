@@ -3,19 +3,103 @@
 pcvs_src_current=$pcvs_src/$1
 #pcvs_build_current=$pcvs_testbuild/$1
 
-for t in `find $pcvs_src_current -maxdepth 1 -type f -name "*.c"`
-do
+for t in $(find $pcvs_src_current -maxdepth 1 -type f -name "*.c"); do
 	#remove extension
-	file=`basename $t`
-	bin=`echo "$file" | perl -pe "s/\..*$//"`
+	file=$(basename $t)
+	bin=$(echo "$file" | perl -pe "s/\..*$//")
 
 	#generate YAML entry
-	echo "$bin:
-  build:
-    files: '@SRCPATH@/$file'
-    sources: {'binary': '$bin'}
-  run:
-    program: '$bin'
-"
+
+	case $bin in
+	bw | latency | overlap | no_overlap | message_rate)
+		echo "${bin}:"
+		echo "  build:"
+		echo "    files: '@SRCPATH@/$file'"
+		echo "    sources: {'binary': '$bin'}"
+		echo "  run:"
+		echo "    program: '$bin'"
+		echo "    iterate:"
+		echo "      n_mpi: { values: [{from: 2}] }"
+		;;
+	bw_th | latency_th | message_rate_th)
+		for nb_cores in $PCVS_CRIT_N_CORES; do
+			echo "${bin}_${nb_cores}:"
+			echo "  build:"
+			echo "    files: '@SRCPATH@/$file'"
+			echo "    sources: {'binary': '$bin'}"
+			echo "  run:"
+			echo "    program: '$bin'"
+			echo "    iterate:"
+			echo "      n_mpi: { values: [2] }"
+			echo "      n_cores: { values: [$nb_cores] }"
+			echo "      program:"
+			echo "        threads:"
+			echo "          numeric: true"
+			echo "          type: 'argument'"
+			echo "          values: [$nb_cores]"
+		done
+		;;
+	shortlong)
+		echo "${bin}:"
+		echo "  build:"
+		echo "    files: '@SRCPATH@/$file'"
+		echo "    sources: {'binary': '$bin'}"
+		echo "  run:"
+		echo "    program: '$bin'"
+		echo "    iterate: { n_mpi: { values: [4] } }"
+		;;
+	shorlong_th)
+		echo "${bin}:"
+		echo "  build:"
+		echo "    files: '@SRCPATH@/$file'"
+		echo "    sources: {'binary': '$bin'}"
+		echo "  run:"
+		echo "    program: '$bin'"
+		echo "    iterate: { n_mpi: { values: [3] } }"
+		;;
+	conc_allred_th | collcomp | collcomp_noth)
+		for nb_cores in $PCVS_CRIT_N_CORES; do
+			echo "${bin}_${nb_cores}:"
+			echo "  build:"
+			echo "    files: '@SRCPATH@/$file'"
+			echo "    sources: {'binary': '$bin'}"
+			echo "  run:"
+			echo "    program: '$bin'"
+			echo "    iterate:"
+			echo "      n_cores: { values: [$nb_cores] }"
+			echo "      program:"
+			echo "        threads:"
+			echo "          numeric: true"
+			echo "          type: 'argument'"
+			echo "          values: [$nb_cores]"
+		done
+		;;
+	conc_allred)
+		# FIXME: We don't want the number of processes but the number of processes per node
+		for nb_node in $PCVS_CRIT_N_NODE; do
+			if test $nb_node != "1"; then
+				continue
+			fi
+			for nb_proc in $PCVS_CRIT_N_MPI; do
+				echo "${bin}_${nb_proc}:"
+				echo "  build:"
+				echo "    files: '@SRCPATH@/$file'"
+				echo "    sources: {'binary': '$bin'}"
+				echo "  run:"
+				echo "    program: '$bin'"
+				echo "    iterate:"
+				echo "      n_mpi: { values: [$nb_proc] }"
+				echo "      program:"
+				echo "        threads:"
+				echo "          numeric: true"
+				echo "          type: 'argument'"
+				echo "          values: [$nb_proc]"
+			done
+		done
+		;;
+	esac
+
+	echo ""
 done
+
 exit 0
