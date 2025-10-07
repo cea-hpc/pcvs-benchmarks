@@ -1,0 +1,7 @@
+F_LIB  = -L../MPI_dummy -lmpi
+F_INC  = -I../MPI_dummy
+C_LIB  = -L../MPI_dummy -lmpi
+C_INC  = -I../MPI_dummy
+default:: ${PROGRAM} libmpi.a
+libmpi.a: 
+	cd ../MPI_dummy; $(MAKE) FC=$(FC) CC=$(CC)

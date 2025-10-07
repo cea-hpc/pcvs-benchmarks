@@ -4,7 +4,7 @@ include ../config/make.def
 # be the same. We can't include make.common because it has a lot
 # of other garbage. LINK is not defined in make.common because
 # ${MPI_LIB} needs to go at the end of the line. 
-FCOMPILE = $(MPIF77) -c $(FMPI_INC) $(FFLAGS)
+FCOMPILE = $(MPIFC) -c $(FMPI_INC) $(FFLAGS)
 
 all: setparams 
 

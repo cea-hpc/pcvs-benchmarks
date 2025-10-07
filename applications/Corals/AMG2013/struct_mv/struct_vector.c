@@ -227,8 +227,8 @@ hypre_StructVectorSetValues( hypre_StructVector *vector,
    double             *vecp;
 
    int                 i, found;
-   int                 true = 1;
-   int                 false= 0;
+   int                 is_true = 1;
+   int                 is_false= 0;
 
    int                 nprocs;
    
@@ -236,7 +236,7 @@ hypre_StructVectorSetValues( hypre_StructVector *vector,
 
    boxes = hypre_StructGridBoxes(hypre_StructVectorGrid(vector));
 
-   found= false;
+   found= is_false;
    hypre_ForBoxI(i, boxes)
       {
          box = hypre_BoxArrayBox(boxes, i);
@@ -257,7 +257,7 @@ hypre_StructVectorSetValues( hypre_StructVector *vector,
             {
                *vecp = values;
             }
-            found= true;
+            found= is_true;
          }
       }
 
@@ -296,7 +296,7 @@ hypre_StructVectorSetValues( hypre_StructVector *vector,
             {
                *vecp = values;
             }
-            found= true;
+            found= is_true;
          }
          hypre_BoxDestroy(box);
 
@@ -576,14 +576,14 @@ hypre_StructVectorGetValues( hypre_StructVector *vector,
    double             *vecp;
 
    int                 i, j, found;
-   int                 true = 1;
-   int                 false= 0;
+   int                 is_true = 1;
+   int                 is_false= 0;
 
    boxes = hypre_StructGridBoxes(hypre_StructVectorGrid(vector));
 
    /* search first to see if it is in the box. If not then check
       the ghostlayered boxes. */
-   found= false;
+   found= is_false;
    hypre_ForBoxI(i, boxes)
       {
          box = hypre_BoxArrayBox(boxes, i);
@@ -597,7 +597,7 @@ hypre_StructVectorGetValues( hypre_StructVector *vector,
          {
             vecp = hypre_StructVectorBoxDataValue(vector, i, grid_index);
             values = *vecp;
-            found= true;
+            found= is_true;
          }
          if (found) break;
       }
@@ -624,7 +624,7 @@ hypre_StructVectorGetValues( hypre_StructVector *vector,
          {
             vecp = hypre_StructVectorBoxDataValue(vector, i, grid_index);
             values= *vecp;
-            found= true;
+            found= is_true;
          }
          hypre_BoxDestroy(box);
          if (found) break;

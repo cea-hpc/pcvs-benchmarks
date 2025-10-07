@@ -1,8 +1,9 @@
 SHELL=/bin/sh
 CLASS=U
-NPROCS=1
 SUBTYPE=
 VERSION=
+F08=def
+MFLAGS=CLASS=$(CLASS) F08=$(F08)
 SFILE=config/suite.def
 
 default: header
@@ -10,39 +11,39 @@ default: header
 
 BT: bt
 bt: header
-	cd BT; $(MAKE) NPROCS=$(NPROCS) CLASS=$(CLASS) SUBTYPE=$(SUBTYPE) VERSION=$(VERSION)
+	cd BT; $(MAKE) $(MFLAGS) SUBTYPE=$(SUBTYPE) VERSION=$(VERSION)
 
 SP: sp
 sp: header
-	cd SP; $(MAKE) NPROCS=$(NPROCS) CLASS=$(CLASS)
+	cd SP; $(MAKE) $(MFLAGS)
 
 LU: lu
 lu: header
-	cd LU; $(MAKE) NPROCS=$(NPROCS) CLASS=$(CLASS) VERSION=$(VERSION)
+	cd LU; $(MAKE) $(MFLAGS) VERSION=$(VERSION)
 
 MG: mg
 mg: header
-	cd MG; $(MAKE) NPROCS=$(NPROCS) CLASS=$(CLASS)
+	cd MG; $(MAKE) $(MFLAGS)
 
 FT: ft
 ft: header
-	cd FT; $(MAKE) NPROCS=$(NPROCS) CLASS=$(CLASS)
+	cd FT; $(MAKE) $(MFLAGS)
 
 IS: is
 is: header
-	cd IS; $(MAKE) NPROCS=$(NPROCS) CLASS=$(CLASS)
+	cd IS; $(MAKE) $(MFLAGS)
 
 CG: cg
 cg: header
-	cd CG; $(MAKE) NPROCS=$(NPROCS) CLASS=$(CLASS)
+	cd CG; $(MAKE) $(MFLAGS)
 
 EP: ep
 ep: header
-	cd EP; $(MAKE) NPROCS=$(NPROCS) CLASS=$(CLASS)
+	cd EP; $(MAKE) $(MFLAGS)
 
 DT: dt
 dt: header
-	cd DT; $(MAKE) CLASS=$(CLASS)
+	cd DT; $(MAKE) $(MFLAGS)
 
 # Awk script courtesy cmg@cray.com, modified by Haoqiang Jin
 suite:
@@ -53,8 +54,8 @@ suite:
 # are defined) but on a really clean system this will won't work
 # because those makefiles need config/make.def
 clean:
-	- rm -f core 
-	- rm -f *~ */core */*~ */*.o */npbparams.h */*.obj */*.exe
+	- rm -f core *~ */core */*~
+	- rm -f */*.o */*.mod */*.obj */*.exe */npbparams.h */mpinpb.*
 	- rm -f MPI_dummy/test MPI_dummy/libmpi.a
 	- rm -f sys/setparams sys/makesuite sys/setparams.h
 	- rm -f btio.*.out*

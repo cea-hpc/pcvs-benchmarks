@@ -11,7 +11,9 @@ echo "build_OMPNAS-MZ:
     build:
         make:
             target: 'suite'
+            args: ['PCVS_CC=@COMPILER_CC@', 'PCVS_FC=@COMPILER_FC@']
         files: '@BUILDPATH@/Makefile'
+        variants: ['openmp']
 "
 
 # config/suite.def

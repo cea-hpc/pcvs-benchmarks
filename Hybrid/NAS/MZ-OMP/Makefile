@@ -27,8 +27,8 @@ suite:
 # are defined) but on a really clean system this will won't work
 # because those makefiles need config/make.def
 clean:
-	- rm -f core 
-	- rm -f *~ */core */*~ */*.o */npbparams.h */*.obj */*.exe
+	- rm -f core *~ */core */*~
+	- rm -f */*.o */npbparams.h */*.obj */*.exe */*.mod
 	- rm -f sys/setparams sys/makesuite sys/setparams.h
 
 veryclean: clean

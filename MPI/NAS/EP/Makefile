@@ -1,23 +1,31 @@
 SHELL=/bin/sh
 BENCHMARK=ep
 BENCHMARKU=EP
+F08=def
 
 include ../config/make.def
 
-OBJS = ep.o ${COMMON}/print_results.o ${COMMON}/${RAND}.o ${COMMON}/timers.o
+OBJS = ep.o ep_data.o verify.o mpinpb.o \
+	${COMMON}/print_results.o ${COMMON}/${RAND}.o ${COMMON}/timers.o
 
 include ../sys/make.common
 
 ${PROGRAM}: config ${OBJS}
 	${FLINK} ${FLINKFLAGS} -o ${PROGRAM} ${OBJS} ${FMPI_LIB}
 
+.f90.o:
+	${FCOMPILE} $<
 
-ep.o:		ep.f  mpinpb.h npbparams.h
-	${FCOMPILE} ep.f
+ep.o:		ep.f90 ep_data.o mpinpb.o
+ep_data.o:	ep_data.f90 npbparams.h
+verify.o:	verify.f90
+mpinpb.o:	mpinpb.f90
+mpinpb.f90:     mpinpb_$(F08).f90
+	cp mpinpb_$(F08).f90 $@
 
 clean:
-	- rm -f *.o *~ 
-	- rm -f npbparams.h core
+	- rm -f *.o *~ *.mod
+	- rm -f npbparams.h core mpinpb.f90
 
 
 

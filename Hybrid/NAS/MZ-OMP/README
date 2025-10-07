@@ -1,4 +1,4 @@
-NPB3.3-MZ (Multi-Zone) OpenMP Versions
+NPB3.4.3-MZ (Multi-Zone) OpenMP Versions
 -------------------------------------------
 
 NPB Development Team
@@ -20,7 +20,53 @@ For benchmark compilation and runtime setup, please refer to
 README.install included in the directory.
 
 
-NPB 3.3-MZ-OMP is the first release of the nested OpenMP 
+NPB 3.4.3-MZ-OMP
+
+Free dynamically allocated memory after its use.
+
+
+NPB 3.4.2-MZ-OMP
+
+No change from previous OMP version.
+
+
+NPB 3.4.1-MZ-OMP
+
+This is a minor release with no functional change.
+
+  * Changed Fortran sources from fixed form to free form.
+
+  * Update in documentation (README.install).
+
+
+NPB 3.4-MZ-OMP
+
+  * Use Fortran modules and allocatable arrays to define and manage
+    global data (to replace common blocks).  Use Fortran 2003 IEEE 
+    arithmetic function to catch the NaN condition during verification.
+
+    Because of these changes, "F77" in all makefiles (including make.def)
+    is renamed to "FC" for Fortran compiler.
+
+  * Use of the "COLLAPSE" clause to improve parallelism for OpenMP.
+    This requires a compiler that supports OpenMP 3.0.
+
+  * Selection of nested parallelism is now controlled by specifying
+    multiple values to the environment variable OMP_NUM_THREADS.
+    (Use of OMP_NUM_THREADS2 is removed.)
+
+  * Reduced dimension for working arrays (lhs,lhsp,lhsm) to improve 
+    cache performance in SP-MZ
+
+  * Minor cache optimization for RHS in LU-MZ
+
+  * The environment variable NPB_TIMER_FLAG is now used to enable 
+    additional timers.
+
+
+NPB 3.3-MZ-OMP
+
+This version is the first release of the nested OpenMP 
 implementation of the multi-zone benchmarks.  It replaces
 the SMP+OpenMP implementation included in previous releases.
 This release is merged with the vector codes.  The vector version 

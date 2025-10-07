@@ -45,16 +45,16 @@
  * won't accidentally change it. 
  */
 
-#define VERSION "3.3.1"
+#define VERSION "3.4.3"
 
 /* controls verbose output from setparams */
 /* #define VERBOSE */
 
 #define FILENAME "npbparams.h"
-#define DESC_LINE "c CLASS = %c\n"
+#define DESC_LINE "! CLASS = %c\n"
 #define DEF_CLASS_LINE     "#define CLASS '%c'\n"
 #define FINDENT  "        "
-#define CONTINUE "     > "
+#define CONTINUE "     & "
 
 void get_info(char *argv[], int *typep, char *classp);
 void check_info(int type, char class);
@@ -182,18 +182,18 @@ void check_info(int type, char class)
       class != 'B' && 
       class != 'C' && 
       class != 'D' && 
-      class != 'E') {
+      class != 'E' && 
+      class != 'F') {
     printf("setparams: Unknown benchmark class %c\n", class); 
-    printf("setparams: Allowed classes are \"S\", \"W\", and \"A\" through \"E\"\n");
+    printf("setparams: Allowed classes are \"S\", \"W\", and \"A\" through \"F\"\n");
     exit(1);
   }
 
-  if (class == 'E' && (type == IS || type == UA || type == DC)) {
-    printf("setparams: Benchmark class %c not defined for IS, UA, or DC\n", class);
-    exit(1);
-  }
-  if ((class == 'C' || class == 'D') && type == DC) {
-    printf("setparams: Benchmark class %c not defined for DC\n", class);
+  if ((class == 'E' && (type == UA || type == DC)) ||
+      (class == 'F' && (type == IS || type == UA || type == DC)) ||
+      ((class == 'C' || class == 'D') && type == DC)) {
+    printf("setparams: Benchmark class %c not defined for %s\n",
+           class, (type == IS)? "IS" : (type == UA)? "UA" : "DC");
     exit(1);
   }
 }
@@ -290,12 +290,12 @@ void write_info(int type, char class)
           fprintf(fp, DESC_LINE, class);
           /* Print out a warning so bozos don't mess with the file */
           fprintf(fp, "\
-c  \n\
-c  \n\
-c  This file is generated automatically by the setparams utility.\n\
-c  It sets the number of processors and the class of the NPB\n\
-c  in this directory. Do not modify it by hand.\n\
-c  \n");
+!  \n\
+!  \n\
+!  This file is generated automatically by the setparams utility.\n\
+!  It sets the number of processors and the class of the NPB\n\
+!  in this directory. Do not modify it by hand.\n\
+!  \n");
 
           break;
       case IS:
@@ -382,6 +382,7 @@ void write_sp_info(FILE *fp, char class)
   else if (class == 'C') { problem_size = 162; dt = "0.00067d0"; niter = 400; }
   else if (class == 'D') { problem_size = 408; dt = "0.00030d0"; niter = 500; }
   else if (class == 'E') { problem_size = 1020; dt = "0.0001d0"; niter = 500; }
+  else if (class == 'F') { problem_size = 2560; dt = "0.15d-4";  niter = 500; }
   else {
     printf("setparams: Internal error: invalid class %c\n", class);
     exit(1);
@@ -408,6 +409,7 @@ void write_bt_info(FILE *fp, char class)
   else if (class == 'C') { problem_size = 162; dt = "0.0001d0";  niter = 200; }
   else if (class == 'D') { problem_size = 408; dt = "0.00002d0";  niter = 250; }
   else if (class == 'E') { problem_size = 1020; dt = "0.4d-5";    niter = 250; }
+  else if (class == 'F') { problem_size = 2560; dt = "0.6d-6";    niter = 250; }
   else {
     printf("setparams: Internal error: invalid class %c\n", class);
     exit(1);
@@ -456,6 +458,7 @@ void write_lu_info(FILE *fp, char class)
   else if (class == 'C') { problem_size = 162; dt_default = "2.0d0"; itmax = 250; }
   else if (class == 'D') { problem_size = 408; dt_default = "1.0d0"; itmax = 300; }
   else if (class == 'E') { problem_size = 1020; dt_default = "0.5d0"; itmax = 300; }
+  else if (class == 'F') { problem_size = 2560; dt_default = "0.2d0"; itmax = 300; }
   else {
     printf("setparams: Internal error: invalid class %c\n", class);
     exit(1);
@@ -465,12 +468,12 @@ void write_lu_info(FILE *fp, char class)
   isiz2 = problem_size;
   
 
-  fprintf(fp, "\nc full problem size\n");
+  fprintf(fp, "\n! full problem size\n");
   fprintf(fp, "%sinteger isiz1, isiz2, isiz3\n", FINDENT);
   fprintf(fp, "%sparameter (isiz1=%d, isiz2=%d, isiz3=%d)\n", 
 	       FINDENT, isiz1, isiz2, problem_size );
 
-  fprintf(fp, "\nc number of iterations and how often to print the norm\n");
+  fprintf(fp, "\n! number of iterations and how often to print the norm\n");
   fprintf(fp, "%sinteger itmax_default, inorm_default\n", FINDENT);
   fprintf(fp, "%sparameter (itmax_default=%d, inorm_default=%d)\n", 
 	  FINDENT, itmax, inorm);
@@ -496,6 +499,7 @@ void write_mg_info(FILE *fp, char class)
   else if (class == 'C') { problem_size = 512; nit = 20; }
   else if (class == 'D') { problem_size = 1024; nit = 50; }
   else if (class == 'E') { problem_size = 2048; nit = 50; }
+  else if (class == 'F') { problem_size = 4096; nit = 50; }
   else {
     printf("setparams: Internal error: invalid class type %c\n", class);
     exit(1);
@@ -520,9 +524,9 @@ void write_mg_info(FILE *fp, char class)
   fprintf(fp, "%sinteger ndim1, ndim2, ndim3\n", FINDENT);
   fprintf(fp, "%sparameter (ndim1 = %d, ndim2 = %d, ndim3 = %d)\n", 
 	  FINDENT, ndim1, ndim2, ndim3);
-  fprintf(fp, "%sinteger%s one, nr, nv, ir\n", 
-          FINDENT, (problem_size > 1024)? "*8" : "");
-  fprintf(fp, "%sparameter (one=1)\n", FINDENT);
+  fprintf(fp, "%sinteger kind2\n", FINDENT);
+  fprintf(fp, "%sparameter (kind2=%s)\n",
+          FINDENT, (problem_size > 1024)? "8" : "4");
 }
 
 
@@ -537,7 +541,8 @@ void write_is_info(FILE *fp, char class)
       class != 'A' &&
       class != 'B' &&
       class != 'C' &&
-      class != 'D')
+      class != 'D' &&
+      class != 'E')
   {
     printf("setparams: Internal error: invalid class type %c\n", class);
     exit(1);
@@ -551,43 +556,39 @@ void write_is_info(FILE *fp, char class)
 
 void write_cg_info(FILE *fp, char class) 
 {
-  int na,nonzer,niter;
+  int na,nonzer,niter,kz;
   char *shift,*rcond="1.0d-1";
-  char *shiftS="10.",
-       *shiftW="12.",
-       *shiftA="20.",
-       *shiftB="60.",
-       *shiftC="110.",
-       *shiftD="500.",
-       *shiftE="1.5d3";
-
 
   if( class == 'S' )
-  { na=1400; nonzer=7; niter=15; shift=shiftS; }
+  { na=1400; nonzer=7; niter=15; shift="10."; }
   else if( class == 'W' )
-  { na=7000; nonzer=8; niter=15; shift=shiftW; }
+  { na=7000; nonzer=8; niter=15; shift="12."; }
   else if( class == 'A' )
-  { na=14000; nonzer=11; niter=15; shift=shiftA; }
+  { na=14000; nonzer=11; niter=15; shift="20."; }
   else if( class == 'B' )
-  { na=75000; nonzer=13; niter=75; shift=shiftB; }
+  { na=75000; nonzer=13; niter=75; shift="60."; }
   else if( class == 'C' )
-  { na=150000; nonzer=15; niter=75; shift=shiftC; }
+  { na=150000; nonzer=15; niter=75; shift="110."; }
   else if( class == 'D' )
-  { na=1500000; nonzer=21; niter=100; shift=shiftD; }
+  { na=1500000; nonzer=21; niter=100; shift="500."; }
   else if( class == 'E' )
-  { na=9000000; nonzer=26; niter=100; shift=shiftE; }
+  { na=9000000; nonzer=26; niter=100; shift="1.5d3"; }
+  else if( class == 'F' )
+  { na=54000000; nonzer=31; niter=100; shift="5.0d3"; }
   else
   {
     printf("setparams: Internal error: invalid class type %c\n", class);
     exit(1);
   }
+  kz = (na >= 9000000)? 8 : 4;
   fprintf( fp, "%sinteger            na, nonzer, niter\n", FINDENT );
   fprintf( fp, "%sdouble precision   shift, rcond\n", FINDENT );
-  fprintf( fp, "%sparameter(  na=%d,\n", FINDENT, na );
-  fprintf( fp, "%s             nonzer=%d,\n", CONTINUE, nonzer );
-  fprintf( fp, "%s             niter=%d,\n", CONTINUE, niter );
-  fprintf( fp, "%s             shift=%s,\n", CONTINUE, shift );
+  fprintf( fp, "%sparameter(  na=%d, &\n", FINDENT, na );
+  fprintf( fp, "%s             nonzer=%d, &\n", CONTINUE, nonzer );
+  fprintf( fp, "%s             niter=%d, &\n", CONTINUE, niter );
+  fprintf( fp, "%s             shift=%s, &\n", CONTINUE, shift );
   fprintf( fp, "%s             rcond=%s )\n", CONTINUE, rcond );
+  fprintf( fp, "%sinteger, parameter :: kz=%d\n", FINDENT, kz );
   
 }
 
@@ -614,7 +615,9 @@ void write_ua_info(FILE *fp, char class)
   else if( class == 'C' )
   { lelt=33500; lmor=1262100;  refine_max=8;  niter=200; nmxh=10; alpha="0.067d0"; }
   else if( class == 'D' )
-  { lelt=515000;lmor=19500000; refine_max=10; niter=250; nmxh=10; alpha="0.046d0"; }
+  { lelt=514400;lmor=19134400; refine_max=10; niter=250; nmxh=10; alpha="0.046d0"; }
+  else if( class == 'E' )
+  { lelt=7844800;lmor=291302900; refine_max=12; niter=250; nmxh=10; alpha="0.0294d0"; }
   else
   {
     printf("setparams: Internal error: invalid class type %c\n", class);
@@ -625,13 +628,13 @@ void write_ua_info(FILE *fp, char class)
   fprintf( fp, "%sinteger          niter_default, nmxh_default\n", FINDENT );
   fprintf( fp, "%scharacter        class_default\n", FINDENT );
   fprintf( fp, "%sdouble precision alpha_default\n", FINDENT );
-  fprintf( fp, "%sparameter(  lelt=%d,\n", FINDENT, lelt );
-  fprintf( fp, "%s            lmor=%d,\n", CONTINUE, lmor );
-  fprintf( fp, "%s             refine_max=%d,\n", CONTINUE, refine_max );
-  fprintf( fp, "%s             fre_default=%d,\n", CONTINUE, fre );
-  fprintf( fp, "%s             niter_default=%d,\n", CONTINUE, niter );
-  fprintf( fp, "%s             nmxh_default=%d,\n", CONTINUE, nmxh );
-  fprintf( fp, "%s             class_default=\"%c\",\n", CONTINUE, class );
+  fprintf( fp, "%sparameter(  lelt=%d, &\n", FINDENT, lelt );
+  fprintf( fp, "%s            lmor=%d, &\n", CONTINUE, lmor );
+  fprintf( fp, "%s             refine_max=%d, &\n", CONTINUE, refine_max );
+  fprintf( fp, "%s             fre_default=%d, &\n", CONTINUE, fre );
+  fprintf( fp, "%s             niter_default=%d, &\n", CONTINUE, niter );
+  fprintf( fp, "%s             nmxh_default=%d, &\n", CONTINUE, nmxh );
+  fprintf( fp, "%s             class_default=\"%c\", &\n", CONTINUE, class );
   fprintf( fp, "%s             alpha_default=%s )\n", CONTINUE, alpha );
   
 }
@@ -655,6 +658,7 @@ void write_ft_info(FILE *fp, char class)
   else if (class == 'C') { nx = 512; ny = 512; nz = 512; niter =20;}
   else if (class == 'D') { nx = 2048; ny = 1024; nz = 1024; niter =25;}
   else if (class == 'E') { nx = 4096; ny = 2048; nz = 2048; niter =25;}
+  else if (class == 'F') { nx = 8192; ny = 4096; nz = 4096; niter =25;}
   else {
     printf("setparams: Internal error: invalid class type %c\n", class);
     exit(1);
@@ -663,14 +667,12 @@ void write_ft_info(FILE *fp, char class)
   if (ny > maxdim) maxdim = ny;
   if (nz > maxdim) maxdim = nz;
   fprintf(fp, "%sinteger nx, ny, nz, maxdim, niter_default\n", FINDENT);
-  fprintf(fp, "%sinteger%s ntotal, nxp, nyp, ntotalp\n", FINDENT,
-          (nx > 1024)? "*8" : "");
   fprintf(fp, "%sparameter (nx=%d, ny=%d, nz=%d, maxdim=%d)\n", 
           FINDENT, nx, ny, nz, maxdim);
   fprintf(fp, "%sparameter (niter_default=%d)\n", FINDENT, niter);
-  fprintf(fp, "%sparameter (nxp=nx+1, nyp=ny)\n", FINDENT);
-  fprintf(fp, "%sparameter (ntotal=nx*nyp*nz)\n", FINDENT);
-  fprintf(fp, "%sparameter (ntotalp=nxp*nyp*nz)\n", FINDENT);
+  fprintf(fp, "%sinteger kind2\n", FINDENT);
+  fprintf(fp, "%sparameter (kind2=%s)\n", 
+          FINDENT, (maxdim > 1024)? "8" : "4");
 
 }
 
@@ -692,6 +694,7 @@ void write_ep_info(FILE *fp, char class)
   else if (class == 'C') { m = 32; }
   else if (class == 'D') { m = 36; }
   else if (class == 'E') { m = 40; }
+  else if (class == 'F') { m = 44; }
   else {
     printf("setparams: Internal error: invalid class type %c\n", class);
     exit(1);
@@ -710,7 +713,7 @@ void write_ep_info(FILE *fp, char class)
  * print out how they were compiled. Various other ways
  * of doing this have been tried and they all fail on
  * some machine - due to a broken "make" program, or
- * F77 limitations, of whatever. Hopefully this will
+ * FC limitations, of whatever. Hopefully this will
  * always work because it uses very portable C. Unfortunately
  * it relies on parsing the make.def file - YUK. 
  * If your machine doesn't have <string.h> or <ctype.h>, happy hacking!
@@ -725,7 +728,7 @@ FILE *deffile;
 void write_compiler_info(int type, FILE *fp)
 {
   char line[LL];
-  char f77[LL], flink[LL], f_lib[LL], f_inc[LL], fflags[LL], flinkflags[LL];
+  char fc[LL], flink[LL], f_lib[LL], f_inc[LL], fflags[LL], flinkflags[LL];
   char compiletime[LL], randfile[LL];
   char cc[LL], cflags[LL], clink[LL], clinkflags[LL],
        c_lib[LL], c_inc[LL];
@@ -740,7 +743,7 @@ setparams: File %s doesn't exist. To build the NAS benchmarks\n\
            the file config/make.def.template\n", DEFFILE);
     exit(1);
   }
-  strcpy(f77, DEFAULT_MESSAGE);
+  strcpy(fc, DEFAULT_MESSAGE);
   strcpy(flink, DEFAULT_MESSAGE);
   strcpy(f_lib, DEFAULT_MESSAGE);
   strcpy(f_inc, DEFAULT_MESSAGE);
@@ -757,7 +760,7 @@ setparams: File %s doesn't exist. To build the NAS benchmarks\n\
   while (fgets(line, LL, deffile) != NULL) {
     if (*line == '#') continue;
     /* yes, this is inefficient. but it's simple! */
-    check_line(line, "F77", f77);
+    check_line(line, "FC", fc);
     check_line(line, "FLINK", flink);
     check_line(line, "F_LIB", f_lib);
     check_line(line, "F_INC", f_inc);
@@ -789,7 +792,7 @@ setparams: File %s doesn't exist. To build the NAS benchmarks\n\
       case UA:
           put_string(fp, "compiletime", compiletime);
           put_string(fp, "npbversion", VERSION);
-          put_string(fp, "cs1", f77);
+          put_string(fp, "cs1", fc);
           put_string(fp, "cs2", flink);
           put_string(fp, "cs3", f_lib);
           put_string(fp, "cs4", f_inc);
@@ -975,7 +978,7 @@ void put_string(FILE *fp, char *name, char *val)
   nlines = len/LINELEN;
   if (nlines*LINELEN < len) nlines++;
   fprintf(fp, "%scharacter*%d %s\n", FINDENT, nlines*LINELEN, name);
-  fprintf(fp, "%sparameter (%s = \n", FINDENT, name);
+  fprintf(fp, "%sparameter (%s = &\n", FINDENT, name);
   for (i = 0; i < nlines; i++) {
     pos = i*LINELEN;
     if (i == 0) fprintf(fp, "%s\'", CONTINUE);
@@ -983,7 +986,7 @@ void put_string(FILE *fp, char *name, char *val)
     /* number should be same as LINELEN */
     fprintf(fp, "%.65s", val+pos);
     if (i == nlines-1) fprintf(fp, "\')\n");
-    else             fprintf(fp, "\n");
+    else             fprintf(fp, " &\n");
   }
 }
 

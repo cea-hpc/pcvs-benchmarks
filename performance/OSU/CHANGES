@@ -1,3 +1,588 @@
+OSU Micro Benchmarks v7.5.1 (07/03/2025)
+
+* New Features & Enhancements
+    - Added support for iteration buckets for fine grained iteration control
+        - Thanks to Brian Smith @ORNL for contributing the patch
+    - Added support for automatic power of 2 calculations in message sizes
+        - Thanks to Brian Smith @ORNL for contributing the patch
+
+* Bug Fixes
+    - Fixed a potential datatype overflow in int type size values
+        - Thanks to Anton Daumen @Eviden for the report and patch
+    - Fixed a bug in pt2pt tests that prevented tests from running
+      with message sizes >1GB.
+
+OSU Micro Benchmarks v7.5 (11/01/2024)
+
+* New Features & Enhancements
+    - New OpenSHMEM benchmarks
+        * osu_oshm_get_bw, osu_oshm_get_nb_bw
+        * osu_oshm_put_bw, osu_oshm_put_nb_bw
+        * osu_oshm_get_overlap
+    - New partitioned point-to-point benchmkark
+        * osu_partitioned_latency
+    - Add NVIDIA, AMD, and Intel GPU support for neighborhood collective
+      benchmarks
+        * osu_neighbor_allgather, osu_neighbor_allgatherv,
+        * osu_neighbor_alltoall, osu_neighbor_alltoallv,
+        * osu_neighbor_alltoallw, osu_ineighbor_allgatherv,
+        * osu_ineighbor_allgatherv, osu_ineighbor_alltoall,
+        * osu_ineighbor_alltoallv, osu_ineighbor_alltoallw
+    - Add Intel GPU support for the following benchmarks
+        * Point-to-point benchmarks
+            * osu_bibw, osu_bw, osu_mbw_mr, osu_latency, osu_multi_lat,
+            * osu_latency_mp, osu_latency_mt, osu_bw_persistent,
+            * osu_bibw_persistent, osu_latency_persistent,
+            * osu_partitioned_latency
+        * Network congestion benchmarks
+            * osu_bw_fan_in, osu_bw_fan_out
+        * Blocking collective benchmarks
+            * osu_allgather, osu_allgatherv, osu_alltoall, osu_allreduce,
+            * osu_alltoallv, osu_alltoallw, osu_bcast, osu_barrier, osu_gather,
+            * osu_gatherv, osu_reduce, osu_reduce_scatter, osu_scatter,
+            * osu_scatterv, osu_reduce_scatter_block
+        * Non-Blocking collective benchmarks
+            * osu_iallgather, osu_iallgatherv, osu_iallreduce, osu_ialltoall,
+            * osu_ialltoallv, osu_ialltoallw, osu_ibcast, osu_ibarrier,
+            * osu_igather, osu_igatherv, osu_ireduce, osu_iscatter,
+            * osu_iscatterv, osu_ireduce_scatter, osu_ireduce_scatter_block
+        * Persistent collective benchmarks
+            * osu_allgather_persistent, osu_allgatherv_persistent,
+            * osu_allreduce_persistent, osu_alltoall_persistent,
+            * osu_alltoallv_persistent, osu_alltoallw_persistent,
+            * osu_barrier_persistent, osu_bcast_persistent,
+            * osu_gather_persistent, osu_gatherv_persistent,
+            * osu_reduce_persistent, osu_reduce_scatter_persistent,
+            * osu_scatter_persistent, osu_scatterv_persistent
+        * One-sided benchmarks
+            * osu_acc_latency, osu_cas_latency, osu_fop_latency, osu_get_bw,
+            * osu_get_latency, osu_put_bibw, osu_put_bw, osu_put_latency,
+            * osu_get_acc_latency
+    - Changed default MPI_TYPE of reduce benchmarks to MPI_INT.
+            * osu_reduce, osu_allreduce, osu_reduce_scatter, osu_reduce_scatter_block
+
+* Bug Fixes
+    - Fixed RCCL build in ROCm 6 due to installation path changes.
+    - Fixed a bug leading to nvcc command not found error when builing with NCCL
+      support.
+        * Thanks to Raghu Raja @Amazon for report.
+    - Resolved a bug in the maximum memory limit check, which previously
+      considered only the memory allocated by a single buffer. This check and
+      command line option 'M' no longer exists.
+        * Thanks to Van Man Nguyen @Eviden for report and patch.
+    - Fixed bug while printing validation results in some collective benchmarks.
+    - Updated reduction benchmarks to use MPI_SIGNED_CHAR instead of MPI_CHAR.
+        * Thanks to Rémi Dehenne @CEA for report and patch.
+    - Fixed a bug in Reduce, Reduce-Scatter benchmarks that caused validation
+      to fail when running with ROCM support.
+        * Thanks to Anton Daumen @Eviden for report and patch.
+        * Thanks to Edgar Gabriel @AMD and Mustafa Abduljabbar @AMD for report.
+    - Fixed RCCL check in configure script.
+        * Thanks to Anton Daumen @Eviden for report.
+
+OSU Micro Benchmarks v7.4 (4/26/2024)
+
+* New Features & Enhancements
+    - Add support for new benchmarks to measure network congestion
+        * osu_bw_fan_in, osu_bw_fan_out
+    - Add new collective benchmarks
+        * osu_reduce_scatter_block, osu_ireduce_scatter_block
+    - Add support for custom percentile values to evaluate benchmark performance
+    - Add support to log validation failures to following benchmarks
+        * Point-to-point benchmarks
+            * osu_bibw, osu_bw, osu_mbw_mr, osu_latency, osu_multi_lat,
+            * osu_latency_mp, osu_latency_mt, osu_bw_persistent,
+            * osu_bibw_persistent, osu_latency_persistent
+        * Blocking collective benchmarks
+            * osu_allgather, osu_allgatherv, osu_alltoall, osu_allreduce,
+            * osu_alltoallv, osu_alltoallw, osu_bcast, osu_barrier, osu_gather,
+            * osu_gatherv, osu_reduce, osu_reduce_scatter, osu_scatter,
+            * osu_scatterv, osu_reduce_scatter_block
+        * Non-Blocking collective benchmarks
+            * osu_iallgather, osu_iallgatherv, osu_iallreduce, osu_ialltoall,
+            * osu_ialltoallv, osu_ialltoallw, osu_ibcast, osu_ibarrier,
+            * osu_igather, osu_igatherv, osu_ireduce, osu_iscatter,
+            * osu_iscatterv, osu_ireduce_scatter, osu_ireduce_scatter_block
+        * Neighborhood collective benchmarks
+            * osu_neighbor_allgather, osu_neighbor_allgatherv,
+            * osu_neighbor_alltoall,osu_neighbor_alltoallv,
+            * osu_neighbor_alltoallw, osu_ineighbor_allgatherv,
+            * osu_ineighbor_allgatherv, osu_ineighbor_alltoall,
+            * osu_ineighbor_alltoallv, osu_ineighbor_alltoallw
+        * Persistent collective benchmarks
+            * osu_allgather_persistent, osu_allgatherv_persistent,
+            * osu_allreduce_persistent, osu_alltoall_persistent,
+            * osu_alltoallv_persistent, osu_alltoallw_persistent,
+            * osu_barrier_persistent, osu_bcast_persistent,
+            * osu_gather_persistent, osu_gatherv_persistent,
+            * osu_reduce_persistent, osu_reduce_scatter_persistent,
+            * osu_scatter_persistent, osu_scatterv_persistent,
+
+* Bug Fixes
+    - Fixed time measurement in osu_mbw_mr and osu_multi_lat benchmarks to
+      consider execution time across all sender ranks.
+    - Fixed validation failure when using managed device buffers.
+        * Thanks to Van Man Nguyen @Eviden for report.
+    - Fixed time measurement in osu_mbw_mr and osu_multi_lat benchmarks to
+      consider execution time across all sender ranks.
+    - Fixed multiple definition error when building with NCCL support.
+        * Thanks to Klaus Noelp @FU Hagen for report.
+    - Fixed bugs causing display of multiple/incorrect headers.
+    - Fixed hang issue in benchmarks using multiple buffers when validation
+      is enabled.
+        * Thanks to Van Man Nguyen @Eviden for the report.
+    - Fixed issue in osu_cas_latency benchmark that led to segmentation fault.
+        * Thanks to Julien Duprat @Eviden for the report.
+    - Fixed configure time failure while building with latest ROCm.
+        * Thanks to Mahdieh Ghazimirsaeed @AMD for the report and patch.
+    - Fixed device and managed memory allocation in one-sided benchmarks.
+        * Thanks to Mikhail Brinskii @NVIDIA for the report.
+    - Fixed bug in Reduce-Scatter benchmarks that led to data validation of
+      only a part of the receive buffer.
+    - Fixed NULL pointer error in device based one-sided benchmarks.
+    - Fixed data validation issue with Reduce, Allreduce, Reduce_scatter
+      benchmarks.
+    - Updated configure help for "--enable-mpi4" to state that the MPI-4
+      features are auto enabled.
+        * Thanks to Antoine Morvan @Eviden for the report.
+    - Fixed a bug in benchmarks that led to MPI_IN_PLACE support getting enabled
+      only when validation is enabled.
+
+OSU Micro Benchmarks v7.3 (10/30/2023)
+
+* New Features & Enhancements
+    - Add support for RCCL benchmarks
+        * Thanks to Marcel Koch @KIT for the initial patch
+        * Point-to-point benchmarks supported
+            * osu_xccl_bibw, osu_xccl_bw, osu_xccl_latency
+        * Collective benchmarks supported
+            * osu_xccl_allgather, osu_xccl_allreduce, osu_xccl_alltoall,
+            * osu_xccl_bcast, osu_xccl_reduce, osu_xccl_reduce_scatter
+    - Add new benchmarks for persistent collectives
+        * osu_allgather_persistent, osu_allgatherv_persistent,
+        * osu_allreduce_persistent, osu_alltoall_persistent,
+        * osu_alltoallv_persistent, osu_alltoallw_persistent,
+        * osu_barrier_persistent, osu_bcast_persistent,
+        * osu_gather_persistent, osu_gatherv_persistent,
+        * osu_reduce_persistent, osu_reduce_scatter_persistent,
+        * osu_scatter_persistent, osu_scatterv_persistent
+    - Support new metrics to evaluate benchmark performance
+        * 50th percentile tail latency/bandwidth
+        * 95th percentile tail latency/bandwidth
+        * 99th percentile tail latency/bandwidth
+
+* Bug Fixes
+    - Fixed acknowledgement buffer memory allocation issue in bandwidth related
+      benchmarks
+        * Thanks to Emmanuel BRELLE @Eviden for report and patch.
+    - Fixed validation issue in osu_fop_latency.
+        * Thanks to Coey Minear @HPE for report and patch.
+    - Added support to managed buffers in one-sided collectives and
+      one-sided point-to-point benchmarks
+
+OSU Micro Benchmarks v7.2 (07/10/2023)
+
+* New Features & Enhancements
+    - Add MPI-4 session based initialization support to following benchmarks
+        * Point-to-point benchmarks supported
+            * osu_bibw, osu_bw, osu_mbw_mr, osu_latency, osu_multi_lat,
+            * osu_latency_mp, osu_latency_mt, osu_bw_persistent,
+            * osu_bibw_persistent, osu_latency_persistent
+        * Blocking benchmarks supported
+            * osu_allgather, osu_allgatherv, osu_alltoall, osu_allreduce,
+            * osu_alltoallv, osu_alltoallw, osu_bcast, osu_barrier, osu_gather,
+            * osu_gatherv, osu_reduce, osu_reduce_scatter, osu_scatter,
+            * osu_scatterv
+        * Non-Blocking benchmarks supported
+            * osu_iallgather, osu_iallgatherv, osu_iallreduce, osu_ialltoall,
+            * osu_ialltoallv, osu_ialltoallw, osu_ibcast, osu_ibarrier,
+            * osu_igather, osu_igatherv, osu_ireduce, osu_iscatter,
+            * osu_iscatterv, osu_ireduce_scatter
+        * Neighborhood benchmarks
+            * osu_neighbor_allgather, osu_neighbor_allgatherv,
+            * osu_neighbor_alltoall,osu_neighbor_alltoallv,
+            * osu_neighbor_alltoallw, osu_ineighbor_allgatherv,
+            * osu_ineighbor_allgatherv, osu_ineighbor_alltoall,
+            * osu_ineighbor_alltoallv, osu_ineighbor_alltoallw
+        * Startup benchmarks
+            * osu_init
+    - Add MPI_IN_PLACE support for following blocking and non-blocking
+      collectives
+        * Blocking benchmarks supported
+            * osu_allgather, osu_allgatherv, osu_alltoall, osu_allreduce,
+            * osu_alltoallv, osu_alltoallw, osu_gather, osu_gatherv, osu_reduce,
+            * osu_reduce_scatter, osu_scatter, osu_scatterv
+        * Non-Blocking benchmarks supported
+            * osu_iallgather, osu_iallgatherv, osu_iallreduce, osu_ialltoall,
+            * osu_ialltoallv, osu_ialltoallw, osu_igather, osu_igatherv,
+            * osu_ireduce, osu_iscatter, osu_iscatterv, osu_ireduce_scatter
+    - Add an option to set root rank for rooted blocking and non-blocking
+      collectives
+        * Blocking benchmarks supported
+            * osu_gather, osu_gatherv, osu_reduce, osu_scatter,
+            * osu_scatterv
+        * Non-Blocking benchmarks supported
+            * osu_igather, osu_igatherv, osu_ireduce, osu_iscatter,
+            * osu_iscatterv
+
+* Bug Fixes
+    - Fixed memory leak in point-to-point benchmarks when validation is enabled.
+        * Thanks to Shi Jin @Amazon for report and patch.
+    - Fixed missing '#' formatting bug in osu_ibarrier header.
+        * Thanks to Nick Hagerty @ORNL for report.
+
+OSU Micro Benchmarks v7.1 (04/06/2023)
+
+* New Features & Enhancements
+    - Add new blocking and non-blocking neighborhood collective benchmarks with
+      support for CPU buffers.
+        * Blocking benchmarks
+          - osu_neighbor_allgather, osu_neighbor_allgatherv,
+          - osu_neighbor_alltoall,osu_neighbor_alltoallv,
+          - osu_neighbor_alltoallw
+        * Non-Blocking benchmarks
+          - osu_ineighbor_allgatherv, osu_ineighbor_allgatherv,
+          - osu_ineighbor_alltoall, osu_ineighbor_alltoallv,
+          - osu_ineighbor_alltoallw
+    - Add new benchmarks for point-to-point persistent communication primitives.
+        * osu_bw_persistent, osu_bibw_persistent, osu_latency_persistent
+    - Extend collective and point-to-point benchmarks to support different MPI
+      datatypes.
+        * New data types supported - MPI_INT, MPI_FLOAT, MPI_CHAR
+    - Add validation and MPI types support to one-sided benchmarks.
+        * osu_acc_latency, osu_cas_latency, osu_fop_latency
+
+* Bug Fixes (since v7.0)
+    - Reverse order of calling MPI_Reduce to find out MIN and MAX comm times
+        * Thanks to Devendar Bureddy @NVIDIA for the report and patch
+    - Fix data validation issue when running wiht ROCm support on AMD GPUs
+        * Thanks to Damon McDougall @AMD for the report and patch
+    - Thanks to Luke Robison @Amazon for initial patch for one sided
+      validation and MPI_TYPEs support.
+
+OSU Micro Benchmarks v7.0 (11/10/2022)
+
+* New Features & Enhancements
+    - Add PAPI support for mpi pt2pt benchmarks
+        * Enabled with the `-P` option
+        * Benchmarks supported
+            * osu_bibw, osu_bw, osu_mbw_mr, osu_latency, osu_multi_lat,
+            * osu_latency_mp
+    - Add PAPI support for mpi blocking and non-blocking collective
+      benchmarks
+        * Enabled with the `-P` option
+        * Blocking benchmarks supported
+            * osu_allgather, osu_allgatherv, osu_alltoall, osu_allreduce,
+            * osu_alltoallv, osu_alltoallw, osu_bcast, osu_barrier, osu_gather,
+            * osu_gatherv, osu_reduce, osu_reduce_scatter, osu_scatter,
+            * osu_scatterv
+        * Non-Blocking benchmarks supported
+            * osu_iallgather, osu_iallgatherv, osu_iallreduce, osu_ialltoall,
+            * osu_ialltoallv, osu_ialltoallw, osu_ibcast, osu_ibarrier,
+            * osu_igather, osu_igatherv, osu_ireduce, osu_iscatter,
+            * osu_iscatterv, osu_ireduce_scatter
+    - Add PAPI support for mpi one-sided benchmarks
+        * Enabled with the `-P` option
+        * Benchmarks supported
+            * osu_acc_latency, osu_cas_latency, osu_fop_latency,
+            * osu_get_acc_latency, osu_get_bw, osu_get_latency, osu_put_bibw,
+            * osu_put_bw, osu_put_latency
+    - Add support for benchmarking non-blocking Reduce-Scatter.
+        * osu_ireduce_scatter
+
+* Bug Fixes (since v6.2)
+    - Fixed a bug causing incorrect value for size in graph titles.
+
+OSU Micro Benchmarks v6.2 (10/25/2022)
+
+* New Features & Enhancements
+    - Add graphing support for mpi pt2pt benchmarks
+        * Enabled with the `-G` option
+        * Supports tty, png, and pdf graph ouputs.
+        * Benchmarks supported
+            * osu_bibw, osu_bw, osu_mbw_mr, osu_latency, osu_multi_lat,
+            * osu_latency_mp, osu_latency_mt
+    - Add graphing support for mpi blocking and non-blocking collective
+      benchmarks
+        * Enabled with the `-G` option
+        * Supports tty, png, and pdf graph ouputs.
+        * Blocking benchmarks supported
+            * osu_allgather, osu_allgatherv, osu_alltoall, osu_allreduce,
+            * osu_alltoallv, osu_alltoallw, osu_bcast, osu_barrier, osu_gather,
+            * osu_gatherv, osu_reduce, osu_reduce_scatter, osu_scatter,
+            * osu_scatterv
+        * Non-Blocking benchmarks supported
+            * osu_iallgather, osu_iallgatherv, osu_iallreduce, osu_ialltoall,
+            * osu_ialltoallv, osu_ialltoallw, osu_ibcast, osu_ibarrier,
+            * osu_igather, osu_igatherv, osu_ireduce, osu_iscatter,
+            * osu_iscatterv
+    - Add graphing support for mpi one-sided benchmarks
+        * Enabled with the `-G` option
+        * Supports tty, png, and pdf graph ouputs.
+        * Benchmarks supported
+            * osu_acc_latency, osu_cas_latency, osu_fop_latency,
+            * osu_get_acc_latency, osu_get_bw, osu_get_latency, osu_put_bibw,
+            * osu_put_bw, osu_put_latency
+    - Add support for benchmarking blocking Alltoallw.
+        * osu_alltoallw
+
+* Bug Fixes (since v6.1)
+    - Fixed inconsistency in max_message_size between some blocking and
+      non-blocking collectives.
+        * Thanks to Krishna Kandalla @HPE for the report.
+    - Correct skip value for small message sizes in osu_ialltoallw benchmark
+
+OSU Micro Benchmarks v6.1 (09/16/2022)
+
+* New Features & Enhancements
+    - Add support for derived data types in mpi pt2pt benchmarks
+        * Enabled with the `-D` option
+        * Supports contiguous, vector, and indexed data types
+        * Benchmarks supported
+            * osu_bibw
+            * osu_bw
+            * osu_mbw_mr
+            * osu_latency
+            * osu_multi_lat
+    - Add support for derived data types in mpi blocking and non-blocking
+      collective benchmarks
+        * Enabled with the `-D` option
+        * Supports contiguous, vector, and indexed data types
+        * Blocking benchmarks supported
+            * osu_allgather
+            * osu_allgatherv
+            * osu_alltoall
+            * osu_alltoallv
+            * osu_bcast
+            * osu_gather
+            * osu_gatherv
+            * osu_scatter
+            * osu_scatterv
+        * Non-Blocking benchmarks supported
+            * osu_iallgather
+            * osu_iallgatherv
+            * osu_ialltoall
+            * osu_ialltoallv
+            * osu_ialltoallw
+            * osu_ibcast
+            * osu_igather
+            * osu_igatherv
+            * osu_iscatter
+            * osu_iscatterv
+
+* Bug Fixes (since v6.0)
+    - Add support for data validation for ROCm benchmarks
+        * Thanks to Amir Shehata @ORNL for the report and initial patch
+    - Correct the version number in the released version
+        * Thanks to Adam Goldman @Intel for the report
+
+OSU Micro Benchmarks v6.0 (08/16/2022)
+
+* New Features & Enhancements
+    - Add support for Java pt2pt benchmarks
+        * OSULatency - Latency Test
+        * OSUBandwidth - Bandwidth Test
+          - OSUBandwidthOMPI - Bandwidth Test for Open MPI Java Bindings
+        * OSUBiBandwidth - Bidirectional Bandwidth Test
+          - OSUBiBandwidthOMPI - BiBandwidth Test for Open MPI Java Bindings
+    - Add support for Java collective benchmarks
+        * OSUAllgather - MPI_Allgather Latency Test
+        * OSUAllgatherv - MPI_Allgatherv Latency Test
+        * OSUAllReduce - MPI_Allreduce Latency Test
+        * OSUAlltoall - MPI_Alltoall Latency Test
+        * OSUAlltoallv - MPI_Alltoallv Latency Test
+        * OSUBarrier - MPI_Barrier Latency Test
+        * OSUBcast - MPI_Bcast Latency Test
+        * OSUGather - MPI_Gather Latency Test
+        * OSUGatherv - MPI_Gatherv Latency Test
+        * OSUReduce - MPI_Reduce Latency Test
+        * OSUReduceScatter - MPI_Reduce_scatter Latency Test
+        * OSUScatter - MPI_Scatter Latency Test
+        * OSUScatterv - MPI_Scatterv Latency Test
+    - Add support for Python pt2pt benchmarks
+        * osu_latency - Latency Test
+        * osu_bw - Bandwidth Test
+        * osu_bibw - Bidirectional Bandwidth Test
+        * osu_multi_lat - Multi-pair Latency Test
+    - Add support for Python collective benchmarks
+        * osu_allgather - MPI_Allgather Latency Test
+        * osu_allgatherv - MPI_Allgatherv Latency Test
+        * osu_allreduce - MPI_Allreduce Latency Test
+        * osu_alltoall - MPI_Alltoall Latency Test
+        * osu_alltoallv - MPI_Alltoallv Latency Test
+        * osu_barrier - MPI_Barrier Latency Test
+        * osu_bcast - MPI_Bcast Latency Test
+        * osu_gather - MPI_Gather Latency Test
+        * osu_gatherv - MPI_Gatherv Latency Test
+        * osu_reduce - MPI_Reduce Latency Test
+        * osu_reduce_scatter - MPI_Reduce_scatter Latency Test
+        * osu_scatter - MPI_Scatter Latency Test
+        * osu_scatterv - MPI_Scatterv Latency Test
+
+* Bug Fixes (since v5.9)
+    - Fix bug in data validation support for CUDA managed memory benchmarks
+        - Thanks to Chris Chambreau @LLNL for the report
+
+OSU Micro Benchmarks v5.9 (03/02/2022)
+
+* New Features & Enhancements
+    - Add support for data validation in mpi pt2pt benchmarks
+        * Enabled with the `-c` option
+    - Add support for data validation in mpi collective benchmarks
+        * Enabled with the `-c` option
+    - Add support for NCCL collective benchmarks
+        * osu_nccl_alltoall
+
+* Bug Fixes (since v5.8)
+    - Remove osu_latency_mp & osu_latency_mt from list of benchmarks that
+      have GPU support
+        * Thanks to Carl Ponder @NVIDIA for reporting the issue.
+    - Ignore the `--accelerator` option when using pt2pt benchmarks with GPU
+      enabled builds.
+        * Thanks to Adamn Goldman @Intel for the report
+
+OSU Micro Benchmarks v5.8 (08/12/2021)
+
+* New Features & Enhancements
+    - Add support for NCCL pt2pt benchmarks
+        * osu_nccl_bibw
+        * osu_nccl_bw
+        * osu_nccl_latency
+    - Add support for NCCL collective benchmarks
+        * osu_nccl_allgather
+        * osu_nccl_allreduce
+        * osu_nccl_bcast
+        * osu_nccl_reduce
+        * osu_nccl_reduce_scatter
+    - Add data validation support for
+        * osu_allreduce
+        * osu_nccl_allreduce
+        * osu_reduce
+        * osu_nccl_reduce
+        * osu_alltoall
+
+* Bug Fixes (since v5.7.1)
+    - Fix bug in support for CUDA managed memory benchmarks
+        - Thanks to Adam Goldman @Intel for the report and the initial patch
+    - Protect managed memory functionality with appropriate compile time flag
+
+OSU Micro Benchmarks v5.7.1 (05/11/2021)
+
+* New Features & Enhancements
+    - Add support to send and receive data from different buffers for
+      osu_latency, osu_bw, osu_bibw, and osu_mbw_mr
+    - Enhance support for CUDA managed memory benchmarks
+        - Thanks to Ian Karlin and Nathan Hanford @LLNL for the feedback
+    - Add support to print minimum and maximum communication times for
+      non-blocking benchmarks
+
+* Bug Fixes (since v5.7)
+    - Update README file with updated description for osu_latency_mp
+        - Thanks to Honggang Li @RedHat for the suggestion
+    - Fix error in setting benchmark name in osu_allgatherv.c and osu_allgatherv.c
+        - Thanks to Brandon Cook @LBL for the report
+
+OSU Micro Benchmarks v5.7 (12/11/2020)
+
+* New Features & Enhancements
+    - Add support to OMB to evaluate the performance of various primitives with
+      AMD GPU device and ROCm support
+        - This functionality is exposed when configured with --enable-rocm
+          option
+        - Thanks to AMD for the initial patch
+
+* Bug Fixes (since v5.6.3)
+    - Enhance one-sided window creation and fix a potential issue when using
+       MPI_Win_allocate
+        * Thanks to Bert Wesarg and George Katevenis for reporting the issue
+          and providing initial patch
+    - Remove additional '-M' option that gets printed with help message for
+      osu_latency_mt and osu_latency_mp
+        * Thanks to Nick Papior for the report
+    - Added missing '-W' option support for one-sided bandwidth tests
+
+OSU Micro Benchmarks v5.6.3 (06/01/2020)
+
+* New Features & Enhancements
+    - Add support for benchmarking applications that use 'fork' system call
+        * osu_latency_mp
+
+* Bug Fixes (since v5.6.2)
+    - Allow passing flags to nvcc compiler
+    - Fix compilation issue with IBM XLC++ compilers and CUDA 10.2
+    - Fix issues in window creation with host-to-device and device-to-host
+      transfers for one-sided tests
+
+OSU Micro Benchmarks v5.6.2 (08/08/2019)
+
+* New Features & Enhancements
+    - Add support for benchmarking GPU-Aware multi-threaded point-to-point
+      operations
+        * osu_latency_mt
+
+* Bug Fixes (since v5.6.1)
+    - Fix issue with freeing in osu_get_bw benchmark
+    - Fix issues with out of tree builds
+        - Thanks to Joseph Schuchart@HLRS for reporting the issue
+    - Fix incorrect header in osu_mbw_mr benchmark
+    - Fix memory alignment for non-heap allocations in openshmem message rate
+      benchmarks
+        - Thanks to Yossi@Mellanox for pointing out the issue
+
+OSU Micro Benchmarks v5.6.1 (03/15/2019)
+
+* Bug Fixes (since v5.6)
+    - Fix issue with latency computation in osu_latency_mt benchmark.
+
+OSU Micro Benchmarks v5.6 (03/01/2019)
+
+* New Features & Enhancements
+    - Add support for benchmarking GPU-Aware multi-pair point-to-point
+      operations
+        * osu_mbw_mr
+        * osu_multi_lat
+    - Add support to specify different number of sender and receiver threads for
+      osu_latency_mt benchmark
+
+* Bug Fixes
+    - Remove -t option for blocking collectives
+    - Fix issue when only building OpenSHMEM benchmarks
+    - Improve error reporting for one-sided benchmarks
+    - Fix compilation issues with PGI compilers for GPU-Aware benchmarks
+    - Fix incorrect handling of configure options
+        - Thanks to Tony Curtis @StonyBrook for the report
+    - Fix compilation warnings
+
+OSU Micro Benchmarks v5.5 (11/10/18)
+* New Features & Enhancements
+    - Introduce new MPI non-blocking collective benchmarks with support to
+      measure overlap of computation and communication for CPUs and GPUs
+        - osu_ireduce
+        - osu_iallreduce
+
+OSU Micro Benchmarks v5.4.4 (09/21/18)
+* Bug Fixes
+    - Deprecate the need to specify get_local_rank when running GPU-based
+      benchmarks built with MVAPICH2 and launched with mpirun_rsh
+    - Enhance error checking for GPU-based benchmarks
+    - Fix issues in GPU-based OpenACC benchmarks
+    - Fix race condition with OpenSHMEM non-blocking and overlap benchmarks
+
+OSU Micro Benchmarks v5.4.3 (07/23/18)
+* Bug Fixes
+    - Fix buffer overflow in osu_reduce_scatter
+        - Thanks to Matias A Cabral @Intel for reporting the issue and patch
+        - Thanks to Gilles Gouaillardet for creating the patch
+    - Fix buffer overflow in one sided tests
+        - Thanks to John Byrne @HPE for reporting this issue
+    - Fix buffer overflow in multi threaded latency test
+    - Fix issues with freeing buffers for one-sided tests
+    - Fix issues with freeing buffers for CUDA-enabled tests
+    - Fix warning messages for benchmarks that do not support CUDA and/or
+      Managed memory
+        - Thanks to Carl Ponder@NVIDIA for reporting this issue
+    - Fix compilation warnings
+
 OSU Micro Benchmarks v5.4.2 (04/30/18)
 * New Features & Enhancements
     - Add "-W --window-size" option to osu_bw and osu_bibw
@@ -28,20 +613,20 @@ OSU Micro Benchmarks v5.4.0 (10/30/17)
 * New Features & Enhancements
     - Introduce new OpenSHMEM Non-blocking Benchmarks
         * osu_oshm_get_mr_nb
-        * osu_oshm_get_nb  
+        * osu_oshm_get_nb
         * osu_oshm_put_mr_nb
         * osu_oshm_put_nb
         * osu_oshm_put_overlap
     - Automatically build OpenSHMEM 1.3 benchmarks when library support
       is detected
-    - Add ability to specify min and max message size for point-to-point 
+    - Add ability to specify min and max message size for point-to-point
       and one-sided benchmarks
     - Enhanced error handling for MPI benchmarks
     - Code clean-ups and unification of utility functions across benchmarks
     - Enhanced help messages and runtime parameters
 
 * Bug Fixes
-    - Fix compile-time warnings 
+    - Fix compile-time warnings
     - Fix peer calculation formula in UPC/UPC++ benchmarks
     - Fix correct number of warmup iterations in osu_barrier benchmark
 
@@ -251,7 +836,7 @@ OSU Micro Benchmarks v3.9 (2/28/13)
 * New Features & Enhancements
     - Support buffer allocation using OpenACC in GPU benchmarks
     - Use average time instead of max time for calculating the bandwidth and
-      message rate in osu_mbw_mr 
+      message rate in osu_mbw_mr
         - Thanks to Alex Mikheev from Mellanox for the patch
 * Bug Fixes
     - Properly initialize host buffers for DH and HD transfers in GPU

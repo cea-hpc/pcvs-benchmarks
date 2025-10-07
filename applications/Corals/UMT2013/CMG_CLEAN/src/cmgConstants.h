@@ -56,7 +56,7 @@ to Fortran */
 #define false 0;
 
 #ifndef bool
-typedef unsigned bool;
+#include <stdbool.h>
 #endif
 
 #endif /* __CMG_CONSTANTS_H__ */

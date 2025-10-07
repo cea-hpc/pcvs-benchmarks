@@ -4,7 +4,7 @@ include ../config/make.def
 # Note that COMPILE is also defined in make.common and should
 # be the same. We can't include make.common because it has a lot
 # of other garbage. 
-FCOMPILE = $(F77) -c $(F_INC) $(FFLAGS)
+FCOMPILE = $(FC) -c $(F_INC) $(FFLAGS)
 
 all: setparams 
 

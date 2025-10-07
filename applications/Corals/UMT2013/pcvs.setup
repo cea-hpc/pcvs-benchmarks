@@ -6,7 +6,9 @@ pcvs_build_current=$pcvs_testbuild/$1
 #Copy Sources in BUILD env
 cp -r $pcvs_src_current/* $pcvs_build_current
 
-UMT_FORTAN_LIB=`$PCVS_CMP_FC -show 2> /dev/null | sed "s/ /\n/g" | grep "lmpi" | xargs echo`
+UMT_FORTAN_LIB=$($PCVS_CMP_FC -show 2> /dev/null \
+	| grep -o "\-l\(mpc\)\?\(mpi\|fortran\(_priv\)\?\)" \
+	| tr '\n' ' ')
 
 echo "# FORTRAN LIBS : $UMT_FORTAN_LIB"
 
@@ -34,7 +36,6 @@ make_suolson:
 #
 # THE TEMPLATE
 #
-
 
 echo ".template: &suolson
     depends_on:   [ 'make_suolson' ]

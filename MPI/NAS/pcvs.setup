@@ -11,55 +11,97 @@ echo "build_MPINAS:
     build:
         make:
             target: 'suite'
+            args: ['PCVS_CC=@COMPILER_CC@', 'PCVS_FC=@COMPILER_FC@']
         files: '@BUILDPATH@/Makefile'
 "
 
 # config/suite.def
-# This file is used to build several benchmarks with a single command. 
+# This file is used to build several benchmarks with a single command.
 # Typing "make suite" in the main directory will build all the benchmarks
-# specified in this file. 
+# specified in this file.
 # Each line of this file contains a benchmark name, class, and number
-# of nodes. The name is one of "cg", "is", "ep", mg", "ft", "sp", "bt", 
-# "lu", and "dt". 
+# of nodes. The name is one of "cg", "is", "ep", mg", "ft", "sp", "bt",
+# "lu", and "dt".
 # The class is one of "S", "W", "A", "B", "C", "D", and "E"
 # (except that no classes C, D and E for DT, and no class E for IS).
 # The number of nodes must be a legal number for a particular
 # benchmark. The utility which parses this file is primitive, so
-# formatting is inflexible. Separate name/class/number by tabs. 
-# Comments start with "#" as the first character on a line. 
-# No blank lines. 
-# The following example builds 1 processor sample sizes of all benchmarks. 
-build_benchs()
-{
-	for bench in ft mg sp lu bt is ep cg dt
-	do
-		for class in S W A
-		do
-			for mpi in $PCVS_CRIT_N_MPI
-			do
-				printf "$bench\t$class\t$mpi\n" >> $pcvs_build_current/config/suite.def
+# formatting is inflexible. Separate name/class/number by tabs.
+# Comments start with "#" as the first character on a line.
+# No blank lines.
+# The following example builds 1 processor sample sizes of all benchmarks.
+build_benchs() {
+	for bench in ft mg sp lu bt is ep cg dt; do
+		for class in S W A; do
+			if test "$bench" = "dt"; then # It takes an extra argument (the entry graph to use)
+				printf "$bench\t$class\n" >>$pcvs_build_current/config/suite.def
 
-				echo "$bench-$class.$mpi:"
+				echo "$bench-$class:"
+				echo "    tag: [\"kernel:$bench\", \"class:$class\"]"
 				echo "    group: 'GRPMPI'"
 				echo "    run:"
 				echo "        depends_on:   [ 'build_MPINAS' ]"
-				echo "        program: 'bin/${bench}.${class}.$mpi'"
+				echo "        program: 'bin/${bench}.${class}.x'"
+				echo "        iterate:"
+				echo "            program:"
+				echo "                graphname:"
+				echo "                    numeric: false"
+				echo "                    type: 'argument'"
+				echo "                    values: [ 'BH', 'WH' ]"
+				echo "                    subtitle: 'graphname'"
+				echo "            n_mpi:"
+				case $class in
+				'S')
+					echo "                values: [{from: 5}]"
+					;;
+				'W')
+					echo "                values: [{from: 11}]"
+					;;
+				'A')
+					echo "                values: [{from: 32}]"
+					;;
+				esac
+			elif test $bench = 'sp' -o $bench = 'bt'; then # Square number of processes
+				printf "$bench\t$class\n" >>$pcvs_build_current/config/suite.def
+
+				echo "$bench-$class:"
+				echo "    tag: [\"kernel:$bench\", \"class:$class\"]"
+				echo "    group: 'GRPMPI'"
+				echo "    run:"
+				echo "        depends_on:   [ 'build_MPINAS' ]"
+				echo "        program: 'bin/${bench}.${class}.x'"
 				echo "        iterate:"
 				echo "            n_mpi:"
-				echo "                values: [ $mpi ]"
+				echo "                values: [4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196]"
 
-				#if test "x$class" = "xB"; then
-				#echo "    n_omp: [ '>=8' ]"
-				#fi
+			elif test $bench = 'ep'; then # No restriction ?
+				printf "$bench\t$class\n" >>$pcvs_build_current/config/suite.def
 
-				echo ""
-			done
+				echo "$bench-$class:"
+				echo "    tag: [\"kernel:$bench\", \"class:$class\"]"
+				echo "    group: 'GRPMPI'"
+				echo "    run:"
+				echo "        depends_on:   [ 'build_MPINAS' ]"
+				echo "        program: 'bin/${bench}.${class}.x'"
+
+			else # Power of 2 number of processes
+				printf "$bench\t$class\n" >>$pcvs_build_current/config/suite.def
+
+				echo "$bench-$class:"
+				echo "    tag: [\"kernel:$bench\", \"class:$class\"]"
+				echo "    group: 'GRPMPI'"
+				echo "    run:"
+				echo "        depends_on:   [ 'build_MPINAS' ]"
+				echo "        program: 'bin/${bench}.${class}.x'"
+				echo "        iterate:"
+				echo "            n_mpi:"
+				echo "                values: {op: 'powerof', of: 2}"
+			fi
+
+			echo ""
 		done
 	done
 }
-
-#if n_mpi iterator is explicitly disabled
-test "x$PCVS_CRIT_N_MPI" = "xundefined" && exit 0
 
 build_benchs
 exit 0

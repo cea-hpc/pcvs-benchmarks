@@ -14,29 +14,29 @@
 # For CG, EP, FT, MG, LU, SP and BT, which are in Fortran, the following must 
 # be defined:
 #
-# F77        - Fortran compiler
+# FC         - Fortran compiler
 # FFLAGS     - Fortran compilation arguments
 # F_INC      - any -I arguments required for compiling Fortran 
 # FLINK      - Fortran linker
 # FLINKFLAGS - Fortran linker arguments
 # F_LIB      - any -L and -l arguments required for linking Fortran 
 # 
-# compilations are done with $(F77) $(F_INC) $(FFLAGS) or
-#                            $(F77) $(FFLAGS)
+# compilations are done with $(FC) $(F_INC) $(FFLAGS) or
+#                            $(FC) $(FFLAGS)
 # linking is done with       $(FLINK) $(F_LIB) $(FLINKFLAGS)
 #---------------------------------------------------------------------------
 
 #---------------------------------------------------------------------------
 # This is the fortran compiler used for fortran programs
 #---------------------------------------------------------------------------
-F77 = $(PCVS_FC)
-# This links fortran programs; usually the same as ${F77}
-FLINK	= $(F77)
+FC = $(PCVS_FC)
+# This links fortran programs; usually the same as ${FC}
+FLINK	= $(FC)
 
 #---------------------------------------------------------------------------
 # These macros are passed to the linker 
 #---------------------------------------------------------------------------
-F_LIB  =
+F_LIB =
 
 #---------------------------------------------------------------------------
 # These macros are passed to the compiler 
@@ -46,13 +46,13 @@ F_INC =
 #---------------------------------------------------------------------------
 # Global *compile time* flags for Fortran programs
 #---------------------------------------------------------------------------
-FFLAGS	= -O $(PCVS_CFLAGS)
+FFLAGS	= $(PCVS_CFLAGS)
 
 #---------------------------------------------------------------------------
 # Global *link time* flags. Flags for increasing maximum executable 
 # size usually go here. 
 #---------------------------------------------------------------------------
-FLINKFLAGS = -O $(PCVS_CFLAGS)
+FLINKFLAGS = $(FFLAGS)
 
 
 #---------------------------------------------------------------------------
@@ -82,7 +82,7 @@ CLINK	= $(CC)
 #---------------------------------------------------------------------------
 # These macros are passed to the linker 
 #---------------------------------------------------------------------------
-C_LIB  =
+C_LIB =
 
 #---------------------------------------------------------------------------
 # These macros are passed to the compiler 
@@ -92,13 +92,24 @@ C_INC =
 #---------------------------------------------------------------------------
 # Global *compile time* flags for C programs
 #---------------------------------------------------------------------------
-CFLAGS	= -O $(PCVS_CFLAGS)
+CFLAGS	= $(PCVS_CFLAGS)
 
 #---------------------------------------------------------------------------
 # Global *link time* flags. Flags for increasing maximum executable 
 # size usually go here. 
 #---------------------------------------------------------------------------
-CLINKFLAGS = -O $(PCVS_CFLAGS)
+CLINKFLAGS = $(PCVS_CFLAGS)
+
+
+#---------------------------------------------------------------------------
+# MPI dummy library:
+#
+# Uncomment if you want to use the MPI dummy library supplied by NAS instead 
+# of the true message-passing library. The include file redefines several of
+# the above macros. It also invokes make in subdirectory MPI_dummy. Make 
+# sure that no spaces or tabs precede include.
+#---------------------------------------------------------------------------
+#include ../config/make.dummy
 
 
 #---------------------------------------------------------------------------

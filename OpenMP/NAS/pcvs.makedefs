@@ -14,24 +14,24 @@
 # For CG, EP, FT, MG, LU, SP, BT and UA, which are in Fortran, the following 
 # must be defined:
 #
-# F77        - Fortran compiler
+# FC         - Fortran compiler
 # FFLAGS     - Fortran compilation arguments
 # F_INC      - any -I arguments required for compiling Fortran 
 # FLINK      - Fortran linker
 # FLINKFLAGS - Fortran linker arguments
-# F_LIB      - any -L and -l arguments required for linking Fortran
+# F_LIB      - any -L and -l arguments required for linking Fortran 
 # 
-# compilations are done with $(F77) $(F_INC) $(FFLAGS) or
-#                            $(F77) $(FFLAGS)
+# compilations are done with $(FC) $(F_INC) $(FFLAGS) or
+#                            $(FC) $(FFLAGS)
 # linking is done with       $(FLINK) $(F_LIB) $(FLINKFLAGS)
 #---------------------------------------------------------------------------
 
 #---------------------------------------------------------------------------
 # This is the fortran compiler used for Fortran programs
 #---------------------------------------------------------------------------
-F77 = $(PCVS_FC)
-# This links fortran programs; usually the same as ${F77}
-FLINK	= $(F77)
+FC = $(PCVS_FC)
+# This links fortran programs; usually the same as ${FC}
+FLINK	= $(FC)
 
 #---------------------------------------------------------------------------
 # These macros are passed to the linker 
@@ -46,13 +46,13 @@ F_INC =
 #---------------------------------------------------------------------------
 # Global *compile time* flags for Fortran programs
 #---------------------------------------------------------------------------
-FFLAGS	= -O $(PCVS_CFLAGS)
+FFLAGS	= $(PCVS_CFLAGS)
 
 #---------------------------------------------------------------------------
 # Global *link time* flags. Flags for increasing maximum executable 
 # size usually go here. 
 #---------------------------------------------------------------------------
-FLINKFLAGS = -O $(PCVS_CFLAGS)
+FLINKFLAGS = $(FFLAGS)
 
 
 #---------------------------------------------------------------------------
@@ -110,7 +110,7 @@ CFLAGS	= -O $(PCVS_CFLAGS)
 # Global *link time* flags. Flags for increasing maximum executable 
 # size usually go here. 
 #---------------------------------------------------------------------------
-CLINKFLAGS = -O $(PCVS_CFLAGS)
+CLINKFLAGS = $(CFLAGS)
 
 
 #---------------------------------------------------------------------------
@@ -120,7 +120,7 @@ CLINKFLAGS = -O $(PCVS_CFLAGS)
 # this compiler go here also; typically there are few flags required; hence 
 # there are no separate macros provided for such flags.
 #---------------------------------------------------------------------------
-UCC	= cc
+UCC	= $(PCVS_CC)
 
 
 #---------------------------------------------------------------------------

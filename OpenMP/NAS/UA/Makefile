@@ -1,55 +1,54 @@
 SHELL=/bin/sh
 BENCHMARK=ua
 BENCHMARKU=UA
+UPDATE=$(VERSION)
+UXT=
 
 include ../config/make.def
 
 
-OBJS = ua.o convect.o diffuse.o adapt.o move.o mason.o \
-       precond.o utils.o verify.o setup.o \
+OBJS = ua.o ua_data.o convect.o diffuse.o adapt.o move.o mason.o \
+       precond.o utils.o verify.o setup.o transfer$(UXT).o \
        ${COMMON}/print_results.o ${COMMON}/timers.o ${COMMON}/wtime.o
 
 include ../sys/make.common
 
-# npbparams.h is included by header.h
-# The following rule should do the trick but many make programs (not gmake)
-# will do the wrong thing and rebuild the world every time (because the
-# mod time on header.h is not changed. One solution would be to 
-# touch header.h but this might cause confusion if someone has
-# accidentally deleted it. Instead, make the dependency on npbparams.h
-# explicit in all the lines below (even though dependence is indirect). 
-
-# header.h: npbparams.h
+# npbparams.h is included by ua_data module (via ua_data.o)
 
 ${PROGRAM}: config ${OBJS}
-	@if [ x$(UPDATE) = xau ] ; then			\
-		${MAKE} PROGRAM=${PROGRAM} ua-au;	\
-	else						\
-		${MAKE} PROGRAM=${PROGRAM} ua-lk;	\
+	@if [ x$(UPDATE) = xau -o x$(UPDATE) = xAU ] ; then	\
+		${MAKE} UXT=_au ua-def;	\
+	elif [ x$(UPDATE) = xrd -o x$(UPDATE) = xRD ] ; then	\
+		${MAKE} UXT=_rd ua-rd;	\
+	else				\
+		${MAKE} ua-def;		\
 	fi
 
-ua-lk: ${OBJS} transfer.o
-	${FLINK} ${FLINKFLAGS} -o ${PROGRAM} ${OBJS} transfer.o ${F_LIB}
+ua-def: ${OBJS}
+	${FLINK} ${FLINKFLAGS} -o ${PROGRAM} ${OBJS} ${F_LIB}
 
-ua-au: ${OBJS} transfer_au.o
-	${FLINK} ${FLINKFLAGS} -o ${PROGRAM}.au ${OBJS} transfer_au.o ${F_LIB}
+ua-rd: ${OBJS} tmorwork.o
+	${FLINK} ${FLINKFLAGS} -o ${PROGRAM} ${OBJS} tmorwork.o ${F_LIB}
 
-.f.o:
+.f90.o:
 	${FCOMPILE} $<
 
-ua.o:        ua.f       header.h npbparams.h
-setup.o:     setup.f    header.h npbparams.h
-convect.o:   convect.f  header.h npbparams.h
-adapt.o:     adapt.f    header.h npbparams.h
-move.o:      move.f     header.h npbparams.h
-diffuse.o:   diffuse.f  header.h npbparams.h
-mason.o:     mason.f    header.h npbparams.h
-precond.o:   precond.f  header.h npbparams.h
-transfer.o:  transfer.f header.h npbparams.h
-transfer_au.o:  transfer_au.f header.h npbparams.h
-utils.o:     utils.f    header.h npbparams.h
-verify.o:    verify.f   header.h npbparams.h
+ua.o:        ua.f90       ua_data.o
+setup.o:     setup.f90    ua_data.o
+convect.o:   convect.f90  ua_data.o
+adapt.o:     adapt.f90    ua_data.o
+move.o:      move.f90     ua_data.o
+diffuse.o:   diffuse.f90  ua_data.o
+mason.o:     mason.f90    ua_data.o
+precond.o:   precond.f90  ua_data.o
+transfer.o:  transfer.f90 ua_data.o
+transfer_au.o:  transfer_au.f90 ua_data.o
+transfer_rd.o:  transfer_rd.f90 ua_data.o tmorwork.o
+utils.o:     utils.f90    ua_data.o
+verify.o:    verify.f90   ua_data.o
+ua_data.o:   ua_data.f90  npbparams.h
+tmorwork.o:  tmorwork.f90
 
 clean:
-	- rm -f *.o *~ mputil*
+	- rm -f *.o *~ *.mod mputil*
 	- rm -f npbparams.h core

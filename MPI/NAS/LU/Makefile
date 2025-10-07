@@ -2,27 +2,22 @@ SHELL=/bin/sh
 BENCHMARK=lu
 BENCHMARKU=LU
 VEC=
+F08=def
 
 include ../config/make.def
 
-OBJS = lu.o init_comm.o read_input.o bcast_inputs.o proc_grid.o neighbors.o \
-       nodedim.o subdomain.o setcoeff.o setbv.o exact.o setiv.o \
-       erhs.o ssor.o exchange_1.o exchange_3.o exchange_4.o exchange_5.o \
-       exchange_6.o rhs.o l2norm.o jacld.o blts$(VEC).o jacu.o buts$(VEC).o \
-       error.o pintgr.o verify.o ${COMMON}/print_results.o ${COMMON}/timers.o
+OBJS = lu.o lu_data$(VEC).o init_comm.o read_input.o bcast_inputs.o \
+       proc_grid.o neighbors.o nodedim.o subdomain.o setcoeff.o \
+       setbv.o exact.o setiv.o erhs.o ssor$(VEC).o exchange_1.o exchange_3.o \
+       exchange_4.o exchange_5.o exchange_6.o rhs.o l2norm.o \
+       jacld$(VEC).o blts$(VEC).o jacu$(VEC).o buts$(VEC).o mpinpb.o \
+       error.o pintgr.o verify.o ${COMMON}/get_active_nprocs.o \
+       ${COMMON}/print_results.o ${COMMON}/timers.o
 
 include ../sys/make.common
 
 
-# npbparams.h is included by applu.incl
-# The following rule should do the trick but many make programs (not gmake)
-# will do the wrong thing and rebuild the world every time (because the
-# mod time on header.h is not changed. One solution would be to 
-# touch header.h but this might cause confusion if someone has
-# accidentally deleted it. Instead, make the dependency on npbparams.h
-# explicit in all the lines below (even though dependence is indirect). 
-
-# applu.incl: npbparams.h
+# npbparams.h is included by lu_data module (via lu_data.o)
 
 ${PROGRAM}: config
 	@if [ x$(VERSION) = xvec ] ; then	\
@@ -36,38 +31,43 @@ ${PROGRAM}: config
 exec: $(OBJS)
 	${FLINK} ${FLINKFLAGS} -o ${PROGRAM} ${OBJS} ${FMPI_LIB}
 
-.f.o :
+.f90.o :
 	${FCOMPILE} $<
 
-lu.o:		lu.f applu.incl npbparams.h
-bcast_inputs.o:	bcast_inputs.f applu.incl npbparams.h mpinpb.h
-blts$(VEC).o:	blts$(VEC).f timing.h
-buts$(VEC).o:	buts$(VEC).f timing.h
-erhs.o:		erhs.f applu.incl npbparams.h
-error.o:	error.f applu.incl npbparams.h mpinpb.h
-exact.o:	exact.f applu.incl npbparams.h
-exchange_1.o:	exchange_1.f applu.incl npbparams.h mpinpb.h
-exchange_3.o:	exchange_3.f applu.incl npbparams.h mpinpb.h
-exchange_4.o:	exchange_4.f applu.incl npbparams.h mpinpb.h
-exchange_5.o:	exchange_5.f applu.incl npbparams.h mpinpb.h
-exchange_6.o:	exchange_6.f applu.incl npbparams.h mpinpb.h
-init_comm.o:	init_comm.f applu.incl npbparams.h mpinpb.h 
-jacld.o:	jacld.f applu.incl npbparams.h
-jacu.o:		jacu.f applu.incl npbparams.h
-l2norm.o:	l2norm.f mpinpb.h timing.h
-neighbors.o:	neighbors.f applu.incl npbparams.h
-nodedim.o:	nodedim.f
-pintgr.o:	pintgr.f applu.incl npbparams.h mpinpb.h
-proc_grid.o:	proc_grid.f applu.incl npbparams.h
-read_input.o:	read_input.f applu.incl npbparams.h mpinpb.h
-rhs.o:		rhs.f applu.incl npbparams.h
-setbv.o:	setbv.f applu.incl npbparams.h
-setiv.o:	setiv.f applu.incl npbparams.h
-setcoeff.o:	setcoeff.f applu.incl npbparams.h
-ssor.o:		ssor.f applu.incl npbparams.h mpinpb.h
-subdomain.o:	subdomain.f applu.incl npbparams.h mpinpb.h
-verify.o:	verify.f applu.incl npbparams.h
+lu.o:		lu.f90 lu_data.o mpinpb.o
+bcast_inputs.o:	bcast_inputs.f90 lu_data.o mpinpb.o
+blts$(VEC).o:	blts$(VEC).f90 lu_data.o
+buts$(VEC).o:	buts$(VEC).f90 lu_data.o
+erhs.o:		erhs.f90 lu_data.o
+error.o:	error.f90 lu_data.o mpinpb.o
+exact.o:	exact.f90 lu_data.o
+exchange_1.o:	exchange_1.f90 lu_data.o mpinpb.o
+exchange_3.o:	exchange_3.f90 lu_data.o mpinpb.o
+exchange_4.o:	exchange_4.f90 lu_data.o mpinpb.o
+exchange_5.o:	exchange_5.f90 lu_data.o mpinpb.o
+exchange_6.o:	exchange_6.f90 lu_data.o mpinpb.o
+init_comm.o:	init_comm.f90 lu_data.o mpinpb.o 
+jacld$(VEC).o:	jacld$(VEC).f90 lu_data.o
+jacu$(VEC).o:	jacu$(VEC).f90 lu_data.o
+l2norm.o:	l2norm.f90 lu_data.o mpinpb.o
+neighbors.o:	neighbors.f90 lu_data.o
+nodedim.o:	nodedim.f90
+pintgr.o:	pintgr.f90 lu_data.o mpinpb.o
+proc_grid.o:	proc_grid.f90 lu_data.o mpinpb.o
+read_input.o:	read_input.f90 lu_data.o mpinpb.o
+rhs.o:		rhs.f90 lu_data.o
+setbv.o:	setbv.f90 lu_data.o
+setiv.o:	setiv.f90 lu_data.o
+setcoeff.o:	setcoeff.f90 lu_data.o
+ssor$(VEC).o:	ssor$(VEC).f90 lu_data.o mpinpb.o
+subdomain.o:	subdomain.f90 lu_data.o mpinpb.o
+verify.o:	verify.f90 lu_data.o
+lu_data.o:      lu_data$(VEC).f90 mpinpb.o npbparams.h
+	${FCOMPILE} -o $@ lu_data$(VEC).f90
+mpinpb.o:       mpinpb.f90
+mpinpb.f90:     mpinpb_$(F08).f90
+	cp mpinpb_$(F08).f90 $@
 
 clean:
-	- /bin/rm -f npbparams.h
-	- /bin/rm -f *.o *~
+	- rm -f npbparams.h mpinpb.f90
+	- rm -f *.o *.mod *~

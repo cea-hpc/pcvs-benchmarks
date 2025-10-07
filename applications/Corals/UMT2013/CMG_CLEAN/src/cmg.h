@@ -708,6 +708,6 @@ int yyparse ();
 #endif
 #endif /* ! YYPARSE_PARAM */
 
-
+int yyerror(const char *);
 
 #endif /*  CMG_H */
