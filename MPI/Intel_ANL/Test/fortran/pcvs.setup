@@ -18,15 +18,77 @@ do
 	if test -f $pcvs_src_current/../$f/reduce.F; then
 		files="$files @SRCPATH@/../$f/reduce.F"
 	fi
-	
+
+	alter_mpi=""
+	# Special groups restricting number of MPI processes
+	if test "$(echo $f | grep -Eo "/topo/functional")" != ""; then
+		alter_mpi="    iterate: {'n_mpi': { 'values': [ 6, 8 ]}}"
+
+	elif test "$(echo $f | grep -Eo "/topo/error")" != ""; then
+		alter_mpi="    iterate: {'n_mpi': {values: [{from: 2}]}}"
+
+	elif test "$(echo $f | grep -Eo "/grp_ctxt_comm/functional")" != ""; then
+		alter_mpi="    iterate: {'n_mpi': { 'values': [{from: 4}]}}"
+
+	elif test "$(echo $f | grep -Eo "/nonblocking/functional")" != ""; then
+		alter_mpi="    iterate: {'n_mpi': { 'values': [{from: 2}]}}"
+
+	elif test "$(echo $f | grep -Eo "/persist_request/functional")" != ""; then
+		alter_mpi="    iterate: {'n_mpi': { 'values': [{from: 2}]}}"
+	fi
+
+	# Special tests restricting number of MPI processes
+	if test "$(echo $name | grep -Eo "Bsend_.*err9")" != ""; then
+		alter_mpi="    iterate: {'n_mpi': { 'values': [{from: 2}]}}"
+	elif test "$(echo $name | grep -Eo "Cancel_err1")" != ""; then
+		alter_mpi="    iterate: {'n_mpi': { 'values': [{from: 2}]}}"
+	elif test "$(echo $name | grep -Eo "Get_elements_err")" != ""; then
+		alter_mpi="    iterate: {'n_mpi': { 'values': [{from: 2}]}}"
+	elif test "$(echo $name | grep -Eo "Intercomm_create_err")" != ""; then
+		alter_mpi="    iterate: {'n_mpi': { 'values': [{from: 2}]}}"
+	elif test "$(echo $name | grep -Eo "Intercomm_merge_err3")" != ""; then
+		alter_mpi="    iterate: {'n_mpi': { 'values': [{from: 4}]}}"
+	elif test "$(echo $name | grep -Eo "Recv_.*err9")" != ""; then
+		alter_mpi="    iterate: {'n_mpi': { 'values': [{from: 2}]}}"
+	elif test "$(echo $name | grep -Eo "Rsend_.*err9")" != ""; then
+		alter_mpi="    iterate: {'n_mpi': { 'values': [{from: 2}]}}"
+	elif test "$(echo $name | grep -Eo "Send_.*err9")" != ""; then
+		alter_mpi="    iterate: {'n_mpi': { 'values': [{from: 2}]}}"
+	elif test "$(echo $name | grep -Eo "Sendrecv_.*err9")" != ""; then
+		alter_mpi="    iterate: {'n_mpi': { 'values': [{from: 2}]}}"
+	elif test "$(echo $name | grep -Eo "Ssend_.*err9")" != ""; then
+		alter_mpi="    iterate: {'n_mpi': { 'values': [{from: 2}]}}"
+	elif test "$(echo $name | grep -Eo "Start.*_err")" != ""; then
+		alter_mpi="    iterate: {'n_mpi': { 'values': [{from: 2}]}}"
+
+	elif test "$(echo $name | grep -Eo "functional_MPI_Bsend_overtake")" != ""; then
+		alter_mpi="    iterate: {'n_mpi': { 'values': [{from: 2}]}}"
+	elif test "$(echo $name | grep -Eo "functional_MPI_collective_message")" != ""; then
+		alter_mpi="    iterate: {'n_mpi': { 'values': [{from: 2}]}}"
+	elif test "$(echo $name | grep -Eo "functional_MPI_Recv_comm")" != ""; then
+		alter_mpi="    iterate: {'n_mpi': { 'values': [{from: 2}]}}"
+	elif test "$(echo $name | grep -Eo "functional_MPI_Send_overtake")" != ""; then
+		alter_mpi="    iterate: {'n_mpi': { 'values': [{from: 2}]}}"
+	elif test "$(echo $name | grep -Eo "functional_MPI_Ssend_overtake")" != ""; then
+		alter_mpi="    iterate: {'n_mpi': { 'values': [{from: 2}]}}"
+	fi
+
 	echo "
 $name:
   group: 'GRPMPI'
   build:
     files: '$files'
     sources:
-      binary: '$bin'
+      binary: '$name'
       cflags: '$cargs'
+  run:
+    cwd: '.'
+$alter_mpi"
+
+# Tests are supposed to take seconds
+echo "  validate:
+    time:
+      hard_timeout: 120
 "
 done
 exit 0
