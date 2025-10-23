@@ -1644,8 +1644,7 @@ int omb_neighborhood_create(MPI_Comm comm, int **indegree_ptr,
                 fflush(stderr);
             }
             MPI_Comm_free(&cart_comm);
-            MPI_Finalize();
-            exit(0);
+            MPI_Abort(MPI_COMM_WORLD, 1234);
         }
         /*Calculate number of neighbors*/
         indgr = (int *)malloc(sizeof(int));
