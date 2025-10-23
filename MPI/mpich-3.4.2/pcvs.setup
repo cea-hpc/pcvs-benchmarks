@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 import os
-import subprocess
 import re
+import subprocess
 import sys
 
-subdir = sys.argv[1] if len(sys.argv) >= 2 else ''
-cur_srcdir = os.path.join(os.environ['pcvs_src'], subdir)
-cur_bldir = os.path.join(os.environ['pcvs_testbuild'], subdir)
+subdir = sys.argv[1] if len(sys.argv) >= 2 else ""
+cur_srcdir = os.path.join(os.environ["pcvs_src"], subdir)
+cur_bldir = os.path.join(os.environ["pcvs_testbuild"], subdir)
+
 
 def arglist_to_str(arglist):
     ret = ""
@@ -14,8 +15,9 @@ def arglist_to_str(arglist):
         ret = ret + "_" + arg
     return ret
 
+
 def build_run_config_str(prefix, args, program):
-    if (1 > len(args)):
+    if 1 > len(args):
         return ""
     ret = """
     run:
@@ -24,18 +26,23 @@ def build_run_config_str(prefix, args, program):
         iterate:
             n_mpi:
                 values: [ {mpi} ]
-    """.format(prefix=prefix, program=program, mpi=args[0])
+    validate:
+        time:
+            hard_timeout: 300
+    """.format(
+        prefix=prefix, program=program, mpi=args[0]
+    )
 
-    if (1 >= len(args)):
+    if 1 >= len(args):
         return ret
 
     run_arg = ""
     for arg in args[1:]:
         splitted = arg.split("=", 1)
-        if ("arg" == splitted[0]):
+        if "arg" == splitted[0]:
             run_arg = run_arg + " " + splitted[1]
 
-    if (1 > len(run_arg)):
+    if 1 > len(run_arg):
         return ret
 
     ret = """
@@ -49,37 +56,47 @@ def build_run_config_str(prefix, args, program):
                 run_arguments:
                     type: 'argument'
                     values: [ '{run_arg}' ]
-    """.format(prefix=prefix, program=program, mpi=args[0], run_arg=run_arg)
+    validate:
+        time:
+            hard_timeout: 300
+    """.format(
+        prefix=prefix, program=program, mpi=args[0], run_arg=run_arg
+    )
 
     return ret
+
 
 def process_file(filename):
     try:
         srcfile = os.path.join(cur_srcdir, filename)
-        bldfile = os.path.join(cur_bldir, 'build', filename)
+        bldfile = os.path.join(cur_bldir, "build", filename)
         if os.path.isfile(srcfile) and os.path.getsize(srcfile) > 0:
             filepath = os.path.join(cur_srcdir, filename)
         elif os.path.isfile(bldfile) and os.path.getsize(bldfile) > 0:
-            filepath = os.path.join(cur_bldir, 'build', filename)
+            filepath = os.path.join(cur_bldir, "build", filename)
         else:
             return
 
-        prefix = filepath.replace(os.path.join(cur_bldir, 'build'), '')\
-                         .replace(cur_srcdir, '')\
-                         .replace('testlist', '')
+        prefix = (
+            filepath.replace(os.path.join(cur_bldir, "build"), "")
+            .replace(cur_srcdir, "")
+            .replace("testlist", "")
+        )
 
-        with open(filepath, 'r') as th:
+        with open(filepath, "r") as th:
             for line in th:
                 line = line.strip()
-                if line.startswith('#') or len(line) == 0:
+                if line.startswith("#") or len(line) == 0:
                     continue
                 program = line.split()[0]
                 args = line.split()[1:]
                 test_args_str = arglist_to_str(args)
                 run_config_str = build_run_config_str(prefix, args, program)
                 if len(args) > 0:
-                    print("""
-{escaped_prefix}{program}_np{mpi}_{args_str}:
+                    print(
+                        """
+{escaped_prefix}_{program}_np{mpi}_{args_str}:
+    tag: ['{escaped_prefix}']
     group: 'GRPMPI'
     build:
         depends_on: ['build_util', 'build_dtpools']
@@ -87,13 +104,19 @@ def process_file(filename):
         make:
             target: '{program}'
     {run_config_str}
-                """.format(program=program,
-                           args_str=test_args_str,
-                           prefix=prefix,
-                           escaped_prefix=prefix.replace("/", "_"),
-                           mpi=args[0], run_config_str=run_config_str))
-                elif (os.path.isdir(os.path.join(cur_srcdir, re.sub("^/", "", prefix), program))):
-                    process_file(os.path.join(cur_srcdir, re.sub("^/", "", prefix), program, 'testlist'))
+""".format(
+                            program=program,
+                            args_str=test_args_str,
+                            prefix=prefix,
+                            escaped_prefix=prefix.replace("/", ""),
+                            mpi=args[0],
+                            run_config_str=run_config_str,
+                        )
+                    )
+                elif os.path.isdir(os.path.join(cur_srcdir, re.sub("^/", "", prefix), program)):
+                    process_file(
+                        os.path.join(cur_srcdir, re.sub("^/", "", prefix), program, "testlist")
+                    )
                 else:
                     raise IOError
 
@@ -101,21 +124,25 @@ def process_file(filename):
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     try:
-        cmd = 'cp -r {}/* {}'.format(cur_srcdir, cur_bldir) + \
-            '&& mkdir -p {} '.format(os.path.join(cur_bldir, 'build')) + \
-            '&& cd {} '.format(os.path.join(cur_bldir, 'build')) + \
-            '&& {} '.format(os.path.join(cur_srcdir, 'configure')) + \
-              '--disable-maintainer_mode --enable-strictmpi ' + \
-              '--enable-threads=multiple --enable-fortran=yes ' \
-              'CC="{}" '.format(os.environ["PCVS_CMP_CC"]) + \
-              'CXX="{}" '.format(os.environ["PCVS_CMP_CXX"]) + \
-              'F77="{}" '.format(os.environ["PCVS_CMP_FC"]) + \
-              'FC="{} "'.format(os.environ["PCVS_CMP_FC"])
+        cmd = "cp -r {}/* {}".format(cur_srcdir, cur_bldir) + "&& mkdir -p {} ".format(
+            os.path.join(cur_bldir, "build")
+        ) + "&& cd {} ".format(os.path.join(cur_bldir, "build")) + "&& {} ".format(
+            os.path.join(cur_srcdir, "configure")
+        ) + "--disable-maintainer_mode --enable-strictmpi " + "--enable-threads=multiple --enable-fortran=yes " 'CC="{}" '.format(
+            os.environ["PCVS_CMP_CC"]
+        ) + 'CXX="{}" '.format(
+            os.environ["PCVS_CMP_CXX"]
+        ) + 'F77="{}" '.format(
+            os.environ["PCVS_CMP_FC"]
+        ) + 'FC="{} "'.format(
+            os.environ["PCVS_CMP_FC"]
+        )
         subprocess.check_output(cmd, shell=True)
 
-        print("""
+        print(
+            """
 build_util:
     build:
         files: '@BUILDPATH@/build/util/Makefile'
@@ -126,14 +153,15 @@ build_dtpools:
         files: '@BUILDPATH@/build/dtpools/Makefile'
         make:
             target: '-ik'
-        """)
+"""
+        )
 
-        with open(os.path.join(cur_bldir, "build/testlist"), 'r') as fh:
+        with open(os.path.join(cur_bldir, "build/testlist"), "r") as fh:
             for line in fh:
                 line = line.strip()
-                if line.startswith('#'):
+                if line.startswith("#"):
                     continue
-                process_file(os.path.join(line, 'testlist'))
+                process_file(os.path.join(line, "testlist"))
     except FileNotFoundError as e:
         print("{} not found".format(e), file=sys.stderr)
         exit(1)
