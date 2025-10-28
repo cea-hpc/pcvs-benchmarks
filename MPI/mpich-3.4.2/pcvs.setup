@@ -136,8 +136,10 @@ if __name__ == "__main__":
             os.environ["PCVS_CMP_CXX"]
         ) + 'F77="{}" '.format(
             os.environ["PCVS_CMP_FC"]
-        ) + 'FC="{} "'.format(
+        ) + 'FC="{}" '.format(
             os.environ["PCVS_CMP_FC"]
+        ) + 'FFLAGS="$FFLAGS {}"'.format(
+            os.environ["PCVS_CMP_FC_ARGS"]
         )
         subprocess.check_output(cmd, shell=True)
 
