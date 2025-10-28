@@ -41,7 +41,12 @@ mpi_testsuite() {
 
 				# Special cases
 				if [ $group == "one-sided" ]; then
-					echo "    iterate: {'n_mpi': {'values': [2]}}"
+					echo "    iterate:"
+					echo "      n_mpi: {'values': [2]}"
+					echo "      program:"
+					echo "        sync: {option: '-s ', values: ['pscw', 'fence', 'lock', 'flush', 'flush_local', 'lock_all']}"
+					echo "        win: {option: '-w ', values: ['create', 'allocate', 'dynamic']}"
+					echo "        type: {option: '-T ', values: ['mpi_char', 'mpi_int', 'mpi_float']}"
 				fi
 				echo "  validate: {time: {hard_timeout: 600}}"
 				echo ""
