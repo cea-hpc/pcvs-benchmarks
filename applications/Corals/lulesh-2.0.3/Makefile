@@ -33,14 +33,14 @@ CXXFLAGS = -O3  -I. -Wall $(PCVS_CFLAGS)
 #CXXFLAGS = -I. -Wall
 #CXXFLAGS = -O3 -I. -Wall
 
-LDFLAGS = -O3 $(PCVS_CFLAGS) 
+LDFLAGS = -O3 $(PCVS_CFLAGS)
 #LDFLAGS = -openmp
 #LDFLAGS =  -O3
-#LDFLAGS = 
+#LDFLAGS =
 
 #Below are reasonable default flags for a serial build
 #CXXFLAGS = -g -O3 -I. -Wall
-#LDFLAGS = -g -O3 
+#LDFLAGS = -g -O3
 
 #common places you might find silo on the Livermore machines.
 #SILO_INCDIR = /opt/local/include
