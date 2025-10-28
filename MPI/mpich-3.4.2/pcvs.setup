@@ -21,6 +21,7 @@ def build_run_config_str(prefix, args, program):
         return ""
     ret = """
     run:
+        depends_on: ['build_mpich']
         cwd: build/{prefix}/
         program: 'build/{prefix}/{program}'
         iterate:
@@ -47,6 +48,7 @@ def build_run_config_str(prefix, args, program):
 
     ret = """
     run:
+        depends_on: ['build_mpich']
         cwd: build/{prefix}/
         program: 'build/{prefix}/{program}'
         iterate:
@@ -98,11 +100,6 @@ def process_file(filename):
 {escaped_prefix}_{program}_np{mpi}_{args_str}:
     tag: ['{escaped_prefix}']
     group: 'GRPMPI'
-    build:
-        depends_on: ['build_util', 'build_dtpools']
-        files: '@BUILDPATH@/build/{prefix}/Makefile'
-        make:
-            target: '{program}'
     {run_config_str}
 """.format(
                             program=program,
@@ -145,16 +142,13 @@ if __name__ == "__main__":
 
         print(
             """
-build_util:
+build_mpich:
     build:
-        files: '@BUILDPATH@/build/util/Makefile'
+        files: '@BUILDPATH@/build/Makefile'
         make:
-            target: '-ik'
-build_dtpools:
-    build:
-        files: '@BUILDPATH@/build/dtpools/Makefile'
-        make:
-            target: '-ik'
+            target: 'all'
+            args: ['-ik']
+            jobs: 16
 """
         )
 
