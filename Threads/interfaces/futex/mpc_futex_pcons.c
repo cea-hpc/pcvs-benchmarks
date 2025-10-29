@@ -5,6 +5,7 @@
 #include <sys/syscall.h>
 #include <errno.h>
 #include <stdlib.h>
+#include <limits.h>
 
 
 int val = 0;

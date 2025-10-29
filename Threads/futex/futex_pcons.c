@@ -28,6 +28,7 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <pthread.h>
+#include <limits.h>
 
 int val = 0;
 
