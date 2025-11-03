@@ -11,18 +11,18 @@ mpi_testsuite() {
 	local pre_testsuite_dir=$(pwd)
 	cd $pcvs_src_current/c/mpi
 
+	# Build step
+	echo "compile_osu_mpi:"
+	echo "  build:"
+	echo "    files: '@BUILDPATH@/c/mpi/Makefile'"
+	echo "    make: {'target': 'all', args: ['-ik'], jobs: 16}"
+	echo ""
+
 	# Go through all the test kinds
 	local groups=$(find . -maxdepth 1 -type d -not -name '.*' | cut -c 3-)
 	for group in $groups; do
 		local subgroups=""
 		local names=""
-
-		# Build step
-		echo "compile_osu_mpi_$group:"
-		echo "  build:"
-		echo "    files: '@BUILDPATH@/c/mpi/$group/Makefile'"
-		echo "    make: {'target': 'all'}"
-		echo ""
 
 		# Special no subdirectory simple tests
 		if [ $group == "startup" -o $group == "one-sided" ]; then
@@ -37,11 +37,16 @@ mpi_testsuite() {
 				echo "  group: 'GRPMPI'"
 				echo "  run:"
 				echo "    program: '${binary}'"
-				echo "    depends_on:   [ 'compile_osu_mpi_$group' ]"
+				echo "    depends_on:   [ 'compile_osu_mpi' ]"
 
 				# Special cases
 				if [ $group == "one-sided" ]; then
-					echo "    iterate: {'n_mpi': {'values': [2]}}"
+					echo "    iterate:"
+					echo "      n_mpi: {'values': [2]}"
+					echo "      program:"
+					echo "        sync: {option: '-s ', values: ['pscw', 'fence', 'lock', 'flush', 'flush_local', 'lock_all']}"
+					echo "        win: {option: '-w ', values: ['create', 'allocate', 'dynamic']}"
+					echo "        type: {option: '-T ', values: ['mpi_char', 'mpi_int', 'mpi_float']}"
 				fi
 				echo "  validate: {time: {hard_timeout: 600}}"
 				echo ""
@@ -65,7 +70,7 @@ mpi_testsuite() {
 					echo "  group: 'GRPMPI'"
 					echo "  run:"
 					echo "    program: '${binary}'"
-					echo "    depends_on:   [ 'compile_osu_mpi_$group' ]"
+					echo "    depends_on:   [ 'compile_osu_mpi' ]"
 
 					# Special cases
 					if [ $subgroup == "congestion" ]; then
@@ -109,6 +114,7 @@ openshmem_testsuite() {
 
 		# Build step
 		echo "compile_osu_openshmem_${name}:"
+		echo "  group: 'GRPOSHMEM'"
 		echo "  build:"
 		echo "    files: '@BUILDPATH@/c/openshmem/Makefile'"
 		echo "    make: {'target': '${name}'}"
@@ -116,7 +122,7 @@ openshmem_testsuite() {
 
 		echo "${name}:"
 		echo "  tag: [$tags]"
-		echo "  group: 'GRPMPI'"
+		echo "  group: 'GRPOSHMEM'"
 		echo "  run:"
 		echo "    program: '${binary}'"
 		echo "    depends_on:   [ 'compile_osu_openshmem_${name}' ]"
@@ -136,12 +142,9 @@ cd $pcvs_build_current
 #run configure...
 $pcvs_src_current/configure CC="$PCVS_CMP_CC" CXX="$PCVS_CMP_CXX" CFLAGS="$PCVS_CMP_CC_ARGS" --prefix=$pcvs_build_current >$pcvs_build_current/configure_out.log 2>&1 || exit 1
 
-mkdir -p $pcvs_build_current/util
-cp $pcvs_src_current/c/util/* $pcvs_build_current/c/util/
-
 # MPI Testsuite
 mpi_testsuite
-openshmem_testsuite
+# openshmem_testsuite
 
 ######
 cd $OLDIR

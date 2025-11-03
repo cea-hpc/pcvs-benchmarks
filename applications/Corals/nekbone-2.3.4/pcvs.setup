@@ -10,33 +10,33 @@ cp -r $pcvs_src_current/* $pcvs_build_current
 
 COMP_TYPE="gfortran"
 
-$PCVS_CMP_FC -show 2> /dev/null | grep -q "ifort"
+$PCVS_CMP_FC -show 2>/dev/null | grep -q "ifort" >&2 2>/dev/null
 
 if test "x$?" = "x0"; then
 	echo "#ifort DETECTED"
 	COMP_TYPE="ifort"
 fi
 
-$PCVS_CMP_FC -show 2> /dev/null | grep "gfortran"
+$PCVS_CMP_FC -show 2>/dev/null | grep "gfortran" >&2 2>/dev/null
 
 if test "x$?" != "x0"; then
 	if test "$COMP_TYPE" = "gfortran"; then
 		echo "#USING GFORTRAN but it is something else !" >&2
 		echo "WARNING : Nekbone is only integrated for gfortran and ifort compilation may fail" >&2
-	fi	
+	fi
 else
 	echo "#gfortran DETECTED" >&2
 fi
 
 #Default
-NKFLAGS="-fcray-pointer -fdefault-real-8 -x f77-cpp-input"	
+NKFLAGS="-fcray-pointer -fdefault-real-8 -x f77-cpp-input"
 
 case "$COMP_TYPE" in
-	"gfortran")
-		NKFLAGS="-fcray-pointer -fdefault-real-8 -x f77-cpp-input"
+"gfortran")
+	NKFLAGS="-fcray-pointer -fdefault-real-8 -x f77-cpp-input"
 	;;
-	"ifort")
-		NKFLAGS="-r8 -fpconstant -fpp"
+"ifort")
+	NKFLAGS="-r8 -fpconstant -fpp"
 	;;
 esac
 

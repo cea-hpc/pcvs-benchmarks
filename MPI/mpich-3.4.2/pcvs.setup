@@ -21,6 +21,7 @@ def build_run_config_str(prefix, args, program):
         return ""
     ret = """
     run:
+        depends_on: ['build_mpich']
         cwd: build/{prefix}/
         program: 'build/{prefix}/{program}'
         iterate:
@@ -47,6 +48,7 @@ def build_run_config_str(prefix, args, program):
 
     ret = """
     run:
+        depends_on: ['build_mpich']
         cwd: build/{prefix}/
         program: 'build/{prefix}/{program}'
         iterate:
@@ -98,11 +100,6 @@ def process_file(filename):
 {escaped_prefix}_{program}_np{mpi}_{args_str}:
     tag: ['{escaped_prefix}']
     group: 'GRPMPI'
-    build:
-        depends_on: ['build_util', 'build_dtpools']
-        files: '@BUILDPATH@/build/{prefix}/Makefile'
-        make:
-            target: '{program}'
     {run_config_str}
 """.format(
                             program=program,
@@ -136,23 +133,22 @@ if __name__ == "__main__":
             os.environ["PCVS_CMP_CXX"]
         ) + 'F77="{}" '.format(
             os.environ["PCVS_CMP_FC"]
-        ) + 'FC="{} "'.format(
+        ) + 'FC="{}" '.format(
             os.environ["PCVS_CMP_FC"]
+        ) + 'FFLAGS="$FFLAGS {}"'.format(
+            os.environ["PCVS_CMP_FC_ARGS"]
         )
         subprocess.check_output(cmd, shell=True)
 
         print(
             """
-build_util:
+build_mpich:
     build:
-        files: '@BUILDPATH@/build/util/Makefile'
+        files: '@BUILDPATH@/build/Makefile'
         make:
-            target: '-ik'
-build_dtpools:
-    build:
-        files: '@BUILDPATH@/build/dtpools/Makefile'
-        make:
-            target: '-ik'
+            target: 'all'
+            args: ['-ik']
+            jobs: 16
 """
         )
 

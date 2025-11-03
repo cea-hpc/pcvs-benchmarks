@@ -7,11 +7,22 @@ cp -r $pcvs_src_current/* $pcvs_build_current/ || exit 1
 cp -r $pcvs_build_current/pcvs.makedefs $pcvs_build_current/config/make.def || exit 1
 mkdir -p $pcvs_build_current/bin #didn't understand why is this not automatically created.
 
+# First build the helpers
+echo "build_sys:
+  build:
+    make:
+      target: 'all'
+      args: ['PCVS_CC=@COMPILER_CC@', 'PCVS_FC=@COMPILER_FC@']
+    files: '@BUILDPATH@/sys/Makefile'
+"
+
 echo "build_MPINAS:
     build:
+        depends_on: ['build_sys']
         make:
             target: 'suite'
             args: ['PCVS_CC=@COMPILER_CC@', 'PCVS_FC=@COMPILER_FC@']
+            jobs: 16
         files: '@BUILDPATH@/Makefile'
 "
 
@@ -72,9 +83,9 @@ build_benchs() {
 				echo "        program: 'bin/${bench}.${class}.x'"
 				echo "        iterate:"
 				echo "            n_mpi:"
-				echo "                values: [4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196]"
+				echo "                values: {op: 'powerof', from: 1, of: 2}"
 
-			elif test $bench = 'ep'; then # No restriction ?
+			elif test $bench = 'ep'; then # No restriction
 				printf "$bench\t$class\n" >>$pcvs_build_current/config/suite.def
 
 				echo "$bench-$class:"
@@ -95,7 +106,7 @@ build_benchs() {
 				echo "        program: 'bin/${bench}.${class}.x'"
 				echo "        iterate:"
 				echo "            n_mpi:"
-				echo "                values: {op: 'powerof', of: 2}"
+				echo "                values: {op: 'mul', from: 1, of: 2}"
 			fi
 
 			echo ""

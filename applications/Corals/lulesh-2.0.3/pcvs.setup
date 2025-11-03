@@ -10,17 +10,15 @@ echo "lulesh:
         files: '@BUILDPATH@/Makefile'
         make:
             target: ''
+            args: ['PCVS_CC=@COMPILER_CC@', 'PCVS_CXX=@COMPILER_CXX@']
+            jobs: 16
     run:
         program: 'lulesh2.0'
         iterate:
             n_node:
                 values: [1, 2, 4]
-            n_proc:
-                values: {op: 'mul', of: 2}
             n_mpi:
                 values: {op: 'powerof', of: 3}
-            n_omp:
-                values: [2, 4, 8]
 "
 
 exit 0
