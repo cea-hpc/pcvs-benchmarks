@@ -1,0 +1,76 @@
+compiler:
+  compilers:
+    cc:
+      program: mpicc
+      envs: [PCVS_CC=mpicc]
+      extension: "\\.(h|H|i|I|s|S|c|c90|c99|c11)$"
+      variants: &openmp
+        openmp:
+          args: [-fopenmp]
+    cxx:
+      program: mpicxx
+      envs: [PCVS_CXX=mpicxx]
+      extension: "\\.(hpp|C|cc|cxx|cpp|c\\+\\+)$"
+      variants: *openmp
+    f77:
+      program: mpif77
+      envs: [PCVS_FC=mpif77]
+      extension: "\\.(f|F)(77)?$"
+      variants: *openmp
+    f90:
+      program: mpif90
+      envs: [PCVS_FC=mpif90]
+      extension: "\\.(f|F)(90)?$"
+      variants: *openmp
+    fc:
+      program: mpifort
+      envs: [PCVS_FC=mpifort]
+      extension: "\\.(f|F)(95|(20)?(03|08)|c)?$"
+      variants: *openmp
+    cuda:
+      envs: [PCVS_NVCC=nvcc]
+      program: nvcc
+      extension: '\.(cu|CU)$'
+    hip:
+      envs: [PCVS_HIPCC=hipcc]
+      program: hipcc
+      extension: '\.(hip|HIP)$'
+criterion:
+  n_mpi:
+    subtitle: n
+    values: [8]
+  n_omp:
+    subtitle: o
+    values: [2]
+group:
+  GRPMPI:
+    run:
+      iterate:
+        n_omp: {values: null}
+  GRPOMP:
+    run:
+      iterate:
+        n_mpi: {values: null}
+        n_node: {values: null}
+        n_proc: {values: null}
+  GRPSERIAL:
+    run:
+      iterate:
+        n_core: {values: null}
+        n_mpi: {values: null}
+        n_node: {values: null}
+        n_omp: {values: null}
+machine: {concurrent_run: 32, cores_per_node: 32, name: localhost, nodes: 1}
+runtime:
+  criterions:
+    n_mpi: {numeric: true, option: '-np '}
+    n_omp: {numeric: true, option: OMP_NUM_THREADS=, type: environment}
+  plugin: "from pcvs.plugins import Plugin\n\n\nclass MPIPlugin(Plugin):\n    step
+    = Plugin.Step.TEST_EVAL\n\n    def run(self, *args, **kwargs):\n        # returns
+    True if the combination should be used\n        config = kwargs['config']\n        nb_nodes
+    = config['machine'].get('nodes', 1)\n        nb_cores = config['machine'].get('cores_per_node',
+    1)\n\n        comb = kwargs['combination']\n        n_mpi = comb.get('n_mpi',
+    1)\n        # n_omp = comb.get('n_omp', 0)\n        n_node = comb.get('n_node',
+    1)\n\n        if ((int(n_mpi / n_node) > nb_cores) or\n                (n_node
+    > nb_nodes)):\n            return False\n        else:\n            return True\n"
+  program: mpirun
