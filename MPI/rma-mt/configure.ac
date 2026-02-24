@@ -50,11 +50,8 @@ AX_PTHREAD([],[AC_ERROR("The RMA-MT benchmarks require pthreads")])
 
 RMAMT_CHECK_CVERSION
 
-# Checks for libraries.
-AC_CHECK_LIB([hwloc], [hwloc_topology_init])
-
 # Checks for header files.
-AC_CHECK_HEADERS([fcntl.h inttypes.h mach/mach.h string.h strings.h unistd.h])
+AC_CHECK_HEADERS([fcntl.h inttypes.h mach/mach.h string.h strings.h unistd.h hwloc.h])
 
 # Checks for library functions.
 AC_FUNC_MMAP

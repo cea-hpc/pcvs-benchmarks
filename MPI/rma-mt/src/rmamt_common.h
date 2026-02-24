@@ -59,6 +59,7 @@ typedef struct arg_struct {
     bool do_sync;
     bool do_init;
     bool all_sync;
+    MPI_Aint base_displacement;
 } ArgStruct;
 
 typedef void *(*rmamt_fn_t) (ArgStruct *);
