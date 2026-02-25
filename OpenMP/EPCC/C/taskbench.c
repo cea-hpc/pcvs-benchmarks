@@ -1,19 +1,19 @@
 /****************************************************************************
 *                                                                           *
-*             OpenMP MicroBenchmark Suite - Version 3.1                     *
+*             OpenMP MicroBenchmark Suite - Version 4.0                     *
 *                                                                           *
 *                            produced by                                    *
 *                                                                           *
-*             Mark Bull, Fiona Reid and Nix Mc Donnell                      *
+*                             Mark Bull                                     *
 *                                                                           *
 *                                at                                         *
 *                                                                           *
-*                Edinburgh Parallel Computing Centre                        *
+*                   EPCC, University of Edinburgh                           *
 *                                                                           *
-*         email: markb@epcc.ed.ac.uk or fiona@epcc.ed.ac.uk                 *
+*                    email: m.bull@epcc.ed.ac.uk                            *
 *                                                                           *
 *                                                                           *
-*      This version copyright (c) The University of Edinburgh, 2015.        *
+*      This version copyright (c) The University of Edinburgh, 2023.        *
 *                                                                           *
 *                                                                           *
 *  Licensed under the Apache License, Version 2.0 (the "License");          *
@@ -33,66 +33,99 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <omp.h>
-
+#include <string.h>
 #include "common.h"
 #include "taskbench.h"
 
 #define DEPTH 6
 
+
 int main(int argc, char **argv) {
+  extern char type[120];
+  init(argc, argv);
 
-    init(argc, argv);
-
-#ifdef OMPVER3
 
     /* GENERATE REFERENCE TIME */
+
     reference("reference time 1", &refer);
 
     /* TEST PARALLEL TASK GENERATION */
-    benchmark("PARALLEL TASK", &testParallelTaskGeneration);
 
-    /* TEST MASTER TASK GENERATION */
-    benchmark("MASTER TASK", &testMasterTaskGeneration);
+    if((strcmp("PARALLEL_TASK",type)==0)||(strcmp("ALL",type)==0))
+    {
+      benchmark("PARALLEL TASK", &testParallelTaskGeneration);
+    }
 
-    /* TEST MASTER TASK GENERATION WITH BUSY SLAVES */
-    benchmark("MASTER TASK BUSY SLAVES", &testMasterTaskGenerationWithBusySlaves);
+    if((strcmp("PARALLEL_TASK_DEPS",type)==0)||(strcmp("ALL",type)==0))
+    {
+      benchmark("PARALLEL TASK DEPS", &testParallelTaskGenerationWithDeps);
+    }
 
-    /* TEST CONDITIONAL TASK GENERATION */
-#ifndef DISABLE_CONDITIONAL_TASK_TEST
-    benchmark("CONDITIONAL TASK", &testConditionalTaskGeneration);
-#endif // DISABLE_CONDITIONAL_TASK_TEST
+    if((strcmp("MASTER_TASK_DEPS",type)==0)||(strcmp("ALL",type)==0))
+    {
+      benchmark("MASTER TASK DEPS", &testMasterTaskGenerationWithDeps);
+    }
 
-    /* TEST TASK WAIT */
-    benchmark("TASK WAIT", &testTaskWait);
+    if((strcmp("MASTER_TASK",type)==0)||(strcmp("ALL",type)==0))
+    {
+      benchmark("MASTER TASK", &testMasterTaskGeneration);
+    }
 
-    /* TEST TASK BARRIER */
-#ifndef DISABLE_BARRIER_TEST
-    benchmark("TASK BARRIER", &testTaskBarrier);
-#endif //DISABLE_BARRIER_TEST
+    if((strcmp("MASTER_TASK_BUSY_SLAVES",type)==0)||(strcmp("ALL",type)==0))
+    {
+      benchmark("MASTER TASK BUSY SLAVES", &testMasterTaskGenerationWithBusySlaves);
+    }
 
-#ifndef DISABLE_NESTED_TASKS_TESTS
-    /* TEST NESTED TASK GENERATION */
-    benchmark("NESTED TASK", &testNestedTaskGeneration);
+    if((strcmp("CONDITIONAL_TASK",type)==0)||(strcmp("ALL",type)==0))
+    {
+          benchmark("CONDITIONAL TASK", &testConditionalTaskGeneration);
+    }
 
-    /* TEST NESTED MASTER TASK GENERATION */
-    benchmark("NESTED MASTER TASK", &testNestedMasterTaskGeneration);
+    if((strcmp("MASTER_TASK",type)==0)||(strcmp("ALL",type)==0))
+    {
+      benchmark("MASTER TASK", &testMasterTaskGeneration);
+    }
 
-#endif // DISABLE_NESTED_TASKS_TESTS
+    if((strcmp("TASK_WAIT",type)==0)||(strcmp("ALL",type)==0))
+    {
+      benchmark("TASK WAIT", &testTaskWait);
+    }
+
+    if((strcmp("TASK_BARRIER",type)==0)||(strcmp("ALL",type)==0))
+    {
+          benchmark("TASK BARRIER", &testTaskBarrier);
+    }
+
+    if((strcmp("NESTED_TASK",type)==0)||(strcmp("ALL",type)==0))
+    {
+      benchmark("NESTED TASK", &testNestedTaskGeneration);
+    }
+
+    if((strcmp("NESTED_MASTER_TASK",type)==0)||(strcmp("ALL",type)==0))
+    {
+      benchmark("NESTED MASTER TASK", &testNestedMasterTaskGeneration);
+    }
 
     /* GENERATE THE SECOND REFERENCE TIME */
-    reference("reference time 2", &refer);
+    if((strcmp("BRANCH_TASK_TREE",type)==0)||(strcmp("LEAF_TASK_TREE",type)==0)||(strcmp("ALL",type)==0))
+    {
+      reference("reference time 2", &refer2);
+    }
 
-    /* TEST BRANCH TASK TREE */
-    benchmark("BRANCH TASK TREE", &testBranchTaskGeneration);
+    if((strcmp("BRANCH_TASK_TREE",type)==0)||(strcmp("ALL",type)==0))
+    {
+      benchmark("BRANCH TASK TREE", &testBranchTaskGeneration);
+    }
 
-    /* TEST LEAF TASK TREE */
-    benchmark("LEAF TASK TREE", &testLeafTaskGeneration);
-
-#endif // OMPVER3
+    if((strcmp("LEAF_TASK_TREE",type)==0)||(strcmp("ALL",type)==0))
+    {
+      benchmark("LEAF TASK TREE", &testLeafTaskGeneration);
+    }
 
     finalise();
-
     return EXIT_SUCCESS;
+
+
 
 }
 
@@ -110,13 +143,15 @@ void refer2() {
     int j;
     for (j = 0; j < (innerreps >> DEPTH) * (1 << DEPTH); j++) {
 	delay(delaylength);
-    };
+    }
+    printf("ref time delays = %d\n",j); 
 
 }
 
 /* Test parallel task generation overhead */
 void testParallelTaskGeneration() {
     int j;
+
 #pragma omp parallel private( j )
     {
 	for ( j = 0; j < innerreps; j ++ ) {
@@ -129,16 +164,33 @@ void testParallelTaskGeneration() {
     } // parallel
 
 }
+void testParallelTaskGenerationWithDeps() {
+     int j, id;
 
-/* Test master task generation overhead */
+     int *a;
+
+     a = (int *) malloc (omp_get_max_threads() * sizeof(int));
+#pragma omp parallel private( j, id )
+     {
+
+     id = omp_get_thread_num();
+
+     for ( j = 0; j < innerreps; j ++ ) {
+#pragma omp task depend(inout:a[id])
+         {
+         delay( delaylength );
+
+         } // task
+     }; // for j
+   }; // parallel
+
+}
 void testMasterTaskGeneration() {
     int j;
 #pragma omp parallel private(j)
     {
 #pragma omp master
 	{
-	    /* Since this is executed by one thread we need innerreps * nthreads
-	       iterations */
 	    for (j = 0; j < innerreps * nthreads; j++) {
 #pragma omp task
 		{
@@ -151,8 +203,32 @@ void testMasterTaskGeneration() {
     } /* End parallel */
 
 }
+void testMasterTaskGenerationWithDeps() {
+     int j, id;
 
-/* Test master task generation overhead when the slave threads are busy */
+     int *a;
+
+     a = (int *) malloc (omp_get_max_threads() * sizeof(int));
+
+#pragma omp parallel private(j, id)
+     {
+#pragma omp master
+     {
+         for (j = 0; j < innerreps * nthreads; j++) {
+
+         id = j%nthreads;
+
+#pragma omp task depend(inout: a[id])
+         {
+             delay(delaylength);
+
+         }
+
+         } /* End for j */
+     } /* End master */
+     } /* End parallel */
+
+}
 void testMasterTaskGenerationWithBusySlaves() {
     int j;
 #pragma omp parallel private( j )
@@ -174,7 +250,6 @@ void testMasterTaskGenerationWithBusySlaves() {
     } // parallel
 }
 
-/* Measure overhead of checking if a task should be spawned. */
 void testConditionalTaskGeneration() {
     int j;
 #pragma omp parallel private(j)
@@ -188,14 +263,11 @@ void testConditionalTaskGeneration() {
     }
 }
 
-#ifndef DISABLE_NESTED_TASKS_TESTS
-
-/* Measure overhead of nested tasks (all threads construct outer tasks) */
 void testNestedTaskGeneration() {
     int i,j;
 #pragma omp parallel private( i, j )
     {
-	for ( j = 0; j < innerreps / nthreads; j ++ ) {
+  for ( j = 0; j < innerreps / nthreads; j ++ ) {
 #pragma omp task private( i )
 	    {
 		for ( i = 0; i < nthreads; i ++ ) {
@@ -213,6 +285,9 @@ void testNestedTaskGeneration() {
 	}; // for j
     } // parallel
 }
+
+
+
 
 /* Measure overhead of nested tasks (master thread constructs outer tasks) */
 void testNestedMasterTaskGeneration() {
@@ -240,9 +315,8 @@ void testNestedMasterTaskGeneration() {
 	} // master
     } // parallel
 }
-#endif // DISABLE_NESTED_TASKS_TESTS
 
-/* Measure overhead of taskwait (all threads construct tasks) */
+
 void testTaskWait() {
     int j;
 #pragma omp parallel private( j )
@@ -259,7 +333,6 @@ void testTaskWait() {
     } // parallel
 }
 
-/* Measure overhead of tasking barrier (all threads construct tasks) */
 void testTaskBarrier() {
     int j;
 #pragma omp parallel private( j )
@@ -276,9 +349,11 @@ void testTaskBarrier() {
     } // parallel
 }
 
-/* Test parallel task generation overhead where work is done at all levels. */
+    int n; 
+
 void testBranchTaskGeneration() {
     int j;
+
 #pragma omp parallel private(j)
     {
 	for (j = 0; j < (innerreps >> DEPTH); j++) {
@@ -303,23 +378,20 @@ void branchTaskTree(int tree_level) {
     }
 }
 
-/* Test parallel task generation overhead where work is done only at the leaf level. */
+
 void testLeafTaskGeneration() {
     int j;
 #pragma omp parallel private(j)
     {
 	for (j = 0; j < (innerreps >> DEPTH); j++) {
 	    leafTaskTree(DEPTH);
-
 	}
     }
-
 }
 
 void leafTaskTree(int tree_level) {
     if ( tree_level == 0 ) {
 	delay(delaylength);
-
     } else {
 #pragma omp task
 	{
@@ -328,4 +400,3 @@ void leafTaskTree(int tree_level) {
 	}
     }
 }
-

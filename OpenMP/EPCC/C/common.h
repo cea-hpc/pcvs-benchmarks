@@ -1,19 +1,19 @@
 /****************************************************************************
 *                                                                           *
-*             OpenMP MicroBenchmark Suite - Version 3.1                     *
+*             OpenMP MicroBenchmark Suite - Version 4.0                     *
 *                                                                           *
 *                            produced by                                    *
 *                                                                           *
-*             Mark Bull, Fiona Reid and Nix Mc Donnell                      *
+*                             Mark Bull                                     *
 *                                                                           *
 *                                at                                         *
 *                                                                           *
-*                Edinburgh Parallel Computing Centre                        *
+*                   EPCC, University of Edinburgh                           *
 *                                                                           *
-*         email: markb@epcc.ed.ac.uk or fiona@epcc.ed.ac.uk                 *
+*                    email: m.bull@epcc.ed.ac.uk                            *
 *                                                                           *
 *                                                                           *
-*      This version copyright (c) The University of Edinburgh, 2015.        *
+*      This version copyright (c) The University of Edinburgh, 2023.        *
 *                                                                           *
 *                                                                           *
 *  Licensed under the Apache License, Version 2.0 (the "License");          *
@@ -36,11 +36,7 @@
 #define DEFAULT_DELAY_LENGTH -1 // -1 means the delay length should be auto generated
 #define DEFAULT_OUTER_REPS 20   // Outer repetitions
 #define DEFAULT_TEST_TARGET_TIME 1000.0 // Test Target time in microseconds.
-#ifdef SCHEDBENCH
-#define DEFAULT_DELAY_TIME 15.0  // Default delaytime in microseconds for schedbench
-#else
-#define DEFAULT_DELAY_TIME 0.10  // Default delaytime in microseconds
-#endif
+#define DEFAULT_DELAY_TIME 0.1  // Default delaytime in microseconds
 
 extern int nthreads;              // Number of OpenMP threads
 extern int delaylength;           // The number of iterations to delay for
@@ -51,13 +47,14 @@ extern double targettesttime;     // The length of time in microseconds the test
                                   // should run for
 extern double *times;             // Array to store results in
 
+
 void init(int argc, char **argv);
 
 void initreference(char *name);
 
 void finalisereference(char *name);
 
-void intitest(char *name);
+void inittest(char *name);
 
 void finalisetest(char *name);
 
@@ -72,6 +69,10 @@ int getdelaylengthfromtime(double delaytime);
 int returnfalse(void);
 
 void finalise(void);
+
+void quickSort(double *a, int low, int high);
+
+void swap(double *p, double *q);
 
 void benchmark(char *name, void (*test)(void));
 

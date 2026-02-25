@@ -1,19 +1,19 @@
 /****************************************************************************
 *                                                                           *
-*             OpenMP MicroBenchmark Suite - Version 3.1                     *
+*             OpenMP MicroBenchmark Suite - Version 4.0                     *
 *                                                                           *
 *                            produced by                                    *
 *                                                                           *
-*             Mark Bull, Fiona Reid and Nix Mc Donnell                      *
+*                             Mark Bull                                     *
 *                                                                           *
 *                                at                                         *
 *                                                                           *
-*                Edinburgh Parallel Computing Centre                        *
+*                   EPCC, University of Edinburgh                           *
 *                                                                           *
-*         email: markb@epcc.ed.ac.uk or fiona@epcc.ed.ac.uk                 *
+*                    email: m.bull@epcc.ed.ac.uk                            *
 *                                                                           *
 *                                                                           *
-*      This version copyright (c) The University of Edinburgh, 2015.        *
+*      This version copyright (c) The University of Edinburgh, 2023.        *
 *                                                                           *
 *                                                                           *
 *  Licensed under the Apache License, Version 2.0 (the "License");          *
@@ -39,11 +39,7 @@ void testfirstprivnew();
 
 void testprivnew();
 
-#ifdef OMPVER2
-
 void testcopyprivnew();
-
-#endif
 
 void testthrprivnew();
 
