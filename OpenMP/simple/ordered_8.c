@@ -1,4 +1,3 @@
-#include <mpc.h>
 #include <omp.h>
 #include <stdlib.h>
 

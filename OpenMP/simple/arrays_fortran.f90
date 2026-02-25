@@ -23,7 +23,7 @@
             !$OMP END PARALLEL DO
             write (*,*) "a(", k, ") = ", a(k)
         end do
-        
+
         do k=1, count
             if (ref(k) .ne. a(k)) then
                 write(*,*) "FAILED: a(", k, ")=", a(k)

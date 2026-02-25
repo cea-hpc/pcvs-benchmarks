@@ -1,7 +1,8 @@
+#include <stdlib.h>
 #include <stdio.h>
 #include <omp.h>
 
-int main() 
+int main()
 {
   int max_t ;
   int n_t ;

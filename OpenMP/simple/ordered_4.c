@@ -1,6 +1,6 @@
-#include <mpc.h>
 #include <omp.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 int cnt_static;
 int cnt_static_chunked;
