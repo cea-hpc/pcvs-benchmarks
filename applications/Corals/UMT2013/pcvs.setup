@@ -6,9 +6,10 @@ pcvs_build_current=$pcvs_testbuild/$1
 #Copy Sources in BUILD env
 cp -r $pcvs_src_current/* $pcvs_build_current
 
-UMT_FORTAN_LIB=$($PCVS_CMP_FC -show 2> /dev/null \
-	| grep -o "\-l\(mpc\)\?\(mpi\|fortran\(_priv\)\?\)" \
-	| tr '\n' ' ')
+UMT_FORTAN_LIB=$($PCVS_CMP_FC -show 2>/dev/null |
+	tr ' ' '\n' |
+	grep "\-l\(mpc\)\?\(mpi\|fortran\(_priv\)\?\)" |
+	tr '\n' ' ')
 
 echo "# FORTRAN LIBS : $UMT_FORTAN_LIB"
 
@@ -20,7 +21,9 @@ echo "make_umt:
     build:
         variants: ['openmp']
         make:
-            target: 'UMT_FORTRAN_LIB=\"$UMT_FORTAN_LIB\"'
+            target: ''
+            args: ['UMT_FORTRAN_LIB=\"$UMT_FORTAN_LIB\"']
+            jobs: false
         files: '@BUILDPATH@/Makefile'
 
 
@@ -29,7 +32,9 @@ make_suolson:
         depends_on:   ['make_umt']
         variants: ['openmp']
         make:
-            target: 'SuOlsonTest UMT_FORTRAN_LIB=\"$UMT_FORTAN_LIB\"'
+            target: 'SuOlsonTest'
+            args: ['UMT_FORTRAN_LIB=\"$UMT_FORTAN_LIB\"']
+            jobs: true
         files: '@BUILDPATH@/Teton/Makefile'
 "
 
