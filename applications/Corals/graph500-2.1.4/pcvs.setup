@@ -17,6 +17,7 @@ graph500omp:
         variants: [ 'openmp' ]
         make:
             target: 'omp-csr/omp-csr'
+            jobs: true
     run:
         program: 'omp-csr/omp-csr'
         iterate:
@@ -34,12 +35,12 @@ echo "graphseqcsr:
         files: '@BUILDPATH@/Makefile'
         make:
             target: 'seq-csr/seq-csr'
+            jobs: true
     run:
         program: 'seq-csr/seq-csr'
         iterate:
             program: *same_args
 "
-
 
 echo "graphseqlist:
     group: 'GRPSERIAL'
@@ -47,6 +48,7 @@ echo "graphseqlist:
         files: '@BUILDPATH@/Makefile'
         make:
             target: 'seq-list/seq-list'
+            jobs: true
     run:
         program: 'seq-list/seq-list'
         iterate:
@@ -60,15 +62,15 @@ echo "graphseqlist:
 echo "make_graphmpi:
     build:
         files: '@BUILDPATH@/mpi/Makefile'
+        variants: [ 'openmp' ]
         make:
             target: ''
+            jobs: true
 "
 
 #graph500_mpi_custom  -> Removed as produces bad run on all MPI
-for GT in graph500_mpi_one_sided graph500_mpi_replicated graph500_mpi_replicated_csc graph500_mpi_simple
-do
+for GT in graph500_mpi_one_sided graph500_mpi_replicated graph500_mpi_replicated_csc graph500_mpi_simple; do
 	echo "run_${GT}:
-    group: 'GRPMPI'
     run:
         depends_on:   [ 'make_graphmpi' ]
         program: 'mpi/${GT}'
