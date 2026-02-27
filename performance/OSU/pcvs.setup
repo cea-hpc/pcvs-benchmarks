@@ -6,7 +6,12 @@
 pcvs_src_current=$pcvs_src/$1
 pcvs_build_current=$pcvs_testbuild/$1
 
+# Create tests description of the MPI part based on the files in the c/mpi directory
+# Args:
+# - $1: activate validation
 mpi_testsuite() {
+
+	local validation=$1
 
 	local pre_testsuite_dir=$(pwd)
 	cd $pcvs_src_current/c/mpi
@@ -15,7 +20,7 @@ mpi_testsuite() {
 	echo "compile_osu_mpi:"
 	echo "  build:"
 	echo "    files: '@BUILDPATH@/c/mpi/Makefile'"
-	echo "    make: {'target': 'all', args: ['-ik'], jobs: 16}"
+	echo "    make: {'target': 'all', jobs: 16}"
 	echo ""
 
 	# Go through all the test kinds
@@ -38,15 +43,25 @@ mpi_testsuite() {
 				echo "  run:"
 				echo "    program: '${binary}'"
 				echo "    depends_on:   [ 'compile_osu_mpi' ]"
+				if [ $validation == "true" ]; then
+					echo "    iterate:"
+					echo "      program:"
+					echo "        validation: {option: '-c', numeric: false, values: [' ']}"
+				fi
 
 				# Special cases
 				if [ $group == "one-sided" ]; then
-					echo "    iterate:"
-					echo "      n_mpi: {'values': [2]}"
-					echo "      program:"
-					echo "        sync: {option: '-s ', values: ['pscw', 'fence', 'lock', 'flush', 'flush_local', 'lock_all']}"
+					if [ $validation != "true" ]; then
+						echo "    iterate:"
+						echo "      program:"
+					fi
 					echo "        win: {option: '-w ', values: ['create', 'allocate', 'dynamic']}"
-					echo "        type: {option: '-T ', values: ['mpi_char', 'mpi_int', 'mpi_float']}"
+					if [ $name == "osu_put_bibw" ]; then
+						echo "        sync: {option: '-s ', values: ['pscw', 'fence']}"
+					else
+						echo "        sync: {option: '-s ', values: ['pscw', 'fence', 'lock', 'flush', 'flush_local', 'lock_all']}"
+					fi
+					echo "      n_mpi: {'values': [2]}"
 				fi
 				echo "  validate: {time: {hard_timeout: 600}}"
 				echo ""
@@ -59,10 +74,19 @@ mpi_testsuite() {
 				if [ $subgroup == $group ]; then
 					continue
 				fi
+				if [[ $group == "collective" && $subgroup == "persistent" && $MPI4 != "#" ]]; then
+					# MPI does not support MPI4 according to configure
+					# So, the collective persistent benchs have not been compiled
+					continue
+				fi
 
 				local tags="\"MPI\", \"$group\", \"$subgroup\""
 				names=$(find $group/$subgroup -maxdepth 1 -type f -name 'osu*' | cut -f 3 -d '/' | cut -f 1 -d '.')
 				for name in $names; do
+					if [[ $name =~ ^osu_partitioned && $MPI4_PT2PT != "#" ]]; then
+						# Partitioned communications are not supported, the tests have not been compiled
+						continue
+					fi
 					local binary="@BUILDPATH@/c/mpi/$group/$subgroup/$name"
 					# Run step
 					echo "${group}_${subgroup}_${name}:"
@@ -71,16 +95,24 @@ mpi_testsuite() {
 					echo "  run:"
 					echo "    program: '${binary}'"
 					echo "    depends_on:   [ 'compile_osu_mpi' ]"
+					echo "    iterate:"
+					if [ $validation == "true" ]; then
+						echo "      program:"
+						echo "        validation: {option: '-c', numeric: false, values: [' ']}"
+					fi
 
 					# Special cases
 					if [ $subgroup == "congestion" ]; then
-						echo "    iterate: {'n_node': {'values': [{from: 2}]}}"
+						echo "      n_node: {'values': [{from: 2}]}"
 					elif [ $subgroup == "neighborhood" ]; then
-						echo "    iterate: {'n_mpi': {'values': [{from: 4}]}}"
+						echo "      n_mpi: {'values': [{from: 4}]}"
 					elif [ $group == "pt2pt" ]; then
-						echo "    iterate: {'n_mpi': {'values': [2]}}"
+						echo "      n_mpi: {'values': [2]}"
+						if [[ $name =~ ^osu_latency_(mt|mp)$ ]]; then
+							echo "      n_core: {'values': [{from: 2}]}"
+						fi
 					else
-						echo "    iterate: {'n_mpi': {'values': [{op: 'seq', from: 2}]}}"
+						echo "      n_mpi: {'values': [{op: 'seq', from: 2}]}"
 					fi
 					echo "  validate: {time: {hard_timeout: 600}}"
 					echo ""
@@ -126,6 +158,13 @@ openshmem_testsuite() {
 		echo "  run:"
 		echo "    program: '${binary}'"
 		echo "    depends_on:   [ 'compile_osu_openshmem_${name}' ]"
+		echo "    iterate:"
+		echo "      n_mpi: {values: [2]}"
+		echo "      program:"
+		echo "        memory_loc:"
+		echo "          numeric: false"
+		echo "          type: 'argument'"
+		echo "          values: ['global', 'heap']"
 		echo "  validate: {time: {hard_timeout: 600}}"
 
 		echo ""
@@ -142,8 +181,14 @@ cd $pcvs_build_current
 #run configure...
 $pcvs_src_current/configure CC="$PCVS_CMP_CC" CXX="$PCVS_CMP_CXX" CFLAGS="$PCVS_CMP_CC_ARGS" --prefix=$pcvs_build_current >$pcvs_build_current/configure_out.log 2>&1 || exit 1
 
+MPI4=$(grep "MPI4_LIBRARY_FALSE" "$pcvs_build_current/config.log" | grep -o "#")
+MPI4_PT2PT=$(grep "MPI4_PARTITION_PT2PT_FALSE" "$pcvs_build_current/config.log" | grep -o "#")
+
 # MPI Testsuite
-mpi_testsuite
+# Remove switch to true to enable the validation
+mpi_testsuite false
+
+# To activate the openshmem testsuite, uncomment the following line
 # openshmem_testsuite
 
 ######
