@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 pcvs_src_current=$pcvs_src/$1
 pcvs_build_current=$pcvs_testbuild/$1
@@ -12,48 +12,59 @@ echo "build_sys:
   build:
     make:
       target: 'all'
-      args: ['PCVS_CC=@COMPILER_CC@', 'PCVS_FC=@COMPILER_FC@']
+      args: ['']
     files: '@BUILDPATH@/sys/Makefile'
+    variants: ['openmp']
 "
 
-echo "build_OMPNAS:"
-echo "  build:"
-echo "    depends_on: ['build_sys']"
-echo "    make:"
-echo "      target: 'suite'"
-echo "      args: ['PCVS_CC=@COMPILER_CC@', 'PCVS_FC=@COMPILER_FC@']"
-echo "      jobs: 16"
-echo "    files: '@BUILDPATH@/Makefile'"
-echo "    variants: ['openmp']"
+echo "build_OMPNAS:
+  build:
+    depends_on: ['build_sys']
+    make:
+      target: 'suite'
+      args: ['']
+      jobs: true
+    files: '@BUILDPATH@/Makefile'
+    variants: ['openmp']
+ "
 
 # config/suite.def
-# This file is used to build several benchmarks with a single command. 
+# This file is used to build several benchmarks with a single command.
 # Typing "make suite" in the main directory will build all the benchmarks
-# specified in this file. 
+# specified in this file.
 # Each line of this file contains a benchmark name and the class.
 # The name is one of "cg", "is", "dc", "ep", mg", "ft", "sp",
-#  "bt", "lu", and "ua". 
-# The class is one of "S", "W", "A" through "E" 
+#  "bt", "lu", and "ua".
+# The class is one of "S", "W", "A" through "E"
 # (except that no classes C,D,E for DC and no class E for IS and UA).
-# No blank lines. 
-# The following example builds sample sizes of all benchmarks. 
-build_benchs()
-{
-	for bench in ft mg sp lu bt is ep cg ua dc
-	do
-		for class in S W A B
-		do
-			printf "$bench\t$class\n" >> $pcvs_build_current/config/suite.def
+# No blank lines.
+# The following example builds sample sizes of all benchmarks.
+build_benchs() {
+	for bench in ft mg sp lu bt is ep cg ua dc; do
+		local problems="S W A B"
+		if test "x$bench" = "xdc"; then
+			# In experiments, DC only works with S for some reason
+			problems="S"
+		fi
+		for class in $problems; do
+			printf "$bench\t$class\n" >>$pcvs_build_current/config/suite.def
 
 			echo "$bench-$class:"
 			echo "  group: 'GRPOMP'"
 			echo "  run:"
-			echo "    depends_on:   ['build_OMPNAS' ]"
+			echo "    depends_on:   ['build_OMPNAS']"
 			echo "    program: 'bin/${bench}.${class}.x'"
-			
-			if test "x$class" = "xB"; then
-				echo "    iterate: { 'n_omp': { 'values': [{'op': 'seq', 'from': 8}] }}"
+
+			if test "x$class" = "xA"; then
+				echo "    iterate: { 'n_omp': { 'values': [ {op: 'seq', from: 4} ] }}"
 			fi
+			if test "x$class" = "xB"; then
+				echo "    iterate: { 'n_omp': { 'values': [ {op: 'seq', from: 8} ] }}"
+			fi
+			echo "  validate:"
+			echo "    match:"
+			echo "      label:"
+			echo "        expr: 'Verification    =               SUCCESSFUL'"
 
 			echo ""
 		done
