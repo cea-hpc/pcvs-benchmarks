@@ -6,7 +6,7 @@ pcvs_build_current=$pcvs_testbuild/$1
 #Copy Sources in BUILD env
 cp -r $pcvs_src_current/* $pcvs_build_current
 HERE=$PWD
-cd  $pcvs_build_current
+cd $pcvs_build_current
 tar xzf ./boost_headers.tgz || exit 1
 cp ./Makefile-linux-pcvs ./src/Makefile || exit 1
 cd $HERE
@@ -15,22 +15,23 @@ echo "make_mcb:
     build:
         files: '@BUILDPATH@/src/Makefile'
         make:
-            target: 'MPC_UNPRIVATIZED_FILES=\"bool.hpp:integral_wrapper.hpp:util.hpp:ice_eq.hpp\"'
+            target: ''
+            args:
+                - 'MPC_UNPRIVATIZED_FILES=\"bool.hpp:integral_wrapper.hpp:util.hpp:ice_eq.hpp\"'
+            jobs: true
         variants: [ 'openmp' ]
 "
-
 
 if test -z "$PCVS_CRIT_N_MPI" -o "x$PCVS_CRIT_N_MPI" = "xundefined"; then
 	exit 0
 fi
 
 #PARAM NUMBERMPI MPIX MPIY
-emit_mcb_test()
-{
+emit_mcb_test() {
 	NUMBERMPI=$1
 	MPIX=$2
 	MPIY=$3
-	
+
 	echo "#$NUMBERMPI $MPIX $MPIY"
 	echo "run_mcb_$NUMBERMPI:
     run:
@@ -45,10 +46,9 @@ emit_mcb_test()
 "
 }
 
-for i in $PCVS_CRIT_N_MPI
-do
-	SQR=`perl -e "print int(sqrt($i))"`
-	MUL=`perl -e "print int($SQR**2)"`
+for i in $PCVS_CRIT_N_MPI; do
+	SQR=$(perl -e "print int(sqrt($i))")
+	MUL=$(perl -e "print int($SQR**2)")
 
 	if test "x$MUL" = "x$i"; then
 		#YES ! This is a square

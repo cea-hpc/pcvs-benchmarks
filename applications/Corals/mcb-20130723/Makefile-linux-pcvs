@@ -3,11 +3,11 @@ VERSION = 1.0
 #-------------- User Defined Makefile Variables ---------------#
 BOOST_PREFIX    = ../boost_headers/
 CXX             = $(PCVS_CXX)
-OPENMPFLAG      = $(PCVS_CFLAGS)
+OPENMPFLAG      = $(PCVS_CXXFLAGS)
 MPI_INCLUDE     = -I/usr/local/tools/mvapich-intel/include
 CXXDEFINES      = -DORTHOXY -DUSE_OPENMP -DUSE_MPI -DNOASSERT # -DUSE_TAU_EVENT_COUNTERS
 CXXFLAGS        = -O2 -fpermissive $(CXXDEFINES) $(OPENMPFLAG)
-LDFLAGS         = $(PCVS_CFLAGS)
+LDFLAGS         = $(PCVS_CXXFLAGS)
 LIBPATH         =
 LIBS            =
 #--------------------------------------------------------------#
@@ -113,7 +113,7 @@ veryclean: clean
 
 DISTDIR = mcb-$(VERSION)
 dist: $(DISTFILES)
-	rm -rf $(DISTDIR) 
+	rm -rf $(DISTDIR)
 	rm -f $(DISTDIR).tar.gz
 	mkdir $(DISTDIR)
 	list='$(DISTFILES)'; for f in $$list; do \
