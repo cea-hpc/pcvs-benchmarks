@@ -2,17 +2,17 @@
 #
 # This file is part of CloverLeaf.
 #
-# CloverLeaf is free software: you can redistribute it and/or modify it under 
-# the terms of the GNU General Public License as published by the 
-# Free Software Foundation, either version 3 of the License, or (at your option) 
+# CloverLeaf is free software: you can redistribute it and/or modify it under
+# the terms of the GNU General Public License as published by the
+# Free Software Foundation, either version 3 of the License, or (at your option)
 # any later version.
 #
-# CloverLeaf is distributed in the hope that it will be useful, but 
-# WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
-# FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+# CloverLeaf is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
 # details.
 #
-# You should have received a copy of the GNU General Public License along with 
+# You should have received a copy of the GNU General Public License along with
 # CloverLeaf. If not, see http://www.gnu.org/licenses/.
 
 #  @brief Makefile for CloverLeaf
@@ -116,10 +116,36 @@ ifdef IEEE
   I3E=$(I3E_$(COMPILER))
 endif
 
-FLAGS=$(FLAGS_$(COMPILER)) $(OMP) $(I3E) $(OPTIONS)
-CFLAGS=$(CFLAGS_$(COMPILER)) $(OMP) $(I3E) $(C_OPTIONS) -c
-MPI_COMPILER=mpif90
-C_MPI_COMPILER=mpicc
+
+MPI_COMPILER_INTEL = ifort
+C_MPI_COMPILER_INTEL = icc
+
+MPI_COMPILER_SUN = f95
+C_MPI_COMPILER_SUN = CC
+
+MPI_COMPILER_GNU = gfortran
+C_MPI_COMPILER_GNU = gcc
+
+MPI_COMPILER_CRAY = ftn
+C_MPI_COMPILER_CRAY = cc
+
+MPI_COMPILER_PGI = pgfortran
+C_MPI_COMPILER_PGI = pgcc
+
+MPI_COMPILER_PATHSCALE = pathf95
+C_MPI_COMPILER_PATHSCALE = pathcc
+
+MPI_COMPILER_XL = xlf
+C_MPI_COMPILER_XL = xlc
+
+MPI_COMPILER_ = FC
+C_MPI_COMPILER_ = CC
+
+
+FLAGS=$(PCVS_FFLAGS) $(I3E) $(OPTIONS) -fallow-argument-mismatch
+CFLAGS=$(PCVS_CFLAGS) $(I3E) $(C_OPTIONS) -c
+MPI_COMPILER=$(PCVS_FC)
+C_MPI_COMPILER=$(PCVS_CC)
 
 clover_leaf: c_lover *.f90 Makefile
 	$(MPI_COMPILER) $(FLAGS)	\

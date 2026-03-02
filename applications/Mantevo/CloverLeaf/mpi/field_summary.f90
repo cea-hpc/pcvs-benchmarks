@@ -126,7 +126,6 @@ SUBROUTINE field_summary()
   IF(parallel%boss) THEN
     WRITE(g_out,'(a6,i7,7e16.4)')' step:',step,vol,mass,mass/vol,press/vol,ie,ke,ie+ke
     WRITE(g_out,*)
-  !$  ENDIF
   ENDIF
 
   !Check if this is the final call and if it is a test problem, check the result.

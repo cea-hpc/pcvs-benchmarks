@@ -3,52 +3,77 @@
 prefix=$pcvs_testbuild/$1
 mkdir -p $prefix
 for i in mpi openmp serial openacc ref; do
-    cp -r $pcvs_src/$1/$i $prefix/
+	cp -r $pcvs_src/$1/$i $prefix/
 done
 
-cat << EOF 
+validation="    validate:
+        match:
+            label:
+                expect: false
+                expr: 'NOT PASSED'"
+
+cat <<EOF
 cloverleaf_serial:
     group: "GRPSERIAL"
     build:
         files: '@BUILDPATH@/serial/Makefile'
         make:
-            args: ['MPI_COMPILER=mpif77 C_MPI_COMPILER=mpicc DEBUG=1 IEEE=1']
+            args:
+                - 'COMPILER=GNU'
+                - 'DEBUG=1'
+                - 'IEEE=1'
+            jobs: true
     run:
         program: '@BUILDPATH@/serial/clover_leaf'
+$validation
 cloverleaf_mpi:
     group: "GRPMPI"
     build:
         files: '@BUILDPATH@/mpi/Makefile'
         make:
-            args: ['']
+            args:
+                - 'COMPILER=GNU'
+            jobs: true
     run:
         program: '@BUILDPATH@/mpi/clover_leaf'
+$validation
 cloverleaf_openmp:
     group: "GRPOMP"
     build:
         variants: ['openmp']
         files: '@BUILDPATH@/openmp/Makefile'
         make:
-            args: ['MPI_COMPILER=mpif77 C_MPI_COMPILER=mpicc DEBUG=1 IEEE=1']
+            args:
+                - 'COMPILER=GNU'
+                - 'DEBUG=1'
+                - 'IEEE=1'
+            jobs: true
     run:
         program: '@BUILDPATH@/openmp/clover_leaf'
+$validation
 cloverleaf_openacc:
     group: "GRPSERIAL"
     build:
         files: '@BUILDPATH@/openacc/Makefile'
         make:
-            args: ['']
+            args:
+                - 'COMPILER=GNU'
+            jobs: true
     run:
         program: '@BUILDPATH@/openacc/clover_leaf'
+$validation
 cloverleaf_ref:
     group: "GRPSERIAL"
     build:
         files: '@BUILDPATH@/ref/Makefile'
         make:
-            args: ['']
+            args:
+                - 'COMPILER=GNU'
+            jobs: true
     run:
         program: '@BUILDPATH@/ref/clover_leaf'
-        
+$validation
+
 EOF
 
 exit 0
