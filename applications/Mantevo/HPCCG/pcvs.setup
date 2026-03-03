@@ -6,12 +6,14 @@ mkdir -p $prefix/serial $prefix/mpi
 
 cp -r $pcvs_src/$1/* $prefix/
 
-cat << EOF
+cat <<EOF
 HPCGG:
     build:
         files: '@BUILDPATH@/Makefile'
+        variants: ['openmp']
         make:
-            args: [""]
+            target: ''
+            jobs: true
     run:
         program: '@BUILDPATH@/test_HPCCG'
         iterate:
@@ -21,19 +23,19 @@ HPCGG:
                     numeric: true
                     subtitle: "nx"
                     option: ""
-                    values: [1]
+                    values: [{from: 50, to: 100, of: 25}]
                 ny:
                     type: "argument"
                     numeric: true
                     subtitle: "ny"
                     option: ""
-                    values: [1]
+                    values: [{from: 50, to: 100, of: 25}]
                 nz:
                     type: "argument"
                     numeric: true
                     subtitle: "nz"
                     option: ""
-                    values: [1]
+                    values: [{from: 50, to: 100, of: 10}]
 EOF
 
 exit 0
