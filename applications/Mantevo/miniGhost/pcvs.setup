@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 prefix=$pcvs_testbuild/$1/
 
@@ -7,29 +7,37 @@ mkdir -p $prefix/serial $prefix/mpi
 cp -r $pcvs_src/$1/* $prefix/serial
 cp -r $pcvs_src/$1/* $prefix/mpi
 
-cat << EOF 
+cat <<EOF
 miniGhost_serial:
     group: "GRPSERIAL"
     build:
-        variants: ['openmp']
         files: '@BUILDPATH@/serial/ref/Makefile'
         make:
             args: ['PROTOCOL=-D_MG_SERIAL']
+            jobs: false
     run:
         program: '@BUILDPATH@/serial/ref/miniGhost.x'
-        
-miniGhost_parallel:
-    group: "GRPMPI"
+
+build_miniGhost_parallel:
     build:
         variants: ['openmp']
         files: '@BUILDPATH@/mpi/ref/Makefile'
         make:
-            args: ["PROTOCOL=-D_MG_MPI"]
+            args: ['PROTOCOL=-D_MG_MPI']
+            jobs: false
+EOF
+
+for npx in $(seq 1 1 10); do
+	for npy in $(seq 1 1 10); do
+		for npz in $(seq 1 1 10); do
+			cat <<EOF
+miniGhost_parallel_npx${npx}_npy${npy}_npz${npz}:
     run:
+        depends_on: ['build_miniGhost_parallel']
         program: '@BUILDPATH@/mpi/ref/miniGhost.x --checkpoint_interval 1 --checkpoint_file checkpoint.minighost --restart_file checkpoint.minighost'
         iterate:
             n_mpi:
-                values: [4]
+                values: [$(($npx * $npy * $npz))]
             program:
                 STENCIL:
                     type: "argument"
@@ -54,19 +62,19 @@ miniGhost_parallel:
                     numeric: true
                     subtitle: "npx"
                     option: "--npx "
-                    values: [2]
+                    values: [$npx]
                 NPY:
                     type: "argument"
                     numeric: true
                     subtitle: "npy"
                     option: "--npy "
-                    values: [2]
+                    values: [$npy]
                 NPZ:
                     type: "argument"
                     numeric: true
                     subtitle: "npz"
                     option: "--npz "
-                    values: [1]
+                    values: [$npz]
                 NX:
                     type: "argument"
                     numeric: true
@@ -85,6 +93,13 @@ miniGhost_parallel:
                     subtitle: "nz"
                     option: "--nz "
                     values: [100]
+    validate:
+        match:
+            label:
+                expr: "Computation within error tolerance."
 EOF
+		done
+	done
+done
 
 exit 0

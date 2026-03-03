@@ -42,25 +42,25 @@ INT_PRECISION = -D_MG_INT4
 
 # Compilers
 # FC=fortran
-FC=mpif77
+FC=$(PCVS_FC)
 # CC=gcc
-CC=mpicc
+CC=$(PCVS_CC)
 
-CFLAGS = $(PROTOCOL) $(REAL_PRECISION) $(INT_PRECISION)
+CFLAGS = $(PROTOCOL) $(REAL_PRECISION) $(INT_PRECISION) $(PCVS_CFLAGS)
 # C main calling Fortran subroutine:
 CFLAGS += -Df2c_
 
-FFLAGS = $(PROTOCOL) $(REAL_PRECISION) $(INT_PRECISION)
+FFLAGS = $(PROTOCOL) $(REAL_PRECISION) $(INT_PRECISION) $(PCVS_FFLAGS)
 
 #FFLAGS += -ffree-line-length-none
 
 # Optimization
-#OPT_F = -O3
-OPT_F = -g
+OPT_F = -O3
+# OPT_F = -g
 
 FFLAGS += $(OPT_F)
 # Free-form Fortran source code:
-FFLAGS += -ffree-form -ffree-line-length-200
+FFLAGS += -ffree-form -ffree-line-length-200 -fallow-argument-mismatch
 #FFLAGS += -Mfree
 # Array bounds checking: (expensive!)
 #FFLAGS += -Mbounds
