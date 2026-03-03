@@ -1,0 +1,87 @@
+#!/bin/sh
+
+prefix=$pcvs_testbuild/$1/
+
+mkdir -p $prefix/openmp $prefix/ref
+
+cp -r $pcvs_src/$1/openmp $prefix
+cp -r $pcvs_src/$1/ref $prefix
+
+cat <<EOF
+build_miniAMR_ref:
+    build:
+        files: '@BUILDPATH@/ref/Makefile'
+        make:
+            target: ''
+            jobs: true
+
+build_miniAMR_openmp:
+    build:
+        variants: ['openmp']
+        files: '@BUILDPATH@/openmp/Makefile'
+        make:
+            target: ''
+            jobs: true
+EOF
+for npx in $(seq 1 1 10); do
+	for npy in $(seq 1 1 10); do
+		for npz in $(seq 1 1 10); do
+			cat <<EOF
+miniAMR_ref_npx${npx}_npy${npy}_npz${npz}:
+    run:
+        depends_on: ['build_miniAMR_ref']
+        program: '@BUILDPATH@/ref/miniAMR.x'
+        iterate:
+            program:
+                npx:
+                    type: "argument"
+                    numeric: true
+                    subtitle: "npx"
+                    option: "--npx "
+                    values: [$npx]
+                npy:
+                    type: "argument"
+                    numeric: true
+                    subtitle: "npy"
+                    option: "--npy "
+                    values: [$npy]
+                npz:
+                    type: "argument"
+                    numeric: true
+                    subtitle: "npz"
+                    option: "--npz "
+                    values: [$npz]
+            n_mpi:
+                values: [$(($npx * $npy * $npz))]
+
+miniAMR_openmp_npx${npx}_npy${npy}_npz${npz}:
+    run:
+        depends_on: ['build_miniAMR_openmp']
+        program: '@BUILDPATH@/openmp/miniAMR.x'
+        iterate:
+            program:
+                npx:
+                    type: "argument"
+                    numeric: true
+                    subtitle: "npx"
+                    option: "--npx "
+                    values: [$npx]
+                npy:
+                    type: "argument"
+                    numeric: true
+                    subtitle: "npy"
+                    option: "--npy "
+                    values: [$npy]
+                npz:
+                    type: "argument"
+                    numeric: true
+                    subtitle: "npz"
+                    option: "--npz "
+                    values: [$npz]
+            n_mpi:
+                values: [$(($npx * $npy * $npz))]
+EOF
+		done
+	done
+done
+exit 0
