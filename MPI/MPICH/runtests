@@ -1,0 +1,1766 @@
+#!/usr/bin/env perl
+##
+## Copyright (C) by Argonne National Laboratory
+##     See COPYRIGHT in top-level directory
+##
+
+# This script is the beginnings of a script to run a sequence of test 
+# programs.  See the MPICH document for a description of the test
+# strategy and requirements.
+#
+# Description
+#   Tests are controlled by a file listing test programs; if the file is
+#   a directory, then all of the programs in the directory and subdirectories
+#   are run
+#
+#   To run a test, the following steps are executed
+#   Build the executable:
+#      make programname
+#   Run the executable
+#      mpiexec -n <np> ./programname >out 2>err
+#   Check the return code (non zero is failure)
+#   Check the stderr output (non empty is failure)
+#   Check the stdout output (No Errors or Test passed are the only valid
+#      output)
+#   Remove executable, out, err files
+#
+# The format of a list file is
+# programname number-of-processes
+# If number-of-processes is missing, $g_opt{np_default} is used (this is 2 but can
+# be overridden with -np=new-value)
+#
+# Special feature:
+# Because these tests can take a long time to run, there is an
+# option to cause the tests to stop is a "stopfile" is found.
+# The stopfile can be created by a separate, watchdog process, to ensure that
+# tests end at a certain time.
+# The name of this file is (by default) .stoptest
+# in the  top-level run directory.  The environment variable
+#    MPITEST_STOPTEST
+# can specify a different file name.
+#
+# Import the mkpath command
+use strict;
+use File::Path;
+# Use 'mv' instead of 'move' to preserve the source file's permission bits
+use File::Copy qw(mv);
+use IPC::Open2;
+
+# Use high resolution timers
+use Time::HiRes qw(gettimeofday tv_interval);
+
+# Import flock constants
+use Fcntl qw(:flock);
+
+use Cwd;
+my $g_cwd = getcwd();
+
+my $g_rel_wd;
+if ($g_cwd =~ /\/test\/mpi\/(.+)/) {
+    $g_rel_wd = $1;
+}
+
+my $g_topsrcdir = ".";
+if ($0 =~ /(.*)\/runtests$/) {
+    $g_topsrcdir = $1;
+}
+
+my $g_starttime = time();
+
+# Global variables
+my %g_opt;   # global options. TODO: migrate global option vars into the hash
+$g_opt{memory_total} = 4;       # Total memory in GB
+$g_opt{memory_multiplier} = 1;  # No of simultaneous jobs
+$g_opt{cleanup} = 1;            # Whether to remove the compiled programs
+$g_opt{start_time} = time();    # So we can track accumulative test duration
+$g_opt{hasgpu} = {};            # will run tests marked as "hasgpu=<value>"
+$g_opt{strict} = 0;             # will skip tests marked as "strict=false"
+$g_opt{runxfail} = 0;           # will run xfailed tests
+$g_opt{exeext} = "";
+$g_opt{mpiexec} = "mpiexec";    # Name of mpiexec program (including path, if necessary)
+$g_opt{program_wrapper} = '';
+
+# ppnMax is the maximum number of processes per node.  -1 means ignore.
+# ppnArg is the argument to use to mpiexec - format is "string%d"; e.g.,
+# "-ppn %d"
+$g_opt{ppnArg}  = "";
+$g_opt{ppnMax}  = -1;
+# timelimitarg is the argument to use to mpiexec to set the timelimit
+# in seconds.  The format is "string%d", e.g., "-t %d" for Cray aprun
+$g_opt{timelimitarg} = "";
+$g_opt{timeoutarg} = "";
+#
+$g_opt{np_arg}  = "-n";         # Name of argument to specify the number of processes
+$g_opt{np_default} = 2;         # Default number of processes to use
+$g_opt{np_max}    = -1;         # Maximum number of processes to use (overrides any
+                                # value in the test list files.  -1 is Infinity
+$g_opt{defaultTimeLimit} = 180; # default timeout in seconds
+$g_opt{defaultTimeLimitMultiplier} = 1.0; # default multiplier for timeout limit
+
+$g_opt{verbose} = 0;            # Set to true to get more output
+$g_opt{debug} = 1;
+$g_opt{showprogress} = 0;       # Set to true to get a "." with each run program.
+$g_opt{newline} = "\r\n";       # Set to \r\n for Windows-friendly, \n for Unix only
+$g_opt{run_mpitests} = 1;       # Set to true to functional tests using run_mpitests
+                                # (i.e., run tests inside a single MPI_Init/Finalize)
+$g_opt{batchRun} = 0;           # Set to true to batch the execution of the tests
+                                # (i.e., run them together, then test output, 
+                                # rather than build/run/check for each test)
+$g_opt{batrundir} = ".";        # Set to the directory into which to run the examples
+$g_opt{srcdir} = ".";           # Used to set the source dir for testlist files
+$g_opt{stopfile} = ".stopfile"; # Touch this file to abort the testing
+
+# Output forms
+$g_opt{xmlfile} = '';
+$g_opt{noxmlclose} = 0;         # Set to 1 to leave XML output file open to
+                                # accept additional data
+
+# TAP (Test Anything Protocol) output
+$g_opt{tapfile} = '';
+
+# Junit format output
+$g_opt{junitfile} = '';
+
+my $xmloutput;
+my $tapoutput;
+my $junitoutput;
+my ($xml_state, $tap_state, $junit_state);
+
+# Total number of tests checked and run
+my $g_total_seen = 0;         # $g_ok_count + $g_err_count + $g_skip_count
+my $g_total_run = 0;          # $g_ok_count + $g_err_count
+my $g_ok_count = 0;           # Number of programs that succeeded.
+my $g_err_count = 0;          # Number of programs that failed.
+my $g_skip_count = 0;         # Number of programs skipped
+
+# Sometime tests fail as timeout or abort. This may be caused by some persistent errors.
+# Especially with timeouts, having too many timeouts is a waste of testing time when it
+# is already clear there are issues. Keep an global counter to prevent too many such
+# failures.
+my $g_num_severe;
+my $g_num_severe_thresh = 5;
+
+my $g_testCount = 0;          # Used with batchRun to count tests.
+
+# Build flags
+
+#---------------------------------------------------------------------------
+# Get some arguments from the environment
+#   Currently, only the following are understood:
+#   VERBOSE
+#   RUNTESTS_VERBOSE  (an alias for VERBOSE in case you want to 
+#                      reserve VERBOSE)
+#   RUNTESTS_SHOWPROGRESS
+#   MPITEST_STOPTEST
+#   MPITEST_TIMEOUT
+#   MPITEST_TIMEOUT_MULTIPLIER
+#   MPITEST_PROGRAM_WRAPPER (Value is added after -np but before test
+#                            executable.  Tools like valgrind may be inserted
+#                            this way.)
+#---------------------------------------------------------------------------
+if ( defined($ENV{"VERBOSE"}) || defined($ENV{"V"}) || defined($ENV{"RUNTESTS_VERBOSE"}) ) {
+    $g_opt{verbose} = 1;
+}
+if ( defined($ENV{"RUNTESTS_SHOWPROGRESS"} ) ) {
+    $g_opt{showprogress} = 1;
+}
+if (defined($ENV{"MPITEST_STOPTEST"})) {
+    $g_opt{stopfile} = $ENV{"MPITEST_STOPTEST"};
+}
+
+if (defined($ENV{"MPITEST_RUN_INDIVIDUAL"})) {
+    $g_opt{run_mpitests} = 0;
+}
+
+if (defined($ENV{"MPITEST_TIMEOUT"})) {
+    $g_opt{defaultTimeLimit} = $ENV{"MPITEST_TIMEOUT"};
+}
+ 
+if (defined($ENV{"MPITEST_TIMEOUT_MULTIPLIER"})) {
+    $g_opt{defaultTimeLimitMultiplier} = $ENV{"MPITEST_TIMEOUT_MULTIPLIER"};
+}
+
+for my $key ("memory_total", "memory_multiplier", "cleanup") {
+    my $k = "MPITEST_".uc($key);
+    if (defined($ENV{$k})) {
+        $g_opt{$key} = $ENV{$k};
+    }
+}
+
+# Define this to leave the XML output file open to receive additional data
+if (defined($ENV{'NOXMLCLOSE'}) && $ENV{'NOXMLCLOSE'} eq 'YES') {
+    $g_opt{noxmlclose} = 1;
+}
+
+if (defined($ENV{'MPITEST_PROGRAM_WRAPPER'})) {
+    $g_opt{program_wrapper} = $ENV{'MPITEST_PROGRAM_WRAPPER'};
+}
+
+if (defined($ENV{'MPITEST_BATCH'})) {
+    if ($ENV{'MPITEST_BATCH'} eq 'YES' || $ENV{'MPITEST_BATCH'} eq 'yes') {
+        $g_opt{batchRun} = 1;
+    } elsif ($ENV{'MPITEST_BATCH'} eq 'NO' || $ENV{'MPITEST_BATCH'} eq 'no') {
+        $g_opt{batchRun} = 0;
+    }
+    else {
+        print STDERR "Unrecognized value for MPITEST_BATCH = $ENV{'MPITEST_BATCH'}\n";
+    }
+}
+if (defined($ENV{'MPITEST_BATCHDIR'})) {
+    $g_opt{batrundir} = $ENV{'MPITEST_BATCHDIR'};
+}
+# PPN support
+if (defined($ENV{'MPITEST_PPNARG'})) {
+    $g_opt{ppnArg} = $ENV{'MPITEST_PPNARG'};
+}
+if (defined($ENV{'MPITEST_PPNMAX'})) {
+    $g_opt{ppnMax} = $ENV{'MPITEST_PPNMAX'};
+}
+if (defined($ENV{'MPITEST_TIMELIMITARG'})) {
+    $g_opt{timelimitarg} = $ENV{'MPITEST_TIMELIMITARG'};
+}
+if (defined($ENV{'MPIEXEC'})) {
+    $g_opt{mpiexec} = $ENV{'MPIEXEC'};
+}
+if (defined($ENV{'MPITEST_MPIEXECARG'})) {
+    $g_opt{mpiexecargs} = $ENV{'MPITEST_MPIEXECARG'};
+}
+if (defined($ENV{'MPITEST_SINGLETON'})) {
+    $g_opt{mpitest_singleton} = $ENV{'MPITEST_SINGLETON'};
+}
+if (defined($ENV{'MPITEST_HASGPU'})) {
+    foreach my $lib (split /,\s*/, $ENV{'MPITEST_HASGPU'}) {
+        $g_opt{hasgpu}{$lib} = 1;
+    }
+}
+
+#---------------------------------------------------------------------------
+# Process arguments and override any defaults
+#---------------------------------------------------------------------------
+foreach $_ (@ARGV) {
+    if (/--?mpiexec=(.*)/) { 
+        # Use mpiexec as given - it may be in the path, and 
+        # we don't want to bother to try and find it.
+        $g_opt{mpiexec} = $1;
+    }
+    elsif (/--?np=(\d+)/)   { $g_opt{np_default} = $1; }
+    elsif (/--?maxnp=(\d+)/) { $g_opt{np_max} = $1; }
+    elsif (/--?ppnarg=(.*)/) { $g_opt{ppnArg} = $1; }
+    elsif (/--?ppn=(\d+)/)  { $g_opt{ppnMax} = $1; }
+    elsif (/--?timelimitarg=(.*)/) { $g_opt{timelimitarg} = $1; }
+    elsif (/--?tests=(.*)/) { $g_opt{listfiles} = $1; }
+    elsif (/--?testdirs=(.*)/) { $g_opt{testdirs} = $1; }
+    elsif (/--?srcdir=(.*)/) { $g_opt{srcdir} = $1; }
+    elsif (/--?verbose/) { $g_opt{verbose} = 1; }
+    elsif (/--?showprogress/) { $g_opt{showprogress} = 1; }
+    elsif (/--?debug/) { $g_opt{debug} = 1; }
+    elsif (/--?batchdir=(.*)/) { $g_opt{batrundir} = $1; }
+    elsif (/--?batch/) { $g_opt{batchRun} = 1; }
+    elsif (/--?timeoutarg=(.*)/) { $g_opt{timeoutarg} = $1; }
+    elsif (/--?hasgpu=(.*)/) { $g_opt{hasgpu}{$1} = 1; }
+    elsif (/--?strict/) { $g_opt{strict} = 1; }
+    elsif (/--?runxfail/) { $g_opt{runxfail} = 1; }
+    elsif (/--?xmlfile=(.*)/) {
+        $g_opt{xmlfile}   = $1;
+        $xmloutput = 1;
+    }
+    elsif (/--?noxmlclose/) {
+        $g_opt{noxmlclose} = 1;
+    }
+    elsif (/--?tapfile=(.*)/) {
+        $g_opt{tapfile} = $1;
+        $tapoutput = 1;
+    }
+    elsif (/--?junitfile=(.*)/) {
+        $g_opt{junitfile} = $1;
+        $junitoutput = 1;
+    }
+    else {
+        print STDERR "Unrecognized argument $_\n";
+        print STDERR "runtests [-tests=testfile] [-testdirs=dirs] [-np=nprocesses] \
+        [-maxnp=max-nprocesses] [-srcdir=location-of-tests] \
+        [-ppn=max-proc-per-node] [-ppnarg=string] \
+        [-timelimitarg=string] [-xmlfile=filename ] [-tapfile=filename ] \
+        [-junitfile=filename ] [-noxmlclose] \
+        [-verbose] [-showprogress] [-debug] [-batch]\n";
+        exit(1);
+    }
+}
+
+if (!$g_opt{mpiexec}) {
+    die "Missing mpiexec. Did you supplied empty MPIEXEC environment or empty --mpiexec= option?\n";
+}
+
+# Perform any post argument processing
+
+$g_opt{srcdir} = Cwd::abs_path($g_opt{srcdir});
+$g_opt{stopfile} = Cwd::abs_path($g_opt{stopfile});
+
+if ($g_opt{batchRun}) {
+    if (! -d $g_opt{batrundir}) {
+        mkpath $g_opt{batrundir} || die "Could not create $g_opt{batrundir}\n";
+    }
+    open( BATOUT, ">$g_opt{batrundir}/runtests.batch" ) || die "Could not open $g_opt{batrundir}/runtests.batch\n";
+}
+
+OpenOutputs();
+
+#
+# Process any files
+
+my @all_tests;
+if ($g_opt{listfiles} eq "") {
+    if ($g_opt{batchRun}) {
+        print STDERR "An implicit list of tests is not permitted in batch mode. See README for more details\n";
+        exit(1);
+    } 
+    LoadImplicitTests(".", \@all_tests);
+}
+elsif ($g_opt{testdirs} ne "") {
+    my @all_testdirs = split /,\s*/, $g_opt{testdirs};
+    foreach my $_d (@all_testdirs) {
+        LoadTests("./$_d", \@all_tests);
+    }
+}
+else {
+    LoadTests(".", \@all_tests);
+}
+
+Run_all_tests(\@all_tests);
+
+CloseOutputs();
+
+# Output a summary:
+if ($g_opt{batchRun}) {
+    print "Programs created along with a runtest.batch file in $g_opt{batrundir}\n";
+    print "Run that script and then use checktests to summarize the results\n";
+}
+else {
+    my $t = time() - $g_starttime;
+    my $total_runtime = sprintf "total runtime: %d min %d sec", $t / 60, $t % 60;
+    if ($g_err_count) {
+        print "$g_err_count tests failed out of $g_total_run ($total_runtime)\n";
+        if ($xmloutput) {
+            my $xmlfullfile = get_fullfile($g_opt{xmlfile});
+            print "Details in $xmlfullfile\n";
+        }
+    }
+    else {
+        print " All $g_total_run tests passed! ($total_runtime)\n";
+    }
+    if ($tapoutput) {
+        my $tapfullfile = get_fullfile($g_opt{tapfile});
+        print "TAP formatted results in $tapfullfile\n";
+    }
+    if ($junitoutput) {
+        my $junitfullfile = get_fullfile($g_opt{junitfile});
+        print "JUNIT formatted results in $junitfullfile\n";
+    }
+}
+#
+# ---------------------------------------------------------------------------
+# Routines
+# 
+sub load_all_mpitests_txt {
+    my %mpitest_hash;
+    my $file = "$g_topsrcdir/maint/all_mpitests.txt";
+    open In, $file or die "Can't load $file\n";
+    while (<In>) {
+        if (/^(\S+)/) {
+            $mpitest_hash{$1} = 1;
+        }
+    }
+    return \%mpitest_hash;
+}
+
+sub get_mpitest_key {
+    my $test_opt = shift;
+    my $key = $test_opt->{dir} . '/' . $test_opt->{name};
+    if ($g_rel_wd) {
+        $key =~ s/^\./$g_rel_wd/;
+    } else {
+        $key =~ s/^\.\///;
+    }
+    return $key;
+}
+
+# Load tests listed in the file given as the argument. 
+# This file describes the tests in the format
+#  programname number-of-processes [ key=value ... ]
+# If the second value is not given, the default value is used.
+# 
+sub LoadTests {
+    my ($curdir, $all_tests) = @_;
+    print "Load tests in $curdir\n" if $g_opt{debug};
+    # eg: runtests -tests='testlist,testlist.dtp'
+    my @all_listfiles = split /,\s*/, $g_opt{listfiles};
+    foreach my $_f (@all_listfiles){
+        die if "$curdir/$_f"=~/attr\/attr/;
+        my $listfile = "$curdir/$_f";
+        my $listfile_path = $listfile;
+        if (! -s "$listfile_path" && -s "$g_opt{srcdir}/$listfile" ) {
+            $listfile_path = "$g_opt{srcdir}/$listfile";
+        }
+        if (! -f $listfile_path && $_f ne "testlist") {
+            # just skip, do not complain missing unless it is "testlist"
+            next;
+        }
+        open my $LIST, "<$listfile_path" || die "Could not open $listfile_path\n";
+        while (<$LIST>) {
+            # Skip comments
+            s/#.*//g;
+            # Remove any trailing newlines/returns
+            s/\r?\n//;
+            # Remove any leading whitespace
+            s/^\s*//;
+
+            # Skip empty lines
+            if (/^\s*$/) {
+                next;
+            }
+            # Some tests require that support routines are built first
+            # This is specified with !<dir>:<target>
+            if (/^\s*\!([^:]*):(.*)/) {
+                # Hack: just execute in a subshell.  This discards any 
+                # output.
+                `cd $1 && make $2`;
+                next;
+            }
+
+            # List file entries have the form:
+            # program [ np [ name=value ... ] ]
+            # See files errhan/testlist, init/testlist, and spawn/testlist
+            # for examples of using the key=value form
+            my @args = split(/\s+/,$_);
+            my $programname = $args[0];
+
+            if (-d "$curdir/$programname") {
+                LoadTests("$curdir/$programname", $all_tests);
+                next;
+            }
+
+            my $test_opt = {args=>[], envs=>[], mpiexecargs=>[], testlist=>$listfile};
+
+            my $np = "";
+            my $requiresStrict = "";
+            my @requiresGPU;
+            my $hasGPU = 0;
+
+            if ($#args >= 1) { $np = $args[1]; }
+
+            # Process the key=value arguments
+            for (my $i=2; $i <= $#args; $i++) {
+                if ($args[$i] =~ /([^=]+)=(.*)/) {
+                    my $key = $1;
+                    my $value = $2;
+                    if ($key =~ /^(resultTest|init|timeLimit|xfail|lock|mem)$/) {
+                        $test_opt->{$key} = $value;
+                    }
+                    elsif ($key eq "arg") {
+                        push @{$test_opt->{args}}, $value;
+                    }
+                    elsif ($key eq "mpiexecarg") {
+                        push @{$test_opt->{mpiexecargs}}, $value;
+                    }
+                    elsif ($key eq "env") {
+                        push @{$test_opt->{envs}}, $value;
+                        if (!is_runtime_cvar($value)) {
+                            $test_opt->{need_init_envs}++;
+                        }
+                    }
+                    elsif ($key eq "strict") {
+                        $requiresStrict = $value
+                    }
+                    elsif ($key eq "hasgpu") {
+                        push @requiresGPU, $value;
+                        if (exists $g_opt{hasgpu}{$value} or $value eq "any") {
+                            $hasGPU = 1;
+                        }
+                    }
+                    else {
+                        print STDERR "Unrecognized key $key in $listfile_path\n";
+                    }
+                }
+            }
+
+            if ($g_opt{mpitest_singleton} and ($np != 1 or @{$test_opt->{mpiexecargs}})) {
+                # skip if we need test singleton init and the test require multiple processes or mpiexec argument
+                next;
+            }
+
+            # Set a default timeout on tests (3 minutes for now)
+            my $timeout = $g_opt{defaultTimeLimit};
+            if (defined($test_opt->{timeLimit}) && $test_opt->{timeLimit} =~ /^\d+$/) {
+                $timeout = $test_opt->{timeLimit};
+            }
+            $timeout *= $g_opt{defaultTimeLimitMultiplier};
+            $test_opt->{_timeout} = $timeout;
+
+            if (defined $test_opt->{xfail} and !$test_opt->{xfail}) {
+                print STDERR "\"xfail=\" requires an argument\n";
+            }
+
+            # skip empty lines
+            if ($programname eq "") { next; }
+
+            if ($np eq "") { $np = $g_opt{np_default}; }
+            if ($g_opt{np_max} > 0 && $np > $g_opt{np_max}) { $np = $g_opt{np_max}; }
+
+            $test_opt->{name} = $programname;
+            $test_opt->{np} = $np;
+            $test_opt->{dir} = $curdir;
+            if ($test_opt->{name} =~/^(\S+)\/(\S+)$/) {
+                # TODO: allow absolute path
+                $test_opt->{dir} .= "/$1";
+                $test_opt->{name} = $2;
+            }
+
+            if (@requiresGPU && !$hasGPU) {
+                # Skip tests requiring gpu if not explicitly set.
+                SkippedTest($test_opt, "one of the following gpu libraries
+                    needed, but not provided: " . join(", ", @requiresGPU));
+                next;
+            }
+
+            # Check whether strict is required by MPI but not by the
+            # test (use strict=false for tests that use non-standard extensions)
+            if (lc($requiresStrict) eq "false" && $g_opt{strict}) {
+                SkippedTest($test_opt, "non-strict test, strict MPI mode requested");
+                next;
+            }
+
+            if ($test_opt->{xfail} && !$g_opt{runxfail}) {
+                # Skip xfail tests if they are not configured. Strict MPI tests that are
+                # marked xfail will still run with --enable-strictmpi.
+                SkippedTest($test_opt, "xfail tests disabled");
+                next;
+            }
+
+            if ($test_opt->{mem} and $test_opt->{mem} > $g_opt{memory_total}) {
+                SkippedTest($test_opt, "xfail due to memory requirement");
+                next;
+            }
+
+            push @$all_tests, $test_opt;
+        }
+        close( $LIST );
+    }
+}
+
+sub Run_all_tests {
+    my $all_tests = shift;
+
+    my (@all_mpitests, @all_remaining);
+    if ($g_opt{run_mpitests}) {
+        my $mpitest_hash = load_all_mpitests_txt();
+        foreach my $test (@$all_tests) {
+            my $key = get_mpitest_key($test);
+            if ($mpitest_hash->{$key} and !$test->{need_init_envs}) {
+                push @all_mpitests, $test;
+            } else {
+                push @all_remaining, $test
+            }
+        }
+    } else {
+        @all_remaining = @$all_tests;
+    }
+
+    my $need_stop;
+    if (@all_mpitests) {
+        $need_stop = RunTests_bygroup(\@all_mpitests, 1);
+    }
+
+    if (!$need_stop) {
+        RunTests_bygroup(\@all_remaining, 0);
+    }
+}
+
+sub RunTests_bygroup {
+    my ($all_tests, $use_run_mpitests) = @_;
+    # Group by testlist
+    my %groups;
+    foreach my $test (@$all_tests) {
+        my $testlist = $test->{testlist};
+        if (!$groups{$testlist}) {
+            $groups{$testlist} = [];
+        }
+        push @{$groups{$testlist}}, $test;
+    }
+
+    my $need_stop = 0;
+    foreach my $testlist (sort keys %groups) {
+        my $cnt = @{$groups{$testlist}};
+        # add a timestamp to have a quick idea of how long the tests ran
+        my @tm_list = gmtime(time() - $g_opt{start_time});
+        my $timestamp = sprintf("%02d:%02d:%02d", $tm_list[2], $tm_list[1], $tm_list[0]);
+        print "Running tests in $testlist [$cnt tests - $timestamp]\n" if $g_opt{debug};
+
+        if ($use_run_mpitests) {
+            $need_stop = run_mpitests($groups{$testlist});
+        } else {
+            $need_stop = RunTests($groups{$testlist});
+        }
+        if ($need_stop) {
+            last;
+        }
+    }
+
+    return $need_stop;
+}
+
+sub check_need_stop {
+    # Check for stop file
+    if (-e $g_opt{stopfile}) {
+        # Exit because we found a stopfile
+        print STDERR "Terminating test because stopfile $g_opt{stopfile} found\n";
+        return 1;
+    }
+
+    # Check for too many TIMEOUTs
+    if ($g_num_severe >= $g_num_severe_thresh && $g_num_severe / $g_total_run > 0.5) {
+        print STDERR "Terminating test because of too many severe failures\n";
+        return 1;
+    }
+    return 0;
+}
+
+sub RunTests { 
+    my ($all_tests) = @_;
+
+    my $need_stop;
+    my $curdir;
+    my $cwd;
+    foreach my $test_opt (@$all_tests) {
+        if (check_need_stop()) {
+            $need_stop = 1;
+            last;
+        }
+        if ($test_opt->{dir} ne $curdir) {
+            $curdir = $test_opt->{dir};
+            if (!$cwd) {
+                $cwd = getcwd();
+            } else {
+                # $curdir is relave to $cwd
+                chdir $cwd or die "Can't chdir $cwd\n";
+            }
+            chdir $curdir or die "Can't chdir $curdir\n";
+        }
+        if (&BuildMPIProgram($test_opt) == 0) {
+            if ($g_opt{batchRun} == 1) {
+                &AddMPIProgram($test_opt);
+            }
+            else {
+                &RunMPIProgram($test_opt);
+            }
+        }
+        if ($g_opt{batchRun} == 0) {
+            &CleanUpAfterRun($test_opt);
+        }
+    }
+    if ($cwd) {
+        chdir $cwd;
+    }
+    return $need_stop;
+}
+
+sub run_mpitests {
+    my ($all_tests) = @_;
+
+    my $need_stop = 0;
+
+    # run_mpitests is located in the same path as runtests
+    my $run = "$g_topsrcdir/run_mpitests";
+    for (my $np = 1; $np <= 10; $np++) {
+        my @tests;
+        foreach my $test_opt (@$all_tests) {
+            if ($test_opt->{np} == $np) {
+                push @tests, $test_opt;
+            }
+        }
+        if (!@tests) {
+            next;
+        }
+        my $num_tests = @tests;
+        my $idx = 0;
+
+        # if run_mpitests aborts unexpectedly, we'll restart and continue here
+        run_mpitests_at_idx:
+        my $flag_aborted = 0;
+
+        my $mpiexec = get_mpiexec_wrapper($np, {});
+        if ($idx == 0) {
+            print("    run_mpitests np=$np, $num_tests tests...\n");
+        } else {
+            print("    run_mpitests np=$np, $num_tests tests, continue at $idx...\n");
+        }
+        my $pid = open2(my $out, my $in, "$mpiexec $run 2>&1");
+        while($idx < $num_tests) {
+            my $test_opt = $tests[$idx];
+            $idx++;
+
+            $need_stop = check_need_stop();
+            if ($need_stop) {
+                goto run_mpitests_exit;
+            }
+
+            my $name = get_mpitest_key($test_opt);
+            my $cmd = $name;
+            if ($test_opt->{args} && @{$test_opt->{args}}) {
+                $cmd .= " " . join(' ', @{$test_opt->{args}});
+            }
+            print "    [$cmd]\n" if $g_opt{verbose};
+
+            my $lock = test_get_lock($test_opt);
+
+            if ($test_opt->{envs} and @{$test_opt->{envs}}) {
+                foreach my $t (@{$test_opt->{envs}}) {
+                    if ($t =~ /([^=]+)=(.*)/) {
+                        print "        $1=$2\n" if $g_opt{verbose};
+                        print $in "$1=$2\n"
+                    }
+                }
+            }
+
+            RunPreMsg($test_opt);
+            my $start_time = gettimeofday();
+            if ($test_opt->{_timeout} > 0) {
+                print $in "TIMEOUT $test_opt->{_timeout}\n";
+            }
+            print $in "$cmd\n";
+
+            my ($ret, @inline);
+            while (<$out>) {
+                print "        $_" if $g_opt{verbose};
+                if (/$name:\s*(\d+|not found)/) {
+                    $ret = $1;
+                    last;
+                } else {
+                    push @inline, $_;
+                }
+            }
+
+            test_release_lock($lock);
+
+            my $end_time = gettimeofday();
+            my $runtime = $end_time - $start_time;
+            if (!defined $ret) {
+                # Something wrong, e.g. segfault, timeout
+                print "run_mpitests exited unexpectedly [$cmd]\n";
+                show_failed_test_detail($test_opt, \@inline);
+                RunTestFailed($test_opt, join('', @inline), $runtime);
+                $flag_aborted = 1;
+                last;
+            } elsif ($ret eq "0" and !@inline) {
+                RunTestPassed($test_opt, $runtime);
+            } elsif ($ret eq "not found") {
+                print "run_mpitests: $cmd not found!\n";
+                RunTestFailed($test_opt, "mpitest $cmd not found!", $runtime);
+            } else {
+                print "run_mpitests: [$cmd] failed, found errors: $ret\n";
+                show_failed_test_detail($test_opt, \@inline);
+                RunTestFailed($test_opt, join('', @inline), $runtime);
+            }
+            RunPostMsg($test_opt);
+
+            # reset CVARs
+            if ($test_opt->{envs} and @{$test_opt->{envs}}) {
+                foreach my $t (@{$test_opt->{envs}}) {
+                    if ($t =~ /([^=]+)=(.*)/) {
+                        print $in "$1=\n"
+                    }
+                }
+            }
+        }
+        close($in);
+        {
+            my @inline;
+            while (<$out>) {
+                print "        $_" if $g_opt{verbose};
+                push @inline, $_;
+            }
+            if (@inline) {
+                my $runtime = 0;
+                my $test_opt = {name=>"run_mpitests", np=>$np, dir=>".", args=>[], envs=>[] };
+                RunPreMsg($test_opt);
+                print "run_mpitests: stray output in finalize\n";
+                show_failed_test_detail($test_opt, \@inline);
+                RunTestFailed($test_opt, join('', @inline), $runtime);
+                RunPostMsg($test_opt);
+            }
+        }
+        close($out);
+        waitpid($pid, 0); # TODO: check $?
+        if ($flag_aborted) {
+            $g_num_severe++;
+            goto run_mpitests_at_idx;
+        }
+    }
+    run_mpitests_exit:
+    return $need_stop;
+}
+
+sub show_failed_test_detail {
+    my ($test_opt, $inline) = @_;
+
+    # show detail if not shown already
+    if (!$g_opt{verbose}) {
+        my $name = get_mpitest_key($test_opt);
+        my $cmd = $name;
+        if ($test_opt->{args} && @{$test_opt->{args}}) {
+            $cmd .= " " . join(' ', @{$test_opt->{args}});
+        }
+        print "    Failed test: $cmd\n";
+
+        if ($test_opt->{envs} and @{$test_opt->{envs}}) {
+            foreach my $t (@{$test_opt->{envs}}) {
+                print "        $t\n";
+            }
+        }
+        
+        my $i = 0;
+        foreach my $l (@$inline) {
+            if ($i > 10) {
+                print "...\n";
+                last;
+            }
+            print $l;
+            $i++;
+        }
+    }
+}
+
+#
+# This routine tries to load tests from all of the files in the current
+# directory
+sub LoadImplicitTests {
+    my ($curdir, $all_tests) = @_;
+
+    # The default is to run every file in the current directory.
+    # If there are no built programs, build and run every file
+    # WARNING: This assumes that anything executable should be run as
+    # an MPI test.
+    my $found_exec = 0;
+    my $found_src  = 0;
+    open (PGMS, "ls -1 |" ) || die "Cannot list directory\n";
+    while (<PGMS>) {
+        s/\r?\n//;
+        my $programname = $_;
+        if (-d $programname) { next; }  # Ignore directories
+        if ($programname eq "runtests") { next; } # Ignore self
+        if ($programname eq "checktests") { next; } # Ignore helper
+        if ($programname eq "configure") { next; } # Ignore configure script
+        if ($programname eq "config.status") { next; } # Ignore configure helper
+        if (-x $programname) { $found_exec++; }
+        if ($programname =~ /\.[cf]$/) { $found_src++; } 
+    }
+    close PGMS;
+    
+    if ($found_exec) {
+        print "Found executables\n" if $g_opt{debug};
+        open (PGMS, "ls -1 |" ) || die "Cannot list programs\n";
+        while (<PGMS>) {
+            # Check for stop file
+            if (-s $g_opt{stopfile}) {
+                # Exit because we found a stopfile
+                print STDERR "Terminating test because stopfile $g_opt{stopfile} found\n";
+                last;
+            }
+            s/\r?\n//;
+            my $programname = $_;
+            if (-d $programname) { next; }  # Ignore directories
+            if ($programname eq "runtests") { next; } # Ignore self
+            if (-x $programname) {
+                my $test_opt = {name=>$programname, np=>$g_opt{np_default}, dir=>$curdir, args=>[], envs=>[], mpiexecargs=>[], testlist=>"$g_rel_wd (implicit)"};
+                push @$all_tests, $test_opt;
+            }
+        }
+        close PGMS;
+    }
+    elsif ($found_src) { 
+        print "Found source files\n" if $g_opt{debug};
+        open (PGMS, "ls -1 *.c |" ) || die "Cannot list programs\n";
+        while (<PGMS>) {
+            if (-s $g_opt{stopfile}) {
+                # Exit because we found a stopfile
+                print STDERR "Terminating test because stopfile $g_opt{stopfile} found\n";
+                last;
+            }
+            s/\r?\n//;
+            my $programname = $_;
+            # Skip messages from ls about no files
+            if (! -s $programname) { next; }
+            $programname =~ s/\.c//;
+            my $np = $g_opt{np_default};
+            my $test_opt = {name=>$programname, np=>$np, dir=>$curdir};
+            push @$all_tests, $test_opt;
+        }
+        close PGMS;
+    }
+}
+
+sub get_mpiexec_wrapper {
+    my ($np, $test_opt) = @_;
+
+    if ($g_opt{mpitest_singleton}) {
+        return $g_opt{program_wrapper};
+    }
+
+    my $mpiexecArgs;
+    if ($test_opt->{mpiexecargs} and @{$test_opt->{mpiexecargs}}) {
+        $mpiexecArgs = join(' ', @{$test_opt->{mpiexecargs}});
+    } elsif ($g_opt{mpiexecargs}) {
+        $mpiexecArgs = $g_opt{mpiexecargs};
+    }
+    my $extraArgs = "";
+
+    #
+    # Handle the ppn (processes per node) option.
+    if ($g_opt{ppnArg} ne "" && $g_opt{ppnMax} > 0) {
+        my $ppnargs = $g_opt{ppnArg};
+        my $nn = $g_opt{ppnMax};
+        # Some systems require setting the number of processes per node
+        # no greater than the total number of processes (e.g., aprun on Cray)
+        if ($nn > $np) { $nn = $np; }
+        $ppnargs =~ s/\%d/$nn/;
+        $extraArgs .= " " . $ppnargs;
+    }
+
+    my $timeout = $test_opt->{_timeout};
+    if ($timeout) {
+        # For non-MPICH versions of mpiexec, a timeout may require a different
+        # environment variable or command line option (e.g., for Cray aprun,
+        # the option -t <sec> must be given, there is no environment variable
+        # to set the timeout.
+        if (defined($g_opt{timeoutarg}) && $g_opt{timeoutarg} ne "") {
+            my $timeoutArg = $g_opt{timeoutarg};
+            $timeoutArg =~ s/<SEC>/$timeout/;
+            $extraArgs .= $timeoutArg
+        }
+
+        #
+        # Handle the timelimit option.
+        if ($g_opt{timelimitarg} ne "" && $timeout> 0) {
+            my $tlargs = $g_opt{timelimitarg};
+            $tlargs =~ s/\%d/$timeout/;
+            $extraArgs .= " " . $tlargs;
+        }
+    }
+
+    return "$g_opt{mpiexec} $g_opt{np_arg} $np $extraArgs $mpiexecArgs $g_opt{program_wrapper}";
+}
+
+# Run the program.  
+# ToDo: Add a way to limit the time that any particular program may run.
+# The arguments are
+#    name of program, number of processes, name of routine to check results
+#    init for testing, timelimit, and any additional program arguments
+# If the 3rd arg is not present, the a default that simply checks that the
+# return status is 0 and that the output is " No Errors" is used.
+sub RunMPIProgram {
+    my ($test_opt) = @_;
+    my $programname = $test_opt->{name};
+    my $np = $test_opt->{np};
+    my $curdir = $test_opt->{dir};
+
+    &RunPreMsg($test_opt);
+
+    unlink "err";
+
+    $ENV{"MPIEXEC_TIMEOUT"} = $test_opt->{_timeout};
+
+    # Run the optional setup routine. For example, the timeout tests could
+    # be set to a shorter timeout.
+    # FIXME: bad practice, remove
+    if ($test_opt->{init}) {
+        $test_opt->{init}->();
+    }
+
+    my $lock = test_get_lock($test_opt);
+
+    my $wrapper = get_mpiexec_wrapper($np, $test_opt);
+    my $progArgs = join(' ', @{$test_opt->{args}});
+    my $cmd = "$wrapper ./$programname $progArgs";
+    my $progEnv = join(' ', @{$test_opt->{envs}});
+    print STDOUT "Env includes $progEnv\n" if $g_opt{verbose};
+    print STDOUT "$cmd\n" if $g_opt{verbose};
+    print STDOUT "." if $g_opt{showprogress};
+    # Save and restore the environment if necessary before running mpiexec.
+    my %saveEnv;
+    if ($test_opt->{envs}) {    
+        %saveEnv = %ENV;
+        foreach my $val (@{$test_opt->{envs}}) {
+            if ($val =~ /([^=]+)=(.*)/) {
+                $ENV{$1} = $2;
+            }
+            else {
+                print STDERR "Environment variable/value $val not in a=b form\n";
+            }
+        }
+    }
+    my $start_time = gettimeofday();
+    open my $MPIOUT, "$cmd 2>&1 |" ||
+        die "Could not run ./$programname\n";
+    if ($test_opt->{envs}) {    
+        %ENV = %saveEnv;
+    }
+    my $F = get_resultTest($test_opt->{resultTest});
+    my ($found_error, $inline) = $F->($MPIOUT, $programname);
+    if ($g_opt{verbose}) {
+        $inline = "$cmd\n$inline";
+    }
+
+    my $end_time = gettimeofday();  # seconds in floating point
+    my $runtime = $end_time - $start_time;
+    print STDOUT "Runtime: $runtime\n" if $g_opt{verbose};
+
+    test_release_lock($lock);
+
+    if ($found_error) {
+        &RunTestFailed($test_opt, $inline, $runtime );
+    } elsif ($inline =~ /Test Skipped/) {
+        &SkippedTest($test_opt, "missing feature");
+    } else { 
+        &RunTestPassed($test_opt, $runtime);
+    }
+    &RunPostMsg($test_opt);
+}
+
+# This version simply writes the mpiexec command out, with the output going
+# into a file, and recording the output status of the run.
+sub AddMPIProgram {
+    my ($test_opt) = @_;
+    my $programname = $test_opt->{name};
+    my $np = $test_opt->{np};
+    my $curdir = $test_opt->{dir};
+
+    if (! -x $programname) {
+        print STDERR "Could not find $programname!";
+        return;
+    }
+
+    if ($test_opt->{resultTest}) {
+        # This test really needs to be run manually, with this test
+        # Eventually, we can update this to include handling in checktests.
+        print STDERR "Run $curdir/$programname with $np processes and use $test_opt->{resultTest} to check the results\n";
+        return;
+    }
+
+    print BATOUT "export MPIEXEC_TIMEOUT=$test_opt->{_timeout}\n";
+    
+    # Run the optional setup routine. For example, the timeout tests could
+    # be set to a shorter timeout.
+    # FIXME: very bad practice, remove.
+    if ($test_opt->{init}) {
+        $test_opt->{init}->();
+    }
+
+    my $wrapper = get_mpiexec_wrapper($np, $test_opt);
+    my $progArgs = join(' ', @{$test_opt->{args}});
+    my $cmd = "$wrapper ./$programname $progArgs";
+    my $progEnv = join(' ', @{$test_opt->{envs}});
+    print STDOUT "Env includes $progEnv\n" if $g_opt{verbose};
+    print STDOUT "$cmd\n" if $g_opt{verbose};
+    print STDOUT "." if $g_opt{showprogress};
+    # Save and restore the environment if necessary before running mpiexec.
+    if ($progEnv ne "") {
+        # Need to fix: 
+        # save_NAME_is_set=is old name set
+        # save_NAME=oldValue
+        # export NAME=newvalue
+        # (run) 
+        # export NAME=oldValue (if set!)
+        print STDERR "Batch output does not permit changes to environment\n";
+    }
+    # The approach here is to move the test codes to a single directory from
+    # which they can be run; this avoids complex code to change directories
+    # and ensure that the output goes "into the right place".
+    $g_testCount++;
+    mv($programname, "$g_opt{batrundir}/$programname");
+    print BATOUT "echo \"# $cmd\" > runtests.$g_testCount.out\n";
+    # Some programs expect to run in the same directory as the executable
+    print BATOUT "$cmd >> runtests.$g_testCount.out 2>&1\n";
+    print BATOUT "echo \$? > runtests.$g_testCount.status\n";
+}
+
+# 
+# Return value is 0 on success, non zero on failure
+sub BuildMPIProgram {
+    my ($test_opt) = @_;
+    my $programname = $test_opt->{name};
+
+    # whether we need append '.exe'
+    if ($g_opt{exeext}) {
+        $programname .= $g_opt{exeext};
+    }
+
+    my $rc = 0;
+    if ($g_opt{verbose}) { print STDERR "making $programname\n"; }
+    if (! -x $programname) {
+        $test_opt->{need_remove} = 1;
+    } else {
+        $test_opt->{need_remove} = 0;
+    }
+    my $output = `make $programname 2>&1`;
+    $rc = $?;
+    if ($rc > 255) { $rc >>= 8; }
+    if (! -x $programname) {
+        print STDERR "Failed to build $programname; $output\n";
+        if ($rc == 0) {
+            $rc = 1;
+        }
+        # Add a line to the summary file describing the failure
+        # This will ensure that failures to build will end up 
+        # in the summary file (which is otherwise written by the
+        # RunMPIProgram step)
+        &RunPreMsg($test_opt);
+        &RunTestFailed($test_opt, "Failed to build $programname; $output", 0);
+        &RunPostMsg($test_opt);
+    }
+    return $rc;
+}
+
+sub CleanUpAfterRun {
+    my ($test_opt) = @_;
+    my $programname = $test_opt->{name};
+    
+    # Check for that this program has exited.  If it is still running,
+    # issue a warning and leave the application.  Of course, this
+    # check is complicated by the lack of a standard access to the 
+    # running processes for this user in Unix.
+    my @stillRunning = &FindRunning( $programname );
+
+    if ($#stillRunning > -1) {
+        if ($g_opt{verbose}) {
+            print STDERR "Some programs ($programname) may still be running:\npids = ";
+            for (my $i=0; $i <= $#stillRunning; $i++ ) {
+                print STDERR $stillRunning[$i] . " ";
+            }
+            print STDERR "\n";
+            # Remind the user that the executable remains; we leave it around
+            # to allow the programmer to debug the running program, for which
+            # the executable is needed.
+            print STDERR "The executable ($programname) will not be removed.\n";
+        }
+    }
+    else {
+        if ($test_opt->{need_remove} && $g_opt{cleanup}) {
+            unlink $programname, "$programname.o";
+        }
+        $test_opt->{need_remove} = 0;
+    }
+}
+# ----------------------------------------------------------------------------
+sub FindRunning { 
+    my $programname = $_[0];
+    my @pids = ();
+
+    my $logname = $ENV{'USER'};
+    my $pidloc = 1;
+    my $rc = open PSFD, "ps auxw -U $logname 2>&1 |";
+
+    if ($rc == 0) { 
+        $rc = open PSFD, "ps -fu $logname 2>&1 |";
+    }
+    if ($rc == 0) {
+        print STDERR "Could not execute ps command\n";
+        return @pids;
+    }
+
+    while (<PSFD>) {
+        if (/$programname/) {
+            my @fields = split(/\s+/);
+            my $pid = $fields[$pidloc];
+            # Check that we've found a numeric pid
+            if ($pid =~ /^\d+$/) {
+                $pids[$#pids + 1] = $pid;
+            }
+        }
+    }
+    close PSFD;
+
+    return @pids;
+}
+
+# ----------------------------------------------------------------------------
+sub get_resultTest {
+    my $resultTest = shift;
+    if (!$resultTest) {
+        return \&TestNormal;
+    } elsif ($resultTest eq "TestAllowWarnings") {
+        return \&TestAllowWarnings;
+    } elsif ($resultTest eq "TestStatus") {
+        return \&TestStatus;
+    } elsif ($resultTest eq "TestStatusNoErrors") {
+        return \&TestStatusNoErrors;
+    } elsif ($resultTest eq "TestErrFatal") {
+        return \&TestErrFatal;
+    } elsif ($resultTest eq "TestBench") {
+        return \&TestBench;
+    } else {
+        die "resultTest $resultTest not defined!\n";
+    }
+}
+
+sub check_result {
+    my $MPIOUT = shift;
+
+    my $found_noerror = 0;
+    my $test_skipped = 0;
+    my $run_status = 0;
+    my $stray_output = 0;
+    my $warning_output = 0;
+    my $inline = "";
+    while (<$MPIOUT>) {
+        print STDOUT $_ if $g_opt{verbose};
+        $inline .= $_;
+
+        if (/^\s*No [Ee]rrors\s*$/ && $found_noerror == 0) {
+            $found_noerror = 1;
+        }
+        elsif (/^\s*Test Skipped\s*$/) {
+            $test_skipped++;
+        }
+        elsif (/^(MPICH: |WARNING: |(Abort.*)?application called MPI_Abort)/) {
+            $warning_output++;
+        }
+        elsif (/(FORTRAN STOP|requesting checkpoint|checkpoint completed)\s*$/) {
+            # skip
+        }
+        elsif (/^srun: error: .*: signal: Communication connection failure/) {
+            # skip
+        }
+        elsif (/psm3_sockets_tcp_recvhdrq_progress: First PKT received is not PSM pkt./) {
+            # skip
+        }
+        else {
+            $stray_output++;
+        }
+    }
+    my $rc = close ($MPIOUT);
+    if (!$rc) {
+        $run_status = $?;
+    }
+
+    return ($found_noerror, $test_skipped, $run_status, $stray_output, $warning_output, $inline);
+}
+
+# ----
+sub expect_noerror {
+    my ($programname) = @_;
+    print STDERR "Program $programname exited without No Errors\n";
+}
+
+sub expect_clean_output {
+    my ($programname, $inline) = @_;
+    print STDERR "Unexpected output in $programname:\n";
+    my $cnt = 0;
+    while ($inline =~ /^(.*)$/mg) {
+        $cnt++;
+        if ($cnt > 10) {
+            print STDERR "    ... ...\n";
+            last;
+        }
+        print STDERR "    $1\n";
+    }
+}
+
+sub expect_status_zero {
+    my ($programname, $run_status) = @_;
+    my $signal_num = $run_status & 127;
+    if ($run_status > 255) {
+        $run_status >>= 8;
+    }
+    print STDERR "Program $programname exited with non-zero status $run_status\n";
+    if ($signal_num != 0) {
+        print STDERR "Program $programname exited with signal $signal_num\n";
+    }
+}
+
+sub expect_status_nonzero {
+    my ($programname) = @_;
+    print STDERR "$g_opt{mpiexec} returned a zero status but the program $programname returned a nonzero status\n";
+}
+
+# ----
+sub TestNormal {
+    my ($MPIOUT, $programname) = @_;
+    my ($found_noerror, $test_skipped, $run_status, $stray_output, $warning_output, $inline) = check_result($MPIOUT);
+
+    my $found_error = 0;
+    if (!$found_noerror && !$test_skipped) {
+        expect_noerror($programname);
+        $found_error = 1;
+    }
+
+    if ($stray_output || $warning_output) {
+        expect_clean_output($programname, $inline);
+        $found_error = 1;
+    }
+
+    if (!$found_error && $run_status) {
+        expect_status_zero($programname, $run_status);
+        $found_error = 1;
+    }
+    return ($found_error, $inline);
+}
+
+sub TestAllowWarnings {
+    my ($MPIOUT, $programname) = @_;
+    my ($found_noerror, $test_skipped, $run_status, $stray_output, $warning_output, $inline) = check_result($MPIOUT);
+
+    my $found_error = 0;
+    if (!$found_noerror && !$test_skipped) {
+        expect_noerror($programname);
+        $found_error = 1;
+    }
+
+    if ($stray_output) {
+        expect_clean_output($programname, $inline);
+        $found_error = 1;
+    }
+
+    if (!$found_error && $run_status) {
+        expect_status_zero($programname, $run_status);
+        $found_error = 1;
+    }
+    return ($found_error, $inline);
+}
+
+sub TestStatus {
+    my ($MPIOUT, $programname) = @_;
+    my ($found_noerror, $test_skipped, $run_status, $stray_output, $warning_output, $inline) = check_result($MPIOUT);
+
+    my $found_error = 0;
+
+    if (!$run_status) {
+        expect_status_nonzero($programname);
+        $found_error = 1;
+    }
+    return ($found_error, $inline);
+}
+
+sub TestStatusNoErrors {
+    my ($MPIOUT, $programname) = @_;
+    my ($found_noerror, $test_skipped, $run_status, $stray_output, $warning_output, $inline) = check_result($MPIOUT);
+
+    my $found_error = 0;
+    if (!$found_noerror) {
+        expect_noerror($programname);
+        $found_error = 1;
+    }
+
+    if ($stray_output) {
+        expect_clean_output($programname, $inline);
+        $found_error = 1;
+    }
+
+    if (!$run_status) {
+        expect_status_nonzero($programname);
+        $found_error = 1;
+    }
+    return ($found_error, $inline);
+}
+
+sub TestErrFatal {
+    my ($MPIOUT, $programname) = @_;
+    my ($found_noerror, $test_skipped, $run_status, $stray_output, $warning_output, $inline) = check_result($MPIOUT);
+
+    my $found_error = 0;
+    if (!$run_status) {
+        expect_status_nonzero($programname);
+        $found_error = 1;
+    }
+    return ($found_error, $inline);
+}
+
+# Only check exit code: 0 means success, non-zero means failure
+sub TestBench {
+    my ($MPIOUT, $programname) = @_;
+    my ($found_error, $inline);
+
+    while (<$MPIOUT>) {
+        print STDOUT $_;
+    }
+    my $rc = close($MPIOUT);
+    if (!$rc) {
+        expect_status_zero($programname, $?);
+        $found_error = 1;
+    }
+    return ($found_error, $inline);
+}
+
+# ----------------------------------------------------------------------------
+# Output routines:
+#  OpenOutputs               - Open report files and print initial lines
+#  RunPreMsg( programname, np, workdir ) - Call before running a program
+#  RunTestFailed, RunTestPassed - Call after test
+#  RunPostMsg               - Call at end of each test
+#
+sub on_SIGINT {
+    chdir $g_cwd or die;
+    RunPostMsg();
+    CloseOutputs();
+    die "Killed: $!\n";
+}
+
+sub OpenOutputs {
+    if ($xmloutput) {
+        open( XMLOUT, ">$g_opt{xmlfile}" ) || die "Cannot open $g_opt{xmlfile}\n";
+        my $date = `date "+%Y-%m-%d-%H-%M"`;
+        $date =~ s/\r?\n//;
+        # MPISOURCE can be used to describe the source of MPI for this
+        # test.
+        print XMLOUT "<?xml version='1.0' ?>$g_opt{newline}";
+        print XMLOUT "<?xml-stylesheet href=\"TestResults.xsl\" type=\"text/xsl\" ?>$g_opt{newline}";
+        print XMLOUT "<MPITESTRESULTS>$g_opt{newline}";
+        print XMLOUT "<DATE>$date</DATE>$g_opt{newline}";
+    }
+    if ($tapoutput) {
+        open( TAPOUT, ">$g_opt{tapfile}" ) || die "Cannot open $g_opt{tapfile}\n";
+        my $date = `date "+%Y-%m-%d-%H-%M"`;
+        $date =~ s/\r?\n//;
+        print TAPOUT "TAP version 13\n";
+        print TAPOUT "# MPICH test suite results (TAP format)\n";
+        print TAPOUT "# date ${date}\n";
+        # we do not know at this point how many tests will be run, so do
+        # not print a test plan line like "1..450" until the very end
+    }
+    if ($junitoutput) {
+        open( JUNITOUT, ">$g_opt{junitfile}" ) || die "Cannot open $g_opt{junitfile}\n";
+    }
+
+    # Catch signals to wrap the output
+    $SIG{INT} = \&on_SIGINT;
+    $SIG{TERM} = \&on_SIGINT;
+}
+
+sub CloseOutputs {
+    if ($xmloutput) {
+        if (!$g_opt{noxmlclose}) {
+            print XMLOUT "</MPITESTRESULTS>$g_opt{newline}";
+        }
+        close XMLOUT;
+    }
+    if ($tapoutput) {
+        print TAPOUT "1..$g_total_seen\n";
+        close TAPOUT;
+    }
+    if ($junitoutput) {
+        print JUNITOUT "    <system-out></system-out>\n";
+        print JUNITOUT "    <system-err></system-err>\n";
+        print JUNITOUT "  </testsuite>\n";
+        print JUNITOUT "</testsuites>\n";
+        close JUNITOUT;
+
+        # the second pass: insert the header
+        # Note: the field "errors" is not used now, but reserved for future uses.
+        open my $JUNITIN,  '<',  $g_opt{junitfile}      or die "Can't read old file $g_opt{junitfile}: $!";
+        open my $JUNITOUTNEW, '>', "$g_opt{junitfile}.new" or die "Can't write new file: $!";
+        my $date = `date "+%Y-%m-%dT%H:%M:%S"`;
+        $date =~ s/\r?\n//;
+        print $JUNITOUTNEW "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+        print $JUNITOUTNEW "<testsuites>\n";
+        print $JUNITOUTNEW "  <testsuite failures=\"$g_err_count\"\n";
+        print $JUNITOUTNEW "             errors=\"0\"\n";
+        print $JUNITOUTNEW "             skipped=\"$g_skip_count\"\n";
+        print $JUNITOUTNEW "             tests=\"$g_total_run\"\n";
+        print $JUNITOUTNEW "             timestamp=\"${date}\"\n";
+        print $JUNITOUTNEW "             name=\"summary_junit_xml\">\n";
+        while( <$JUNITIN> ) {
+            print $JUNITOUTNEW $_;
+        }
+        close $JUNITIN;
+        close $JUNITOUTNEW;
+        mv("$g_opt{junitfile}.new","$g_opt{junitfile}");
+    }
+}
+
+sub RunPreMsg {
+    my ($test_opt) = @_;
+    my $programname = $test_opt->{name};
+    my $np = $test_opt->{np};
+    my $workdir = $test_opt->{dir};
+
+    my $progArgs = join(' ', @{$test_opt->{args}});
+
+    if ($xmloutput) {
+        print XMLOUT "<MPITEST>$g_opt{newline}<NAME>$programname</NAME>$g_opt{newline}";
+        print XMLOUT "<ARGS>$progArgs</ARGS>$g_opt{newline}";
+        print XMLOUT "<NP>$np</NP>$g_opt{newline}";
+        print XMLOUT "<WORKDIR>$workdir</WORKDIR>$g_opt{newline}";
+    }
+}
+sub RunPostMsg {
+    my ($test_opt) = @_;
+    if ($xmloutput) {
+        print XMLOUT "</MPITEST>$g_opt{newline}";
+    }
+}
+sub RunTestPassed {
+    my ($test_opt, $runtime) = @_;
+    my $programname = $test_opt->{name};
+    my $np = $test_opt->{np};
+    my $workdir = $test_opt->{dir};
+
+    my $progArgs = join(' ', @{$test_opt->{args}});
+    my $progEnv = join(' ', @{$test_opt->{envs}});
+
+    $g_total_seen++;
+    $g_total_run++;
+    $g_ok_count++;
+
+    if ($xmloutput) {
+        print XMLOUT "<STATUS>pass</STATUS>$g_opt{newline}";
+    print XMLOUT "<TIME>$runtime</TIME>$g_opt{newline}";
+    }
+    if ($tapoutput) {
+        print TAPOUT "ok $g_total_seen - $workdir/$programname ${np} # time=$runtime\n";
+    }
+    if ($junitoutput) {
+        my $classname = $workdir;
+        $classname =~ s/^\.\///;
+        # Use %05d since the Junit plugin in Jenkins sort tests by name
+        printf JUNITOUT "    <testcase classname=\"$classname\" name=\"%05d - $workdir/$programname ${np} ${progArgs} ${progEnv}\" time=\"$runtime\"></testcase>\n", $g_total_seen;
+    }
+}
+sub RunTestFailed {
+    my ($test_opt, $output, $runtime) = @_;
+    my $programname = $test_opt->{name};
+    my $np = $test_opt->{np};
+    my $workdir = $test_opt->{dir};
+    my $progArgs = join(' ', @{$test_opt->{args}});
+    my $progEnv = join(' ', @{$test_opt->{envs}});
+
+    $g_total_seen++;
+    $g_total_run++;
+    $g_err_count++;
+
+    # count # of timeout when tests are configured with sufficient timeLimit
+    if ($test_opt->{_timeout} > 60) {
+        if ($runtime - $test_opt->{_timeout} >= -10) {
+            $g_num_severe++;
+            # append load information to output
+            my $uptime = `uptime`;
+            $output .= "\n  uptime:\n$uptime";
+        }
+    }
+    if ($xmloutput) {
+        my $xout = $output;
+        # basic escapes that wreck the XML output
+        $xout =~ s/</\*AMP\*lt;/g;
+        $xout =~ s/>/\*AMP\*gt;/g;
+        $xout =~ s/&/\*AMP\*amp;/g;
+        $xout =~ s/\*AMP\*/&/g;
+        # TODO: Also capture any non-printing characters (XML doesn't like them
+        # either).
+        print XMLOUT "<TIME>$runtime</TIME>$g_opt{newline}";
+        print XMLOUT "<STATUS>fail</STATUS>$g_opt{newline}";
+        print XMLOUT "<TESTDIFF>$g_opt{newline}$xout</TESTDIFF>$g_opt{newline}";
+    }
+
+    if ($tapoutput) {
+        my $xfailstr = '';
+        if ($test_opt->{xfail}) {
+            $xfailstr = " # TODO $test_opt->{xfail}";
+        }
+        print TAPOUT "not ok $g_total_seen - $workdir/$programname ${np}${xfailstr} # time=$runtime\n";
+        print TAPOUT "  ---\n";
+        print TAPOUT "  Directory: $workdir\n";
+        print TAPOUT "  File: $programname\n";
+        print TAPOUT "  Num-procs: $np\n";
+        print TAPOUT "  Timeout: $test_opt->{_timeout}\n";
+        print TAPOUT "  Date: \"" . localtime() . "\"\n";
+
+        # The following would be nice, but it leads to unfortunate formatting in
+        # the Jenkins web output for now.  Using comment lines instead, since
+        # they are easier to read/find in a browser.
+##        print TAPOUT "  Output: |\n";
+##        # using block literal format, requires that all chars are printable
+##        # UTF-8 (or UTF-16, but we won't encounter that)
+##        foreach my $line (split m/\r?\n/, $output) {
+##            chomp $line;
+##            # 4 spaces, 2 for TAP indent, 2 more for YAML block indent
+##            print TAPOUT "    $line\n";
+##        }
+
+        print TAPOUT "  ...\n";
+
+        # Alternative to the "Output:" YAML block literal above.  Do not put any
+        # spaces before the '#', this causes some TAP parsers (including Perl's
+        # TAP::Parser) to treat the line as "unknown" instead of a proper
+        # comment.
+        print TAPOUT "## Test output (expected 'No Errors'):\n";
+        foreach my $line (split m/\r?\n/, $output) {
+            chomp $line;
+            print TAPOUT "## $line\n";
+        }
+    }
+
+    if ($junitoutput) {
+        my $xfailstr = '';
+        my $testtag = "failure";
+        if ($test_opt->{xfail}) {
+            $xfailstr = " # TODO $test_opt->{xfail}";
+            $testtag  = "skipped";
+        }
+        my $classname = $workdir;
+        $classname =~ s/^\.\///;
+        printf JUNITOUT "    <testcase classname=\"$classname\" name=\"%05d - $workdir/$programname ${np} ${progArgs} ${progEnv}\" time=\"$runtime\">\n", $g_total_seen;
+        print JUNITOUT "      <${testtag} type=\"TestFailed\"\n";
+        print JUNITOUT "               message=\"not ok $g_total_seen - $workdir/$programname ${np}${xfailstr}\"><![CDATA[";
+        print JUNITOUT "not ok $g_total_seen - $workdir/$programname ${np}${xfailstr}\n";
+        print JUNITOUT "  ---\n";
+        print JUNITOUT "  Directory: $workdir\n";
+        print JUNITOUT "  File: $programname\n";
+        print JUNITOUT "  Num-procs: $np\n";
+        print JUNITOUT "  Timeout: $test_opt->{_timeout}\n";
+        print JUNITOUT "  Date: \"" . localtime() . "\"\n";
+
+        print JUNITOUT "  ...\n";
+
+        # Alternative to the "Output:" YAML block literal above.  Do not put any
+        # spaces before the '#', this causes some JUNIT parsers (including Perl's
+        # JUNIT::Parser) to treat the line as "unknown" instead of a proper
+        # comment.
+        print JUNITOUT "## Test output (expected 'No Errors'):\n";
+        foreach my $line (split m/\r?\n/, $output) {
+            chomp $line;
+            print JUNITOUT "## $line\n";
+        }
+        print JUNITOUT "    ]]></${testtag}>\n";
+        print JUNITOUT "    </testcase>\n";
+    }
+}
+
+sub SkippedTest {
+    my ($test_opt, $reason) = @_;
+    my $programname = $test_opt->{name};
+    my $np = $test_opt->{np};
+    my $workdir = $test_opt->{dir};
+    my $progArgs = join(' ', @{$test_opt->{args}});
+    my $progEnv = join(' ', @{$test_opt->{envs}});
+
+    $g_total_seen++;
+    $g_skip_count++;
+
+    # simply omit from the XML output
+
+    if ($tapoutput) {
+        print TAPOUT "ok $g_total_seen - $workdir/$programname $np  # SKIP $reason\n";
+    }
+    if ($junitoutput) {
+        my $classname = $workdir;
+        $classname =~ s/^\.\///;
+        printf JUNITOUT "    <testcase classname=\"$classname\" name=\"%05d - $workdir/$programname ${np} ${progArgs} ${progEnv}\">\n", $g_total_seen;
+        print JUNITOUT "      <skipped type=\"TodoTestSkipped\">\n";
+        print JUNITOUT "             message=\"$reason\"><![CDATA[ok $g_total_seen - $workdir/$programname $np  # SKIP $reason]]></skipped>\n";
+        print JUNITOUT "    </testcase>\n";
+    }
+}
+
+# ----------------------------------------------------------------------------
+# Alternate init routines
+sub InitQuickTimeout {
+    $ENV{"MPIEXEC_TIMEOUT"} = 10;
+}
+
+# ----------------------------------------------------------------------------
+# util routines
+
+sub is_runtime_cvar {
+    my $t = shift;
+
+    if ($t =~ /^MPIR_CVAR_I?(BARRIER|BCAST|GATHER|SCATTER|ALLGATHER|ALLTOALL|REDUCE|ALLREDUCE|SCAN|EXSCAN|NEIGHBOR)[VW]?_/) {
+        # All collective CVARs can be updated at runtime
+        return 1;
+    } elsif ($t =~ /^MPIR_CVAR_COLL_SHM_LIMIT_PER_NODE/) {
+        # Known CVARs that can be updated at runtime
+        return 1;
+    }
+
+    return 0;
+}
+
+sub get_fullfile {
+    my $file = shift;
+    if ($file =~ /^\//) {
+        return $file;
+    } else {
+        return $g_cwd . "/" . $file;
+    }
+}
+
+# acquire lock if requested
+sub test_get_lock {
+    my $test_opt = shift;
+
+    my ($lockfile, $got_lock);
+    if ($test_opt->{lock}) {
+        # explicit lock by setting "lock=[shared|name]" on testline directly
+        my $name = $test_opt->{lock};
+        $lockfile = "/tmp/runtests-$name.lock";
+        if ($name eq "shared") {
+            $got_lock = get_lock($lockfile, LOCK_SH);
+        } else {
+            $got_lock = get_lock($lockfile, LOCK_EX);
+        }
+    } elsif ($test_opt->{mem}) {
+        # implicit lock by checking memory annotation
+        $lockfile="/tmp/runtests-mem.lock";
+        if ($test_opt->{mem} * $g_opt{memory_multiplier} > $g_opt{memory_total} ) {
+            $got_lock = get_lock($lockfile, LOCK_EX);
+        } else {
+            $got_lock = get_lock($lockfile, LOCK_SH);
+        }
+    }
+
+    if ($got_lock) {
+        return $lockfile;
+    } else {
+        return undef
+    }
+}
+
+sub test_release_lock {
+    my $lockfile = shift;
+
+    if ($lockfile) {
+        relese_lock($lockfile);
+    }
+}
+
+# file locking using flock: the lock is acquired while the file is open and
+#     released when file is closed (or process is terminated and OS closes the file)
+sub get_lock {
+    my ($lockfile, $lock_type) = @_;
+    if ($g_opt{verbose}) {
+        print "Taking lock [$lockfile], type $lock_type\n";
+    }
+    if (! -e $lockfile) {
+        system "touch $lockfile";
+    }
+
+    my $lock = $lockfile;
+    if ($lock_type == LOCK_EX) {
+        # To obtain exclusive lock, some platform require open the file for writing
+        $lock = "> $lockfile"
+    }
+
+    if(open LOCK, $lock){
+        # flock blocks until the lock is taken
+        flock(LOCK, $lock_type);
+        return 1;
+    }
+    else{
+        warn "failed to open lockfile $lockfile\n";
+        return 0;
+    }
+}
+
+sub relese_lock {
+    my ($lockfile) = @_;
+    if ($g_opt{verbose}) {
+        print "Releasing lock [$lockfile]\n";
+    }
+    close(LOCK);
+}
