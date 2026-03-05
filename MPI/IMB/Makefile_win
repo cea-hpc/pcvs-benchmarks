@@ -1,0 +1,81 @@
+# *****************************************************************************
+# *                                                                           *
+# * Copyright (C) 2024 Intel Corporation                                      *
+# *                                                                           *
+# *****************************************************************************
+
+# Redistribution and use in source and binary forms, with or without modification,
+# are permitted provided that the following conditions are met:
+
+# 1. Redistributions of source code must retain the above copyright notice,
+#    this list of conditions and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright notice,
+#    this list of conditions and the following disclaimer in the documentation
+#    and/or other materials provided with the distribution.
+# 3. Neither the name of the copyright holder nor the names of its contributors
+#    may be used to endorse or promote products derived from this software
+#    without specific prior written permission.
+
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+# THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS
+# BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY,
+# OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
+# OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+# OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+# EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
+#  ***************************************************************************
+
+all: IMB-MPI1 IMB-MT IMB-RMA IMB-EXT IMB-IO IMB-NBC
+
+IMB-MPI1:
+	cd .\src_cpp
+	nmake -f Makefile_win TARGET=MPI1
+	cd ..
+	copy .\src_cpp\IMB-MPI1.exe
+
+IMB-NBC:
+	cd .\src_cpp
+	nmake -f Makefile_win IMB-NBC
+	cd ..
+	copy .\src_cpp\IMB-NBC.exe
+
+IMB-RMA:
+	cd .\src_cpp
+	nmake -f Makefile_win TARGET=RMA
+	cd ..
+	copy .\src_cpp\IMB-RMA.exe
+
+IMB-EXT:
+	cd .\src_cpp
+	nmake -f Makefile_win IMB-EXT
+	cd ..
+	copy .\src_cpp\IMB-EXT.exe
+
+IMB-IO:
+	cd .\src_cpp
+	nmake -f Makefile_win IMB-IO
+	cd ..
+	copy .\src_cpp\IMB-IO.exe
+
+
+IMB-MT:
+	cd .\src_cpp
+	nmake -f Makefile_win TARGET=MT
+	cd ..
+	copy .\src_cpp\IMB-MT.exe
+
+clean:
+	cd ./src_cpp
+	nmake -f Makefile_win clean TARGET=MT
+	nmake -f Makefile_win clean TARGET=MPI1
+	nmake -f Makefile_win clean TARGET=RMA
+	nmake -f Makefile_win clean TARGET=NBC
+	nmake -f Makefile_win clean TARGET=IO
+	nmake -f Makefile_win clean TARGET=EXT
+	cd ..
+	del /f /q IMB-MPI1.exe IMB-NBC.exe IMB-RMA.exe IMB-EXT.exe IMB-IO.exe IMB-MT.exe
