@@ -12,17 +12,17 @@ echo "build_sys:
   build:
     make:
       target: 'all'
-      args: ['PCVS_CC=@COMPILER_CC@', 'PCVS_FC=@COMPILER_FC@']
+      jobs: false
     files: '@BUILDPATH@/sys/Makefile'
 "
 
 echo "build_MPINAS-MZ:
     build:
       depends_on: ['build_sys']
+      variants: ['openmp']
       make:
         target: 'suite'
-        args: ['PCVS_CC=@COMPILER_CC@', 'PCVS_FC=@COMPILER_FC@']
-        jobs: 16
+        jobs: true
       files: '@BUILDPATH@/Makefile'
 "
 
@@ -55,11 +55,20 @@ build_benchs() {
 				echo "        iterate:"
 				echo "            n_mpi:"
 				echo "                values: [ {to: 4} ]"
+			elif test "$class" = "A"; then
+				echo "        iterate:"
+				echo "            n_mpi:"
+				echo "                values: [ {from: 4} ]"
+			elif test "$class" = "B"; then
+				echo "        iterate:"
+				echo "            n_mpi:"
+				echo "                values: [ {from: 8} ]"
 			fi
 
-			#if test "x$class" = "xB"; then
-			#echo "    n_omp: [ '>=8' ]"
-			#fi
+			echo "    validate:"
+			echo "        match:"
+			echo "            label:"
+			echo "                expr: 'Verification    =               SUCCESSFUL'"
 
 			echo ""
 		done

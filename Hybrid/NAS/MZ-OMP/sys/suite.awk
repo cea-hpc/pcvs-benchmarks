@@ -5,6 +5,7 @@ BEGIN { SMAKE = "make" } {
     if (NF > 2) {
       printf " VERSION=%s", $3;
     }
+    printf " || exit 1"
     printf "; cd ..\n";
   }
 }
