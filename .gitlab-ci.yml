@@ -6,7 +6,7 @@ variables:
   COLUMNS: 150
 
   GL_PIPELINE_NAME: 'Dry run test on $CI_COMMIT_BRANCH'
-  PCVS_CMD: pcvs run --profile-path ${CI_PROJECT_DIR}/.gitlab/ci/testing_profile.yml --dry-run -S
+  PCVS_CMD: pcvs run -p local:profile:ci --dry-run -S
 
 workflow:
   name: '$GL_PIPELINE_NAME'
@@ -37,18 +37,21 @@ Dry Run Hybrid:
   stage: 'Syntax Check'
   needs: ['Create HIP Mock']
   script:
+    - cp -r ${CI_PROJECT_DIR}/.gitlab/.pcvs ${CI_PROJECT_DIR}
     - ${PCVS_CMD} Hybrid
 
 Dry Run MPI:
   stage: 'Syntax Check'
   needs: ['Create HIP Mock']
   script:
+    - cp -r ${CI_PROJECT_DIR}/.gitlab/.pcvs ${CI_PROJECT_DIR}
     - ${PCVS_CMD} MPI
 
 Dry Run OpenMP:
   stage: 'Syntax Check'
   needs: ['Create HIP Mock']
   script:
+    - cp -r ${CI_PROJECT_DIR}/.gitlab/.pcvs ${CI_PROJECT_DIR}
     - ${PCVS_CMD} OpenMP
 
 # FIXME: Threads/tbb is broken, see #2
@@ -56,12 +59,14 @@ Dry Run Threads:
   stage: 'Syntax Check'
   needs: ['Create HIP Mock']
   script:
+    - cp -r ${CI_PROJECT_DIR}/.gitlab/.pcvs ${CI_PROJECT_DIR}
     - ${PCVS_CMD} Threads/cpp Threads/futex Threads/interfaces
 
 Dry Run accelerators:
   stage: 'Syntax Check'
   needs: ['Create HIP Mock']
   script:
+    - cp -r ${CI_PROJECT_DIR}/.gitlab/.pcvs ${CI_PROJECT_DIR}
     - ${PCVS_CMD} accelerators
 
 # NOTE: Impossible to fetch Quicksilver submodule
@@ -69,22 +74,26 @@ Dry Run applications:
   stage: 'Syntax Check'
   needs: ['Create HIP Mock']
   script:
+    - cp -r ${CI_PROJECT_DIR}/.gitlab/.pcvs ${CI_PROJECT_DIR}
     - ${PCVS_CMD} applications/Corals applications/Mantevo
 
 Dry Run performance:
   stage: 'Syntax Check'
   needs: ['Create HIP Mock']
   script:
+    - cp -r ${CI_PROJECT_DIR}/.gitlab/.pcvs ${CI_PROJECT_DIR}
     - ${PCVS_CMD} performance
 
 Dry Run reproducers:
   stage: 'Syntax Check'
   needs: ['Create HIP Mock']
   script:
+    - cp -r ${CI_PROJECT_DIR}/.gitlab/.pcvs ${CI_PROJECT_DIR}
     - ${PCVS_CMD} reproducers
 
 Dry Run serial:
   stage: 'Syntax Check'
   needs: ['Create HIP Mock']
   script:
+    - cp -r ${CI_PROJECT_DIR}/.gitlab/.pcvs ${CI_PROJECT_DIR}
     - ${PCVS_CMD} serial

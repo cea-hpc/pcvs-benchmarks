@@ -1,0 +1,36 @@
+compilers:
+  cc:
+    program: 'mpicc'
+    envs: ['PCVS_CC=mpicc']
+    extension: '\.(h|H|i|I|s|S|c|c90|c99|c11)$'
+    variants: &openmp
+      openmp:
+        args: ['-fopenmp']
+  cxx:
+    program: 'mpicxx'
+    envs: ['PCVS_CXX=mpicxx']
+    extension: '\.(hpp|C|cc|cxx|cpp|c\+\+)$'
+    variants: *openmp
+  f77:
+    program: 'mpif77'
+    envs: ['PCVS_FC=mpif77']
+    extension: '\.(f|F)(77)?$'
+    variants: *openmp
+  f90:
+    program: 'mpif90'
+    envs: ['PCVS_FC=mpif90']
+    extension: '\.(f|F)(90)?$'
+    variants: *openmp
+  fc:
+    program: 'mpifort'
+    envs: ['PCVS_FC=mpifort']
+    extension: '\.(f|F)(95|(20)?(03|08)|c)?$'
+    variants: *openmp
+  cuda:
+    envs: ['PCVS_NVCC=nvcc']
+    program: 'nvcc'
+    extension: '\.(cu|CU)$'
+  hip:
+    envs: ['PCVS_HIPCC=hipcc']
+    program: 'hipcc'
+    extension: '\.(hip|HIP)$'
