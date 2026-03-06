@@ -20,7 +20,7 @@ mpi_testsuite() {
 	echo "compile_osu_mpi:"
 	echo "  build:"
 	echo "    files: '@BUILDPATH@/c/mpi/Makefile'"
-	echo "    make: {'target': 'all', jobs: 16}"
+	echo "    make: {'target': 'all', jobs: true}"
 	echo ""
 
 	# Go through all the test kinds
@@ -149,7 +149,7 @@ openshmem_testsuite() {
 		echo "  group: 'GRPOSHMEM'"
 		echo "  build:"
 		echo "    files: '@BUILDPATH@/c/openshmem/Makefile'"
-		echo "    make: {'target': '${name}'}"
+		echo "    make: {'target': '${name}', jobs: true}"
 		echo ""
 
 		echo "${name}:"
