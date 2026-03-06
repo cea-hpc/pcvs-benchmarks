@@ -61,38 +61,31 @@ Dry Run Threads:
     - cp -r ${CI_PROJECT_DIR}/.gitlab/.pcvs ${CI_PROJECT_DIR}
     - ${PCVS_CMD} Threads
 
-Dry Run accelerators:
+Dry Run Accelerators:
   stage: 'Syntax Check'
   needs: ['Create HIP Mock']
   script:
     - cp -r ${CI_PROJECT_DIR}/.gitlab/.pcvs ${CI_PROJECT_DIR}
-    - ${PCVS_CMD} accelerators
+    - ${PCVS_CMD} Accelerators
 
-# NOTE: Impossible to fetch Quicksilver submodule
-Dry Run applications:
+# NOTE: Impossible to fetch Quicksilver & Arcane submodules
+Dry Run Applications:
   stage: 'Syntax Check'
   needs: ['Create HIP Mock']
   script:
     - cp -r ${CI_PROJECT_DIR}/.gitlab/.pcvs ${CI_PROJECT_DIR}
-    - ${PCVS_CMD} applications/Corals applications/Mantevo
+    - ${PCVS_CMD} Applications/Corals Applications/Mantevo
 
-Dry Run performance:
+Dry Run Performance:
   stage: 'Syntax Check'
   needs: ['Create HIP Mock']
   script:
     - cp -r ${CI_PROJECT_DIR}/.gitlab/.pcvs ${CI_PROJECT_DIR}
-    - ${PCVS_CMD} performance
+    - ${PCVS_CMD} Performance
 
-Dry Run reproducers:
+Dry Run Serial:
   stage: 'Syntax Check'
   needs: ['Create HIP Mock']
   script:
     - cp -r ${CI_PROJECT_DIR}/.gitlab/.pcvs ${CI_PROJECT_DIR}
-    - ${PCVS_CMD} reproducers
-
-Dry Run serial:
-  stage: 'Syntax Check'
-  needs: ['Create HIP Mock']
-  script:
-    - cp -r ${CI_PROJECT_DIR}/.gitlab/.pcvs ${CI_PROJECT_DIR}
-    - ${PCVS_CMD} serial
+    - ${PCVS_CMD} Serial
