@@ -1,0 +1,124 @@
+#!/usr/bin/env python3
+import os
+import subprocess
+import sys
+from pathlib import Path
+
+subdir = sys.argv[1] if len(sys.argv) >= 2 else ""
+cur_srcdir = os.path.join(os.environ["pcvs_src"], subdir)
+cur_builddir = os.path.join(os.environ["pcvs_testbuild"], subdir)
+
+if __name__ == "__main__":
+    cflags = os.environ["PCVS_CMP_CC_VAR_OPENMP_ARGS"]
+    cxxflags = os.environ["PCVS_CMP_CXX_VAR_OPENMP_ARGS"]
+    try:
+        # Arcane submodule is not up to date we have to fetch it
+        # Then to switch to the latest release
+        # And finally fetch its dependencies
+        cmd = (
+            f"cd {cur_srcdir}/arcane-benchs/"
+            + " && git submodule update --recursive"
+            + f" && cd {cur_srcdir}/arcane-benchs/framework"
+            + " && git switch --detach arcane-v4.0.0.0"
+            + " && git submodule update --recursive"
+        )
+
+        subprocess.check_output(cmd, shell=True)
+
+        arcane_install_path: Path = Path(cur_builddir) / "installdir"
+        # Build Arcane framework
+        print(
+            """
+build_arcane:
+    build:
+        files: '{cur_srcdir}/arcane-benchs/framework'
+        make:
+            target: 'install'
+            jobs: true
+        cmake:
+            sub_build_dir: 'Arcane' 
+            args: 
+                - '-DCMAKE_INSTALL_PREFIX={arcane_install_path}'
+                - '-DCMAKE_VERBOSE_MAKEFILE=OFF'
+                - '-DCMAKE_BUILD_TYPE=Release'
+                - '-DARCANE_NO_DEFAULT_PACKAGE=TRUE'
+                - '-DARCANEFRAMEWORK_BUILD_COMPONENTS=Arcane'
+                - '-DARCANE_ENABLE_TESTS=OFF'
+                - '-DARCCORE_USE_MPI=TRUE'
+                - '-DCMAKE_C_FLAGS="{cflags}"'
+                - '-DCMAKE_CXX_FLAGS="{cxxflags}"'
+        variants: ['openmp']
+""".format(
+                cur_srcdir=cur_srcdir,
+                arcane_install_path=arcane_install_path,
+                cflags=cflags,
+                cxxflags=cxxflags,
+            )
+        )
+
+        # Build the benchmarks
+        print(
+            """
+build_benchs:
+    build:
+        depends_on: [build_arcane]
+        files: '{cur_srcdir}/arcane-benchs'
+        make:
+            target: 'install'
+            jobs: true
+        cmake:
+            sub_build_dir: 'Benchs'
+            args: 
+                - '-DCMAKE_INSTALL_PREFIX={arcane_install_path}'
+                - '-DCMAKE_VERBOSE_MAKEFILE=OFF'
+                - '-DCMAKE_BUILD_TYPE=Release'
+                - '-DCMAKE_C_FLAGS="{cflags}"'
+                - '-DCMAKE_CXX_FLAGS="{cxxflags}"'
+            envs:
+                - 'ARCANE_INSTALL_PATH={arcane_install_path}'
+        variants: ['openmp']
+""".format(
+                cur_srcdir=cur_srcdir,
+                bench_builddir=Path(cur_builddir),
+                arcane_install_path=arcane_install_path,
+                cflags=cflags,
+                cxxflags=cxxflags,
+            )
+        )
+
+        # For running the tests, we take what is inside the test_scripts directory
+        # We do not want to call the scripts but rather use PCVS capabilities
+        # NOTE: only mahyco is run for now. Qama and microhydro may follow
+        for num_mpi in [1, 4, 8, 16, 32, 128, 512, 1024, 2048, 4096, 8192]:
+            print(
+                """
+run_mahyco_{num_mpi}:
+    run:
+        depends_on: [build_benchs]
+        program: '@BUILDPATH@/Benchs/mahyco/src/Mahyco'
+        iterate:
+            n_mpi: 
+                values: [{num_mpi}]
+            program:
+                dataset:
+                    type: "argument"
+                    numeric: false
+                    values: ['@SRCPATH@/arcane-benchs/mahyco/data/Data.{num_mpi}.arc']
+                A:
+                    type: "argument"
+                    numeric: false
+                    option: "-A"
+                    values: [',MaxIteration=50']
+
+        """.format(
+                    num_mpi=num_mpi
+                )
+            )
+
+    except FileNotFoundError as e:
+        print(f"{e} not found", file=sys.stderr)
+        exit(1)
+    except subprocess.CalledProcessError as e:
+        print(f"Command {e.cmd} failed: {e.stderr}", file=sys.stderr)
+        exit(2)
+    exit(0)
