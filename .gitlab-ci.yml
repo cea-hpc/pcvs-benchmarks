@@ -54,13 +54,12 @@ Dry Run OpenMP:
     - cp -r ${CI_PROJECT_DIR}/.gitlab/.pcvs ${CI_PROJECT_DIR}
     - ${PCVS_CMD} OpenMP
 
-# FIXME: Threads/tbb is broken, see #2
 Dry Run Threads:
   stage: 'Syntax Check'
   needs: ['Create HIP Mock']
   script:
     - cp -r ${CI_PROJECT_DIR}/.gitlab/.pcvs ${CI_PROJECT_DIR}
-    - ${PCVS_CMD} Threads/cpp Threads/futex Threads/interfaces
+    - ${PCVS_CMD} Threads
 
 Dry Run accelerators:
   stage: 'Syntax Check'
