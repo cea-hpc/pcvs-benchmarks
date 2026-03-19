@@ -3,20 +3,19 @@
 pcvs_src_current=$pcvs_src/$1
 pcvs_build_current=$pcvs_testbuild/$1
 
-for f in `find $pcvs_src_current -name "*.c"`
-do
-	src_file=`basename ${f}`
-	name="`echo "$src_file" | perl -pe "s/\.[a-zA-Z0-9]+$//g"`"
+for f in $(find $pcvs_src_current -name "*.c"); do
+	src_file=$(basename ${f})
+	name="$(echo "$src_file" | perl -pe "s/\.[a-zA-Z0-9]+$//g")"
 	echo "$name:"
 	echo "  build:"
 	echo "    files: '@SRCPATH@/$src_file'"
-	echo "    sources: {'binary': '$name', cflags: '-DSCTK_FUTEX_SUPPORTED'}"
+	echo "    sources: {'binary': '$name', cflags: '-DSCTK_FUTEX_SUPPORTED', ldflags: '-lpthread'}"
 	echo "  run:"
 	echo "    iterate:"
+	echo "      n_node: {values: null}"
 	echo "      n_proc: {'values': null}"
 	echo "      n_mpi: {'values': null}"
 	echo "      n_omp: {'values': null}"
-	echo "      net: {'values': null}"
 	echo "  validate:"
 	echo "    time:"
 	echo "      hard_timeout: 120"

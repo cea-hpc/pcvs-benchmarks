@@ -21,6 +21,7 @@
 /*#                                                                      #*/
 /*########################################################################*/
 
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <linux/futex.h>
 #include <sys/time.h>
@@ -29,6 +30,7 @@
 #include <stdlib.h>
 #include <pthread.h>
 #include <limits.h>
+#include <unistd.h>
 
 int val = 0;
 
