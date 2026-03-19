@@ -3,28 +3,27 @@
 pcvs_src_current=$pcvs_src/$1
 pcvs_build_current=$pcvs_testbuild/$1
 
-for f in `find $pcvs_src_current -mindepth 2 -maxdepth 2 -type f -name "*.c"`
-do
-	src_file=`basename ${f}`
-	dir_file=`dirname ${f} | sed -e "s,$pcvs_src_current/,,g"`
+for f in $(find $pcvs_src_current -mindepth 2 -maxdepth 2 -type f -name "*.c"); do
+	src_file=$(basename ${f})
+	dir_file=$(dirname ${f} | sed -e "s,$pcvs_src_current/,,g")
 
-	name="`echo "$src_file" | perl -pe "s/\.[a-zA-Z0-9]+$//g"`"
-	
+	name="$(echo "$src_file" | perl -pe "s/\.[a-zA-Z0-9]+$//g")"
+
 	if test "$name" = "threads_scenarii" -o "$name" = "testfrmw"; then
-		continue;
+		continue
 	fi
 
-	mkdir -p $pcvs_testbuild/$1/$dir_file;
+	mkdir -p $pcvs_testbuild/$1/$dir_file
 	echo "${dir_file}_${name}:"
 	echo "  build:"
 	echo "    files: '@SRCPATH@/$dir_file/$src_file'"
-	echo "    sources: {'binary': '$dir_file/$name', cflags: '-I@SRCPATH@/include'}"
+	echo "    sources: {'binary': '$dir_file/$name', cflags: '-I@SRCPATH@/include', ldflags: '-lpthread'}"
 	echo "  run:"
 	echo "    iterate:"
+	echo "      n_node: {'values': null}"
 	echo "      n_proc: {'values': null}"
 	echo "      n_mpi: {'values': null}"
 	echo "      n_omp: {'values': null}"
-	echo "      net: {'values': null}"
 	echo "  validate:"
 	echo "    time:"
 	echo "      hard_timeout: 120"
