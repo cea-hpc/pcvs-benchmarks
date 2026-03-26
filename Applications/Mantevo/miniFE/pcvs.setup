@@ -1,0 +1,63 @@
+#!/bin/sh
+
+pcvs_src_current=$pcvs_src/$1
+pcvs_build_current=$pcvs_testbuild/$1
+
+cp -r $pcvs_src_current/* $pcvs_build_current
+cp -r $pcvs_src_current/* $pcvs_build_current
+echo "
+miniFe_ref:
+    group: 'GRPMPI'
+    build:
+        files: '@BUILDPATH@/ref/src/Makefile'
+        make:
+            target: ''
+            jobs: true
+    run:
+        program: 'ref/src/miniFE.x'
+
+miniFe_openmp:
+    build:
+        files: '@BUILDPATH@/openmp/src/Makefile'
+        variants: ['openmp']
+        make:
+            target: ''
+            jobs: true
+    run:
+        program: 'openmp/src/miniFE.x'
+
+miniFe_openmp_opt:
+    build:
+        files: '@BUILDPATH@/openmp-opt/src/Makefile'
+        variants: ['openmp']
+        make:
+            target: ''
+            jobs: true
+    run:
+        program: 'openmp-opt/src/miniFE.x'
+
+"
+
+# Use the following for larget tests
+# -nx <X prob> -ny <Y prob> -nz <Z prob>
+#             program:
+#                 nx:
+#                     type: "argument"
+#                     numeric: true
+#                     subtitle: "nx"
+#                     option: "-nx "
+#                     values: []
+#                 ny:
+#                     type: "argument"
+#                     numeric: true
+#                     subtitle: "ny"
+#                     option: "-ny "
+#                     values: []
+#                 nz:
+#                     type: "argument"
+#                     numeric: true
+#                     subtitle: "nz"
+#                     option: "-nz "
+#                     values: []
+
+exit 0

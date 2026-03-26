@@ -44,6 +44,7 @@ unsigned long rmamt_max_size;
 unsigned long rmamt_min_size;
 bool rmamt_bind_threads;
 char *rmamt_output_file;
+bool rmamt_unique_displacements;
 
 static void print_usage (const char *name, bool failure)
 {
@@ -68,6 +69,7 @@ static void print_usage (const char *name, bool failure)
 		" -z,--sleep-interval=value Sleep interval in ns to use on receiver if using busy loop\n"
 		"                           loop (default: 10000)\n"
 		" -r,--result=value         Write parsable output to the specified file\n"
+		" -u,--unique-displacement  Use unique displacements for each thread\n"
 		" -h,--help                 Print this help message\n", name);
     }
 
@@ -76,7 +78,9 @@ static void print_usage (const char *name, bool failure)
 
 int rmamt_parse_options (const char *name, int argc, char *argv[])
 {
-    char c, *tmp;
+    char *tmp;
+    int c;
+
     const struct option options[] = {
 	{"win-per-thread", no_argument, NULL, 'w'},
 	{"max-size", required_argument, NULL, 'm'},
@@ -89,6 +93,7 @@ int rmamt_parse_options (const char *name, int argc, char *argv[])
 	{"operation", required_argument, NULL, 'o'},
 	{"sync", required_argument, NULL, 's'},
 	{"result", required_argument, NULL, 'r'},
+	{"unique-displacement", no_argument, NULL, 'u'},
 	{"help", no_argument, NULL, 'h'},
 	{NULL}
     };
@@ -106,7 +111,7 @@ int rmamt_parse_options (const char *name, int argc, char *argv[])
     rmamt_operation = -1;
     rmamt_bind_threads = false;
 
-    while (-1 != (c = getopt_long (argc, argv, "wi:t:bhz:o:s:m:l:xr:", options, NULL))) {
+    while (-1 != (c = getopt_long (argc, argv, "wi:t:bhz:o:s:m:l:xr:u", options, NULL))) {
 	switch (c) {
 	case 'o':
 	    if (0 == strcasecmp (optarg, "put")) {
@@ -222,11 +227,14 @@ int rmamt_parse_options (const char *name, int argc, char *argv[])
 	    rmamt_output_file = strdup (optarg);
 	    break;
 	case 'x':
-#if defined(HAVE_LIBHWLOC)
+#if ! defined(HAVE_HWLOC_H)
 	    printf ("hwloc support needs to be enable to bind threads\n");
 	    exit (EXIT_FAILURE);
 #endif
 	    rmamt_bind_threads = true;
+	    break;
+	case 'u':
+	    rmamt_unique_displacements = true;
 	    break;
 	case 'h':
 	    print_usage (name, false);

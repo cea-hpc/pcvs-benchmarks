@@ -1,0 +1,29 @@
+##
+## Copyright (C) by Argonne National Laboratory
+##     See COPYRIGHT in top-level directory
+##
+
+## This is an automake makefile fragment that should be included by:
+##
+##   include $(top_srcdir)/Makefile_cxx.mtest
+##
+## see Makefile_common.mtest for a description why this file exists, but for C++
+
+AM_CPPFLAGS = -I$(top_builddir)/include -I$(top_srcdir)/include
+LDADD = $(top_builddir)/util/libmtest_cxx.la
+
+# Add libdtpools support
+AM_CPPFLAGS += -I$(top_srcdir)/dtpools/include
+LDADD += $(top_builddir)/dtpools/src/.libs/libdtpools.la
+
+$(top_builddir)/util/libmtest_cxx.la:
+	(cd $(top_builddir)/util && $(MAKE) libmtest_cxx.la)
+
+$(top_builddir)/dtpools/src/.libs/libdtpools.la:
+	(cd $(top_builddir)/dtpools && $(MAKE))
+
+testing:
+	$(top_srcdir)/runtests -srcdir=$(srcdir) -tests=testlist,testlist.dtp \
+		-mpiexec=${MPIEXEC} -xmlfile=summary.xml
+
+CLEANFILES = summary.xml summary.tap

@@ -7,37 +7,50 @@ cp -r $pcvs_src_current/* $pcvs_build_current/ || exit 1
 cp -r $pcvs_build_current/pcvs.makedefs $pcvs_build_current/config/make.def || exit 1
 mkdir -p $pcvs_build_current/bin #didn't understand why is this not automatically created.
 
-echo "build_SerialNAS-MZ:
+# First build the helpers
+echo "build_sys:
     build:
         make:
+            target: 'all'
+        files: '@BUILDPATH@/sys/Makefile'
+"
+
+echo "build_SerialNAS-MZ:
+    build:
+        depends_on: ['build_sys']
+        make:
             target: 'suite'
+            jobs: true
         files: '@BUILDPATH@/Makefile'
 "
 
 # config/suite.def
-# This file is used to build several benchmarks with a single command. 
+# This file is used to build several benchmarks with a single command.
 # Typing "make suite" in the main directory will build all the benchmarks
-# specified in this file. 
+# specified in this file.
 # Each line of this file contains a benchmark name and the class.
 # The name is one of "cg", "is", "dc", "ep", mg", "ft", "sp",
-#  "bt", "lu", and "ua". 
-# The class is one of "S", "W", "A" through "E" 
+#  "bt", "lu", and "ua".
+# The class is one of "S", "W", "A" through "E"
 # (except that no classes C,D,E for DC and no class E for IS and UA).
-# No blank lines. 
-# The following example builds sample sizes of all benchmarks. 
-build_benchs()
-{
-	for bench in sp-mz lu-mz bt-mz
-	do
-		for class in S W A
-		do
-			printf "$bench\t$class\n" >> $pcvs_build_current/config/suite.def
+# No blank lines.
+# The following example builds sample sizes of all benchmarks.
+build_benchs() {
+	for bench in sp-mz lu-mz bt-mz; do
+		for class in S W A; do
+			printf "$bench\t$class\n" >>$pcvs_build_current/config/suite.def
 
 			echo "$bench-$class:"
 			echo "    group: 'GRPSERIAL'"
 			echo "    run:"
-    			echo "        depends_on:   [ 'build_SerialNAS-MZ' ]"
+			echo "        depends_on:   [ 'build_SerialNAS-MZ' ]"
 			echo "        program: 'bin/${bench}.${class}.x'"
+
+			echo "    validate:"
+			echo "        match:"
+			echo "            label:"
+			echo "                expr: 'Verification    =               SUCCESSFUL'"
+
 			echo ""
 		done
 	done
@@ -46,5 +59,3 @@ build_benchs()
 build_benchs
 
 exit 0
-
-

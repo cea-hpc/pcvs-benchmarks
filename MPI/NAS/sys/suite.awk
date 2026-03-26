@@ -15,6 +15,7 @@ BEGIN { SMAKE = "make" } {
         }
       }
     }
+    printf " || exit 1";
     printf "; cd ..\n";
   }
 }

@@ -1,19 +1,19 @@
 /****************************************************************************
 *                                                                           *
-*             OpenMP MicroBenchmark Suite - Version 3.1                     *
+*             OpenMP MicroBenchmark Suite - Version 4.0                     *
 *                                                                           *
 *                            produced by                                    *
 *                                                                           *
-*             Mark Bull, Fiona Reid and Nix Mc Donnell                      *
+*                             Mark Bull                                     *
 *                                                                           *
 *                                at                                         *
 *                                                                           *
-*                Edinburgh Parallel Computing Centre                        *
+*                   EPCC, University of Edinburgh                           *
 *                                                                           *
-*         email: markb@epcc.ed.ac.uk or fiona@epcc.ed.ac.uk                 *
+*                    email: m.bull@epcc.ed.ac.uk                            *
 *                                                                           *
 *                                                                           *
-*      This version copyright (c) The University of Edinburgh, 2015.        *
+*      This version copyright (c) The University of Edinburgh, 2023.        *
 *                                                                           *
 *                                                                           *
 *  Licensed under the Apache License, Version 2.0 (the "License");          *
@@ -37,10 +37,31 @@ void refer(void);
 
 void teststatic(void);
 
+void teststaticmono(void);
+
+
 void teststaticn(void);
+
+void teststaticnmono(void);
+
 
 void testdynamicn(void);
 
+void testdynamicnmono(void);
+
+void testdynamicnnonmono(void);
+
 void testguidedn(void);
+
+void testguidednmono(void);
+
+void testguidednnonmono(void);
+
+void testruntime(void);
+
+void testruntimemono(void);
+
+
+void taskloopn(void);
 
 #endif //SCHEDBENCH_H

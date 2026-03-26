@@ -54,7 +54,7 @@ void rmamt_free (void *ptr, size_t size) {
   munmap (ptr, size);
 }
 
-#if defined(HAVE_LIBHWLOC)
+#if defined(HAVE_HWLOC_H)
 #include <hwloc.h>
 
 hwloc_topology_t topology;

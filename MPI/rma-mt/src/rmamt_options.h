@@ -41,6 +41,7 @@ extern unsigned long rmamt_max_size;
 extern unsigned long rmamt_min_size;
 extern bool rmamt_bind_threads;
 extern char *rmamt_output_file;
+extern bool rmamt_unique_displacements;
 
 int rmamt_parse_options (const char *name, int argc, char *argv[]);
 

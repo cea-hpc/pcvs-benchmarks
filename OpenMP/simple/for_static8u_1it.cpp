@@ -1,4 +1,5 @@
 #include <omp.h>
+#include <cstdio>
 
 int main() {
 
@@ -12,7 +13,7 @@ int main() {
 
 #pragma omp for
   for ( unsigned long i = 0 ; i < n ; i++ ) {
-    printf( "Hello w/ it %d\n", i ) ;
+    printf( "Hello w/ it %lu\n", i ) ;
   }
 
   }

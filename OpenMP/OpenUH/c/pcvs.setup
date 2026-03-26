@@ -20,7 +20,8 @@ $c_file:
   group: 'GRPOMP'
   build:
     files: '@BUILDPATH@/${c_file}.c'
-    sources: { cflags: '-I@SRCPATH@/..' }
+    sources: { cflags: '-I@SRCPATH@/.. -lm' }
+    variants: ['openmp']
   run:
     program: '$c_file'
 "

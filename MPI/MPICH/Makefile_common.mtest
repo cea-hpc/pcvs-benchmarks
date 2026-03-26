@@ -1,0 +1,40 @@
+##
+## Copyright (C) by Argonne National Laboratory
+##     See COPYRIGHT in top-level directory
+##
+
+## This is an automake makefile fragment that is included by Makefile_single.mtest
+## (for single-threaded tests) and Makefile_threads.mtests (for multithreaded tests).
+##
+## It provides a "testing" rule that uses runtests, cleanup for summary.xml, and
+## adds appropriate includes and linker flags for using the MTest framework.
+## The goal is to reduce the amount of boilerplate that needs to exist in each
+## Makefile.am
+
+# AM_CPPFLAGS are used for C++ code as well
+AM_CPPFLAGS = -I$(top_builddir)/include -I$(top_srcdir)/include
+
+run_mpitests_obj = $(top_builddir)/util/librun_mpitests.la
+$(top_builddir)/util/librun_mpitests.la: $(top_srcdir)/util/run_mpitests.c
+	(cd $(top_builddir)/util && $(MAKE) librun_mpitests.la)
+
+$(top_builddir)/run_mpitests.stamp: $(top_srcdir)/util/run_mpitests.c
+	(cd $(top_builddir) && $(MAKE) run_mpitests && touch run_mpitests.stamp)
+
+# Add libdtpools support
+AM_CPPFLAGS += -I$(top_srcdir)/dtpools/include
+LDADD = $(top_builddir)/dtpools/src/libdtpools.la
+
+$(top_builddir)/dtpools/src/libdtpools.la:
+	(cd $(top_builddir)/dtpools && $(MAKE))
+
+TESTDIRS ?= @default_testdirs@
+TESTLIST ?= @default_testlist@
+SUMMARY_BASENAME ?= summary
+
+testing: $(top_builddir)/run_mpitests.stamp
+	$(top_srcdir)/runtests -srcdir=$(srcdir) -tests=$(TESTLIST) -testdirs=$(TESTDIRS) \
+		-mpiexec="${MPIEXEC}" $(RUNTESTS_OPTS) -xmlfile=$(SUMMARY_BASENAME).xml \
+		-tapfile=$(SUMMARY_BASENAME).tap -junitfile=$(SUMMARY_BASENAME).junit.xml
+
+CLEANFILES = $(SUMMARY_BASENAME).xml $(SUMMARY_BASENAME).tap $(SUMMARY_BASENAME).junit.xml

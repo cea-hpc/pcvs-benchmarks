@@ -6,7 +6,7 @@ variables:
   COLUMNS: 150
 
   GL_PIPELINE_NAME: 'Dry run test on $CI_COMMIT_BRANCH'
-  PCVS_CMD: pcvs run --profile-path ${CI_PROJECT_DIR}/.gitlab/ci/testing_profile.yml --dry-run -S
+  PCVS_CMD: pcvs run -p local:profile:ci --dry-run -S
 
 workflow:
   name: '$GL_PIPELINE_NAME'
@@ -37,54 +37,55 @@ Dry Run Hybrid:
   stage: 'Syntax Check'
   needs: ['Create HIP Mock']
   script:
+    - cp -r ${CI_PROJECT_DIR}/.gitlab/.pcvs ${CI_PROJECT_DIR}
     - ${PCVS_CMD} Hybrid
 
 Dry Run MPI:
   stage: 'Syntax Check'
   needs: ['Create HIP Mock']
   script:
+    - cp -r ${CI_PROJECT_DIR}/.gitlab/.pcvs ${CI_PROJECT_DIR}
     - ${PCVS_CMD} MPI
 
 Dry Run OpenMP:
   stage: 'Syntax Check'
   needs: ['Create HIP Mock']
   script:
+    - cp -r ${CI_PROJECT_DIR}/.gitlab/.pcvs ${CI_PROJECT_DIR}
     - ${PCVS_CMD} OpenMP
 
-# FIXME: Threads/tbb is broken, see #2
 Dry Run Threads:
   stage: 'Syntax Check'
   needs: ['Create HIP Mock']
   script:
-    - ${PCVS_CMD} Threads/cpp Threads/futex Threads/interfaces
+    - cp -r ${CI_PROJECT_DIR}/.gitlab/.pcvs ${CI_PROJECT_DIR}
+    - ${PCVS_CMD} Threads
 
-Dry Run accelerators:
+Dry Run Accelerators:
   stage: 'Syntax Check'
   needs: ['Create HIP Mock']
   script:
-    - ${PCVS_CMD} accelerators
+    - cp -r ${CI_PROJECT_DIR}/.gitlab/.pcvs ${CI_PROJECT_DIR}
+    - ${PCVS_CMD} Accelerators
 
-# NOTE: Impossible to fetch Quicksilver submodule
-Dry Run applications:
+# NOTE: Impossible to fetch Quicksilver & Arcane submodules
+Dry Run Applications:
   stage: 'Syntax Check'
   needs: ['Create HIP Mock']
   script:
-    - ${PCVS_CMD} applications/Corals applications/Mantevo
+    - cp -r ${CI_PROJECT_DIR}/.gitlab/.pcvs ${CI_PROJECT_DIR}
+    - ${PCVS_CMD} Applications/Corals Applications/Mantevo
 
-Dry Run performance:
+Dry Run Performance:
   stage: 'Syntax Check'
   needs: ['Create HIP Mock']
   script:
-    - ${PCVS_CMD} performance
+    - cp -r ${CI_PROJECT_DIR}/.gitlab/.pcvs ${CI_PROJECT_DIR}
+    - ${PCVS_CMD} Performance
 
-Dry Run reproducers:
+Dry Run Serial:
   stage: 'Syntax Check'
   needs: ['Create HIP Mock']
   script:
-    - ${PCVS_CMD} reproducers
-
-Dry Run serial:
-  stage: 'Syntax Check'
-  needs: ['Create HIP Mock']
-  script:
-    - ${PCVS_CMD} serial
+    - cp -r ${CI_PROJECT_DIR}/.gitlab/.pcvs ${CI_PROJECT_DIR}
+    - ${PCVS_CMD} Serial

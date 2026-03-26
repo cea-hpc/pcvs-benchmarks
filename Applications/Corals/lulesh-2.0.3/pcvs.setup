@@ -1,0 +1,37 @@
+#!/bin/sh
+
+pcvs_src_current=$pcvs_src/$1
+pcvs_build_current=$pcvs_testbuild/$1
+
+cp -r $pcvs_src_current/* $pcvs_build_current
+echo "lulesh:
+    build:
+        variants: [ 'openmp' ]
+        files: '@BUILDPATH@/Makefile'
+        make:
+            target: ''
+            jobs: true
+    run:
+        program: 'lulesh2.0'
+        iterate:
+            n_omp:
+                values: [{op: 'mul', of: 2}]
+            n_mpi:
+                values: [{op: 'powerof', of: 3}]
+# Here are the parameter of lulesh -> activate the one you want
+#            program:
+#                domain_size:
+#                    numeric: true
+#                    type: 'argument'
+#                    option: '-s '
+#                    values: [{from: 20, to: 50, of: 10}]
+#                    subtitle: 's'
+#                max_iterations:
+#                    numeric: true
+#                    type: 'argument'
+#                    option: '-i '
+#                    values: [{op: 'mul', from: 1000, to: 10000, of: 1000}]
+#                    subtitle: 'i'
+"
+
+exit 0

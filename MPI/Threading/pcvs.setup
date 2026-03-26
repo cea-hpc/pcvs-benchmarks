@@ -1,32 +1,37 @@
 #!/bin/sh
 
 pcvs_src_current=$pcvs_src/$1
-#pcvs_build_current=$pcvs_testbuild/$1
+pcvs_build_current=$pcvs_testbuild/$1
 
+echo"errro:"
+echo"  failing:"
 for t in $(find $pcvs_src_current -maxdepth 1 -type f -name "*.c"); do
 	#remove extension
 	file=$(basename $t)
 	bin=$(echo "$file" | perl -pe "s/\..*$//")
+	ldflags="-lpthread"
 
 	#generate YAML entry
 
 	case $bin in
 	bw | latency | overlap | no_overlap | message_rate)
 		echo "${bin}:"
+		echo "  group: 'GRPMPI'"
 		echo "  build:"
 		echo "    files: '@SRCPATH@/$file'"
-		echo "    sources: {'binary': '$bin'}"
+		echo "    sources: {'binary': '$bin', ldflags: '$ldflags'}"
 		echo "  run:"
 		echo "    program: '$bin'"
 		echo "    iterate:"
-		echo "      n_mpi: { values: [{from: 2}] }"
+		echo "      n_mpi: { values: [{op: 'seq', from: 2, of: 2}] }"
 		;;
 	bw_th | latency_th | message_rate_th)
 		for nb_cores in $PCVS_CRIT_N_CORES; do
 			echo "${bin}_${nb_cores}:"
+			echo "  group: 'GRPMPI'"
 			echo "  build:"
 			echo "    files: '@SRCPATH@/$file'"
-			echo "    sources: {'binary': '$bin'}"
+			echo "    sources: {'binary': '$bin', ldflags: '$ldflags'}"
 			echo "  run:"
 			echo "    program: '$bin'"
 			echo "    iterate:"
@@ -41,18 +46,20 @@ for t in $(find $pcvs_src_current -maxdepth 1 -type f -name "*.c"); do
 		;;
 	shortlong)
 		echo "${bin}:"
+		echo "  group: 'GRPMPI'"
 		echo "  build:"
 		echo "    files: '@SRCPATH@/$file'"
-		echo "    sources: {'binary': '$bin'}"
+		echo "    sources: {'binary': '$bin', ldflags: '$ldflags'}"
 		echo "  run:"
 		echo "    program: '$bin'"
 		echo "    iterate: { n_mpi: { values: [4] } }"
 		;;
 	shorlong_th)
 		echo "${bin}:"
+		echo "  group: 'GRPMPI'"
 		echo "  build:"
 		echo "    files: '@SRCPATH@/$file'"
-		echo "    sources: {'binary': '$bin'}"
+		echo "    sources: {'binary': '$bin', ldflags: '$ldflags'}"
 		echo "  run:"
 		echo "    program: '$bin'"
 		echo "    iterate: { n_mpi: { values: [3] } }"
@@ -60,9 +67,10 @@ for t in $(find $pcvs_src_current -maxdepth 1 -type f -name "*.c"); do
 	conc_allred_th | collcomp | collcomp_noth)
 		for nb_cores in $PCVS_CRIT_N_CORES; do
 			echo "${bin}_${nb_cores}:"
+			echo "  group: 'GRPMPI'"
 			echo "  build:"
 			echo "    files: '@SRCPATH@/$file'"
-			echo "    sources: {'binary': '$bin'}"
+			echo "    sources: {'binary': '$bin', ldflags: '$ldflags'}"
 			echo "  run:"
 			echo "    program: '$bin'"
 			echo "    iterate:"
@@ -82,9 +90,10 @@ for t in $(find $pcvs_src_current -maxdepth 1 -type f -name "*.c"); do
 			fi
 			for nb_proc in $PCVS_CRIT_N_MPI; do
 				echo "${bin}_${nb_proc}:"
+				echo "  group: 'GRPMPI'"
 				echo "  build:"
 				echo "    files: '@SRCPATH@/$file'"
-				echo "    sources: {'binary': '$bin'}"
+				echo "    sources: {'binary': '$bin', ldflags: '$ldflags'}"
 				echo "  run:"
 				echo "    program: '$bin'"
 				echo "    iterate:"
@@ -96,6 +105,10 @@ for t in $(find $pcvs_src_current -maxdepth 1 -type f -name "*.c"); do
 				echo "          values: [$nb_proc]"
 			done
 		done
+		;;
+	*)
+		echo "# Test for $bin discarded"
+		continue
 		;;
 	esac
 

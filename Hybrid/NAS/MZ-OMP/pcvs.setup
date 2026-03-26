@@ -9,52 +9,52 @@ mkdir -p $pcvs_build_current/bin #didn't understand why is this not automaticall
 
 # First build the helpers
 echo "build_sys:
-  build:
-    make:
-      target: 'all'
-      args: ['PCVS_CC=@COMPILER_CC@', 'PCVS_FC=@COMPILER_FC@']
-    files: '@BUILDPATH@/sys/Makefile'
+    build:
+        make:
+            target: 'all'
+        files: '@BUILDPATH@/sys/Makefile'
 "
 
 echo "build_OMPNAS-MZ:
     build:
         depends_on: ['build_sys']
+        variants: ['openmp']
         make:
             target: 'suite'
-            args: ['PCVS_CC=@COMPILER_CC@', 'PCVS_FC=@COMPILER_FC@']
-            jobs: 16
+            jobs: true
         files: '@BUILDPATH@/Makefile'
-        variants: ['openmp']
 "
 
 # config/suite.def
-# This file is used to build several benchmarks with a single command. 
+# This file is used to build several benchmarks with a single command.
 # Typing "make suite" in the main directory will build all the benchmarks
-# specified in this file. 
+# specified in this file.
 # Each line of this file contains a benchmark name and the class.
 # The name is one of "cg", "is", "dc", "ep", mg", "ft", "sp",
-#  "bt", "lu", and "ua". 
-# The class is one of "S", "W", "A" through "E" 
+#  "bt", "lu", and "ua".
+# The class is one of "S", "W", "A" through "E"
 # (except that no classes C,D,E for DC and no class E for IS and UA).
-# No blank lines. 
-# The following example builds sample sizes of all benchmarks. 
-build_benchs()
-{
-	for bench in sp-mz lu-mz bt-mz
-	do
-		for class in S W A
-		do
-			printf "$bench\t$class\n" >> $pcvs_build_current/config/suite.def
+# No blank lines.
+# The following example builds sample sizes of all benchmarks.
+build_benchs() {
+	for bench in sp-mz lu-mz bt-mz; do
+		for class in S W A; do
+			printf "$bench\t$class\n" >>$pcvs_build_current/config/suite.def
 
 			echo "$bench-$class:"
 			echo "    group: 'GRPOMP'"
 			echo "    run:"
 			echo "        depends_on:   [ 'build_OMPNAS-MZ' ]"
 			echo "        program: 'bin/${bench}.${class}.x'"
-			
+
 			if test "x$class" = "xB"; then
 				echo "        iterate: { 'n_omp': { 'values': [ {op: 'seq', from: 8}]}}"
 			fi
+
+			echo "    validate:"
+			echo "        match:"
+			echo "            label:"
+			echo "                expr: 'Verification    =               SUCCESSFUL'"
 
 			echo ""
 		done

@@ -1,0 +1,84 @@
+# *****************************************************************************
+# *                                                                           *
+# * Copyright (C) 2024 Intel Corporation                                      *
+# *                                                                           *
+# *****************************************************************************
+
+# Redistribution and use in source and binary forms, with or without modification,
+# are permitted provided that the following conditions are met:
+
+# 1. Redistributions of source code must retain the above copyright notice,
+#    this list of conditions and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright notice,
+#    this list of conditions and the following disclaimer in the documentation
+#    and/or other materials provided with the distribution.
+# 3. Neither the name of the copyright holder nor the names of its contributors
+#    may be used to endorse or promote products derived from this software
+#    without specific prior written permission.
+
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+# THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS
+# BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY,
+# OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
+# OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+# OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+# EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
+#  ***************************************************************************
+
+CC  = cl.exe
+CPP = cl.exe
+
+CFLAGS   = $(CFLAGS) -DWIN32 -DWIN_IMB
+CPPFLAGS = $(CPPFLAGS) -DWIN32 -DWIN_IMB
+
+CLINKER     = $(CC)
+CPPLINKER   = $(CPP)
+
+MPI_INCLUDE = %I_MPI_ROOT%\intel64\include
+LIBS = %I_MPI_ROOT%\intel64\lib\release\impi.lib
+
+default: all
+
+!IFDEF TARGET
+
+!INCLUDE $(TARGET)/Makefile_win.$(TARGET).mk
+
+clean:
+	@cd $(TARGET)
+	del /f /q $(C_OBJ) $(BECHMARK_SUITE_OBJ)
+	del /f /q IMB-$(TARGET).exe
+	@cd ..
+	del /f /q IMB-$(TARGET).exe
+
+all: MOVE_TO_TARGET_DIR $(TARGET)
+	cd ..
+	copy .\$(TARGET)\IMB-$(TARGET).exe
+
+$(TARGET): $(C_OBJ) $(BECHMARK_SUITE_OBJ)
+	$(CPPLINKER) $(LDFLAGS) /FeIMB-$(TARGET) $(C_OBJ) $(BECHMARK_SUITE_OBJ) "$(LIB_PATH)" "$(LIBS)"
+
+MOVE_TO_TARGET_DIR:
+	cd ./$(TARGET)
+
+.cpp.obj:
+	$(CPP) /I"$(MPI_INCLUDE)" /I.. $(CPPFLAGS) -c $*.cpp
+!ELSE
+
+TARGET       = IMB-RMA IMB-MT IMB-MPI1 IMB-NBC IMB-IO IMB-EXT
+CLEAN_TARGET = C_IMB-RMA C_IMB-MT C_IMB-MPI1 C_IMB-NBC C_IMB-IO C_IMB-EXT
+
+all: $(TARGET)
+
+$(TARGET):
+	nmake -f Makefile_win TARGET=$(*:IMB-=)
+
+clean: $(CLEAN_TARGET)
+
+$(CLEAN_TARGET):
+	nmake -f Makefile_win clean TARGET=$(*:C_IMB-=)
+!ENDIF

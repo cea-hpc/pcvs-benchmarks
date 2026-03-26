@@ -1,0 +1,87 @@
+#!/bin/sh
+
+pcvs_src_current=$pcvs_src/$1
+pcvs_build_current=$pcvs_testbuild/$1
+
+cp -r $pcvs_src_current/* $pcvs_build_current
+
+#
+# OPENMP
+#
+
+echo "
+graph500omp:
+    group: 'GRPOMP'
+    build:
+        files: '@BUILDPATH@/Makefile'
+        variants: [ 'openmp' ]
+        make:
+            target: 'omp-csr/omp-csr'
+            jobs: true
+    run:
+        program: 'omp-csr/omp-csr'
+        iterate:
+            program: &same_args
+                args:
+                    values: '-s 16 -e 16'
+"
+
+#
+# SEQUENTIAL
+#
+echo "graphseqcsr:
+    group: 'GRPSERIAL'
+    build:
+        files: '@BUILDPATH@/Makefile'
+        make:
+            target: 'seq-csr/seq-csr'
+            jobs: true
+    run:
+        program: 'seq-csr/seq-csr'
+        iterate:
+            program: *same_args
+"
+
+echo "graphseqlist:
+    group: 'GRPSERIAL'
+    build:
+        files: '@BUILDPATH@/Makefile'
+        make:
+            target: 'seq-list/seq-list'
+            jobs: true
+    run:
+        program: 'seq-list/seq-list'
+        iterate:
+            program: *same_args
+"
+
+#
+# MPI
+#
+
+echo "make_graphmpi:
+    build:
+        files: '@BUILDPATH@/mpi/Makefile'
+        variants: [ 'openmp' ]
+        make:
+            target: ''
+            jobs: true
+"
+
+#graph500_mpi_custom  -> Removed as produces bad run on all MPI
+for GT in graph500_mpi_one_sided graph500_mpi_replicated graph500_mpi_replicated_csc graph500_mpi_simple; do
+	echo "run_${GT}:
+    run:
+        depends_on:   [ 'make_graphmpi' ]
+        program: 'mpi/${GT}'
+        iterate:
+           n_mpi:
+               values:
+               - {op: 'mul', from: 2, to: 64,  of: 2}
+           program:
+               args:
+                   values: '10 15'
+"
+done
+
+exit 0

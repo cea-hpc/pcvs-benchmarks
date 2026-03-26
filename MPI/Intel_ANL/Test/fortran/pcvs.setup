@@ -8,7 +8,7 @@ LIST_OF_TESTS=$(cat $pcvs_src_current/../testlist* | egrep "^fortran/" | sort | 
 for f in $LIST_OF_TESTS; do
 	files=""
 	name="$(echo $f | egrep -o "(error|functional)/.*$" | sed -e "s,/,_,g")"
-	cargs="-I@SRCPATH@/../../include"
+	fargs="-I@SRCPATH@/../../include -fallow-argument-mismatch"
 	files="@SRCPATH@/../$f/node.F @SRCPATH@/../../lib/libmpitestf.F"
 
 	###################################
@@ -81,7 +81,7 @@ $name:
     files: '$files'
     sources:
       binary: '$name'
-      cflags: '$cargs'
+      cflags: '$fargs'
   run:
     cwd: '.'
 $alter_mpi"

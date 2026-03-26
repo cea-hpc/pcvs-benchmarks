@@ -1,6 +1,6 @@
 #---------------------------------------------------------------------------
 #
-#                SITE- AND/OR PLATFORM-SPECIFIC DEFINITIONS. 
+#                SITE- AND/OR PLATFORM-SPECIFIC DEFINITIONS.
 #
 #---------------------------------------------------------------------------
 
@@ -11,16 +11,16 @@
 #---------------------------------------------------------------------------
 # Parallel Fortran:
 #
-# For CG, EP, FT, MG, LU, SP and BT, which are in Fortran, the following must 
+# For CG, EP, FT, MG, LU, SP and BT, which are in Fortran, the following must
 # be defined:
 #
 # FC         - Fortran compiler
 # FFLAGS     - Fortran compilation arguments
-# F_INC      - any -I arguments required for compiling Fortran 
+# F_INC      - any -I arguments required for compiling Fortran
 # FLINK      - Fortran linker
 # FLINKFLAGS - Fortran linker arguments
-# F_LIB      - any -L and -l arguments required for linking Fortran 
-# 
+# F_LIB      - any -L and -l arguments required for linking Fortran
+#
 # compilations are done with $(FC) $(F_INC) $(FFLAGS) or
 #                            $(FC) $(FFLAGS)
 # linking is done with       $(FLINK) $(F_LIB) $(FLINKFLAGS)
@@ -34,23 +34,23 @@ FC = $(PCVS_FC)
 FLINK	= $(FC)
 
 #---------------------------------------------------------------------------
-# These macros are passed to the linker 
+# These macros are passed to the linker
 #---------------------------------------------------------------------------
 F_LIB =
 
 #---------------------------------------------------------------------------
-# These macros are passed to the compiler 
+# These macros are passed to the compiler
 #---------------------------------------------------------------------------
 F_INC =
 
 #---------------------------------------------------------------------------
 # Global *compile time* flags for Fortran programs
 #---------------------------------------------------------------------------
-FFLAGS	= $(PCVS_CFLAGS)
+FFLAGS	= -O3 $(PCVS_FFLAGS)
 
 #---------------------------------------------------------------------------
-# Global *link time* flags. Flags for increasing maximum executable 
-# size usually go here. 
+# Global *link time* flags. Flags for increasing maximum executable
+# size usually go here.
 #---------------------------------------------------------------------------
 FLINKFLAGS = $(FFLAGS)
 
@@ -60,12 +60,12 @@ FLINKFLAGS = $(FFLAGS)
 #
 # For IS, which is in C, the following must be defined:
 #
-# CC         - C compiler 
+# CC         - C compiler
 # CFLAGS     - C compilation arguments
-# C_INC      - any -I arguments required for compiling C 
+# C_INC      - any -I arguments required for compiling C
 # CLINK      - C linker
 # CLINKFLAGS - C linker flags
-# C_LIB      - any -L and -l arguments required for linking C 
+# C_LIB      - any -L and -l arguments required for linking C
 #
 # compilations are done with $(CC) $(C_INC) $(CFLAGS) or
 #                            $(CC) $(CFLAGS)
@@ -80,23 +80,23 @@ CC = $(PCVS_CC)
 CLINK	= $(CC)
 
 #---------------------------------------------------------------------------
-# These macros are passed to the linker 
+# These macros are passed to the linker
 #---------------------------------------------------------------------------
 C_LIB =
 
 #---------------------------------------------------------------------------
-# These macros are passed to the compiler 
+# These macros are passed to the compiler
 #---------------------------------------------------------------------------
 C_INC =
 
 #---------------------------------------------------------------------------
 # Global *compile time* flags for C programs
 #---------------------------------------------------------------------------
-CFLAGS	= $(PCVS_CFLAGS)
+CFLAGS	= -O3 $(PCVS_CFLAGS)
 
 #---------------------------------------------------------------------------
-# Global *link time* flags. Flags for increasing maximum executable 
-# size usually go here. 
+# Global *link time* flags. Flags for increasing maximum executable
+# size usually go here.
 #---------------------------------------------------------------------------
 CLINKFLAGS = $(PCVS_CFLAGS)
 
@@ -104,9 +104,9 @@ CLINKFLAGS = $(PCVS_CFLAGS)
 #---------------------------------------------------------------------------
 # MPI dummy library:
 #
-# Uncomment if you want to use the MPI dummy library supplied by NAS instead 
+# Uncomment if you want to use the MPI dummy library supplied by NAS instead
 # of the true message-passing library. The include file redefines several of
-# the above macros. It also invokes make in subdirectory MPI_dummy. Make 
+# the above macros. It also invokes make in subdirectory MPI_dummy. Make
 # sure that no spaces or tabs precede include.
 #---------------------------------------------------------------------------
 #include ../config/make.dummy
@@ -115,23 +115,23 @@ CLINKFLAGS = $(PCVS_CFLAGS)
 #---------------------------------------------------------------------------
 # Utilities C:
 #
-# This is the C compiler used to compile C utilities.  Flags required by 
-# this compiler go here also; typically there are few flags required; hence 
+# This is the C compiler used to compile C utilities.  Flags required by
+# this compiler go here also; typically there are few flags required; hence
 # there are no separate macros provided for such flags.
 #---------------------------------------------------------------------------
 UCC	= $(PCVS_CC)
 
 
 #---------------------------------------------------------------------------
-# Destination of executables, relative to subdirs of the main directory. . 
+# Destination of executables, relative to subdirs of the main directory. .
 #---------------------------------------------------------------------------
 BINDIR	= ../bin
 
 
 #---------------------------------------------------------------------------
-# The variable RAND controls which random number generator 
-# is used. It is described in detail in README.install. 
-# Use "randi8" unless there is a reason to use another one. 
+# The variable RAND controls which random number generator
+# is used. It is described in detail in README.install.
+# Use "randi8" unless there is a reason to use another one.
 # Other allowed values are "randi8_safe", "randdp" and "randdpvec"
 #---------------------------------------------------------------------------
 RAND   = randi8

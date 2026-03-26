@@ -1,8 +1,9 @@
-/* -*- Mode: C; c-basic-offset:4 ; -*- */
+/* -*- Mode: C; c-basic-offset:4 ; indent-tabs-mode:nil -*- */
 /*
  *   Copyright (C) 2007      University of Chicago
  *   Copyright (c) 2016-2018 Los Alamos National Security, LLC. All rights
  *                           reserved.
+ *   Copyright (c) 2025      Google, LLC. All rights reserved.
  * ****** SANDIA ADD YOUR COPYRIGHTS BEFORE RELEASE ******
  *   See COPYRIGHT notice in top-level directory.
  */
@@ -165,6 +166,7 @@ int main(int argc,char *argv[])
                 rmamt_sleep_interval);
 	printf ("# Bind worker threads: %s\n", rmamt_bind_threads ? "yes" : "no");
 	printf ("# Number of windows: %u\n", rmamt_win_per_thread ? rmamt_threads : 1);
+	printf ("# Unique displacement per thread: %s\n", rmamt_unique_displacements ? "yes" : "no");
         printf ("##########################################\n");
         printf ("BpT(%i)\tBxT(%i)\tLatency (us)\n", rmamt_threads, rmamt_threads);
 
@@ -180,6 +182,7 @@ int main(int argc,char *argv[])
 		     rmamt_sleep_interval);
 	    fprintf (output_file, "# Bind worker threads: %s\n", rmamt_bind_threads ? "yes" : "no");
 	    fprintf (output_file, "# Number of windows: %u\n", rmamt_win_per_thread ? rmamt_threads : 1);
+	    fprintf (output_file, "# Unique displacement per thread: %s\n", rmamt_unique_displacements ? "yes" : "no");
 	    fprintf (output_file, "##########################################\n");
 	    fprintf (output_file, "BpT(%i),BxT(%i),Latency(us)\n", rmamt_threads, rmamt_threads);
 	}
@@ -196,6 +199,8 @@ int main(int argc,char *argv[])
 	    args[i].min_size = min_size;
             args[i].win = rmamt_win_per_thread ? win[i] : win[0];
             args[i].group = group;
+
+            args[i].base_displacement = (rmamt_unique_displacements && !rmamt_win_per_thread) ? i * max_size : 0;
 
             //printf("args[%u].tid = %u\n", i, arggs[i].tid);
             if (!rmamt_win_per_thread) {
@@ -249,6 +254,7 @@ int main(int argc,char *argv[])
             args[0].group = group;
             args[0].win = win[0];
             args[0].group = group;
+            args[0].base_displacement = 0;
 
             if (rmamt_win_per_thread) {
                 for (int i = 1 ; i < rmamt_threads ; ++i) {
@@ -258,6 +264,7 @@ int main(int argc,char *argv[])
                     args[i].group = group;
                     args[i].win = win[i];
                     args[i].group = group;
+                    args[i].base_displacement = 0;
 
                     //printf("args[%u].tid = %u\n", i, arggs[i].tid);
                     if (RMAMT_PSCW == rmamt_sync) {
@@ -393,7 +400,8 @@ uint64_t find_max(){
 	    start = time_getns ();					\
 	    start_sync;							\
 	    								\
-	    fn (obuf + tid * j, j, MPI_BYTE, 1, 0, j, MPI_BYTE, a->win); \
+	    fn (obuf + tid * j, j, MPI_BYTE, 1, a->base_displacement,	\
+		j, MPI_BYTE, a->win);					\
             								\
 	    end_sync;							\
 	    stop = time_getns ();					\

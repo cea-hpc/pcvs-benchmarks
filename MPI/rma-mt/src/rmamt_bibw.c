@@ -1,8 +1,9 @@
-/* -*- Mode: C; c-basic-offset:4 ; -*- */
+/* -*- Mode: C; c-basic-offset:4 ; indent-tabs-mode:nil -*- */
 /*
  *   Copyright (C) 2007      University of Chicago
  *   Copyright (c) 2016-2018 Los Alamos National Security, LLC. All rights
  *                           reserved.
+ *   Copyright (c) 2025      Google, LLC. All rights reserved.
  * ****** SANDIA ADD YOUR COPYRIGHTS BEFORE RELEASE ******
  *   See COPYRIGHT notice in top-level directory.
  */
@@ -173,6 +174,7 @@ int main(int argc,char *argv[])
         printf ("# Iterations: %u\n", (unsigned) rmamt_iterations);
         printf ("# Bind worker threads: %s\n", rmamt_bind_threads ? "yes" : "no");
         printf ("# Number of windows: %u\n", rmamt_win_per_thread ? rmamt_threads : 1);
+        printf ("# Unique displacement per thread: %s\n", rmamt_unique_displacements ? "yes" : "no");
         printf ("##########################################\n");
         printf ("  BpT(%i)\t  BxT(%i)\tBandwidth(MiB/s)\tMessage_Rate(M/s)\n", rmamt_threads, rmamt_threads);
         if (output_file) {
@@ -186,6 +188,7 @@ int main(int argc,char *argv[])
             fprintf (output_file, "# Iterations: %u\n", (unsigned) rmamt_iterations);
             fprintf (output_file, "# Bind worker threads: %s\n", rmamt_bind_threads ? "yes" : "no");
             fprintf (output_file, "# Number of windows: %u\n", rmamt_win_per_thread ? rmamt_threads : 1);
+            fprintf (output_file, "# Unique displacement per thread: %s\n", rmamt_unique_displacements ? "yes" : "no");
             fprintf (output_file, "##########################################\n");
             fprintf (output_file, "BpT(%i),BxT(%i),Bandwidth(MiB/s),Message_Rate(M/s)\n", rmamt_threads, rmamt_threads);
         }
@@ -214,6 +217,8 @@ int main(int argc,char *argv[])
 
         args[i].do_init = (rmamt_win_per_thread || 0 == i);
         args[i].do_sync = (args[i].all_sync || 0 == i);
+
+        args[i].base_displacement = (rmamt_unique_displacements && !rmamt_win_per_thread) ? i * max_size : 0;
 
         pthread_create(id+i, NULL, (void *(*)(void *)) rmamt_new_fns[rmamt_operation][rmamt_sync], args+i);
     }
@@ -281,7 +286,7 @@ uint64_t find_max(){
 }
 
 #define DEFINE_ORIGIN_THREAD_FN(sync, type, fn, init_fn, start_sync, end_sync, fini_fn, expose, release) \
-    static void *bibw_ ## type ## _ ## sync ## _new (ArgStruct* a) {      \
+    static void *bibw_ ## type ## _ ## sync ## _new (ArgStruct* a) {    \
         const int tid = (int) a->tid;                                   \
         uint64_t start, stop;                                           \
         size_t max_size = a->max_size;                                  \
@@ -310,8 +315,8 @@ uint64_t find_max(){
             thread_barrier (barrier_cycle++);                           \
                                                                         \
             for (int l = 0 ; l < RMAMT_WARMUP_ITERATIONS ; l++) {       \
-                fn (obuf + tid * j, j, MPI_BYTE, a->target, 0, j,       \
-                    MPI_BYTE, a->win);                                  \
+                fn (obuf + tid * j, j, MPI_BYTE, a->target,             \
+                    a->base_displacement, j, MPI_BYTE, a->win);         \
             }                                                           \
                                                                         \
             if (!a->all_sync) {                                         \
@@ -342,8 +347,8 @@ uint64_t find_max(){
             thread_barrier (barrier_cycle++);                           \
                                                                         \
             for (int l = 0 ; l < rmamt_iterations ; l++) {              \
-                fn (obuf + tid * j, j, MPI_BYTE, a->target, 0, j,       \
-                    MPI_BYTE, a->win);                                  \
+                fn (obuf + tid * j, j, MPI_BYTE, a->target,             \
+                    a->base_displacement, j, MPI_BYTE, a->win);         \
             }                                                           \
                                                                         \
             thread_barrier (barrier_cycle++);                           \

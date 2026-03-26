@@ -1,0 +1,41 @@
+#!/bin/sh
+
+prefix=$pcvs_testbuild/$1/
+
+mkdir -p $prefix/serial $prefix/mpi
+
+cp -r $pcvs_src/$1/* $prefix/
+
+cat <<EOF
+HPCGG:
+    build:
+        files: '@BUILDPATH@/Makefile'
+        variants: ['openmp']
+        make:
+            target: ''
+            jobs: true
+    run:
+        program: '@BUILDPATH@/test_HPCCG'
+        iterate:
+            program:
+                nx:
+                    type: "argument"
+                    numeric: true
+                    subtitle: "nx"
+                    option: ""
+                    values: [{from: 50, to: 100, of: 25}]
+                ny:
+                    type: "argument"
+                    numeric: true
+                    subtitle: "ny"
+                    option: ""
+                    values: [{from: 50, to: 100, of: 25}]
+                nz:
+                    type: "argument"
+                    numeric: true
+                    subtitle: "nz"
+                    option: ""
+                    values: [{from: 50, to: 100, of: 10}]
+EOF
+
+exit 0

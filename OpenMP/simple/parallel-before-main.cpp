@@ -1,8 +1,6 @@
-#include <mpc.h>
 #include <omp.h>
-#include <stdio.h>
+#include <cstdlib>
 
-extern "C" void abort (void);
 
 struct S
 {
@@ -54,25 +52,25 @@ main (void)
   }
 
   if (n[0] < 1 || n[0] > num_threads || n[1] != 0){
-    abort ();
+	  std::abort ();
   }
 
   x = foo();
 
   if (n[0] < 2 || n[0] > num_threads * 2 || n[1] < 1 || n[1] > num_threads){
-    abort ();
+	  std::abort ();
   }
 
   {
     S y;
 
     if (n[0] < 3 || n[0] > num_threads * 3 || n[1] < 1 || n[1] > num_threads){
-      abort ();
+		 std::abort ();
     }
   }
 
   if (n[0] < 3 || n[0] > num_threads * 3 || n[1] < 2 || n[1] > num_threads * 2){
-    abort ();
+	  std::abort ();
   }
 
   return 0;

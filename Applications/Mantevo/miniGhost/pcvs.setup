@@ -1,0 +1,105 @@
+#!/bin/bash
+
+prefix=$pcvs_testbuild/$1/
+
+mkdir -p $prefix/serial $prefix/mpi
+
+cp -r $pcvs_src/$1/* $prefix/serial
+cp -r $pcvs_src/$1/* $prefix/mpi
+
+cat <<EOF
+miniGhost_serial:
+    group: "GRPSERIAL"
+    build:
+        files: '@BUILDPATH@/serial/ref/Makefile'
+        make:
+            args: ['PROTOCOL=-D_MG_SERIAL']
+            jobs: false
+    run:
+        program: '@BUILDPATH@/serial/ref/miniGhost.x'
+
+build_miniGhost_parallel:
+    build:
+        variants: ['openmp']
+        files: '@BUILDPATH@/mpi/ref/Makefile'
+        make:
+            args: ['PROTOCOL=-D_MG_MPI']
+            jobs: false
+EOF
+
+for npx in $(seq 1 1 10); do
+	for npy in $(seq 1 1 10); do
+		for npz in $(seq 1 1 10); do
+			cat <<EOF
+miniGhost_parallel_npx${npx}_npy${npy}_npz${npz}:
+    run:
+        depends_on: ['build_miniGhost_parallel']
+        program: '@BUILDPATH@/mpi/ref/miniGhost.x --checkpoint_interval 1 --checkpoint_file checkpoint.minighost --restart_file checkpoint.minighost'
+        iterate:
+            n_mpi:
+                values: [$(($npx * $npy * $npz))]
+            program:
+                STENCIL:
+                    type: "argument"
+                    numeric: true
+                    subtitle: "stencil"
+                    option: "--stencil "
+                    values: [21]
+                NUM_VARS:
+                    type: "argument"
+                    numeric: true
+                    subtitle: "numvars"
+                    option: "--num_vars "
+                    values: [40]
+                SCALING:
+                    type: "argument"
+                    numeric: true
+                    subtitle: "scaling"
+                    option: "--scaling "
+                    values: [1, 2]
+                NPX:
+                    type: "argument"
+                    numeric: true
+                    subtitle: "npx"
+                    option: "--npx "
+                    values: [$npx]
+                NPY:
+                    type: "argument"
+                    numeric: true
+                    subtitle: "npy"
+                    option: "--npy "
+                    values: [$npy]
+                NPZ:
+                    type: "argument"
+                    numeric: true
+                    subtitle: "npz"
+                    option: "--npz "
+                    values: [$npz]
+                NX:
+                    type: "argument"
+                    numeric: true
+                    subtitle: "nx"
+                    option: "--nx "
+                    values: [100]
+                NY:
+                    type: "argument"
+                    numeric: true
+                    subtitle: "ny"
+                    option: "--ny "
+                    values: [100]
+                NZ:
+                    type: "argument"
+                    numeric: true
+                    subtitle: "nz"
+                    option: "--nz "
+                    values: [100]
+    validate:
+        match:
+            label:
+                expr: "Computation within error tolerance."
+EOF
+		done
+	done
+done
+
+exit 0

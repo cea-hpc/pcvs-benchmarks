@@ -1,4 +1,6 @@
 #include <omp.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 
 int a = 8 ;
